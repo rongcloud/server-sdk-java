@@ -1,4 +1,4 @@
-package com.rongcloud.api.model;
+package io.rong.models;
 
 //群信息
 public class GroupInfo {

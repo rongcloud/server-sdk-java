@@ -1,4 +1,4 @@
-package com.rongcloud.api.model;
+package io.rong.models;
 
 //对server sdk返回的封装
 public class SdkHttpResult {

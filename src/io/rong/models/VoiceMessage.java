@@ -1,4 +1,4 @@
-package com.rongcloud.api.model;
+package io.rong.models;
 
 //语音消息
 public class VoiceMessage extends Message {

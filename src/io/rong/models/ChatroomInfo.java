@@ -1,4 +1,4 @@
-package com.rongcloud.api.model;
+package io.rong.models;
 
 //聊天室信息
 public class ChatroomInfo {

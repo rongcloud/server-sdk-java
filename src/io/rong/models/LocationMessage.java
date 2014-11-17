@@ -1,4 +1,4 @@
-package com.rongcloud.api.model;
+package io.rong.models;
 
 public class LocationMessage extends Message {
 

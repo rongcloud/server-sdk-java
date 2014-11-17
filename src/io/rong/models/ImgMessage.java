@@ -1,4 +1,4 @@
-package com.rongcloud.api.model;
+package io.rong.models;
 
 //图片消息
 public class ImgMessage extends Message{

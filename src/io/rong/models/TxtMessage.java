@@ -1,4 +1,4 @@
-package com.rongcloud.api.model;
+package io.rong.models;
 
 //文本消息
 public class TxtMessage extends Message {

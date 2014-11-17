@@ -1,4 +1,4 @@
-package com.rongcloud.api.util;
+package io.rong.util;
 
 import java.security.MessageDigest;
 
