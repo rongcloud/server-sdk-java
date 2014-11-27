@@ -112,7 +112,7 @@ public class ApiHttpClient {
 		sb.append("fromUserId=").append(URLEncoder.encode(fromUserId, UTF8));
 		if(toUserIds != null){
 			for(int i=0;i<toUserIds.size();i++){
-				sb.append("&toUserId=").append(URLEncoder.encode(fromUserId, UTF8));
+				sb.append("&toUserId=").append(URLEncoder.encode(toUserIds.get(i), UTF8));
 			}
 		}		
 		sb.append("&objectName=").append(URLEncoder.encode(msg.getType(), UTF8));
