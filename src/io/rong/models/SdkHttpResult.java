@@ -21,7 +21,7 @@ public class SdkHttpResult {
 
 	@Override
 	public String toString() {
-		return String.format("{\"code\":\"%s\",\"result\":\"%s\"}", code,
+		return String.format("{\"code\":\"%s\",\"result\":%s}", code,
 				result);
 	}
 }
