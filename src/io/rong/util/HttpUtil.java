@@ -31,7 +31,7 @@ public class HttpUtil {
 			String appSecret, String uri) throws MalformedURLException,
 			IOException, ProtocolException {
 		String nonce = String.valueOf(Math.random() * 1000000);
-		String timestamp = String.valueOf(System.currentTimeMillis());
+		String timestamp = String.valueOf(System.currentTimeMillis()/1000);
 		StringBuilder toSign = new StringBuilder(appSecret).append(nonce)
 				.append(timestamp);
 		String sign = CodeUtil.hexSHA1(toSign.toString());
