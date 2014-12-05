@@ -13,10 +13,10 @@ import java.net.URL;
 
 public class HttpUtil {
 	
-	private static final String APPKEY = "App-Key";
-	private static final String NONCE = "Nonce";
-	private static final String TIMESTAMP = "Timestamp";
-	private static final String SIGNATURE = "Signature";
+	private static final String APPKEY = "RC-App-Key";
+	private static final String NONCE = "RC-Nonce";
+	private static final String TIMESTAMP = "RC-Timestamp";
+	private static final String SIGNATURE = "RC-Signature";
 	
 	//设置body体
 	public static void setBodyParameter(StringBuilder sb,
@@ -31,7 +31,7 @@ public class HttpUtil {
 			String appSecret, String uri) throws MalformedURLException,
 			IOException, ProtocolException {
 		String nonce = String.valueOf(Math.random() * 1000000);
-		String timestamp = String.valueOf(System.currentTimeMillis());
+		String timestamp = String.valueOf(System.currentTimeMillis()/1000);
 		StringBuilder toSign = new StringBuilder(appSecret).append(nonce)
 				.append(timestamp);
 		String sign = CodeUtil.hexSHA1(toSign.toString());
