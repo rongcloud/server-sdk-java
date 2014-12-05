@@ -410,7 +410,7 @@ public class ApiHttpClient {
 				RONGCLOUDURI + "/message/history." + format.toString());
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("&date=").append(URLEncoder.encode(date, UTF8));
+		sb.append("date=").append(URLEncoder.encode(date, UTF8));
 		HttpUtil.setBodyParameter(sb, conn);
 
 		return HttpUtil.returnResult(conn);
