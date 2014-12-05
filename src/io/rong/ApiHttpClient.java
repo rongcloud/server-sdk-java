@@ -223,7 +223,7 @@ public class ApiHttpClient {
 					URLEncoder.encode(pushContent, UTF8));
 		}
 
-		if (pushContent != null) {
+		if (pushData != null) {
 			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
 		}
 
@@ -259,7 +259,7 @@ public class ApiHttpClient {
 					URLEncoder.encode(pushContent, UTF8));
 		}
 
-		if (pushContent != null) {
+		if (pushData != null) {
 			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
 		}
 
@@ -295,7 +295,7 @@ public class ApiHttpClient {
 					URLEncoder.encode(pushContent, UTF8));
 		}
 
-		if (pushContent != null) {
+		if (pushData != null) {
 			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
 		}
 
