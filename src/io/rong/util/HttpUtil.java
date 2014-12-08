@@ -1,4 +1,4 @@
-package io.rong.util;
+﻿package io.rong.util;
 
 import io.rong.models.SdkHttpResult;
 
@@ -69,7 +69,14 @@ public class HttpUtil {
 	
 	public static SdkHttpResult returnResult(HttpURLConnection conn)
 			throws Exception, IOException {
-		String result = new String(readInputStream(conn.getInputStream()));
-		return new SdkHttpResult(conn.getResponseCode(),result);
+		String result;
+		InputStream input = null;
+		if (conn.getResponseCode() == 200) {
+			input = conn.getInputStream();
+		} else {
+			input = conn.getErrorStream();
+		}
+		result = new String(readInputStream(input));
+		return new SdkHttpResult(conn.getResponseCode(), result);
 	}
 }
