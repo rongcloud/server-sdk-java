@@ -43,6 +43,7 @@ public class HttpUtil {
 		conn.setDoOutput(true);
 		conn.setRequestMethod("POST");
 		conn.setInstanceFollowRedirects(true);
+		conn.setConnectTimeout(30000);
 
 		conn.setRequestProperty(APPKEY, appKey);
 		conn.setRequestProperty(NONCE, nonce);
