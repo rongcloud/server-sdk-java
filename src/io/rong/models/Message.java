@@ -8,9 +8,4 @@ public class Message {
 	public String getType() {
 		return type;
 	}
-	
-	@Override
-	public String toString() {
-		return this.toString();
-	}
 }
