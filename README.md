@@ -1,4 +1,4 @@
 server-sdk-go
 =============
 
-ong Cloud Server SDK in Go.
+Rong Cloud Server SDK in Go.
