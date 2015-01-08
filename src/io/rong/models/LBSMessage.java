@@ -62,7 +62,7 @@ public class LBSMessage extends Message {
 	@Override
 	public String toString() {
 		return String
-				.format("{\"content\":\"%s\",\"latitude\":\"%s\",\"longitude\":\"%s\",\"poi\":\"%s\",\"extra\":\"%s\"}",
+				.format("{\"content\":\"%s\",\"latitude\":%s,\"longitude\":%s,\"poi\":\"%s\",\"extra\":\"%s\"}",
 						content, latitude, longitude, poi, extra);
 	}
 }
