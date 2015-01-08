@@ -30,6 +30,6 @@ public class VoiceMessage extends Message {
 
 	@Override
 	public String toString() {
-		return String.format("{\"content\":\"%s\",\"duration\":\"%s\"}", content,duration);
+		return String.format("{\"content\":\"%s\",\"duration\":%s}", content,duration);
 	}
 }
