@@ -3,23 +3,49 @@ server-sdk-go
 
 Rong Cloud Server SDK in Go.
 
-使用
+
+##如何使用
 
 先安装 httplib 库：
 httplib 库主要用来模拟客户端发送 HTTP 请求，类似于 Curl 工具，支持 JQuery 类似的链式操作。使用起来相当的方便；通过如下方式进行安装：
 
-go get github.com/astaxie/beego/httplib
+`go get github.com/astaxie/beego/httplib`
 
 
-json用法: rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "json")
-xml用法: rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "xml")
+####json用法: 
 
-byteData, rcError := rcServer.UserGetToken("your_user_id", "your_name", "your_portrait_uri")
-println("result:", string(byteData))
+`rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "json")`
+
+####xml用法: 
+
+`rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "xml")`
+
+####例如“获取token”: 
+
+`byteData, rcError := rcServer.UserGetToken("your_user_id", "your_name", "your_portrait_uri")`
 
 
-测试结果
+####如果需要解析得到的json：
 
+在你自己的go文件里导入包 
+
+`import "encoding/json"`
+
+解析json
+
+`var s interface{}`
+
+`json.Unmarshal(byteData, &s)`
+
+解析出来的数据就在 s 变量里了，通过断言即可得到你需要的数据，也可以解析到自定义的struct里面，这里就不详述了。
+
+####如果想得到字符串：
+
+`println("jsonString:", string(byteData))`
+
+
+##运行测试结果（成功通过！）
+```javascript
 === RUN Test_InitRCServer_xml
 --- PASS: Test_InitRCServer_xml (0.00s)
 RCServer_test.go:13: 初始化RCServe_xmlr：测试通过。
@@ -118,4 +144,5 @@ RCServer_test.go:236: 查询聊天室信息 ：测试通过。returnData: {"code
 
 PASS
 
-ok  	github.com/yesidi/RCServerSDK	4.610s
+ok      github.com/yesidi/RCServerSDK	4.610s
+```
