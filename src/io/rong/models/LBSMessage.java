@@ -9,14 +9,19 @@ public class LBSMessage extends Message {
 	private String extra;
 
 	public LBSMessage(String content, double latitude, double longitude,
-			String poi, String extra) {
+			String poi) {
 		this.type = "RC:LBSMsg";
 		this.content = content;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.poi = poi;
-		this.extra = extra;
 
+	}
+
+	public LBSMessage(String content, double latitude, double longitude,
+			String poi, String extra) {
+		this(content, latitude, longitude, poi);
+		this.extra = extra;
 	}
 
 	public String getContent() {
@@ -62,7 +67,7 @@ public class LBSMessage extends Message {
 	@Override
 	public String toString() {
 		return String
-				.format("{\"content\":\"%s\",\"latitude\":\"%s\",\"longitude\":\"%s\",\"poi\":\"%s\",\"extra\":\"%s\"}",
+				.format("{\"content\":\"%s\",\"latitude\":%s,\"longitude\":%s,\"poi\":\"%s\",\"extra\":\"%s\"}",
 						content, latitude, longitude, poi, extra);
 	}
 }

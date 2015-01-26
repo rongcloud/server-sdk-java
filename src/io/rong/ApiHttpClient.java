@@ -14,6 +14,7 @@ import java.util.List;
 public class ApiHttpClient {
 
 	private static final String RONGCLOUDURI = "https://api.cn.rong.io";
+	
 	private static final String UTF8 = "UTF-8";
 
 	// 获取token
@@ -29,6 +30,144 @@ public class ApiHttpClient {
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
 		sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
 		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 检查用户在线状态
+	public static SdkHttpResult checkOnline(String appKey, String appSecret,
+			String userId, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/user/checkOnline." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 刷新用户信息
+	public static SdkHttpResult refreshUser(String appKey, String appSecret,
+			String userId, String userName, String portraitUri,
+			FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret, RONGCLOUDURI + "/user/refresh." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
+		sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
+		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 封禁用户
+	public static SdkHttpResult blockUser(String appKey, String appSecret,
+			String userId, int minute, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret, RONGCLOUDURI + "/user/block." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
+		sb.append("&minute=").append(
+				URLEncoder.encode(String.valueOf(minute), UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 解禁用户
+	public static SdkHttpResult unblockUser(String appKey, String appSecret,
+			String userId, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret, RONGCLOUDURI + "/user/unblock." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 获取被封禁用户
+	public static SdkHttpResult queryBlockUsers(String appKey,
+			String appSecret, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/user/block/query." + format.toString());
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 添加用户到黑名单
+	public static SdkHttpResult blackUser(String appKey, String appSecret,
+			String userId, List<String> blackUserIds, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/user/black/add." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
+		if (blackUserIds != null) {
+			for (String blackId : blackUserIds) {
+				sb.append("&blackUserId=").append(
+						URLEncoder.encode(blackId, UTF8));
+			}
+		}
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 从黑名单移除用户
+	public static SdkHttpResult unblackUser(String appKey, String appSecret,
+			String userId, List<String> blackUserIds, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/user/black/remove." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
+		if (blackUserIds != null) {
+			for (String blackId : blackUserIds) {
+				sb.append("&blackUserId=").append(
+						URLEncoder.encode(blackId, UTF8));
+			}
+		}
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 获取黑名单用户
+	public static SdkHttpResult QueryblackUser(String appKey, String appSecret,
+			String userId, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/user/black/query." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
+
 		HttpUtil.setBodyParameter(sb, conn);
 
 		return HttpUtil.returnResult(conn);
@@ -170,6 +309,43 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	// 刷新群信息
+	public static SdkHttpResult refreshGroupInfo(String appKey,
+			String appSecret, String groupId, String groupName,
+			FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil
+				.CreatePostHttpConnection(appKey, appSecret, RONGCLOUDURI
+						+ "/group/refresh." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 刷新群信息
+	public static SdkHttpResult refreshGroupInfo(String appKey,
+			String appSecret, GroupInfo group, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil
+				.CreatePostHttpConnection(appKey, appSecret, RONGCLOUDURI
+						+ "/group/refresh." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(URLEncoder.encode(group.getId(), UTF8));
+		sb.append("&groupName=").append(
+				URLEncoder.encode(group.getName(), UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
 	// 发送消息
 	public static SdkHttpResult publishMessage(String appKey, String appSecret,
 			String fromUserId, List<String> toUserIds, Message msg,
@@ -177,7 +353,7 @@ public class ApiHttpClient {
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
 				appSecret,
-				RONGCLOUDURI + "/message/publish." + format.toString());
+				RONGCLOUDURI + "/message/private/publish." + format.toString());
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("fromUserId=").append(URLEncoder.encode(fromUserId, UTF8));
@@ -405,6 +581,21 @@ public class ApiHttpClient {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
 				appSecret,
 				RONGCLOUDURI + "/message/history." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("date=").append(URLEncoder.encode(date, UTF8));
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 删除消息历史记录
+	public static SdkHttpResult deleteMessageHistory(String appKey,
+			String appSecret, String date, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/message/history/delete." + format.toString());
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("date=").append(URLEncoder.encode(date, UTF8));

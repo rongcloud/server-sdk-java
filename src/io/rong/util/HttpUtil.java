@@ -1,4 +1,4 @@
-﻿package io.rong.util;
+package io.rong.util;
 
 import io.rong.models.SdkHttpResult;
 
@@ -12,26 +12,27 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 public class HttpUtil {
-	
+
 	private static final String APPKEY = "RC-App-Key";
 	private static final String NONCE = "RC-Nonce";
 	private static final String TIMESTAMP = "RC-Timestamp";
 	private static final String SIGNATURE = "RC-Signature";
-	
-	//设置body体
-	public static void setBodyParameter(StringBuilder sb,
-			HttpURLConnection conn) throws IOException {
+
+	// 设置body体
+	public static void setBodyParameter(StringBuilder sb, HttpURLConnection conn)
+			throws IOException {
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 		out.writeBytes(sb.toString());
 		out.flush();
 		out.close();
 	}
-	//添加签名header
+
+	// 添加签名header
 	public static HttpURLConnection CreatePostHttpConnection(String appKey,
 			String appSecret, String uri) throws MalformedURLException,
 			IOException, ProtocolException {
 		String nonce = String.valueOf(Math.random() * 1000000);
-		String timestamp = String.valueOf(System.currentTimeMillis()/1000);
+		String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
 		StringBuilder toSign = new StringBuilder(appSecret).append(nonce)
 				.append(timestamp);
 		String sign = CodeUtil.hexSHA1(toSign.toString());
@@ -43,6 +44,8 @@ public class HttpUtil {
 		conn.setDoOutput(true);
 		conn.setRequestMethod("POST");
 		conn.setInstanceFollowRedirects(true);
+		conn.setConnectTimeout(30000);
+		
 
 		conn.setRequestProperty(APPKEY, appKey);
 		conn.setRequestProperty(NONCE, nonce);
@@ -50,11 +53,11 @@ public class HttpUtil {
 		conn.setRequestProperty(SIGNATURE, sign);
 		conn.setRequestProperty("Content-Type",
 				"application/x-www-form-urlencoded");
+
 		return conn;
 	}
 
-	public static byte[] readInputStream(InputStream inStream)
-			throws Exception {
+	public static byte[] readInputStream(InputStream inStream) throws Exception {
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
 		int len = 0;
@@ -66,7 +69,7 @@ public class HttpUtil {
 		inStream.close();
 		return data;
 	}
-	
+
 	public static SdkHttpResult returnResult(HttpURLConnection conn)
 			throws Exception, IOException {
 		String result;

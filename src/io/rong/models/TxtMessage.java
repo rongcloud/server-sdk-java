@@ -4,10 +4,24 @@ package io.rong.models;
 public class TxtMessage extends Message {
 
 	private String content;
+	private String extra;
 
+	public String getExtra() {
+		return extra;
+	}
+
+	public void setExtra(String extra) {
+		this.extra = extra;
+	}
+	
 	public TxtMessage(String content) {
 		this.type = "RC:TxtMsg";
 		this.content = content;
+	}
+
+	public TxtMessage(String content,String extra) {
+		this(content);
+		this.extra = extra;
 	}
 
 	public String getContent() {
@@ -20,6 +34,6 @@ public class TxtMessage extends Message {
 
 	@Override
 	public String toString() {
-		return String.format("{\"content\":\"%s\"}", content);
+		return String.format("{\"content\":\"%s\",\"extra\":\"%s\"}", content,extra);
 	}
 }

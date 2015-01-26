@@ -1,15 +1,29 @@
 package io.rong.models;
 
 //图片消息
-public class ImgMessage extends Message{
+public class ImgMessage extends Message {
 
 	private String content;
 	private String imageKey;
+	private String extra;
 
-	public ImgMessage(String content,String imageKey) {
+	public String getExtra() {
+		return extra;
+	}
+
+	public void setExtra(String extra) {
+		this.extra = extra;
+	}
+
+	public ImgMessage(String content, String imageUri) {
 		this.type = "RC:ImgMsg";
 		this.content = content;
-		this.imageKey = imageKey;
+		this.imageKey = imageUri;
+	}
+
+	public ImgMessage(String content, String imageUri, String extra) {
+		this(content, imageUri);
+		this.extra = extra;
 	}
 
 	public String getContent() {
@@ -19,7 +33,7 @@ public class ImgMessage extends Message{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	public String getImageKey() {
 		return imageKey;
 	}
@@ -30,6 +44,8 @@ public class ImgMessage extends Message{
 
 	@Override
 	public String toString() {
-		return String.format("{\"content\":\"%s\",\"imageKey\":\"%s\"}", content,imageKey);
+		return String.format(
+				"{\"content\":\"%s\",\"imageUri\":\"%s\",\"extra\":\"%s\"}",
+				content, imageKey, extra);
 	}
 }

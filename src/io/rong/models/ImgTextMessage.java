@@ -8,12 +8,16 @@ public class ImgTextMessage extends Message {
 	private String imageUri;
 	private String extra;
 
-	public ImgTextMessage(String content, String title, String imageUri,
-			String extra) {
+	public ImgTextMessage(String content, String title, String imageUri) {
 		this.type = "RC:ImgTextMsg";
 		this.content = content;
 		this.title = title;
 		this.imageUri = imageUri;
+	}
+
+	public ImgTextMessage(String content, String title, String imageUri,
+			String extra) {
+		this(content, title, imageUri);
 		this.extra = extra;
 	}
 

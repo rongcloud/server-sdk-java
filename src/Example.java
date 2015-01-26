@@ -116,5 +116,62 @@ public class test {
 		result = ApiHttpClient.getMessageHistoryUrl(key, secret, "2014112811",
 				FormatType.json);
 		System.out.println("getMessageHistoryUrl=" + result);
+
+		result = ApiHttpClient.blockUser(key, secret, "2", 10,FormatType.json);
+		System.out.println("blockUser=" + result);
+
+		result = ApiHttpClient.blockUser(key, secret, "id2", 10,FormatType.json);
+		System.out.println("blockUser=" + result);
+
+		result = ApiHttpClient.blockUser(key, secret, "id3", 10,FormatType.json);
+		System.out.println("blockUser=" + result);
+
+		result = ApiHttpClient.queryBlockUsers(key, secret, FormatType.json);
+		System.out.println("queryBlockUsers=" + result);
+
+		result = ApiHttpClient.unblockUser(key, secret, "id1", FormatType.json);
+		System.out.println("unblockUser=" + result);
+
+		result = ApiHttpClient.queryBlockUsers(key, secret, FormatType.json);
+		System.out.println("queryBlockUsers=" + result);
+
+		result = ApiHttpClient.unblockUser(key, secret, "id2", FormatType.json);
+		System.out.println("unblockUser=" + result);
+
+		result = ApiHttpClient.unblockUser(key, secret, "id3", FormatType.json);
+		System.out.println("unblockUser=" + result);
+
+		result = ApiHttpClient.queryBlockUsers(key, secret, FormatType.json);
+		System.out.println("queryBlockUsers=" + result);
+
+		result = ApiHttpClient.checkOnline(key, secret, "143", FormatType.json);
+		System.out.println("checkOnline=" + result);
+		
+		List<String> toBlackIds = new ArrayList<String>();
+		toBlackIds.add("22");
+		toBlackIds.add("12");
+
+		result = ApiHttpClient.blackUser(key, secret, "3706", toBlackIds,
+				FormatType.json);
+		System.out.println("blackUser=" + result);
+		
+		result = ApiHttpClient.QueryblackUser(key, secret, "3706",FormatType.json);
+		System.out.println("QueryblackUser=" + result);
+		
+		result = ApiHttpClient.unblackUser(key, secret, "3706", toBlackIds,
+				FormatType.json);
+		System.out.println("unblackUser=" + result);
+		
+		result = ApiHttpClient.QueryblackUser(key, secret, "3706",FormatType.json);
+		System.out.println("QueryblackUser=" + result);	
+
+		result = ApiHttpClient.deleteMessageHistory(key, secret, "2014122811",
+				FormatType.json);
+		System.out.println("deleteMessageHistory=" + result);
+		
+		result = ApiHttpClient.refreshGroupInfo(key, secret, "id1", "name4",
+				FormatType.json);
+		System.out.println("refreshGroupInfo=" + result);
+
 	}
 }
