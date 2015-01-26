@@ -1,4 +1,4 @@
-package io.rong.util;
+﻿package io.rong.util;
 
 import io.rong.models.SdkHttpResult;
 
@@ -45,7 +45,6 @@ public class HttpUtil {
 		conn.setRequestMethod("POST");
 		conn.setInstanceFollowRedirects(true);
 		conn.setConnectTimeout(30000);
-		
 
 		conn.setRequestProperty(APPKEY, appKey);
 		conn.setRequestProperty(NONCE, nonce);
