@@ -118,7 +118,7 @@ public class ApiHttpClient {
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
 				appSecret,
-				RONGCLOUDURI + "/user/black/add." + format.toString());
+				RONGCLOUDURI + "/user/blacklist/add." + format.toString());
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
@@ -141,7 +141,7 @@ public class ApiHttpClient {
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
 				appSecret,
-				RONGCLOUDURI + "/user/black/remove." + format.toString());
+				RONGCLOUDURI + "/user/blacklist/remove." + format.toString());
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
@@ -163,7 +163,7 @@ public class ApiHttpClient {
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
 				appSecret,
-				RONGCLOUDURI + "/user/black/query." + format.toString());
+				RONGCLOUDURI + "/user/blacklist/query." + format.toString());
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
