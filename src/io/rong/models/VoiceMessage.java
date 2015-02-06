@@ -1,4 +1,6 @@
-﻿package io.rong.models;
+package io.rong.models;
+
+import io.rong.util.GsonUtil;
 
 //语音消息
 public class VoiceMessage extends Message {
@@ -43,7 +45,7 @@ public class VoiceMessage extends Message {
 	}
 
 	@Override
-	public String toString() {
-		return String.format("{\"content\":\"%s\",\"duration\":%s,\"extra\":\"%s\"}", content,duration,extra);
+	public String toString() {		
+		return GsonUtil.toJson(this, VoiceMessage.class);
 	}
 }

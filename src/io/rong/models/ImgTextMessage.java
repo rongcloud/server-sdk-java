@@ -1,5 +1,7 @@
 package io.rong.models;
 
+import io.rong.util.GsonUtil;
+
 //图文消息
 public class ImgTextMessage extends Message {
 
@@ -55,8 +57,6 @@ public class ImgTextMessage extends Message {
 
 	@Override
 	public String toString() {
-		return String
-				.format("{\"title\":\"%s\",\"content\":\"%s\",\"imageUri\":\"%s\",\"extra\":\"%s\"}",
-						title, content, imageUri, extra);
+		return GsonUtil.toJson(this, ImgTextMessage.class);
 	}
 }

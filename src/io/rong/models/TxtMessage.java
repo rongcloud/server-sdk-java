@@ -1,5 +1,7 @@
 package io.rong.models;
 
+import io.rong.util.GsonUtil;
+
 //文本消息
 public class TxtMessage extends Message {
 
@@ -34,6 +36,6 @@ public class TxtMessage extends Message {
 
 	@Override
 	public String toString() {
-		return String.format("{\"content\":\"%s\",\"extra\":\"%s\"}", content,extra);
+		return GsonUtil.toJson(this, TxtMessage.class);
 	}
 }

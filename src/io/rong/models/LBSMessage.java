@@ -1,5 +1,7 @@
 package io.rong.models;
 
+import io.rong.util.GsonUtil;
+
 public class LBSMessage extends Message {
 
 	private String content;
@@ -66,8 +68,6 @@ public class LBSMessage extends Message {
 
 	@Override
 	public String toString() {
-		return String
-				.format("{\"content\":\"%s\",\"latitude\":%s,\"longitude\":%s,\"poi\":\"%s\",\"extra\":\"%s\"}",
-						content, latitude, longitude, poi, extra);
+		return GsonUtil.toJson(this, LBSMessage.class);
 	}
 }

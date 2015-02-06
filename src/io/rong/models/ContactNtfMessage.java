@@ -1,5 +1,7 @@
 package io.rong.models;
 
+import io.rong.util.GsonUtil;
+
 //添加联系人消息
 public class ContactNtfMessage extends Message {
 
@@ -66,8 +68,6 @@ public class ContactNtfMessage extends Message {
 
 	@Override
 	public String toString() {
-		return String
-				.format("{\"operation\":\"%s\",\"sourceUserId\":\"%s\",\"targetUserId\":\"%s\",\"message\":\"%s\",\"extra\":\"%s\"}",
-						operation, sourceUserId, targetUserId, message, extra);
+		return GsonUtil.toJson(this, ContactNtfMessage.class);
 	}
 }
