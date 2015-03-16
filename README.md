@@ -14,11 +14,11 @@ httplib 库主要用来模拟客户端发送 HTTP 请求，类似于 Curl 工具
 
 ####json用法: 
 
-`rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "json")`
+`rcServer, rcError := RCServerSDK.NewRCServer("your_appKey", "your_appSecret", "json")`
 
 ####xml用法: 
 
-`rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "xml")`
+`rcServer, rcError := RCServerSDK.NewRCServer("your_appKey", "your_appSecret", "xml")`
 
 ####例如“获取token”: 
 
@@ -33,11 +33,11 @@ httplib 库主要用来模拟客户端发送 HTTP 请求，类似于 Curl 工具
 
 解析json
 
-`var s interface{}`
+`var foo interface{}`
 
-`json.Unmarshal(byteData, &s)`
+`json.Unmarshal(byteData, &foo)`
 
-解析出来的数据就在 s 变量里了，通过断言即可得到你需要的数据，也可以解析到自定义的struct里面，这里就不详述了。
+解析出来的数据就在 foo 变量里了，通过断言即可得到你需要的数据，也可以解析到自定义的struct里面，这里就不详述了。
 
 ####如果想得到字符串：
 
@@ -46,103 +46,123 @@ httplib 库主要用来模拟客户端发送 HTTP 请求，类似于 Curl 工具
 
 ##运行测试结果（成功通过！）
 ```javascript
-=== RUN Test_InitRCServer_xml
---- PASS: Test_InitRCServer_xml (0.00s)
-RCServer_test.go:13: 初始化RCServe_xmlr：测试通过。
+=== RUN Test_NewRCServer_xml
+--- PASS: Test_NewRCServer_xml (0.00 seconds)
+RCServer_test.go:17: 初始化RCServe_xml：测试通过。
 
-=== RUN Test_InitRCServer_json
---- PASS: Test_InitRCServer_json (0.00s)
-RCServer_test.go:23: 初始化RCServer_json：测试通过。
+=== RUN Test_NewRCServer_json
+--- PASS: Test_NewRCServer_json (0.00 seconds)
+RCServer_test.go:27: 初始化RCServer_json：测试通过。
 
-=== RUN Test_InitRCServer_otherType
---- PASS: Test_InitRCServer_otherType (0.00s)
-RCServer_test.go:30: 初始化RCServer_other：测试通过。
+=== RUN Test_NewRCServer_otherType
+--- PASS: Test_NewRCServer_otherType (0.00 seconds)
+RCServer_test.go:34: 初始化RCServer_other：测试通过。
 
 === RUN Test_UserGetToken
---- PASS: Test_UserGetToken (0.27s)
-RCServer_test.go:43: 获取 Token：测试通过。returnData: {"code":200,"userId":"testUserId","token":"40WpwW65OA8WGwsB13xB/qFHDKhjHfDr9ou3WnmJxatWdYmGx9CnaDMkEm74P2gH/bVidgmj91P7JI0Vo5arbJfoA9ZYTVQX"}
+--- PASS: Test_UserGetToken (0.55 seconds)
+RCServer_test.go:47: 获取 Token：测试通过。returnData: {"code":200,"userId":"testUserId","token":"SdD6hDH8x7ugwhlVIFlO8OV77ez9s2QiXVQymUC50BNrG+9T1CrSL3MNUQeonp+HA01PYg1uT51eSMvkQGF/mM1OxX883sBI"}
 
 === RUN Test_UserRefresh
---- PASS: Test_UserRefresh (0.21s)
-RCServer_test.go:52: 刷新用户信息：测试通过。returnData: {"code":200}
+--- PASS: Test_UserRefresh (0.20 seconds)
+RCServer_test.go:56: 刷新用户信息：测试通过。returnData: {"code":200}
 
 === RUN Test_UserCheckOnline
---- PASS: Test_UserCheckOnline (0.23s)
-RCServer_test.go:62: 检查用户在线状态：测试通过。returnData: {"code":200,"status":"0"}
+--- PASS: Test_UserCheckOnline (0.21 seconds)
+RCServer_test.go:66: 检查用户在线状态：测试通过。returnData: {"code":200,"status":"0"}
 
 === RUN Test_UserBlock
---- PASS: Test_UserBlock (0.22s)
-RCServer_test.go:71: 封禁用户：测试通过。returnData: {"code":200}
+--- PASS: Test_UserBlock (0.25 seconds)
+RCServer_test.go:75: 封禁用户：测试通过。returnData: {"code":200}
 
 === RUN Test_UserUnblock
---- PASS: Test_UserUnblock (0.23s)
-RCServer_test.go:80: 解除用户封禁：测试通过。returnData: {"code":200}
+--- PASS: Test_UserUnblock (0.22 seconds)
+RCServer_test.go:84: 解除用户封禁：测试通过。returnData: {"code":200}
 
 === RUN Test_UserBlockQuery
---- PASS: Test_UserBlockQuery (0.20s)
-RCServer_test.go:89: 获取被封禁用户：测试通过。returnData: {"url":"/user/block/query.json","code":1000,"errorMessage":"Internal logic error."}
+--- PASS: Test_UserBlockQuery (0.21 seconds)
+RCServer_test.go:93: 获取被封禁用户：测试通过。returnData: {"code":200,"users":[]}
+
+=== RUN Test_UserBlackAdd
+--- PASS: Test_UserBlackAdd (0.28 seconds)
+RCServer_test.go:102: 添加用户到黑名单：测试通过。returnData: {"code":200}
+
+=== RUN Test_UserBlackRemove
+--- PASS: Test_UserBlackRemove (0.23 seconds)
+RCServer_test.go:111: 从黑名单中移除用户：测试通过。returnData: {"code":200}
+
+=== RUN Test_UserBlackQuery
+--- PASS: Test_UserBlackQuery (0.21 seconds)
+RCServer_test.go:120: 获取某用户的黑名单列表：测试通过。returnData: {"code":200,"users":[]}
 
 === RUN Test_MessagePrivatePublish
---- PASS: Test_MessagePrivatePublish (0.20s)
-RCServer_test.go:99: 发送单聊消息：测试通过。returnData: {"code":200}
+--- PASS: Test_MessagePrivatePublish (0.20 seconds)
+RCServer_test.go:130: 发送单聊消息：测试通过。returnData: {"code":200}
 
 === RUN Test_MessageSystemPublish
---- PASS: Test_MessageSystemPublish (0.20s)
-RCServer_test.go:109: 发送系统消息：测试通过。returnData: {"url":"/message/system/publish","code":404,"errorMessage":"Not a valid API."}
+--- PASS: Test_MessageSystemPublish (0.20 seconds)
+RCServer_test.go:140: 发送系统消息：测试通过。returnData: {"code":200}
 
 === RUN Test_GroupCreat
---- PASS: Test_GroupCreat (0.21s)
-RCServer_test.go:119: 创建群组：测试通过。returnData: {"code":200}
+--- PASS: Test_GroupCreat (0.21 seconds)
+RCServer_test.go:150: 创建群组：测试通过。returnData: {"code":200}
 
 === RUN Test_MessageGroupPublish
---- PASS: Test_MessageGroupPublish (0.23s)
-RCServer_test.go:129: 发送群组消息：测试通过。returnData: {"code":200}
+--- PASS: Test_MessageGroupPublish (0.24 seconds)
+RCServer_test.go:160: 发送群组消息：测试通过。returnData: {"code":200}
 
 === RUN Test_ChatroomCreat
---- PASS: Test_ChatroomCreat (0.21s)
-RCServer_test.go:138: 创建聊天室：测试通过。returnData: {"code":200}
+--- PASS: Test_ChatroomCreat (0.21 seconds)
+RCServer_test.go:169: 创建聊天室：测试通过。returnData: {"code":200}
 
 === RUN Test_MessageChatroomPublish
---- PASS: Test_MessageChatroomPublish (0.22s)
-RCServer_test.go:148: 发送聊天室消息：测试通过。returnData: {"code":200}
+--- PASS: Test_MessageChatroomPublish (0.20 seconds)
+RCServer_test.go:179: 发送聊天室消息：测试通过。returnData: {"code":200}
 
 === RUN Test_MessageBroadcast
---- PASS: Test_MessageBroadcast (0.24s)
-RCServer_test.go:159: 发送广播消息：测试通过。returnData: {"url":"/message/broadcast.json","code":404,"errorMessage":"Not a valid API."}
+--- PASS: Test_MessageBroadcast (0.23 seconds)
+RCServer_test.go:190: 发送广播消息：测试通过。returnData: {"code":200}
+
+=== RUN Test_MessageReceive
+--- PASS: Test_MessageReceive (0.20 seconds)
+RCServer_test.go:204: 同步消息：测试通过。returnData: /receive_message.php
 
 === RUN Test_MessageHistory
---- PASS: Test_MessageHistory (0.21s)
-RCServer_test.go:169: 消息历史记录下载地址获取：测试通过。returnData: {"code":200,"url":"","date":"2015010101"}
+--- PASS: Test_MessageHistory (0.20 seconds)
+RCServer_test.go:214: 消息历史记录下载地址获取：测试通过。returnData: {"code":200,"url":"","date":"2015010101"}
 
 === RUN Test_MessageHistoryDelete
---- PASS: Test_MessageHistoryDelete (0.21s)
-RCServer_test.go:179: 消息历史记录删除：测试通过。returnData: {"url":"/message/history/delete.json","code":1002,"errorMessage":"ParamError:data is not exist."}
+--- PASS: Test_MessageHistoryDelete (0.21 seconds)
+RCServer_test.go:224: 消息历史记录删除：测试通过。returnData: {"url":"/message/history/delete.json","code":1002,"errorMessage":"ParamError:data is not exist."}
+
+=== RUN Test_GroupSync
+--- PASS: Test_GroupSync (0.20 seconds)
+RCServer_test.go:234: 同步用户所属群组：测试通过。returnData: {"code":200}
 
 === RUN Test_GroupJoin
---- PASS: Test_GroupJoin (0.21s)
-RCServer_test.go:189: 加入群组：测试通过。returnData: {"code":200}
+--- PASS: Test_GroupJoin (0.21 seconds)
+RCServer_test.go:244: 加入群组：测试通过。returnData: {"code":200}
 
 === RUN Test_GroupQuit
---- PASS: Test_GroupQuit (0.23s)
-RCServer_test.go:199: 退出群组：测试通过。returnData: {"code":200}
+--- PASS: Test_GroupQuit (0.22 seconds)
+RCServer_test.go:254: 退出群组：测试通过。returnData: {"code":200}
 
 === RUN Test_GroupDismiss
---- PASS: Test_GroupDismiss (0.20s)
-RCServer_test.go:209: 解散群组：测试通过。returnData: {"code":200}
+--- PASS: Test_GroupDismiss (0.20 seconds)
+RCServer_test.go:264: 解散群组：测试通过。returnData: {"code":200}
 
 === RUN Test_GroupRefresh
---- PASS: Test_GroupRefresh (0.22s)
-RCServer_test.go:218: 刷新群组信息：测试通过。returnData: {"code":200}
+--- PASS: Test_GroupRefresh (0.20 seconds)
+RCServer_test.go:273: 刷新群组信息：测试通过。returnData: {"code":200}
 
 === RUN Test_ChatroomDestroy
---- PASS: Test_ChatroomDestroy (0.21s)
-RCServer_test.go:227: 销毁聊天室 ：测试通过。returnData: {"code":200}
+--- PASS: Test_ChatroomDestroy (0.27 seconds)
+RCServer_test.go:282: 销毁聊天室 ：测试通过。returnData: {"code":200}
 
 === RUN Test_ChatroomQuery
---- PASS: Test_ChatroomQuery (0.21s)
-RCServer_test.go:236: 查询聊天室信息 ：测试通过。returnData: {"code":200,"chatRooms":[]}
+--- PASS: Test_ChatroomQuery (0.21 seconds)
+RCServer_test.go:291: 查询聊天室信息 ：测试通过。returnData: {"code":200,"chatRooms":[]}
 
 PASS
+ok  	_/Users/Ye/Documents/github/server-sdk-go/RCServerSDK       5.970s
 
-ok      github.com/yesidi/RCServerSDK	4.610s
 ```
