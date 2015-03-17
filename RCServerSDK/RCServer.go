@@ -9,8 +9,8 @@ httplib 库主要用来模拟客户端发送 HTTP 请求，类似于 Curl 工具
 
 go get github.com/astaxie/beego/httplib
 
-json用法: rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "json")
-xml用法: rcServer, initError := RCServerSDK.InitRCServer("your_appKey", "your_appSecret", "xml")
+json用法: rcServer, initError := RCServerSDK.NewRCServer("your_appKey", "your_appSecret", "json")
+xml用法: rcServer, initError := RCServerSDK.NewRCServer("your_appKey", "your_appSecret", "xml")
 
 	byteData, rcError := rcServer.UserGetToken("your_user_id", "your_name", "your_portrait_uri")
 	println("result:", string(byteData))
@@ -31,13 +31,17 @@ import (
 )
 
 const (
-	RC_SERVER_API_URL           = "https://api.cn.rong.io"
-	RC_USER_GET_TOKEN           = "/user/getToken"
-	RC_USER_REFRESH             = "/user/refresh"
-	RC_USER_CHECK_ONLINE        = "/user/checkOnline"
-	RC_USER_BLOCK               = "/user/block"
-	RC_USER_UNBLOCK             = "/user/unblock"
-	RC_USER_BLOCK_QUERY         = "/user/block/query"
+	RC_SERVER_API_URL    = "https://api.cn.rong.io"
+	RC_USER_GET_TOKEN    = "/user/getToken"
+	RC_USER_REFRESH      = "/user/refresh"
+	RC_USER_CHECK_ONLINE = "/user/checkOnline"
+	RC_USER_BLOCK        = "/user/block"
+	RC_USER_UNBLOCK      = "/user/unblock"
+	RC_USER_BLOCK_QUERY  = "/user/block/query"
+	RC_USER_BLACK_ADD    = "/user/blacklist/add"
+	RC_USER_BLACK_REMOVE = "/user/blacklist/remove"
+	RC_USER_BLACK_QUERY  = "/user/blacklist/query"
+
 	RC_MESSAGE_PRIVATE_PUBLISH  = "/message/private/publish"
 	RC_MESSAGE_SYSTEM_PUBLISH   = "/message/system/publish"
 	RC_MESSAGE_GROUP_PUBLISH    = "/message/group/publish"
@@ -45,14 +49,17 @@ const (
 	RC_MESSAGE_BROADCAST        = "/message/broadcast"
 	RC_MESSAGE_HISTORY          = "/message/history"
 	RC_MESSAGE_HISTORY_DELETE   = "/message/history/delete"
-	RC_GROUP_CREATE             = "/group/create"
-	RC_GROUP_JOIN               = "/group/join"
-	RC_GROUP_QUIT               = "/group/quit"
-	RC_GROUP_DISMISS            = "/group/dismiss"
-	RC_GROUP_REFRESH            = "/group/refresh"
-	RC_CHATROOM_CREATE          = "/chatroom/create"
-	RC_CHATROOM_DESTROY         = "/chatroom/destroy"
-	RC_CHATROOM_QUERY           = "/chatroom/query"
+
+	RC_GROUP_CREATE  = "/group/create"
+	RC_GROUP_JOIN    = "/group/join"
+	RC_GROUP_QUIT    = "/group/quit"
+	RC_GROUP_DISMISS = "/group/dismiss"
+	RC_GROUP_REFRESH = "/group/refresh"
+	RC_GROUP_SYNC    = "/group/sync"
+
+	RC_CHATROOM_CREATE  = "/chatroom/create"
+	RC_CHATROOM_DESTROY = "/chatroom/destroy"
+	RC_CHATROOM_QUERY   = "/chatroom/query"
 )
 
 type RCServer struct {
@@ -64,7 +71,7 @@ type RCServer struct {
 }
 
 //初始化RCServer
-func InitRCServer(appKey, appSecret, format string) (rcServer *RCServer, initError error) {
+func NewRCServer(appKey, appSecret, format string) (rcServer *RCServer, initError error) {
 	if len(appKey) == 0 {
 		return nil, errors.New("appKey不能为空！")
 	} else if len(appSecret) == 0 {
@@ -169,6 +176,38 @@ func (rcServer *RCServer) UserBlockQuery() ([]byte, error) {
 	return byteData, err
 }
 
+//添加用户到黑名单 方法
+func (rcServer *RCServer) UserBlackAdd(userId, blackUserId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_USER_BLACK_ADD + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("blackUserId", blackUserId)
+	fillHeader(req, rcServer)
+	byteData, err := req.Bytes()
+	return byteData, err
+}
+
+//从黑名单中移除用户 方法
+func (rcServer *RCServer) UserBlackRemove(userId, blackUserId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_USER_BLACK_REMOVE + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("blackUserId", blackUserId)
+	fillHeader(req, rcServer)
+	byteData, err := req.Bytes()
+	return byteData, err
+}
+
+//获取某用户的黑名单列表 方法
+func (rcServer *RCServer) UserBlackQuery(userId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_USER_BLACK_QUERY + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	fillHeader(req, rcServer)
+	byteData, err := req.Bytes()
+	return byteData, err
+}
+
 //发送单聊消息 方法
 //说明：一个用户向另外一个用户发送消息
 func (rcServer *RCServer) MessagePrivatePublish(fromUserId string, toUserIds []string, objectName, content, pushContent, pushData string) ([]byte, error) {
@@ -190,7 +229,7 @@ func (rcServer *RCServer) MessagePrivatePublish(fromUserId string, toUserIds []s
 //发送系统消息
 //说明：一个用户向一个或多个用户发送系统消息
 func (rcServer *RCServer) MessageSystemPublish(fromUserId string, toUserIds []string, objectName, content, pushContent, pushData string) ([]byte, error) {
-	destinationUrl := rcServer.apiUrl + RC_MESSAGE_SYSTEM_PUBLISH
+	destinationUrl := rcServer.apiUrl + RC_MESSAGE_SYSTEM_PUBLISH + rcServer.format
 	req := httplib.Post(destinationUrl)
 	req.Param("fromUserId", fromUserId)
 	for _, toUserId := range toUserIds {
@@ -253,6 +292,25 @@ func (rcServer *RCServer) MessageBroadcast(fromUserId, objectName, content strin
 	return byteData, err
 }
 
+//同步消息 方法
+//同步消息时都需要你的服务提供应答，只要有应答，就表示消息已经同步，如果无应答或者应答超时（10秒），融云会再尝试推送2次，如果仍然失败，融云将不再推送此消息。
+//说明：
+//1、融云服务器可以将消息数据同步给开发者的应用服务器，开发者应用服务器接收所有在你的 App 下聊天的实时数据(目前支持二人会话数据、群聊数据)，接收数据前需要在开发者后台注册接收地址（目前通过工单提交）。
+//2、为了验证数据有效性并确保调用者为融云 Server，我们会在每个请求前添加数据签名，详细签名方法参见“API 调用签名规则”,签名信息参数在接收地址的 URL 上提供。
+//3、调用 Server API 接口发送的消息，不会通过消息路由服务。
+func (rcServer *RCServer) MessageReceive(messageReceiveURL, fromUserId, toUserId, objectName, content, timestamp string) ([]byte, error) {
+	destinationUrl := messageReceiveURL
+	req := httplib.Post(destinationUrl)
+	req.Param("fromUserId", fromUserId)
+	req.Param("toUserId", toUserId)
+	req.Param("objectName", objectName)
+	req.Param("content", content)
+	req.Param("timestamp", timestamp)
+	fillHeader(req, rcServer)
+	byteData, err := req.Bytes()
+	return byteData, err
+}
+
 //消息历史记录下载地址获取 方法
 //说明：获取 APP 内指定某天某小时内的所有会话消息记录的下载地址
 func (rcServer *RCServer) MessageHistory(date string) ([]byte, error) {
@@ -270,6 +328,22 @@ func (rcServer *RCServer) MessageHistoryDelete(date string) ([]byte, error) {
 	destinationUrl := rcServer.apiUrl + RC_MESSAGE_HISTORY_DELETE + rcServer.format
 	req := httplib.Post(destinationUrl)
 	req.Param("date", date)
+	fillHeader(req, rcServer)
+	byteData, err := req.Bytes()
+	return byteData, err
+}
+
+//同步用户所属群组 方法
+//向融云服务器提交 userId 对应的用户当前所加入的所有群组。
+func (rcServer *RCServer) GroupSync(userId string, groupIdAndNameArray []map[string]string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_GROUP_SYNC + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	for _, groupIdAndNameDic := range groupIdAndNameArray {
+		for groupId, name := range groupIdAndNameDic {
+			req.Param("groupId["+groupId+"]", name)
+		}
+	}
 	fillHeader(req, rcServer)
 	byteData, err := req.Bytes()
 	return byteData, err
