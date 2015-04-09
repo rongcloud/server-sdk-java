@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class test {
+public class Example {
 
 	/**
 	 * @param args
