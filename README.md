@@ -11,6 +11,8 @@ httplib 库主要用来模拟客户端发送 HTTP 请求，类似于 Curl 工具
 
 `go get github.com/astaxie/beego/httplib`
 
+再安装 server-sdk-go：
+
 `go get github.com/rongcloud/server-sdk-go`
 
 ####json用法: 
