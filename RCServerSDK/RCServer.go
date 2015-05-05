@@ -19,15 +19,19 @@ xml用法: rcServer, initError := RCServerSDK.NewRCServer("your_appKey", "your_a
 package RCServerSDK
 
 import (
+	"bytes"
 	"crypto/sha1"
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"math/rand"
+	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 
-	"github.com/beego/httplib"
+	"github.com/astaxie/beego/httplib"
 )
 
 const (
@@ -230,18 +234,32 @@ func (rcServer *RCServer) MessagePrivatePublish(fromUserId string, toUserIds []s
 //说明：一个用户向一个或多个用户发送系统消息
 func (rcServer *RCServer) MessageSystemPublish(fromUserId string, toUserIds []string, objectName, content, pushContent, pushData string) ([]byte, error) {
 	destinationUrl := rcServer.apiUrl + RC_MESSAGE_SYSTEM_PUBLISH + rcServer.format
-	req := httplib.Post(destinationUrl)
-	req.Param("fromUserId", fromUserId)
+
+	// 由于 "github.com/astaxie/beego/httplib" 不支持发送多个 key 一样的参数(toUserId),所以这里用 "net/http"
+	u := url.Values{}
+	u.Add("fromUserId", fromUserId)
 	for _, toUserId := range toUserIds {
-		req.Param("toUserId", toUserId)
+		u.Add("toUserId", toUserId)
 	}
-	req.Param("objectName", objectName)
-	req.Param("content", content)
-	req.Param("pushContent", pushContent)
-	req.Param("pushData", pushData)
-	fillHeader(req, rcServer)
-	byteData, err := req.Bytes()
-	return byteData, err
+	u.Add("objectName", objectName)
+	u.Add("content", content)
+	u.Add("pushContent", pushContent)
+	u.Add("pushData", pushData)
+
+	req, err := http.NewRequest("POST", destinationUrl, bytes.NewBufferString(u.Encode()))
+
+	nonce, timestamp, signature := getSignature(rcServer)
+	req.Header.Set("App-Key", rcServer.appKey)
+	req.Header.Set("Nonce", nonce)
+	req.Header.Set("Timestamp", timestamp)
+	req.Header.Set("Signature", signature)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	client := &http.Client{}
+	res, _ := client.Do(req)
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	return body, err
 }
 
 //发送群组消息 方法
