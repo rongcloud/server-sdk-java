@@ -6,7 +6,7 @@ import io.rong.util.GsonUtil;
 public class ImgMessage extends Message {
 
 	private String content;
-	private String imageKey;
+	private String imageUri;
 	private String extra;
 
 	public String getExtra() {
@@ -20,7 +20,7 @@ public class ImgMessage extends Message {
 	public ImgMessage(String content, String imageUri) {
 		this.type = "RC:ImgMsg";
 		this.content = content;
-		this.imageKey = imageUri;
+		this.imageUri = imageUri;
 	}
 
 	public ImgMessage(String content, String imageUri, String extra) {
@@ -37,11 +37,11 @@ public class ImgMessage extends Message {
 	}
 
 	public String getImageKey() {
-		return imageKey;
+		return imageUri;
 	}
 
-	public void setImageKey(String imageKey) {
-		this.imageKey = imageKey;
+	public void setImageKey(String imageUri) {
+		this.imageUri = imageUri;
 	}
 
 	@Override
