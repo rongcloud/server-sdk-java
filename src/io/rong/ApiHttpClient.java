@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ApiHttpClient {
 
-	private static final String RONGCLOUDURI = "https://api.cn.rong.io";
+	private static final String RONGCLOUDURI = "http://api.cn.ronghub.com";
 	
 	private static final String UTF8 = "UTF-8";
 
