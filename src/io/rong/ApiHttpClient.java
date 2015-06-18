@@ -505,6 +505,32 @@ public class ApiHttpClient {
 
 		return HttpUtil.returnResult(conn);
 	}
+	
+	public static SdkHttpResult broadcastMessage(String appKey, String appSecret,
+			String fromUserId, Message msg,String pushContent, String pushData, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/message/broadcast." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("fromUserId=").append(URLEncoder.encode(fromUserId, UTF8));		
+		sb.append("&objectName=")
+				.append(URLEncoder.encode(msg.getType(), UTF8));
+		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
+		if (pushContent != null) {
+			sb.append("&pushContent=").append(
+					URLEncoder.encode(pushContent, UTF8));
+		}
+
+		if (pushData != null) {
+			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+		}
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
 
 	// 创建聊天室
 	public static SdkHttpResult createChatroom(String appKey, String appSecret,
