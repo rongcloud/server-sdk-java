@@ -1,4 +1,4 @@
-﻿package io.rong;
+package io.rong;
 
 import io.rong.models.ChatroomInfo;
 import io.rong.models.FormatType;
@@ -28,8 +28,12 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
-		sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
-		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
+		if (null != userName) {
+		  sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
+		}
+		if (null != portraitUri) {
+		  sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
+		}
 		HttpUtil.setBodyParameter(sb, conn);
 
 		return HttpUtil.returnResult(conn);

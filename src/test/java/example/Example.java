@@ -1,3 +1,5 @@
+package example;
+
 import io.rong.ApiHttpClient;
 import io.rong.models.ChatroomInfo;
 import io.rong.models.FormatType;
@@ -9,16 +11,10 @@ import io.rong.models.VoiceMessage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Example {
 
-	/**
-	 * @param args
-	 * @throws Exception
-	 */
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 
 		String key = "app-key";
 		String secret = "appsecrect";
@@ -28,6 +24,8 @@ public class Example {
 		result = ApiHttpClient.getToken(key, secret, "402880ef4a", "asdfa",
 				"http://aa.com/a.png", FormatType.json);
 		System.out.println("gettoken=" + result);
+		
+		
 		List<String> toIds = new ArrayList<String>();
 		toIds.add("id1");
 		toIds.add("id2");
@@ -35,6 +33,8 @@ public class Example {
 		result = ApiHttpClient.publishMessage(key, secret, "fromUserId", toIds,
 				new TxtMessage("txtMessagehaha"), FormatType.json);
 		System.out.println("publishMessage=" + result);
+		
+		
 		result = ApiHttpClient.publishMessage(key, secret, "fromUserId", toIds,
 				new VoiceMessage("txtMessagehaha", 100L), FormatType.json);
 		System.out.println("publishMessage=" + result);
