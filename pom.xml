@@ -39,6 +39,26 @@
       <artifactId>commons-codec</artifactId>
       <version>1.10</version>
     </dependency>
+
+    <!-- test -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.9.4</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>snakeyaml</artifactId>
+          <groupId>org.yaml</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.1.46</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 </project>
