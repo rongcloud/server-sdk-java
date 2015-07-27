@@ -28,8 +28,8 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
-		sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
-		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
+		sb.append("&name=").append(URLEncoder.encode(userName==null?"":userName, UTF8));
+		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri==null?"":portraitUri, UTF8));
 		HttpUtil.setBodyParameter(sb, conn);
 
 		return HttpUtil.returnResult(conn);
@@ -60,8 +60,8 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
-		sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
-		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
+		sb.append("&name=").append(URLEncoder.encode(userName==null?"":userName, UTF8));
+		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri==null?"":portraitUri, UTF8));
 
 		HttpUtil.setBodyParameter(sb, conn);
 
@@ -183,7 +183,7 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 		if (userIds != null) {
 			for (String id : userIds) {
 				sb.append("&userId=").append(URLEncoder.encode(id, UTF8));
@@ -205,7 +205,7 @@ public class ApiHttpClient {
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
 		sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 		HttpUtil.setBodyParameter(sb, conn);
 
 		return HttpUtil.returnResult(conn);
@@ -221,7 +221,7 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 		if (userIds != null) {
 			for (String id : userIds) {
 				sb.append("&userId=").append(URLEncoder.encode(id, UTF8));
@@ -320,7 +320,7 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 
 		HttpUtil.setBodyParameter(sb, conn);
 
@@ -396,11 +396,11 @@ public class ApiHttpClient {
 
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -432,11 +432,11 @@ public class ApiHttpClient {
 
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -468,11 +468,11 @@ public class ApiHttpClient {
 
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -520,11 +520,11 @@ public class ApiHttpClient {
 		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
