@@ -3,28 +3,30 @@ package io.rong.models;
 import io.rong.util.GsonUtil;
 
 //图片消息
-public class ImgMessage extends Message {
+public class ImgTextMessage extends Message {
 
 	private String content;
+	private String title;
 	private String imageUri;
 	private String extra;
+	private String url;
 
-	public String getExtra() {
-		return extra;
+	public ImgTextMessage(String content, String title, String imageUri,
+			String extra, String url) {
+		this(content, title, imageUri, extra);
+		this.url = url;
 	}
 
-	public void setExtra(String extra) {
-		this.extra = extra;
-	}
-
-	public ImgMessage(String content, String imageUri) {
-		this.type = "RC:ImgMsg";
+	public ImgTextMessage(String content, String title, String imageUri) {
+		this.type = "RC:ImgTextMsg";
 		this.content = content;
+		this.title = title;
 		this.imageUri = imageUri;
 	}
 
-	public ImgMessage(String content, String imageUri, String extra) {
-		this(content, imageUri);
+	public ImgTextMessage(String content, String title, String imageUri,
+			String extra) {
+		this(content, title, imageUri);
 		this.extra = extra;
 	}
 
@@ -36,16 +38,40 @@ public class ImgMessage extends Message {
 		this.content = content;
 	}
 
-	public String getImageKey() {
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getImageUri() {
 		return imageUri;
 	}
 
-	public void setImageKey(String imageUri) {
+	public void setImageUri(String imageUri) {
 		this.imageUri = imageUri;
+	}
+
+	public String getExtra() {
+		return extra;
+	}
+
+	public void setExtra(String extra) {
+		this.extra = extra;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, ImgMessage.class);
+		return GsonUtil.toJson(this, ImgTextMessage.class);
 	}
 }
