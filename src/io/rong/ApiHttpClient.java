@@ -629,4 +629,21 @@ public class ApiHttpClient {
 
 		return HttpUtil.returnResult(conn);
 	}
+	// 获取群内成员
+	public static SdkHttpResult queryGroupUserList(String appKey,
+			String appSecret, String groupId, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/query." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
 }
