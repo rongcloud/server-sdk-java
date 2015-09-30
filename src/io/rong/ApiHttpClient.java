@@ -646,4 +646,111 @@ public class ApiHttpClient {
 
 		return HttpUtil.returnResult(conn);
 	}
+	
+	public static SdkHttpResult groupUserGagAdd(String appKey,
+			String appSecret, String groupId, String userId, long minute,
+			FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/gag/add." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+		sb.append("userId=").append(
+				URLEncoder.encode(userId == null ? "" : userId, UTF8));
+		sb.append("minute=").append(
+				URLEncoder.encode(String.valueOf(minute), UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult groupUserGagRollback(String appKey,
+			String appSecret, String groupId, String userId, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/gag/rollback." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+		sb.append("userId=").append(
+				URLEncoder.encode(userId == null ? "" : userId, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult groupUserGagList(String appKey,
+			String appSecret, String groupId, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/gag/list." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult wordFilterAdd(String appKey, String appSecret,
+			String word, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/wordfilter/add." + format.toString());
+
+		if (word == null || word.length() == 0) {
+			throw new Exception("word is not null or empty.");
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("word=").append(
+				URLEncoder.encode(word == null ? "" : word, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult wordFilterDelete(String appKey,
+			String appSecret, String word, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/wordfilter/delete." + format.toString());
+
+		if (word == null || word.length() == 0) {
+			throw new Exception("word is not null or empty.");
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("word=").append(
+				URLEncoder.encode(word == null ? "" : word, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult wordFilterList(String appKey, String appSecret,
+			FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/wordfilter/delete." + format.toString());
+		StringBuilder sb = new StringBuilder();
+		sb.append("1=1");
+		HttpUtil.setBodyParameter(sb, conn);
+		return HttpUtil.returnResult(conn);
+	}
 }
