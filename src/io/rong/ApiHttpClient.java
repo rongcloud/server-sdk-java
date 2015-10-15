@@ -60,8 +60,13 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
-		sb.append("&name=").append(URLEncoder.encode(userName==null?"":userName, UTF8));
-		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri==null?"":portraitUri, UTF8));
+		if (userName != null) {
+			sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
+		}
+		if (portraitUri != null) {
+			sb.append("&portraitUri=").append(
+					URLEncoder.encode(portraitUri, UTF8));
+		}
 
 		HttpUtil.setBodyParameter(sb, conn);
 
