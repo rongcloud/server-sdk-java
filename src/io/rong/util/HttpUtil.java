@@ -79,7 +79,7 @@ public class HttpUtil {
 		} else {
 			input = conn.getErrorStream();
 		}
-		result = new String(readInputStream(input));
+		result = new String(readInputStream(input),"UTF-8");
 		return new SdkHttpResult(conn.getResponseCode(), result);
 	}
 }
