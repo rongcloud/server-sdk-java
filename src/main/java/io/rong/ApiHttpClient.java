@@ -28,12 +28,8 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
-		if (null != userName) {
-		  sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
-		}
-		if (null != portraitUri) {
-		  sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
-		}
+		sb.append("&name=").append(URLEncoder.encode(userName==null?"":userName, UTF8));
+		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri==null?"":portraitUri, UTF8));
 		HttpUtil.setBodyParameter(sb, conn);
 
 		return HttpUtil.returnResult(conn);
@@ -64,8 +60,13 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
-		sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
-		sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri, UTF8));
+		if (userName != null) {
+			sb.append("&name=").append(URLEncoder.encode(userName, UTF8));
+		}
+		if (portraitUri != null) {
+			sb.append("&portraitUri=").append(
+					URLEncoder.encode(portraitUri, UTF8));
+		}
 
 		HttpUtil.setBodyParameter(sb, conn);
 
@@ -187,7 +188,7 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 		if (userIds != null) {
 			for (String id : userIds) {
 				sb.append("&userId=").append(URLEncoder.encode(id, UTF8));
@@ -209,7 +210,7 @@ public class ApiHttpClient {
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId=").append(URLEncoder.encode(userId, UTF8));
 		sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 		HttpUtil.setBodyParameter(sb, conn);
 
 		return HttpUtil.returnResult(conn);
@@ -225,7 +226,7 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 		if (userIds != null) {
 			for (String id : userIds) {
 				sb.append("&userId=").append(URLEncoder.encode(id, UTF8));
@@ -324,7 +325,7 @@ public class ApiHttpClient {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-		sb.append("&groupName=").append(URLEncoder.encode(groupName, UTF8));
+		sb.append("&groupName=").append(URLEncoder.encode(groupName==null?"":groupName, UTF8));
 
 		HttpUtil.setBodyParameter(sb, conn);
 
@@ -400,11 +401,11 @@ public class ApiHttpClient {
 
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -436,11 +437,11 @@ public class ApiHttpClient {
 
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -472,11 +473,11 @@ public class ApiHttpClient {
 
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -524,11 +525,11 @@ public class ApiHttpClient {
 		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
 		if (pushContent != null) {
 			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent, UTF8));
+					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -631,6 +632,130 @@ public class ApiHttpClient {
 		sb.append("date=").append(URLEncoder.encode(date, UTF8));
 		HttpUtil.setBodyParameter(sb, conn);
 
+		return HttpUtil.returnResult(conn);
+	}
+	// 获取群内成员
+	public static SdkHttpResult queryGroupUserList(String appKey,
+			String appSecret, String groupId, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/query." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+	
+	public static SdkHttpResult groupUserGagAdd(String appKey,
+			String appSecret, String groupId, String userId, long minute,
+			FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/gag/add." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+		sb.append("userId=").append(
+				URLEncoder.encode(userId == null ? "" : userId, UTF8));
+		sb.append("minute=").append(
+				URLEncoder.encode(String.valueOf(minute), UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult groupUserGagRollback(String appKey,
+			String appSecret, String groupId, String userId, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/gag/rollback." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+		sb.append("userId=").append(
+				URLEncoder.encode(userId == null ? "" : userId, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult groupUserGagList(String appKey,
+			String appSecret, String groupId, FormatType format)
+			throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/group/user/gag/list." + format.toString());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("groupId=").append(
+				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult wordFilterAdd(String appKey, String appSecret,
+			String word, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/wordfilter/add." + format.toString());
+
+		if (word == null || word.length() == 0) {
+			throw new Exception("word is not null or empty.");
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("word=").append(
+				URLEncoder.encode(word == null ? "" : word, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult wordFilterDelete(String appKey,
+			String appSecret, String word, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/wordfilter/delete." + format.toString());
+
+		if (word == null || word.length() == 0) {
+			throw new Exception("word is not null or empty.");
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("word=").append(
+				URLEncoder.encode(word == null ? "" : word, UTF8));
+
+		HttpUtil.setBodyParameter(sb, conn);
+
+		return HttpUtil.returnResult(conn);
+	}
+
+	public static SdkHttpResult wordFilterList(String appKey, String appSecret,
+			FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
+				appSecret,
+				RONGCLOUDURI + "/wordfilter/delete." + format.toString());
+		StringBuilder sb = new StringBuilder();
+		sb.append("1=1");
+		HttpUtil.setBodyParameter(sb, conn);
 		return HttpUtil.returnResult(conn);
 	}
 }

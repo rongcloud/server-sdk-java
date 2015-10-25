@@ -9,6 +9,13 @@ public class ImgTextMessage extends Message {
 	private String title;
 	private String imageUri;
 	private String extra;
+	private String url;
+
+	public ImgTextMessage(String content, String title, String imageUri,
+			String extra, String url) {
+		this(content, title, imageUri, extra);
+		this.url = url;
+	}
 
 	public ImgTextMessage(String content, String title, String imageUri) {
 		this.type = "RC:ImgTextMsg";
@@ -53,6 +60,14 @@ public class ImgTextMessage extends Message {
 
 	public void setExtra(String extra) {
 		this.extra = extra;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override
