@@ -4,9 +4,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>rongcloud.sdk.server</groupId>
   <artifactId>server-sdk-java</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 
-  <name>idailycar-backend</name>
+  <name>rongcloud-server-sdk</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
