@@ -752,7 +752,7 @@ public class ApiHttpClient {
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey,
 				appSecret,
-				RONGCLOUDURI + "/wordfilter/delete." + format.toString());
+				RONGCLOUDURI + "/wordfilter/list." + format.toString());
 		StringBuilder sb = new StringBuilder();
 		sb.append("1=1");
 		HttpUtil.setBodyParameter(sb, conn);
