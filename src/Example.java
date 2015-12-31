@@ -172,6 +172,57 @@ public class Example {
 		result = ApiHttpClient.refreshGroupInfo(key, secret, "id1", "name4",
 				FormatType.json);
 		System.out.println("refreshGroupInfo=" + result);
+		PushMessage message = createPushMessage();
+		result = ApiHttpClient.push(key, secret, message, FormatType.json);
 
+		System.out.println("push=" + result);
+
+	}
+
+	private static PushMessage createPushMessage()
+			throws UnsupportedEncodingException {
+		List<String> osList = new ArrayList<>();
+		osList.add("ios");
+		osList.add("android");
+
+		TagObj tag = new TagObj();
+		tag.setIs_to_all(false);
+		List<String> tagas = new ArrayList<String>();
+
+		tagas.add("±±¾©");
+		tagas.add("Å®");
+		tagas.add("3");
+		tag.setTag(tagas);
+		List<String> tagus = new ArrayList<String>();
+		tagus.add("123");
+		tagus.add("456");
+		tag.setUserid(tagus);
+		PushMessage pmsg = new PushMessage();
+		pmsg.setPlatform(osList);
+		PushNotification noti = new PushNotification();
+		noti.setAlert("ddd");
+		noti.setAndroid(createPush());
+		noti.setIos(createPush());
+		pmsg.setNotification(noti);
+		pmsg.setFromuserid("fromuseId1");
+
+		MsgObj msg = new MsgObj();
+		TxtMessage message = new TxtMessage("hello", "one extra");
+		msg.setContent(message.toString());
+		msg.setObjectName(message.getType());
+		pmsg.setMessage(msg);
+		pmsg.setAudience(tag);
+		System.out.println(pmsg.toString());
+		return pmsg;
+	}
+
+	private static PlatformNotification createPush() {
+		PlatformNotification data = new PlatformNotification();
+		data.setAlert("override alert");
+		Map<String, String> map = new HashMap<>();
+		map.put("id", "1");
+		map.put("name", "2");
+		data.setExtras(map);
+		return data;
 	}
 }
