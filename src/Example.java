@@ -174,8 +174,12 @@ public class Example {
 		System.out.println("refreshGroupInfo=" + result);
 		PushMessage message = createPushMessage();
 		result = ApiHttpClient.push(key, secret, message, FormatType.json);
-
 		System.out.println("push=" + result);
+		UserTag tag = new UserTag();
+		tag.setTags(new String[] { "±±¾©", "Å®" });
+		tag.setUserId("userId11111");
+		result = ApiHttpClient.setUserTag(key, secret, tag, FormatType.json);
+		System.out.println("tag=" + result);
 
 	}
 

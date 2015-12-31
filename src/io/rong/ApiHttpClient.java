@@ -768,4 +768,13 @@ public class ApiHttpClient {
 		HttpUtil.setBodyParameter(message.toString(), conn);
 		return HttpUtil.returnResult(conn);
 	}
+	public static SdkHttpResult setUserTag(String appKey, String appSecret,
+			UserTag tag, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreateJsonPostHttpConnection(appKey,
+				appSecret, RONGCLOUDURI + "/user/tag/set." + format.toString());
+
+		HttpUtil.setBodyParameter(tag.toString(), conn);
+		return HttpUtil.returnResult(conn);
+	}
 }
