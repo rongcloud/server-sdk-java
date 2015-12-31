@@ -758,4 +758,14 @@ public class ApiHttpClient {
 		HttpUtil.setBodyParameter(sb, conn);
 		return HttpUtil.returnResult(conn);
 	}
+
+	public static SdkHttpResult push(String appKey, String appSecret,
+			PushMessage message, FormatType format) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreateJsonPostHttpConnection(appKey,
+				appSecret, RONGCLOUDURI + "/push." + format.toString());
+
+		HttpUtil.setBodyParameter(message.toString(), conn);
+		return HttpUtil.returnResult(conn);
+	}
 }
