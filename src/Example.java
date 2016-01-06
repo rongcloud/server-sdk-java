@@ -1,15 +1,8 @@
 import io.rong.ApiHttpClient;
-import io.rong.models.ChatroomInfo;
-import io.rong.models.FormatType;
-import io.rong.models.GroupInfo;
-import io.rong.models.ImgMessage;
-import io.rong.models.SdkHttpResult;
-import io.rong.models.TxtMessage;
-import io.rong.models.VoiceMessage;
+import io.rong.models.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 public class Example {
 
@@ -176,7 +169,7 @@ public class Example {
 		result = ApiHttpClient.push(key, secret, message, FormatType.json);
 		System.out.println("push=" + result);
 		UserTag tag = new UserTag();
-		tag.setTags(new String[] { "±±¾©", "Å®" });
+		tag.setTags(new String[] { "ï¿½ï¿½ï¿½ï¿½", "Å®" });
 		tag.setUserId("userId11111");
 		result = ApiHttpClient.setUserTag(key, secret, tag, FormatType.json);
 		System.out.println("tag=" + result);
@@ -193,7 +186,7 @@ public class Example {
 		tag.setIs_to_all(false);
 		List<String> tagas = new ArrayList<String>();
 
-		tagas.add("±±¾©");
+		tagas.add("ï¿½ï¿½ï¿½ï¿½");
 		tagas.add("Å®");
 		tagas.add("3");
 		tag.setTag(tagas);
