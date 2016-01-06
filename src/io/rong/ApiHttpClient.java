@@ -1,10 +1,6 @@
-﻿package io.rong;
+package io.rong;
 
-import io.rong.models.ChatroomInfo;
-import io.rong.models.FormatType;
-import io.rong.models.GroupInfo;
-import io.rong.models.Message;
-import io.rong.models.SdkHttpResult;
+import io.rong.models.*;
 import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
@@ -14,7 +10,7 @@ import java.util.List;
 public class ApiHttpClient {
 
 	private static final String RONGCLOUDURI = "http://api.cn.ronghub.com";
-	
+
 	private static final String UTF8 = "UTF-8";
 
 	// 获取token
@@ -510,7 +506,7 @@ public class ApiHttpClient {
 
 		return HttpUtil.returnResult(conn);
 	}
-	
+
 	public static SdkHttpResult broadcastMessage(String appKey, String appSecret,
 			String fromUserId, Message msg,String pushContent, String pushData, FormatType format) throws Exception {
 
@@ -519,7 +515,7 @@ public class ApiHttpClient {
 				RONGCLOUDURI + "/message/broadcast." + format.toString());
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("fromUserId=").append(URLEncoder.encode(fromUserId, UTF8));		
+		sb.append("fromUserId=").append(URLEncoder.encode(fromUserId, UTF8));
 		sb.append("&objectName=")
 				.append(URLEncoder.encode(msg.getType(), UTF8));
 		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
@@ -651,7 +647,7 @@ public class ApiHttpClient {
 
 		return HttpUtil.returnResult(conn);
 	}
-	
+
 	public static SdkHttpResult groupUserGagAdd(String appKey,
 			String appSecret, String groupId, String userId, long minute,
 			FormatType format) throws Exception {
