@@ -6,6 +6,7 @@ import io.rong.models.GroupInfo;
 import io.rong.models.Message;
 import io.rong.models.SdkHttpResult;
 import io.rong.util.HttpUtil;
+import io.rong.models.*;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
