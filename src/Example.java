@@ -179,7 +179,7 @@ public class Example {
 		result = ApiHttpClient.push(key, secret, message, FormatType.json);
 		System.out.println("push=" + result);
 		UserTag tag = new UserTag();
-		tag.setTags(new String[] { "����", "Ů" });
+		tag.setTags(new String[] { "a", "b" });
 		tag.setUserId("userId11111");
 		result = ApiHttpClient.setUserTag(key, secret, tag, FormatType.json);
 		System.out.println("tag=" + result);
@@ -196,8 +196,8 @@ public class Example {
 		tag.setIs_to_all(false);
 		List<String> tagas = new ArrayList<String>();
 
-		tagas.add("����");
-		tagas.add("Ů");
+		tagas.add("a");
+		tagas.add("b");
 		tagas.add("3");
 		tag.setTag(tagas);
 		List<String> tagus = new ArrayList<String>();
