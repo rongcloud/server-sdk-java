@@ -13,7 +13,9 @@ import io.rong.models.SdkHttpResult;
 import io.rong.models.TxtMessage;
 import io.rong.models.VoiceMessage;
 import io.rong.models.*;
-
+/**
+ * 一些api的调用示例
+ */
 public class Example {
 
 	/**
@@ -197,9 +199,12 @@ public class Example {
 		result = ApiHttpClient.refreshGroupInfo(key, secret, "id1", "name4",
 				FormatType.json);
 		System.out.println("refreshGroupInfo=" + result);
-		PushMessage message = createPushMessage();
+		
+		PushMessage message = createPushMessage();//融云消息
+		//PushMessage message = createPushMessage2();//不落地push
 		result = ApiHttpClient.push(key, secret, message, FormatType.json);
 		System.out.println("push=" + result);
+		//给用户打标签
 		UserTag tag = new UserTag();
 		tag.setTags(new String[] { "a", "b" });
 		tag.setUserId("userId11111");
@@ -208,6 +213,9 @@ public class Example {
 
 	}
 
+	/**
+	 * 创建发送落地消息的内容
+	 */
 	private static PushMessage createPushMessage()
 			throws UnsupportedEncodingException {
 		List<String> osList = new ArrayList<>();
@@ -215,17 +223,21 @@ public class Example {
 		osList.add("android");
 
 		TagObj tag = new TagObj();
-		tag.setIs_to_all(false);
+		tag.setIs_to_all(false);//给全量用户发 设置为true则下面标签和userids将无效
+		
+		//给打标签的发则设置标签
 		List<String> tagas = new ArrayList<String>();
-
 		tagas.add("a");
 		tagas.add("b");
 		tagas.add("3");
 		tag.setTag(tagas);
+		
+		//给特定用户ID发,优先级高于上面的标签
 		List<String> tagus = new ArrayList<String>();
 		tagus.add("123");
 		tagus.add("456");
 		tag.setUserid(tagus);
+		
 		PushMessage pmsg = new PushMessage();
 		pmsg.setPlatform(osList);
 		PushNotification noti = new PushNotification();
@@ -233,13 +245,55 @@ public class Example {
 		noti.setAndroid(createPush());
 		noti.setIos(createPush());
 		pmsg.setNotification(noti);
+		
+		//下面两个参数的有无 控制发送的落地消息还是不落地的push
+		//PushMessage实体中的 fromuserid 和 message为null即为不落地的push
 		pmsg.setFromuserid("fromuseId1");
-
 		MsgObj msg = new MsgObj();
 		TxtMessage message = new TxtMessage("hello", "one extra");
 		msg.setContent(message.toString());
 		msg.setObjectName(message.getType());
 		pmsg.setMessage(msg);
+		//上面两个参数的有无 控制发送的落地消息还是不落地的push
+		
+		pmsg.setAudience(tag);
+		System.out.println(pmsg.toString());
+		return pmsg;
+	}
+	
+	/**
+	 * 创建发送不落地的push内容
+	 */
+	private static PushMessage createPushMessage2()
+			throws UnsupportedEncodingException {
+		List<String> osList = new ArrayList<>();
+		osList.add("ios");
+		osList.add("android");
+
+		TagObj tag = new TagObj();
+		tag.setIs_to_all(false);//给全量用户发 设置为true则下面标签和userids将无效
+		
+		//给打标签的发则设置标签
+		List<String> tagas = new ArrayList<String>();
+		tagas.add("a");
+		tagas.add("b");
+		tagas.add("3");
+		tag.setTag(tagas);
+		
+		//给特定用户ID发,优先级高于上面的标签
+		List<String> tagus = new ArrayList<String>();
+		tagus.add("123");
+		tagus.add("456");
+		tag.setUserid(tagus);
+		
+		PushMessage pmsg = new PushMessage();
+		pmsg.setPlatform(osList);
+		PushNotification noti = new PushNotification();
+		noti.setAlert("ddd");
+		noti.setAndroid(createPush());
+		noti.setIos(createPush());
+		pmsg.setNotification(noti);
+		
 		pmsg.setAudience(tag);
 		System.out.println(pmsg.toString());
 		return pmsg;
