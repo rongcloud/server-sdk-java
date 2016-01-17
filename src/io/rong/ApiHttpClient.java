@@ -509,6 +509,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 	
+	//发广播消息
 	public static SdkHttpResult broadcastMessage(String appKey, String appSecret,
 			String fromUserId, Message msg,String pushContent, String pushData, FormatType format) throws Exception {
 
@@ -631,6 +632,7 @@ public class ApiHttpClient {
 
 		return HttpUtil.returnResult(conn);
 	}
+	
 	// 获取群内成员
 	public static SdkHttpResult queryGroupUserList(String appKey,
 			String appSecret, String groupId, FormatType format)
@@ -649,6 +651,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 	
+	//添加群成员禁言
 	public static SdkHttpResult groupUserGagAdd(String appKey,
 			String appSecret, String groupId, String userId, long minute,
 			FormatType format) throws Exception {
@@ -670,6 +673,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//移除禁言群成员
 	public static SdkHttpResult groupUserGagRollback(String appKey,
 			String appSecret, String groupId, String userId, FormatType format)
 			throws Exception {
@@ -689,6 +693,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//查询被禁言的群成员
 	public static SdkHttpResult groupUserGagList(String appKey,
 			String appSecret, String groupId, FormatType format)
 			throws Exception {
@@ -706,6 +711,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//添加敏感词
 	public static SdkHttpResult wordFilterAdd(String appKey, String appSecret,
 			String word, FormatType format) throws Exception {
 
@@ -725,6 +731,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//移除敏感词
 	public static SdkHttpResult wordFilterDelete(String appKey,
 			String appSecret, String word, FormatType format) throws Exception {
 
@@ -744,6 +751,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//查询敏感词
 	public static SdkHttpResult wordFilterList(String appKey, String appSecret,
 			FormatType format) throws Exception {
 
@@ -756,6 +764,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//发送不落地push
 	public static SdkHttpResult push(String appKey, String appSecret,
 			PushMessage message, FormatType format) throws Exception {
 
@@ -765,6 +774,8 @@ public class ApiHttpClient {
 		HttpUtil.setBodyParameter(message.toString(), conn);
 		return HttpUtil.returnResult(conn);
 	}
+	
+	//给用户打标签
 	public static SdkHttpResult setUserTag(String appKey, String appSecret,
 			UserTag tag, FormatType format) throws Exception {
 
