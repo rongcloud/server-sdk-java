@@ -352,7 +352,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
-	// 发送消息
+	// 发送消息(push内容为消息内容)
 	public static SdkHttpResult publishMessage(String appKey, String appSecret,
 			String fromUserId, List<String> toUserIds, Message msg,
 			FormatType format) throws Exception {
@@ -378,7 +378,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
-	// 发送消息
+	// 发送消息(可传递push内容)
 	public static SdkHttpResult publishMessage(String appKey, String appSecret,
 			String fromUserId, List<String> toUserIds, Message msg,
 			String pushContent, String pushData, FormatType format)
@@ -401,12 +401,11 @@ public class ApiHttpClient {
 		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
 
 		if (pushContent != null) {
-			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
+			sb.append("&pushContent=").append(URLEncoder.encode(pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -437,12 +436,11 @@ public class ApiHttpClient {
 		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
 
 		if (pushContent != null) {
-			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
+			sb.append("&pushContent=").append(URLEncoder.encode(pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -473,12 +471,11 @@ public class ApiHttpClient {
 		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
 
 		if (pushContent != null) {
-			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
+			sb.append("&pushContent=").append(URLEncoder.encode(pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -512,6 +509,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 	
+	//发广播消息
 	public static SdkHttpResult broadcastMessage(String appKey, String appSecret,
 			String fromUserId, Message msg,String pushContent, String pushData, FormatType format) throws Exception {
 
@@ -525,12 +523,11 @@ public class ApiHttpClient {
 				.append(URLEncoder.encode(msg.getType(), UTF8));
 		sb.append("&content=").append(URLEncoder.encode(msg.toString(), UTF8));
 		if (pushContent != null) {
-			sb.append("&pushContent=").append(
-					URLEncoder.encode(pushContent==null?"":pushContent, UTF8));
+			sb.append("&pushContent=").append(URLEncoder.encode(pushContent, UTF8));
 		}
 
 		if (pushData != null) {
-			sb.append("&pushData=").append(URLEncoder.encode(pushData==null?"":pushData, UTF8));
+			sb.append("&pushData=").append(URLEncoder.encode(pushData, UTF8));
 		}
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -635,6 +632,7 @@ public class ApiHttpClient {
 
 		return HttpUtil.returnResult(conn);
 	}
+	
 	// 获取群内成员
 	public static SdkHttpResult queryGroupUserList(String appKey,
 			String appSecret, String groupId, FormatType format)
@@ -653,6 +651,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 	
+	//添加群成员禁言
 	public static SdkHttpResult groupUserGagAdd(String appKey,
 			String appSecret, String groupId, String userId, long minute,
 			FormatType format) throws Exception {
@@ -674,6 +673,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//移除禁言群成员
 	public static SdkHttpResult groupUserGagRollback(String appKey,
 			String appSecret, String groupId, String userId, FormatType format)
 			throws Exception {
@@ -693,6 +693,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//查询被禁言的群成员
 	public static SdkHttpResult groupUserGagList(String appKey,
 			String appSecret, String groupId, FormatType format)
 			throws Exception {
@@ -710,6 +711,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//添加敏感词
 	public static SdkHttpResult wordFilterAdd(String appKey, String appSecret,
 			String word, FormatType format) throws Exception {
 
@@ -729,6 +731,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//移除敏感词
 	public static SdkHttpResult wordFilterDelete(String appKey,
 			String appSecret, String word, FormatType format) throws Exception {
 
@@ -748,6 +751,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//查询敏感词
 	public static SdkHttpResult wordFilterList(String appKey, String appSecret,
 			FormatType format) throws Exception {
 
@@ -760,6 +764,7 @@ public class ApiHttpClient {
 		return HttpUtil.returnResult(conn);
 	}
 
+	//发送不落地push
 	public static SdkHttpResult push(String appKey, String appSecret,
 			PushMessage message, FormatType format) throws Exception {
 
@@ -769,6 +774,8 @@ public class ApiHttpClient {
 		HttpUtil.setBodyParameter(message.toString(), conn);
 		return HttpUtil.returnResult(conn);
 	}
+	
+	//给用户打标签
 	public static SdkHttpResult setUserTag(String appKey, String appSecret,
 			UserTag tag, FormatType format) throws Exception {
 
