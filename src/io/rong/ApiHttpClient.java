@@ -1,4 +1,4 @@
-﻿package io.rong;
+package io.rong;
 
 import io.rong.models.ChatroomInfo;
 import io.rong.models.FormatType;
