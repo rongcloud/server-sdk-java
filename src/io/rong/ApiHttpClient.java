@@ -663,9 +663,9 @@ public class ApiHttpClient {
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(
 				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
-		sb.append("userId=").append(
+		sb.append("&userId=").append(
 				URLEncoder.encode(userId == null ? "" : userId, UTF8));
-		sb.append("minute=").append(
+		sb.append("&minute=").append(
 				URLEncoder.encode(String.valueOf(minute), UTF8));
 
 		HttpUtil.setBodyParameter(sb, conn);
@@ -685,7 +685,7 @@ public class ApiHttpClient {
 		StringBuilder sb = new StringBuilder();
 		sb.append("groupId=").append(
 				URLEncoder.encode(groupId == null ? "" : groupId, UTF8));
-		sb.append("userId=").append(
+		sb.append("&userId=").append(
 				URLEncoder.encode(userId == null ? "" : userId, UTF8));
 
 		HttpUtil.setBodyParameter(sb, conn);
