@@ -35,7 +35,7 @@ import (
 )
 
 const (
-	RC_SERVER_API_URL    = "https://api.cn.ronghub.com"
+	RC_SERVER_API_URL    = "http://api.cn.ronghub.com"
 	RC_USER_GET_TOKEN    = "/user/getToken"
 	RC_USER_REFRESH      = "/user/refresh"
 	RC_USER_CHECK_ONLINE = "/user/checkOnline"
