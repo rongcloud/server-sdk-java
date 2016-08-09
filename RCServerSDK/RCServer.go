@@ -36,6 +36,7 @@ import (
 
 const (
 	RC_SERVER_API_URL    = "http://api.cn.ronghub.com"
+	RC_SMS_API_URL       = "http://api.sms.ronghub.com"
 	RC_USER_GET_TOKEN    = "/user/getToken"
 	RC_USER_REFRESH      = "/user/refresh"
 	RC_USER_CHECK_ONLINE = "/user/checkOnline"
@@ -46,13 +47,16 @@ const (
 	RC_USER_BLACK_REMOVE = "/user/blacklist/remove"
 	RC_USER_BLACK_QUERY  = "/user/blacklist/query"
 
-	RC_MESSAGE_PRIVATE_PUBLISH  = "/message/private/publish"
-	RC_MESSAGE_SYSTEM_PUBLISH   = "/message/system/publish"
-	RC_MESSAGE_GROUP_PUBLISH    = "/message/group/publish"
-	RC_MESSAGE_CHATROOM_PUBLISH = "/message/chatroom/publish"
-	RC_MESSAGE_BROADCAST        = "/message/broadcast"
-	RC_MESSAGE_HISTORY          = "/message/history"
-	RC_MESSAGE_HISTORY_DELETE   = "/message/history/delete"
+	RC_MESSAGE_PRIVATE_PUBLISH          = "/message/private/publish"
+	RC_MESSAGE_PRIVATE_PUBLISH_TEMPLATE = "/message/private/publish_template"
+	RC_MESSAGE_SYSTEM_PUBLISH           = "/message/system/publish"
+	RC_MESSAGE_SYSTEM_PUBLISH_TEMPLATE  = "/message/system/publish_template"
+	RC_MESSAGE_GROUP_PUBLISH            = "/message/group/publish"
+	RC_MESSAGE_DISCUSSION_PUBLISH       = "/message/discussion/publish"
+	RC_MESSAGE_CHATROOM_PUBLISH         = "/message/chatroom/publish"
+	RC_MESSAGE_BROADCAST                = "/message/broadcast"
+	RC_MESSAGE_HISTORY                  = "/message/history"
+	RC_MESSAGE_HISTORY_DELETE           = "/message/history/delete"
 
 	RC_GROUP_CREATE  = "/group/create"
 	RC_GROUP_JOIN    = "/group/join"
@@ -64,6 +68,30 @@ const (
 	RC_CHATROOM_CREATE  = "/chatroom/create"
 	RC_CHATROOM_DESTROY = "/chatroom/destroy"
 	RC_CHATROOM_QUERY   = "/chatroom/query"
+
+	RC_WORDFILTER_ADD    = "/wordfilter/add"
+	RC_WORDFILTER_DELETE = "/wordfilter/delete"
+	RC_WORDFILTER_QUERY  = "/wordfilter/list"
+	RC_GROUP_USER_QUERY  = "/group/user/query"
+
+	RC_GROUP_USER_GAG_ADD         = "/group/user/gag/add"
+	RC_GROUP_USER_GAG_ROLLBACK    = "/group/user/gag/rollback"
+	RC_GROUP_USER_GAG_QUERY       = "/group/user/gag/list"
+	RC_CHATROOM_JOIN              = "/chatroom/join"
+	RC_CHATROOM_USER_QUERY        = "/chatroom/user/query"
+	RC_CHATROOM_USER_GAG_ADD      = "/chatroom/user/gag/add"
+	RC_CHATROOM_USER_GAG_ROLLBACK = "/chatroom/user/gag/rollback"
+	RC_CHATROOM_USER_GAG_QUERY    = "/chatroom/user/gag/list"
+
+	RC_CHATROOM_USER_BLOCK_ADD             = "/chatroom/user/block/add"
+	RC_CHATROOM_USER_BLOCK_ROLLBACK        = "/chatroom/user/block/rollback"
+	RC_CHATROOM_USER_BLOCK_QUERY           = "/chatroom/user/block/list"
+	RC_CHATROOM_MESSAGE_STOPDISTRIBUTION   = "/chatroom/message/stopDistribution"
+	RC_CHATROOM_MESSAGE_RESUMEDISTRIBUTION = "/chatroom/message/resumeDistribution"
+
+	RC_SMS_IMAGECODE_GET = "/getImgCode"
+	RC_SMS_SENDCODE      = "/sendCode"
+	RC_SMS_VERIFYCODE    = "/verifyCode"
 )
 
 type RCServer struct {
@@ -107,12 +135,17 @@ func getSignature(rcServer *RCServer) (nonce, timestamp, signature string) {
 }
 
 //API签名
-func fillHeader(req *httplib.BeegoHttpRequest, rcServer *RCServer) {
+func fillHeader(req *httplib.BeegoHTTPRequest, rcServer *RCServer) {
 	nonce, timestamp, signature := getSignature(rcServer)
 	req.Header("App-Key", rcServer.appKey)
 	req.Header("Nonce", nonce)
 	req.Header("Timestamp", timestamp)
 	req.Header("Signature", signature)
+	req.Header("Content-Type", "application/x-www-form-urlencoded")
+}
+
+func fillJsonHeader(req *httplib.BeegoHTTPRequest) {
+	req.Header("Content-Type", "application/json")
 }
 
 //获取 Token 方法
@@ -230,6 +263,25 @@ func (rcServer *RCServer) MessagePrivatePublish(fromUserId string, toUserIds []s
 	return byteData, err
 }
 
+//发送单聊模板消息
+//说明：一个用户向多个用户发送不同消息内容，单条消息最大 128k。
+func (rcServer *RCServer) MessageTemplatePublish(fromUserId, objectName, content string, toUserIds []string, values, pushContent, pushData string, verifyBlacklist int) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_MESSAGE_PRIVATE_PUBLISH_TEMPLATE + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("fromUserId", fromUserId)
+	for _, toUserId := range toUserIds {
+		req.Param("toUserId", toUserId)
+	}
+	req.Param("objectName", objectName)
+	req.Param("values", values)
+	req.Param("content", content)
+	req.Param("pushContent", pushContent)
+	req.Param("pushData", pushData)
+	req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
 //发送系统消息
 //说明：一个用户向一个或多个用户发送系统消息
 func (rcServer *RCServer) MessageSystemPublish(fromUserId string, toUserIds []string, objectName, content, pushContent, pushData string) ([]byte, error) {
@@ -262,6 +314,24 @@ func (rcServer *RCServer) MessageSystemPublish(fromUserId string, toUserIds []st
 	return body, err
 }
 
+//发送系统模板消息 方法
+//说明：一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
+func (rcServer *RCServer) MessageSystemTemplatePublish(fromUserId string, toUserIds []string, objectName, values, content, pushContent, pushData string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_MESSAGE_SYSTEM_PUBLISH_TEMPLATE + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("fromUserId", fromUserId)
+	for _, toUserId := range toUserIds {
+		req.Param("toUserId", toUserId)
+	}
+	req.Param("objectName", objectName)
+	req.Param("values", values)
+	req.Param("content", content)
+	req.Param("pushContent", pushContent)
+	req.Param("pushData", pushData)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
 //发送群组消息 方法
 //说明：以一个用户身份向群组发送消息
 func (rcServer *RCServer) MessageGroupPublish(fromUserId string, toGroupIds []string, objectName, content, pushContent, pushData string) ([]byte, error) {
@@ -278,6 +348,25 @@ func (rcServer *RCServer) MessageGroupPublish(fromUserId string, toGroupIds []st
 	fillHeader(req, rcServer)
 	byteData, err := req.Bytes()
 	return byteData, err
+}
+
+//发送讨论组消息 方法
+//说明：以一个用户身份向讨论组发送消息，单条消息最大 128k，每秒钟最多发送 20 条消息。
+func (rcServer *RCServer) MessageDiscussionPublish(fromUserId string, toDiscussionIds []string, objectName, content, pushContent, pushData string, isPersisted, isCounted int) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_MESSAGE_DISCUSSION_PUBLISH + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("fromUserId", fromUserId)
+	for _, toDiscussionId := range toDiscussionIds {
+		req.Param("toDiscussionId", toDiscussionId)
+	}
+	req.Param("objectName", objectName)
+	req.Param("content", content)
+	req.Param("pushContent", pushContent)
+	req.Param("pushData", pushData)
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("isCounted", strconv.Itoa(isCounted))
+	fillHeader(req, rcServer)
+	return req.Bytes()
 }
 
 //发送聊天室消息 方法
@@ -308,6 +397,36 @@ func (rcServer *RCServer) MessageBroadcast(fromUserId, objectName, content strin
 	fillHeader(req, rcServer)
 	byteData, err := req.Bytes()
 	return byteData, err
+}
+
+//敏感词服务
+//设置敏感词后，App 中用户不会收到含有敏感词的消息内容，默认最多设置 50 个敏感词。
+//
+//添加敏感词 方法
+func (rcServer *RCServer) WordfilterAdd(word string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_WORDFILTER_ADD + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("word", word)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+// 移除敏感词 方法
+// 说明：从敏感词列表中，移除某一敏感词。
+func (rcServer *RCServer) WordfilterDelete(word string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_WORDFILTER_DELETE + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("word", word)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+// 查询敏感词列表 方法
+func (rcServer *RCServer) WordfilterQuery() ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_WORDFILTER_DELETE + rcServer.format
+	req := httplib.Post(destinationUrl)
+	fillHeader(req, rcServer)
+	return req.Bytes()
 }
 
 //同步消息 方法
@@ -428,6 +547,48 @@ func (rcServer *RCServer) GroupRefresh(groupId, groupName string) ([]byte, error
 	return byteData, err
 }
 
+// 查询群成员 方法
+func (rcServer *RCServer) GroupUserQuery(groupId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_GROUP_USER_QUERY + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("groupId", groupId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//群组成员禁言服务
+//在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。
+//
+//添加禁言群成员 方法
+func (rcServer *RCServer) GroupUserGagAdd(userId, groupId, minute string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_GROUP_USER_GAG_ADD + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("groupId", groupId)
+	req.Param("minute", minute)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//移除禁言群成员 方法
+func (rcServer *RCServer) GroupUserGagRollback(userId, groupId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_GROUP_USER_GAG_ROLLBACK + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("groupId", groupId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//查询被禁言群成员 方法
+func (rcServer *RCServer) GroupUserGagQuery(groupId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_GROUP_USER_GAG_QUERY + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("groupId", groupId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
 //创建聊天室 方法
 func (rcServer *RCServer) ChatroomCreat(chatroomId, chatroomName string) ([]byte, error) {
 	destinationUrl := rcServer.apiUrl + RC_CHATROOM_CREATE + rcServer.format
@@ -436,6 +597,16 @@ func (rcServer *RCServer) ChatroomCreat(chatroomId, chatroomName string) ([]byte
 	fillHeader(req, rcServer)
 	byteData, err := req.Bytes()
 	return byteData, err
+}
+
+//加入聊天室 方法
+func (rcServer *RCServer) ChatroomJoin(userId, chatroomId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_JOIN + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("chatroomId", chatroomId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
 }
 
 //销毁聊天室 方法
@@ -456,4 +627,134 @@ func (rcServer *RCServer) ChatroomQuery(chatroomId string) ([]byte, error) {
 	fillHeader(req, rcServer)
 	byteData, err := req.Bytes()
 	return byteData, err
+}
+
+// 查询聊天室内用户 方法
+func (rcServer *RCServer) ChatroomUserQuery(chatroomId, count, order string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_USER_QUERY + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("chatroomId", chatroomId)
+	req.Param("count", count)
+	req.Param("order", order)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//聊天室成员禁言服务
+//在 App 中如果不想让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息。
+
+//添加禁言聊天室成员 方法
+func (rcServer *RCServer) ChatroomUserGagAdd(userId, chatroomId, minute string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_USER_GAG_ADD + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("chatroomId", chatroomId)
+	req.Param("minute", minute)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+// 移除禁言聊天室成员 方法
+func (rcServer *RCServer) ChatroomUserGagRollback(userId, chatroomId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_USER_GAG_ROLLBACK + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("chatroomId", chatroomId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//查询被禁言聊天室成员 方法
+func (rcServer *RCServer) ChatroomUserGagQuery(chatroomId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_USER_GAG_QUERY + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("chatroomId", chatroomId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//聊天室封禁服务
+//在 App 中如果想将某一用户踢出聊天室并在一段时间内不允许再进入聊天室时，可实现将用户对指定的聊天室做封禁处理，被封禁用户将被踢出聊天室，并在设定的时间内不能再进入聊天室中。
+//
+//添加封禁聊天室成员 方法
+
+func (rcServer *RCServer) ChatroomUserBlockAdd(userId, chatroomId, minute string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_USER_BLOCK_ADD + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("chatroomId", chatroomId)
+	req.Param("minute", minute)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//移除封禁聊天室成员 方法
+func (rcServer *RCServer) ChatroomUserBlockRollback(userId, chatroomId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_USER_BLOCK_ROLLBACK + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("userId", userId)
+	req.Param("chatroomId", chatroomId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//查询被封禁聊天室成员 方法
+func (rcServer *RCServer) ChatroomUserBlockQuery(chatroomId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_USER_BLOCK_QUERY + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("chatroomId", chatroomId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//聊天室消息分发服务
+//可实现控制对聊天室中消息是否进行分发，停止分发后聊天室中用户发送的消息，融云服务端不会再将消息发送给聊天室中其他用户。
+//
+//聊天室消息停止分发 方法
+func (rcServer *RCServer) ChatroomMessageStopDis(chatroomId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_MESSAGE_STOPDISTRIBUTION + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("chatroomId", chatroomId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//聊天室消息恢复分发 方法
+func (rcServer *RCServer) ChatroomMessageResumeDis(chatroomId string) ([]byte, error) {
+	destinationUrl := rcServer.apiUrl + RC_CHATROOM_MESSAGE_RESUMEDISTRIBUTION + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("chatroomId", chatroomId)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+//短信服务
+// 获取图片验证码 方法
+func (rcServer *RCServer) SmsGetImgCode(appKey string) ([]byte, error) {
+	destinationUrl := RC_SMS_API_URL + RC_SMS_IMAGECODE_GET + rcServer.format + "?appKey=" + appKey
+	req := httplib.Get(destinationUrl)
+	return req.Bytes()
+}
+
+// 发送短信验证码 方法
+func (rcServer *RCServer) SmsSendCode(mobile, verifyId, verifyCode, templateId, region string) ([]byte, error) {
+	destinationUrl := RC_SMS_API_URL + RC_SMS_SENDCODE + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("mobile", mobile)
+	req.Param("verifyId", verifyId)
+	req.Param("verifyCode", verifyCode)
+	req.Param("templateId", templateId)
+	req.Param("region", region)
+	fillHeader(req, rcServer)
+	return req.Bytes()
+}
+
+// 验证码验证 方法
+func (rcServer *RCServer) SmsVerifyCode(sessionId, code string) ([]byte, error) {
+	destinationUrl := RC_SMS_API_URL + RC_SMS_VERIFYCODE + rcServer.format
+	req := httplib.Post(destinationUrl)
+	req.Param("sessionId", sessionId)
+	req.Param("code", code)
+	fillHeader(req, rcServer)
+	return req.Bytes()
 }

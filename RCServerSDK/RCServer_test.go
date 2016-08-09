@@ -131,6 +131,16 @@ func Test_MessagePrivatePublish(t *testing.T) {
 	}
 }
 
+//发送单聊模板消息
+//说明：一个用户向多个用户发送不同消息内容，单条消息最大 128k。
+func Test_MessageTemplatePublish(t *testing.T) {
+	if returnData, returnError := rcServer.MessageTemplatePublish("testUserId", "RC:TxtMsg", "{\"content\":\"hello\",\"extra\":\"helloExtra\"}", []string{"toUserId"}, "", "", "", 0); returnError != nil || len(returnData) == 0 {
+		t.Error("发送单聊消息模板: 测试失败！！！")
+	} else {
+		t.Log("发送单聊消息：测试通过。 returnData:", string(returnData))
+	}
+}
+
 //发送系统消息
 //说明：一个用户向一个或多个用户发送系统消息
 func Test_MessageSystemPublish(t *testing.T) {
@@ -138,6 +148,16 @@ func Test_MessageSystemPublish(t *testing.T) {
 		t.Error("发送系统消息：测试失败！！！")
 	} else {
 		t.Log("发送系统消息：测试通过。returnData:", string(returnData))
+	}
+}
+
+//发送系统模板消息 方法
+//说明：一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
+func Test_MessageSystemTemplatePublish(t *testing.T) {
+	if returnData, returnError := rcServer.MessageSystemTemplatePublish("fromUserId", []string{"toUserId"}, "RC:TxtMsg", "", "{\"content\":\"hello\",\"extra\":\"helloExtra\"}", "pushContent", "pushData"); returnError != nil || len(returnData) == 0 {
+		t.Error("发送系统模板消息：测试失败！！！")
+	} else {
+		t.Log("发送系统模板消息：测试通过。returnData：", string(returnData))
 	}
 }
 
@@ -158,6 +178,16 @@ func Test_MessageGroupPublish(t *testing.T) {
 		t.Error("发送群组消息：测试失败！！！")
 	} else {
 		t.Log("发送群组消息：测试通过。returnData:", string(returnData))
+	}
+}
+
+//发送讨论组消息 方法
+//说明：以一个用户身份向讨论组发送消息，单条消息最大 128k，每秒钟最多发送 20 条消息。
+func Test_MessageDiscussionPublish(t *testing.T) {
+	if returnData, returnError := rcServer.MessageDiscussionPublish("fromUserId", []string{"toDiscussionId"}, "RC:TxtMsg", "{\"content\":\"hello\",\"extra\":\"helloExtra\"}", "pushContent", "pushData", 0, 0); returnError != nil || len(returnData) == 0 {
+		t.Error("发送讨论组消息：测试失败！！！")
+	} else {
+		t.Log("发送讨论组消息：测试通过。returnData：", string(returnData))
 	}
 }
 
@@ -188,6 +218,37 @@ func Test_MessageBroadcast(t *testing.T) {
 		t.Error("发送广播消息：测试失败！！！")
 	} else {
 		t.Log("发送广播消息：测试通过。returnData:", string(returnData))
+	}
+}
+
+//敏感词服务
+//设置敏感词后，App 中用户不会收到含有敏感词的消息内容，默认最多设置 50 个敏感词。
+//
+//添加敏感词 方法
+func Test_WordfilterAdd(t *testing.T) {
+	if returnData, returnError := rcServer.WordfilterAdd("word"); returnError != nil || len(returnData) == 0 {
+		t.Error("添加敏感词：测试失败！！！")
+	} else {
+		t.Log("添加敏感词：测试通过。returnData：", string(returnData))
+	}
+}
+
+//移除敏感词 方法
+// 说明：从敏感词列表中，移除某一敏感词。
+func Test_WordfilterDelete(t *testing.T) {
+	if returnData, returnError := rcServer.WordfilterDelete("word"); returnError != nil || len(returnData) == 0 {
+		t.Error("移除敏感词：测试失败！！！")
+	} else {
+		t.Log("移除敏感词：测试通过。returnData：", string(returnData))
+	}
+}
+
+// 查询敏感词列表 方法
+func Test_WordfilterQuery(t *testing.T) {
+	if returnData, returnError := rcServer.WordfilterQuery(); returnError != nil || len(returnData) == 0 {
+		t.Error("查询敏感词：测试失败！！！")
+	} else {
+		t.Log("查询敏感词：测试通过。returnData：", string(returnData))
 	}
 }
 
@@ -274,6 +335,54 @@ func Test_GroupRefresh(t *testing.T) {
 	}
 }
 
+//查询群成员 方法
+func Test_GroupUserQuery(t *testing.T) {
+	if returnData, returnError := rcServer.GroupUserQuery("groupId"); returnError != nil || len(returnData) == 0 {
+		t.Error("查询群成员:测试失败！！！")
+	} else {
+		t.Log("查询群成员:测试通过。returnData:", string(returnData))
+	}
+}
+
+//群组成员禁言服务
+//在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。
+//
+//添加禁言群成员 方法
+func Test_GroupUserGagAdd(t *testing.T) {
+	if returnData, returnError := rcServer.GroupUserGagAdd("userId", "groupId", "10"); returnError != nil || len(returnData) == 0 {
+		t.Error("添加禁言群成员：测试失败！！！")
+	} else {
+		t.Log("添加禁言群成员：测试通过。returnData:", string(returnData))
+	}
+}
+
+//移除禁言群成员 方法
+func Test_GroupUserGagRollback(t *testing.T) {
+	if returnData, returnError := rcServer.GroupUserGagRollback("userId", "groupId"); returnError != nil || len(returnData) == 0 {
+		t.Error("移除禁言群成员：测试失败！！！")
+	} else {
+		t.Log("移除禁言群成员：测试通过。returnData:", string(returnData))
+	}
+}
+
+////查询被禁言群成员 方法
+func Test_GroupUserGagQuery(t *testing.T) {
+	if returnData, returnError := rcServer.GroupUserGagQuery("groupId"); returnError != nil || len(returnData) == 0 {
+		t.Error("查询被禁言群成员：测试失败！！！")
+	} else {
+		t.Log("查询被禁言群成员：测试通过。returnData：", string(returnData))
+	}
+}
+
+//加入聊天室 方法
+func Test_ChatroomJoin(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomJoin("userId", "chatroomId"); returnError != nil || len(returnData) == 0 {
+		t.Error("加入聊天室方法：测试失败！！！")
+	} else {
+		t.Log("加入聊天室方法：测试通过。returnData：", string(returnData))
+	}
+}
+
 //销毁聊天室 方法
 func Test_ChatroomDestroy(t *testing.T) {
 	if returnData, returnError := rcServer.ChatroomDestroy("testChatroomId"); returnError != nil || len(returnData) == 0 {
@@ -289,5 +398,123 @@ func Test_ChatroomQuery(t *testing.T) {
 		t.Error("查询聊天室信息 ：测试失败！！！")
 	} else {
 		t.Log("查询聊天室信息 ：测试通过。returnData:", string(returnData))
+	}
+}
+
+// 查询聊天室内用户 方法
+func Test_ChatroomUserQuery(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomUserQuery("chatroomId", "500", "1"); returnError != nil || len(returnData) == 0 {
+		t.Error("查询聊天室内用户：测试失败！！！")
+	} else {
+		t.Log("查询聊天室内用户：测试通过。returnData：", string(returnData))
+	}
+}
+
+//聊天室成员禁言服务
+//在 App 中如果不想让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息。
+
+//添加禁言聊天室成员 方法
+func Test_ChatroomUserGagAdd(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomUserGagAdd("userId", "chatroomId", "10"); returnError != nil || len(returnData) == 0 {
+		t.Error("添加禁言聊天室成员：测试失败！！！")
+	} else {
+		t.Log("添加禁言聊天室成员：测试通过。returnData：", string(returnData))
+	}
+}
+
+//移除禁言聊天室成员 方法
+func Test_ChatroomUserGagRollback(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomUserGagRollback("userId", "chatroomId"); returnError != nil || len(returnData) == 0 {
+		t.Error("移除禁言聊天室成员：测试失败！！！")
+	} else {
+		t.Log("移除禁言聊天室成员：测试通过。returnData:", string(returnData))
+	}
+}
+
+//查询被禁言聊天室成员 方法
+func Test_ChatroomUserGagQuery(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomUserGagQuery("chatroomId"); returnError != nil || len(returnData) == 0 {
+		t.Error("查询被禁言聊天室成员：测试失败！！！")
+	} else {
+		t.Log("查询被禁言聊天室成员：测试通过。returnData：", string(returnData))
+	}
+}
+
+//聊天室封禁服务
+//在 App 中如果想将某一用户踢出聊天室并在一段时间内不允许再进入聊天室时，可实现将用户对指定的聊天室做封禁处理，被封禁用户将被踢出聊天室，并在设定的时间内不能再进入聊天室中。
+//
+//添加封禁聊天室成员 方法
+func Test_ChatroomUserBlockAdd(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomUserBlockAdd("userId", "chatroomId", "10"); returnError != nil || len(returnData) == 0 {
+		t.Error("添加封禁聊天室成员：测试失败！！！")
+	} else {
+		t.Log("添加封禁聊天室成员：测试成功。returnData：", string(returnData))
+	}
+}
+
+//移除封禁聊天室成员 方法
+func Test_ChatroomUserBlockRollback(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomUserBlockRollback("userId", "chatroomId"); returnError != nil || len(returnData) == 0 {
+		t.Error("移除封禁聊天室成员：测试失败！！！")
+	} else {
+		t.Log("移除封禁聊天室成员：测试通过。returnData：", string(returnData))
+	}
+}
+
+// 查询被封禁聊天室成员
+func Test_ChatroomUserBlockQuery(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomUserBlockQuery("chatroomId"); returnError != nil || len(returnData) == 0 {
+		t.Error("查询被封禁聊天室成员：测试失败！！！")
+	} else {
+		t.Log("查询被封禁聊天室成员：测试通过。returnData：", string(returnData))
+	}
+}
+
+//聊天室消息分发服务
+//可实现控制对聊天室中消息是否进行分发，停止分发后聊天室中用户发送的消息，融云服务端不会再将消息发送给聊天室中其他用户。
+//
+//聊天室消息停止分发 方法
+func Test_ChatroomMessageStopDis(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomMessageStopDis("chatroomId"); returnError != nil || len(returnData) == 0 {
+		t.Error("聊天室消息停止分发：测试失败！！！")
+	} else {
+		t.Log("聊天室消息停止分发：测试通过。returnData：", string(returnData))
+	}
+}
+
+//聊天室消息恢复分发 方法
+func Test_ChatroomMessageResumeDis(t *testing.T) {
+	if returnData, returnError := rcServer.ChatroomMessageResumeDis("chatroomId"); returnError != nil || len(returnData) == 0 {
+		t.Error("聊天室消息恢复分发：测试失败！！！")
+	} else {
+		t.Log("聊天室消息恢复分发：测试通过。returnData：", string(returnData))
+	}
+}
+
+//短信服务
+//获取图片验证码
+func Test_SmsGetImgCode(t *testing.T) {
+	if returnData, returnError := rcServer.SmsGetImgCode("appKey"); returnError != nil || len(returnData) == 0 {
+		t.Error("获取图片验证码：测试失败！！！")
+	} else {
+		t.Log("获取图片验证码：测试通过。returnData:", string(returnData))
+	}
+}
+
+//发送短信验证码
+func Test_SmsSendCode(t *testing.T) {
+	if returnData, returnError := rcServer.SmsSendCode("mobile", "verifyId", "verifyCode", "templateId", "86"); returnError != nil || len(returnData) == 0 {
+		t.Error("发送短信验证码：测试失败！！！")
+	} else {
+		t.Log("发送短信验证码：测试通过。returnData:", string(returnData))
+	}
+}
+
+// 验证码验证
+func Test_SmsVerifyCode(t *testing.T) {
+	if returnData, returnError := rcServer.SmsVerifyCode("sessionId", "code"); returnError != nil || len(returnData) == 0 {
+		t.Error("验证码验证：测试失败！！！")
+	} else {
+		t.Log("验证码验证：测试通过。returnData:", string(returnData))
 	}
 }
