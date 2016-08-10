@@ -15,7 +15,7 @@ import java.util.List;
 public class ApiHttpClient {
 
 	private static final String RONGCLOUDURI = "http://api.cn.ronghub.com";
-	
+	private static final String RONGCLOUDSMSURI = "http://api.sms.ronghub.com";
 	private static final String UTF8 = "UTF-8";
 
 	// 获取token
@@ -785,4 +785,76 @@ public class ApiHttpClient {
 		HttpUtil.setBodyParameter(tag.toString(), conn);
 		return HttpUtil.returnResult(conn);
 	}
+	// 发送单聊模版消息
+	public static SdkHttpResult publishTemplateMessage(String appKey, String appSecret, PublishTemplateMessage message)
+				throws Exception {
+		HttpURLConnection conn = HttpUtil.CreateJsonPostHttpConnection(appKey, appSecret,
+					RONGCLOUDURI + "/message/private/publish_template.json");
+
+		HttpUtil.setBodyParameter(message.toString(), conn);
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 发送系统模版消息
+	public static SdkHttpResult publishSystemTemplateMessage(String appKey, String appSecret,
+			PublishSystemTemplateMessage message) throws Exception {
+		HttpURLConnection conn = HttpUtil.CreateJsonPostHttpConnection(appKey, appSecret,
+					RONGCLOUDURI + "/message/system/publish_template.json");
+
+		HttpUtil.setBodyParameter(message.toString(), conn);
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 发送短信验证
+	public static SdkHttpResult sendSMSCode(String appKey, String appSecret, String mobile, String verifyId, String verifyCode,
+			String templateId, String region) throws Exception {
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey, appSecret, RONGCLOUDSMSURI + "/sendCode.json");
+		if (mobile == null || mobile.length() == 0) {
+			throw new Exception("mobile is not null or empty.");
+		}
+		if (templateId == null || templateId.length() == 0) {
+			throw new Exception("templateId is not null or empty.");
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("mobile=").append(URLEncoder.encode(mobile == null ? "" : mobile, UTF8));
+		if (verifyId != null) {
+			sb.append("&verifyId=").append(URLEncoder.encode(verifyId == null ? "" : verifyId, UTF8));
+		}
+		if (verifyCode != null) {
+			sb.append("&verifyCode=").append(URLEncoder.encode(verifyCode == null ? "" : verifyCode, UTF8));
+		}
+		sb.append("&templateId=").append(URLEncoder.encode(templateId == null ? "" : templateId, UTF8));
+		if (region != null) {
+			sb.append("&region=").append(URLEncoder.encode(region == null ? "" : region, UTF8));
+		}
+		HttpUtil.setBodyParameter(sb, conn);
+		return HttpUtil.returnResult(conn);
+
+	}
+
+	// 验证码验证
+	public static SdkHttpResult verifySMSCode(String appKey, String appSecret, String sessionId, String code) throws Exception {
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey, appSecret, RONGCLOUDSMSURI + "/sendCode.json");
+		if (sessionId == null || sessionId.length() == 0) {
+			throw new Exception("sessionId is not null or empty.");
+		}
+		if (code == null || code.length() == 0) {
+			throw new Exception("code is not null or empty.");
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("sessionId=").append(URLEncoder.encode(sessionId == null ? "" : sessionId, UTF8));
+		sb.append("&code=").append(URLEncoder.encode(code == null ? "" : code, UTF8));
+		HttpUtil.setBodyParameter(sb, conn);
+		return HttpUtil.returnResult(conn);
+	}
+
+	// 获取图片验证码
+	public static SdkHttpResult getImageCode(String appKey) throws Exception {
+		StringBuilder sb = new StringBuilder(RONGCLOUDSMSURI+"/getImgCode.json");
+		sb.append("?appKey=").append(URLEncoder.encode(appKey == null ? "" : appKey, UTF8));
+		HttpURLConnection conn = HttpUtil.CreateGetHttpConnection(sb.toString());
+		return HttpUtil.returnResult(conn);
+	}
+
 }

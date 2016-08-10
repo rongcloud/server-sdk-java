@@ -124,6 +124,14 @@ public class HttpUtil {
 
 		return conn;
 	}
+	
+	public  static HttpURLConnection CreateGetHttpConnection(String uri) throws MalformedURLException, IOException{
+	     URL url =new URL(uri);
+	     HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+	     conn.setConnectTimeout(30000);
+	     conn.setRequestMethod("GET");
+        return conn;
+	}
 
 	public static byte[] readInputStream(InputStream inStream) throws Exception {
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();

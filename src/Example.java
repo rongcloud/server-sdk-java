@@ -210,6 +210,23 @@ public class Example {
 		tag.setUserId("userId11111");
 		result = ApiHttpClient.setUserTag(key, secret, tag, FormatType.json);
 		System.out.println("tag=" + result);
+		
+		
+		//发送单聊模版消息
+		result = ApiHttpClient.publishTemplateMessage(key, secret, createTemplateMessage());
+		System.out.println("publishTemplateMessage=" + result);
+		//发送系统模版消息
+		result = ApiHttpClient.publishSystemTemplateMessage(key, secret, createSystemTemplateMessage());
+		System.out.println("publishTemplateMessage=" + result);
+		//获取图片验证码
+		result = ApiHttpClient.getImageCode(key);
+		System.out.println("getImageCode=" + result);
+		//发送短信验证码
+		result = ApiHttpClient.sendSMSCode(key, secret, "18500000000", null, "", "1", "86");
+		System.out.println("sendSMSCode=" + result);
+		//验证验证码
+		result = ApiHttpClient.verifySMSCode(key, secret, "sessionId", "code");
+		System.out.println("verifySMSCode=" + result);
 
 	}
 
@@ -260,7 +277,64 @@ public class Example {
 		System.out.println(pmsg.toString());
 		return pmsg;
 	}
-	
+	/**
+	* 创建单聊模版消息
+	*/
+	public static PublishTemplateMessage createTemplateMessage() {
+
+		PublishTemplateMessage temp = new PublishTemplateMessage();
+		//以下必传
+		temp.setFromUserId("23245");
+		temp.setContent("{\"content\":\"aa{c}{e}{d}\",\"extra\":\"bb\"}");
+		temp.setObjectName("RC:TxtMsg");
+		temp.setToUserId(new String[] { "2610", "2644" });
+		Map<String, String> value = new HashMap<String, String>();
+		value.put("{c}", "1");
+		value.put("{d}", "2");
+		value.put("{e}", "3");
+		Map<String, String> value1 = new HashMap<String, String>();
+		value1.put("{c}", "4");
+		value1.put("{d}", "5");
+		value1.put("{e}", "6");
+		List<Map<String, String>> values = new ArrayList<Map<String, String>>();
+		values.add(value);
+		values.add(value1);
+		temp.setValues(values);
+		//以下可选
+		temp.setVerifyBlacklist(0);
+		temp.setPushContent(new String[] { "push{c}", "push{c}" });
+		temp.setPushData(new String[] { "pushd", "pushd" });
+		System.out.println(temp.toString());
+		return temp;
+	}
+	/**
+	* 创建系统模版消息
+	*/
+	public static PublishSystemTemplateMessage createSystemTemplateMessage() {
+		PublishSystemTemplateMessage temp = new PublishSystemTemplateMessage();
+		//以下必传
+		temp.setFromUserId("fromuser");
+		temp.setContent("{\"content\":\"{c}{d}{e}\",\"extra\":\"bb\"}");
+		temp.setObjectName("RC:TxtMsg");
+		temp.setToUserId(new String[] { "21", "22" });
+		Map<String, String> value = new HashMap<String, String>();
+		value.put("{c}", "1");
+		value.put("{d}", "2");
+		value.put("{e}", "3");
+		Map<String, String> value1 = new HashMap<String, String>();
+		value1.put("{c}", "4");
+		value1.put("{d}", "5");
+		value1.put("{e}", "6");
+		List<Map<String, String>> values = new ArrayList<Map<String, String>>();
+		values.add(value);
+		values.add(value1);
+		temp.setValues(values);
+		//以下可选
+		temp.setPushContent(new String[] { "push{c}", "push{c}" });
+		temp.setPushData(new String[] { "pushd", "pushd" });
+		return temp;
+	}
+
 	/**
 	 * 创建发送不落地的push内容
 	 */
