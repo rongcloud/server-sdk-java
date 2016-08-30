@@ -835,7 +835,7 @@ public class ApiHttpClient {
 	// 验证码验证
 	public static SdkHttpResult verifySMSCode(String appKey, String appSecret, String sessionId, String code) throws Exception {
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey, appSecret, RONGCLOUDSMSURI + "/sendCode.json");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(appKey, appSecret, RONGCLOUDSMSURI + "/verifyCode.json");
 		if (sessionId == null || sessionId.length() == 0) {
 			throw new Exception("sessionId is not null or empty.");
 		}
