@@ -53,9 +53,10 @@ public class Group {
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 	    sb.append("&groupName=").append(URLEncoder.encode(groupName.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/create.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -88,9 +89,10 @@ public class Group {
 		}
 		
 	   	String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 	   	HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/sync.json", "application/x-www-form-urlencoded");
 	   	HttpUtil.setBodyParameter(body, conn);
 	    
@@ -118,9 +120,10 @@ public class Group {
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 	    sb.append("&groupName=").append(URLEncoder.encode(groupName.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/refresh.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -159,9 +162,10 @@ public class Group {
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 	    sb.append("&groupName=").append(URLEncoder.encode(groupName.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -183,9 +187,10 @@ public class Group {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -218,9 +223,10 @@ public class Group {
 		
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/quit.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -254,9 +260,10 @@ public class Group {
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 	    sb.append("&minute=").append(URLEncoder.encode(minute.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/gag/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -278,9 +285,10 @@ public class Group {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/gag/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -313,9 +321,10 @@ public class Group {
 		
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/gag/rollback.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -343,9 +352,10 @@ public class Group {
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 	    sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/dismiss.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    

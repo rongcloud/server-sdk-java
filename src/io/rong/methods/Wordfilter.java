@@ -36,9 +36,10 @@ public class Wordfilter {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&word=").append(URLEncoder.encode(word.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -60,9 +61,10 @@ public class Wordfilter {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&word=").append(URLEncoder.encode(word.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/delete.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -78,9 +80,10 @@ public class Wordfilter {
 	public ListWordfilterReslut getList() throws Exception {
 	    StringBuilder sb = new StringBuilder();
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    

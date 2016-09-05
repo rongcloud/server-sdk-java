@@ -40,9 +40,10 @@ public class Chatroom {
 		}
 		
 	   	String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 	   	HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/create.json", "application/x-www-form-urlencoded");
 	   	HttpUtil.setBodyParameter(body, conn);
 	    
@@ -75,9 +76,10 @@ public class Chatroom {
 		
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/join.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -104,9 +106,10 @@ public class Chatroom {
 		}
 		
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -140,9 +143,10 @@ public class Chatroom {
 	    sb.append("&count=").append(URLEncoder.encode(count.toString(), UTF8));
 	    sb.append("&order=").append(URLEncoder.encode(order.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -164,9 +168,10 @@ public class Chatroom {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/message/stopDistribution.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -188,9 +193,10 @@ public class Chatroom {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/message/resumeDistribution.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -224,9 +230,10 @@ public class Chatroom {
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 	    sb.append("&minute=").append(URLEncoder.encode(minute.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -254,9 +261,10 @@ public class Chatroom {
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/rollback.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -278,9 +286,10 @@ public class Chatroom {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -314,9 +323,10 @@ public class Chatroom {
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 	    sb.append("&minute=").append(URLEncoder.encode(minute.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -344,9 +354,10 @@ public class Chatroom {
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/rollback.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -368,9 +379,10 @@ public class Chatroom {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -397,9 +409,10 @@ public class Chatroom {
 		}
 		
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/destroy.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -432,9 +445,10 @@ public class Chatroom {
 		}
 		
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/whitelist/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    

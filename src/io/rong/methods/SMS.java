@@ -78,9 +78,10 @@ public class SMS {
 	    	sb.append("&verifyCode=").append(URLEncoder.encode(verifyCode.toString(), UTF8));
 	    }
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/sendCode.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -108,9 +109,10 @@ public class SMS {
 	    sb.append("&sessionId=").append(URLEncoder.encode(sessionId.toString(), UTF8));
 	    sb.append("&code=").append(URLEncoder.encode(code.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/verifyCode.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    

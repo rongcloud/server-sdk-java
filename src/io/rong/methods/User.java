@@ -48,9 +48,10 @@ public class User {
 	    sb.append("&name=").append(URLEncoder.encode(name.toString(), UTF8));
 	    sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/getToken.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -82,9 +83,10 @@ public class User {
 	    	sb.append("&portraitUri=").append(URLEncoder.encode(portraitUri.toString(), UTF8));
 	    }
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/refresh.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -106,9 +108,10 @@ public class User {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/checkOnline.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -136,9 +139,10 @@ public class User {
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 	    sb.append("&minute=").append(URLEncoder.encode(minute.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/block.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -160,9 +164,10 @@ public class User {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/unblock.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -178,9 +183,10 @@ public class User {
 	public QueryBlockUserReslut queryBlock() throws Exception {
 	    StringBuilder sb = new StringBuilder();
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/block/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -208,9 +214,10 @@ public class User {
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 	    sb.append("&blackUserId=").append(URLEncoder.encode(blackUserId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -232,9 +239,10 @@ public class User {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
@@ -262,9 +270,10 @@ public class User {
 	    sb.append("&userId=").append(URLEncoder.encode(userId.toString(), UTF8));
 	    sb.append("&blackUserId=").append(URLEncoder.encode(blackUserId.toString(), UTF8));
 		String body = sb.toString();
-	   	if(body.indexOf("&") == 0) {
+	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
+	   	
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/remove.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
