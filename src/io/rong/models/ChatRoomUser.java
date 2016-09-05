@@ -3,17 +3,17 @@ package io.rong.models;
 import io.rong.util.GsonUtil;
 
 /**
- * 群组信息。
+ * 聊天室用户信息。
  */
-public class GroupInfo {
-	// 群组Id。
+public class ChatRoomUser {
+	// 聊天室用户Id。
 	String id;
-	// 群组名称。
-	String name;
+	// 加入聊天室时间。
+	String time;
 	
-	public GroupInfo(String id, String name) {
+	public ChatRoomUser(String id, String time) {
 		this.id = id;
-		this.name = name;
+		this.time = time;
 	}
 	
 	/**
@@ -34,24 +34,24 @@ public class GroupInfo {
 	}
 	
 	/**
-	 * 设置name
+	 * 设置time
 	 *
 	 */	
-	public void setName(String name) {
-		this.name = name;
+	public void setTime(String time) {
+		this.time = time;
 	}
 	
 	/**
-	 * 获取name
+	 * 获取time
 	 *
 	 * @return String
 	 */
-	public String getName() {
-		return name;
+	public String getTime() {
+		return time;
 	}
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, GroupInfo.class);
+		return GsonUtil.toJson(this, ChatRoomUser.class);
 	}
 }

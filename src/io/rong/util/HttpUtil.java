@@ -1,7 +1,5 @@
 package io.rong.util;
 
-import io.rong.models.SdkHttpResult;
-
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -33,12 +31,10 @@ public class HttpUtil {
 		try {
 			sslCtx = SSLContext.getInstance("TLS");
 			X509TrustManager tm = new X509TrustManager() {
-				public void checkClientTrusted(X509Certificate[] xcs,
-						String string) throws CertificateException {
+				public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {
 				}
 
-				public void checkServerTrusted(X509Certificate[] xcs,
-						String string) throws CertificateException {
+				public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {
 				}
 
 				public X509Certificate[] getAcceptedIssuers() {
@@ -60,52 +56,40 @@ public class HttpUtil {
 
 		});
 
-		HttpsURLConnection
-				.setDefaultSSLSocketFactory(sslCtx.getSocketFactory());
+		HttpsURLConnection.setDefaultSSLSocketFactory(sslCtx.getSocketFactory());
 
 	}
 
 	// 设置body体
-	public static void setBodyParameter(StringBuilder sb, HttpURLConnection conn)
-			throws IOException {
+	public static void setBodyParameter(StringBuilder sb, HttpURLConnection conn) throws IOException {
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 		out.writeBytes(sb.toString());
 		out.flush();
 		out.close();
 	}
 
-	// 添加签名header
-	public static HttpURLConnection CreatePostHttpConnection(String appKey,
-			String appSecret, String uri) throws MalformedURLException,
-			IOException, ProtocolException {
-		return CreatePostHttpConnection(appKey, appSecret, uri,
-				"application/x-www-form-urlencoded");
+	public static HttpURLConnection CreateGetHttpConnection(String uri) throws MalformedURLException, IOException {
+		URL url = new URL(uri);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setConnectTimeout(30000);
+		conn.setRequestMethod("GET");
+		return conn;
 	}
 
-	public static HttpURLConnection CreateJsonPostHttpConnection(String appKey,
-			String appSecret, String uri) throws MalformedURLException,
-			IOException, ProtocolException {
-		return CreatePostHttpConnection(appKey, appSecret, uri,
-				"application/json");
-	}
-	
-	public static void setBodyParameter(String str, HttpURLConnection conn)
-			throws IOException {
+	public static void setBodyParameter(String str, HttpURLConnection conn) throws IOException {
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 		out.write(str.getBytes("utf-8"));
 		out.flush();
 		out.close();
 	}
 
-	private static HttpURLConnection CreatePostHttpConnection(String appKey,
-			String appSecret, String uri, String contentType)
-			throws MalformedURLException, IOException, ProtocolException {
+	public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret, String uri,
+			String contentType) throws MalformedURLException, IOException, ProtocolException {
 		String nonce = String.valueOf(Math.random() * 1000000);
 		String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-		StringBuilder toSign = new StringBuilder(appSecret).append(nonce)
-				.append(timestamp);
+		StringBuilder toSign = new StringBuilder(appSecret).append(nonce).append(timestamp);
 		String sign = CodeUtil.hexSHA1(toSign.toString());
-
+		uri = hostType.getStrType() + uri;
 		URL url = new URL(uri);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setUseCaches(false);
@@ -115,7 +99,7 @@ public class HttpUtil {
 		conn.setInstanceFollowRedirects(true);
 		conn.setConnectTimeout(30000);
 		conn.setReadTimeout(30000);
-
+		
 		conn.setRequestProperty(APPKEY, appKey);
 		conn.setRequestProperty(NONCE, nonce);
 		conn.setRequestProperty(TIMESTAMP, timestamp);
@@ -123,14 +107,6 @@ public class HttpUtil {
 		conn.setRequestProperty("Content-Type", contentType);
 
 		return conn;
-	}
-	
-	public  static HttpURLConnection CreateGetHttpConnection(String uri) throws MalformedURLException, IOException{
-	     URL url =new URL(uri);
-	     HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-	     conn.setConnectTimeout(30000);
-	     conn.setRequestMethod("GET");
-        return conn;
 	}
 
 	public static byte[] readInputStream(InputStream inStream) throws Exception {
@@ -146,16 +122,15 @@ public class HttpUtil {
 		return data;
 	}
 
-	public static SdkHttpResult returnResult(HttpURLConnection conn)
-			throws Exception, IOException {
-		String result;
+	public static String returnResult(HttpURLConnection conn) throws Exception, IOException {
 		InputStream input = null;
 		if (conn.getResponseCode() == 200) {
 			input = conn.getInputStream();
 		} else {
 			input = conn.getErrorStream();
 		}
-		result = new String(readInputStream(input), "UTF-8");
-		return new SdkHttpResult(conn.getResponseCode(), result);
+		String result = new String(readInputStream(input), "UTF-8");
+		return result;
 	}
+
 }
