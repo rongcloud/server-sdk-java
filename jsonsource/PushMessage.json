@@ -1,0 +1,40 @@
+{
+    "platform":[
+        "ios",
+        "android"
+    ],
+    "fromuserid":"fromuseId1",
+    "audience":{
+        "tag":[
+            "女",
+            "年轻",
+            "北京"
+        ],
+        "userid":[
+            "123",
+            "456"
+        ],
+        "is_to_all":false
+    },
+    "message":{
+        "content":"{\"content\":\"1111\",\"extra\":\"aa\"}",
+        "objectName":"RC:TxtMsg"
+    },
+    "notification":{
+        "alert":"this is a push",
+        "ios":{
+            "alert":"override alert",
+            "extras":{
+                "id":"1",
+                "name":"2"
+            }
+        },
+        "android":{
+            "alert":"override alert",
+            "extras":{
+                "id":"1",
+                "name":"2"
+            }
+        }
+    }
+}
