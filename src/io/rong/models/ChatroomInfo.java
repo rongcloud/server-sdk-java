@@ -5,6 +5,7 @@ import io.rong.util.GsonUtil;
 /**
  * 聊天室信息。
  */
+
 public class ChatRoomInfo {
 	// 聊天室Id。
 	String id;
