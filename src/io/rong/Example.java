@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
  * 一些api的调用示例
  */
 public class Example {
-	private static final String JSONFILE = Example.class.getClassLoader().getResource("json").getPath()+"/";
+	private static final String JSONFILE = Example.class.getClassLoader().getResource("jsonsource").getPath()+"/";
 	/**
 	 * 本地调用测试
 	 * 
