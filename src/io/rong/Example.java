@@ -146,13 +146,13 @@ public class Example {
 		CodeSuccessReslut wordfilterAddResult = rongCloud.wordfilter.add("money");
 		System.out.println("add:  " + wordfilterAddResult.toString());
 		
-		// 移除敏感词方法（从敏感词列表中，移除某一敏感词。） 
-		CodeSuccessReslut wordfilterDeleteResult = rongCloud.wordfilter.delete("money");
-		System.out.println("delete:  " + wordfilterDeleteResult.toString());
-		
 		// 查询敏感词列表方法 
 		ListWordfilterReslut wordfilterGetListResult = rongCloud.wordfilter.getList();
 		System.out.println("getList:  " + wordfilterGetListResult.toString());
+		
+		// 移除敏感词方法（从敏感词列表中，移除某一敏感词。） 
+		CodeSuccessReslut wordfilterDeleteResult = rongCloud.wordfilter.delete("money");
+		System.out.println("delete:  " + wordfilterDeleteResult.toString());
 		
 		
 		
@@ -236,25 +236,30 @@ public class Example {
 		CodeSuccessReslut chatroomAddGagUserResult = rongCloud.chatroom.addGagUser("userId1", "chatroomId1", "1");
 		System.out.println("addGagUser:  " + chatroomAddGagUserResult.toString());
 		
-		// 移除禁言聊天室成员方法 
-		CodeSuccessReslut chatroomRollbackGagUserResult = rongCloud.chatroom.rollbackGagUser("userId1", "chatroomId1");
-		System.out.println("rollbackGagUser:  " + chatroomRollbackGagUserResult.toString());
-		
 		// 查询被禁言聊天室成员方法 
 		ListGagChatroomUserReslut chatroomListGagUserResult = rongCloud.chatroom.ListGagUser("chatroomId1");
 		System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
+		
+		// 移除禁言聊天室成员方法 
+		CodeSuccessReslut chatroomRollbackGagUserResult = rongCloud.chatroom.rollbackGagUser("userId1", "chatroomId1");
+		System.out.println("rollbackGagUser:  " + chatroomRollbackGagUserResult.toString());
 		
 		// 添加封禁聊天室成员方法 
 		CodeSuccessReslut chatroomAddBlockUserResult = rongCloud.chatroom.addBlockUser("userId1", "chatroomId1", "1");
 		System.out.println("addBlockUser:  " + chatroomAddBlockUserResult.toString());
 		
+		// 查询被封禁聊天室成员方法 
+		ListBlockChatroomUserReslut chatroomGetListBlockUserResult = rongCloud.chatroom.getListBlockUser("chatroomId1");
+		System.out.println("getListBlockUser:  " + chatroomGetListBlockUserResult.toString());
+		
 		// 移除封禁聊天室成员方法 
 		CodeSuccessReslut chatroomRollbackBlockUserResult = rongCloud.chatroom.rollbackBlockUser("userId1", "chatroomId1");
 		System.out.println("rollbackBlockUser:  " + chatroomRollbackBlockUserResult.toString());
 		
-		// 查询被封禁聊天室成员方法 
-		ListBlockChatroomUserReslut chatroomGetListBlockUserResult = rongCloud.chatroom.getListBlockUser("chatroomId1");
-		System.out.println("getListBlockUser:  " + chatroomGetListBlockUserResult.toString());
+		// 添加聊天室消息优先级方法 
+		String[] chatroomAddPriorityObjectName = {"RC:VcMsg","RC:ImgTextMsg","RC:ImgMsg"};
+		CodeSuccessReslut chatroomAddPriorityResult = rongCloud.chatroom.addPriority(chatroomAddPriorityObjectName);
+		System.out.println("addPriority:  " + chatroomAddPriorityResult.toString());
 		
 		// 销毁聊天室方法 
 		String[] chatroomDestroyChatroomId = {"chatroomId","chatroomId1","chatroomId2"};

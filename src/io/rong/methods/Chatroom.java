@@ -241,6 +241,31 @@ public class Chatroom {
 	}
 	
 	/**
+	 * 查询被禁言聊天室成员方法 
+	 * 
+	 * @param  chatroomId:聊天室 Id。（必传）
+	 *
+	 * @return ListGagChatroomUserReslut
+	 **/
+	public ListGagChatroomUserReslut ListGagUser(String chatroomId) throws Exception {
+		if (chatroomId == null) {
+			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
+		}
+		
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
+		String body = sb.toString();
+	   	if (body.indexOf("&") == 0) {
+	   		body = body.substring(1, body.length());
+	   	}
+	   	
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/list.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn);
+	    
+	    return (ListGagChatroomUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListGagChatroomUserReslut.class);
+	}
+	
+	/**
 	 * 移除禁言聊天室成员方法 
 	 * 
 	 * @param  userId:用户 Id。（必传）
@@ -269,31 +294,6 @@ public class Chatroom {
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
-	}
-	
-	/**
-	 * 查询被禁言聊天室成员方法 
-	 * 
-	 * @param  chatroomId:聊天室 Id。（必传）
-	 *
-	 * @return ListGagChatroomUserReslut
-	 **/
-	public ListGagChatroomUserReslut ListGagUser(String chatroomId) throws Exception {
-		if (chatroomId == null) {
-			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
-		}
-		
-	    StringBuilder sb = new StringBuilder();
-	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
-		String body = sb.toString();
-	   	if (body.indexOf("&") == 0) {
-	   		body = body.substring(1, body.length());
-	   	}
-	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/list.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
-	    
-	    return (ListGagChatroomUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListGagChatroomUserReslut.class);
 	}
 	
 	/**
@@ -334,6 +334,31 @@ public class Chatroom {
 	}
 	
 	/**
+	 * 查询被封禁聊天室成员方法 
+	 * 
+	 * @param  chatroomId:聊天室 Id。（必传）
+	 *
+	 * @return ListBlockChatroomUserReslut
+	 **/
+	public ListBlockChatroomUserReslut getListBlockUser(String chatroomId) throws Exception {
+		if (chatroomId == null) {
+			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
+		}
+		
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
+		String body = sb.toString();
+	   	if (body.indexOf("&") == 0) {
+	   		body = body.substring(1, body.length());
+	   	}
+	   	
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/list.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn);
+	    
+	    return (ListBlockChatroomUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListBlockChatroomUserReslut.class);
+	}
+	
+	/**
 	 * 移除封禁聊天室成员方法 
 	 * 
 	 * @param  userId:用户 Id。（必传）
@@ -365,28 +390,33 @@ public class Chatroom {
 	}
 	
 	/**
-	 * 查询被封禁聊天室成员方法 
+	 * 添加聊天室消息优先级方法 
 	 * 
-	 * @param  chatroomId:聊天室 Id。（必传）
+	 * @param  objectName:低优先级的消息类型，每次最多提交 5 个，设置的消息类型最多不超过 20 个。（必传）
 	 *
-	 * @return ListBlockChatroomUserReslut
+	 * @return CodeSuccessReslut
 	 **/
-	public ListBlockChatroomUserReslut getListBlockUser(String chatroomId) throws Exception {
-		if (chatroomId == null) {
-			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
+	public CodeSuccessReslut addPriority(String[] objectName) throws Exception {
+		if (objectName == null) {
+			throw new IllegalArgumentException("Paramer 'objectName' is required");
 		}
 		
 	    StringBuilder sb = new StringBuilder();
-	    sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId.toString(), UTF8));
+	    
+	    for (int i = 0 ; i< objectName.length; i++) {
+			String child  = objectName[i];
+			sb.append("&objectName=").append(URLEncoder.encode(child, UTF8));
+		}
+		
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/list.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/message/priority/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ListBlockChatroomUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListBlockChatroomUserReslut.class);
+	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
 	}
 	
 	/**
