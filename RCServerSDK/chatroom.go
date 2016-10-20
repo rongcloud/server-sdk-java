@@ -409,6 +409,36 @@ type Chatroom struct {
   
 
 	/**
+	 *添加聊天室消息优先级方法 
+	 * 
+	 *@param  objectName:低优先级的消息类型，每次最多提交 5 个，设置的消息类型最多不超过 20 个。（必传）
+	 *
+	 *@return CodeSuccessReslut
+	 */
+  func (self * Chatroom)AddPriority(objectName []string)(*CodeSuccessReslut, error) {
+	  if(len(objectName) == 0) {
+		return nil,errors.New("Paramer 'objectName' is required");
+      }
+      
+	  destinationUrl := RONGCLOUDURI + "/chatroom/message/priority/add.json" 
+	  req := httplib.Post(destinationUrl)
+	  fillHeader(req, self.AppKey, self.AppSecret)
+	  for _,item := range objectName {
+	  req.Param("objectName", item)
+	  }
+	  byteData, err := req.Bytes()
+	  	if err != nil {
+		   return nil,err
+		 }else{
+		   strData := string(byteData)
+		   var ret = CodeSuccessReslut{}
+			  err = JsonParse(strData,&ret)
+			  return &ret,err
+			}
+	  }
+  
+
+	/**
 	 *销毁聊天室方法 
 	 * 
 	 *@param  chatroomId:要销毁的聊天室 Id。（必传）

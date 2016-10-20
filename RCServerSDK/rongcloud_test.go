@@ -11,7 +11,7 @@ var rongcloud *RongCloud
 
 //初始化RCServer_json 方式
 func Test_NewRCServer_json(t *testing.T) {
-  _rongcloud := CreateRongCloud("cpj2xarlj0j1n", "9NoxRmxRy3bF")
+  _rongcloud := CreateRongCloud("your_appKey", "your_appSecret")
   rongcloud = _rongcloud
   t.Log("初始化RCServer_json：测试通过。")
 }
@@ -583,6 +583,16 @@ func Test_Chatroom_RollbackBlockUser(t *testing.T){
 		t.Error("RollbackBlockUser: fail.")
     } else {
         t.Log("RollbackBlockUser: pass.", result)
+    }
+}
+   
+func Test_Chatroom_AddPriority(t *testing.T){
+    objectName := []string{"RC:VcMsg","RC:ImgTextMsg","RC:ImgMsg"} 
+    
+    if result, tokenError := rongcloud.Chatroom.AddPriority( objectName  );tokenError != nil || result==nil{
+		t.Error("AddPriority: fail.")
+    } else {
+        t.Log("AddPriority: pass.", result)
     }
 }
    
