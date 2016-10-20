@@ -47,6 +47,25 @@ public class Wordfilter {
 	}
 	
 	/**
+	 * 查询敏感词列表方法 
+	 * 
+	 *
+	 * @return ListWordfilterReslut
+	 **/
+	public ListWordfilterReslut getList() throws Exception {
+	    StringBuilder sb = new StringBuilder();
+		String body = sb.toString();
+	   	if (body.indexOf("&") == 0) {
+	   		body = body.substring(1, body.length());
+	   	}
+	   	
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/list.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn);
+	    
+	    return (ListWordfilterReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListWordfilterReslut.class);
+	}
+	
+	/**
 	 * 移除敏感词方法（从敏感词列表中，移除某一敏感词。） 
 	 * 
 	 * @param  word:敏感词，最长不超过 32 个字符。（必传）
@@ -69,25 +88,6 @@ public class Wordfilter {
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
-	}
-	
-	/**
-	 * 查询敏感词列表方法 
-	 * 
-	 *
-	 * @return ListWordfilterReslut
-	 **/
-	public ListWordfilterReslut getList() throws Exception {
-	    StringBuilder sb = new StringBuilder();
-		String body = sb.toString();
-	   	if (body.indexOf("&") == 0) {
-	   		body = body.substring(1, body.length());
-	   	}
-	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/list.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
-	    
-	    return (ListWordfilterReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListWordfilterReslut.class);
 	}
 
 	 
