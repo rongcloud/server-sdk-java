@@ -1,6 +1,6 @@
-package io.rong.models;
+package sy.rong.models;
 
-import io.rong.util.GsonUtil;
+import sy.rong.util.GsonUtil;
 
 /**
  *  http 成功返回结果
@@ -10,7 +10,17 @@ public class CodeSuccessReslut {
 	Integer code;
 	// 错误信息。
 	String errorMessage;
+	//验证结果
+	String success;
 	
+	public String getSuccess() {
+		return success;
+	}
+
+	public void setSuccess(String success) {
+		this.success = success;
+	}
+
 	public CodeSuccessReslut(Integer code, String errorMessage) {
 		this.code = code;
 		this.errorMessage = errorMessage;
