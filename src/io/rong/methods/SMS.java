@@ -94,9 +94,9 @@ public class SMS {
 	 * @param  sessionId:短信验证码唯一标识，在发送短信验证码方法，返回值中获取。（必传）
 	 * @param  code:短信验证码内容。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return SMSVerifyCodeResult
 	 **/
-	public CodeSuccessReslut verifyCode(String sessionId, String code) throws Exception {
+	public SMSVerifyCodeResult verifyCode(String sessionId, String code) throws Exception {
 		if (sessionId == null) {
 			throw new IllegalArgumentException("Paramer 'sessionId' is required");
 		}
@@ -116,7 +116,7 @@ public class SMS {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/verifyCode.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (SMSVerifyCodeResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSVerifyCodeResult.class);
 	}
 
 	 

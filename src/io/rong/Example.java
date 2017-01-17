@@ -316,7 +316,7 @@ public class Example {
 		System.out.println("sendCode:  " + sMSSendCodeResult.toString());
 		
 		// 验证码验证方法 
-		CodeSuccessReslut sMSVerifyCodeResult = rongCloud.sms.verifyCode("2312312", "2312312");
+		SMSVerifyCodeResult sMSVerifyCodeResult = rongCloud.sms.verifyCode("2312312", "2312312");
 		System.out.println("verifyCode:  " + sMSVerifyCodeResult.toString());
 		
 	 }
