@@ -70,7 +70,7 @@ public class Example {
 		// 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。） 
 		String[] messagePublishPrivateToUserId = {"userId2","userid3","userId4"};
 		VoiceMessage messagePublishPrivateVoiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
-		CodeSuccessReslut messagePublishPrivateResult = rongCloud.message.publishPrivate("userId1", messagePublishPrivateToUserId, messagePublishPrivateVoiceMessage, "thisisapush", "{\"pushData\":\"hello\"}", "4", 0, 0, 0);
+		CodeSuccessReslut messagePublishPrivateResult = rongCloud.message.publishPrivate("userId1", messagePublishPrivateToUserId, messagePublishPrivateVoiceMessage, "thisisapush", "{\"pushData\":\"hello\"}", "4", 0, 0, 0, 0);
 		System.out.println("publishPrivate:  " + messagePublishPrivateResult.toString());
 		
 		// 发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人。） 
@@ -112,12 +112,12 @@ public class Example {
 		// 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。） 
 		String[] messagePublishGroupToGroupId = {"groupId1","groupId2","groupId3"};
 		TxtMessage messagePublishGroupTxtMessage = new TxtMessage("hello", "helloExtra");
-		CodeSuccessReslut messagePublishGroupResult = rongCloud.message.publishGroup("userId", messagePublishGroupToGroupId, messagePublishGroupTxtMessage, "thisisapush", "{\"pushData\":\"hello\"}", 1, 1);
+		CodeSuccessReslut messagePublishGroupResult = rongCloud.message.publishGroup("userId", messagePublishGroupToGroupId, messagePublishGroupTxtMessage, "thisisapush", "{\"pushData\":\"hello\"}", 1, 1, 0);
 		System.out.println("publishGroup:  " + messagePublishGroupResult.toString());
 		
 		// 发送讨论组消息方法（以一个用户身份向讨论组发送消息，单条消息最大 128k，每秒钟最多发送 20 条消息.） 
 		TxtMessage messagePublishDiscussionTxtMessage = new TxtMessage("hello", "helloExtra");
-		CodeSuccessReslut messagePublishDiscussionResult = rongCloud.message.publishDiscussion("userId1", "discussionId1", messagePublishDiscussionTxtMessage, "thisisapush", "{\"pushData\":\"hello\"}", 1, 1);
+		CodeSuccessReslut messagePublishDiscussionResult = rongCloud.message.publishDiscussion("userId1", "discussionId1", messagePublishDiscussionTxtMessage, "thisisapush", "{\"pushData\":\"hello\"}", 1, 1, 0);
 		System.out.println("publishDiscussion:  " + messagePublishDiscussionResult.toString());
 		
 		// 发送聊天室消息方法（一个用户向聊天室发送消息，单条消息最大 128k。每秒钟限 100 次。） 

@@ -34,10 +34,11 @@ public class Message {
 	 * @param  verifyBlacklist:是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。（可选）
 	 * @param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选）
 	 * @param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+	 * @param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
 	 *
 	 * @return CodeSuccessReslut
 	 **/
-	public CodeSuccessReslut publishPrivate(String fromUserId, String[] toUserId, BaseMessage message, String pushContent, String pushData, String count, Integer verifyBlacklist, Integer isPersisted, Integer isCounted) throws Exception {
+	public CodeSuccessReslut publishPrivate(String fromUserId, String[] toUserId, BaseMessage message, String pushContent, String pushData, String count, Integer verifyBlacklist, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -83,6 +84,10 @@ public class Message {
 	    
 	    if (isCounted != null) {
 	    	sb.append("&isCounted=").append(URLEncoder.encode(isCounted.toString(), UTF8));
+	    }
+	    
+	    if (isIncludeSender != null) {
+	    	sb.append("&isIncludeSender=").append(URLEncoder.encode(isIncludeSender.toString(), UTF8));
 	    }
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
@@ -204,10 +209,11 @@ public class Message {
 	 * @param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。（可选）
 	 * @param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选）
 	 * @param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+	 * @param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
 	 *
 	 * @return CodeSuccessReslut
 	 **/
-	public CodeSuccessReslut publishGroup(String fromUserId, String[] toGroupId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted) throws Exception {
+	public CodeSuccessReslut publishGroup(String fromUserId, String[] toGroupId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -246,6 +252,10 @@ public class Message {
 	    if (isCounted != null) {
 	    	sb.append("&isCounted=").append(URLEncoder.encode(isCounted.toString(), UTF8));
 	    }
+	    
+	    if (isIncludeSender != null) {
+	    	sb.append("&isIncludeSender=").append(URLEncoder.encode(isIncludeSender.toString(), UTF8));
+	    }
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
@@ -267,10 +277,11 @@ public class Message {
 	 * @param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData.（可选）
 	 * @param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息.（可选）
 	 * @param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+	 * @param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
 	 *
 	 * @return CodeSuccessReslut
 	 **/
-	public CodeSuccessReslut publishDiscussion(String fromUserId, String toDiscussionId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted) throws Exception {
+	public CodeSuccessReslut publishDiscussion(String fromUserId, String toDiscussionId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -303,6 +314,10 @@ public class Message {
 	    
 	    if (isCounted != null) {
 	    	sb.append("&isCounted=").append(URLEncoder.encode(isCounted.toString(), UTF8));
+	    }
+	    
+	    if (isIncludeSender != null) {
+	    	sb.append("&isIncludeSender=").append(URLEncoder.encode(isIncludeSender.toString(), UTF8));
 	    }
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
