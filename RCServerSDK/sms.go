@@ -86,9 +86,9 @@ type SMS struct {
 	 *@param  sessionId:短信验证码唯一标识，在发送短信验证码方法，返回值中获取。（必传） 
 	 *@param  code:短信验证码内容。（必传）
 	 *
-	 *@return CodeSuccessReslut
+	 *@return SMSVerifyCodeResult
 	 */
-  func (self * SMS)VerifyCode(sessionId string, code string)(*CodeSuccessReslut, error) {
+  func (self * SMS)VerifyCode(sessionId string, code string)(*SMSVerifyCodeResult, error) {
 	  if( sessionId == "") {
 		return nil,errors.New("Paramer 'sessionId' is required");
       }
@@ -107,7 +107,7 @@ type SMS struct {
 		   return nil,err
 		 }else{
 		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
+		   var ret = SMSVerifyCodeResult{}
 			  err = JsonParse(strData,&ret)
 			  return &ret,err
 			}

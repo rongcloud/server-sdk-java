@@ -1,7 +1,7 @@
 /**
  * 融云 Server API go 客户端
  * create by kitName
- * create datetime : 2016-10-20 
+ * create datetime : 2017-02-09 
  * 
  * v2.0.1
  */

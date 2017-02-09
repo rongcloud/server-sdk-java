@@ -155,8 +155,9 @@ func Test_Message_PublishPrivate(t *testing.T){
     verifyBlacklist := 0
     isPersisted := 0
     isCounted := 0
+    isIncludeSender := 0
     
-    if result, tokenError := rongcloud.Message.PublishPrivate( fromUserId,toUserId,voiceMessage,pushContent,pushData,count,verifyBlacklist,isPersisted,isCounted  );tokenError != nil || result==nil{
+    if result, tokenError := rongcloud.Message.PublishPrivate( fromUserId,toUserId,voiceMessage,pushContent,pushData,count,verifyBlacklist,isPersisted,isCounted,isIncludeSender  );tokenError != nil || result==nil{
 		t.Error("PublishPrivate: fail.")
     } else {
         t.Log("PublishPrivate: pass.", result)
@@ -221,8 +222,9 @@ func Test_Message_PublishGroup(t *testing.T){
     pushData := "{\"pushData\":\"hello\"}"
     isPersisted := 1
     isCounted := 1
+    isIncludeSender := 0
     
-    if result, tokenError := rongcloud.Message.PublishGroup( fromUserId,toGroupId,txtMessage,pushContent,pushData,isPersisted,isCounted  );tokenError != nil || result==nil{
+    if result, tokenError := rongcloud.Message.PublishGroup( fromUserId,toGroupId,txtMessage,pushContent,pushData,isPersisted,isCounted,isIncludeSender  );tokenError != nil || result==nil{
 		t.Error("PublishGroup: fail.")
     } else {
         t.Log("PublishGroup: pass.", result)
@@ -242,8 +244,9 @@ func Test_Message_PublishDiscussion(t *testing.T){
     pushData := "{\"pushData\":\"hello\"}"
     isPersisted := 1
     isCounted := 1
+    isIncludeSender := 0
     
-    if result, tokenError := rongcloud.Message.PublishDiscussion( fromUserId,toDiscussionId,txtMessage,pushContent,pushData,isPersisted,isCounted  );tokenError != nil || result==nil{
+    if result, tokenError := rongcloud.Message.PublishDiscussion( fromUserId,toDiscussionId,txtMessage,pushContent,pushData,isPersisted,isCounted,isIncludeSender  );tokenError != nil || result==nil{
 		t.Error("PublishDiscussion: fail.")
     } else {
         t.Log("PublishDiscussion: pass.", result)

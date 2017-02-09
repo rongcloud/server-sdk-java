@@ -19,6 +19,14 @@ type SMSImageCodeReslut struct {
 	ErrorMessage string `json:"errorMessage"`
 }
 /**
+ * VerifyCode 返回结果
+ */
+type SMSVerifyCodeResult struct {
+	Code int `json:"code"`
+	Success bool `json:"success"`
+	ErrorMessage string `json:"errorMessage"`
+}
+/**
  * SMSSendCodeReslut 成功返回结果
  */
 type SMSSendCodeReslut struct {
@@ -162,7 +170,7 @@ type ChatRoomUser struct {
  *聊天室被封禁用户信息。
  */
 type BlockChatRoomUser struct {
-	Id string `json:"id"`
+	UserId string `json:"userId"`
 	Time string `json:"time"`
 }
 /**
