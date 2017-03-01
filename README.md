@@ -77,3 +77,8 @@ Rong Cloud Server SDK in Java.
 - getImageCode  获取图片验证码
 - sendCode  发送短信验证码
 - verifyCode  验证码验证
+
+
+### 如何构建此项目？
+- windows下打开cmd，进入到项目目录，执行gradlew clean build
+- linux或mac下，terminal进入到项目目录，执行./gradlew clean build
