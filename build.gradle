@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    baseName = 'rongyun-server-sdk'
+    version = '0.1.0'
+}
+
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar')
+}
