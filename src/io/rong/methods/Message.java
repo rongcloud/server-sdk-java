@@ -1,6 +1,7 @@
 package io.rong.methods;
 
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URLEncoder;
 
 import io.rong.messages.*;
@@ -14,11 +15,18 @@ public class Message {
 	private static final String UTF8 = "UTF-8";
 	private String appKey;
 	private String appSecret;
-	
+	private Proxy proxy;
+
 	public Message(String appKey, String appSecret) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
 
+	}
+
+	public Message(String appKey, String appSecret, Proxy proxy) {
+		this.appKey = appKey;
+		this.appSecret = appSecret;
+        this.proxy = proxy;
 	}
 	
 	
@@ -89,7 +97,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -107,7 +115,7 @@ public class Message {
 			throw new IllegalArgumentException("Paramer 'templateMessage' is required");
 		}
 		
-	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/private/publish_template.json", "application/json");
+	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/private/publish_template.json", "application/json",proxy);
 	    HttpUtil.setBodyParameter(templateMessage.toString(), conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -170,7 +178,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -188,7 +196,7 @@ public class Message {
 			throw new IllegalArgumentException("Paramer 'templateMessage' is required");
 		}
 		
-	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/system/publish_template.json", "application/json");
+	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/system/publish_template.json", "application/json",proxy);
 	    HttpUtil.setBodyParameter(templateMessage.toString(), conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -251,7 +259,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -309,7 +317,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/discussion/publish.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/discussion/publish.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -352,7 +360,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/chatroom/publish.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/chatroom/publish.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -399,7 +407,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/broadcast.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/broadcast.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -424,7 +432,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/history.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/history.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (HistoryMessageReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), HistoryMessageReslut.class);
@@ -449,7 +457,7 @@ public class Message {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/history/delete.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/history/delete.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);

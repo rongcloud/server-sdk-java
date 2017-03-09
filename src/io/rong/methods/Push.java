@@ -1,6 +1,7 @@
 package io.rong.methods;
 
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 
 import io.rong.models.*;
 import io.rong.util.GsonUtil;
@@ -11,11 +12,17 @@ public class Push {
 
 	private String appKey;
 	private String appSecret;
-	
+	private Proxy proxy;
+
 	public Push(String appKey, String appSecret) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
 
+	}
+	public Push(String appKey, String appSecret,Proxy proxy) {
+		this.appKey = appKey;
+		this.appSecret = appSecret;
+        this.proxy = proxy;
 	}
 	
 	
@@ -31,7 +38,7 @@ public class Push {
 			throw new IllegalArgumentException("Paramer 'userTag' is required");
 		}
 		
-	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/tag/set.json", "application/json");
+	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/tag/set.json", "application/json",proxy);
 	    HttpUtil.setBodyParameter(userTag.toString(), conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -49,7 +56,7 @@ public class Push {
 			throw new IllegalArgumentException("Paramer 'pushMessage' is required");
 		}
 		
-	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/push.json", "application/json");
+	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/push.json", "application/json",proxy);
 	    HttpUtil.setBodyParameter(pushMessage.toString(), conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);

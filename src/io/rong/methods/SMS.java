@@ -1,6 +1,7 @@
 package io.rong.methods;
 
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URLEncoder;
 
 import io.rong.models.*;
@@ -13,13 +14,19 @@ public class SMS {
 	private static final String UTF8 = "UTF-8";
 	private String appKey;
 	private String appSecret;
-	
+	private Proxy proxy;
+
 	public SMS(String appKey, String appSecret) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
 
 	}
-	
+
+	public SMS(String appKey, String appSecret,Proxy proxy) {
+		this.appKey = appKey;
+		this.appSecret = appSecret;
+        this.proxy = proxy;
+	}
 	
 	/**
 	 * 获取图片验证码方法 
@@ -36,7 +43,7 @@ public class SMS {
 	    StringBuilder sb = new StringBuilder(HostType.SMS.getStrType()+"/getImgCode.json");
 		sb.append("?appKey=").append(URLEncoder.encode(appKey, UTF8));
 		
-		HttpURLConnection conn = HttpUtil.CreateGetHttpConnection(sb.toString());
+		HttpURLConnection conn = HttpUtil.CreateGetHttpConnection(sb.toString(),proxy);
 	    
 	    return (SMSImageCodeReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSImageCodeReslut.class);
 	}
@@ -82,7 +89,7 @@ public class SMS {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/sendCode.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/sendCode.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (SMSSendCodeReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSSendCodeReslut.class);
@@ -113,7 +120,7 @@ public class SMS {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/verifyCode.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/verifyCode.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);

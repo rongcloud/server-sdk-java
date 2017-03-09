@@ -1,6 +1,7 @@
 package io.rong.methods;
 
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URLEncoder;
 
 import io.rong.models.*;
@@ -13,12 +14,19 @@ public class User {
 	private static final String UTF8 = "UTF-8";
 	private String appKey;
 	private String appSecret;
-	
+	private Proxy proxy;
+
 	public User(String appKey, String appSecret) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
 
 	}
+
+    public User(String appKey, String appSecret, Proxy proxy) {
+        this.appKey = appKey;
+        this.appSecret = appSecret;
+        this.proxy = proxy;
+    }
 	
 	
 	/**
@@ -52,7 +60,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/getToken.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/getToken.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (TokenReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), TokenReslut.class);
@@ -87,7 +95,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/refresh.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/refresh.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -112,7 +120,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/checkOnline.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/checkOnline.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CheckOnlineReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CheckOnlineReslut.class);
@@ -143,7 +151,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/block.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/block.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -168,7 +176,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/unblock.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/unblock.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -187,7 +195,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/block/query.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/block/query.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (QueryBlockUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), QueryBlockUserReslut.class);
@@ -218,7 +226,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/add.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/add.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
@@ -243,7 +251,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/query.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/query.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (QueryBlacklistUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), QueryBlacklistUserReslut.class);
@@ -274,7 +282,7 @@ public class User {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/remove.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/blacklist/remove.json", "application/x-www-form-urlencoded",proxy);
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);

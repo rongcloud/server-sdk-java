@@ -4,10 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -68,9 +65,12 @@ public class HttpUtil {
 		out.close();
 	}
 
-	public static HttpURLConnection CreateGetHttpConnection(String uri) throws MalformedURLException, IOException {
+	public static HttpURLConnection CreateGetHttpConnection(String uri, Proxy proxy) throws MalformedURLException, IOException {
 		URL url = new URL(uri);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        if (proxy != null){
+            conn = (HttpURLConnection) url.openConnection(proxy);
+        }
 		conn.setConnectTimeout(30000);
 		conn.setRequestMethod("GET");
 		return conn;
@@ -84,7 +84,7 @@ public class HttpUtil {
 	}
 
 	public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret, String uri,
-			String contentType) throws MalformedURLException, IOException, ProtocolException {
+			String contentType, Proxy proxy) throws MalformedURLException, IOException, ProtocolException {
 		String nonce = String.valueOf(Math.random() * 1000000);
 		String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
 		StringBuilder toSign = new StringBuilder(appSecret).append(nonce).append(timestamp);
@@ -92,6 +92,9 @@ public class HttpUtil {
 		uri = hostType.getStrType() + uri;
 		URL url = new URL(uri);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		if (proxy != null){
+            conn = (HttpURLConnection) url.openConnection(proxy);
+        }
 		conn.setUseCaches(false);
 		conn.setDoInput(true);
 		conn.setDoOutput(true);
@@ -132,5 +135,10 @@ public class HttpUtil {
 		String result = new String(readInputStream(input), "UTF-8");
 		return result;
 	}
+
+    public static Proxy getProxy(String proxyHost, int proxyPort) {
+        InetSocketAddress inetSocketAddress = new InetSocketAddress(proxyHost, proxyPort);
+        return new Proxy(Proxy.Type.HTTP, inetSocketAddress);
+    }
 
 }
