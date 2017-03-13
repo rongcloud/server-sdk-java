@@ -26,9 +26,9 @@ public class SMS {
 	 * 
 	 * @param  appKey:应用Id
 	 *
-	 * @return SMSImageCodeReslut
+	 * @return SMSImageCodeResult
 	 **/
-	public SMSImageCodeReslut getImageCode(String appKey) throws Exception {
+	public SMSImageCodeResult getImageCode(String appKey) throws Exception {
 		if (appKey == null) {
 			throw new IllegalArgumentException("Paramer 'appKey' is required");
 		}
@@ -38,7 +38,7 @@ public class SMS {
 		
 		HttpURLConnection conn = HttpUtil.CreateGetHttpConnection(sb.toString());
 	    
-	    return (SMSImageCodeReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSImageCodeReslut.class);
+	    return (SMSImageCodeResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSImageCodeResult.class);
 	}
 	
 	/**
@@ -50,9 +50,9 @@ public class SMS {
 	 * @param  verifyId:图片验证标识 Id ，开启图片验证功能后此参数必传，否则可以不传。在获取图片验证码方法返回值中获取。
 	 * @param  verifyCode:图片验证码，开启图片验证功能后此参数必传，否则可以不传。
 	 *
-	 * @return SMSSendCodeReslut
+	 * @return SMSSendCodeResult
 	 **/
-	public SMSSendCodeReslut sendCode(String mobile, String templateId, String region, String verifyId, String verifyCode) throws Exception {
+	public SMSSendCodeResult sendCode(String mobile, String templateId, String region, String verifyId, String verifyCode) throws Exception {
 		if (mobile == null) {
 			throw new IllegalArgumentException("Paramer 'mobile' is required");
 		}
@@ -85,7 +85,7 @@ public class SMS {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/sendCode.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (SMSSendCodeReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSSendCodeReslut.class);
+	    return (SMSSendCodeResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSSendCodeResult.class);
 	}
 	
 	/**

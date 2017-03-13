@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * groupUserQuery返回结果
  */
-public class GroupUserQueryReslut {
+public class GroupUserQueryResult {
 	// 返回码，200 为正常。
 	Integer code;
 	// 群成员用户Id。
@@ -14,7 +14,7 @@ public class GroupUserQueryReslut {
 	// 群成员列表。
 	List<GroupUser> users;
 	
-	public GroupUserQueryReslut(Integer code, String id, List<GroupUser> users) {
+	public GroupUserQueryResult(Integer code, String id, List<GroupUser> users) {
 		this.code = code;
 		this.id = id;
 		this.users = users;
@@ -73,6 +73,6 @@ public class GroupUserQueryReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, GroupUserQueryReslut.class);
+		return GsonUtil.toJson(this, GroupUserQueryResult.class);
 	}
 }

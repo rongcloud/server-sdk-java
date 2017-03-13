@@ -1,7 +1,7 @@
 /**
  * 融云 Server API java 客户端
  * create by kitName
- * create datetime : 2017-02-09 
+ * create datetime : 2017-03-13 
  * 
  * v2.0.1
  */

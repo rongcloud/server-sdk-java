@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * listGagChatroomUser返回结果
  */
-public class ListGagChatroomUserReslut {
+public class ListGagChatroomUserResult {
 	// 返回码，200 为正常。
 	Integer code;
 	// 聊天室被禁言用户列表。
@@ -14,7 +14,7 @@ public class ListGagChatroomUserReslut {
 	// 错误信息。
 	String errorMessage;
 	
-	public ListGagChatroomUserReslut(Integer code, List<GagChatRoomUser> users, String errorMessage) {
+	public ListGagChatroomUserResult(Integer code, List<GagChatRoomUser> users, String errorMessage) {
 		this.code = code;
 		this.users = users;
 		this.errorMessage = errorMessage;
@@ -73,6 +73,6 @@ public class ListGagChatroomUserReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, ListGagChatroomUserReslut.class);
+		return GsonUtil.toJson(this, ListGagChatroomUserResult.class);
 	}
 }

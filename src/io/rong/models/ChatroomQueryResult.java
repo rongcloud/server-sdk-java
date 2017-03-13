@@ -1,24 +1,22 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
+import java.util.List;
 
 /**
- *  getImageCode 成功返回结果
+ *  chatroomQuery 返回结果
  */
-public class SMSImageCodeReslut {
+public class ChatroomQueryResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 返回的图片验证码 URL 地址。
-	String url;
-	// 返回图片验证标识 Id。
-	String verifyId;
+	// 聊天室信息数组。
+	List<ChatRoom> chatRooms;
 	// 错误信息。
 	String errorMessage;
 	
-	public SMSImageCodeReslut(Integer code, String url, String verifyId, String errorMessage) {
+	public ChatroomQueryResult(Integer code, List<ChatRoom> chatRooms, String errorMessage) {
 		this.code = code;
-		this.url = url;
-		this.verifyId = verifyId;
+		this.chatRooms = chatRooms;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -40,37 +38,20 @@ public class SMSImageCodeReslut {
 	}
 	
 	/**
-	 * 设置url
+	 * 设置chatRooms
 	 *
 	 */	
-	public void setUrl(String url) {
-		this.url = url;
+	public void setChatRooms(List<ChatRoom> chatRooms) {
+		this.chatRooms = chatRooms;
 	}
 	
 	/**
-	 * 获取url
+	 * 获取chatRooms
 	 *
-	 * @return String
+	 * @return List<ChatRoom>
 	 */
-	public String getUrl() {
-		return url;
-	}
-	
-	/**
-	 * 设置verifyId
-	 *
-	 */	
-	public void setVerifyId(String verifyId) {
-		this.verifyId = verifyId;
-	}
-	
-	/**
-	 * 获取verifyId
-	 *
-	 * @return String
-	 */
-	public String getVerifyId() {
-		return verifyId;
+	public List<ChatRoom> getChatRooms() {
+		return chatRooms;
 	}
 	
 	/**
@@ -92,6 +73,6 @@ public class SMSImageCodeReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, SMSImageCodeReslut.class);
+		return GsonUtil.toJson(this, ChatroomQueryResult.class);
 	}
 }

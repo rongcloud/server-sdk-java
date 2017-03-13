@@ -1,20 +1,24 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
+import java.util.List;
 
 /**
- * queryBlacklistUser返回结果
+ *  chatroomUserQuery 返回结果
  */
-public class QueryBlacklistUserReslut {
+public class ChatroomUserQueryResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 黑名单用户列表。
-	String[] users;
+	// 聊天室中用户数。
+	Integer total;
+	// 聊天室成员列表。
+	List<ChatRoomUser> users;
 	// 错误信息。
 	String errorMessage;
 	
-	public QueryBlacklistUserReslut(Integer code, String[] users, String errorMessage) {
+	public ChatroomUserQueryResult(Integer code, Integer total, List<ChatRoomUser> users, String errorMessage) {
 		this.code = code;
+		this.total = total;
 		this.users = users;
 		this.errorMessage = errorMessage;
 	}
@@ -37,19 +41,36 @@ public class QueryBlacklistUserReslut {
 	}
 	
 	/**
+	 * 设置total
+	 *
+	 */	
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+	
+	/**
+	 * 获取total
+	 *
+	 * @return Integer
+	 */
+	public Integer getTotal() {
+		return total;
+	}
+	
+	/**
 	 * 设置users
 	 *
 	 */	
-	public void setUsers(String[] users) {
+	public void setUsers(List<ChatRoomUser> users) {
 		this.users = users;
 	}
 	
 	/**
 	 * 获取users
 	 *
-	 * @return String[]
+	 * @return List<ChatRoomUser>
 	 */
-	public String[] getUsers() {
+	public List<ChatRoomUser> getUsers() {
 		return users;
 	}
 	
@@ -72,6 +93,6 @@ public class QueryBlacklistUserReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, QueryBlacklistUserReslut.class);
+		return GsonUtil.toJson(this, ChatroomUserQueryResult.class);
 	}
 }

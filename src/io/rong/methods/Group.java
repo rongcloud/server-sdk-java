@@ -28,9 +28,9 @@ public class Group {
 	 * @param  groupId:创建群组 Id。（必传）
 	 * @param  groupName:群组 Id 对应的名称。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut create(String[] userId, String groupId, String groupName) throws Exception {
+	public CodeSuccessResult create(String[] userId, String groupId, String groupName) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -60,7 +60,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/create.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -69,9 +69,9 @@ public class Group {
 	 * @param  userId:被同步群信息的用户 Id。（必传）
 	 * @param  groupInfo:该用户的群信息，如群 Id 已经存在，则不会刷新对应群组名称，如果想刷新群组名称请调用刷新群组信息方法。
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut sync(String userId, GroupInfo[] groupInfo) throws Exception {
+	public CodeSuccessResult sync(String userId, GroupInfo[] groupInfo) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -96,7 +96,7 @@ public class Group {
 	   	HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/sync.json", "application/x-www-form-urlencoded");
 	   	HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -105,9 +105,9 @@ public class Group {
 	 * @param  groupId:群组 Id。（必传）
 	 * @param  groupName:群名称。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut refresh(String groupId, String groupName) throws Exception {
+	public CodeSuccessResult refresh(String groupId, String groupName) throws Exception {
 		if (groupId == null) {
 			throw new IllegalArgumentException("Paramer 'groupId' is required");
 		}
@@ -127,7 +127,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/refresh.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -137,9 +137,9 @@ public class Group {
 	 * @param  groupId:要加入的群 Id。（必传）
 	 * @param  groupName:要加入的群 Id 对应的名称。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut join(String[] userId, String groupId, String groupName) throws Exception {
+	public CodeSuccessResult join(String[] userId, String groupId, String groupName) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -169,7 +169,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -177,9 +177,9 @@ public class Group {
 	 * 
 	 * @param  groupId:群组Id。（必传）
 	 *
-	 * @return GroupUserQueryReslut
+	 * @return GroupUserQueryResult
 	 **/
-	public GroupUserQueryReslut queryUser(String groupId) throws Exception {
+	public GroupUserQueryResult queryUser(String groupId) throws Exception {
 		if (groupId == null) {
 			throw new IllegalArgumentException("Paramer 'groupId' is required");
 		}
@@ -194,7 +194,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (GroupUserQueryReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), GroupUserQueryReslut.class);
+	    return (GroupUserQueryResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), GroupUserQueryResult.class);
 	}
 	
 	/**
@@ -203,9 +203,9 @@ public class Group {
 	 * @param  userId:要退出群的用户 Id.（必传）
 	 * @param  groupId:要退出的群 Id.（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut quit(String[] userId, String groupId) throws Exception {
+	public CodeSuccessResult quit(String[] userId, String groupId) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -230,7 +230,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/quit.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -240,9 +240,9 @@ public class Group {
 	 * @param  groupId:群组 Id。（必传）
 	 * @param  minute:禁言时长，以分钟为单位，最大值为43200分钟。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut addGagUser(String userId, String groupId, String minute) throws Exception {
+	public CodeSuccessResult addGagUser(String userId, String groupId, String minute) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -267,7 +267,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/gag/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -275,9 +275,9 @@ public class Group {
 	 * 
 	 * @param  groupId:群组Id。（必传）
 	 *
-	 * @return ListGagGroupUserReslut
+	 * @return ListGagGroupUserResult
 	 **/
-	public ListGagGroupUserReslut lisGagUser(String groupId) throws Exception {
+	public ListGagGroupUserResult lisGagUser(String groupId) throws Exception {
 		if (groupId == null) {
 			throw new IllegalArgumentException("Paramer 'groupId' is required");
 		}
@@ -292,7 +292,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/gag/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ListGagGroupUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListGagGroupUserReslut.class);
+	    return (ListGagGroupUserResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListGagGroupUserResult.class);
 	}
 	
 	/**
@@ -301,9 +301,9 @@ public class Group {
 	 * @param  userId:用户Id。支持同时移除多个群成员（必传）
 	 * @param  groupId:群组Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut rollBackGagUser(String[] userId, String groupId) throws Exception {
+	public CodeSuccessResult rollBackGagUser(String[] userId, String groupId) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -328,7 +328,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/user/gag/rollback.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -337,9 +337,9 @@ public class Group {
 	 * @param  userId:操作解散群的用户 Id。（必传）
 	 * @param  groupId:要解散的群 Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut dismiss(String userId, String groupId) throws Exception {
+	public CodeSuccessResult dismiss(String userId, String groupId) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -359,7 +359,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/group/dismiss.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 
 	 

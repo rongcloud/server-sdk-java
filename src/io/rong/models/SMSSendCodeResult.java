@@ -3,16 +3,19 @@ package io.rong.models;
 import io.rong.util.GsonUtil;
 
 /**
- *  http 成功返回结果
+ *  SMSSendCodeResult 成功返回结果
  */
-public class CodeSuccessReslut {
+public class SMSSendCodeResult {
 	// 返回码，200 为正常。
 	Integer code;
+	// 短信验证码唯一标识。
+	String sessionId;
 	// 错误信息。
 	String errorMessage;
 	
-	public CodeSuccessReslut(Integer code, String errorMessage) {
+	public SMSSendCodeResult(Integer code, String sessionId, String errorMessage) {
 		this.code = code;
+		this.sessionId = sessionId;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -34,6 +37,23 @@ public class CodeSuccessReslut {
 	}
 	
 	/**
+	 * 设置sessionId
+	 *
+	 */	
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	
+	/**
+	 * 获取sessionId
+	 *
+	 * @return String
+	 */
+	public String getSessionId() {
+		return sessionId;
+	}
+	
+	/**
 	 * 设置errorMessage
 	 *
 	 */	
@@ -52,6 +72,6 @@ public class CodeSuccessReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, CodeSuccessReslut.class);
+		return GsonUtil.toJson(this, SMSSendCodeResult.class);
 	}
 }

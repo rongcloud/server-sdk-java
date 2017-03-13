@@ -36,9 +36,9 @@ public class Message {
 	 * @param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
 	 * @param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut publishPrivate(String fromUserId, String[] toUserId, BaseMessage message, String pushContent, String pushData, String count, Integer verifyBlacklist, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
+	public CodeSuccessResult publishPrivate(String fromUserId, String[] toUserId, BaseMessage message, String pushContent, String pushData, String count, Integer verifyBlacklist, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -97,7 +97,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -105,9 +105,9 @@ public class Message {
 	 * 
 	 * @param  templateMessage:单聊模版消息。
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut publishTemplate(TemplateMessage templateMessage) throws Exception {
+	public CodeSuccessResult publishTemplate(TemplateMessage templateMessage) throws Exception {
 		if (templateMessage == null) {
 			throw new IllegalArgumentException("Paramer 'templateMessage' is required");
 		}
@@ -115,7 +115,7 @@ public class Message {
 	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/private/publish_template.json", "application/json");
 	    HttpUtil.setBodyParameter(templateMessage.toString(), conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -129,9 +129,9 @@ public class Message {
 	 * @param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选）
 	 * @param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut PublishSystem(String fromUserId, String[] toUserId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted) throws Exception {
+	public CodeSuccessResult PublishSystem(String fromUserId, String[] toUserId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -178,7 +178,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -186,9 +186,9 @@ public class Message {
 	 * 
 	 * @param  templateMessage:系统模版消息。
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut publishSystemTemplate(TemplateMessage templateMessage) throws Exception {
+	public CodeSuccessResult publishSystemTemplate(TemplateMessage templateMessage) throws Exception {
 		if (templateMessage == null) {
 			throw new IllegalArgumentException("Paramer 'templateMessage' is required");
 		}
@@ -196,7 +196,7 @@ public class Message {
 	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/system/publish_template.json", "application/json");
 	    HttpUtil.setBodyParameter(templateMessage.toString(), conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -211,9 +211,9 @@ public class Message {
 	 * @param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
 	 * @param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut publishGroup(String fromUserId, String[] toGroupId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
+	public CodeSuccessResult publishGroup(String fromUserId, String[] toGroupId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -264,7 +264,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -279,9 +279,9 @@ public class Message {
 	 * @param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
 	 * @param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut publishDiscussion(String fromUserId, String toDiscussionId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
+	public CodeSuccessResult publishDiscussion(String fromUserId, String toDiscussionId, BaseMessage message, String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -327,7 +327,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/discussion/publish.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -337,9 +337,9 @@ public class Message {
 	 * @param  toChatroomId:接收聊天室Id，提供多个本参数可以实现向多个聊天室发送消息。（必传）
 	 * @param  txtMessage:发送消息内容（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut publishChatroom(String fromUserId, String[] toChatroomId, BaseMessage message) throws Exception {
+	public CodeSuccessResult publishChatroom(String fromUserId, String[] toChatroomId, BaseMessage message) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -370,7 +370,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/chatroom/publish.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -382,9 +382,9 @@ public class Message {
 	 * @param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。（可选）
 	 * @param  os:针对操作系统发送 Push，值为 iOS 表示对 iOS 手机用户发送 Push ,为 Android 时表示对 Android 手机用户发送 Push ，如对所有用户发送 Push 信息，则不需要传 os 参数。（可选）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut broadcast(String fromUserId, BaseMessage message, String pushContent, String pushData, String os) throws Exception {
+	public CodeSuccessResult broadcast(String fromUserId, BaseMessage message, String pushContent, String pushData, String os) throws Exception {
 		if (fromUserId == null) {
 			throw new IllegalArgumentException("Paramer 'fromUserId' is required");
 		}
@@ -417,7 +417,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/broadcast.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -425,9 +425,9 @@ public class Message {
 	 * 
 	 * @param  date:指定北京时间某天某小时，格式为2014010101,表示：2014年1月1日凌晨1点。（必传）
 	 *
-	 * @return HistoryMessageReslut
+	 * @return HistoryMessageResult
 	 **/
-	public HistoryMessageReslut getHistory(String date) throws Exception {
+	public HistoryMessageResult getHistory(String date) throws Exception {
 		if (date == null) {
 			throw new IllegalArgumentException("Paramer 'date' is required");
 		}
@@ -442,7 +442,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/history.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (HistoryMessageReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), HistoryMessageReslut.class);
+	    return (HistoryMessageResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), HistoryMessageResult.class);
 	}
 	
 	/**
@@ -450,9 +450,9 @@ public class Message {
 	 * 
 	 * @param  date:指定北京时间某天某小时，格式为2014010101,表示：2014年1月1日凌晨1点。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut deleteMessage(String date) throws Exception {
+	public CodeSuccessResult deleteMessage(String date) throws Exception {
 		if (date == null) {
 			throw new IllegalArgumentException("Paramer 'date' is required");
 		}
@@ -467,7 +467,7 @@ public class Message {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/message/history/delete.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 
 	 

@@ -1,21 +1,22 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
+import java.util.List;
 
 /**
- * listWordfilter返回结果
+ * queryBlockUser返回结果
  */
-public class ListWordfilterReslut {
+public class QueryBlockUserResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 敏感词内容。
-	String word;
+	// 被封禁用户列表。
+	List<BlockUsers> users;
 	// 错误信息。
 	String errorMessage;
 	
-	public ListWordfilterReslut(Integer code, String word, String errorMessage) {
+	public QueryBlockUserResult(Integer code, List<BlockUsers> users, String errorMessage) {
 		this.code = code;
-		this.word = word;
+		this.users = users;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -37,20 +38,20 @@ public class ListWordfilterReslut {
 	}
 	
 	/**
-	 * 设置word
+	 * 设置users
 	 *
 	 */	
-	public void setWord(String word) {
-		this.word = word;
+	public void setUsers(List<BlockUsers> users) {
+		this.users = users;
 	}
 	
 	/**
-	 * 获取word
+	 * 获取users
 	 *
-	 * @return String
+	 * @return List<BlockUsers>
 	 */
-	public String getWord() {
-		return word;
+	public List<BlockUsers> getUsers() {
+		return users;
 	}
 	
 	/**
@@ -72,6 +73,6 @@ public class ListWordfilterReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, ListWordfilterReslut.class);
+		return GsonUtil.toJson(this, QueryBlockUserResult.class);
 	}
 }

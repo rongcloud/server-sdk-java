@@ -4,17 +4,17 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- *  lisitGagGroupUser 返回结果
+ * listBlockChatroomUser返回结果
  */
-public class ListGagGroupUserReslut {
-	// 返回码，200 为正常.
+public class ListBlockChatroomUserResult {
+	// 返回码，200 为正常。
 	Integer code;
-	// 群组被禁言用户列表。
-	List<GagGroupUser> users;
+	// 被封禁用户列表。
+	List<BlockChatRoomUser> users;
 	// 错误信息。
 	String errorMessage;
 	
-	public ListGagGroupUserReslut(Integer code, List<GagGroupUser> users, String errorMessage) {
+	public ListBlockChatroomUserResult(Integer code, List<BlockChatRoomUser> users, String errorMessage) {
 		this.code = code;
 		this.users = users;
 		this.errorMessage = errorMessage;
@@ -41,16 +41,16 @@ public class ListGagGroupUserReslut {
 	 * 设置users
 	 *
 	 */	
-	public void setUsers(List<GagGroupUser> users) {
+	public void setUsers(List<BlockChatRoomUser> users) {
 		this.users = users;
 	}
 	
 	/**
 	 * 获取users
 	 *
-	 * @return List<GagGroupUser>
+	 * @return List<BlockChatRoomUser>
 	 */
-	public List<GagGroupUser> getUsers() {
+	public List<BlockChatRoomUser> getUsers() {
 		return users;
 	}
 	
@@ -73,6 +73,6 @@ public class ListGagGroupUserReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, ListGagGroupUserReslut.class);
+		return GsonUtil.toJson(this, ListBlockChatroomUserResult.class);
 	}
 }

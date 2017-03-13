@@ -1,22 +1,18 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
-import java.util.List;
 
 /**
- * listBlockChatroomUser返回结果
+ *  http 成功返回结果
  */
-public class ListBlockChatroomUserReslut {
+public class CodeSuccessResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 被封禁用户列表。
-	List<BlockChatRoomUser> users;
 	// 错误信息。
 	String errorMessage;
 	
-	public ListBlockChatroomUserReslut(Integer code, List<BlockChatRoomUser> users, String errorMessage) {
+	public CodeSuccessResult(Integer code, String errorMessage) {
 		this.code = code;
-		this.users = users;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -38,23 +34,6 @@ public class ListBlockChatroomUserReslut {
 	}
 	
 	/**
-	 * 设置users
-	 *
-	 */	
-	public void setUsers(List<BlockChatRoomUser> users) {
-		this.users = users;
-	}
-	
-	/**
-	 * 获取users
-	 *
-	 * @return List<BlockChatRoomUser>
-	 */
-	public List<BlockChatRoomUser> getUsers() {
-		return users;
-	}
-	
-	/**
 	 * 设置errorMessage
 	 *
 	 */	
@@ -73,6 +52,6 @@ public class ListBlockChatroomUserReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, ListBlockChatroomUserReslut.class);
+		return GsonUtil.toJson(this, CodeSuccessResult.class);
 	}
 }

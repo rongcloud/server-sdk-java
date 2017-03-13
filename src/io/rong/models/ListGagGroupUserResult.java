@@ -1,21 +1,22 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
+import java.util.List;
 
 /**
- * checkOnlineUser返回结果
+ *  lisitGagGroupUser 返回结果
  */
-public class CheckOnlineReslut {
-	// 返回码，200 为正常。
+public class ListGagGroupUserResult {
+	// 返回码，200 为正常.
 	Integer code;
-	// 在线状态，1为在线，0为不在线。
-	String status;
+	// 群组被禁言用户列表。
+	List<GagGroupUser> users;
 	// 错误信息。
 	String errorMessage;
 	
-	public CheckOnlineReslut(Integer code, String status, String errorMessage) {
+	public ListGagGroupUserResult(Integer code, List<GagGroupUser> users, String errorMessage) {
 		this.code = code;
-		this.status = status;
+		this.users = users;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -37,20 +38,20 @@ public class CheckOnlineReslut {
 	}
 	
 	/**
-	 * 设置status
+	 * 设置users
 	 *
 	 */	
-	public void setStatus(String status) {
-		this.status = status;
+	public void setUsers(List<GagGroupUser> users) {
+		this.users = users;
 	}
 	
 	/**
-	 * 获取status
+	 * 获取users
 	 *
-	 * @return String
+	 * @return List<GagGroupUser>
 	 */
-	public String getStatus() {
-		return status;
+	public List<GagGroupUser> getUsers() {
+		return users;
 	}
 	
 	/**
@@ -72,6 +73,6 @@ public class CheckOnlineReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, CheckOnlineReslut.class);
+		return GsonUtil.toJson(this, ListGagGroupUserResult.class);
 	}
 }

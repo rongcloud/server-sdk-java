@@ -3,19 +3,19 @@ package io.rong.models;
 import io.rong.util.GsonUtil;
 
 /**
- *  SMSSendCodeReslut 成功返回结果
+ * listWordfilter返回结果
  */
-public class SMSSendCodeReslut {
+public class ListWordfilterResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 短信验证码唯一标识。
-	String sessionId;
+	// 敏感词内容。
+	String word;
 	// 错误信息。
 	String errorMessage;
 	
-	public SMSSendCodeReslut(Integer code, String sessionId, String errorMessage) {
+	public ListWordfilterResult(Integer code, String word, String errorMessage) {
 		this.code = code;
-		this.sessionId = sessionId;
+		this.word = word;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -37,20 +37,20 @@ public class SMSSendCodeReslut {
 	}
 	
 	/**
-	 * 设置sessionId
+	 * 设置word
 	 *
 	 */	
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	public void setWord(String word) {
+		this.word = word;
 	}
 	
 	/**
-	 * 获取sessionId
+	 * 获取word
 	 *
 	 * @return String
 	 */
-	public String getSessionId() {
-		return sessionId;
+	public String getWord() {
+		return word;
 	}
 	
 	/**
@@ -72,6 +72,6 @@ public class SMSSendCodeReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, SMSSendCodeReslut.class);
+		return GsonUtil.toJson(this, ListWordfilterResult.class);
 	}
 }

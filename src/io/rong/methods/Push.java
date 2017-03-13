@@ -24,9 +24,9 @@ public class Push {
 	 * 
 	 * @param  userTag:用户标签。
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut setUserPushTag(UserTag userTag) throws Exception {
+	public CodeSuccessResult setUserPushTag(UserTag userTag) throws Exception {
 		if (userTag == null) {
 			throw new IllegalArgumentException("Paramer 'userTag' is required");
 		}
@@ -34,7 +34,7 @@ public class Push {
 	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/user/tag/set.json", "application/json");
 	    HttpUtil.setBodyParameter(userTag.toString(), conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -42,9 +42,9 @@ public class Push {
 	 * 
 	 * @param  pushMessage:json数据
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut broadcastPush(PushMessage pushMessage) throws Exception {
+	public CodeSuccessResult broadcastPush(PushMessage pushMessage) throws Exception {
 		if (pushMessage == null) {
 			throw new IllegalArgumentException("Paramer 'pushMessage' is required");
 		}
@@ -52,7 +52,7 @@ public class Push {
 	    HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/push.json", "application/json");
 	    HttpUtil.setBodyParameter(pushMessage.toString(), conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 
 	 

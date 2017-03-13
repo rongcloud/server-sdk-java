@@ -1,20 +1,19 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
-import java.util.List;
 
 /**
- * queryBlockUser返回结果
+ * queryBlacklistUser返回结果
  */
-public class QueryBlockUserReslut {
+public class QueryBlacklistUserResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 被封禁用户列表。
-	List<BlockUsers> users;
+	// 黑名单用户列表。
+	String[] users;
 	// 错误信息。
 	String errorMessage;
 	
-	public QueryBlockUserReslut(Integer code, List<BlockUsers> users, String errorMessage) {
+	public QueryBlacklistUserResult(Integer code, String[] users, String errorMessage) {
 		this.code = code;
 		this.users = users;
 		this.errorMessage = errorMessage;
@@ -41,16 +40,16 @@ public class QueryBlockUserReslut {
 	 * 设置users
 	 *
 	 */	
-	public void setUsers(List<BlockUsers> users) {
+	public void setUsers(String[] users) {
 		this.users = users;
 	}
 	
 	/**
 	 * 获取users
 	 *
-	 * @return List<BlockUsers>
+	 * @return String[]
 	 */
-	public List<BlockUsers> getUsers() {
+	public String[] getUsers() {
 		return users;
 	}
 	
@@ -73,6 +72,6 @@ public class QueryBlockUserReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, QueryBlockUserReslut.class);
+		return GsonUtil.toJson(this, QueryBlacklistUserResult.class);
 	}
 }

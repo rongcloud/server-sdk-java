@@ -1,22 +1,24 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
-import java.util.List;
 
 /**
- *  chatroomQuery 返回结果
+ * historyMessage返回结果
  */
-public class ChatroomQueryReslut {
+public class HistoryMessageResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 聊天室信息数组。
-	List<ChatRoom> chatRooms;
+	// 历史消息下载地址。
+	String url;
+	// 历史记录时间。（yyyymmddhh）
+	String date;
 	// 错误信息。
 	String errorMessage;
 	
-	public ChatroomQueryReslut(Integer code, List<ChatRoom> chatRooms, String errorMessage) {
+	public HistoryMessageResult(Integer code, String url, String date, String errorMessage) {
 		this.code = code;
-		this.chatRooms = chatRooms;
+		this.url = url;
+		this.date = date;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -38,20 +40,37 @@ public class ChatroomQueryReslut {
 	}
 	
 	/**
-	 * 设置chatRooms
+	 * 设置url
 	 *
 	 */	
-	public void setChatRooms(List<ChatRoom> chatRooms) {
-		this.chatRooms = chatRooms;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	
 	/**
-	 * 获取chatRooms
+	 * 获取url
 	 *
-	 * @return List<ChatRoom>
+	 * @return String
 	 */
-	public List<ChatRoom> getChatRooms() {
-		return chatRooms;
+	public String getUrl() {
+		return url;
+	}
+	
+	/**
+	 * 设置date
+	 *
+	 */	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	/**
+	 * 获取date
+	 *
+	 * @return String
+	 */
+	public String getDate() {
+		return date;
 	}
 	
 	/**
@@ -73,6 +92,6 @@ public class ChatroomQueryReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, ChatroomQueryReslut.class);
+		return GsonUtil.toJson(this, HistoryMessageResult.class);
 	}
 }

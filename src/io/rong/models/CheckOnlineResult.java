@@ -3,22 +3,19 @@ package io.rong.models;
 import io.rong.util.GsonUtil;
 
 /**
- * historyMessage返回结果
+ * checkOnlineUser返回结果
  */
-public class HistoryMessageReslut {
+public class CheckOnlineResult {
 	// 返回码，200 为正常。
 	Integer code;
-	// 历史消息下载地址。
-	String url;
-	// 历史记录时间。（yyyymmddhh）
-	String date;
+	// 在线状态，1为在线，0为不在线。
+	String status;
 	// 错误信息。
 	String errorMessage;
 	
-	public HistoryMessageReslut(Integer code, String url, String date, String errorMessage) {
+	public CheckOnlineResult(Integer code, String status, String errorMessage) {
 		this.code = code;
-		this.url = url;
-		this.date = date;
+		this.status = status;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -40,37 +37,20 @@ public class HistoryMessageReslut {
 	}
 	
 	/**
-	 * 设置url
+	 * 设置status
 	 *
 	 */	
-	public void setUrl(String url) {
-		this.url = url;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	/**
-	 * 获取url
+	 * 获取status
 	 *
 	 * @return String
 	 */
-	public String getUrl() {
-		return url;
-	}
-	
-	/**
-	 * 设置date
-	 *
-	 */	
-	public void setDate(String date) {
-		this.date = date;
-	}
-	
-	/**
-	 * 获取date
-	 *
-	 * @return String
-	 */
-	public String getDate() {
-		return date;
+	public String getStatus() {
+		return status;
 	}
 	
 	/**
@@ -92,6 +72,6 @@ public class HistoryMessageReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, HistoryMessageReslut.class);
+		return GsonUtil.toJson(this, CheckOnlineResult.class);
 	}
 }

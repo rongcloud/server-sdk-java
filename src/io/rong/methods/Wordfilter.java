@@ -26,9 +26,9 @@ public class Wordfilter {
 	 * 
 	 * @param  word:敏感词，最长不超过 32 个字符。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut add(String word) throws Exception {
+	public CodeSuccessResult add(String word) throws Exception {
 		if (word == null) {
 			throw new IllegalArgumentException("Paramer 'word' is required");
 		}
@@ -43,16 +43,16 @@ public class Wordfilter {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
 	 * 查询敏感词列表方法 
 	 * 
 	 *
-	 * @return ListWordfilterReslut
+	 * @return ListWordfilterResult
 	 **/
-	public ListWordfilterReslut getList() throws Exception {
+	public ListWordfilterResult getList() throws Exception {
 	    StringBuilder sb = new StringBuilder();
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
@@ -62,7 +62,7 @@ public class Wordfilter {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ListWordfilterReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListWordfilterReslut.class);
+	    return (ListWordfilterResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListWordfilterResult.class);
 	}
 	
 	/**
@@ -70,9 +70,9 @@ public class Wordfilter {
 	 * 
 	 * @param  word:敏感词，最长不超过 32 个字符。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut delete(String word) throws Exception {
+	public CodeSuccessResult delete(String word) throws Exception {
 		if (word == null) {
 			throw new IllegalArgumentException("Paramer 'word' is required");
 		}
@@ -87,7 +87,7 @@ public class Wordfilter {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/wordfilter/delete.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 
 	 

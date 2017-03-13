@@ -5,7 +5,7 @@ import io.rong.util.GsonUtil;
 /**
  * getToken 返回结果
  */
-public class TokenReslut {
+public class TokenResult {
 	// 返回码，200 为正常.如果您正在使用开发环境的 AppKey，您的应用只能注册 100 名用户，达到上限后，将返回错误码 2007.如果您需要更多的测试账户数量，您需要在应用配置中申请“增加测试人数”。
 	Integer code;
 	// 用户 Token，可以保存应用内，长度在 256 字节以内.用户 Token，可以保存应用内，长度在 256 字节以内。
@@ -15,7 +15,7 @@ public class TokenReslut {
 	// 错误信息。
 	String errorMessage;
 	
-	public TokenReslut(Integer code, String token, String userId, String errorMessage) {
+	public TokenResult(Integer code, String token, String userId, String errorMessage) {
 		this.code = code;
 		this.token = token;
 		this.userId = userId;
@@ -92,6 +92,6 @@ public class TokenReslut {
 	
 	@Override
 	public String toString() {
-		return GsonUtil.toJson(this, TokenReslut.class);
+		return GsonUtil.toJson(this, TokenResult.class);
 	}
 }

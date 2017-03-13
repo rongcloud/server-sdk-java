@@ -26,9 +26,9 @@ public class Chatroom {
 	 * 
 	 * @param  chatRoomInfo:id:要创建的聊天室的id；name:要创建的聊天室的name。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut create(ChatRoomInfo[] chatRoomInfo) throws Exception {
+	public CodeSuccessResult create(ChatRoomInfo[] chatRoomInfo) throws Exception {
 		if (chatRoomInfo == null) {
 			throw new IllegalArgumentException("Paramer 'chatRoomInfo' is required");
 		}
@@ -47,7 +47,7 @@ public class Chatroom {
 	   	HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/create.json", "application/x-www-form-urlencoded");
 	   	HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -56,9 +56,9 @@ public class Chatroom {
 	 * @param  userId:要加入聊天室的用户 Id，可提交多个，最多不超过 50 个。（必传）
 	 * @param  chatroomId:要加入的聊天室 Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut join(String[] userId, String chatroomId) throws Exception {
+	public CodeSuccessResult join(String[] userId, String chatroomId) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -83,7 +83,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/join.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -91,9 +91,9 @@ public class Chatroom {
 	 * 
 	 * @param  chatroomId:要查询的聊天室id（必传）
 	 *
-	 * @return ChatroomQueryReslut
+	 * @return ChatroomQueryResult
 	 **/
-	public ChatroomQueryReslut query(String[] chatroomId) throws Exception {
+	public ChatroomQueryResult query(String[] chatroomId) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -113,7 +113,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ChatroomQueryReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ChatroomQueryReslut.class);
+	    return (ChatroomQueryResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), ChatroomQueryResult.class);
 	}
 	
 	/**
@@ -123,9 +123,9 @@ public class Chatroom {
 	 * @param  count:要获取的聊天室成员数，上限为 500 ，超过 500 时最多返回 500 个成员。（必传）
 	 * @param  order:加入聊天室的先后顺序， 1 为加入时间正序， 2 为加入时间倒序。（必传）
 	 *
-	 * @return ChatroomUserQueryReslut
+	 * @return ChatroomUserQueryResult
 	 **/
-	public ChatroomUserQueryReslut queryUser(String chatroomId, String count, String order) throws Exception {
+	public ChatroomUserQueryResult queryUser(String chatroomId, String count, String order) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -150,7 +150,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ChatroomUserQueryReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ChatroomUserQueryReslut.class);
+	    return (ChatroomUserQueryResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), ChatroomUserQueryResult.class);
 	}
 	
 	/**
@@ -158,9 +158,9 @@ public class Chatroom {
 	 * 
 	 * @param  chatroomId:聊天室 Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut stopDistributionMessage(String chatroomId) throws Exception {
+	public CodeSuccessResult stopDistributionMessage(String chatroomId) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -175,7 +175,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/message/stopDistribution.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -183,9 +183,9 @@ public class Chatroom {
 	 * 
 	 * @param  chatroomId:聊天室 Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut resumeDistributionMessage(String chatroomId) throws Exception {
+	public CodeSuccessResult resumeDistributionMessage(String chatroomId) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -200,7 +200,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/message/resumeDistribution.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -210,9 +210,9 @@ public class Chatroom {
 	 * @param  chatroomId:聊天室 Id。（必传）
 	 * @param  minute:禁言时长，以分钟为单位，最大值为43200分钟。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut addGagUser(String userId, String chatroomId, String minute) throws Exception {
+	public CodeSuccessResult addGagUser(String userId, String chatroomId, String minute) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -237,7 +237,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -245,9 +245,9 @@ public class Chatroom {
 	 * 
 	 * @param  chatroomId:聊天室 Id。（必传）
 	 *
-	 * @return ListGagChatroomUserReslut
+	 * @return ListGagChatroomUserResult
 	 **/
-	public ListGagChatroomUserReslut ListGagUser(String chatroomId) throws Exception {
+	public ListGagChatroomUserResult ListGagUser(String chatroomId) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -262,7 +262,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ListGagChatroomUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListGagChatroomUserReslut.class);
+	    return (ListGagChatroomUserResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListGagChatroomUserResult.class);
 	}
 	
 	/**
@@ -271,9 +271,9 @@ public class Chatroom {
 	 * @param  userId:用户 Id。（必传）
 	 * @param  chatroomId:聊天室Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut rollbackGagUser(String userId, String chatroomId) throws Exception {
+	public CodeSuccessResult rollbackGagUser(String userId, String chatroomId) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -293,7 +293,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/gag/rollback.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -303,9 +303,9 @@ public class Chatroom {
 	 * @param  chatroomId:聊天室 Id。（必传）
 	 * @param  minute:封禁时长，以分钟为单位，最大值为43200分钟。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut addBlockUser(String userId, String chatroomId, String minute) throws Exception {
+	public CodeSuccessResult addBlockUser(String userId, String chatroomId, String minute) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -330,7 +330,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -338,9 +338,9 @@ public class Chatroom {
 	 * 
 	 * @param  chatroomId:聊天室 Id。（必传）
 	 *
-	 * @return ListBlockChatroomUserReslut
+	 * @return ListBlockChatroomUserResult
 	 **/
-	public ListBlockChatroomUserReslut getListBlockUser(String chatroomId) throws Exception {
+	public ListBlockChatroomUserResult getListBlockUser(String chatroomId) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -355,7 +355,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ListBlockChatroomUserReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListBlockChatroomUserReslut.class);
+	    return (ListBlockChatroomUserResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), ListBlockChatroomUserResult.class);
 	}
 	
 	/**
@@ -364,9 +364,9 @@ public class Chatroom {
 	 * @param  userId:用户 Id。（必传）
 	 * @param  chatroomId:聊天室 Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut rollbackBlockUser(String userId, String chatroomId) throws Exception {
+	public CodeSuccessResult rollbackBlockUser(String userId, String chatroomId) throws Exception {
 		if (userId == null) {
 			throw new IllegalArgumentException("Paramer 'userId' is required");
 		}
@@ -386,7 +386,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/block/rollback.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -394,9 +394,9 @@ public class Chatroom {
 	 * 
 	 * @param  objectName:低优先级的消息类型，每次最多提交 5 个，设置的消息类型最多不超过 20 个。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut addPriority(String[] objectName) throws Exception {
+	public CodeSuccessResult addPriority(String[] objectName) throws Exception {
 		if (objectName == null) {
 			throw new IllegalArgumentException("Paramer 'objectName' is required");
 		}
@@ -416,7 +416,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/message/priority/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -424,9 +424,9 @@ public class Chatroom {
 	 * 
 	 * @param  chatroomId:要销毁的聊天室 Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut destroy(String[] chatroomId) throws Exception {
+	public CodeSuccessResult destroy(String[] chatroomId) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -446,7 +446,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/destroy.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 	
 	/**
@@ -455,9 +455,9 @@ public class Chatroom {
 	 * @param  chatroomId:聊天室中用户 Id，可提交多个，聊天室中白名单用户最多不超过 5 个。（必传）
 	 * @param  userId:聊天室 Id。（必传）
 	 *
-	 * @return CodeSuccessReslut
+	 * @return CodeSuccessResult
 	 **/
-	public CodeSuccessReslut addWhiteListUser(String chatroomId, String[] userId) throws Exception {
+	public CodeSuccessResult addWhiteListUser(String chatroomId, String[] userId) throws Exception {
 		if (chatroomId == null) {
 			throw new IllegalArgumentException("Paramer 'chatroomId' is required");
 		}
@@ -482,7 +482,7 @@ public class Chatroom {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.API, appKey, appSecret, "/chatroom/user/whitelist/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (CodeSuccessReslut) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessReslut.class);
+	    return (CodeSuccessResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), CodeSuccessResult.class);
 	}
 
 	 
