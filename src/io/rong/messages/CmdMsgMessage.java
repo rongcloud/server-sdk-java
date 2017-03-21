@@ -10,7 +10,7 @@ import io.rong.util.GsonUtil;
 public class CmdMsgMessage extends BaseMessage {
 	private String name = "";
 	private String data = "";
-	private transient static final String TYPE = "RC:TxtMsg";
+	private transient static final String TYPE = "RC:CmdMsg";
 	
 	public CmdMsgMessage(String name, String data) {
 		this.name = name;
