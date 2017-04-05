@@ -1,6 +1,8 @@
 package io.rong.models;
 
 import io.rong.util.GsonUtil;
+import java.util.Map;
+import java.util.List;
 
 /**
  * listWordfilter返回结果
@@ -9,13 +11,13 @@ public class ListWordfilterResult {
 	// 返回码，200 为正常。
 	Integer code;
 	// 敏感词内容。
-	String word;
+	List<Map<String, String>> words;
 	// 错误信息。
 	String errorMessage;
 	
-	public ListWordfilterResult(Integer code, String word, String errorMessage) {
+	public ListWordfilterResult(Integer code, List<Map<String, String>> words, String errorMessage) {
 		this.code = code;
-		this.word = word;
+		this.words = words;
 		this.errorMessage = errorMessage;
 	}
 	
@@ -37,20 +39,20 @@ public class ListWordfilterResult {
 	}
 	
 	/**
-	 * 设置word
+	 * 设置words
 	 *
 	 */	
-	public void setWord(String word) {
-		this.word = word;
+	public void setWords(List<Map<String, String>> words) {
+		this.words = words;
 	}
 	
 	/**
-	 * 获取word
+	 * 获取words
 	 *
-	 * @return String
+	 * @return List<Map<String, String>>
 	 */
-	public String getWord() {
-		return word;
+	public List<Map<String, String>> getWords() {
+		return words;
 	}
 	
 	/**
