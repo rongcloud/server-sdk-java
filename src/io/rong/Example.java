@@ -156,6 +156,21 @@ public class Example {
 		
 		
 		
+		System.out.println("************************Sensitiveword********************");
+		// 添加敏感词方法（设置敏感词后，App 中用户不会收到含有敏感词的消息内容，默认最多设置 50 个敏感词。） 
+		CodeSuccessResult sensitivewordAddResult = rongCloud.sensitiveword.add("money", "****");
+		System.out.println("add:  " + sensitivewordAddResult.toString());
+		
+		// 查询敏感词列表方法 
+		ListWordfilterResult sensitivewordGetListResult = rongCloud.sensitiveword.getList(1);
+		System.out.println("getList:  " + sensitivewordGetListResult.toString());
+		
+		// 移除敏感词方法（从敏感词列表中，移除某一敏感词。） 
+		CodeSuccessResult sensitivewordDeleteResult = rongCloud.sensitiveword.delete("money");
+		System.out.println("delete:  " + sensitivewordDeleteResult.toString());
+		
+		
+		
 		System.out.println("************************Group********************");
 		// 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join 的别名。） 
 		String[] groupCreateUserId = {"userId1","userid2","userId3"};
