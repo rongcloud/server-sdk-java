@@ -18,6 +18,7 @@ public class RongCloud {
 	public User user;
 	public Message message;
 	public Wordfilter wordfilter;
+	public SensitiveWordFilter sensitiveWordFilter;
 	public Group group;
 	public Chatroom chatroom;
 	public Push push;
@@ -27,6 +28,7 @@ public class RongCloud {
 		user = new User(appKey, appSecret);
 		message = new Message(appKey, appSecret);
 		wordfilter = new Wordfilter(appKey, appSecret);
+		sensitiveWordFilter = new SensitiveWordFilter(appKey, appSecret);
 		group = new Group(appKey, appSecret);
 		chatroom = new Chatroom(appKey, appSecret);
 		push = new Push(appKey, appSecret);
@@ -40,5 +42,5 @@ public class RongCloud {
 		}
 		return rongCloud.get(appKey);
 	}
-	 
+
 }
