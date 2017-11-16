@@ -24,8 +24,8 @@ public class Example {
 		String appSecret = "secret";//替换成匹配上面key的secret
 		
 		Reader reader = null ;
-		RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
-				
+//		RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+		RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,"http://api.cn.ronghub.com");
 		
 		System.out.println("************************User********************");
 		// 获取 Token 方法 

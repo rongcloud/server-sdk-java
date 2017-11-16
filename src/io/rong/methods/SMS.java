@@ -3,6 +3,7 @@ package io.rong.methods;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
+import io.rong.RongCloud;
 import io.rong.models.*;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -13,7 +14,17 @@ public class SMS {
 	private static final String UTF8 = "UTF-8";
 	private String appKey;
 	private String appSecret;
-	
+
+	private RongCloud rongCloud;
+
+	public RongCloud getRongCloud() {
+		return rongCloud;
+	}
+
+	public void setRongCloud(RongCloud rongCloud) {
+		this.rongCloud = rongCloud;
+	}
+
 	public SMS(String appKey, String appSecret) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
@@ -33,7 +44,7 @@ public class SMS {
 			throw new IllegalArgumentException("Paramer 'appKey' is required");
 		}
 		
-	    StringBuilder sb = new StringBuilder(HostType.SMS.getStrType()+"/getImgCode.json");
+	    StringBuilder sb = new StringBuilder(rongCloud.getSmsHostType().getStrType()+"/getImgCode.json");
 		sb.append("?appKey=").append(URLEncoder.encode(appKey, UTF8));
 		
 		HttpURLConnection conn = HttpUtil.CreateGetHttpConnection(sb.toString());
@@ -82,7 +93,7 @@ public class SMS {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/sendCode.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getSmsHostType(), appKey, appSecret, "/sendCode.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (SMSSendCodeResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSSendCodeResult.class);
@@ -113,7 +124,7 @@ public class SMS {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(HostType.SMS, appKey, appSecret, "/verifyCode.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getSmsHostType(), appKey, appSecret, "/verifyCode.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (SMSVerifyCodeResult) GsonUtil.fromJson(HttpUtil.returnResult(conn), SMSVerifyCodeResult.class);
