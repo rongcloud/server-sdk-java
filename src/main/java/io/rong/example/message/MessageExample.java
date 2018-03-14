@@ -37,12 +37,17 @@ public class MessageExample {
 
     private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
-
-    private static final String api = "http://192.168.155.13:9200";
+    /**
+     * 自定义api地址
+     * */
+    private static final String api = "http://api.cn.ronghub.com";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        //自定义 api 地址方式
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+
         Private Private = rongCloud.message.msgPrivate;
         MsgSystem system = rongCloud.message.system;
         Group group = rongCloud.message.group;
@@ -125,8 +130,8 @@ public class MessageExample {
                 .setIsPersisted(0)
                 .setIsCounted(0)
                 .setIsIncludeSender(0);
-        ResponseResult publishPrivateResult = Private.send(privateMessage);
-        System.out.println("sendPrivate:  " + publishPrivateResult.toString());
+        ResponseResult privateResult = Private.send(privateMessage);
+        System.out.println("send private message:  " + privateResult.toString());
 
         /**
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/message/private.html#sendTemplate
@@ -192,7 +197,7 @@ public class MessageExample {
                 .setSentTime("1519444243981");
         ResponseResult recallMessageResult = (ResponseResult)group.recall(recallMessage);
 
-        System.out.println("send recall message:  " + recallMessageResult.toString());
+        System.out.println("send recall group message:  " + recallMessageResult.toString());
 
         /**
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/message/group.html#sendMention
@@ -241,7 +246,7 @@ public class MessageExample {
 
         ResponseResult discussionResult = discussion.send(discussionMessage);
 
-        System.out.println("send Group message:  " + groupResult.toString());
+        System.out.println("send discussion message:  " + discussionResult.toString());
 
         /**
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/message/discussion.html#recall
@@ -255,7 +260,7 @@ public class MessageExample {
                 .setSentTime("1519444243981");
         ResponseResult recallDiscussionResult = (ResponseResult)discussion.recall(recallMessage);
 
-        System.out.println("send Group message:  " + recallDiscussionResult.toString());
+        System.out.println("recall discussion message:  " + recallDiscussionResult.toString());
 
 
         /**
@@ -301,7 +306,7 @@ public class MessageExample {
          *
          * */
 
-        HistoryMessageResult historyMessageResult = (HistoryMessageResult)history.get("2018030210");
+        HistoryMessageResult historyMessageResult = history.get("2018030210");
         System.out.println("get history  message:  " + historyMessageResult.toString());
 
         /**
@@ -312,7 +317,7 @@ public class MessageExample {
          *
          * */
 
-        ResponseResult removeHistoryMessageResult = (ResponseResult)history.remove("2018030210");
+        ResponseResult removeHistoryMessageResult = history.remove("2018030210");
         System.out.println("remove history  message:  " + removeHistoryMessageResult.toString());
 
 

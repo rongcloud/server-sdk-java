@@ -12,15 +12,21 @@ public class SensitiveExample {
    /**
     * 此处替换成您的appKey
     *  */
-    private static final String appKey = "z3v5yqkbvy9f0";
+    private static final String appKey = "appKey";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "plhr2PA386a";
+    private static final String appSecret = "appSecret";
+    /**
+     * 自定义api地址
+     * */
+    private static final String api = "http://api.cn.ronghub.com";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        //自定义 api 地址方式
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         SensitiveWord SensitiveWord = rongCloud.sensitiveword;
 
@@ -47,7 +53,7 @@ public class SensitiveExample {
                 .setType(1)
                 .setKeyWord("黄赌毒");
         ResponseResult addersult = SensitiveWord.add(sentiveWord);
-        System.out.println("sentiveWord add:  " + addersult.toString());
+        System.out.println("sentiveWord  add replace :  " + addersult.toString());
 
         /**
          *

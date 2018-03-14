@@ -73,7 +73,7 @@ public class User {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/user/getToken.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (TokenResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET_TOKEN,HttpUtil.returnResult(conn)), TokenResult.class);
+	    return (TokenResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REGISTER,HttpUtil.returnResult(conn)), TokenResult.class);
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class User {
 				"/user/refresh.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REFRESH,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.UPDATE,HttpUtil.returnResult(conn)), ResponseResult.class);
 	}
 
 

@@ -24,15 +24,15 @@ public class ConversationExample {
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://192.168.155.13:9200";
+    private static final String api = "http://api.cn.ronghub.com";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        //自定义 api 地址方式
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Conversation Conversation = rongCloud.conversation;
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
-
 
         ConversationModel conversation = new ConversationModel()
                 .setType("1")

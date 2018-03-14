@@ -99,6 +99,10 @@
 				"max": 5,
 				"min": 1,
 				"invalid": "20002"
+			},
+			"typeof": {
+				"type": "array",
+				"invalid": "20006"
 			}
 		}
 	},

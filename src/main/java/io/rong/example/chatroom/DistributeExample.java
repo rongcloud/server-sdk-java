@@ -15,9 +15,18 @@ public class DistributeExample {
      * */
     private static final String appSecret = "appSecret";
 
+    /**
+     * 自定义api地址
+     * */
+    private static final String api = "http://api.cn.ronghub.com";
+
+
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        //自定义 api地址方式
+        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+
         Distribute distribute = rongCloud.chatroom.distribute;
 
         /**

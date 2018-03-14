@@ -42,7 +42,7 @@ public class Demotion {
      * @return ResponseResult
      **/
     public ResponseResult add(String[] objectName) throws Exception {
-        String message = CommonUtil.checkParam("objectNames",objectName,PATH,CheckMethod.ADD);
+        String message = CommonUtil.checkParam("type",objectName,PATH,CheckMethod.ADD);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
@@ -73,7 +73,7 @@ public class Demotion {
      * @return ResponseResult
      **/
     public ResponseResult remove(String[] objectNames) throws Exception {
-        String message = CommonUtil.checkParam("objectNames",objectNames,PATH,CheckMethod.REMOVE);
+        String message = CommonUtil.checkParam("type",objectNames,PATH,CheckMethod.REMOVE);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }

@@ -44,8 +44,8 @@
 		"docs": "http://rongcloud.cn/docs/server.html#chatroom_message_priority_remove",
 		"url": "chatroom/message/priority/remove",
 		"params": {
-			"priority": {
-				"msgs": ["RC:TxtMsg", "RC:ImgMsg"]
+			"message": {
+				"type": ["RC:TxtMsg", "RC:ImgMsg"]
 			}
 		},
 		"response": {

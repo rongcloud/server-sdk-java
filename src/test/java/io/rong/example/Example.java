@@ -35,7 +35,7 @@ public class Example {
 	public void setUp() throws Exception {
 		String appKey = "appKey";
 		String appSecret = "appSecret";
-		//String api = "http://192.168.155.13:9200";
+		//String api = "http://api.cn.ronghub.com";
 		rongCloud = RongCloud.getInstance(appKey, appSecret);
 	}
 

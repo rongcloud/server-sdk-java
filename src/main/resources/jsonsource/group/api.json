@@ -289,7 +289,7 @@
 			}
 		}
 	},
-	"getMemberList": {
+	"get": {
 		"docs": "http://rongcloud.cn/docs/server.html#group_user_query",
 		"url": "group/user/query",
 		"params": {

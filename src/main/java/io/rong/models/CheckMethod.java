@@ -29,6 +29,8 @@ public class CheckMethod {
     public static final String SEND = "send";
     public static final String REGISTER = "register";
     public static final String GET_TOKEN = "getToken";
+    public static final String INVITE = "invite";
+
 
     public static final String CHECK = "check";
     public static final String QUERY = "query";

@@ -21,12 +21,15 @@ public class UserExample {
      * 此处替换成您的appSecret
      * */
     private static final String appSecret = "appSecret";
-
-    private static final String api = "http://192.168.155.13:9200";
+    /**
+     * 自定义api地址
+     * */
+    private static final String api = "http://api.cn.ronghub.com";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        //自定义 api 地址方式
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
         User User = rongCloud.user;
 
@@ -35,8 +38,6 @@ public class UserExample {
          *
          * 注册用户，生成用户在融云的唯一身份标识 Token
          */
-        String appKey = "e0x9wycfx7flq";
-        String appSecret = "STCevzDS6Xy18n";
         UserModel user = new UserModel()
                 .setId("userxxd1")
                 .setName("username")

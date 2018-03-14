@@ -139,7 +139,7 @@ public class Group {
 	   	}
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/refresh.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REFRESH,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.UPDATE,HttpUtil.returnResult(conn)), ResponseResult.class);
 	}
 	/**
 	 * 邀请用户加入指定群组，加入后可以接收该群消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
@@ -149,7 +149,7 @@ public class Group {
 	 * @return Result
 	 **/
 	public Result invite(GroupModel group) throws Exception {
-		String message = CommonUtil.checkFiled(group,PATH,CheckMethod.JOIN);
+		String message = CommonUtil.checkFiled(group,PATH,CheckMethod.INVITE);
 		if(null != message){
 			return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
 		}
@@ -171,7 +171,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 
-		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.JOIN,HttpUtil.returnResult(conn)), ResponseResult.class);
+		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.INVITE,HttpUtil.returnResult(conn)), ResponseResult.class);
 	}
 	/**
 	 * 将用户加入指定群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
@@ -215,7 +215,7 @@ public class Group {
 	 **/
 	public GroupUserQueryResult get(GroupModel group) throws Exception {
 
-		String errMsg = CommonUtil.checkFiled(group,PATH,CheckMethod.GET_MEMBERS_LIST);
+		String errMsg = CommonUtil.checkFiled(group,PATH,CheckMethod.GET);
 		if(null != errMsg){
 			return (GroupUserQueryResult)GsonUtil.fromJson(errMsg,GroupUserQueryResult.class);
 		}
@@ -229,7 +229,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/user/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
-	    return (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET_MEMBERS_LIST,HttpUtil.returnResult(conn)), GroupUserQueryResult.class);
+	    return (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), GroupUserQueryResult.class);
 	}
 	
 	/**
@@ -272,7 +272,7 @@ public class Group {
 	 * @return ResponseResult
 	 **/
 	public Result dismiss(GroupModel group) throws Exception {
-		String message = CommonUtil.checkFiled(group,PATH,CheckMethod.QUIT);
+		String message = CommonUtil.checkFiled(group,PATH,CheckMethod.DISMISS);
 		if(null != message){
 			return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
 		}
