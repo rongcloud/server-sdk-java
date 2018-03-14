@@ -1,0 +1,105 @@
+{
+	"add": {
+		"docs": "http://rongcloud.cn/docs/server.html#chatroom_message_priority_add",
+		"url": "chatroom/message/priority/add",
+		"params": {
+			"message": {
+				"type": ["RC:TxtMsg", "RC:ImgMsg"]
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20002": {
+					"code": "20002",
+					"msg": "msgs 个数超限, msgs.length >= 1 且 msgs.length <=5 "
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"20007": {
+					"code": "20007",
+					"msg": "protrait 不是合法地址，请检查 protrait 是否正确"
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"remove": {
+		"docs": "http://rongcloud.cn/docs/server.html#chatroom_message_priority_remove",
+		"url": "chatroom/message/priority/remove",
+		"params": {
+			"priority": {
+				"msgs": ["RC:TxtMsg", "RC:ImgMsg"]
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20002": {
+					"code": "20002",
+					"msg": "msgs 个数超限, msgs.length >= 1 且 msgs.length <=5 "
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"20007": {
+					"code": "20007",
+					"msg": "protrait 不是合法地址，请检查 protrait 是否正确"
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"getList": {
+		"docs": "http://rongcloud.cn/docs/server.html#chatroom_message_priority_query",
+		"url": "chatroom/message/priority/query",
+		"params": {},
+		"response": {
+			"success": {
+				"code": 200,
+				"objectNames": ["RC:ImgMsg", "RC:ImgTextMsg", "RC:VcMsg"]
+			},
+			"fail": {
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	}
+}

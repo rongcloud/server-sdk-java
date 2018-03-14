@@ -1,0 +1,16 @@
+{
+  "chatroom": {
+    "id": "chatromId01",
+    "name": "chatroomName",
+    "merbers": ["memberId1","memberId2"],
+    "minute": "封禁时间",
+    "count": 10,
+    "order": 1
+  },
+  "user": {
+    "id": "aFo990k",
+    "name": "Martin",
+    "portrait": "http://image.rongcloud.cn/portrait.png"
+  }
+
+}

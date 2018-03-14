@@ -1,0 +1,24 @@
+{
+  "group": {
+    "getToken": ["id", "name", "portrait"],
+    "refresh": ["id", "name"],
+    "black": {
+      "add":[],
+      "remove":[],
+      "getList":[]
+
+    },
+    "block": {
+      "add":[],
+      "remove":[],
+      "getList":[]
+
+    },
+    "online-status": {
+      "add":[],
+      "remove":[],
+      "getList":[]
+
+    }
+  }
+}

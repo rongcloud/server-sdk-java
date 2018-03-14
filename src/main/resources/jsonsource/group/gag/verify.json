@@ -1,0 +1,17 @@
+{
+  "minute": {
+    "require": {
+      "must": true,
+      "invalid": "20005"
+    },
+    "size": {
+      "max": 43200,
+      "min": 1,
+      "invalid": "20004"
+    },
+    "typeof": {
+      "type": "number|int",
+      "invalid": "20006"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+*.class
+*.zip
+*.bak
+src/.metadata/
+bin/
+.settings/
+.idea*/
+target/
+logs/
+*.iml
+*.iml
+src/com.fcloud.connectmanager/build.xml
+.fuse*
+src/out/
+*.pyc

@@ -1,0 +1,154 @@
+{
+	"send": {
+		"params": {
+			"message": {
+				"conversationType": 1,
+				"senderId": "2191",
+				"targetId": "2192",
+				"objectName": "RC:TxtMsg",
+				"content": {
+					"content":"hello"
+				},
+				"pushContent": "thisisapush",
+				"pushData": {
+					"pushData":"hello"
+				},
+				"verifyBlacklist": 0,
+				"isPersisted": 1,
+				"isCounted": 1,
+				"isIncludeSender": 0,
+				"contentAvailable": 0
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20002": {
+					"code": "20002",
+					"msg": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"sendTemplate": {
+		"params": {
+			"message": {
+				"senderId": "fhdjfh00f",
+				"objectName": "RC:TxtMsg",
+				"template": {
+					"content": "{name}, 语文成绩 {score} 分"
+				},
+				"content": {
+					"sea9901": {
+						"data": {
+							"{name}": "小明",
+							"{score}": "90"
+						},
+						"push": "{name} 考试成绩"
+					},
+					"sea9902": {
+						"data": {
+							"{name}": "小红",
+							"{score}": "95"
+						},
+						"push": "{name} 考试成绩"
+					}
+				}
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"broadcast": {
+		"docs": "http://www.rongcloud.cn/docs/server.html#message_broadcast",
+		"url": "message/",
+		"params": {
+			"message": {
+				"senderId":"sds",
+				"objectName": "RC:TxtMsg",
+				"content": {
+					"content":"hello"
+				},
+				"pushContent": "this is a push",
+				"pushData": {
+					"pushData":"hello"
+				},
+				"os": "ios",
+				"contentAvailable": 0
+			}
+		},
+		"response": {
+			"success": {
+				"code": 200
+			},
+			"fail": {
+				"20002": {
+					"code": "20002",
+					"msg": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+
+	}
+}

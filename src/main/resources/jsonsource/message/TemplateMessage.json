@@ -1,0 +1,23 @@
+{
+  "senderId": "kamdnq",
+  "objectName": "RC:TxtMsg",
+  "template": {
+    "content": "{name}, 语文成绩 {score} 分"
+  },
+  "content": {
+    "sea9901": {
+      "data": {
+        "{name}": "小明",
+        "{score}": "90"
+      },
+      "push": "{name} 你的成绩出来了"
+    },
+    "sea9902": {
+      "data": {
+        "{name}": "小红",
+        "{score}": "95"
+      },
+      "push": "{name} 你的成绩出来了"
+    }
+  }
+}

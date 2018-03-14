@@ -1,0 +1,14 @@
+{
+    "platform": ["ios","android"],
+    "fromuserid": "U161142135",
+    "audience": {
+        "tag":["1"],
+        "is_to_all": false
+    },
+    "message": {
+        "content":"{\"content\":\"sadfsadfa\",\"extra\":\"www.baidu.com\"}",
+        "objectName": "RC:TxtMsg"
+    },
+    "notification":{"alert":"this is a push"}
+}
+

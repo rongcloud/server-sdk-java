@@ -1,0 +1,29 @@
+{
+    "fromUserId": "fromuser",
+    "objectName": "RC:TxtMsg",
+    "content": "{\"content\":\"{c}{d}{e}\",\"extra\":\"bb\"}",
+    "toUserId": [
+        "21",
+        "22"
+    ],
+    "values": [
+        {
+            "{c}": "1",
+            "{d}": "2",
+            "{e}": "3"
+        },
+        {
+            "{c}": "4",
+            "{d}": "5",
+            "{e}": "6"
+        }
+    ],
+    "pushContent": [
+        "push{c}",
+        "push{c}"
+    ],
+    "pushData": [
+        "pushd",
+        "pushd"
+    ]
+}

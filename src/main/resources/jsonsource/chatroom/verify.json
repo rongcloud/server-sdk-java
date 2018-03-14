@@ -1,0 +1,141 @@
+{
+	"chatroom": {
+		"_self": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"id": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"length": {
+				"max": 32,
+				"min": 1,
+				"invalid": "20003"
+			},
+			"typeof": {
+				"type": "string",
+				"invalid": "20006"
+			}
+		},
+		"name": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"members": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"size": {
+				"max": 20,
+				"min": 1,
+				"invalid": "20002"
+			},
+			"typeof": {
+				"type": "object",
+				"invalid": "20006"
+			}
+		},	
+		"count": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"size": {
+				"max": 500,
+				"min": 1,
+				"invalid": "20002"
+			},
+			"typeof": {
+				"type": "string",
+				"invalid": "20006"
+			}
+		},
+		"order": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"typeof": {
+				"type": "string",
+				"invalid": "20006"
+			}
+		},
+		"minute": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"size": {
+				"max": 43200,
+				"min": 1,
+				"invalid": "20004"
+			},
+			"typeof": {
+				"type": "number|int",
+				"invalid": "20006"
+			}
+		}
+	},
+	"message": {
+		"_self": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"type": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"size": {
+				"max": 5,
+				"min": 1,
+				"invalid": "20002"
+			}
+		}
+	},
+	"member": {
+		"_self": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"id": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"length": {
+				"max": 64,
+				"min": 1,
+				"invalid": "20002"
+			}
+		},
+		"chatroomId": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"length": {
+				"max": 64,
+				"min": 1,
+				"invalid": "20002"
+			}
+		},
+		"time": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		}
+	}
+}

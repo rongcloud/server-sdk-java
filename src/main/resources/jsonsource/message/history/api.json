@@ -1,0 +1,67 @@
+{
+	"get": {
+		"docs": "http://rongcloud.cn/docs/server.html#history_message_download",
+		"url": "message/history",
+		"params": {
+			"message": {
+				"date": "2018010101"
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"url": "http://120.92.22.186/9/2018030119/5e398bf3-df16-4e75-9385-7e37c65db649.zip"
+			},
+			"fail": {
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+				}
+			}
+		}
+	},
+	"remove": {
+		"docs": "http://rongcloud.cn/docs/server.html#history_message_delete",
+		"url": "message/delete",
+		"params": {
+			"message": {
+				"date": "2017010101"
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+			},
+			"fail": {
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,114 @@
+{
+	"send": {
+		"docs": "http://www.rongcloud.cn/docs/push_service.html#push",
+		"url": "/push",
+		"params": {
+			"push": {
+				"platform":[
+					"ios",
+					"android"
+				],
+				"fromuserid":"fromuseId1",
+				"audience":{
+					"tag":[
+						"女",
+						"年轻",
+						"北京"
+					],
+					"tag_or":[
+						"北京",
+						"南京",
+						"上海"
+					],
+					"userid":[
+						"123",
+						"456"
+					],
+					"is_to_all":false
+				},
+				"message":{
+					"content":"{\"content\":\"1111\",\"extra\":\"aa\"}",
+					"objectName":"RC:TxtMsg"
+				},
+				"notification":{
+					"alert":"this is a push",
+					"ios":{
+						"alert":"override alert",
+						"extras":{
+							"id":"1",
+							"name":"2"
+						}
+					},
+					"android":{
+						"alert":"override alert",
+						"extras":{
+							"id":"1",
+							"name":"2"
+						}
+					}
+				}
+			}
+		},
+		"response": {
+			"success": {
+				"code": 200,
+				"id": "jlk456jdsdsdsdklkdlskld5"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+
+	},
+	"setUserTag": {
+		"docs": "http://www.rongcloud.cn/docs/push_service.html#user_tag_set",
+		"url": "/user/tag/set",
+		"params": {
+			"tag": {
+				"userId": "31232",
+				"tags": [
+					"bj",
+					"男"
+				]
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	}
+}

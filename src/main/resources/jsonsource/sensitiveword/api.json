@@ -1,0 +1,152 @@
+{
+	"add": {
+		"docs": "http://rongcloud.cn/docs/server.html#sensitiveword_add",
+		"url": "sensitiveword/add",
+		"params": {
+			"sensitive": {
+				"type": 1,
+				"keyword": "法轮功",
+				"replace": "***"
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"remove": {
+		"docs": "http://rongcloud.cn/docs/server.html#sensitiveword_delete",
+		"url": "sensitiveword/delete",
+		"params": {
+			"sensitive": {
+				"keywords": "法轮功"
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"batchDelete": {
+		"docs": "http://www.rongcloud.cn/docs/server.html#sensitiveword_batch_delete",
+		"url": "/sensitiveword/batch/delete",
+		"params": {
+			"sensitive": {
+				"keywords": ["法轮功", "国名党"]
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"getList": {
+		"docs": "http://rongcloud.cn/docs/server.html#sensitiveword_list",
+		"url": "sensitiveword/list",
+		"params": {},
+		"response": {
+			"success": {
+				"code": 200,
+				"words": [{
+					"type": 0,
+					"word": "黄赌毒",
+					"replaceWord": "***"
+				}, {
+					"type": 0,
+					"word": "法轮功",
+					"replaceWord": "---"
+				}]
+			},
+			"fail": {
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	}
+}

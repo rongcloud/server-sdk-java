@@ -1,0 +1,71 @@
+{
+	"push": {
+		"_self": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"typeof": {
+				"type": "object",
+				"invalid": "20006"
+			}
+		},
+		"platform": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"audience": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"notification": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"alert": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		}
+	},
+	"tag": {
+		"_self": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"typeof": {
+				"type": "object",
+				"invalid": "20006"
+			}
+		},
+		"userId": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"tags": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"size": {
+				"max": 20,
+				"min": 1,
+				"invalid": "20004"
+			},
+			"typeof": {
+				"type": "array",
+				"invalid": "20006"
+			}
+		}
+	}
+}

@@ -1,0 +1,42 @@
+{
+	"broadcast": {
+		"_self": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"typeof": {
+				"type": "object",
+				"invalid": "20006"
+			}
+		},
+		"fromUserId": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"length": {
+				"max": 64,
+				"min": 1,
+				"invalid": "20003"
+			}
+		},
+		"objectName": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"length": {
+				"max": 32,
+				"min": 1,
+				"invalid": "20003"
+			}
+		},
+		"message": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		}
+	}
+}

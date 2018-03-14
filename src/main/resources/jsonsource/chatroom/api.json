@@ -1,0 +1,161 @@
+{
+	"create": {
+		"docs": "http://rongcloud.cn/docs/server.html#chatroom_create",
+		"url": "chatroom/create",
+		"params": {
+			"chatroom": [{
+				"id": "chatroomId01",
+				"name": "大融云"
+			}]
+		},
+		"response": {
+			"success": {
+				"code": 200,
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"destory": {
+		"docs": "http://rongcloud.cn/docs/server.html#chatroom_destroy",
+		"url": "chatroom/destroy",
+		"params": {
+			"chatroom": [{
+				"id": "chatroomId01"
+			}]
+		},
+		"response": {
+			"success": {
+				"code": 200,
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"get": {
+		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_query",
+		"url": "chatroom/user/query",
+		"params": {
+			"chatroom": {
+				"id": "chatromId01",
+				"count": 10,
+				"order": 1
+			}
+		},
+		"response": {
+			"success": {
+				"code": 200,
+				"total": 1000,
+				"members": [{
+					"id": "member1",
+					"time": "2015-09-10 16:38:26"
+				}, {
+					"id": "member2",
+					"time": "2015-09-10 16:38:26"
+				}]
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"isExist": {
+		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_exist",
+		"url": "chatroom/user/exist",
+		"params": {
+			"member": {
+				"id": "memberId01",
+				"chatroomId": ["chatroomId01"]
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"msg": "成功返回"
+			},
+			"fail": {
+				"20003": {
+					"code": "20003",
+					"msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "20005",
+					"msg": "{{name}} 参数为必传项"
+				},
+				"20006": {
+					"code": "20006",
+					"msg": "user 类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "20000",
+					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "20001",
+					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,8 @@
+{
+  "time": {
+    "require": {
+      "must": true,
+      "invalid": "20005"
+    }
+  }
+}
