@@ -471,7 +471,7 @@ public class Example {
 	 *  刷新群组信息方法测试
 	 */
 	@Test
-	public void testGroupRefresh() throws Exception {
+	public void testGroupUpdate() throws Exception {
 
 		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
 

@@ -4,7 +4,9 @@
 		"url": "chatroom/user/ban/add",
 		"params": {
 			"chatroom": {
-				"memberIds": ["akfj0a1", "akfj0a2"],
+				"members": [{
+					"id": "memberId01"
+				}],
 				"minute": 100
 			}
 		},
@@ -42,7 +44,9 @@
 		"url": "chatroom/user/ban/remove",
 		"params": {
 			"chatroom": {
-				"memberIds": ["akfj0a1", "akfj0a2"]
+				"members": [{
+					"id": "memberId01"
+				}]
 			}
 		},
 		"response": {

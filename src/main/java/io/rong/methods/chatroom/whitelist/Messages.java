@@ -4,6 +4,7 @@ import io.rong.RongCloud;
 import io.rong.exception.ParamException;
 import io.rong.models.CheckMethod;
 import io.rong.models.CommonConstrants;
+import io.rong.models.response.ChatroomWhitelistMsgResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -17,7 +18,7 @@ import java.net.URLEncoder;
  * docs: "http://www.rongcloud.cn/docs/server.html#chatroom_whitelist"
  *
  * */
-public class MessageWhiteList {
+public class Messages {
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "chatroom/whitelist/message";
     private String appKey;
@@ -30,7 +31,7 @@ public class MessageWhiteList {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
-    public MessageWhiteList(String appKey, String appSecret) {
+    public Messages(String appKey, String appSecret) {
         this.appKey = appKey;
         this.appSecret = appSecret;
     }
@@ -106,10 +107,10 @@ public class MessageWhiteList {
      *
      * @return ResponseResult
      **/
-    public ResponseResult getList() throws Exception {
+    public ChatroomWhitelistMsgResult getList() throws Exception {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/whitelist/query.json", "application/x-www-form-urlencoded");
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn)), ResponseResult.class);
+        return (ChatroomWhitelistMsgResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), ChatroomWhitelistMsgResult.class);
     }
 }
 

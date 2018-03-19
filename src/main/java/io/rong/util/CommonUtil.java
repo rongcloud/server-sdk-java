@@ -2,11 +2,16 @@ package io.rong.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.rong.models.response.BlackList;
+import io.rong.models.User;
+import io.rong.models.response.BlackListResult;
+import io.rong.models.response.UserList;
+import io.rong.models.response.WhiteListResult;
+import io.rong.models.user.UserModel;
 import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -377,14 +382,37 @@ public class CommonUtil {
             Set<Map.Entry<String,Object>> keys = api.getJSONObject(method).getJSONObject("response").getJSONObject("fail").entrySet();
             String text = "";
             if(code.equals("200")){
-                if(path.contains("chatroom")||path.contains("group")){
+               if(path.contains("blacklist") && method.equals("getList")){
+
+                   UserList userList = (UserList)GsonUtil.fromJson(response,UserList.class);
+                   ArrayList<UserModel> users = new ArrayList<>();
+                   for(String id : userList.getUsers()){
+                       users.add(new UserModel().setId(id));
+                   }
+                   UserModel[] members = users.toArray(new UserModel[users.size()]);
+
+                   BlackListResult blacklist = new BlackListResult(userList.getCode(),"",members);
+
+                   text = userList.toString();
+
+                }else if(path.contains("whitelist/user") && method.equals("getList")){
+
+                   UserList userList = (UserList)GsonUtil.fromJson(response,UserList.class);
+                   //User[] members = {};
+                   ArrayList<UserModel> users = new ArrayList<>();
+                   for(String id : userList.getUsers()){
+                       users.add(new UserModel().setId(id));
+                   }
+                   UserModel[] members = users.toArray(new UserModel[users.size()]);
+                   WhiteListResult whitelist = new WhiteListResult(userList.getCode(),"",members);
+
+                   text = whitelist.toString();
+
+                }else  if(path.contains("chatroom")||path.contains("group")){
                     text = StringUtils.replace(response,"users","members");
-                }else if(path.contains("blacklist") && method.equals("getList")){
-
-                    BlackList blackList = (BlackList)GsonUtil.fromJson(response,BlackList.class);
-
-                    text = blackList.toString();
-
+                   if(text.contains("whitlistMsgType")){
+                       text = StringUtils.replace(text,"whitlistMsgType","objectNames");
+                   }
                 }else{
                     text = response;
                 }
@@ -401,7 +429,7 @@ public class CommonUtil {
                 return text;
             }
         } catch (Exception e) {
-
+            System.out.println("-------------"+e);
         }
         return response;
     }

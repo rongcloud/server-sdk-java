@@ -106,6 +106,6 @@ public class Demotion {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret,
                 "/chatroom/message/priority/query.json", "application/x-www-form-urlencoded");
 
-        return (ChatroomDemotionMsgResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), ChatroomDemotionMsgResult.class);
+        return (ChatroomDemotionMsgResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), ChatroomDemotionMsgResult.class);
     }
 }

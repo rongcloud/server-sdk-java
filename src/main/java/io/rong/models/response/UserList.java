@@ -2,7 +2,7 @@ package io.rong.models.response;
 
 import io.rong.util.GsonUtil;
 
-public class BlackList {
+public class UserList {
     /**
      * 返回码，200 为正常。
      *
@@ -14,7 +14,7 @@ public class BlackList {
     private String[] users;
 
 
-    public BlackList(Integer code, String[] users) {
+    public UserList(Integer code, String[] users) {
         this.code = code;
         this.users = users;
     }
@@ -37,7 +37,7 @@ public class BlackList {
 
     @Override
     public String toString() {
-        return GsonUtil.toJson(this, BlackList.class);
+        return GsonUtil.toJson(this, UserList.class);
     }
 
 }

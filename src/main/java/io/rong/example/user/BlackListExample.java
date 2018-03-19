@@ -61,7 +61,7 @@ public class BlackListExample {
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/user/black.html#remove
          * 从黑名单中移除用户方法
          */
-        Result removeResult = (Result)BlackList.remove(user);
+        Result removeResult = BlackList.remove(user);
         System.out.println("remove blacklist:  " + removeResult.toString());
 
     }

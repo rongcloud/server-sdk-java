@@ -5,6 +5,9 @@ import io.rong.methods.conversation.Conversation;
 import io.rong.models.response.ConversationNotificationResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.conversation.ConversationModel;
+import io.rong.util.CodeUtil;
+import io.rong.util.CodeUtil.ConversationType;
+
 /**
  *
  * 绘话示例
@@ -35,7 +38,7 @@ public class ConversationExample {
         Conversation Conversation = rongCloud.conversation;
 
         ConversationModel conversation = new ConversationModel()
-                .setType("1")
+                .setType(ConversationType.PRIVATE.getName())
                 .setUserId("UgYzcDZSisNyYaZ83WXcEk11")
                 .setTargetId("2iXiqVWUAWwaKA55FuZvY31");
         /**

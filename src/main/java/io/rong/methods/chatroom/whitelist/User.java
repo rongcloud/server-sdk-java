@@ -7,6 +7,7 @@ import io.rong.models.CommonConstrants;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.response.WhiteListResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -79,7 +80,7 @@ public class User {
             throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/whitelist/user/remove", "Paramer 'chatroom' is required");
         }
 
-        String message = CommonUtil.checkFiled(chatroom,PATH, CheckMethod.ADD);
+        String message = CommonUtil.checkFiled(chatroom,PATH, CheckMethod.REMOVE);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
@@ -100,23 +101,23 @@ public class User {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/whitelist/remove.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn);
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn)), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn)), ResponseResult.class);
     }
 
     /**
      * 添加聊天室白名单成员方法
      *
      *
-     * @return ResponseResult
+     * @return WhiteListResult
      **/
-    public ResponseResult getList(ChatroomModel chatroom) throws Exception {
+    public WhiteListResult getList(ChatroomModel chatroom) throws Exception {
         if (chatroom == null) {
             throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/whitelist/user/getList", "Paramer 'chatroom' is required");
         }
 
-        String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.ADD);
+        String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.GETLIST);
         if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+            return (WhiteListResult)GsonUtil.fromJson(message,WhiteListResult.class);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -130,6 +131,6 @@ public class User {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/whitelist/query.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn);
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn)), ResponseResult.class);
+        return (WhiteListResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), WhiteListResult.class);
     }
 }

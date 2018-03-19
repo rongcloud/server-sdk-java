@@ -5,7 +5,36 @@ import java.security.MessageDigest;
 import org.apache.commons.codec.binary.Hex;
 
 public class CodeUtil {
-	
+
+	/**
+	 * 会话类型
+	 */
+	public static enum ConversationType{
+		//二人会话
+		PRIVATE("1"),
+		//讨论组会话
+		DISCUSSION("2"),
+		//群组会话
+		GROUP("3"),
+		//系统通知
+		SYSTEM("6"),
+		//客服会话
+		KF("5"),
+		//应用公众服务
+		MC("7"),
+		//公众服务
+		MP("8");
+
+
+		private String name;
+		private ConversationType(String name){
+			this.name = name;
+		}
+		public String getName(){
+			return  this.name;
+		}
+	}
+
 	public static String hexSHA1(String value) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-1");
