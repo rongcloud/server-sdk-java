@@ -9,29 +9,32 @@ import java.util.List;
  */
 public class ListGagGroupUserResult extends Result{
 	// 群组被禁言用户列表。
-	List<GagGroupUser> users;
+	List<GagGroupUser> members;
 
-	public ListGagGroupUserResult(Integer code, List<GagGroupUser> users, String errorMessage) {
-		this.code = code;
-		this.users = users;
-		this.msg = errorMessage;
+	public ListGagGroupUserResult(Integer code, String msg, List<GagGroupUser> members) {
+		super(code, msg);
+		this.members = members;
+	}
+
+	public ListGagGroupUserResult(List<GagGroupUser> members) {
+		this.members = members;
 	}
 
 	/**
-	 * 设置users
-	 *
-	 */	
-	public void setUsers(List<GagGroupUser> users) {
-		this.users = users;
-	}
-	
-	/**
-	 * 获取users
+	 * 获取members
 	 *
 	 * @return List<GagGroupUser>
 	 */
-	public List<GagGroupUser> getUsers() {
-		return users;
+	public List<GagGroupUser> getMembers() {
+		return this.members;
+	}
+
+	/**
+	 * 设置members
+	 *
+	 */
+	public void setMembers(List<GagGroupUser> members) {
+		this.members = members;
 	}
 
 	@Override
