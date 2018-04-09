@@ -355,7 +355,7 @@ public class Example {
 		assertEquals("200",result.getCode().toString());
 	}
 	/**
-	 * 测试群组消息
+	 * 测试群组撤回消息
 	 * */
 	@Test
 	public void testRecallGroup() throws Exception {
@@ -384,6 +384,27 @@ public class Example {
 				.setObjectName(txtMessage.getType());
 		ResponseResult result = rongCloud.message.chatroom.send(message);
 		System.out.println("publishChatroomPrivate:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 * 测试删除历史消息
+	 * */
+	@Test
+	public void testRemoveHistory() throws Exception {
+		ResponseResult result = rongCloud.message.history.remove("2018030210");
+		System.out.println("remove history  message:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 * 测试获取历史消息
+	 * */
+	@Test
+	public void testGetHistory() throws Exception {
+		HistoryMessageResult result = rongCloud.message.history.get("2018032810");
+		System.out.println("get history  message:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());
 	}

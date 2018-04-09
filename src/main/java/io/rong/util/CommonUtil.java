@@ -408,7 +408,7 @@ public class CommonUtil {
 
                    text = whitelist.toString();
 
-                }else  if(path.contains("chatroom")||path.contains("group")){
+                }else if(path.contains("chatroom")||path.contains("group")){
                     text = StringUtils.replace(response,"users","members");
                    if(text.contains("whitlistMsgType")){
                        text = StringUtils.replace(text,"whitlistMsgType","objectNames");
@@ -426,6 +426,9 @@ public class CommonUtil {
                     }
                 }
                 text = StringUtils.replace(response,"errorMessage","msg");
+                if(path.contains("chatroom")){
+                    text = StringUtils.replace(text,"users","members");
+                }
                 return text;
             }
         } catch (Exception e) {

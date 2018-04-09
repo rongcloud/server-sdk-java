@@ -21,7 +21,6 @@ import java.net.URLEncoder;
 public class Gag {
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "group/gag";
-    private static String method = "";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;

@@ -8,30 +8,34 @@ import java.util.List;
  * listBlockChatroomUser返回结果
  */
 public class ListBlockChatroomUserResult extends Result{
-	// 被封禁用户列表。
-	List<BlockChatRoomUser> users;
-
-	public ListBlockChatroomUserResult(Integer code, List<BlockChatRoomUser> users, String errorMessage) {
-		this.code = code;
-		this.users = users;
-		this.msg = errorMessage;
-	}
-
 	/**
-	 * 设置users
+	 * 被封禁用户列表
 	 *
-	 */	
-	public void setUsers(List<BlockChatRoomUser> users) {
-		this.users = users;
+	 */
+	List<BlockChatRoomUser> members;
+
+	public ListBlockChatroomUserResult(Integer code, String msg, List<BlockChatRoomUser> members) {
+		super(code, msg);
+		this.members = members;
 	}
-	
+
+	public ListBlockChatroomUserResult(List<BlockChatRoomUser> members) {
+		this.members = members;
+	}
 	/**
-	 * 获取users
+	 * 获取members
 	 *
 	 * @return List<BlockChatRoomUser>
 	 */
-	public List<BlockChatRoomUser> getUsers() {
-		return users;
+	public List<BlockChatRoomUser> getMembers() {
+		return this.members;
+	}
+	/**
+	 * 设置members
+	 *
+	 */
+	public void setMembers(List<BlockChatRoomUser> members) {
+		this.members = members;
 	}
 
 	@Override

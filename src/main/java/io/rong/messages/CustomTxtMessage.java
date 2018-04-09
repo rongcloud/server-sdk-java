@@ -10,7 +10,7 @@ import io.rong.util.GsonUtil;
 public class CustomTxtMessage extends BaseMessage {
 	private String content = "";
 	private transient static final String TYPE = "RC:TxtMsg";
-	
+
 	public CustomTxtMessage(String content) {
 		this.content = content;
 	}

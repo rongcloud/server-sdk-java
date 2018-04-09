@@ -16,7 +16,6 @@ import io.rong.models.response.GroupUserQueryResult;
  * @version
  */
 public class GroupExample {
-	private static final String JSONFILE = GroupExample.class.getClassLoader().getResource("jsonsource").getPath()+"/";
 	/**
 	 * 此处替换成您的appKey
 	 * */
@@ -127,7 +126,7 @@ public class GroupExample {
 		 * 查询群成员方法
 		 *
 		 */
-		group = new GroupModel().setId("figk97h");
+		group = new GroupModel().setId("groupId");
 		GroupUserQueryResult getMemberesult = Group.get(group);
 		System.out.println("group getMember:  " + getMemberesult.toString());
 

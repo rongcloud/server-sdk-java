@@ -1,6 +1,7 @@
 package io.rong.example.message;
 
 import io.rong.RongCloud;
+import io.rong.messages.CustomTxtMessage;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
 import io.rong.methods.message._private.Private;
@@ -46,7 +47,7 @@ public class MessageExample {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
         //自定义 api 地址方式
-        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Private Private = rongCloud.message.msgPrivate;
         MsgSystem system = rongCloud.message.system;
@@ -61,7 +62,7 @@ public class MessageExample {
          * 发送系统消息
          *
          */
-        String[] targetIds = {"userId2","userid3","userId4"};
+        String[] targetIds = {"2651280140445094444"};
         SystemMessage systemMessage = new SystemMessage()
                 .setSenderUserId("usetId")
                 .setTargetId(targetIds)
@@ -119,7 +120,7 @@ public class MessageExample {
          * 发送单聊消息
          * */
         PrivateMessage privateMessage = new PrivateMessage()
-                .setSenderUserId("userId")
+                .setSenderUserId("2609751433442958892")
                 .setTargetId(targetIds)
                 .setObjectName(voiceMessage.getType())
                 .setContent(voiceMessage)
@@ -158,9 +159,9 @@ public class MessageExample {
          * 撤回单聊消息
          * */
         RecallMessage recallMessage = new RecallMessage()
-                .setSenderUserId("sea9901")
-                .setTargetId("IXQhMs3ny")
-                .setuId("5GSB-RPM1-KP8H-9JHF")
+                .setSenderUserId("2609751433442958892")
+                .setTargetId("2651280140445094444")
+                .setuId("5H6P-CGC6-44QR-VB3R")
                 .setSentTime("1519444243981");
         ResponseResult recallPrivateResult = (ResponseResult)Private.recall(recallMessage);
         System.out.println("recall private:  " + recallPrivateResult.toString());
@@ -181,9 +182,9 @@ public class MessageExample {
                 .setIsCounted(0)
                 .setIsIncludeSender(0)
                 .setContentAvailable(0);
-        ResponseResult groupResult = group.send(groupMessage);
+       ResponseResult groupResult = group.send(groupMessage);
 
-        System.out.println("send Group message:  " + groupResult.toString());
+       System.out.println("send Group message:  " + groupResult.toString());
 
         /**
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/message/group.html#recall
@@ -194,7 +195,7 @@ public class MessageExample {
                 .setSenderUserId("sea9901")
                 .setTargetId("markoiwm")
                 .setuId("5GSB-RPM1-KP8H-9JHF")
-                .setSentTime("1519444243981");
+                .setSentTime("1522242030641");
         ResponseResult recallMessageResult = (ResponseResult)group.recall(recallMessage);
 
         System.out.println("send recall group message:  " + recallMessageResult.toString());
@@ -269,14 +270,14 @@ public class MessageExample {
          * 聊天室消息
          * */
 
-        String[] chatroomIds = {"IXQhMs3ny","IXQlMs3oy","IXQlMs3olp"};
+        String[] chatroomIds = {"15222258878654823358"};
 
-
+        CustomTxtMessage ctm = new CustomTxtMessage("hello");
         ChatroomMessage chatroomMessage = new ChatroomMessage()
-                .setSenderUserId("bN6oQi8T5")
+                .setSenderUserId("1")
                 .setTargetId(chatroomIds)
-                .setContent(txtMessage)
-                .setObjectName(txtMessage.getType());
+                .setContent(ctm)
+                .setObjectName(ctm.getType());
 
         ResponseResult chatroomResult = chatroom.send(chatroomMessage);
         System.out.println("send chatroom message:  " + chatroomResult.toString());
@@ -306,7 +307,7 @@ public class MessageExample {
          *
          * */
 
-        HistoryMessageResult historyMessageResult = history.get("2018030210");
+        HistoryMessageResult historyMessageResult = history.get("2018032810");
         System.out.println("get history  message:  " + historyMessageResult.toString());
 
         /**

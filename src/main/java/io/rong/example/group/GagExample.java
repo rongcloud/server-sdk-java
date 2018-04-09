@@ -14,7 +14,6 @@ import io.rong.models.response.ListGagGroupUserResult;
  * @version
  */
 public class GagExample {
-    private static final String JSONFILE = GroupExample.class.getClassLoader().getResource("jsonsource").getPath()+"/";
     /**
      * 此处替换成您的appKey
      * */
@@ -22,7 +21,7 @@ public class GagExample {
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
+    private static final String appSecret = "appSercet";
     /**
      * 自定义api地址
      * */
@@ -44,12 +43,11 @@ public class GagExample {
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/group/gag.html#add
          * 添加禁言群成员方法
          */
-        String[] memberIds = {"userId1","userid2","userId3"};
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
 
         GroupModel group = new GroupModel()
-                .setId("IXQhMs3ny")
+                .setId("12")
                 .setMembers(members)
                 .setMunite(5);
         Result result = Gag.add(group);
@@ -59,7 +57,7 @@ public class GagExample {
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/group/gag.html#getList
          * 查询被禁言群成员
          */
-        ListGagGroupUserResult groupLisGagUserResult = Gag.getList("25");
+        ListGagGroupUserResult groupLisGagUserResult = Gag.getList("12");
         System.out.println("group.gag.getList:  " + groupLisGagUserResult.toString());
 
         /**
@@ -70,8 +68,8 @@ public class GagExample {
                 .setId("IXQhMs3ny")
                 .setMembers(members);
 
-        Result groupRollBackGagUserResult = Gag.remove(group);
-        System.out.println("group.gag.remove:  " + groupRollBackGagUserResult.toString());
+        //Result groupRollBackGagUserResult = Gag.remove(group);
+        //System.out.println("group.gag.remove:  " + groupRollBackGagUserResult.toString());
 
     }
 }

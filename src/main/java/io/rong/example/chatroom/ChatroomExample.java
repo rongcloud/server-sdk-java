@@ -15,8 +15,7 @@ public class ChatroomExample {
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
-
+    private static final String appSecret = "appSercet";
     /**
      * 自定义api地址
      * */
@@ -55,8 +54,8 @@ public class ChatroomExample {
         ChatroomModel chatroomModel = new ChatroomModel()
                 .setId("d7ec7a8b8d8546c98b0973417209a548");
 
-        ResponseResult chatroomDestroyResult = chatroom.destroy(chatroomModel);
-        System.out.println("destroy:  " + chatroomDestroyResult.toString());
+        //ResponseResult chatroomDestroyResult = chatroom.destroy(chatroomModel);
+        //System.out.println("destroy:  " + chatroomDestroyResult.toString());
 
 
         /**
@@ -67,7 +66,7 @@ public class ChatroomExample {
          * */
 
         chatroomModel = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548")
+                .setId("76891")
                 .setCount(500)
                 .setOrder(1);
 
@@ -81,9 +80,8 @@ public class ChatroomExample {
          *
          * */
         ChatroomMember member = new ChatroomMember()
-                .setId("137385")
-                .setChatroomId("d7ec7a8b8d8546c98b0973417209a548")
-                .setTime("8888");
+                .setId("76894")
+                .setChatroomId("76891");
 
         CheckChatRoomUserResult checkMemberResult = chatroom.isExist(member);
         System.out.println("checkChatroomUserResult:  " + checkMemberResult.isInChrm);

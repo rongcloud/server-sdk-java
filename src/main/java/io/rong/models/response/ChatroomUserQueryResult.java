@@ -10,18 +10,28 @@ import java.util.List;
  *  chatroomUserQuery 返回结果
  */
 public class ChatroomUserQueryResult extends Result{
-	// 聊天室中用户数。
+	/**
+	 * 聊天室中用户数。
+	 *
+	 */
 	Integer total;
-	// 聊天室成员列表。
-	List<ChatroomMember> users;
+	/**
+	 * 聊天室成员列表。
+	 *
+	 */
+	List<ChatroomMember> members;
 
-	public ChatroomUserQueryResult(Integer code, Integer total, List<ChatroomMember> users, String errorMessage) {
-		super(code,errorMessage);
-		this.code = code;
+	public ChatroomUserQueryResult(Integer code, String msg, Integer total, List<ChatroomMember> members) {
+		super(code, msg);
 		this.total = total;
-		this.users = users;
-		this.msg = errorMessage;
+		this.members = members;
 	}
+
+	public ChatroomUserQueryResult(Integer total, List<ChatroomMember> members) {
+		this.total = total;
+		this.members = members;
+	}
+
 	/**
 	 * 设置total
 	 *
@@ -38,22 +48,20 @@ public class ChatroomUserQueryResult extends Result{
 	public Integer getTotal() {
 		return total;
 	}
-	
 	/**
-	 * 设置users
-	 *
-	 */	
-	public void setUsers(List<ChatroomMember> users) {
-		this.users = users;
-	}
-	
-	/**
-	 * 获取users
+	 * 获取members
 	 *
 	 * @return List<ChatroomMember>
 	 */
-	public List<ChatroomMember> getUsers() {
-		return users;
+	public List<ChatroomMember> getMembers() {
+		return this.members;
+	}
+	/**
+	 * 设置members
+	 *
+	 */
+	public void setMembers(List<ChatroomMember> members) {
+		this.members = members;
 	}
 
 	@Override

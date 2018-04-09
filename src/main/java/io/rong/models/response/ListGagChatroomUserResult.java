@@ -5,18 +5,24 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * listGagChatroomUser返回结果
+ * 聊天室禁言返回结果
  */
 public class ListGagChatroomUserResult extends Result{
-	// 聊天室被禁言用户列表。
-	List<GagChatRoomUser> users;
+	/**
+	 * 聊天室被禁言用户列表。
+	 *
+	 */
+	List<GagChatRoomUser> members;
 
-	public ListGagChatroomUserResult(Integer code, List<GagChatRoomUser> users, String errorMessage) {
-		this.code = code;
-		this.users = users;
-		this.msg = errorMessage;
+	public ListGagChatroomUserResult(Integer code, String msg, List<GagChatRoomUser> members) {
+		super(code, msg);
+		this.members = members;
 	}
-	
+
+	public ListGagChatroomUserResult(List<GagChatRoomUser> members) {
+		this.members = members;
+	}
+
 	/**
 	 * 设置code
 	 *
@@ -35,26 +41,22 @@ public class ListGagChatroomUserResult extends Result{
 	public Integer getCode() {
 		return code;
 	}
-	
 	/**
-	 * 设置users
+	 * 获取members
 	 *
-	 */	
-	public void setUsers(List<GagChatRoomUser> users) {
-		this.users = users;
-	}
-	
-	/**
-	 * 获取users
-	 *
-	 * @return List<GagChatRoomUser>
+	 * @return List
 	 */
-	public List<GagChatRoomUser> getUsers() {
-		return users;
+	public List<GagChatRoomUser> getMembers() {
+		return this.members;
+	}
+	/**
+	 * 设置members
+	 *
+	 */
+	public void setMembers(List<GagChatRoomUser> members) {
+		this.members = members;
 	}
 
-
-	
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, ListGagChatroomUserResult.class);

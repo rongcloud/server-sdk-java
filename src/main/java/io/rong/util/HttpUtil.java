@@ -24,10 +24,10 @@ import javax.net.ssl.X509TrustManager;
  */
 public class HttpUtil {
 
-	private static final String APPKEY = "RC-App-Key";
-	private static final String NONCE = "RC-Nonce";
-	private static final String TIMESTAMP = "RC-Timestamp";
-	private static final String SIGNATURE = "RC-Signature";
+	private static final String APPKEY = "App-Key";
+	private static final String NONCE = "Nonce";
+	private static final String TIMESTAMP = "Timestamp";
+	private static final String SIGNATURE = "Signature";
 
 	private static SSLContext sslCtx = null;
 	static {
