@@ -1,6 +1,5 @@
 package io.rong.methods.message.discussion;
 
-import com.sun.org.apache.regexp.internal.RE;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;

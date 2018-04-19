@@ -1,7 +1,7 @@
 package io.rong.models;
 
 public class CommonConstrants {
-    public static final int RCLOUD_TESTUSERS_OUT= 10001;//测试用户数量超限，测试用户数量超限。请提供蛋申请
+    public static final int RCLOUD_TESTUSERS_OUT= 20008;//测试用户数量超限，测试用户数量超限。请提供蛋申请
     public static final int RCLOUD_SIGN_ERROR= 20000;//签名错误, 请排查 Appkey、Secret 是否正确
     public static final int RCLOUD_FREQUENCY_OUT = 20001;//调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http："//www.rongcloud.cn/pricing#pay20002=	{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
     public static final int RCLOUD_LEN_OUT = 20003;//userId 长度超限 最大长度 64字节
