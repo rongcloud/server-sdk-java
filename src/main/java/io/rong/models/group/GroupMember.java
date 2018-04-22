@@ -31,7 +31,7 @@ public class GroupMember {
     }
 
     /**
-     * 设置id
+     * @param id 设置id
      *
      */
     public GroupMember setId(String id) {
@@ -57,9 +57,9 @@ public class GroupMember {
         return this.groupId;
     }
     /**
-     * 设置群组id
+     * @param groupId 设置群组id
      *
-     * @return String
+     *
      */
     public void setGroupId(String groupId) {
         this.groupId = groupId;
@@ -74,9 +74,9 @@ public class GroupMember {
         return this.munite;
     }
     /**
-     * 设置munite
+     * @param munite 设置munite
      *
-     * @return String
+     *
      */
     public void setMunite(Integer munite) {
         this.munite = munite;

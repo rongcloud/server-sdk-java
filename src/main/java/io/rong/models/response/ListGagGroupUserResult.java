@@ -23,7 +23,7 @@ public class ListGagGroupUserResult extends Result{
 	/**
 	 * 获取members
 	 *
-	 * @return List<GagGroupUser>
+	 * @return List
 	 */
 	public List<GagGroupUser> getMembers() {
 		return this.members;

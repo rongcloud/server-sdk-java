@@ -25,7 +25,7 @@ public class ListBlockChatroomUserResult extends Result{
 	/**
 	 * 获取members
 	 *
-	 * @return List<BlockChatRoomUser>
+	 * @return List
 	 */
 	public List<BlockChatRoomUser> getMembers() {
 		return this.members;

@@ -30,16 +30,16 @@ public class ImgTextMessage extends BaseMessage {
 	/**
 	 * 获取消息文本内容。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getContent() {
 		return content;
 	}
 	
 	/**
-	 * 设置消息文本内容。
+	 * @param content 设置消息文本内容。
 	 *
-	 * @return
+	 *
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -48,16 +48,16 @@ public class ImgTextMessage extends BaseMessage {
 	/**
 	 * 获取附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getExtra() {
 		return extra;
 	}
 	
 	/**
-	 * 设置附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * @param extra 设置附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @return
+	 *
 	 */
 	public void setExtra(String extra) {
 		this.extra = extra;
@@ -66,16 +66,16 @@ public class ImgTextMessage extends BaseMessage {
 	/**
 	 * 获取消息标题。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getTitle() {
 		return title;
 	}
 	
 	/**
-	 * 设置消息标题。
+	 * @param title 设置消息标题。
 	 *
-	 * @return
+	 *
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -84,16 +84,16 @@ public class ImgTextMessage extends BaseMessage {
 	/**
 	 * 获取图片地址。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getImageUri() {
 		return imageUri;
 	}
 	
 	/**
-	 * 设置图片地址。
+	 * @param imageUri 设置图片地址。
 	 *
-	 * @return
+	 *
 	 */
 	public void setImageUri(String imageUri) {
 		this.imageUri = imageUri;
@@ -102,16 +102,16 @@ public class ImgTextMessage extends BaseMessage {
 	/**
 	 * 获取 url 跳转地址。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getUrl() {
 		return url;
 	}
 	
 	/**
-	 * 设置 url 跳转地址。
+	 * @param url 设置 url 跳转地址。
 	 *
-	 * @return
+	 *
 	 */
 	public void setUrl(String url) {
 		this.url = url;

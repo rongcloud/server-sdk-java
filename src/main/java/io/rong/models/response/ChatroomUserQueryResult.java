@@ -51,7 +51,7 @@ public class ChatroomUserQueryResult extends Result{
 	/**
 	 * 获取members
 	 *
-	 * @return List<ChatroomMember>
+	 * @return List
 	 */
 	public List<ChatroomMember> getMembers() {
 		return this.members;

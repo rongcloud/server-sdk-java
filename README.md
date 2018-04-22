@@ -1,9 +1,21 @@
 server-sdk-java
 =================
 
-Rong Cloud Server SDK in Java.
+RongCloud IM Server SDK in Java.
 
-# 使用教程
+## 集成
+
+   * 中央仓库获取`JAR` [MVN Repository](http://mvnrepository.com/artifact/cn.rongcloud.im/server-sdk-java/)或者 [Central Repository](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22cn.rongcloud.im%22)
+   * 通过meavn配置文件
+```
+    <dependency>
+        <groupId>cn.rongcloud.im</groupId>
+        <artifactId>server-sdk-java</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+```
+
+# 使用
 
 以注册用户为例
 
@@ -27,6 +39,8 @@ Rong Cloud Server SDK in Java.
   System.out.println("getToken:  " + result.toString());
 
 ```
+
+
 ## [文档](http://rongcloud.github.io/server-sdk-nodejs/docs/v1/)
 
 ## 示例

@@ -9,8 +9,8 @@ import io.rong.models.user.UserModel;
 /**
  * Demo class
  *
- * @author hc
- * @date 2017/12/30
+ * @author RongCloud
+ *
  */
 public class UserExample {
     /**

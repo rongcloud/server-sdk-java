@@ -22,8 +22,8 @@ import java.util.Map;
  * 发送系统消息方法
  *
  * docs : http://www.rongcloud.cn/docs/server.html#message_system_publish
- * @author hc
- * @date 2017/12/30
+ * @author RongCloud
+ *
  */
 public class MsgSystem {
     private static final String UTF8 = "UTF-8";
@@ -49,8 +49,9 @@ public class MsgSystem {
      * 发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
      * 每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）
      *
-     * @param
+     * @param message 消息体
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult send(MessageModel message) throws Exception {
         SystemMessage systemMessage = (SystemMessage)message;
@@ -101,6 +102,7 @@ public class MsgSystem {
      * @param  template:系统模版消息。
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult sendTemplate(TemplateMessage template) throws Exception {
 
@@ -138,9 +140,10 @@ public class MsgSystem {
      * 发送广播消息方法（发送消息给一个应用下的所有注册用户，如用户未在线会对满足条件（绑定手机终端）的用户发送 Push 信息，单条消息最大 128k，会话类型为 SYSTEM。每小时只能发送 2 次，每天最多发送 3 次。）
      * 该功能开发环境下可免费使用。生产环境下，您需要登录开发者后台，在“应用/IM 服务/高级功能设置”中开通公有云专业版后，在“广播消息和推送”中，开启后才能使用
      *
-     *  @param message 消息体
+     * @param message 消息体
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult broadcast(BroadcastMessage message) throws Exception {
 

@@ -12,8 +12,8 @@ import io.rong.util.CodeUtil.ConversationType;
  *
  * 绘话示例
  * @author RongCloud
- * @date 2017/12/30
- * @version
+ *
+ * @version 3.0.0
  */
 public class ConversationExample {
     /**

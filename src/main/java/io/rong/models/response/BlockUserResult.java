@@ -25,7 +25,7 @@ public class BlockUserResult extends Result {
     /**
      * 获取users
      *
-     * @return List<BlockUserResult>
+     * @return List
      */
     public List<BlockUsers> getUsers() {
         return users;

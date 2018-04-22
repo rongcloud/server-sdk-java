@@ -1,8 +1,8 @@
 package io.rong.models.message;
 
 /**
- * @内容
- * @author hc
+ *
+ * @author rongcloud
  */
 public class MentionedInfo {
     private int type;

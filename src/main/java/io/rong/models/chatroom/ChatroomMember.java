@@ -90,7 +90,7 @@ public class ChatroomMember {
     /**
      * 设置munite
      *
-     * @return String
+     *
      */
     public void setMunite(Integer munite) {
         this.munite = munite;

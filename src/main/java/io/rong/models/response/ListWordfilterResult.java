@@ -48,7 +48,7 @@ public class ListWordfilterResult extends Result {
 	/**
 	 * 获取words
 	 *
-	 * @return List<SensitiveWordModel>
+	 * @return List
 	 */
 	public List<SensitiveWordModel> getWords() {
 		return words;

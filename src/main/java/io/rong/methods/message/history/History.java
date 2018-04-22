@@ -15,8 +15,8 @@ import java.net.URLEncoder;
  * 消息历史记录服务
  *
  * docs : http://www.rongcloud.cn/docs/server.html#history_message
- * @author hc
- * @date 2017/12/30
+ * @author RongCloud
+ *
  */
 public class History {
     private static final String UTF8 = "UTF-8";
@@ -43,6 +43,7 @@ public class History {
      * @param  date:指定北京时间某天某小时，格式为2014010101,表示：2014年1月1日凌晨1点。（必传）
      *
      * @return HistoryMessageResult
+     * @throws Exception
      **/
     public HistoryMessageResult get(String date) throws Exception {
         if (date == null) {
@@ -68,6 +69,7 @@ public class History {
      * @param  date:指定北京时间某天某小时，格式为2014010101,表示：2014年1月1日凌晨1点。（必传）
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult remove(String date) throws Exception {
         if (date == null) {

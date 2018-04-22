@@ -11,9 +11,9 @@ import io.rong.models.response.GroupUserQueryResult;
 /**
  *
  * 群组服务示例
- * @author hc
- * @date 2017/12/30
- * @version
+ * @author RongCloud
+ *
+ * @version 3.0.0
  */
 public class GroupExample {
 	/**

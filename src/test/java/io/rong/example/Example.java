@@ -33,8 +33,8 @@ public class Example {
 
 	@Before
 	public void setUp() throws Exception {
-		String appKey = "appKey";
-		String appSecret = "appSecret";
+		String appKey = "8luwapkv8s7pl";
+		String appSecret = "lmkgpHuXezTjV2";
 		//String api = "http://api.cn.ronghub.com";
 		rongCloud = RongCloud.getInstance(appKey, appSecret);
 	}

@@ -22,16 +22,16 @@ public class CustomTxtMessage extends BaseMessage {
 	/**
 	 * 获取自定义消息内容。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getContent() {
 		return content;
 	}
 	
 	/**
-	 * 设置自定义消息内容。
+	 * @param content 设置自定义消息内容。
 	 *
-	 * @return
+	 *
 	 */
 	public void setContent(String content) {
 		this.content = content;

@@ -25,16 +25,16 @@ public class TxtMessage extends BaseMessage {
 	/**
 	 * 获取消息内容。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getContent() {
 		return content;
 	}
 	
 	/**
-	 * 设置消息内容。
+	 * @param content 设置消息内容。
 	 *
-	 * @return
+	 *
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -43,16 +43,16 @@ public class TxtMessage extends BaseMessage {
 	/**
 	 * 获取附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getExtra() {
 		return extra;
 	}
 	
 	/**
-	 * 设置附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * @param extra 设置附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @return
+	 *
 	 */
 	public void setExtra(String extra) {
 		this.extra = extra;

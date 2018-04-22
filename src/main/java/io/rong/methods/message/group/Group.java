@@ -17,8 +17,8 @@ import java.net.URLEncoder;
  * 发送群组消息方法
  *
  * docs : http://www.rongcloud.cn/docs/server.html#message_group_publish
- * @author hc
- * @date 2017/12/30
+ * @author RongCloud
+ *
  */
 public class Group {
 
@@ -46,6 +46,7 @@ public class Group {
      * @param message
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult send(GroupMessage message) throws Exception {
 
@@ -103,6 +104,7 @@ public class Group {
      * @param message
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult sendMention(MentionMessage message) throws Exception {
 
@@ -163,6 +165,7 @@ public class Group {
      * @param message
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public Result recall(RecallMessage message) throws Exception {
         //需要校验的字段

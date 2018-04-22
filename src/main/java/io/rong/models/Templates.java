@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * 模版消息对象。
+ * @author RongCloud
  */
 public class Templates {
 	 /**
@@ -111,7 +112,7 @@ public class Templates {
 	/**
 	 * 获取values
 	 *
-	 * @return List<Map<String, String>>
+	 * @return List
 	 */
 	public List<Map<String, String>> getValues() {
 		return values;

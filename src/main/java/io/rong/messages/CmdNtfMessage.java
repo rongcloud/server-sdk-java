@@ -24,16 +24,16 @@ public class CmdNtfMessage extends BaseMessage {
 	/**
 	 * 获取命令名称，可以自行定义
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * 设置命令名称，可以自行定义
+	 * @param name  设置命令名称，可以自行定义
 	 *
-	 * @return
+	 *
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -42,16 +42,16 @@ public class CmdNtfMessage extends BaseMessage {
 	/**
 	 * 获取命令的内容
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getData() {
 		return data;
 	}
 	
 	/**
-	 * 设置命令的内容
+	 * @param data 设置命令的内容
 	 *
-	 * @return
+	 *
 	 */
 	public void setData(String data) {
 		this.data = data;

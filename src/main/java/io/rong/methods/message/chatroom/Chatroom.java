@@ -13,8 +13,8 @@ import java.net.URLEncoder;
 /**
  * 发送聊天室消息方法
  * docs : http://www.rongcloud.cn/docs/server.html#message_chatroom_publish
- * @author hc
- * @date 2017/12/30
+ * @author RongCloud
+ *
  */
 public class Chatroom {
     private static final String UTF8 = "UTF-8";
@@ -42,6 +42,7 @@ public class Chatroom {
      * @param  message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult send(ChatroomMessage message) throws Exception {
 
@@ -76,6 +77,7 @@ public class Chatroom {
      * @param  message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult broadcast (ChatroomMessage message) throws Exception {
 

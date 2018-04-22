@@ -26,16 +26,16 @@ public class VoiceMessage extends BaseMessage {
 	/**
 	 * 获取表示语音内容，格式为 AMR，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \n 替换成空，大小不超过 60k，duration 表示语音长度，最长为 60 秒。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getContent() {
 		return content;
 	}
 	
 	/**
-	 * 设置表示语音内容，格式为 AMR，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \n 替换成空，大小不超过 60k，duration 表示语音长度，最长为 60 秒。
+	 * @param content 设置表示语音内容，格式为 AMR，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \n 替换成空，大小不超过 60k，duration 表示语音长度，最长为 60 秒。
 	 *
-	 * @return
+	 *
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -44,16 +44,16 @@ public class VoiceMessage extends BaseMessage {
 	/**
 	 * 获取为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getExtra() {
 		return extra;
 	}
 	
 	/**
-	 * 设置为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * @param extra 设置为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @return
+	 *
 	 */
 	public void setExtra(String extra) {
 		this.extra = extra;
@@ -62,16 +62,16 @@ public class VoiceMessage extends BaseMessage {
 	/**
 	 * 获取持续时间。
 	 *
-	 * @returnLong
+	 * @return Long
 	 */
 	public Long getDuration() {
 		return duration;
 	}
 	
 	/**
-	 * 设置持续时间。
+	 * @param duration 设置持续时间。
 	 *
-	 * @return
+	 *
 	 */
 	public void setDuration(Long duration) {
 		this.duration = duration;

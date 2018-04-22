@@ -9,9 +9,9 @@ import io.rong.models.response.ListGagGroupUserResult;
 /**
  *
  * 群组禁言例子
- * @author hc
- * @date 2017/12/30
- * @version
+ * @author RongCloud
+ *
+ * @version 3.0.0
  */
 public class GagExample {
     /**
@@ -30,7 +30,7 @@ public class GagExample {
     /**
      * 本地调用测试
      *
-     * @param args
+     *
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {

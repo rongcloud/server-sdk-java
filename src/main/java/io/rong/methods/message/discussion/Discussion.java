@@ -16,8 +16,8 @@ import java.net.URLEncoder;
  * 发送讨论组消息方法
  *
  * docs : http://www.rongcloud.cn/docs/server.html#message_discussion_publish
- * @author hc
- * @date 2017/12/30
+ * @author RongCloud
+ *
  */
 public class Discussion {
 
@@ -46,6 +46,7 @@ public class Discussion {
      * @param  message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public ResponseResult send(DiscussionMessage message) throws Exception {
 
@@ -94,9 +95,10 @@ public class Discussion {
     /**
      * 设置用户某会话接收新消息时是否进行消息提醒。
      *
-     *@param message
+     * @param message
      *
      * @return ResponseResult
+     * @throws Exception
      **/
     public Result recall(RecallMessage message) throws Exception {
         //需要校验的字段

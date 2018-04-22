@@ -23,8 +23,8 @@ import java.util.Map;
 /**
  * 发送单聊消息方法
  * docs : http://www.rongcloud.cn/docs/server.html#message_private_publish
- * @author hc
- * @date 2017/12/30
+ * @author RongCloud
+ *
  */
 public class Private {
 
@@ -53,6 +53,7 @@ public class Private {
 	 * @param message 单聊消息
 	 *
 	 * @return ResponseResult
+	 * @throws Exception
 	 **/
 	public ResponseResult send(PrivateMessage message) throws Exception {
 		if(null == message){
@@ -118,6 +119,7 @@ public class Private {
 	 * @param  message:单聊模版消息。
 	 *
 	 * @return ResponseResult
+	 * @throws Exception
 	 **/
 	public ResponseResult sendTemplate(TemplateMessage message) throws Exception {
 
@@ -157,9 +159,10 @@ public class Private {
 	/**
 	 * 设置用户某会话接收新消息时是否进行消息提醒。
 	 *
-	 *@param message
+	 * @param message
 	 *
 	 * @return ResponseResult
+	 * @throws Exception
 	 **/
 	public Result recall(RecallMessage message) throws Exception {
 

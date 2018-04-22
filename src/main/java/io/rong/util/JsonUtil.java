@@ -13,7 +13,7 @@ import java.util.jar.JarFile;
 
 /**
  * Json公共服务
- * @date 2018-03-09
+ *
  * @author RongCloud
  */
 public class JsonUtil {
@@ -26,6 +26,7 @@ public class JsonUtil {
      * @param jsonName json文件名字
      *
      * @return JsonObject
+     * @throws IOException
      **/
     public static <T> T getJsonObject(String path,String jsonName) throws IOException {
         BufferedReader reader = null ;

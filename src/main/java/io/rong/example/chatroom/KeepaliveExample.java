@@ -10,8 +10,8 @@ import io.rong.models.response.ResponseResult;
  *
  * 聊天时保活示例
  * @author RongCloud
- * @date 2017/12/30
- * @version
+ *
+ * @version 3.0.0
  */
 public class KeepaliveExample {
     /**

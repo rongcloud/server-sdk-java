@@ -5,21 +5,27 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.rongcloud.im</groupId>
-    <artifactId>server.sdk.java</artifactId>
+    <artifactId>server-sdk-java</artifactId>
     <version>3.0.0</version>
-
     <packaging>jar</packaging>
+
     <name>RongCloud IM Server SDK</name>
     <description>
         For improving the efficiency of developers,RongCloud provides an open source IM Server SDK officially.
         With this SDK, you can get token, send messages, add sensitive words, ban user, manage group, create chat room and so on.
     </description>
     <url>https://github.com/rongcloud/server-sdk-java</url>
-
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <scm>
         <url>https://github.com/rongcloud/server-sdk-java</url>
         <connection>scm:git:https://github.com/rongcloud/server-sdk-java.git</connection>
     </scm>
+    <organization>
+        <name>RcongCloud Group</name>
+        <url>https://github.com/rongcloud</url>
+    </organization>
     <licenses>
         <license>
             <name>Apache 2</name>
@@ -28,36 +34,12 @@
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                    <compilerArguments>
-                        <extdirs>${project.basedir}/lib</extdirs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <developers>
+        <developer>
+            <id>rongcloud</id>
+            <name>rongcloud</name>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
@@ -131,6 +113,9 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                                <!--<configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                </configuration>-->
                             </execution>
                         </executions>
                     </plugin>
@@ -166,4 +151,20 @@
             </distributionManagement>
         </profile>
     </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/lib</extdirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

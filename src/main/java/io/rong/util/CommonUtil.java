@@ -18,7 +18,7 @@ import java.util.Set;
 
 /**
  * 属性校验公共服务
- * @date 2018-03-09
+ *
  * @author RongCloud
  */
 public class CommonUtil {

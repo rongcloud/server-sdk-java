@@ -21,9 +21,9 @@ import java.io.Reader;
 
 /**
  * 消息发送示例
- * @date 2018-03-09
- * @author hc
- * @version 2.0.0
+ *
+ * @author RongCloud
+ * @version 3.0.0
  */
 public class MessageExample {
     private static final String JSONFILE = MessageExample.class.getClassLoader().getResource("jsonsource").getPath()+"/";

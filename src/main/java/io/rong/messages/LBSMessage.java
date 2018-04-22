@@ -31,17 +31,17 @@ public class LBSMessage extends BaseMessage {
 	 * 获取位置图片缩略图，格式为 JPG，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \
  替换成空。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getContent() {
 		return content;
 	}
 	
 	/**
-	 * 设置位置图片缩略图，格式为 JPG，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \
- 替换成空。
+	 * @param content 设置位置图片缩略图，格式为 JPG，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \
+	 *替换成空。
 	 *
-	 * @return
+	 *
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -50,16 +50,16 @@ public class LBSMessage extends BaseMessage {
 	/**
 	 * 获取为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getExtra() {
 		return extra;
 	}
 	
 	/**
-	 * 设置为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * @param extra 设置为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @return
+	 *
 	 */
 	public void setExtra(String extra) {
 		this.extra = extra;
@@ -68,16 +68,16 @@ public class LBSMessage extends BaseMessage {
 	/**
 	 * 获取纬度。
 	 *
-	 * @returndouble
+	 * @return double
 	 */
 	public double getLatitude() {
 		return latitude;
 	}
 	
 	/**
-	 * 设置纬度。
+	 * @param latitude 设置纬度。
 	 *
-	 * @return
+	 *
 	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
@@ -86,16 +86,16 @@ public class LBSMessage extends BaseMessage {
 	/**
 	 * 获取经度。
 	 *
-	 * @returndouble
+	 * @return double
 	 */
 	public double getLongitude() {
 		return longitude;
 	}
 	
 	/**
-	 * 设置经度。
+	 * @param longitude 设置经度。
 	 *
-	 * @return
+	 *
 	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
@@ -104,16 +104,16 @@ public class LBSMessage extends BaseMessage {
 	/**
 	 * 获取位置信息。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getPoi() {
 		return poi;
 	}
 	
 	/**
-	 * 设置位置信息。
+	 * @param poi  设置位置信息。
 	 *
-	 * @return
+	 *
 	 */
 	public void setPoi(String poi) {
 		this.poi = poi;

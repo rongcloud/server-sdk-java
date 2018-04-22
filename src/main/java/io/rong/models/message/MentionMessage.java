@@ -1,8 +1,8 @@
 package io.rong.models.message;
 
 /**
- * @消息体
- * @author hc
+ *
+ * @author rongcloud
  */
 public class MentionMessage {
     public String senderUserId;
@@ -12,7 +12,7 @@ public class MentionMessage {
     public String[] targetId;
     public String objectName;
     /**
-     * @消息 内容
+     * 消息 内容
      */
     public MentionMessageContent content;
     public String pushContent;
