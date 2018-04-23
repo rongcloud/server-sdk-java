@@ -126,13 +126,13 @@ public class CommonUtil {
                                 if("200".equals(code) && value.length > max){
                                     code = (String)object.getJSONObject("length").get("invalid");
                                 }
-                            }else{
+                            }/*else{
                                 Object value = (Object) m.invoke(model);
-                                if("200".equals(code) && null == value){
+                                if(!"200".equals(code)){
                                     code = (String)object.getJSONObject("length").get("invalid");
                                 }
 
-                            }
+                            }*/
 
                         }
                         if(object.containsKey("size")){
@@ -164,12 +164,13 @@ public class CommonUtil {
 
                             }
                         }
-                        //更具错误吗获取错误信息
-                        String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,name,String.valueOf(max),"1",type);
-                        //对 errorMessage  替换
-                        message = StringUtils.replace(message,"errorMessage","msg");
-                        return message;
-
+                        if(!"200".equals(code)){
+                            //更具错误吗获取错误信息
+                            String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,name,String.valueOf(max),"1",type);
+                            //对 errorMessage  替换
+                            message = StringUtils.replace(message,"errorMessage","msg");
+                            return message;
+                        }
                     }
                 }
 
@@ -245,11 +246,6 @@ public class CommonUtil {
                             if("200".equals(code) && valueTemp.length > max){
                                 code = (String)object.getJSONObject("length").get("invalid");
                             }
-                        }else{
-                            if("200".equals(code) && null == value){
-                                code = (String)object.getJSONObject("length").get("invalid");
-                            }
-
                         }
 
                     }
@@ -380,7 +376,7 @@ public class CommonUtil {
             String code = String.valueOf(object.get("code"));
             api = JsonUtil.getJsonObject(path,API_JSON_NAME);
             Set<Map.Entry<String,Object>> keys = api.getJSONObject(method).getJSONObject("response").getJSONObject("fail").entrySet();
-            String text = "";
+            String text = response;
             if(code.equals("200")){
                if(path.contains("blacklist") && method.equals("getList")){
 
@@ -391,9 +387,9 @@ public class CommonUtil {
                    }
                    UserModel[] members = users.toArray(new UserModel[users.size()]);
 
-                   BlackListResult blacklist = new BlackListResult(userList.getCode(),"",members);
+                   BlackListResult blacklist = new BlackListResult(userList.getCode(),null,members);
 
-                   text = userList.toString();
+                   text = blacklist.toString();
 
                 }else if(path.contains("whitelist/user") && method.equals("getList")){
 
@@ -404,7 +400,7 @@ public class CommonUtil {
                        users.add(new UserModel().setId(id));
                    }
                    UserModel[] members = users.toArray(new UserModel[users.size()]);
-                   WhiteListResult whitelist = new WhiteListResult(userList.getCode(),"",members);
+                   WhiteListResult whitelist = new WhiteListResult(userList.getCode(),null,members);
 
                    text = whitelist.toString();
 
@@ -413,7 +409,14 @@ public class CommonUtil {
                    if(text.contains("whitlistMsgType")){
                        text = StringUtils.replace(text,"whitlistMsgType","objectNames");
                    }
-                }else{
+                   if(path.contains("gag")||path.contains("block")){
+                       text = StringUtils.replace(text,"userId","id");
+                   }
+                }else if(path.contains("user")){
+                   if(path.contains("block") || path.contains("blacklist")){
+                       text = StringUtils.replace(response,"userId","id");
+                   }
+               }else{
                     text = response;
                 }
                 return text;

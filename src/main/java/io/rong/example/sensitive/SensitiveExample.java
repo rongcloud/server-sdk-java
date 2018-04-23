@@ -9,9 +9,9 @@ import io.rong.models.sensitiveword.SensitiveWordModel;
 import static org.junit.Assert.assertEquals;
 
 public class SensitiveExample {
-   /**
-    * 此处替换成您的appKey
-    *  */
+    /**
+     * 此处替换成您的appKey
+     * */
     private static final String appKey = "appKey";
     /**
      * 此处替换成您的appSecret
@@ -38,7 +38,7 @@ public class SensitiveExample {
          * */
         SensitiveWordModel sentiveWord = new SensitiveWordModel()
                 .setType(0)
-                .setKeyWord("黄赌毒")
+                .setKeyword("黄赌毒")
                 .setReplace("***");
         ResponseResult addesult = SensitiveWord.add(sentiveWord);
         System.out.println("sentiveWord add:  " + addesult.toString());
@@ -51,7 +51,7 @@ public class SensitiveExample {
          * */
         sentiveWord = new SensitiveWordModel()
                 .setType(1)
-                .setKeyWord("黄赌毒");
+                .setKeyword("黄赌毒");
         ResponseResult addersult = SensitiveWord.add(sentiveWord);
         System.out.println("sentiveWord  add replace :  " + addersult.toString());
 

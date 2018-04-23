@@ -43,7 +43,7 @@ public class BlockExample {
 
 
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("IXQhMs3ny")
+                .setId("d7ec7a8b8d8546c98b0973417209a548")
                 .setMembers(members)
                 .setMinute(5);
         ResponseResult result = block.add(chatroom);
@@ -56,17 +56,17 @@ public class BlockExample {
          * 移除封禁聊天室成员方法
          */
         chatroom = new ChatroomModel()
-                .setId("IXQhMs3ny")
+                .setId("d7ec7a8b8d8546c98b0973417209a548")
                 .setMembers(members);
-        ResponseResult removeResult = block.remove(chatroom);
-        System.out.println("removeResult:  " + removeResult.toString());
+        //ResponseResult removeResult = block.remove(chatroom);
+        //System.out.println("removeResult:  " + removeResult.toString());
 
         /**
          * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/chatroom/block.html#getList
          *
          * 查询被封禁聊天室成员方法
          */
-        ListBlockChatroomUserResult getResult = block.getList("chatroomId1");
+        ListBlockChatroomUserResult getResult = block.getList("d7ec7a8b8d8546c98b0973417209a548");
         System.out.println("getListBlockUser:  " + getResult.toString());
     }
 

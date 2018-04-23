@@ -54,11 +54,13 @@ public class SensitiveWord {
 		}
 
 	    StringBuilder sb = new StringBuilder();
-	    sb.append("&word=").append(URLEncoder.encode(sensitiveword.getKeyWord().toString(), UTF8));
+	    sb.append("&word=").append(URLEncoder.encode(sensitiveword.getKeyword().toString(), UTF8));
 
 	    if(0 == sensitiveword.getType()){
+	    	if(null == sensitiveword.getReplace()){
+	    		return new ResponseResult(20005,"replace参数为必传项");
+			}
 			sb.append("&replaceWord=").append(URLEncoder.encode(sensitiveword.getReplace().toString(), UTF8));
-
 		}
 
 		String body = sb.toString();

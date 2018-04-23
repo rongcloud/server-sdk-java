@@ -418,7 +418,7 @@ public class Example {
 	public void testAddSensitiveword() throws Exception {
 		SensitiveWordModel sentiveWord = new SensitiveWordModel()
 				.setType(0)
-				.setKeyWord("黄赌毒")
+				.setKeyword("黄赌毒")
 				.setReplace("***");
 		ResponseResult result = rongCloud.sensitiveword.add(sentiveWord);
 		System.out.println("add:  " + result.toString());
@@ -565,7 +565,7 @@ public class Example {
 		GroupModel group = new GroupModel()
 				.setId("appSecret")
 				.setMembers(members)
-				.setMunite(5);
+				.setMinute(5);
 		Result result = (Result)rongCloud.group.gag.add(group);
 		System.out.println("group.gag.add:  " + result.toString());
 

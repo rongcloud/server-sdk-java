@@ -55,7 +55,7 @@ public class GagExample {
          * 查询被禁言聊天室成员方法
          */
         chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+                .setId("hjhf07kk");
         ListGagChatroomUserResult chatroomListGagUserResult = gag.getList(chatroom);
         System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
 

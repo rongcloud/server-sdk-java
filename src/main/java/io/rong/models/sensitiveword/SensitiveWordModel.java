@@ -13,19 +13,19 @@ public class SensitiveWordModel {
 	/**
 	 *敏感词
 	 */
-	String keyWord;
+	String keyword;
 	/**
 	 *替换词
 	 */
 	String replace;
 
-	public SensitiveWordModel() {
+	public SensitiveWordModel(Integer type, String keyword, String replace) {
+		this.type = type;
+		this.keyword = keyword;
+		this.replace = replace;
 	}
 
-	public SensitiveWordModel(Integer type, String keyWord, String replace) {
-		this.type = type;
-		this.keyWord = keyWord;
-		this.replace = replace;
+	public SensitiveWordModel() {
 	}
 
 	/**
@@ -45,20 +45,19 @@ public class SensitiveWordModel {
 	}
 
 	/**
-	 * 获取word
+	 * 获取敏感词
 	 *
 	 * @return String
 	 */
-	public String getKeyWord() {
-		return this.keyWord;
+	public String getKeyword() {
+		return this.keyword;
 	}
-
 	/**
-	 * 设置word
+	 * @param keyword 设置敏感词
 	 *
 	 */
-	public SensitiveWordModel setKeyWord(String keyWord) {
-		this.keyWord = keyWord;
+	public SensitiveWordModel setKeyword(String keyword) {
+		this.keyword = keyword;
 		return this;
 	}
 

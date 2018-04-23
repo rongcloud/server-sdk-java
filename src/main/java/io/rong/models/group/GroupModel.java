@@ -22,7 +22,7 @@ public class GroupModel {
     /**
      * 禁言时间
      * */
-    private Integer munite;
+    private Integer minute;
 
     public GroupModel() {
     }
@@ -33,11 +33,11 @@ public class GroupModel {
      * @param members 群组成员
      * @param name 群名
      */
-    public GroupModel(String id, GroupMember[] members, String name, Integer munite) {
+    public GroupModel(String id, GroupMember[] members, String name, Integer minute) {
         this.id = id;
         this.members = members;
         this.name = name;
-        this.munite = munite;
+        this.minute = minute;
     }
 
     public String getId() {
@@ -67,12 +67,12 @@ public class GroupModel {
         return this;
     }
 
-    public Integer getMunite() {
-        return this.munite;
+    public Integer getMinute() {
+        return this.minute;
     }
 
-    public GroupModel setMunite(Integer munite) {
-        this.munite = munite;
+    public GroupModel setMinute(Integer minute) {
+        this.minute = minute;
         return this;
     }
 }

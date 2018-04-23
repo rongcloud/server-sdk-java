@@ -60,7 +60,7 @@ public class Gag {
             sb.append("&userId=").append(URLEncoder.encode(member.getId().toString(), UTF8));
         }
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
-        sb.append("&minute=").append(URLEncoder.encode(group.getMunite().toString(), UTF8));
+        sb.append("&minute=").append(URLEncoder.encode(group.getMinute().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

@@ -49,7 +49,7 @@ public class Block {
 
         String message = CommonUtil.checkFiled(user,PATH,CheckMethod.ADD);
         if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,TokenResult.class);
+            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
 
         StringBuilder sb = new StringBuilder();

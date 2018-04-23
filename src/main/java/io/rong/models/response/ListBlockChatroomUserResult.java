@@ -1,6 +1,7 @@
 package io.rong.models.response;
 
 import io.rong.models.Result;
+import io.rong.models.chatroom.ChatroomMember;
 import io.rong.util.GsonUtil;
 import java.util.List;
 
@@ -12,14 +13,14 @@ public class ListBlockChatroomUserResult extends Result{
 	 * 被封禁用户列表
 	 *
 	 */
-	List<BlockChatRoomUser> members;
+	List<ChatroomMember> members;
 
-	public ListBlockChatroomUserResult(Integer code, String msg, List<BlockChatRoomUser> members) {
+	public ListBlockChatroomUserResult(Integer code, String msg, List<ChatroomMember> members) {
 		super(code, msg);
 		this.members = members;
 	}
 
-	public ListBlockChatroomUserResult(List<BlockChatRoomUser> members) {
+	public ListBlockChatroomUserResult(List<ChatroomMember> members) {
 		this.members = members;
 	}
 	/**
@@ -27,14 +28,14 @@ public class ListBlockChatroomUserResult extends Result{
 	 *
 	 * @return List
 	 */
-	public List<BlockChatRoomUser> getMembers() {
+	public List<ChatroomMember> getMembers() {
 		return this.members;
 	}
 	/**
 	 * 设置members
 	 *
 	 */
-	public void setMembers(List<BlockChatRoomUser> members) {
+	public void setMembers(List<ChatroomMember> members) {
 		this.members = members;
 	}
 

@@ -7,32 +7,31 @@ import io.rong.util.GsonUtil;
  */
 public class BlockUsers {
 	// 被封禁用户 ID。
-	String userId;
+	String id;
 	// 封禁结束时间。
 	String blockEndTime;
-	
-	public BlockUsers(String userId, String blockEndTime) {
-		this.userId = userId;
+
+	public BlockUsers(String id, String blockEndTime) {
+		this.id = id;
 		this.blockEndTime = blockEndTime;
 	}
-	
-	/**
-	 * 设置userId
-	 *
-	 */	
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
+
 	/**
 	 * 获取userId
 	 *
 	 * @return String
 	 */
-	public String getUserId() {
-		return userId;
+	public String getId() {
+		return this.id;
 	}
-	
+	/**
+	 * @param id 设置userId
+	 *
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	/**
 	 * 设置blockEndTime
 	 *

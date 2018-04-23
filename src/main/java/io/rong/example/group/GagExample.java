@@ -49,7 +49,7 @@ public class GagExample {
         GroupModel group = new GroupModel()
                 .setId("12")
                 .setMembers(members)
-                .setMunite(5);
+                .setMinute(5);
         Result result = Gag.add(group);
         System.out.println("group.gag.add:  " + result.toString());
 

@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- * 聊天室用户白名单服务
+ * 聊天室消息白名单服务
  * docs: "http://www.rongcloud.cn/docs/server.html#chatroom_whitelist"
  *
  * */
@@ -36,7 +36,7 @@ public class Messages {
         this.appSecret = appSecret;
     }
     /**
-     * 添加聊天室白名单成员方法
+     * 添加聊天室消息白名单成员方法
      *
      * @param  objectNames:消息类型列表
      *
@@ -71,7 +71,7 @@ public class Messages {
     }
 
     /**
-     * 添加聊天室白名单成员方法
+     * 删除聊天室消息白名单方法
      *
      * @param  objectNames:消息类型列表
      *
@@ -95,7 +95,7 @@ public class Messages {
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
         }
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/whitelist/delete", "application/x-www-form-urlencoded");
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/whitelist/delete.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn);
 
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn)), ResponseResult.class);

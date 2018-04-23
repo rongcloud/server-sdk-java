@@ -1,6 +1,7 @@
 package io.rong.models.response;
 
 import io.rong.models.Result;
+import io.rong.models.chatroom.ChatroomMember;
 import io.rong.util.GsonUtil;
 import java.util.List;
 
@@ -12,14 +13,14 @@ public class ListGagChatroomUserResult extends Result{
 	 * 聊天室被禁言用户列表。
 	 *
 	 */
-	List<GagChatRoomUser> members;
+	List<ChatroomMember> members;
 
-	public ListGagChatroomUserResult(Integer code, String msg, List<GagChatRoomUser> members) {
+	public ListGagChatroomUserResult(Integer code, String msg, List<ChatroomMember> members) {
 		super(code, msg);
 		this.members = members;
 	}
 
-	public ListGagChatroomUserResult(List<GagChatRoomUser> members) {
+	public ListGagChatroomUserResult(List<ChatroomMember> members) {
 		this.members = members;
 	}
 
@@ -46,16 +47,17 @@ public class ListGagChatroomUserResult extends Result{
 	 *
 	 * @return List
 	 */
-	public List<GagChatRoomUser> getMembers() {
+	public List<ChatroomMember> getMembers() {
 		return this.members;
 	}
 	/**
 	 * 设置members
 	 *
 	 */
-	public void setMembers(List<GagChatRoomUser> members) {
+	public void setMembers(List<ChatroomMember> members) {
 		this.members = members;
 	}
+
 
 	@Override
 	public String toString() {

@@ -10,13 +10,13 @@ public class GagGroupUser {
 	// 解禁时间。
 	String time;
 	// 群成员 Id。
-	String userId;
-	
-	public GagGroupUser(String time, String userId) {
+	String id;
+
+	public GagGroupUser(String time, String id) {
 		this.time = time;
-		this.userId = userId;
+		this.id = id;
 	}
-	
+
 	/**
 	 * 设置time
 	 *
@@ -34,25 +34,24 @@ public class GagGroupUser {
 	public String getTime() {
 		return time;
 	}
-	
-	/**
-	 * 设置userId
-	 *
-	 */	
-	public GagGroupUser setUserId(String userId) {
-		this.userId = userId;
-		return this;
-	}
-	
+
 	/**
 	 * 获取userId
 	 *
 	 * @return String
 	 */
-	public String getUserId() {
-		return userId;
+	public String getId() {
+		return this.id;
 	}
-	
+
+	/**
+	 * 设置userId
+	 *
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, GagGroupUser.class);
