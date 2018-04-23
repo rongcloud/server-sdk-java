@@ -90,7 +90,7 @@ public class Chatroom {
 
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
-        sb.append("&content=").append(URLEncoder.encode(message.toString(), UTF8));
+        sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

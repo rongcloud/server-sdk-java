@@ -15,6 +15,7 @@ import io.rong.util.GsonUtil;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -203,7 +204,8 @@ public class Example {
 	public void testSendSystemTemplate() throws Exception {
 		Reader reader = null ;
 		try {
-			reader = new InputStreamReader(new FileInputStream(JSONFILE+"/message/"+"TemplateMessage.json"));
+
+			reader =new BufferedReader( new InputStreamReader(Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
 
 			TemplateMessage template = (TemplateMessage)GsonUtil.fromJson(reader, TemplateMessage.class);
 
@@ -244,7 +246,7 @@ public class Example {
 		Reader reader = null ;
 		// 发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人。）
 		try {
-			reader = new InputStreamReader(new FileInputStream(JSONFILE+"/message/"+"TemplateMessage.json"));
+			reader =new BufferedReader( new InputStreamReader(Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
 			TemplateMessage template  =  (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
 			ResponseResult messagePublishTemplateResult = rongCloud.message.msgPrivate.sendTemplate(template);
 			System.out.println("sendPrivateTemplate:  " + messagePublishTemplateResult.toString());

@@ -60,7 +60,7 @@ public class Discussion {
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderUserId().toString(), UTF8));
         sb.append("&toDiscussionId=").append(URLEncoder.encode(message.getTargetId().toString(), UTF8));
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
-        sb.append("&content=").append(URLEncoder.encode(message.toString(), UTF8));
+        sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
 
         if (message.getPushContent() != null) {
             sb.append("&pushContent=").append(URLEncoder.encode(message.getPushContent().toString(), UTF8));

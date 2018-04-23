@@ -14,6 +14,8 @@ import io.rong.models.message.*;
 import io.rong.models.response.HistoryMessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.GsonUtil;
+
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -30,11 +32,11 @@ public class MessageExample {
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "appKey";
+    private static final String appKey = "8luwapkv8s7pl";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
+    private static final String appSecret = "lmkgpHuXezTjV2";
 
     private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
@@ -85,7 +87,7 @@ public class MessageExample {
          */
         Reader reader = null ;
         try {
-            reader = new InputStreamReader(new FileInputStream(JSONFILE+"/message/"+"TemplateMessage.json"));
+            reader =new BufferedReader( new InputStreamReader(MessageExample.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
             TemplateMessage template = (TemplateMessage)GsonUtil.fromJson(reader, TemplateMessage.class);
             ResponseResult systemTemplateResult = system.sendTemplate(template);
             System.out.println("send system template message:  " + systemTemplateResult.toString());
@@ -140,7 +142,7 @@ public class MessageExample {
          * 发送单聊模板消息方法
          */
         try {
-            reader = new InputStreamReader(new FileInputStream(JSONFILE+"/message/"+"TemplateMessage.json"));
+            reader =new BufferedReader( new InputStreamReader(MessageExample.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
             TemplateMessage template  =  (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
             ResponseResult messagePublishTemplateResult = Private.sendTemplate(template);
 
