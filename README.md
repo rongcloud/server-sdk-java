@@ -5,18 +5,18 @@ RongCloud IM Server SDK in Java.
 
 ## 集成
 
-   * 中央仓库获取`JAR` [MVN Repository](http://mvnrepository.com/artifact/cn.rongcloud.im/server-sdk-java/)或者 [Central Repository](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22cn.rongcloud.im%22)
+   * 中央仓库获取[JAR] (http://search.maven.org/remotecontent?filepath=cn/rongcloud/im/server-sdk-java/3.0.1/server-sdk-java-3.0.1.jar)
    * Maven
 ```
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
     </dependency>
 ```
    * Gradle
 ```
-    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.0.0'
+    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.0.1'
    
 ```
    * 基于源码 Meavn 打包构建
@@ -30,6 +30,9 @@ RongCloud IM Server SDK in Java.
    4、打包 `mvn clean package`
    
 ```
+   * 运行环境
+   
+    Java版本  7+
 
 # 使用
 
