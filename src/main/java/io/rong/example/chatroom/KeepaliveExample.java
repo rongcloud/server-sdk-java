@@ -53,7 +53,7 @@ public class KeepaliveExample {
          *
          **/
         ResponseResult removeResult = keepalive.remove(chatroom);
-        System.out.println("keepalive remove"+addResult.toString());
+        System.out.println("keepalive remove"+removeResult.toString());
 
         /**
          *
@@ -64,7 +64,7 @@ public class KeepaliveExample {
          **/
         ChatroomKeepaliveResult result = keepalive.getList();
 
-        System.out.println("keepalive getList"+addResult.toString());
+        System.out.println("keepalive getList"+result.toString());
     }
 
 }

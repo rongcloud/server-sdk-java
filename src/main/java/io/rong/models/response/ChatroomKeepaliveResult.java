@@ -21,6 +21,6 @@ public class ChatroomKeepaliveResult extends Result{
 
     @Override
     public String toString() {
-        return GsonUtil.toJson(this, ChatroomDemotionMsgResult.class);
+        return GsonUtil.toJson(this, ChatroomKeepaliveResult.class);
     }
 }

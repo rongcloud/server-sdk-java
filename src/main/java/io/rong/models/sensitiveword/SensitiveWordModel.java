@@ -9,7 +9,7 @@ public class SensitiveWordModel {
 	/**
 	 * 敏感词类型
 	 */
-	Integer type;
+	Integer type = 1;
 	/**
 	 *敏感词
 	 */

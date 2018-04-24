@@ -416,7 +416,14 @@ public class CommonUtil {
                    if(path.contains("block") || path.contains("blacklist")){
                        text = StringUtils.replace(response,"userId","id");
                    }
-               }else{
+                }else if(path.contains("sensitiveword")){
+                   text = StringUtils.replace(response,"word","keyword");
+                   if(text.contains("keywords")){
+                       text = StringUtils.replace(text,"keywords","words");
+                   }
+                   text = StringUtils.replace(text,"replaceWord","replace");
+
+                }else{
                     text = response;
                 }
                 return text;
@@ -431,6 +438,12 @@ public class CommonUtil {
                 text = StringUtils.replace(response,"errorMessage","msg");
                 if(path.contains("chatroom")){
                     text = StringUtils.replace(text,"users","members");
+                    //对于 聊天室保活成功返回的code是0 更改统一返回200
+                    if(path.contains("keepalive") && "0".equals(code)){
+                        text = StringUtils.replace(text,"chatroomIds","chatrooms");
+                        text = StringUtils.replace(text,"0","200");
+
+                    }
                 }
                 return text;
             }

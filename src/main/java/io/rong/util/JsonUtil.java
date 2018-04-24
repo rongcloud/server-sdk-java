@@ -33,11 +33,12 @@ public class JsonUtil {
         try {
             String line="";
             StringBuffer arrs=new StringBuffer();
-           if(JSONFILE.contains(".jar")){
+           /*if(JSONFILE.contains(".jar")){
                 reader =new BufferedReader( new InputStreamReader(loadResourceFromJarURL(JSONFILE,path,jsonName)));
             }else{
                 reader =new BufferedReader( new InputStreamReader(new FileInputStream(JSONFILE+path+jsonName)));
-            }
+            }*/
+            reader = new BufferedReader(new InputStreamReader(JsonUtil.class.getResourceAsStream("/jsonsource/" + path + jsonName)));
             while ((line = reader.readLine()) != null){
                 arrs.append(line);
             }

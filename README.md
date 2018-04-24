@@ -19,8 +19,21 @@ RongCloud IM Server SDK in Java.
     compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.0.0'
    
 ```
+   * 基于源码 Meavn 打包构建
+```
+   1、下载或克隆 `server-sdk-java`
+   
+   2、进入项目 `server-sdk-java` 目录
+   
+   3、安装依赖 `mvn install`
+   
+   4、打包 `mvn clean package`
+   
+```
 
 # 使用
+
+请前往 [开发者后台](https://developer.rongcloud.cn/) 创建应用 -> 获取 Appkey、Secret
 
 以注册用户为例
 
