@@ -5,7 +5,7 @@ RongCloud IM Server SDK in Java.
 
 ## 集成
 
-   * 中央仓库获取[JAR] (http://search.maven.org/remotecontent?filepath=cn/rongcloud/im/server-sdk-java/3.0.1/server-sdk-java-3.0.1.jar)
+   * 中央仓库获取[JAR](http://search.maven.org/remotecontent?filepath=cn/rongcloud/im/server-sdk-java/3.0.1/server-sdk-java-3.0.1.jar)
    * Maven
 ```
     <dependency>
