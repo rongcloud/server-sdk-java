@@ -32,9 +32,9 @@ public class DiscussionMessage extends MessageModel {
     public DiscussionMessage() {
     }
 
-    public DiscussionMessage(String senderUserId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData,
+    public DiscussionMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData,
                              Integer isPersisted, Integer isCounted, Integer isIncludeSender, Integer contentAvailable) {
-        super(senderUserId, targetId, objectName, content, pushContent, pushData);
+        super(senderId, targetId, objectName, content, pushContent, pushData);
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
         this.isIncludeSender = isIncludeSender;
@@ -42,8 +42,8 @@ public class DiscussionMessage extends MessageModel {
     }
 
    @Override
-    public DiscussionMessage setSenderUserId(String senderUserId) {
-        super.setSenderUserId(senderUserId);
+    public DiscussionMessage setSenderId(String senderId) {
+        super.setSenderId(senderId);
         return this;
     }
     /**

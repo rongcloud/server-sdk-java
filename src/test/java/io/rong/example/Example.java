@@ -181,7 +181,7 @@ public class Example {
 	@Test
 	public void testSendSystem() throws Exception {
 		SystemMessage systemMessage = new SystemMessage()
-					.setSenderUserId("usetId")
+					.setSenderId("usetId")
 					.setTargetId(targetIds)
 					.setObjectName(txtMessage.getType())
 					.setContent(txtMessage)
@@ -227,7 +227,7 @@ public class Example {
 	@Test
 	public void testSendBroadcast() throws Exception {
 		BroadcastMessage message = new BroadcastMessage()
-				.setSenderUserId("Hji8yh76")
+				.setSenderId("Hji8yh76")
 				.setObjectName(txtMessage.getType())
 				.setContent(txtMessage)
 				.setPushContent("this is a push")
@@ -268,7 +268,7 @@ public class Example {
 	public void testSendPrivate() throws Exception {
 		Reader reader = null ;
 		PrivateMessage  privateMessage = new PrivateMessage()
-				.setSenderUserId("userId")
+				.setSenderId("userId")
 				.setTargetId(targetIds)
 				.setObjectName(voiceMessage.getType())
 				.setContent(voiceMessage)
@@ -292,7 +292,7 @@ public class Example {
 	@Test
 	public void testRecallPrivate() throws Exception {
 		RecallMessage message = new RecallMessage()
-				.setSenderUserId("sea9901")
+				.setSenderId("sea9901")
 				.setTargetId("markoiwm")
 				.setuId("5GSB-RPM1-KP8H-9JHF")
 				.setSentTime("1519444243981");
@@ -309,7 +309,7 @@ public class Example {
 	public void testSendGroup() throws Exception {
 		//群组消息
 		GroupMessage groupMessage = new GroupMessage()
-				.setSenderUserId("Hji8yh76")
+				.setSenderId("Hji8yh76")
 				.setTargetId(targetIds)
 				.setObjectName(txtMessage.getType())
 				.setContent(txtMessage)
@@ -340,7 +340,7 @@ public class Example {
 		MentionMessageContent content = new MentionMessageContent(txtMessage,mentionedInfo);
 
 		MentionMessage mentionMessage = new MentionMessage()
-				.setSenderUserId("userId")
+				.setSenderId("userId")
 				.setTargetId(targetId)
 				.setObjectName(txtMessage.getType())
 				.setContent(content)
@@ -362,7 +362,7 @@ public class Example {
 	@Test
 	public void testRecallGroup() throws Exception {
 		RecallMessage message = new RecallMessage()
-				.setSenderUserId("sea9901")
+				.setSenderId("sea9901")
 				.setTargetId("markoiwm")
 				.setuId("5GSB-RPM1-KP8H-9JHF")
 				.setSentTime("1519444243981");
@@ -380,7 +380,7 @@ public class Example {
 	public void testSendChatroom() throws Exception {
 		//聊天室消息
 		ChatroomMessage message = new ChatroomMessage()
-				.setSenderUserId("targetIds")
+				.setSenderId("targetIds")
 				.setTargetId(targetIds)
 				.setContent(txtMessage)
 				.setObjectName(txtMessage.getType());

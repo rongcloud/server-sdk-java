@@ -8,7 +8,7 @@ public class RecallMessage {
      * 撤回消息体
      * 发送人id
      * */
-    public String senderUserId;
+    public String senderId;
     /**
      * 接收人id
      * */
@@ -26,27 +26,27 @@ public class RecallMessage {
     }
 
     /**
-     * @param senderUserId	String	消息发送人用户 Id。（必传）
+     * @param senderId	String	消息发送人用户 Id。（必传）
      * @param conversationType	Int	会话类型，二人会话是 1 、讨论组会话是 2 、群组会话是 3 。（必传）
      * @param targetId	String	目标 Id，根据不同的 ConversationType，可能是用户 Id、讨论组 Id、群组 Id。（必传）
      * @param uId	String	消息唯一标识，可通过服务端实时消息路由获取，对应名称为 msgUID。（必传）
      * @param sentTime
      *
      * */
-    public RecallMessage(String senderUserId, String conversationType, String targetId,
+    public RecallMessage(String senderId, String conversationType, String targetId,
                          String uId, String sentTime) {
-        this.senderUserId = senderUserId;
+        this.senderId = senderId;
         this.targetId = targetId;
         this.uId = uId;
         this.sentTime = sentTime;
     }
 
-    public String getSenderUserId() {
-        return this.senderUserId;
+    public String getSenderId() {
+        return this.senderId;
     }
 
-    public RecallMessage setSenderUserId(String senderUserId) {
-        this.senderUserId = senderUserId;
+    public RecallMessage setSenderId(String senderId) {
+        this.senderId = senderId;
         return this;
     }
 

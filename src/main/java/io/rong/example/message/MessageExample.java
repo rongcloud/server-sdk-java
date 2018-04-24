@@ -66,7 +66,7 @@ public class MessageExample {
          */
         String[] targetIds = {"2651280140445094444"};
         SystemMessage systemMessage = new SystemMessage()
-                .setSenderUserId("usetId")
+                .setSenderId("usetId")
                 .setTargetId(targetIds)
                 .setObjectName(txtMessage.getType())
                 .setContent(txtMessage)
@@ -106,7 +106,7 @@ public class MessageExample {
          *
          */
         BroadcastMessage message = new BroadcastMessage()
-                .setSenderUserId("Hji8yh76")
+                .setSenderId("Hji8yh76")
                 .setObjectName(txtMessage.getType())
                 .setContent(txtMessage)
                 .setPushContent("this is a push")
@@ -122,7 +122,7 @@ public class MessageExample {
          * 发送单聊消息
          * */
         PrivateMessage privateMessage = new PrivateMessage()
-                .setSenderUserId("2609751433442958892")
+                .setSenderId("2609751433442958892")
                 .setTargetId(targetIds)
                 .setObjectName(voiceMessage.getType())
                 .setContent(voiceMessage)
@@ -161,7 +161,7 @@ public class MessageExample {
          * 撤回单聊消息
          * */
         RecallMessage recallMessage = new RecallMessage()
-                .setSenderUserId("2609751433442958892")
+                .setSenderId("2609751433442958892")
                 .setTargetId("2651280140445094444")
                 .setuId("5H6P-CGC6-44QR-VB3R")
                 .setSentTime("1519444243981");
@@ -174,7 +174,7 @@ public class MessageExample {
          * 群组消息
          * */
         GroupMessage groupMessage = new GroupMessage()
-                .setSenderUserId("userId")
+                .setSenderId("userId")
                 .setTargetId(targetIds)
                 .setObjectName(txtMessage.getType())
                 .setContent(txtMessage)
@@ -194,7 +194,7 @@ public class MessageExample {
          * 群组撤回消息
          * */
         recallMessage = new RecallMessage()
-                .setSenderUserId("sea9901")
+                .setSenderId("sea9901")
                 .setTargetId("markoiwm")
                 .setuId("5GSB-RPM1-KP8H-9JHF")
                 .setSentTime("1522242030641");
@@ -215,7 +215,7 @@ public class MessageExample {
         MentionMessageContent content = new MentionMessageContent(txtMessage,mentionedInfo);
 
         MentionMessage mentionMessage = new MentionMessage()
-                .setSenderUserId("userId")
+                .setSenderId("userId")
                 .setTargetId(targetIds)
                 .setObjectName(txtMessage.getType())
                 .setContent(content)
@@ -236,7 +236,7 @@ public class MessageExample {
          * */
         String[] discussionIds = {"lijhGk87","lijhGk88"};
         DiscussionMessage discussionMessage = new DiscussionMessage()
-                .setSenderUserId("JuikH78ko")
+                .setSenderId("JuikH78ko")
                 .setTargetId(discussionIds)
                 .setObjectName(txtMessage.getType())
                 .setContent(txtMessage)
@@ -257,7 +257,7 @@ public class MessageExample {
          * 撤回讨论组消息
          * */
         recallMessage = new RecallMessage()
-                .setSenderUserId("sea9901")
+                .setSenderId("sea9901")
                 .setTargetId("IXQhMs3ny")
                 .setuId("5GSB-RPM1-KP8H-9JHF")
                 .setSentTime("1519444243981");
@@ -276,7 +276,7 @@ public class MessageExample {
 
         CustomTxtMessage ctm = new CustomTxtMessage("hello");
         ChatroomMessage chatroomMessage = new ChatroomMessage()
-                .setSenderUserId("1")
+                .setSenderId("1")
                 .setTargetId(chatroomIds)
                 .setContent(ctm)
                 .setObjectName(ctm.getType());
@@ -293,7 +293,7 @@ public class MessageExample {
          *
          * */
         chatroomMessage = new ChatroomMessage()
-                .setSenderUserId("bN6oQi8T5")
+                .setSenderId("bN6oQi8T5")
                 .setContent(txtMessage)
                 .setObjectName(txtMessage.getType());
 

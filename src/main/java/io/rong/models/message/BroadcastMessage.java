@@ -19,8 +19,8 @@ public class BroadcastMessage extends MessageModel {
         this.os = os;
     }
     @Override
-    public BroadcastMessage setSenderUserId(String senderUserId) {
-        super.setSenderUserId(senderUserId);
+    public BroadcastMessage setSenderId(String senderId) {
+        super.setSenderId(senderId);
         return this;
     }
 

@@ -57,7 +57,7 @@ public class Discussion {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderUserId().toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
         sb.append("&toDiscussionId=").append(URLEncoder.encode(message.getTargetId().toString(), UTF8));
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
@@ -108,7 +108,7 @@ public class Discussion {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&conversationType=").append(URLEncoder.encode("2", UTF8));
-        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderUserId.toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderId.toString(), UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
         sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
         sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));

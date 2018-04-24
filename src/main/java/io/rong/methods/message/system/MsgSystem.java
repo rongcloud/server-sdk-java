@@ -60,7 +60,7 @@ public class MsgSystem {
             return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&fromUserId=").append(URLEncoder.encode(systemMessage.getSenderUserId().toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(systemMessage.getSenderId().toString(), UTF8));
 
         for (int i = 0 ; i< systemMessage.getTargetId().length; i++) {
             String child  = systemMessage.getTargetId()[i];
@@ -152,7 +152,7 @@ public class MsgSystem {
             return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderUserId().toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
 

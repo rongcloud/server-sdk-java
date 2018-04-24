@@ -10,7 +10,7 @@
         "invalid": "20006"
       }
     },
-    "senderUserId": {
+    "senderId": {
       "require": {
         "must": true,
         "invalid": "20005"
@@ -21,7 +21,7 @@
         "invalid": "20003"
       }
     },
-    "targetIds": {
+    "targetId": {
       "require": {
         "must": true,
         "invalid": "20005"
@@ -56,7 +56,7 @@
         "invalid": "20006"
       }
     },
-    "senderUserId": {
+    "senderId": {
       "require": {
         "must": true,
         "invalid": "20005"

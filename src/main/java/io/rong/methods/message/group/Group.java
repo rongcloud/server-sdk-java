@@ -55,7 +55,7 @@ public class Group {
             return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderUserId().toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
 
         for (int i = 0 ; i< message.getTargetId().length; i++) {
             String child  =message.getTargetId()[i];
@@ -113,7 +113,7 @@ public class Group {
             return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderUserId().toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
         String[] groupIds = message.getTargetId();
         for (int i = 0 ; i< groupIds.length; i++) {
             String child  = groupIds[i];
@@ -175,7 +175,7 @@ public class Group {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&conversationType=").append(URLEncoder.encode("3", UTF8));
-        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderUserId.toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderId.toString(), UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
         sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
         sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));

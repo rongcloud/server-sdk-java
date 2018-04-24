@@ -89,7 +89,6 @@ public class GroupExample {
 
 		group = new GroupModel()
 				.setId("groupId")
-				.setMembers(members)
 				.setName("groupName");
 		Result refreshResult = (Result)Group.update(group);
 		System.out.println("refresh:  " + refreshResult.toString());

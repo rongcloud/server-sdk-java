@@ -31,7 +31,7 @@ public class GroupMessage extends MessageModel {
     public GroupMessage() {
     }
     /**
-     * @param  senderUserId:发送人用户 Id 。（必传）
+     * @param  senderId:发送人用户 Id 。（必传）
      * @param  targetId:接收群Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
      * @param  content:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
      * @param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。（可选）
@@ -41,8 +41,8 @@ public class GroupMessage extends MessageModel {
      * @param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
      *
      * */
-    public GroupMessage(String senderUserId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData, Integer isIncludeSender, Integer isPersisted, Integer isCounted, Integer contentAvailable) {
-        super(senderUserId, targetId, objectName, content, pushContent, pushData);
+    public GroupMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData, Integer isIncludeSender, Integer isPersisted, Integer isCounted, Integer contentAvailable) {
+        super(senderId, targetId, objectName, content, pushContent, pushData);
         this.isIncludeSender = isIncludeSender;
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -50,8 +50,8 @@ public class GroupMessage extends MessageModel {
     }
 
     @Override
-    public GroupMessage setSenderUserId(String senderUserId) {
-        super.setSenderUserId(senderUserId);
+    public GroupMessage setSenderId(String senderId) {
+        super.setSenderId(senderId);
         return this;
     }
 

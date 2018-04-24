@@ -86,7 +86,7 @@ public class Chatroom {
             return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderUserId().toString(), UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
 
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));

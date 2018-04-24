@@ -139,7 +139,7 @@ public class CommonUtil {
                             max = (Integer)object.getJSONObject("size").get("max");
                             type = (String)object.getJSONObject("typeof").get("type");
                             if(type.contains("array")){
-                                String[] value = (String[]) m.invoke(model);
+                                Object[] value = (Object[]) m.invoke(model);
                                 if("200".equals(code) && null == value){
                                     code = (String)object.getJSONObject("size").get("invalid");
                                 }

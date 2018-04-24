@@ -5,7 +5,7 @@ package io.rong.models.message;
  * @author rongcloud
  */
 public class MentionMessage {
-    public String senderUserId;
+    public String senderId;
     /**
      * 接收群 Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
      */
@@ -25,9 +25,9 @@ public class MentionMessage {
     public MentionMessage() {
     }
 
-    public MentionMessage(String senderUserId, String[] targetId, String objectName, MentionMessageContent content, String pushContent, String pushData,
+    public MentionMessage(String senderId, String[] targetId, String objectName, MentionMessageContent content, String pushContent, String pushData,
                           Integer isPersisted, Integer isCounted, Integer isIncludeSender, Integer contentAvailable) {
-        this.senderUserId = senderUserId;
+        this.senderId = senderId;
         this.targetId = targetId;
         this.objectName = objectName;
         this.content = content;
@@ -39,12 +39,12 @@ public class MentionMessage {
         this.contentAvailable = contentAvailable;
     }
 
-    public String getSenderUserId() {
-        return this.senderUserId;
+    public String getSenderId() {
+        return this.senderId;
     }
 
-    public MentionMessage setSenderUserId(String senderUserId) {
-        this.senderUserId = senderUserId;
+    public MentionMessage setSenderId(String senderId) {
+        this.senderId = senderId;
         return this;
     }
 

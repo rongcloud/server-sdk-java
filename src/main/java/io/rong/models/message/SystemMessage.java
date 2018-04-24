@@ -37,8 +37,8 @@ public class SystemMessage extends MessageModel {
     }
 
     @Override
-    public SystemMessage setSenderUserId(String senderUserId) {
-        super.setSenderUserId(senderUserId);
+    public SystemMessage setSenderId(String senderId) {
+        super.setSenderId(senderId);
         return this;
     }
     /**

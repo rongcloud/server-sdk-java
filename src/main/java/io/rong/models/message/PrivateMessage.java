@@ -36,9 +36,9 @@ public class PrivateMessage extends MessageModel {
     public PrivateMessage() {
     }
 
-    public PrivateMessage(String senderUserId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData,
+    public PrivateMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData,
                           String count, Integer isPersisted, Integer isCounted, Integer verifyBlacklist, Integer isIncludeSender, Integer contentAvailable) {
-        super(senderUserId, targetId, objectName, content, pushContent, pushData);
+        super(senderId, targetId, objectName, content, pushContent, pushData);
         this.count = count;
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -48,8 +48,8 @@ public class PrivateMessage extends MessageModel {
     }
 
     @Override
-    public PrivateMessage setSenderUserId(String senderUserId) {
-        super.setSenderUserId(senderUserId);
+    public PrivateMessage setSenderId(String senderId) {
+        super.setSenderId(senderId);
         return this;
     }
     /**

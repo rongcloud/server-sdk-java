@@ -4,7 +4,7 @@
 		"url": "message/recall",
 		"params": {
 			"message": {
-				"senderUserId": "fDR2cVpxxR5zSMUNh3yAwh",
+				"senderId": "fDR2cVpxxR5zSMUNh3yAwh",
 				"conversationType": "1",
 				"targetId": "MersNRhaKwJkRV9mJR5JXY",
 				"messageUid": "5FGT-7VA9-G4DD-4V5P",

@@ -38,7 +38,7 @@
 				"invalid": "20002"
 			},
 			"typeof": {
-				"type": "object",
+				"type": "array",
 				"invalid": "20006"
 			}
 		},	
@@ -53,7 +53,7 @@
 				"invalid": "20002"
 			},
 			"typeof": {
-				"type": "string",
+				"type": "number|int",
 				"invalid": "20006"
 			}
 		},

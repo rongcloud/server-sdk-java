@@ -17,8 +17,8 @@ public class ChatroomMessage extends MessageModel {
     }
 
    @Override
-    public ChatroomMessage setSenderUserId(String senderUserId) {
-        super.setSenderUserId(senderUserId);
+    public ChatroomMessage setSenderId(String senderId) {
+        super.setSenderId(senderId);
         return this;
     }
     /**

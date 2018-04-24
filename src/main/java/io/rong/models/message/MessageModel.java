@@ -8,7 +8,7 @@ import io.rong.messages.BaseMessage;
  */
 public class MessageModel {
 
-    private String senderUserId;
+    private String senderId;
     /**
      *
      * 接受 Id 可能是用户Id，聊天Id ，群组Id，讨论组Id（必传）
@@ -38,9 +38,9 @@ public class MessageModel {
     public MessageModel() {
     }
 
-    public MessageModel(String senderUserId, String[] targetId, String objectName, BaseMessage content,
+    public MessageModel(String senderId, String[] targetId, String objectName, BaseMessage content,
                         String pushContent, String pushData) {
-        this.senderUserId = senderUserId;
+        this.senderId = senderId;
         this.targetId = targetId;
         this.objectName = objectName;
         this.content = content;
@@ -93,14 +93,12 @@ public class MessageModel {
         return this;
     }
 
-    public String getSenderUserId() {
-        return this.senderUserId;
+    public String getSenderId() {
+        return this.senderId;
     }
 
-    public MessageModel setSenderUserId(String senderUserId) {
-        this.senderUserId = senderUserId;
+    public MessageModel setSenderId(String senderId) {
+        this.senderId = senderId;
         return this;
     }
-
-
 }

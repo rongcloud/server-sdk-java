@@ -4,7 +4,8 @@
 		"url": "chatroom/user/gag/add",
 		"params": {
 			"chatroom": {
-				"memberIds": ["akfj0a1", "akfj0a2"],
+				"id":"dsd",
+				"members": [{"id":"akfj0a1"}, {"id":"akfj0a2"}],
 				"minute": 100
 			}
 		},
@@ -14,6 +15,10 @@
 				"msg": "成功返回"
 			},
 			"fail": {
+				"20002": {
+					"code": "20002",
+					"msg": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
 				"20004": {
 					"code": "20004",
 					"msg": "封禁时间 minute 不正确，minute >= 1 且 minute <= 43200 单位: 分钟"
@@ -42,7 +47,8 @@
 		"url": "chatroom/user/gag/remove",
 		"params": {
 			"chatroom": {
-				"memberIds": ["akfj0a1", "akfj0a2"]
+				"id":"dsd",
+				"members": [{"id":"akfj0a1"}, {"id":"akfj0a2"}],
 			}
 		},
 		"response": {
@@ -51,6 +57,10 @@
 				"msg": "成功返回"
 			},
 			"fail": {
+				"20002": {
+					"code": "20002",
+					"msg": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
 				"20005": {
 					"code": "20005",
 					"msg": "{{name}} 参数为必传项"
@@ -75,7 +85,7 @@
 		"url": "chatroom/user/gag/query",
 		"params": {
 			"chatroom": {
-				"memberId": "akfj0a1"
+				"id": "akfj0a1"
 			}
 		},
 		"response": {
