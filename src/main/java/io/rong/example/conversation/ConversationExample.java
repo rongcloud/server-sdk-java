@@ -43,7 +43,7 @@ public class ConversationExample {
                 .setTargetId("2iXiqVWUAWwaKA55FuZvY31");
         /**
          *
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/conversation/conversation.html#mute
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/conversation/conversation.html#mute
          * 设置消息免打扰
          *
          */
@@ -53,7 +53,7 @@ public class ConversationExample {
 
         /**
          *
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/conversation/conversation.html#unmute
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/conversation/conversation.html#unmute
          * 解除消息免打扰
          *
          * */

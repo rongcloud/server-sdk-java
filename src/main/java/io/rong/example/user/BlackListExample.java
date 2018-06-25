@@ -33,7 +33,7 @@ public class BlackListExample {
 
         /**
          *
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/user/black.html#add
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/black.html#add
          * 添加用户到黑名单方法
          */
         UserModel blackUser = new UserModel().setId("hdsjGB88");
@@ -48,7 +48,7 @@ public class BlackListExample {
 
         /**
          *
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/user/black.html#getList
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/black.html#getList
          * 获取某用户的黑名单列表方法
          */
         UserModel user2 = new UserModel().setId("hdsjGB89");
@@ -58,7 +58,7 @@ public class BlackListExample {
 
         /**
          *
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/user/black.html#remove
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/black.html#remove
          * 从黑名单中移除用户方法
          */
         Result removeResult = BlackList.remove(user);

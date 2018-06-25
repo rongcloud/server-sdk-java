@@ -34,7 +34,7 @@ public class UserExample {
         User User = rongCloud.user;
 
         /**
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/user/user.html#register
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#register
          *
          * 注册用户，生成用户在融云的唯一身份标识 Token
          */
@@ -47,7 +47,7 @@ public class UserExample {
 
         /**
          *
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/user/user.html#refresh
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#refresh
          *
          * 刷新用户信息方法
          */

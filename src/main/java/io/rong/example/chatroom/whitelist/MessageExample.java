@@ -31,14 +31,14 @@ public class MessageExample {
         String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
 
         /**
-         * API: 文档http://rongcloud.github.io/server-sdk-nodejs/docs/v1/chatroom/whitelist/message.html#add
+         * API: 文档http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#add
          * 添加聊天室全局禁言
          * */
 
         ResponseResult addResult = whitelist.message.add(messageType);
         System.out.println("add whitelist:  " + addResult.toString());
         /**
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/chatroom/whitelist/message.html#getList
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#getList
          * 添加聊天室全局禁言
          * */
 
@@ -46,7 +46,7 @@ public class MessageExample {
         System.out.println("get whitelist:  " + getResult.toString());
 
         /**
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/chatroom/whitelist/message.html#remove
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#remove
          * 添加聊天室全局禁言
          * */
 

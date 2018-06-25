@@ -30,7 +30,7 @@ public class DistributeExample {
         Distribute distribute = rongCloud.chatroom.distribute;
 
         /**
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/chatroom/distribute.html#stop
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/distribute.html#stop
          *
          * 聊天室消息停止分发
          *
@@ -42,7 +42,7 @@ public class DistributeExample {
         System.out.println("stopDistributionMessage:  " + result.toString());
 
         /**
-         * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/chatroom/distribute.html#resume
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/distribute.html#resume
          *
          * 聊天室消息恢复分发方法（每秒钟限 100 次）
          */

@@ -48,7 +48,7 @@ RongCloud IM Server SDK in Java.
   User User = rongCloud.user;
 
   /**
-  * API 文档: http://rongcloud.github.io/server-sdk-nodejs/docs/v1/user/user.html#register
+  * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#register
   *
   * 注册用户，生成用户在融云的唯一身份标识 Token
   */
@@ -62,7 +62,9 @@ RongCloud IM Server SDK in Java.
 ```
 
 
-## [文档](http://rongcloud.github.io/server-sdk-nodejs/docs/v1/)
+## [文档](http://www.rongcloud.cn/docs/server_sdk_api/)
+
+文档迁移至: http://www.rongcloud.cn/docs/server_sdk_api/
 
 ## 示例
 
