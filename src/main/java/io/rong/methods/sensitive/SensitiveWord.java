@@ -136,7 +136,7 @@ public class SensitiveWord {
 		}
 		StringBuilder sb = new StringBuilder();
 		for(String word : words){
-			sb.append("&word=").append(URLEncoder.encode(word.toString(), UTF8));
+			sb.append("&words=").append(URLEncoder.encode(word.toString(), UTF8));
 		}
 		String body = sb.toString();
 		if (body.indexOf("&") == 0) {

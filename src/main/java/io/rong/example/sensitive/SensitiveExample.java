@@ -74,5 +74,16 @@ public class SensitiveExample {
         ResponseResult removeesult = SensitiveWord.remove("money");
         System.out.println("SensitivewordDelete:  " + removeesult.toString());
 
+
+        /**
+         *
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/sensitive/sensitive.html#remove
+         * 批量移除敏感词方法（从敏感词列表中，批量移除某一敏感词。）
+         *
+         * */
+        String[] words = {"黄赌毒"};
+        ResponseResult batchDeleteResult = SensitiveWord.batchDelete(words);
+        System.out.println("SensitivewordbatchDelete:  " + batchDeleteResult.toString());
+
     }
 }
