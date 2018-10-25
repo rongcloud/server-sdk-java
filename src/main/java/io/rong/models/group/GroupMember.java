@@ -83,7 +83,7 @@ public class GroupMember {
     }
     @Override
     public String toString() {
-        return GsonUtil.toJson(this, ChatroomMember.class);
+        return GsonUtil.toJson(this, GroupMember.class);
     }
 
 }
