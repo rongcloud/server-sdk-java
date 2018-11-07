@@ -2,14 +2,12 @@ package io.rong.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.rong.models.User;
 import io.rong.models.response.BlackListResult;
 import io.rong.models.response.UserList;
 import io.rong.models.response.WhiteListResult;
 import io.rong.models.user.UserModel;
 import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +22,7 @@ import java.util.Set;
 public class CommonUtil {
     public static final String VERIFY_JSON_NAME = "/verify.json";
     public static final String API_JSON_NAME = "/api.json";
+    public static final String CHRARCTER = "UTF-8";
     public static boolean validateParams(Object params, int length){
         try {
             if(null == params){
@@ -37,7 +36,7 @@ public class CommonUtil {
                 }
             }else if(params instanceof String){
                 String param = (String) params;
-                int len = param.getBytes("UTF-8").length;
+                int len = param.length();
                 if(len <= length){
                     return true;
                 }
@@ -47,7 +46,7 @@ public class CommonUtil {
                     return true;
                 }
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             System.out.println("长度校验错误"+e);
         }
         return false;
@@ -118,7 +117,7 @@ public class CommonUtil {
                                 if("200".equals(code) && StringUtils.isBlank(value)){
                                     code = (String)object.getJSONObject("length").get("invalid");
                                 }
-                                if("200".equals(code) && value.getBytes("UTF-8").length > max){
+                                if("200".equals(code) && value.length() > max){
                                     code = (String)object.getJSONObject("length").get("invalid");
                                 }
                             }else if(m.invoke(model)  instanceof String[]){
@@ -233,7 +232,7 @@ public class CommonUtil {
                             if("200".equals(code) && StringUtils.isBlank(String.valueOf(value))){
                                 code = (String)object.getJSONObject("length").get("invalid");
                             }
-                            if("200".equals(code) && String.valueOf(value).getBytes("UTF-8").length > max){
+                            if("200".equals(code) && String.valueOf(value).length() > max){
                                 code = (String)object.getJSONObject("length").get("invalid");
                             }
                         }else if(value  instanceof String[]){
