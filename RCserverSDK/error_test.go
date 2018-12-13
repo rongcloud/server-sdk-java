@@ -1,4 +1,4 @@
-package sdk
+package RCserverSDK
 
 import (
 	"testing"
@@ -6,21 +6,15 @@ import (
 )
 
 func TestRCErrorNew(t *testing.T) {
-	fmt.Println("========TestRCErrorNew========")
-	fmt.Println(RCErrorNew(200,"nil"))
-	fmt.Println("========End========")
+	fmt.Println(RCErrorNew(200,""))
 }
 
 func TestRCError_Code(t *testing.T) {
-	fmt.Println("========TestRCError_Code========")
-	rcerr := RCError{200,"nil"}
-	fmt.Println(rcerr.Code())
-	fmt.Println("========End========")
+	rcerr := RCError{200,""}
+	fmt.Println(rcerr.ErrorCode())
 }
 
 func TestRCError_Error(t *testing.T) {
-	fmt.Println("========TestRCError_Error========")
-	rcerr := RCError{200,"nil"}
+	rcerr := RCError{200,"rcerr"}
 	fmt.Println(rcerr.Error())
-	fmt.Println("========End========")
 }

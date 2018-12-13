@@ -1,47 +1,136 @@
-package user
+package RCserverSDK
 
 import (
 	"testing"
 	"fmt"
-	"github.com/rongcloud/server-sdk-go/rcserversdk"
 	)
 
-func TestUser_Register(t *testing.T) {
+func TestRongCloud_UserRegister(t *testing.T) {
 
-	fmt.Println("========TestUser_Register========")
-	user := User{
-		&rcserversdk.RongCloud{
-			AppKey: "25wehl3u2shww",	//appkey
-			AppSecret: "trU1ZBmeAPg08J", //appsecret
-			RongCloudURI: rcserversdk.RONGCLOUDURI,
-			RongCloudSMSURI: rcserversdk.RONGCLOUDSMSURI,
-		},
-	}
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+	)
 
-	//res := UserOption{Name:"u02",PortraitUri:"http://rongcloud.cn/portrait.jpg"}
-
-	rep, err := user.Register(
-		"u01",
-		"u01",
+	rep, err := rc.UserRegister(
+		"7Szq13MKRVortoknTAk7W8",
+		"7Szq13MKRVortoknTAk7W8",
 		"http://rongcloud.cn/portrait.jpg",
 		)
 	if err == nil {
 		fmt.Println(rep)
 	}
-	fmt.Println(err)
-	fmt.Println("========End========")
+	if err != nil{
+		t.Fatal(err)
+	}
 }
 
-func TestUser_Update(t *testing.T) {
+func TestRongCloud_UserUpdate(t *testing.T) {
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+	)
 
-	fmt.Println("========TestUser_Update========")
-	users := User{
-		&rcserversdk.RongCloud{
-			AppKey: "25wehl3u2shww",	//appkey
-			AppSecret: "trU1ZBmeAPg08J", //appsecret
-		},
-	}
-	rep := users.Update("u01","u01","http://rongcloud.cn/portrait.jpg")
+	rep := rc.UserUpdate("7Szq13MKRVortoknTAk7W8","7Szq13MKRVortoknTAk7W8","http://rongcloud.cn/portrait.jpg")
 	fmt.Println(rep)
-	fmt.Println("========End========")
+}
+
+
+
+func TestRongCloud_BlockAdd(t *testing.T) {
+
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+		)
+
+	err := rc.BlockAdd(
+		"4kIvGJmETlYqDoVFgWdYdM",
+		5,
+	)
+	if err != nil{
+		t.Fatal(err)
+	}
+}
+
+func TestRongCloud_BlockGetList(t *testing.T) {
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+	)
+	rep, err := rc.BlockGetList()
+	if err == nil{
+		fmt.Println(rep)
+	}
+	if err != nil{
+		t.Fatal(err)
+	}
+}
+
+func TestRongCloud_BlockRemove(t *testing.T) {
+
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+	)
+	err := rc.BlockRemove(
+		"4kIvGJmETlYqDoVFgWdYdM",
+	)
+
+	if err != nil{
+		t.Fatal(err)
+	}
+}
+
+func TestRongCloud_BlacklistAdd(t *testing.T) {
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+	)
+	err := rc.BlacklistAdd(
+		"4kIvGJmETlYqDoVFgWdYdM",
+		[]string{"u01"},
+	)
+
+	if err != nil{
+
+		t.Fatal(err)
+	}
+}
+
+func TestRongCloud_BlacklistGetList(t *testing.T) {
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+	)
+	req, err := rc.BlacklistGet(
+		"4kIvGJmETlYqDoVFgWdYdM",
+	)
+	fmt.Println(req)
+	if err != nil{
+		fmt.Println(err)
+		t.Fatal(err)
+	}
+}
+
+func TestRongCloud_BlacklistRemove(t *testing.T) {
+	rc := NewRongCloud(
+		"ik1qhw016nsfp",
+		"S7eyGBASFSU42",
+		nil,
+	)
+	err := rc.BlacklistRemove(
+		"4kIvGJmETlYqDoVFgWdYdM",
+		[]string{"u01"},
+	)
+	if err != nil{
+		t.Fatal(err)
+	}
 }

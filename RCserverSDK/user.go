@@ -1,30 +1,34 @@
-package user
+package RCserverSDK
 
 import (
-	"io/ioutil"
 	"encoding/json"
 	"time"
 	"github.com/astaxie/beego/httplib"
-	"github.com/rongcloud/server-sdk-go/rcserversdk"
-	"server-sdk-go/sdk"
+	"strconv"
+	"fmt"
 )
-
 
 //  UserReslut User 返回信息
 type UserReslut struct {
-	Code int `json:"code"`
 	Token string `json:"token"`
-	UserId string `json:"userId"`
-	ErrorMessage string `json:"errorMessage"`
+	UserID string `json:"userId"`
 }
 
-// User user模块
-type User struct {
-	*rcserversdk.RongCloud
+// BlockListReslut
+type BlockListReslut struct {
+	Users []UserInfo `json:"users,omitempty"`
+}
+
+type BlacklistReslut struct {
+	Users []string	`json:"users"`
 }
 
 
-
+// UserInfo
+type UserInfo struct {
+	ID string `json:"userId"`
+	BlockEndTime string `json:"blockEndTime,omitempty"`
+}
 
 /*
 	*注册用户，生成用户在融云的唯一身份标识 Token 方法
@@ -36,53 +40,44 @@ type User struct {
 	*@return UserReslut, RCError
 */
 
-// Register 注册用户，生成用户在融云的唯一身份标识 Token
-func (u *User)Register(userId, name, portraitUri string) (*UserReslut, *rcserversdk.RCError) {
-
-	if (userId == "" ){
-		return nil ,rcserversdk.RCErrorNew(20005,"Paramer 'userId' is required");
+// UserRegister 注册用户，生成用户在融云的唯一身份标识 Token
+func (rc *RongCloud) UserRegister (userID, name, portraitUri string) (UserReslut, error) {
+	if (userID == "") {
+		return UserReslut{}, RCErrorNew(20005,"Paramer 'userID' is required")
 	}
-	if (name == "" ){
-		return nil ,rcserversdk.RCErrorNew(20005,"Paramer 'name' is required");
+	if (name == "") {
+		return UserReslut{}, RCErrorNew(20005,"Paramer 'name' is required")
 	}
-	if (portraitUri == "" ){
-		return nil ,rcserversdk.RCErrorNew(20005,"Paramer 'portraitUri' is required");
+	if (portraitUri == "") {
+		return UserReslut{}, RCErrorNew(20005,"Paramer 'portraitUri' is required")
 	}
 
-	req := httplib.Post(rcserversdk.RONGCLOUDURI + "/user/getToken." + rcserversdk.ReqType)
-	req.SetTimeout(time.Second * 5, time.Second * 5)
-	u.FillHeader(req)
-
-	req.Param("userId",userId)
-
+	req := httplib.Post(rc.RongCloudURI + "/user/getToken." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("userId",userID)
 	req.Param("name", name)
 	req.Param("portraitUri", portraitUri)
 
-
-
-	rep, err := req.DoRequest()
+	rep, err := req.Bytes()
 	if err != nil {
-		return nil,rcserversdk.RCErrorNew(20013,err.Error());
+		return UserReslut{}, err
 	}
 
-	body, err := ioutil.ReadAll(rep.Body)
-	if err != nil {
-		return nil,rcserversdk.RCErrorNew(20013,err.Error());
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return UserReslut{}, err
 	}
 
-	var dat map[string]interface{}
-	if err := json.Unmarshal(body, &dat); err != nil {
-		return nil,rcserversdk.RCErrorNew(20013,err.Error());
-	}
-
-	if int(dat["code"].(float64)) != 200 {
-		return nil,rcserversdk.RCErrorNew(20013,err.Error());
+	if code.Code != 200 {
+		return UserReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
 	var userReslut UserReslut
-	json.Unmarshal(body,&userReslut)
-
-	return &userReslut,nil
+	if err := json.Unmarshal(rep, &userReslut); err != nil {
+		return UserReslut{}, err
+	}
+	return userReslut, nil
 }
 
 /*
@@ -95,45 +90,279 @@ func (u *User)Register(userId, name, portraitUri string) (*UserReslut, *rcserver
 	*@return RCError
 */
 
-// Update 修改用户信息
-func (u *User)Update(userId, name, portraitUri string) *sdk.RCError {
-
+// UserUpdate 修改用户信息
+func (rc RongCloud)UserUpdate(userId, name, portraitUri string) error {
 	if( userId == "") {
-		return sdk.RCErrorNew(20005,"Paramer 'userId' is required");
+		return RCErrorNew(20005,"Paramer 'userId' is required")
 	}
 	if (name == "" ){
-		return sdk.RCErrorNew(20005,"Paramer 'name' is required");
+		return RCErrorNew(20005,"Paramer 'name' is required")
 	}
-	if (portraitUri == "" ){
-		return sdk.RCErrorNew(20005,"Paramer 'portraitUri' is required");
+	if (portraitUri == "") {
+		return RCErrorNew(20005,"Paramer 'portraitUri' is required")
 	}
 
-	req := httplib.Post(sdk.RONGCLOUDURI + "/user/refresh." + sdk.ReqType)
-	req.SetTimeout(time.Second * 5, time.Second * 5)
-	u.FillHeader(req)
+	req := httplib.Post(rc.RongCloudURI + "/user/refresh." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
 	req.Param("userId", userId)
 	req.Param("name", name)
 	req.Param("portraitUri", portraitUri)
 
-	rep, err := req.DoRequest()
+	rep, err := req.Bytes()
 	if err != nil {
-		return sdk.RCErrorNew(20013,err.Error());
+		return err
 	}
 
-	body, err := ioutil.ReadAll(rep.Body)
-	if err != nil {
-		return sdk.RCErrorNew(20013,err.Error());
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
 	}
 
-	var dat map[string]interface{}
-	if err := json.Unmarshal(body, &dat); err != nil {
-		return sdk.RCErrorNew(20013,err.Error());
-	}
-
-	if int(dat["code"].(float64)) != 200 {
-		return sdk.RCErrorNew(20013,err.Error());
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	return nil;
 }
 
 
+/**
+	 *添加用户到黑名单方法（每秒钟限 100 次）
+	 *
+	 *@param  userId:用户 Id。
+	 *@param  blackUserId:被加到黑名单的用户Id。
+	 *
+	 *@return CodeSuccessReslut
+*/
+
+// BlockAdd 添加用户到黑名单
+func (rc *RongCloud)BlockAdd(id string, minute uint64) error {
+
+	if( id == "") {
+
+		return RCErrorNew(20005,"Paramer 'id' is required")
+	}
+
+	if(minute > 43200) {
+		return RCErrorNew(20004,"封禁时间不正确, 当前传入为 , 正确范围 1 - 1 * 30 * 24 * 60 分钟")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/user/block." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("userId",id)
+	req.Param("minute", strconv.FormatUint(minute,10))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil;
+}
+
+/**
+	 *从黑名单中移除用户方法（每秒钟限 100 次）
+	 *
+	 *@param  id:用户 ID。
+	 *
+	 *@return CodeSuccessReslut
+*/
+
+
+// BlockRemove 从黑名单中移除用户
+func (rc *RongCloud)BlockRemove(id string) error {
+	if(id == "") {
+		return RCErrorNew(20005,"Paramer 'id' is required")
+	}
+	req := httplib.Post(rc.RongCloudURI + "/user/unblock." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("userId",id)
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return RCErrorNew(20100,err.Error())
+	}
+
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil;
+}
+
+
+
+/**
+ 	*获取被封禁用户方法（每秒钟限 100 次）
+ 	*
+ 	*
+ 	*@return QueryBlockUserReslut
+*/
+
+// BlockGetList 获取某用户的黑名单列表
+func (rc *RongCloud)BlockGetList()(BlockListReslut, error){
+	req := httplib.Post(rc.RongCloudURI + "/user/block/query." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+
+	rep, err := req.Bytes()
+
+	if err != nil {
+		return BlockListReslut{}, err
+	}
+
+	var dat BlockListReslut
+	var code CodeReslut
+	if err := json.Unmarshal(rep,&dat); err != nil {
+		return BlockListReslut{}, err
+	}
+	if err := json.Unmarshal(rep,&code); err != nil {
+		return BlockListReslut{}, err
+	}
+	if code.Code != 200 {
+		return BlockListReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
+	}
+
+	return dat,nil;
+}
+
+/**
+	 *添加用户到黑名单方法（每秒钟限 100 次）
+	 *
+	 *@param  userId:用户 Id。
+	 *@param  blackUserId:被加到黑名单的用户Id。
+	 *
+	 *@return CodeSuccessReslut
+*/
+
+// BlacklistAdd 添加用户到黑名单
+func (rc *RongCloud)BlacklistAdd(id string, blacklist []string) error {
+	if(id == "") {
+		return RCErrorNew(20005,"Paramer 'id' is required")
+	}
+
+	if(len(blacklist) == 0) {
+		return RCErrorNew(20005,"Paramer 'blacklist' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/user/blacklist/add." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("userId",id)
+	for _, v := range blacklist{
+		req.Param("blackUserId", v)
+	}
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+
+	return nil;
+}
+
+/**
+	 *从黑名单中移除用户方法（每秒钟限 100 次）
+	 *
+	 *@param  userId:用户 Id。
+	 *@param  blackUserId:被移除的用户Id。
+	 *
+	 *@return CodeSuccessReslut
+*/
+
+
+// Remove 从黑名单中移除用户
+func (rc *RongCloud)BlacklistRemove(id string, blacklist []string) error{
+	if(id == "") {
+		return RCErrorNew(20005,"Paramer 'id' is required")
+	}
+	if(len(blacklist) == 0) {
+		return RCErrorNew(20005,"Paramer 'blacklist' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/user/blacklist/remove." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("userId",id)
+	for _, v := range blacklist{
+		req.Param("blackUserId", v)
+	}
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil;
+}
+
+/**
+	 *获取某用户的黑名单列表方法（每秒钟限 100 次）
+	 *
+	 *@param  userId:用户 Id。
+	 *
+	 *@return QueryBlacklistUserReslut
+*/
+
+// GetList 获取某用户的黑名单列表
+func (rc *RongCloud) BlacklistGet (id string)(BlacklistReslut,error){
+	if(id == "") {
+		return BlacklistReslut{}, RCErrorNew(20005,"Paramer 'id' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/user/blacklist/query." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("userId",id)
+
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return BlacklistReslut{}, err
+	}
+
+	var listReslut BlacklistReslut
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &listReslut); err != nil {
+		return BlacklistReslut{}, err
+	}
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return BlacklistReslut{}, err
+	}
+
+	if code.Code != 200 {
+		return BlacklistReslut{}, RCErrorNew(code.Code,code.ErrorMessage)
+	}
+	fmt.Println(string(rep))
+	return listReslut,nil;
+}
