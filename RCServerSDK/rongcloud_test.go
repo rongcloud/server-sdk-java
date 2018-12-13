@@ -1,16 +1,16 @@
-package RCserverSDK
+package RCServerSDK
 
 import (
-	"testing"
 	"fmt"
 	"github.com/astaxie/beego/httplib"
+	"testing"
 )
 
 func TestNewRongCloud(t *testing.T) {
 	rcex := RongCloudExtra{
-		RongCloudURI: "http://172",
+		RongCloudURI:    "http://172",
 		RongCloudSMSURI: "123",
-		TimeOut: 30,
+		TimeOut:         30,
 	}
 	rc := NewRongCloud(
 		"ik1qhw016nsfp",
@@ -30,4 +30,3 @@ func TestRongCloud_FillHeader(t *testing.T) {
 	rc.FillHeader(req)
 	fmt.Println(req.GetRequest().Header)
 }
-

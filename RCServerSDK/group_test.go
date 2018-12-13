@@ -1,8 +1,8 @@
-package RCserverSDK
+package RCServerSDK
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestRongCloud_GroupCreate(t *testing.T) {
@@ -15,10 +15,10 @@ func TestRongCloud_GroupCreate(t *testing.T) {
 	err := rc.GroupCreate(
 		"u01",
 		"rongcloud_group01",
-		[]string{"u01","u02"},
+		[]string{"u01", "u02"},
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -33,10 +33,10 @@ func TestRongCloud_GroupGet(t *testing.T) {
 	rep, err := rc.GroupGet(
 		"u01",
 	)
-	if err == nil{
+	if err == nil {
 		fmt.Println(rep)
 	}
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -54,11 +54,10 @@ func TestRongCloud_GroupJoin(t *testing.T) {
 		"u03",
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
-
 
 func TestRongCloud_GroupUpdate(t *testing.T) {
 	rc := NewRongCloud(
@@ -72,7 +71,7 @@ func TestRongCloud_GroupUpdate(t *testing.T) {
 		"rongcloud_group02",
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -90,7 +89,7 @@ func TestRongCloud_GroupQuit(t *testing.T) {
 		"u01",
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -102,15 +101,15 @@ func TestRongCloud_GroupSync(t *testing.T) {
 		"S7eyGBASFSU42",
 		nil,
 	)
-	groupinfo := GroupInfo{ID:"u02",Name:"rongcloud_group02"}
+	groupinfo := GroupInfo{ID: "u02", Name: "rongcloud_group02"}
 	groupinfos := []GroupInfo{}
-	groupinfos = append(groupinfos,groupinfo)
+	groupinfos = append(groupinfos, groupinfo)
 	err := rc.GroupSync(
 		"u04",
 		groupinfos,
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -129,7 +128,7 @@ func TestRongCloud_GroupGagAdd(t *testing.T) {
 		300,
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -145,10 +144,10 @@ func TestRongCloud_GROUPGagList(t *testing.T) {
 	rep, err := rc.GroupGagList(
 		"u01",
 	)
-	if err == nil{
+	if err == nil {
 		fmt.Println(rep)
 	}
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -166,7 +165,7 @@ func TestRongCloud_GroupGagremove(t *testing.T) {
 		[]string{"u02"},
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -184,7 +183,7 @@ func TestRongCloud_GroupDismiss(t *testing.T) {
 		"u01",
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }

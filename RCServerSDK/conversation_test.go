@@ -1,8 +1,8 @@
-package RCserverSDK
+package RCServerSDK
 
 import (
 	"testing"
-		)
+)
 
 func TestRongCloud_ConversationMute(t *testing.T) {
 	conversation := NewRongCloud(
@@ -15,7 +15,7 @@ func TestRongCloud_ConversationMute(t *testing.T) {
 		"u01",
 		"u02")
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 
@@ -32,7 +32,7 @@ func TestRongCloud_ConversationUnmute(t *testing.T) {
 		"u01",
 		"u02")
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 

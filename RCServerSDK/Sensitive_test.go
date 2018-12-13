@@ -1,8 +1,8 @@
-package RCserverSDK
+package RCServerSDK
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestRongCloud_SensitiveAdd(t *testing.T) {
@@ -19,7 +19,7 @@ func TestRongCloud_SensitiveAdd(t *testing.T) {
 		1,
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -31,15 +31,14 @@ func TestRongCloud_SensitiveGetList(t *testing.T) {
 		nil,
 	)
 
-	rep ,err := rc.SensitiveGetList()
-	if err == nil{
+	rep, err := rc.SensitiveGetList()
+	if err == nil {
 		fmt.Println(rep)
 	}
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
-
 
 func TestRongCloud_SensitiveRemove(t *testing.T) {
 
@@ -51,9 +50,9 @@ func TestRongCloud_SensitiveRemove(t *testing.T) {
 
 	err := rc.SensitiveRemove(
 		[]string{"7Szq13MKRVortoknTAk7W8"},
-		)
+	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 

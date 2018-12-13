@@ -1,34 +1,33 @@
-package RCserverSDK
+package RCServerSDK
 
 import (
-	"github.com/astaxie/beego/httplib"
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"github.com/astaxie/beego/httplib"
 )
 
 type ConversationType int
 
 const (
-	PRIVATE ConversationType = 1
-	DISCUSSION ConversationType = 2
-	GROUP ConversationType = 3
-	CUSTOMERSERVICE	ConversationType = 4
-	SYSTEM ConversationType = 4
+	PRIVATE         ConversationType = 1
+	DISCUSSION      ConversationType = 2
+	GROUP           ConversationType = 3
+	CUSTOMERSERVICE ConversationType = 4
+	SYSTEM          ConversationType = 4
 )
 
+func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
 
-func (rc *RongCloud) ConversationMute (conversationType ConversationType, userID, targetID string) error{
-
-	if(conversationType == 0) {
-		return RCErrorNew(20005,"Paramer 'userId' is required")
+	if conversationType == 0 {
+		return RCErrorNew(20005, "Paramer 'userId' is required")
 	}
 
-	if(userID == "") {
-		return RCErrorNew(20005,"Paramer 'userID' is required")
+	if userID == "" {
+		return RCErrorNew(20005, "Paramer 'userID' is required")
 	}
 
-	if(targetID == "") {
-		return RCErrorNew(20005,"Paramer 'targetID' is required")
+	if targetID == "" {
+		return RCErrorNew(20005, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)
@@ -52,19 +51,18 @@ func (rc *RongCloud) ConversationMute (conversationType ConversationType, userID
 	return nil
 }
 
+func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
 
-func (rc *RongCloud) ConversationUnmute (conversationType ConversationType, userID, targetID string) error{
-
-	if(conversationType == 0) {
-		return RCErrorNew(20005,"Paramer 'conversationType' is required")
+	if conversationType == 0 {
+		return RCErrorNew(20005, "Paramer 'conversationType' is required")
 	}
 
-	if(userID == "") {
-		return RCErrorNew(20005,"Paramer 'userID' is required")
+	if userID == "" {
+		return RCErrorNew(20005, "Paramer 'userID' is required")
 	}
 
-	if(targetID == "") {
-		return RCErrorNew(20005,"Paramer 'targetID' is required")
+	if targetID == "" {
+		return RCErrorNew(20005, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)
@@ -87,4 +85,3 @@ func (rc *RongCloud) ConversationUnmute (conversationType ConversationType, user
 	}
 	return nil
 }
-

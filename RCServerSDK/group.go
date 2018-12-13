@@ -1,24 +1,22 @@
-package RCserverSDK
+package RCServerSDK
 
 import (
-	"github.com/astaxie/beego/httplib"
 	"encoding/json"
-		"strconv"
-	)
+	"github.com/astaxie/beego/httplib"
+	"strconv"
+)
 
 // GroupInfo 群组信息
 type GroupInfo struct {
-	ID string `json:"id"`
+	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
-
 // groupUserQuery 返回结果
 type GroupUserQueryReslut struct {
-	ID string `json:"id"`
+	ID    string      `json:"id"`
 	Users []GroupUser `json:"users"`
 }
-
 
 // GroupUser 群组用户信息
 type GroupUser struct {
@@ -30,10 +28,9 @@ type ListGagGroupUserReslut struct {
 }
 
 type GagGroupUser struct {
-	ID string	`json:"userId"`
+	ID   string `json:"userId"`
 	Time string `json:"time"`
 }
-
 
 /*
  *创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join 的别名。）
@@ -43,24 +40,24 @@ type GagGroupUser struct {
  *@param  groupName:群组 Id 对应的名称。（必传）
  *
  *@return RCError
-*/
+ */
 // GroupCreate
-func (rc *RongCloud) GroupCreate (ID, name string ,members []string) error {
-	if(len(members) == 0) {
-		return RCErrorNew(20005,"Paramer 'userId' is required")
+func (rc *RongCloud) GroupCreate(ID, name string, members []string) error {
+	if len(members) == 0 {
+		return RCErrorNew(20005, "Paramer 'userId' is required")
 	}
 
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'groupId' is required")
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'groupId' is required")
 	}
 
-	if(name == "") {
-		return RCErrorNew(20005,"Paramer 'groupName' is required")
+	if name == "" {
+		return RCErrorNew(20005, "Paramer 'groupName' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/create." + ReqType)
 	rc.FillHeader(req)
-	for _,item := range members {
+	for _, item := range members {
 		req.Param("userId", item)
 	}
 	req.Param("groupId", ID)
@@ -79,7 +76,6 @@ func (rc *RongCloud) GroupCreate (ID, name string ,members []string) error {
 	return nil
 }
 
-
 /**
  *同步用户所属群组方法（当第一次连接融云服务器时，需要向融云服务器提交 ID 对应的用户当前所加入的所有群组，此接口主要为防止应用中用户群信息同融云已知的用户所属群信息不同步。）
  *
@@ -88,20 +84,19 @@ func (rc *RongCloud) GroupCreate (ID, name string ,members []string) error {
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) GroupSync (ID string, groups []GroupInfo) error {
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'userId' is required")
+func (rc *RongCloud) GroupSync(ID string, groups []GroupInfo) error {
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'userId' is required")
 	}
 
-	if(len(groups) == 0) {
-		return RCErrorNew(20005,"Paramer 'groups' is required")
+	if len(groups) == 0 {
+		return RCErrorNew(20005, "Paramer 'groups' is required")
 	}
-
 
 	req := httplib.Post(rc.RongCloudURI + "/group/sync." + ReqType)
 	rc.FillHeader(req)
 	req.Param("userId", ID)
-	for _,item := range groups {
+	for _, item := range groups {
 		req.Param("group["+item.ID+"]", item.Name)
 	}
 	rep, err := req.Bytes()
@@ -118,7 +113,6 @@ func (rc *RongCloud) GroupSync (ID string, groups []GroupInfo) error {
 	return nil
 }
 
-
 /**
 *刷新群组信息方法
 *
@@ -126,17 +120,17 @@ func (rc *RongCloud) GroupSync (ID string, groups []GroupInfo) error {
 *@param  groupName:群名称。（必传）
 *
 *@return RCError
-*/
-func (rc *RongCloud) GroupUpdate (ID, name string) error {
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'groupId' is required")
+ */
+func (rc *RongCloud) GroupUpdate(ID, name string) error {
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'groupId' is required")
 	}
 
-	if(name == "") {
-		return RCErrorNew(20005,"Paramer 'groupName' is required")
+	if name == "" {
+		return RCErrorNew(20005, "Paramer 'groupName' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/refresh." + ReqType )
+	req := httplib.Post(rc.RongCloudURI + "/group/refresh." + ReqType)
 	rc.FillHeader(req)
 	req.Param("groupId", ID)
 	req.Param("groupName", name)
@@ -154,7 +148,6 @@ func (rc *RongCloud) GroupUpdate (ID, name string) error {
 	return nil
 }
 
-
 /**
  *将用户加入指定群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
  *
@@ -164,17 +157,17 @@ func (rc *RongCloud) GroupUpdate (ID, name string) error {
  *
  *@return RCError
  */
-func (rc *RongCloud) GroupJoin (ID, name, member string) error {
-	if(member == "") {
-		return RCErrorNew(20005,"Paramer 'userId' is required")
+func (rc *RongCloud) GroupJoin(ID, name, member string) error {
+	if member == "" {
+		return RCErrorNew(20005, "Paramer 'userId' is required")
 	}
 
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'groupId' is required")
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'groupId' is required")
 	}
 
-	if(name == "") {
-		return RCErrorNew(20005,"Paramer 'groupName' is required")
+	if name == "" {
+		return RCErrorNew(20005, "Paramer 'groupName' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/join." + ReqType)
@@ -197,7 +190,6 @@ func (rc *RongCloud) GroupJoin (ID, name, member string) error {
 	return nil
 }
 
-
 /**
  *查询群成员方法
  *
@@ -205,9 +197,9 @@ func (rc *RongCloud) GroupJoin (ID, name, member string) error {
  *
  *@return GroupUserQueryReslut RCError
  */
-func (rc *RongCloud) GroupGet (ID string)(GroupUserQueryReslut, error) {
-	if(ID == "") {
-		return GroupUserQueryReslut{},RCErrorNew(20005,"Paramer 'ID' is required")
+func (rc *RongCloud) GroupGet(ID string) (GroupUserQueryReslut, error) {
+	if ID == "" {
+		return GroupUserQueryReslut{}, RCErrorNew(20005, "Paramer 'ID' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/group/user/query." + ReqType)
 	rc.FillHeader(req)
@@ -231,7 +223,6 @@ func (rc *RongCloud) GroupGet (ID string)(GroupUserQueryReslut, error) {
 
 }
 
-
 /**
  *退出群组方法（将用户从群中移除，不再接收该群组的消息.）
  *
@@ -240,13 +231,13 @@ func (rc *RongCloud) GroupGet (ID string)(GroupUserQueryReslut, error) {
  *
  *@return RCError
  */
-func (rc *RongCloud) GroupQuit (member string, ID string) error {
-	if(member == "") {
-		return RCErrorNew(20005,"Paramer 'member' is required")
+func (rc *RongCloud) GroupQuit(member string, ID string) error {
+	if member == "" {
+		return RCErrorNew(20005, "Paramer 'member' is required")
 	}
 
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'ID' is required")
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'ID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/quit." + ReqType)
@@ -268,7 +259,6 @@ func (rc *RongCloud) GroupQuit (member string, ID string) error {
 	return nil
 }
 
-
 /**
  *解散群组方法
  *
@@ -277,13 +267,13 @@ func (rc *RongCloud) GroupQuit (member string, ID string) error {
  *
  *@return RCError
  */
-func (rc *RongCloud) GroupDismiss (ID, member string) error {
-	if(member == "") {
-		return RCErrorNew(20005,"Paramer 'member' is required")
+func (rc *RongCloud) GroupDismiss(ID, member string) error {
+	if member == "" {
+		return RCErrorNew(20005, "Paramer 'member' is required")
 	}
 
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'ID' is required")
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'ID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/dismiss." + ReqType)
@@ -305,8 +295,6 @@ func (rc *RongCloud) GroupDismiss (ID, member string) error {
 	return nil
 }
 
-
-
 /**
 *添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
 *
@@ -315,24 +303,23 @@ func (rc *RongCloud) GroupDismiss (ID, member string) error {
 *@param  minute:禁言时长，以分钟为单位，最大值为43200分钟。（必传）
 *
 *@return RCError
-*/
-func (rc *RongCloud) GroupGagAdd (ID string, members []string, minute int) error {
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'ID' is required")
+ */
+func (rc *RongCloud) GroupGagAdd(ID string, members []string, minute int) error {
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'ID' is required")
 	}
 
-	if(len(members) == 0) {
-		return RCErrorNew(20005,"Paramer 'members' is required")
+	if len(members) == 0 {
+		return RCErrorNew(20005, "Paramer 'members' is required")
 	}
 
-	if(minute == 0) {
-		return RCErrorNew(20005,"Paramer 'minute' is required")
+	if minute == 0 {
+		return RCErrorNew(20005, "Paramer 'minute' is required")
 	}
-
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/add." + ReqType)
 	rc.FillHeader(req)
-	for _, item := range members{
+	for _, item := range members {
 		req.Param("userId", item)
 	}
 	req.Param("groupId", ID)
@@ -351,17 +338,16 @@ func (rc *RongCloud) GroupGagAdd (ID string, members []string, minute int) error
 	return nil
 }
 
-
 /**
 *查询被禁言群成员方法
 *
 *@param  groupId:群组Id。（必传）
 *
 *@return ListGagGroupUserReslut
-*/
-func (rc *RongCloud) GroupGagList (groupId string)(ListGagGroupUserReslut, error) {
-	if(groupId == "") {
-		return ListGagGroupUserReslut{},RCErrorNew(20005,"Paramer 'groupId' is required")
+ */
+func (rc *RongCloud) GroupGagList(groupId string) (ListGagGroupUserReslut, error) {
+	if groupId == "" {
+		return ListGagGroupUserReslut{}, RCErrorNew(20005, "Paramer 'groupId' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/list." + ReqType)
@@ -369,22 +355,21 @@ func (rc *RongCloud) GroupGagList (groupId string)(ListGagGroupUserReslut, error
 	req.Param("groupId", groupId)
 	rep, err := req.Bytes()
 	if err != nil {
-		return ListGagGroupUserReslut{},err
+		return ListGagGroupUserReslut{}, err
 	}
 	var code CodeReslut
 	var dat ListGagGroupUserReslut
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return ListGagGroupUserReslut{},err
+		return ListGagGroupUserReslut{}, err
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return ListGagGroupUserReslut{},err
+		return ListGagGroupUserReslut{}, err
 	}
 	if code.Code != 200 {
-		return ListGagGroupUserReslut{},RCErrorNew(code.Code, code.ErrorMessage)
+		return ListGagGroupUserReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
-	return dat,nil
+	return dat, nil
 }
-
 
 /**
 *移除禁言群成员方法
@@ -393,19 +378,19 @@ func (rc *RongCloud) GroupGagList (groupId string)(ListGagGroupUserReslut, error
 *@param  groupId:群组Id。（必传）
 *
 *@return RCError
-*/
-func (rc *RongCloud) GroupGagRemove (ID string, members []string) error {
-	if(len(members) == 0) {
-		return RCErrorNew(20005,"Paramer 'members' is required")
+ */
+func (rc *RongCloud) GroupGagRemove(ID string, members []string) error {
+	if len(members) == 0 {
+		return RCErrorNew(20005, "Paramer 'members' is required")
 	}
 
-	if(ID == "") {
-		return RCErrorNew(20005,"Paramer 'groupId' is required")
+	if ID == "" {
+		return RCErrorNew(20005, "Paramer 'groupId' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/rollback.json")
 	rc.FillHeader(req)
-	for _,item := range members {
+	for _, item := range members {
 		req.Param("userId", item)
 	}
 	req.Param("groupId", ID)

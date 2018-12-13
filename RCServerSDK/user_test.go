@@ -1,9 +1,9 @@
-package RCserverSDK
+package RCServerSDK
 
 import (
-	"testing"
 	"fmt"
-	)
+	"testing"
+)
 
 func TestRongCloud_UserRegister(t *testing.T) {
 
@@ -17,11 +17,11 @@ func TestRongCloud_UserRegister(t *testing.T) {
 		"7Szq13MKRVortoknTAk7W8",
 		"7Szq13MKRVortoknTAk7W8",
 		"http://rongcloud.cn/portrait.jpg",
-		)
+	)
 	if err == nil {
 		fmt.Println(rep)
 	}
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -33,11 +33,9 @@ func TestRongCloud_UserUpdate(t *testing.T) {
 		nil,
 	)
 
-	rep := rc.UserUpdate("7Szq13MKRVortoknTAk7W8","7Szq13MKRVortoknTAk7W8","http://rongcloud.cn/portrait.jpg")
+	rep := rc.UserUpdate("7Szq13MKRVortoknTAk7W8", "7Szq13MKRVortoknTAk7W8", "http://rongcloud.cn/portrait.jpg")
 	fmt.Println(rep)
 }
-
-
 
 func TestRongCloud_BlockAdd(t *testing.T) {
 
@@ -45,13 +43,13 @@ func TestRongCloud_BlockAdd(t *testing.T) {
 		"ik1qhw016nsfp",
 		"S7eyGBASFSU42",
 		nil,
-		)
+	)
 
 	err := rc.BlockAdd(
 		"4kIvGJmETlYqDoVFgWdYdM",
 		5,
 	)
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -63,10 +61,10 @@ func TestRongCloud_BlockGetList(t *testing.T) {
 		nil,
 	)
 	rep, err := rc.BlockGetList()
-	if err == nil{
+	if err == nil {
 		fmt.Println(rep)
 	}
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -82,7 +80,7 @@ func TestRongCloud_BlockRemove(t *testing.T) {
 		"4kIvGJmETlYqDoVFgWdYdM",
 	)
 
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }
@@ -98,7 +96,7 @@ func TestRongCloud_BlacklistAdd(t *testing.T) {
 		[]string{"u01"},
 	)
 
-	if err != nil{
+	if err != nil {
 
 		t.Fatal(err)
 	}
@@ -114,7 +112,7 @@ func TestRongCloud_BlacklistGetList(t *testing.T) {
 		"4kIvGJmETlYqDoVFgWdYdM",
 	)
 	fmt.Println(req)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 		t.Fatal(err)
 	}
@@ -130,7 +128,7 @@ func TestRongCloud_BlacklistRemove(t *testing.T) {
 		"4kIvGJmETlYqDoVFgWdYdM",
 		[]string{"u01"},
 	)
-	if err != nil{
+	if err != nil {
 		t.Fatal(err)
 	}
 }

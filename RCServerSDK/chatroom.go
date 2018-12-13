@@ -1,19 +1,17 @@
-package RCserverSDK
+package RCServerSDK
 
-import(
+import (
+	"encoding/json"
 	"errors"
 	"github.com/astaxie/beego/httplib"
-	"encoding/json"
 	"strconv"
 )
 
-
 // ChatRoomInfo 聊天室信息
 type ChatRoomInfo struct {
-	ID string `json:"id"`
+	ID   string `json:"id"`
 	Name string `json:"name"`
 }
-
 
 // ChatroomQueryReslut chatroomQuery 返回结果
 //type ChatroomQueryReslut struct {
@@ -22,38 +20,35 @@ type ChatRoomInfo struct {
 //	ErrorMessage string `json:"errorMessage"`
 //}
 
-
 // ChatRoom 聊天室信息
 type ChatRoom struct {
 	ChrmId string `json:"chrmId"`
-	Name string `json:"name"`
-	Time string `json:"time"`
+	Name   string `json:"name"`
+	Time   string `json:"time"`
 }
 
 // ChatroomReslut Chatroom 返回结果
 type ChatroomReslut struct {
-	Total int `json:"total"`
-	Users []ChatRoomUser `json:"users"`
-	Reslut []ChatRoomUser `json:"reslut"`
-	ObjectNames []string `json:"objectNames"`
-	ChatroomIds []string `json:"chatroomids"`
+	Total       int            `json:"total"`
+	Users       []ChatRoomUser `json:"users"`
+	Reslut      []ChatRoomUser `json:"reslut"`
+	ObjectNames []string       `json:"objectNames"`
+	ChatroomIds []string       `json:"chatroomids"`
 }
 
 // ChatRoomUser 聊天室用户信息
 type ChatRoomUser struct {
-	ID string `json:"id"`
-	UserID string `json:"userId"`
-	Time string `json:"time"`
-	IsInChrm int `json:"isInChrm"`
+	ID       string `json:"id"`
+	UserID   string `json:"userId"`
+	Time     string `json:"time"`
+	IsInChrm int    `json:"isInChrm"`
 }
-
-
 
 //BlockChatRoomUser 聊天室被封禁用户信息。
 
 type BlockChatRoomUser struct {
 	UserId string `json:"userId"`
-	Time string `json:"time"`
+	Time   string `json:"time"`
 }
 
 /**
@@ -63,18 +58,18 @@ type BlockChatRoomUser struct {
  *
  *@return error
  */
-func (rc *RongCloud) ChatroomCreate (id, name string) error {
-	if(id == "") {
-		return RCErrorNew(20005,"Paramer 'id' is required");
+func (rc *RongCloud) ChatroomCreate(id, name string) error {
+	if id == "" {
+		return RCErrorNew(20005, "Paramer 'id' is required")
 	}
-	if(name == "") {
-		return RCErrorNew(20005,"Paramer 'name' is required");
+	if name == "" {
+		return RCErrorNew(20005, "Paramer 'name' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/create." + ReqType)
 	rc.FillHeader(req)
 
-	req.Param("chatroom[" + id + "]", name)
+	req.Param("chatroom["+id+"]", name)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -97,9 +92,9 @@ func (rc *RongCloud) ChatroomCreate (id, name string) error {
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomDestroy (id string) error {
-	if(id == "") {
-		return RCErrorNew(20005,"Paramer 'id' is required");
+func (rc *RongCloud) ChatroomDestroy(id string) error {
+	if id == "" {
+		return RCErrorNew(20005, "Paramer 'id' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/destroy." + ReqType)
@@ -130,17 +125,17 @@ func (rc *RongCloud) ChatroomDestroy (id string) error {
  *
  *@return ChatroomUserQueryReslut
  */
-func (rc *RongCloud) ChatroomGet (id string, count, order int)(ChatroomReslut, error) {
-	if(id == "") {
-		return ChatroomReslut{}, errors.New("Paramer 'chatroomId' is required");
+func (rc *RongCloud) ChatroomGet(id string, count, order int) (ChatroomReslut, error) {
+	if id == "" {
+		return ChatroomReslut{}, errors.New("Paramer 'chatroomId' is required")
 	}
 
-	if( count <= 0) {
-		return ChatroomReslut{},errors.New("Paramer 'count' is required");
+	if count <= 0 {
+		return ChatroomReslut{}, errors.New("Paramer 'count' is required")
 	}
 
-	if( order <= 0) {
-		return ChatroomReslut{},errors.New("Paramer 'order' is required");
+	if order <= 0 {
+		return ChatroomReslut{}, errors.New("Paramer 'order' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/query." + ReqType)
@@ -150,59 +145,58 @@ func (rc *RongCloud) ChatroomGet (id string, count, order int)(ChatroomReslut, e
 	req.Param("order", strconv.Itoa(order))
 	rep, err := req.Bytes()
 	if err != nil {
-		return ChatroomReslut{},err
+		return ChatroomReslut{}, err
 	}
 	var code CodeReslut
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return ChatroomReslut{},err
+		return ChatroomReslut{}, err
 	}
 	if code.Code != 200 {
-		return ChatroomReslut{},RCErrorNew(code.Code, code.ErrorMessage)
+		return ChatroomReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
 	var dat ChatroomReslut
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return ChatroomReslut{},err
+		return ChatroomReslut{}, err
 	}
-	return dat,nil
+	return dat, nil
 }
 
-func (rc *RongCloud) ChatroomisExist (id string, members []string)([]ChatRoomUser, error) {
-	if(id == "") {
-		return []ChatRoomUser{}, errors.New("Paramer 'chatroomId' is required");
+func (rc *RongCloud) ChatroomisExist(id string, members []string) ([]ChatRoomUser, error) {
+	if id == "" {
+		return []ChatRoomUser{}, errors.New("Paramer 'chatroomId' is required")
 	}
 
-	if(len(members) == 0) {
-		return []ChatRoomUser{},errors.New("Paramer 'count' is required");
+	if len(members) == 0 {
+		return []ChatRoomUser{}, errors.New("Paramer 'count' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/users/exist." + ReqType)
 	rc.FillHeader(req)
 	req.Param("chatroomId", id)
-	for _, v := range members{
+	for _, v := range members {
 		req.Param("userId", v)
 	}
 
 	rep, err := req.Bytes()
 	if err != nil {
-		return []ChatRoomUser{},err
+		return []ChatRoomUser{}, err
 	}
 	var code CodeReslut
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return []ChatRoomUser{},err
+		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{},RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
 	var dat ChatroomReslut
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return []ChatRoomUser{},err
+		return []ChatRoomUser{}, err
 	}
 
 	return dat.Reslut, nil
 }
-
 
 /**
  *添加封禁聊天室成员方法
@@ -213,23 +207,23 @@ func (rc *RongCloud) ChatroomisExist (id string, members []string)([]ChatRoomUse
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomBlockAdd (id string, members []string, minute uint) error {
-	if(id == "") {
-		return errors.New("Paramer 'id' is required");
+func (rc *RongCloud) ChatroomBlockAdd(id string, members []string, minute uint) error {
+	if id == "" {
+		return errors.New("Paramer 'id' is required")
 	}
 
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
-	if(minute == 0) {
-		return errors.New("Paramer 'minute' is required");
+	if minute == 0 {
+		return errors.New("Paramer 'minute' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/block/add." + ReqType)
 	rc.FillHeader(req)
 	req.Param("chatroomId", id)
-	for _,v := range members{
+	for _, v := range members {
 		req.Param("userId", v)
 	}
 
@@ -248,7 +242,6 @@ func (rc *RongCloud) ChatroomBlockAdd (id string, members []string, minute uint)
 	return nil
 }
 
-
 /**
  *移除封禁聊天室成员方法
  *
@@ -257,18 +250,18 @@ func (rc *RongCloud) ChatroomBlockAdd (id string, members []string, minute uint)
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomBlockRemove (id string, members []string) error {
-	if(id == "") {
-		return errors.New("Paramer 'id' is required");
+func (rc *RongCloud) ChatroomBlockRemove(id string, members []string) error {
+	if id == "" {
+		return errors.New("Paramer 'id' is required")
 	}
 
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/block/rollback." + ReqType)
 	rc.FillHeader(req)
-	for _,v := range members{
+	for _, v := range members {
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
@@ -293,11 +286,11 @@ func (rc *RongCloud) ChatroomBlockRemove (id string, members []string) error {
  *
  *@return ListBlockChatroomUserReslut
  */
-func (rc *RongCloud) ChatroomBlockGetList (id string)( ChatroomReslut, error) {
+func (rc *RongCloud) ChatroomBlockGetList(id string) (ChatroomReslut, error) {
 	var dat ChatroomReslut
 	var code CodeReslut
-	if(id == "") {
-		return dat,errors.New("Paramer 'chatroomId' is required");
+	if id == "" {
+		return dat, errors.New("Paramer 'chatroomId' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/block/list." + ReqType)
@@ -305,31 +298,31 @@ func (rc *RongCloud) ChatroomBlockGetList (id string)( ChatroomReslut, error) {
 	req.Param("chatroomId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		return dat,err
+		return dat, err
 	}
 
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return dat,err
+		return dat, err
 	}
 	if code.Code != 200 {
-		return dat,RCErrorNew(code.Code, code.ErrorMessage)
+		return dat, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return dat,err
+		return dat, err
 	}
 
-	return dat,nil
+	return dat, nil
 }
 
-func (rc *RongCloud) ChatroomBanAdd (members []string, minute uint) error {
+func (rc *RongCloud) ChatroomBanAdd(members []string, minute uint) error {
 
 	var code CodeReslut
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
-	if (minute == 0) {
-		return errors.New("Paramer 'minute' is required");
+	if minute == 0 {
+		return errors.New("Paramer 'minute' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/ban/add." + ReqType)
@@ -337,7 +330,7 @@ func (rc *RongCloud) ChatroomBanAdd (members []string, minute uint) error {
 	for _, v := range members {
 		req.Param("userId", v)
 	}
-	req.Param("minute",strconv.Itoa(int(minute)))
+	req.Param("minute", strconv.Itoa(int(minute)))
 	rep, err := req.Bytes()
 	if err != nil {
 		return err
@@ -353,11 +346,11 @@ func (rc *RongCloud) ChatroomBanAdd (members []string, minute uint) error {
 	return nil
 }
 
-func (rc *RongCloud) ChatroomBanRemove (members []string) error {
+func (rc *RongCloud) ChatroomBanRemove(members []string) error {
 
 	var code CodeReslut
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/ban/remove." + ReqType)
@@ -380,7 +373,7 @@ func (rc *RongCloud) ChatroomBanRemove (members []string) error {
 	return nil
 }
 
-func (rc *RongCloud) ChatroomBanGetList () ([]ChatRoomUser,error) {
+func (rc *RongCloud) ChatroomBanGetList() ([]ChatRoomUser, error) {
 
 	var code CodeReslut
 	var dat ChatroomReslut
@@ -389,17 +382,17 @@ func (rc *RongCloud) ChatroomBanGetList () ([]ChatRoomUser,error) {
 
 	rep, err := req.Bytes()
 	if err != nil {
-		return []ChatRoomUser{},err
+		return []ChatRoomUser{}, err
 	}
 
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return []ChatRoomUser{},err
+		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{},RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return []ChatRoomUser{},err
+		return []ChatRoomUser{}, err
 	}
 	return dat.Users, nil
 }
@@ -413,22 +406,22 @@ func (rc *RongCloud) ChatroomBanGetList () ([]ChatRoomUser,error) {
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomGagAdd (id string, members []string, minute uint) error {
-	if(id == "") {
-		return errors.New("Paramer 'userId' is required");
+func (rc *RongCloud) ChatroomGagAdd(id string, members []string, minute uint) error {
+	if id == "" {
+		return errors.New("Paramer 'userId' is required")
 	}
 
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
-	if(minute == 0) {
-		return errors.New("Paramer 'minute' is required");
+	if minute == 0 {
+		return errors.New("Paramer 'minute' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/gag/add." + ReqType)
 	rc.FillHeader(req)
-	for _, v := range members{
+	for _, v := range members {
 		req.Param("userId", v)
 	}
 
@@ -448,7 +441,6 @@ func (rc *RongCloud) ChatroomGagAdd (id string, members []string, minute uint) e
 	return nil
 }
 
-
 /**
  *移除禁言聊天室成员方法
  *
@@ -457,18 +449,18 @@ func (rc *RongCloud) ChatroomGagAdd (id string, members []string, minute uint) e
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomGagRemove (id string, members []string)  error {
-	if(id == "") {
-		return errors.New("Paramer 'id' is required");
+func (rc *RongCloud) ChatroomGagRemove(id string, members []string) error {
+	if id == "" {
+		return errors.New("Paramer 'id' is required")
 	}
 
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/gag/rollback." + ReqType)
 	rc.FillHeader(req)
-	for _, v := range members{
+	for _, v := range members {
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
@@ -486,7 +478,6 @@ func (rc *RongCloud) ChatroomGagRemove (id string, members []string)  error {
 	return nil
 }
 
-
 /**
  *查询被禁言聊天室成员方法
  *
@@ -494,10 +485,10 @@ func (rc *RongCloud) ChatroomGagRemove (id string, members []string)  error {
  *
  *@return []ChatRoomUser error
  */
-func (rc *RongCloud) ChatroomGagGetList (chatroomId string)( []ChatRoomUser, error) {
+func (rc *RongCloud) ChatroomGagGetList(chatroomId string) ([]ChatRoomUser, error) {
 	var dat ChatroomReslut
-	if( chatroomId == "") {
-		return []ChatRoomUser{},errors.New("Paramer 'chatroomId' is required");
+	if chatroomId == "" {
+		return []ChatRoomUser{}, errors.New("Paramer 'chatroomId' is required")
 	}
 
 	req := httplib.Post(RONGCLOUDURI + "/chatroom/user/gag/list." + ReqType)
@@ -520,7 +511,6 @@ func (rc *RongCloud) ChatroomGagGetList (chatroomId string)( []ChatRoomUser, err
 	return dat.Users, nil
 }
 
-
 /**
  *添加聊天室消息优先级方法
  *
@@ -528,14 +518,14 @@ func (rc *RongCloud) ChatroomGagGetList (chatroomId string)( []ChatRoomUser, err
  *
  *@return err
  */
-func (rc *RongCloud) ChatroomDemotionAdd (objectNames []string) error {
-	if(len(objectNames) == 0) {
-		return errors.New("Paramer 'objectName' is required");
+func (rc *RongCloud) ChatroomDemotionAdd(objectNames []string) error {
+	if len(objectNames) == 0 {
+		return errors.New("Paramer 'objectName' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/message/priority/add." + ReqType)
 	rc.FillHeader(req)
-	for _,v := range objectNames {
+	for _, v := range objectNames {
 		req.Param("objectName", v)
 	}
 	rep, err := req.Bytes()
@@ -552,14 +542,14 @@ func (rc *RongCloud) ChatroomDemotionAdd (objectNames []string) error {
 	return nil
 }
 
-func (rc *RongCloud) ChatroomDemotionRemove (objectNames []string) error {
-	if(len(objectNames) == 0) {
-		return errors.New("Paramer 'objectName' is required");
+func (rc *RongCloud) ChatroomDemotionRemove(objectNames []string) error {
+	if len(objectNames) == 0 {
+		return errors.New("Paramer 'objectName' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/message/priority/remove." + ReqType)
 	rc.FillHeader(req)
-	for _,v := range objectNames {
+	for _, v := range objectNames {
 		req.Param("objectName", v)
 	}
 	rep, err := req.Bytes()
@@ -576,8 +566,7 @@ func (rc *RongCloud) ChatroomDemotionRemove (objectNames []string) error {
 	return nil
 }
 
-
-func (rc *RongCloud) ChatroomDemotionGetList () ([]string, error) {
+func (rc *RongCloud) ChatroomDemotionGetList() ([]string, error) {
 	var dat ChatroomReslut
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/message/priority/query." + ReqType)
@@ -591,7 +580,7 @@ func (rc *RongCloud) ChatroomDemotionGetList () ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{},RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -606,9 +595,9 @@ func (rc *RongCloud) ChatroomDemotionGetList () ([]string, error) {
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomDistributionStop (id string) error {
-	if(id == "") {
-		return errors.New("Paramer 'chatroomId' is required");
+func (rc *RongCloud) ChatroomDistributionStop(id string) error {
+	if id == "" {
+		return errors.New("Paramer 'chatroomId' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/message/stopDistribution." + ReqType)
@@ -628,7 +617,6 @@ func (rc *RongCloud) ChatroomDistributionStop (id string) error {
 	return nil
 }
 
-
 /**
  *聊天室消息恢复分发方法
  *
@@ -636,9 +624,9 @@ func (rc *RongCloud) ChatroomDistributionStop (id string) error {
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomDistributionResume (id string) error {
-	if(id == "") {
-		return errors.New("Paramer 'chatroomId' is required");
+func (rc *RongCloud) ChatroomDistributionResume(id string) error {
+	if id == "" {
+		return errors.New("Paramer 'chatroomId' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/message/resumeDistribution." + ReqType)
 	rc.FillHeader(req)
@@ -657,11 +645,9 @@ func (rc *RongCloud) ChatroomDistributionResume (id string) error {
 	return nil
 }
 
-
-
-func (rc *RongCloud) ChatroomKeepAliveAdd (id string) error {
-	if(id == "") {
-		return errors.New("Paramer 'chatroomId' is required");
+func (rc *RongCloud) ChatroomKeepAliveAdd(id string) error {
+	if id == "" {
+		return errors.New("Paramer 'chatroomId' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/keepalive/add." + ReqType)
 	rc.FillHeader(req)
@@ -680,9 +666,9 @@ func (rc *RongCloud) ChatroomKeepAliveAdd (id string) error {
 	return nil
 }
 
-func (rc *RongCloud) ChatroomKeepAliveRemove (id string) error {
-	if(id == "") {
-		return errors.New("Paramer 'chatroomId' is required");
+func (rc *RongCloud) ChatroomKeepAliveRemove(id string) error {
+	if id == "" {
+		return errors.New("Paramer 'chatroomId' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/keepalive/remove." + ReqType)
 	rc.FillHeader(req)
@@ -701,11 +687,10 @@ func (rc *RongCloud) ChatroomKeepAliveRemove (id string) error {
 	return nil
 }
 
-
-func (rc *RongCloud) ChatroomKeepAliveGetList (id string) ([]string,error) {
+func (rc *RongCloud) ChatroomKeepAliveGetList(id string) ([]string, error) {
 	var dat ChatroomReslut
-	if(id == "") {
-		return []string{}, errors.New("Paramer 'chatroomId' is required");
+	if id == "" {
+		return []string{}, errors.New("Paramer 'chatroomId' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/keepalive/query." + ReqType)
 	rc.FillHeader(req)
@@ -716,26 +701,26 @@ func (rc *RongCloud) ChatroomKeepAliveGetList (id string) ([]string,error) {
 	}
 	var code CodeReslut
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return []string{},err
+		return []string{}, err
 	}
 	if code.Code != 200 {
 		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return []string{},err
+		return []string{}, err
 	}
 	return dat.ChatroomIds, nil
 }
 
-func (rc *RongCloud) ChatroomWhitelistAdd (objectNames []string) error {
+func (rc *RongCloud) ChatroomWhitelistAdd(objectNames []string) error {
 
-	if(len(objectNames) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(objectNames) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/whitelist/add." + ReqType)
 	rc.FillHeader(req)
-	for _,v := range objectNames {
+	for _, v := range objectNames {
 		req.Param("userId", v)
 	}
 	rep, err := req.Bytes()
@@ -752,16 +737,16 @@ func (rc *RongCloud) ChatroomWhitelistAdd (objectNames []string) error {
 	return nil
 }
 
-func (rc *RongCloud) ChatroomWhitelistRemove (objectNames []string) error {
+func (rc *RongCloud) ChatroomWhitelistRemove(objectNames []string) error {
 
-	if(len(objectNames) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(objectNames) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/whitelist/remove." + ReqType)
 	rc.FillHeader(req)
 
-	for _,v := range objectNames {
+	for _, v := range objectNames {
 		req.Param("userId", v)
 	}
 	rep, err := req.Bytes()
@@ -778,7 +763,7 @@ func (rc *RongCloud) ChatroomWhitelistRemove (objectNames []string) error {
 	return nil
 }
 
-func (rc *RongCloud) ChatroomWhitelistGetList () ([]string, error) {
+func (rc *RongCloud) ChatroomWhitelistGetList() ([]string, error) {
 	var dat ChatroomReslut
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/whitelist/query." + ReqType)
@@ -793,14 +778,13 @@ func (rc *RongCloud) ChatroomWhitelistGetList () ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{},RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
 	}
 	return dat.ObjectNames, nil
 }
-
 
 /**
  *添加聊天室白名单成员方法
@@ -810,19 +794,19 @@ func (rc *RongCloud) ChatroomWhitelistGetList () ([]string, error) {
  *
  *@return CodeSuccessReslut
  */
-func (rc *RongCloud) ChatroomUserWhitelistAdd (id string, members []string) error {
-	if(id == "") {
-		return errors.New("Paramer 'id' is required");
+func (rc *RongCloud) ChatroomUserWhitelistAdd(id string, members []string) error {
+	if id == "" {
+		return errors.New("Paramer 'id' is required")
 	}
 
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/whitelist/add." + ReqType)
 	rc.FillHeader(req)
 	req.Param("chatroomId", id)
-	for _,v := range members {
+	for _, v := range members {
 		req.Param("userId", v)
 	}
 	rep, err := req.Bytes()
@@ -839,20 +823,19 @@ func (rc *RongCloud) ChatroomUserWhitelistAdd (id string, members []string) erro
 	return nil
 }
 
-
-func (rc *RongCloud) ChatroomUserWhitelistRemove (id string, members []string) error {
-	if(id == "") {
-		return errors.New("Paramer 'id' is required");
+func (rc *RongCloud) ChatroomUserWhitelistRemove(id string, members []string) error {
+	if id == "" {
+		return errors.New("Paramer 'id' is required")
 	}
 
-	if(len(members) == 0) {
-		return errors.New("Paramer 'members' is required");
+	if len(members) == 0 {
+		return errors.New("Paramer 'members' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/whitelist/remove." + ReqType)
 	rc.FillHeader(req)
 	req.Param("chatroomId", id)
-	for _,v := range members {
+	for _, v := range members {
 		req.Param("userId", v)
 	}
 	rep, err := req.Bytes()
@@ -869,10 +852,10 @@ func (rc *RongCloud) ChatroomUserWhitelistRemove (id string, members []string) e
 	return nil
 }
 
-func (rc *RongCloud) ChatroomUserWhitelistGetList (id string) ([]ChatRoomUser, error) {
+func (rc *RongCloud) ChatroomUserWhitelistGetList(id string) ([]ChatRoomUser, error) {
 	var dat ChatroomReslut
-	if(id == "") {
-		return []ChatRoomUser{}, errors.New("Paramer 'id' is required");
+	if id == "" {
+		return []ChatRoomUser{}, errors.New("Paramer 'id' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/whitelist/query." + ReqType)
 	rc.FillHeader(req)
@@ -887,45 +870,10 @@ func (rc *RongCloud) ChatroomUserWhitelistGetList (id string) ([]ChatRoomUser, e
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{},RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
 	}
-	return dat.Users,nil
+	return dat.Users, nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
