@@ -1,0 +1,10 @@
+hash: fa26583ea000fa666e6cf7afcdf2581dfdada3e2278e11211320faba407a0b8e
+updated: 2018-12-13T16:50:58.452553+08:00
+imports:
+- name: github.com/astaxie/beego
+  version: 1b6edafc96ad27b6515fafeccd7339dda3e997b1
+  subpackages:
+  - httplib
+- name: gopkg.in/yaml.v2
+  version: 51d6538a90f86fe93ac480b35f37b2be17fef232
+testImports: []

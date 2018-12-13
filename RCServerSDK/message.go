@@ -1,425 +1,677 @@
-package rcserversdk
+package RCserverSDK
 
-import(
-		
-	"strconv"
-	
-	"errors"
+import (
 	"github.com/astaxie/beego/httplib"
+	"strconv"
+	"encoding/json"
+	"time"
+	"errors"
 )
-type Message struct {
-	AppKey    string
-	AppSecret string
+
+
+type TemplateMsgContent struct {
+	TargetID string
+	Data map[string]string
+	PushContent string
+}
+
+
+type MsgContent struct {
+	Content string `json:"content"`
+	Extra string `json:"extra"`
+}
+
+type MentionedInfo struct {
+	Type int	`json:"type"`
+	UserIDs []string `json:"userIdList"`
+	PushContent string	`json:"mentionedContent"`
+}
+
+type MentionMsgContent struct {
+	Content string `json:"content"`
+	MentionedInfo MentionedInfo `json:"mentionedinfo"`
+}
+
+type History struct {
+	URL string `json:"url"`
+} 
+
+
+/*
+	 *发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
+	 *
+	 *@param  senderId:发送人用户 Id。
+	 *@param  targetId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。
+	 *@param  objectName:发送的消息类型。
+	 *@param  msg:消息。
+	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
+	 *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
+	 *@param  verifyBlacklist:是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
+	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
+	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
+	 *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+	 *
+	 *@return RCError
+*/
+
+// Send 一对一发消息
+func (rc *RongCloud) PrivateSend (senderID, targetID, objectName string, msg MsgContent,
+	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
+	if( senderID == "") {
+		return RCErrorNew(20005,"Paramer 'senderID' is required")
+	}
+
+	if(targetID == "") {
+		return RCErrorNew(20005,"Paramer 'targetID' is required")
+	}
+
+	req := httplib.Post(RONGCLOUDURI + "/message/private/publish." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("toUserId", targetID)
+	req.Param("objectName", objectName)
+
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+
+	req.Param("content",string(bytes))
+	req.Param("pushData", pushData)
+	req.Param("pushContent", pushContent)
+	req.Param("count", strconv.Itoa(count))
+	req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("isCounted", strconv.Itoa(isCounted))
+	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/*
+	 *撤回单聊消息方法
+	 *
+	 *@param  senderId:发送人用户 Id。
+	 *@param  targetId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。
+	 *@param  uId:消息的唯一标识，各端 SDK 发送消息成功后会返回 uId。
+	 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
+	 *@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
+     *
+	 *@return RCError
+*/
+
+// recall 一对一撤回消息
+func (rc *RongCloud) PrivateRecall (senderID, targetID, uId string, sentTime ,conversationType int) error {
+	if (senderID == "") {
+		return RCErrorNew(20005, "Paramer 'senderID' is required")
+	}
+
+	if (targetID == "") {
+		return RCErrorNew(20005, "Paramer 'targetID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("targetId", targetID)
+	req.Param("messageUID", uId)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("conversationType",strconv.Itoa(conversationType))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/*
+	 *向多个用户发送不同内容消息
+	 *
+	 *@param  senderID:发送人用户 Id。
+	 *@param  objectName:发送的消息类型。
+	 *@param  template:消息模版。
+	 *@param  content:数据内容，包含消息内容和接收者。
+	 *
+	 *@return RCError
+*/
+
+// SendTemplate 向多个用户发送不同内容消息
+func (rc *RongCloud) PrivateSendTemplate (senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
+	if (senderID == "") {
+		return RCErrorNew(20005, "Paramer 'senderID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/private/publish_template." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+
+	var toUserIDs, push []string
+	var values []map[string]string
+
+	for _, v := range content{
+		if (v.TargetID ==  "") {
+			return RCErrorNew(20005, "Paramer 'TargetID' is required")
+		}
+		toUserIDs = append(toUserIDs, v.TargetID)
+		values = append(values, v.Data)
+		push = append(push,v.PushContent)
+	}
+
+	bytes, err := json.Marshal(template)
+	if err != nil {
+		return err
+	}
+
+	param := map[string]interface{}{}
+	param["fromUserId"] = senderID
+	param["objectName" ] = objectName
+	param["content"] = string(bytes)
+	param["toUserId"] = toUserIDs
+	param["values"] = values
+	param["pushContent"] = push
+	param["verifyBlacklist" ] = 0
+	req.JSONBody(param)
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/**
+	 *发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+	 *
+	 *@param  senderID:发送人用户 ID 。
+	 *@param  targetID:接收群ID.
+	 *@param  objectName:消息类型
+	 *@param  msg:发送消息内容
+	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
+	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
+	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
+	 *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+	 *
+	 *@return RCError
+	 */
+
+// GroupSend 发送群组消息
+func (rc *RongCloud) GroupSend (senderID, targetID, objectName string, msg MsgContent,
+	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int)(error) {
+	if (senderID == "") {
+		return RCErrorNew(20013,"Paramer 'senderID' is required")
+	}
+
+	if (targetID == "") {
+		return RCErrorNew(20013,"Paramer 'senderID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType)
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("toGroupId", targetID)
+	req.Param("objectName", objectName)
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+	req.Param("content",string(bytes))
+	req.Param("pushContent", pushContent)
+	req.Param("pushData", pushData)
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("isCounted", strconv.Itoa(isCounted))
+	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+
+/*
+	 *撤回群聊消息方法
+	 *
+	 *@param  senderID:发送人用户 ID。
+	 *@param  targetID:接收用户 ID，可以实现向多人发送消息，每次上限为 1000 人。
+	 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
+	 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
+	 *@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
+     *
+	 *@return RCError
+*/
+
+// GroupRecall 撤回群聊消息
+func (rc *RongCloud) GroupRecall (senderID, targetID, uID string, sentTime ,conversationType int) error {
+	if (senderID == "") {
+		return RCErrorNew(20005, "Paramer 'senderID' is required")
+	}
+
+	if (targetID == "") {
+		return RCErrorNew(20005, "Paramer 'targetID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("targetId", targetID)
+	req.Param("messageUID", uID)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("conversationType",strconv.Itoa(conversationType))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+
+/*
+	 *发送群组 @ 消息
+	 *@param  senderID:发送人用户 ID 。
+	 *@param  targetID:接收群ID。
+	 *@param  objectName:消息类型。
+	 *@param  msg:发送消息内容。
+	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
+	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
+	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
+	 *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+	 *@param  isMentioned:是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0。当为 1 时 content 参数中必须携带 mentionedInfo @消息的详细内容。为 0 时则不需要携带 mentionedInfo。当指定了 toUserId 时，则 @ 的用户必须为 toUserId 中的用户。
+	 *@param  contentAvailable:针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0
+	 *
+	 *@return RCError
+*/
+
+// GroupSendMention 发送群组 @ 消息
+func (rc *RongCloud) GroupSendMention (senderID, targetID, objectName string, msg MentionMsgContent,
+	pushContent, pushData string, isPersisted int, isCounted int, isIncludeSender, isMentioned, contentAvailable int) error {
+	if (senderID == "") {
+		return RCErrorNew(20013,"Paramer 'senderID' is required")
+	}
+
+	if (targetID == "") {
+		return RCErrorNew(20013,"Paramer 'senderID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType )
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("toGroupId", targetID)
+	req.Param("objectName", objectName)
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+	req.Param("content",string(bytes))
+	req.Param("pushContent", pushContent)
+	req.Param("pushData", pushData)
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("isCounted", strconv.Itoa(isCounted))
+	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	req.Param("isMentioned",strconv.Itoa(isMentioned))
+	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/**
+	 *发送聊天室消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+	 *
+	 *@param  senderID:发送人用户 ID 。
+	 *@param  targetID:接收聊天室ID.
+	 *@param  objectName:消息类型
+	 *@param  msg:发送消息内容
+	 *
+	 *@return RCError
+	 */
+
+// GroupSend 发送聊天室消息
+func (rc *RongCloud) ChatroomSend (senderID, targetID, objectName string, msg MsgContent) error {
+	if (senderID == "") {
+		return RCErrorNew(20013,"Paramer 'senderID' is required")
+	}
+
+	if (targetID == "") {
+		return RCErrorNew(20013,"Paramer 'senderID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/publish." + ReqType )
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("toChatroomId", targetID)
+	req.Param("objectName", objectName)
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+	req.Param("content",string(bytes))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/*
+	 *向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
+	 *
+	 *@param  senderID:发送人用户 ID 。
+	 *@param  objectName:消息类型
+	 *@param  msg:发送消息内容
+	 *
+	 *@return RCError
+*/
+
+// ChatroomBroadcast 向应用内所有聊天室广播消息，此功能需开通 专属服务
+func (rc *RongCloud) ChatroomBroadcast (senderID, objectName string, msg MsgContent) error {
+	if (senderID == "") {
+		return RCErrorNew(20005,"Paramer 'senderID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/broadcast." + ReqType )
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("objectName", objectName)
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+	req.Param("content",string(bytes))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/*
+	 *一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
+	 *
+	 *@param  senderID:发送人用户 ID。
+	 *@param  targetID:接收用户 ID。
+	 *@param  objectName:发送的消息类型。
+	 *@param  msg:消息。
+	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
+	 *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
+	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
+	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
+	 *
+	 *@return RCError
+*/
+
+// SystemSend 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
+func (rc *RongCloud) SystemSend (senderID, targetID, objectName string, msg MsgContent,
+	pushContent, pushData string, count, isPersisted, isCounted int) error {
+
+	if( senderID == "") {
+		return RCErrorNew(20005,"Paramer 'senderID' is required")
+	}
+
+	if(targetID == "") {
+		return RCErrorNew(20005,"Paramer 'targetID' is required")
+	}
+
+	req := httplib.Post(RONGCLOUDURI + "/message/system/publish." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("toUserId", targetID)
+	req.Param("objectName", objectName)
+
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+
+	req.Param("content",string(bytes))
+	req.Param("pushData", pushData)
+	req.Param("pushContent", pushContent)
+	req.Param("count", strconv.Itoa(count))
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("isCounted", strconv.Itoa(isCounted))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/*
+	 *给应用内所有用户发送消息方法，每小时最多发 2 次，每天最多发送 3 次（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
+	 *
+	 *@param  senderID:发送人用户 ID 。
+	 *@param  objectName:消息类型
+	 *@param  msg:发送消息内容
+	 *
+	 *@return RCError
+*/
+
+// SystemBroadcast 给应用内所有用户发送消息，每小时最多发 2 次，每天最多发送 3 次
+func (rc *RongCloud) SystemBroadcast (senderID, objectName string, msg MsgContent) error {
+	if (senderID == "") {
+		return RCErrorNew(20013,"Paramer 'senderID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/message/broadcast." + ReqType )
+	rc.FillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("objectName", objectName)
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+	req.Param("content",string(bytes))
+
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+/*
+	 *一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM
+	 *
+	 *@param  senderID:发送人用户 ID。
+	 *@param  objectName:发送的消息类型。
+	 *@param  template:消息模版。
+	 *@param  content:数据内容，包含消息内容和接收者。
+	 *
+	 *@return RCError
+*/
+
+// SystemSendTemplate 向多个用户发送不同内容消息
+func (rc *RongCloud) SystemSendTemplate (senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
+	if (senderID == "") {
+		return errors.New("20005 Paramer 'senderID' is required")
+	}
+	req := httplib.Post(rc.RongCloudURI + "/message/system/publish_template." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+
+	var toUserIDs, push []string
+	var values []map[string]string
+
+	for _, v := range content{
+		if (v.TargetID ==  "") {
+			return errors.New("20005 Paramer 'TargetID' is required")
+		}
+		toUserIDs = append(toUserIDs, v.TargetID)
+		values = append(values, v.Data)
+		push = append(push,v.PushContent)
+	}
+
+	bytes, err := json.Marshal(template)
+	if err != nil {
+		return err
+	}
+
+	param := map[string]interface{}{}
+	param["fromUserId"] = senderID
+	param["objectName" ] = objectName
+	param["content"] = string(bytes)
+	param["toUserId"] = toUserIDs
+	param["values"] = values
+	param["pushContent"] = push
+	param["verifyBlacklist" ] = 0
+
+	req.JSONBody(param)
+	rep, err := req.Bytes()
+
+	if err != nil {
+		return err
+	}
+	var code CodeReslut
+
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+}
+
+func (rc *RongCloud) HistoryGet (date string) (History ,error) {
+	req := httplib.Post(rc.RongCloudURI + "/message/history." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("date", date)
+	rep, err := req.Bytes()
+	if err != nil {
+		return History{},err
+	}
+	var code CodeReslut
+	var history History
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return History{},err
+	}
+	if err := json.Unmarshal(rep, &history); err != nil {
+		return History{},err
+	}
+
+	if code.Code != 200 {
+		return History{},RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return history,nil
+}
+
+func (rc *RongCloud) HistoryRemove (date string) error {
+	if (date == ""){
+		return RCErrorNew(20005, "Paramer 'date' is required")
+	}
+	req := httplib.Post(rc.RongCloudURI + "/message/history/delete." + ReqType)
+	req.SetTimeout(time.Second * rc.TimeOut, time.Second * rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("date", date)
+	rep, err := req.Bytes()
+	if err != nil {
+		return err
+	}
+	var code CodeReslut
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 200 {
+		return RCErrorNew(code.Code, code.ErrorMessage)
+	}
+	return nil
+
 }
 
 
 
-	/**
-	 *发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。） 
-	 * 
-	 *@param  fromUserId:发送人用户 Id。（必传） 
-	 *@param  toUserId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。（必传） 
-	 *@param  voiceMessage:消息。 
-	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。（可选） 
-	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。（可选） 
-	 *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。（可选） 
-	 *@param  verifyBlacklist:是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。（可选） 
-	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选） 
-	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选） 
-	 *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)PublishPrivate(fromUserId string, toUserId []string, voiceMessage VoiceMessage, pushContent string, pushData string, count string, verifyBlacklist int, isPersisted int, isCounted int, isIncludeSender int)(*CodeSuccessReslut, error) {
-	  if( fromUserId == "") {
-		return nil,errors.New("Paramer 'fromUserId' is required");
-      }
-      
-	  if(len(toUserId) == 0) {
-		return nil,errors.New("Paramer 'toUserId' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/private/publish.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("fromUserId", fromUserId)
-	  for _,item := range toUserId {
-	  req.Param("toUserId", item)
-	  }
-	  req.Param("objectName", voiceMessage.GetType())
-	  jsonStr,err := ToJson(voiceMessage)
-	  if err != nil{
-	    return nil,err
-	  }
-	  req.Param("content",jsonStr)
-	  req.Param("pushContent", pushContent)
-	  req.Param("pushData", pushData)
-	  req.Param("count", count)
-	  req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
-	  req.Param("isPersisted", strconv.Itoa(isPersisted))
-	  req.Param("isCounted", strconv.Itoa(isCounted))
-	  req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
 
-	/**
-	 *发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人。） 
-	 * 
-	 *@param  templateMessage:单聊模版消息。
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)PublishTemplate(templateMessage TemplateMessage)(*CodeSuccessReslut, error) {
-	  destinationUrl := RONGCLOUDURI + "/message/private/publish_template.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  jsonStr,err := ToJson(templateMessage)
-	  if err != nil {
-	    return nil,err
-	  }
-	  req.Body(jsonStr)
-	  fillJsonHeader(req)
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。） 
-	 * 
-	 *@param  fromUserId:发送人用户 Id。（必传） 
-	 *@param  toUserId:接收用户 Id，提供多个本参数可以实现向多人发送消息，上限为 1000 人。（必传） 
-	 *@param  txtMessage:发送消息内容（必传） 
-	 *@param  pushContent:如果为自定义消息，定义显示的 Push 内容，内容中定义标识通过 values 中设置的标识位内容进行替换.如消息类型为自定义不需要 Push 通知，则对应数组传空值即可。（可选） 
-	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。如不需要 Push 功能对应数组传空值即可。（可选） 
-	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选） 
-	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)PublishSystem(fromUserId string, toUserId []string, txtMessage TxtMessage, pushContent string, pushData string, isPersisted int, isCounted int)(*CodeSuccessReslut, error) {
-	  if( fromUserId == "") {
-		return nil,errors.New("Paramer 'fromUserId' is required");
-      }
-      
-	  if(len(toUserId) == 0) {
-		return nil,errors.New("Paramer 'toUserId' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/system/publish.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("fromUserId", fromUserId)
-	  for _,item := range toUserId {
-	  req.Param("toUserId", item)
-	  }
-	  req.Param("objectName", txtMessage.GetType())
-	  jsonStr,err := ToJson(txtMessage)
-	  if err != nil{
-	    return nil,err
-	  }
-	  req.Param("content",jsonStr)
-	  req.Param("pushContent", pushContent)
-	  req.Param("pushData", pushData)
-	  req.Param("isPersisted", strconv.Itoa(isPersisted))
-	  req.Param("isCounted", strconv.Itoa(isCounted))
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM.每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。） 
-	 * 
-	 *@param  templateMessage:系统模版消息。
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)PublishSystemTemplate(templateMessage TemplateMessage)(*CodeSuccessReslut, error) {
-	  destinationUrl := RONGCLOUDURI + "/message/system/publish_template.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  jsonStr,err := ToJson(templateMessage)
-	  if err != nil {
-	    return nil,err
-	  }
-	  req.Body(jsonStr)
-	  fillJsonHeader(req)
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。） 
-	 * 
-	 *@param  fromUserId:发送人用户 Id 。（必传） 
-	 *@param  toGroupId:接收群Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传） 
-	 *@param  txtMessage:发送消息内容（必传） 
-	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。（可选） 
-	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。（可选） 
-	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选） 
-	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选） 
-	 *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)PublishGroup(fromUserId string, toGroupId []string, txtMessage TxtMessage, pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int)(*CodeSuccessReslut, error) {
-	  if( fromUserId == "") {
-		return nil,errors.New("Paramer 'fromUserId' is required");
-      }
-      
-	  if(len(toGroupId) == 0) {
-		return nil,errors.New("Paramer 'toGroupId' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/group/publish.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("fromUserId", fromUserId)
-	  for _,item := range toGroupId {
-	  req.Param("toGroupId", item)
-	  }
-	  req.Param("objectName", txtMessage.GetType())
-	  jsonStr,err := ToJson(txtMessage)
-	  if err != nil{
-	    return nil,err
-	  }
-	  req.Param("content",jsonStr)
-	  req.Param("pushContent", pushContent)
-	  req.Param("pushData", pushData)
-	  req.Param("isPersisted", strconv.Itoa(isPersisted))
-	  req.Param("isCounted", strconv.Itoa(isCounted))
-	  req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *发送讨论组消息方法（以一个用户身份向讨论组发送消息，单条消息最大 128k，每秒钟最多发送 20 条消息.） 
-	 * 
-	 *@param  fromUserId:发送人用户 Id。（必传） 
-	 *@param  toDiscussionId:接收讨论组 Id。（必传） 
-	 *@param  txtMessage:发送消息内容（必传） 
-	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。（可选） 
-	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData.（可选） 
-	 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息.（可选） 
-	 *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选） 
-	 *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)PublishDiscussion(fromUserId string, toDiscussionId string, txtMessage TxtMessage, pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int)(*CodeSuccessReslut, error) {
-	  if( fromUserId == "") {
-		return nil,errors.New("Paramer 'fromUserId' is required");
-      }
-      
-	  if( toDiscussionId == "") {
-		return nil,errors.New("Paramer 'toDiscussionId' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/discussion/publish.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("fromUserId", fromUserId)
-	  req.Param("toDiscussionId", toDiscussionId)
-	  req.Param("objectName", txtMessage.GetType())
-	  jsonStr,err := ToJson(txtMessage)
-	  if err != nil{
-	    return nil,err
-	  }
-	  req.Param("content",jsonStr)
-	  req.Param("pushContent", pushContent)
-	  req.Param("pushData", pushData)
-	  req.Param("isPersisted", strconv.Itoa(isPersisted))
-	  req.Param("isCounted", strconv.Itoa(isCounted))
-	  req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *发送聊天室消息方法（一个用户向聊天室发送消息，单条消息最大 128k。每秒钟限 100 次。） 
-	 * 
-	 *@param  fromUserId:发送人用户 Id。（必传） 
-	 *@param  toChatroomId:接收聊天室Id，提供多个本参数可以实现向多个聊天室发送消息。（必传） 
-	 *@param  txtMessage:发送消息内容（必传）
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)PublishChatroom(fromUserId string, toChatroomId []string, txtMessage TxtMessage)(*CodeSuccessReslut, error) {
-	  if( fromUserId == "") {
-		return nil,errors.New("Paramer 'fromUserId' is required");
-      }
-      
-	  if(len(toChatroomId) == 0) {
-		return nil,errors.New("Paramer 'toChatroomId' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/chatroom/publish.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("fromUserId", fromUserId)
-	  for _,item := range toChatroomId {
-	  req.Param("toChatroomId", item)
-	  }
-	  req.Param("objectName", txtMessage.GetType())
-	  jsonStr,err := ToJson(txtMessage)
-	  if err != nil{
-	    return nil,err
-	  }
-	  req.Param("content",jsonStr)
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *发送广播消息方法（发送消息给一个应用下的所有注册用户，如用户未在线会对满足条件（绑定手机终端）的用户发送 Push 信息，单条消息最大 128k，会话类型为 SYSTEM。每小时只能发送 1 次，每天最多发送 3 次。） 
-	 * 
-	 *@param  fromUserId:发送人用户 Id。（必传） 
-	 *@param  txtMessage:文本消息。 
-	 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知.（可选） 
-	 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。（可选） 
-	 *@param  os:针对操作系统发送 Push，值为 iOS 表示对 iOS 手机用户发送 Push ,为 Android 时表示对 Android 手机用户发送 Push ，如对所有用户发送 Push 信息，则不需要传 os 参数。（可选）
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)Broadcast(fromUserId string, txtMessage TxtMessage, pushContent string, pushData string, os string)(*CodeSuccessReslut, error) {
-	  if( fromUserId == "") {
-		return nil,errors.New("Paramer 'fromUserId' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/broadcast.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("fromUserId", fromUserId)
-	  req.Param("objectName", txtMessage.GetType())
-	  jsonStr,err := ToJson(txtMessage)
-	  if err != nil{
-	    return nil,err
-	  }
-	  req.Param("content",jsonStr)
-	  req.Param("pushContent", pushContent)
-	  req.Param("pushData", pushData)
-	  req.Param("os", os)
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *消息历史记录下载地址获取 方法消息历史记录下载地址获取方法。获取 APP 内指定某天某小时内的所有会话消息记录的下载地址。（目前支持二人会话、讨论组、群组、聊天室、客服、系统通知消息历史记录下载） 
-	 * 
-	 *@param  date:指定北京时间某天某小时，格式为2014010101,表示：2014年1月1日凌晨1点。（必传）
-	 *
-	 *@return HistoryMessageReslut
-	 */
-  func (self * Message)GetHistory(date string)(*HistoryMessageReslut, error) {
-	  if( date == "") {
-		return nil,errors.New("Paramer 'date' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/history.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("date", date)
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = HistoryMessageReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
-
-	/**
-	 *消息历史记录删除方法（删除 APP 内指定某天某小时内的所有会话消息记录。调用该接口返回成功后，date参数指定的某小时的消息记录文件将在随后的5-10分钟内被永久删除。） 
-	 * 
-	 *@param  date:指定北京时间某天某小时，格式为2014010101,表示：2014年1月1日凌晨1点。（必传）
-	 *
-	 *@return CodeSuccessReslut
-	 */
-  func (self * Message)DeleteMessage(date string)(*CodeSuccessReslut, error) {
-	  if( date == "") {
-		return nil,errors.New("Paramer 'date' is required");
-      }
-      
-	  destinationUrl := RONGCLOUDURI + "/message/history/delete.json" 
-	  req := httplib.Post(destinationUrl)
-	  fillHeader(req, self.AppKey, self.AppSecret)
-	  req.Param("date", date)
-	  byteData, err := req.Bytes()
-	  	if err != nil {
-		   return nil,err
-		 }else{
-		   strData := string(byteData)
-		   var ret = CodeSuccessReslut{}
-			  err = JsonParse(strData,&ret)
-			  return &ret,err
-			}
-	  }
-  
