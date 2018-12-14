@@ -1,4 +1,4 @@
-package RCServerSDK
+package rcserversdk
 
 import (
 	"encoding/json"
@@ -8,35 +8,39 @@ import (
 	"time"
 )
 
+// TemplateMsgContent 消息模版
 type TemplateMsgContent struct {
 	TargetID    string
 	Data        map[string]string
 	PushContent string
 }
 
+// MsgContent 消息
 type MsgContent struct {
 	Content string `json:"content"`
 	Extra   string `json:"extra"`
 }
 
+// MentionedInfo Mentioned
 type MentionedInfo struct {
 	Type        int      `json:"type"`
 	UserIDs     []string `json:"userIdList"`
 	PushContent string   `json:"mentionedContent"`
 }
 
+// MentionMsgContent MentionMsgContent
 type MentionMsgContent struct {
 	Content       string        `json:"content"`
 	MentionedInfo MentionedInfo `json:"mentionedinfo"`
 }
 
+// History History
 type History struct {
 	URL string `json:"url"`
 }
 
+// PrivateSend 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
 /*
- *发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
- *
  *@param  senderId:发送人用户 Id。
  *@param  targetId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。
  *@param  objectName:发送的消息类型。
@@ -49,10 +53,8 @@ type History struct {
  *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
  *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
  *
- *@return RCError
+ *@return error
  */
-
-// Send 一对一发消息
 func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgContent,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
@@ -99,19 +101,17 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgC
 	return nil
 }
 
+// PrivateRecall 撤回单聊消息方法
 /*
-	 *撤回单聊消息方法
-	 *
-	 *@param  senderId:发送人用户 Id。
-	 *@param  targetId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。
-	 *@param  uId:消息的唯一标识，各端 SDK 发送消息成功后会返回 uId。
-	 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-	 *@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
-     *
-	 *@return RCError
-*/
-
-// recall 一对一撤回消息
+*
+*@param  senderId:发送人用户 Id。
+*@param  targetId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。
+*@param  uId:消息的唯一标识，各端 SDK 发送消息成功后会返回 uId。
+*@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
+*@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
+*
+*@return error
+ */
 func (rc *RongCloud) PrivateRecall(senderID, targetID, uId string, sentTime, conversationType int) error {
 	if senderID == "" {
 		return RCErrorNew(20005, "Paramer 'senderID' is required")
@@ -145,18 +145,15 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uId string, sentTime, con
 	return nil
 }
 
+// PrivateSendTemplate 向多个用户发送不同内容消息
 /*
- *向多个用户发送不同内容消息
- *
  *@param  senderID:发送人用户 Id。
  *@param  objectName:发送的消息类型。
  *@param  template:消息模版。
  *@param  content:数据内容，包含消息内容和接收者。
  *
- *@return RCError
+ *@return error
  */
-
-// SendTemplate 向多个用户发送不同内容消息
 func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(20005, "Paramer 'senderID' is required")
@@ -208,9 +205,8 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template M
 	return nil
 }
 
-/**
- *发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
- *
+// GroupSend 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+/*
  *@param  senderID:发送人用户 ID 。
  *@param  targetID:接收群ID.
  *@param  objectName:消息类型
@@ -221,10 +217,8 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template M
  *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
  *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
  *
- *@return RCError
+ *@return error
  */
-
-// GroupSend 发送群组消息
 func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg MsgContent,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
@@ -265,19 +259,16 @@ func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg MsgCon
 	return nil
 }
 
-/*
-	 *撤回群聊消息方法
-	 *
-	 *@param  senderID:发送人用户 ID。
-	 *@param  targetID:接收用户 ID，可以实现向多人发送消息，每次上限为 1000 人。
-	 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
-	 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-	 *@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
-     *
-	 *@return RCError
-*/
-
 // GroupRecall 撤回群聊消息
+/*
+*@param  senderID:发送人用户 ID。
+*@param  targetID:接收用户 ID，可以实现向多人发送消息，每次上限为 1000 人。
+*@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
+*@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
+*@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
+*
+*@return error
+ */
 func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
 	if senderID == "" {
 		return RCErrorNew(20005, "Paramer 'senderID' is required")
@@ -311,24 +302,22 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conve
 	return nil
 }
 
-/*
- *发送群组 @ 消息
- *@param  senderID:发送人用户 ID 。
- *@param  targetID:接收群ID。
- *@param  objectName:消息类型。
- *@param  msg:发送消息内容。
- *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
- *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
- *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
- *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
- *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
- *@param  isMentioned:是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0。当为 1 时 content 参数中必须携带 mentionedInfo @消息的详细内容。为 0 时则不需要携带 mentionedInfo。当指定了 toUserId 时，则 @ 的用户必须为 toUserId 中的用户。
- *@param  contentAvailable:针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0
- *
- *@return RCError
- */
-
 // GroupSendMention 发送群组 @ 消息
+/*
+*@param  senderID:发送人用户 ID 。
+*@param  targetID:接收群ID。
+*@param  objectName:消息类型。
+*@param  msg:发送消息内容。
+*@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+*@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
+*@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
+*@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
+*@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+*@param  isMentioned:是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0。当为 1 时 content 参数中必须携带 mentionedInfo @消息的详细内容。为 0 时则不需要携带 mentionedInfo。当指定了 toUserId 时，则 @ 的用户必须为 toUserId 中的用户。
+*@param  contentAvailable:针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0
+*
+*@return error
+ */
 func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg MentionMsgContent,
 	pushContent, pushData string, isPersisted int, isCounted int, isIncludeSender, isMentioned, contentAvailable int) error {
 	if senderID == "" {
@@ -370,18 +359,15 @@ func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg
 	return nil
 }
 
-/**
- *发送聊天室消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
- *
- *@param  senderID:发送人用户 ID 。
- *@param  targetID:接收聊天室ID.
- *@param  objectName:消息类型
- *@param  msg:发送消息内容
- *
- *@return RCError
+// ChatroomSend 发送聊天室消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+/*
+*@param  senderID:发送人用户 ID 。
+*@param  targetID:接收聊天室ID.
+*@param  objectName:消息类型
+*@param  msg:发送消息内容
+*
+*@return error
  */
-
-// GroupSend 发送聊天室消息
 func (rc *RongCloud) ChatroomSend(senderID, targetID, objectName string, msg MsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(20013, "Paramer 'senderID' is required")
@@ -416,17 +402,14 @@ func (rc *RongCloud) ChatroomSend(senderID, targetID, objectName string, msg Msg
 	return nil
 }
 
+// ChatroomBroadcast 向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
 /*
- *向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
- *
- *@param  senderID:发送人用户 ID 。
- *@param  objectName:消息类型
- *@param  msg:发送消息内容
- *
- *@return RCError
+*@param  senderID:发送人用户 ID 。
+*@param  objectName:消息类型
+*@param  msg:发送消息内容
+*
+*@return error
  */
-
-// ChatroomBroadcast 向应用内所有聊天室广播消息，此功能需开通 专属服务
 func (rc *RongCloud) ChatroomBroadcast(senderID, objectName string, msg MsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(20005, "Paramer 'senderID' is required")
@@ -456,23 +439,20 @@ func (rc *RongCloud) ChatroomBroadcast(senderID, objectName string, msg MsgConte
 	return nil
 }
 
-/*
- *一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
- *
- *@param  senderID:发送人用户 ID。
- *@param  targetID:接收用户 ID。
- *@param  objectName:发送的消息类型。
- *@param  msg:消息。
- *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
- *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
- *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
- *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
- *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
- *
- *@return RCError
- */
-
 // SystemSend 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
+/*
+*@param  senderID:发送人用户 ID。
+*@param  targetID:接收用户 ID。
+*@param  objectName:发送的消息类型。
+*@param  msg:消息。
+*@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+*@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
+*@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
+*@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
+*@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
+*
+*@return error
+ */
 func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg MsgContent,
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
@@ -517,17 +497,14 @@ func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg MsgCo
 	return nil
 }
 
+// SystemBroadcast 给应用内所有用户发送消息方法，每小时最多发 2 次，每天最多发送 3 次（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
 /*
- *给应用内所有用户发送消息方法，每小时最多发 2 次，每天最多发送 3 次（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
- *
- *@param  senderID:发送人用户 ID 。
- *@param  objectName:消息类型
- *@param  msg:发送消息内容
- *
- *@return RCError
+*@param  senderID:发送人用户 ID 。
+*@param  objectName:消息类型
+*@param  msg:发送消息内容
+*
+*@return error
  */
-
-// SystemBroadcast 给应用内所有用户发送消息，每小时最多发 2 次，每天最多发送 3 次
 func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg MsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(20013, "Paramer 'senderID' is required")
@@ -557,18 +534,15 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg MsgContent
 	return nil
 }
 
+// SystemSendTemplate 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM
 /*
- *一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM
- *
- *@param  senderID:发送人用户 ID。
- *@param  objectName:发送的消息类型。
- *@param  template:消息模版。
- *@param  content:数据内容，包含消息内容和接收者。
- *
- *@return RCError
+*@param  senderID:发送人用户 ID。
+*@param  objectName:发送的消息类型。
+*@param  template:消息模版。
+*@param  content:数据内容，包含消息内容和接收者。
+*
+*@return error
  */
-
-// SystemSendTemplate 向多个用户发送不同内容消息
 func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return errors.New("20005 Paramer 'senderID' is required")
@@ -620,6 +594,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template Ms
 	return nil
 }
 
+// HistoryGet 按小时获取历史消息日志文件 URL，包含小时内应用产生的所有消息，消息日志文件无论是否已下载，3 天后将从融云服务器删除
 func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	req := httplib.Post(rc.RongCloudURI + "/message/history." + ReqType)
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
@@ -644,6 +619,7 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	return history, nil
 }
 
+// HistoryRemove 删除历史消息日志文件
 func (rc *RongCloud) HistoryRemove(date string) error {
 	if date == "" {
 		return RCErrorNew(20005, "Paramer 'date' is required")

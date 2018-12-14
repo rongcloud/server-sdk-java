@@ -1,8 +1,9 @@
-package RCServerSDK
+package rcserversdk
 
 import (
 	"encoding/json"
 	"errors"
+
 	"github.com/astaxie/beego/httplib"
 )
 
@@ -11,21 +12,19 @@ type ListWordfilterReslut struct {
 	Words []SensitiveWord `json:"words"`
 }
 
-// SensitiveWord
+// SensitiveWord 敏感词
 type SensitiveWord struct {
 	Type        string `json:"type"`
 	Word        string `json:"word"`
 	ReplaceWord string `json:"replaceWord"`
 }
 
-/**
- *添加敏感词方法
- *
- *@param  word:敏感词，最长不超过 32 个字符。（必传）
- *
- *@return error
+// SensitiveAdd 添加敏感词
+/*
+*@param  word:敏感词，最长不超过 32 个字符。（必传）
+*
+*@return error
  */
-
 func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) error {
 	if keyword == "" {
 		return errors.New("20005 Paramer 'keyword' is required")
@@ -59,11 +58,9 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 	return nil
 }
 
-/**
- *查询敏感词列表方法
- *
- *
- *@return ListWordfilterReslut
+// SensitiveGetList 查询敏感词列表方法
+/*
+*@return ListWordfilterReslut
  */
 func (rc *RongCloud) SensitiveGetList() (ListWordfilterReslut, error) {
 
@@ -89,12 +86,11 @@ func (rc *RongCloud) SensitiveGetList() (ListWordfilterReslut, error) {
 
 }
 
-/**
- *移除敏感词方法（从敏感词列表中，移除某一敏感词。）
- *
- *@param  word:敏感词，最长不超过 32 个字符。（必传）
- *
- *@return error
+// SensitiveRemove 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
+/*
+*@param  word:敏感词，最长不超过 32 个字符。（必传）
+*
+*@return error
  */
 func (rc *RongCloud) SensitiveRemove(keywords []string) error {
 	if len(keywords) == 0 {

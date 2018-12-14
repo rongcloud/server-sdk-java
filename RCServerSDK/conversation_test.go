@@ -1,4 +1,4 @@
-package RCServerSDK
+package rcserversdk
 
 import (
 	"testing"

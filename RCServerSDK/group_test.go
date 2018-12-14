@@ -1,4 +1,4 @@
-package RCServerSDK
+package rcserversdk
 
 import (
 	"fmt"
@@ -101,12 +101,12 @@ func TestRongCloud_GroupSync(t *testing.T) {
 		"S7eyGBASFSU42",
 		nil,
 	)
-	groupinfo := GroupInfo{ID: "u02", Name: "rongcloud_group02"}
-	groupinfos := []GroupInfo{}
-	groupinfos = append(groupinfos, groupinfo)
+	group := Group{ID: "u02", Name: "rongcloud_group02"}
+	groups := []Group{}
+	groups = append(groups, group)
 	err := rc.GroupSync(
 		"u04",
-		groupinfos,
+		groups,
 	)
 
 	if err != nil {

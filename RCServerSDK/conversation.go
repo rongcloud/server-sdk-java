@@ -1,21 +1,31 @@
-package RCServerSDK
+// Conversation 会话
+
+package rcserversdk
 
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/astaxie/beego/httplib"
 )
 
+// ConversationType 会话类型
 type ConversationType int
 
 const (
-	PRIVATE         ConversationType = 1
-	DISCUSSION      ConversationType = 2
-	GROUP           ConversationType = 3
-	CUSTOMERSERVICE ConversationType = 4
-	SYSTEM          ConversationType = 4
+	// PRIVATE 单聊
+	PRIVATE ConversationType = 1
+	// DISCUSSION 讨论组
+	DISCUSSION ConversationType = 2
+	// GROUP 群聊
+	GROUP ConversationType = 3
+	// SYSTEM 系统
+	SYSTEM ConversationType = 4
+	// CUSTOMERSERVICE 客服
+	CUSTOMERSERVICE ConversationType = 5
 )
 
+// ConversationMute 设置用户某个会话屏蔽 Push
 func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
 
 	if conversationType == 0 {
@@ -51,8 +61,8 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 	return nil
 }
 
+// ConversationUnmute 设置用户某个会话接收 Push
 func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
-
 	if conversationType == 0 {
 		return RCErrorNew(20005, "Paramer 'conversationType' is required")
 	}

@@ -1,9 +1,10 @@
-package RCServerSDK
+package rcserversdk
 
 import (
 	"fmt"
-	"github.com/astaxie/beego/httplib"
 	"testing"
+
+	"github.com/astaxie/beego/httplib"
 )
 
 func TestNewRongCloud(t *testing.T) {
