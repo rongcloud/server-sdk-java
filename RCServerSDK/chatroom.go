@@ -478,15 +478,15 @@ func (rc *RongCloud) ChatroomGagRemove(id string, members []string) error {
  *
  *@return []ChatRoomUser error
  */
-func (rc *RongCloud) ChatroomGagGetList(chatroomId string) ([]ChatRoomUser, error) {
+func (rc *RongCloud) ChatroomGagGetList(chatroomID string) ([]ChatRoomUser, error) {
 	var dat ChatroomReslut
-	if chatroomId == "" {
+	if chatroomID == "" {
 		return []ChatRoomUser{}, errors.New("Paramer 'chatroomId' is required")
 	}
 
 	req := httplib.Post(RONGCLOUDURI + "/chatroom/user/gag/list." + ReqType)
 	rc.FillHeader(req)
-	req.Param("chatroomId", chatroomId)
+	req.Param("chatroomId", chatroomID)
 	rep, err := req.Bytes()
 	if err != nil {
 		return []ChatRoomUser{}, err

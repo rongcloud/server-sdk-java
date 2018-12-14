@@ -112,7 +112,7 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgC
 *
 *@return error
  */
-func (rc *RongCloud) PrivateRecall(senderID, targetID, uId string, sentTime, conversationType int) error {
+func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
 	if senderID == "" {
 		return RCErrorNew(20005, "Paramer 'senderID' is required")
 	}
@@ -126,7 +126,7 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uId string, sentTime, con
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("targetId", targetID)
-	req.Param("messageUID", uId)
+	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(conversationType))
 
