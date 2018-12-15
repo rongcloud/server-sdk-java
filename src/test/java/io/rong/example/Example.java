@@ -34,8 +34,8 @@ public class Example {
 
 	@Before
 	public void setUp() throws Exception {
-		String appKey = "8luwapkv8s7pl";
-		String appSecret = "lmkgpHuXezTjV2";
+		String appKey = "appKey";
+		String appSecret = "appSercet";
 		//String api = "http://api.cn.ronghub.com";
 		rongCloud = RongCloud.getInstance(appKey, appSecret);
 	}
@@ -180,6 +180,11 @@ public class Example {
 	 */
 	@Test
 	public void testSendSystem() throws Exception {
+		String[] targetIds = new String[98];
+
+		for(int i=0;i<2;i++) {
+			targetIds[i] = "test"+i;
+		}
 		SystemMessage systemMessage = new SystemMessage()
 					.setSenderId("usetId")
 					.setTargetId(targetIds)
@@ -296,7 +301,7 @@ public class Example {
 				.setTargetId("markoiwm")
 				.setuId("5GSB-RPM1-KP8H-9JHF")
 				.setSentTime("1519444243981");
-		ResponseResult result = (ResponseResult)rongCloud.message.group.recall(message);
+		ResponseResult result = (ResponseResult)rongCloud.message.msgPrivate.recall(message);
 
 		System.out.println("recall private message:  " + result.toString());
 

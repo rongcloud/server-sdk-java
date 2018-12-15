@@ -64,7 +64,9 @@ public class MsgSystem {
 
         for (int i = 0 ; i< systemMessage.getTargetId().length; i++) {
             String child  = systemMessage.getTargetId()[i];
-            sb.append("&toUserId=").append(URLEncoder.encode(child, UTF8));
+            if(null != child) {
+                sb.append("&toUserId=").append(URLEncoder.encode(child, UTF8));
+            }
         }
 
         sb.append("&objectName=").append(URLEncoder.encode(systemMessage.getContent().getType(), UTF8));

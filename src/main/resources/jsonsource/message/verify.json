@@ -26,16 +26,25 @@
         "must": true,
         "invalid": "20005"
       },
-      "length": {
-        "max": 64,
+      "size": {
+        "max": 1000,
         "min": 1,
-        "invalid": "20003"
+        "invalid": "20002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20006"
       }
     },
     "objectName": {
       "require": {
         "must": true,
         "invalid": "20005"
+      },
+      "length": {
+        "max": 32,
+        "min": 1,
+        "invalid": "20002"
       }
     },
     "content": {
@@ -45,7 +54,7 @@
       }
     }
   },
-  "recallInfo": {
+  "systemMessage": {
     "_self": {
       "require": {
         "must": true,
@@ -67,10 +76,224 @@
         "invalid": "20003"
       }
     },
-    "conversationType": {
+    "targetId": {
       "require": {
         "must": true,
         "invalid": "20005"
+      },
+      "size": {
+        "max": 100,
+        "min": 1,
+        "invalid": "20002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20006"
+      }
+    },
+    "objectName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 32,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "content": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "groupMessage": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20006"
+      }
+    },
+    "senderId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "targetId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "size": {
+        "max": 3,
+        "min": 1,
+        "invalid": "20002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20006"
+      }
+    },
+    "objectName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 32,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "content": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "chatroomMessage": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20006"
+      }
+    },
+    "senderId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "targetId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "size": {
+        "max": 10,
+        "min": 1,
+        "invalid": "20002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20006"
+      }
+    },
+    "objectName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 32,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "content": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "discussionMessage": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20006"
+      }
+    },
+    "senderId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "targetId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "size": {
+        "max": 3,
+        "min": 1,
+        "invalid": "20002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20006"
+      }
+    },
+    "objectName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 32,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "content": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "recallMessage": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20006"
+      }
+    },
+    "senderId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
       }
     },
     "targetIds": {
@@ -84,7 +307,7 @@
         "invalid": "20003"
       }
     },
-    "messageUid": {
+    "uId": {
       "require": {
         "must": true,
         "invalid": "20005"

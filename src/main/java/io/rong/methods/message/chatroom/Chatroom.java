@@ -55,7 +55,9 @@ public class Chatroom {
 
         for (int i = 0 ; i< message.getTargetId().length; i++) {
             String child  = message.getTargetId()[i];
-            sb.append("&toChatroomId=").append(URLEncoder.encode(child, UTF8));
+            if(null != child){
+                sb.append("&toChatroomId=").append(URLEncoder.encode(child, UTF8));
+            }
         }
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));

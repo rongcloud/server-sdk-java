@@ -1,7 +1,7 @@
 {
 	"send": {
 		"params": {
-			"message": {
+			"chatroomMessage": {
 				"senderId": "2191",
 				"targetId": "2192",
 				"objectName": "RC:TxtMsg",

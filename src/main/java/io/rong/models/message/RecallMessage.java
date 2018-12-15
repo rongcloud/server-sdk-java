@@ -59,8 +59,8 @@ public class RecallMessage {
         return this;
     }
 
-    public String getuId() {
-        return this.uId;
+    public String getUId() {
+        return uId;
     }
 
     public RecallMessage setuId(String uId) {

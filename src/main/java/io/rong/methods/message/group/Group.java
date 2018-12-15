@@ -24,6 +24,7 @@ public class Group {
 
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "message/group";
+    private static final String RECAL_PATH = "message/recall";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -59,7 +60,9 @@ public class Group {
 
         for (int i = 0 ; i< message.getTargetId().length; i++) {
             String child  =message.getTargetId()[i];
-            sb.append("&toGroupId=").append(URLEncoder.encode(child, UTF8));
+            if(null != child) {
+                sb.append("&toGroupId=").append(URLEncoder.encode(child, UTF8));
+            }
         }
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
@@ -160,7 +163,7 @@ public class Group {
     }
 
     /**
-     * 设置用户某会话接收新消息时是否进行消息提醒。
+     * 撤回群组消息。
      *
      * @param message
      *
@@ -169,7 +172,7 @@ public class Group {
      **/
     public Result recall(RecallMessage message) throws Exception {
         //需要校验的字段
-        String errMsg = CommonUtil.checkFiled(message,PATH,CheckMethod.RECALL);
+        String errMsg = CommonUtil.checkFiled(message,RECAL_PATH,CheckMethod.RECALL);
         if(null != errMsg){
             return (Result)GsonUtil.fromJson(errMsg,Result.class);
         }

@@ -60,7 +60,12 @@ public class Discussion {
 
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
-        sb.append("&toDiscussionId=").append(URLEncoder.encode(Arrays.toString(message.getTargetId()), UTF8));
+        for (int i = 0 ; i< message.getTargetId().length; i++) {
+            String child  = message.getTargetId()[i];
+            if(null != child){
+                sb.append("&toDiscussionId=").append(URLEncoder.encode(child, UTF8));
+            }
+        }
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
 

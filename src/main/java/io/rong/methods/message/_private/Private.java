@@ -30,6 +30,7 @@ public class Private {
 
 	private static final String UTF8 = "UTF-8";
 	private static final String PATH = "message/_private";
+	private static final String RECAL_PATH = "message/recall";
 	private String appKey;
 	private String appSecret;
 	private RongCloud rongCloud;
@@ -69,7 +70,9 @@ public class Private {
 	    
 	    for (int i = 0 ; i< message.getTargetId().length; i++) {
 			String child  = message.getTargetId()[i];
-			sb.append("&toUserId=").append(URLEncoder.encode(child, UTF8));
+			if(null != child){
+				sb.append("&toUserId=").append(URLEncoder.encode(child, UTF8));
+			}
 		}
 		
 	    sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
@@ -166,7 +169,7 @@ public class Private {
 	 **/
 	public Result recall(RecallMessage message) throws Exception {
 
-		String errMsg = CommonUtil.checkFiled(message,PATH,CheckMethod.RECALL);
+		String errMsg = CommonUtil.checkFiled(message,RECAL_PATH,CheckMethod.RECALL);
 		if(null != errMsg){
 			return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);
 		}

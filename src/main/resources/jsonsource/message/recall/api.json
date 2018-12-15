@@ -3,11 +3,10 @@
 		"docs": "http://rongcloud.cn/docs/server.html#message_recall",
 		"url": "message/recall",
 		"params": {
-			"message": {
+			"recallMessage": {
 				"senderId": "fDR2cVpxxR5zSMUNh3yAwh",
-				"conversationType": "1",
 				"targetId": "MersNRhaKwJkRV9mJR5JXY",
-				"messageUid": "5FGT-7VA9-G4DD-4V5P",
+				"uId": "5FGT-7VA9-G4DD-4V5P",
 				"sentTime": "1507778882124"
 			}
 		},
