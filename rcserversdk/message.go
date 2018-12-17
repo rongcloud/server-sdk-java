@@ -368,7 +368,7 @@ func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg
 *
 *@return error
  */
-func (rc *RongCloud) ChatroomSend(senderID, targetID, objectName string, msg MsgContent) error {
+func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg MsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(20013, "Paramer 'senderID' is required")
 	}

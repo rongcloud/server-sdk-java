@@ -185,7 +185,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 	}
 }
 
-func TestRongCloud_ChatroomSend(t *testing.T) {
+func TestRongCloud_ChatRoomSend(t *testing.T) {
 
 	private := NewRongCloud(
 		"ik1qhw016nsfp",
@@ -198,7 +198,7 @@ func TestRongCloud_ChatroomSend(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := private.ChatroomSend(
+	err := private.ChatRoomSend(
 		"7Szq13MKRVortoknTAk7W8",
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"RC:TxtMsg",
