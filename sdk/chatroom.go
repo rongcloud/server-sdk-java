@@ -7,8 +7,9 @@ import (
 	"errors"
 	"strconv"
 
+	"fmt"
 	"github.com/astaxie/beego/httplib"
-	)
+)
 
 // ChatRoomInfo 聊天室信息
 type ChatRoomInfo struct {
@@ -19,18 +20,18 @@ type ChatRoomInfo struct {
 // ChatRoom 聊天室信息
 type ChatRoom struct {
 	ChatRoomID string `json:"chrmId"`
-	Name   string `json:"name"`
-	Time   string `json:"time"`
+	Name       string `json:"name"`
+	Time       string `json:"time"`
 }
 
 // ChatRoomResult ChatRoom 返回结果
 type ChatRoomResult struct {
-	Total       int            `json:"total"`
-	Users       []ChatRoomUser `json:"users"`
-	Result      []ChatRoomUser `json:"result"`
-	ObjectNames []string       `json:"objectNames"`
-	ChatRoomIDs []string       `json:"chatroomids"`
-	WhitelistMsgType []string `json:"whitlistMsgType"`
+	Total            int            `json:"total"`
+	Users            []ChatRoomUser `json:"users"`
+	Result           []ChatRoomUser `json:"result"`
+	ObjectNames      []string       `json:"objectNames"`
+	ChatRoomIDs      []string       `json:"chatroomids"`
+	WhitelistMsgType []string       `json:"whitlistMsgType"`
 }
 
 // ChatRoomUser 聊天室用户信息
@@ -180,12 +181,10 @@ func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 	if code.Code != 200 {
 		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
-
 	var dat ChatRoomResult
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
 	}
-
 	return dat.Result, nil
 }
 
@@ -368,7 +367,6 @@ func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
 
 // ChatRoomBanGetList 获取聊天室全局禁言列表
 func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
-
 	var code CodeResult
 	var dat ChatRoomResult
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/ban/query." + ReqType)
@@ -378,7 +376,6 @@ func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
 	if err != nil {
 		return []ChatRoomUser{}, err
 	}
-
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []ChatRoomUser{}, err
 	}
@@ -484,7 +481,6 @@ func (rc *RongCloud) ChatRoomGagGetList(chatroomID string) ([]ChatRoomUser, erro
 	if chatroomID == "" {
 		return []ChatRoomUser{}, errors.New("Paramer 'chatroomId' is required")
 	}
-
 	req := httplib.Post(RONGCLOUDURI + "/chatroom/user/gag/list." + ReqType)
 	rc.FillHeader(req)
 	req.Param("chatroomId", chatroomID)
@@ -775,7 +771,7 @@ func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	
+
 	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []string{}, err
@@ -858,28 +854,35 @@ func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 }
 
 // ChatRoomUserWhitelistGetList 获取聊天室用户白名单
-func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]ChatRoomUser, error) {
-	var dat ChatRoomResult
+func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
+	var dat map[string]interface{}
 	if id == "" {
-		return []ChatRoomUser{}, errors.New("Paramer 'id' is required")
+		return []string{}, errors.New("Paramer 'id' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/whitelist/query." + ReqType)
 	rc.FillHeader(req)
 	req.Param("chatroomId", id)
-
 	rep, err := req.Bytes()
 	if err != nil {
-		return []ChatRoomUser{}, err
+		return []string{}, err
 	}
+	fmt.Println(string(rep))
 	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return []ChatRoomUser{}, err
+		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return []ChatRoomUser{}, err
+		return []string{}, err
 	}
-	return dat.Users, nil
+	if dat["users"] == nil {
+		return []string{}, nil
+	}
+	var users []string
+	for _, v := range dat["users"].([]interface{}) {
+		users = append(users, v.(string))
+	}
+	return users, nil
 }
