@@ -54,7 +54,7 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -91,7 +91,7 @@ func (rc *RongCloud) GroupSync(ID string, groups []Group) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -126,7 +126,7 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -196,7 +196,7 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
 	if err != nil {
 		return Group{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return Group{}, err
 	}
@@ -237,7 +237,7 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -273,7 +273,7 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -316,7 +316,7 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -345,7 +345,7 @@ func (rc *RongCloud) GroupGagList(groupID string) (Group, error) {
 	if err != nil {
 		return Group{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	var dat Group
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return Group{}, err
@@ -386,7 +386,7 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 	if err != nil {
 		return RCErrorNew(20013, err.Error())
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}

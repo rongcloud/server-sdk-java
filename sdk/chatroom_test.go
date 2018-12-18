@@ -1,8 +1,7 @@
 package sdk
 
 import (
-	"encoding/json"
-	"fmt"
+		"fmt"
 	"testing"
 )
 
@@ -16,9 +15,7 @@ func TestRongCloud_ChatRoomCreate(t *testing.T) {
 		"chrm01",
 		"rcchrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomGet(t *testing.T) {
@@ -32,9 +29,7 @@ func TestRongCloud_ChatRoomGet(t *testing.T) {
 		500,
 		1,
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 
 }
@@ -49,9 +44,7 @@ func TestRongCloud_ChatRoomIsExist(t *testing.T) {
 		"chrm01",
 		[]string{"u01"},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
 
@@ -64,9 +57,7 @@ func TestRongCloud_ChatRoomDestroy(t *testing.T) {
 	err := rc.ChatRoomDestroy(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomBanAdd(t *testing.T) {
@@ -78,9 +69,7 @@ func TestRongCloud_ChatRoomBanAdd(t *testing.T) {
 	err := rc.ChatRoomBanAdd(
 		[]string{"u01"},
 		30)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomBanGetList(t *testing.T) {
@@ -90,9 +79,7 @@ func TestRongCloud_ChatRoomBanGetList(t *testing.T) {
 		nil,
 	)
 	rep, err := rc.ChatRoomBanGetList()
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
 
@@ -105,9 +92,7 @@ func TestRongCloud_ChatRoomBanRemove(t *testing.T) {
 	err := rc.ChatRoomBanRemove(
 		[]string{"u01"},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
@@ -121,9 +106,7 @@ func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
 		[]string{"u01"},
 		30,
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
@@ -135,9 +118,7 @@ func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
 	rep, err := rc.ChatRoomBlockGetList(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
 
@@ -151,9 +132,7 @@ func TestRongCloud_ChatRoomBlockRemove(t *testing.T) {
 		"chrm01",
 		[]string{"u01"},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomDemotionAdd(t *testing.T) {
@@ -162,22 +141,13 @@ func TestRongCloud_ChatRoomDemotionAdd(t *testing.T) {
 		"S7eyGBASFSU42",
 		nil,
 	)
-	msg := MsgContent{
-		Content: "{name}, 语文成绩 {score} 分",
-		Extra:   "helloExtra",
-	}
-	msgBytes, err := json.Marshal(msg)
-	if err != nil {
-		panic("struct to json false" + err.Error())
-	}
-	err = rc.ChatRoomDemotionAdd(
+	txtmsg := "RC:TxtMsg"
+	err := rc.ChatRoomDemotionAdd(
 		[]string{
-			string(msgBytes),
+			txtmsg,
 		},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomDemotionGetList(t *testing.T) {
@@ -187,9 +157,7 @@ func TestRongCloud_ChatRoomDemotionGetList(t *testing.T) {
 		nil,
 	)
 	rep, err := rc.ChatRoomDemotionGetList()
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
 
@@ -199,22 +167,13 @@ func TestRongCloud_ChatRoomDemotionRemove(t *testing.T) {
 		"S7eyGBASFSU42",
 		nil,
 	)
-	msg := MsgContent{
-		Content: "{name}, 语文成绩 {score} 分",
-		Extra:   "helloExtra",
-	}
-	msgBytes, err := json.Marshal(msg)
-	if err != nil {
-		panic("struct to json false" + err.Error())
-	}
-	err = rc.ChatRoomDemotionRemove(
+	txtmsg := "RC:TxtMsg"
+	err := rc.ChatRoomDemotionRemove(
 		[]string{
-			string(msgBytes),
+			txtmsg,
 		},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomDistributionStop(t *testing.T) {
@@ -226,10 +185,7 @@ func TestRongCloud_ChatRoomDistributionStop(t *testing.T) {
 	err := rc.ChatRoomDistributionStop(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
-
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomDistributionResume(t *testing.T) {
@@ -241,9 +197,7 @@ func TestRongCloud_ChatRoomDistributionResume(t *testing.T) {
 	err := rc.ChatRoomDistributionResume(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomGagAdd(t *testing.T) {
@@ -257,9 +211,7 @@ func TestRongCloud_ChatRoomGagAdd(t *testing.T) {
 		[]string{"u01"},
 		30,
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomGagGetList(t *testing.T) {
@@ -271,9 +223,7 @@ func TestRongCloud_ChatRoomGagGetList(t *testing.T) {
 	rep, err := rc.ChatRoomGagGetList(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
 
@@ -287,9 +237,7 @@ func TestRongCloud_ChatRoomGagRemove(t *testing.T) {
 		"chrm01",
 		[]string{"u01"},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomKeepAliveAdd(t *testing.T) {
@@ -301,9 +249,7 @@ func TestRongCloud_ChatRoomKeepAliveAdd(t *testing.T) {
 	err := rc.ChatRoomKeepAliveAdd(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
@@ -315,9 +261,7 @@ func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
 	rep, err := rc.ChatRoomKeepAliveGetList(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
 
@@ -330,9 +274,7 @@ func TestRongCloud_ChatRoomKeepAliveRemove(t *testing.T) {
 	err := rc.ChatRoomKeepAliveRemove(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomUserWhitelistAdd(t *testing.T) {
@@ -345,9 +287,7 @@ func TestRongCloud_ChatRoomUserWhitelistAdd(t *testing.T) {
 		"chrm01",
 		[]string{"u01"},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomUserWhitelistGetList(t *testing.T) {
@@ -359,9 +299,7 @@ func TestRongCloud_ChatRoomUserWhitelistGetList(t *testing.T) {
 	rep, err := rc.ChatRoomUserWhitelistGetList(
 		"chrm01",
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
 
@@ -375,10 +313,9 @@ func TestRongCloud_ChatRoomUserWhitelistRemove(t *testing.T) {
 		"chrm01",
 		[]string{"u01"},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
+
 
 func TestRongCloud_ChatRoomWhitelistAdd(t *testing.T) {
 	rc := NewRongCloud(
@@ -386,20 +323,12 @@ func TestRongCloud_ChatRoomWhitelistAdd(t *testing.T) {
 		"S7eyGBASFSU42",
 		nil,
 	)
-	msg := MsgContent{
-		Content: "{name}, 语文成绩 {score} 分",
-		Extra:   "helloExtra",
-	}
-	msgBytes, err := json.Marshal(msg)
-	if err != nil {
-		panic("struct to json false" + err.Error())
-	}
-	err = rc.ChatRoomWhitelistAdd(
-		[]string{string(msgBytes)},
+	txtmsg := "RC:TxtMsg"
+
+	err := rc.ChatRoomWhitelistAdd(
+		[]string{txtmsg},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }
 
 func TestRongCloud_ChatRoomWhitelistGetList(t *testing.T) {
@@ -409,11 +338,10 @@ func TestRongCloud_ChatRoomWhitelistGetList(t *testing.T) {
 		nil,
 	)
 	rep, err := rc.ChatRoomWhitelistGetList()
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 	fmt.Println(rep)
 }
+
 
 func TestRongCloud_ChatRoomWhitelistRemove(t *testing.T) {
 	rc := NewRongCloud(
@@ -421,18 +349,9 @@ func TestRongCloud_ChatRoomWhitelistRemove(t *testing.T) {
 		"S7eyGBASFSU42",
 		nil,
 	)
-	msg := MsgContent{
-		Content: "{name}, 语文成绩 {score} 分",
-		Extra:   "helloExtra",
-	}
-	msgBytes, err := json.Marshal(msg)
-	if err != nil {
-		panic("struct to json false" + err.Error())
-	}
-	err = rc.ChatRoomWhitelistRemove(
-		[]string{string(msgBytes)},
+	txtmsg := "RC:TxtMsg"
+	err := rc.ChatRoomWhitelistRemove(
+		[]string{txtmsg,},
 	)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println(err)
 }

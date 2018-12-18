@@ -45,8 +45,8 @@ type RongCloudExtra struct {
 	TimeOut         time.Duration
 }
 
-// CodeReslut 容云返回状态码和错误码
-type CodeReslut struct {
+// CodeResult 容云返回状态码和错误码
+type CodeResult struct {
 	Code         int    `json:"code"`
 	ErrorMessage string `json:"errorMessage"`
 }

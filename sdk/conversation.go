@@ -51,7 +51,7 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -86,7 +86,7 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}

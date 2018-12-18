@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"github.com/astaxie/beego/httplib"
-)
+	)
 
 // ChatRoomInfo 聊天室信息
 type ChatRoomInfo struct {
@@ -18,18 +18,19 @@ type ChatRoomInfo struct {
 
 // ChatRoom 聊天室信息
 type ChatRoom struct {
-	ChrmID string `json:"chrmId"`
+	ChatRoomID string `json:"chrmId"`
 	Name   string `json:"name"`
 	Time   string `json:"time"`
 }
 
-// ChatRoomReslut ChatRoom 返回结果
-type ChatRoomReslut struct {
+// ChatRoomResult ChatRoom 返回结果
+type ChatRoomResult struct {
 	Total       int            `json:"total"`
 	Users       []ChatRoomUser `json:"users"`
-	Reslut      []ChatRoomUser `json:"reslut"`
+	Result      []ChatRoomUser `json:"result"`
 	ObjectNames []string       `json:"objectNames"`
 	ChatRoomIDs []string       `json:"chatroomids"`
+	WhitelistMsgType []string `json:"whitlistMsgType"`
 }
 
 // ChatRoomUser 聊天室用户信息
@@ -64,7 +65,7 @@ func (rc *RongCloud) ChatRoomCreate(id, name string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -95,7 +96,7 @@ func (rc *RongCloud) ChatRoomDestroy(id string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -112,19 +113,19 @@ func (rc *RongCloud) ChatRoomDestroy(id string) error {
  *@param  count:要获取的聊天室成员数，上限为 500 ，超过 500 时最多返回 500 个成员。（必传）
  *@param  order:加入聊天室的先后顺序， 1 为加入时间正序， 2 为加入时间倒序。（必传）
  *
- *@return ChatRoomReslut error
+ *@return ChatRoomResult error
  */
-func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomReslut, error) {
+func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, error) {
 	if id == "" {
-		return ChatRoomReslut{}, errors.New("Paramer 'chatroomId' is required")
+		return ChatRoomResult{}, errors.New("Paramer 'chatroomId' is required")
 	}
 
 	if count <= 0 {
-		return ChatRoomReslut{}, errors.New("Paramer 'count' is required")
+		return ChatRoomResult{}, errors.New("Paramer 'count' is required")
 	}
 
 	if order <= 0 {
-		return ChatRoomReslut{}, errors.New("Paramer 'order' is required")
+		return ChatRoomResult{}, errors.New("Paramer 'order' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/query." + ReqType)
@@ -134,19 +135,19 @@ func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomReslut, e
 	req.Param("order", strconv.Itoa(order))
 	rep, err := req.Bytes()
 	if err != nil {
-		return ChatRoomReslut{}, err
+		return ChatRoomResult{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return ChatRoomReslut{}, err
+		return ChatRoomResult{}, err
 	}
 	if code.Code != 200 {
-		return ChatRoomReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return ChatRoomResult{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
-	var dat ChatRoomReslut
+	var dat ChatRoomResult
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return ChatRoomReslut{}, err
+		return ChatRoomResult{}, err
 	}
 	return dat, nil
 }
@@ -172,7 +173,7 @@ func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 	if err != nil {
 		return []ChatRoomUser{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []ChatRoomUser{}, err
 	}
@@ -180,12 +181,12 @@ func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
-	var dat ChatRoomReslut
+	var dat ChatRoomResult
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
 	}
 
-	return dat.Reslut, nil
+	return dat.Result, nil
 }
 
 // ChatRoomBlockAdd 添加封禁聊天室成员方法
@@ -222,7 +223,7 @@ func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -259,7 +260,7 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -274,11 +275,11 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
  *
  *@param  chatroomId:聊天室 Id。（必传）
  *
- *@return ListBlockChatroomUserReslut
+ *@return ListBlockChatRoomUserResult
  */
-func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomReslut, error) {
-	var dat ChatRoomReslut
-	var code CodeReslut
+func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
+	var dat ChatRoomResult
+	var code CodeResult
 	if id == "" {
 		return dat, errors.New("Paramer 'chatroomId' is required")
 	}
@@ -308,7 +309,7 @@ func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomReslut, error) {
 // ChatRoomBanAdd 添加聊天室全局禁言
 func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 
-	var code CodeReslut
+	var code CodeResult
 	if len(members) == 0 {
 		return errors.New("Paramer 'members' is required")
 	}
@@ -340,7 +341,7 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 // ChatRoomBanRemove 解除聊天室全局禁言
 func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
 
-	var code CodeReslut
+	var code CodeResult
 	if len(members) == 0 {
 		return errors.New("Paramer 'members' is required")
 	}
@@ -368,8 +369,8 @@ func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
 // ChatRoomBanGetList 获取聊天室全局禁言列表
 func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
 
-	var code CodeReslut
-	var dat ChatRoomReslut
+	var code CodeResult
+	var dat ChatRoomResult
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/user/ban/query." + ReqType)
 	rc.FillHeader(req)
 
@@ -424,7 +425,7 @@ func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -461,7 +462,7 @@ func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -479,7 +480,7 @@ func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
  *@return []ChatRoomUser error
  */
 func (rc *RongCloud) ChatRoomGagGetList(chatroomID string) ([]ChatRoomUser, error) {
-	var dat ChatRoomReslut
+	var dat ChatRoomResult
 	if chatroomID == "" {
 		return []ChatRoomUser{}, errors.New("Paramer 'chatroomId' is required")
 	}
@@ -491,7 +492,7 @@ func (rc *RongCloud) ChatRoomGagGetList(chatroomID string) ([]ChatRoomUser, erro
 	if err != nil {
 		return []ChatRoomUser{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []ChatRoomUser{}, err
 	}
@@ -525,7 +526,7 @@ func (rc *RongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -550,7 +551,7 @@ func (rc *RongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -562,7 +563,7 @@ func (rc *RongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 
 // ChatRoomDemotionGetList 移除应用内聊天室降级消息
 func (rc *RongCloud) ChatRoomDemotionGetList() ([]string, error) {
-	var dat ChatRoomReslut
+	var dat ChatRoomResult
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/message/priority/query." + ReqType)
 	rc.FillHeader(req)
@@ -570,7 +571,7 @@ func (rc *RongCloud) ChatRoomDemotionGetList() ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []string{}, err
 	}
@@ -602,7 +603,7 @@ func (rc *RongCloud) ChatRoomDistributionStop(id string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -630,7 +631,7 @@ func (rc *RongCloud) ChatRoomDistributionResume(id string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -652,7 +653,7 @@ func (rc *RongCloud) ChatRoomKeepAliveAdd(id string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -674,7 +675,7 @@ func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -686,7 +687,7 @@ func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
 
 // ChatRoomKeepAliveGetList 获取保活聊天室
 func (rc *RongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
-	var dat ChatRoomReslut
+	var dat ChatRoomResult
 	if id == "" {
 		return []string{}, errors.New("Paramer 'chatroomId' is required")
 	}
@@ -697,7 +698,7 @@ func (rc *RongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []string{}, err
 	}
@@ -714,19 +715,19 @@ func (rc *RongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
 func (rc *RongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
 
 	if len(objectNames) == 0 {
-		return errors.New("Paramer 'members' is required")
+		return errors.New("Paramer 'objectNames' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/whitelist/add." + ReqType)
 	rc.FillHeader(req)
 	for _, v := range objectNames {
-		req.Param("userId", v)
+		req.Param("objectnames", v)
 	}
 	rep, err := req.Bytes()
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -743,17 +744,17 @@ func (rc *RongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 		return errors.New("Paramer 'members' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/chatroom/whitelist/remove." + ReqType)
+	req := httplib.Post(rc.RongCloudURI + "/chatroom/whitelist/delete." + ReqType)
 	rc.FillHeader(req)
 
 	for _, v := range objectNames {
-		req.Param("userId", v)
+		req.Param("objectnames", v)
 	}
 	rep, err := req.Bytes()
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -765,7 +766,7 @@ func (rc *RongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 
 // ChatRoomWhitelistGetList 获取聊天室消息白名单
 func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
-	var dat ChatRoomReslut
+	var dat ChatRoomResult
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/whitelist/query." + ReqType)
 	rc.FillHeader(req)
@@ -774,7 +775,8 @@ func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	var code CodeReslut
+	
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []string{}, err
 	}
@@ -784,7 +786,8 @@ func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
 	}
-	return dat.ObjectNames, nil
+
+	return dat.WhitelistMsgType, nil
 }
 
 // ChatRoomUserWhitelistAdd 添加聊天室白名单成员方法
@@ -814,7 +817,7 @@ func (rc *RongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -844,7 +847,7 @@ func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -856,7 +859,7 @@ func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 
 // ChatRoomUserWhitelistGetList 获取聊天室用户白名单
 func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]ChatRoomUser, error) {
-	var dat ChatRoomReslut
+	var dat ChatRoomResult
 	if id == "" {
 		return []ChatRoomUser{}, errors.New("Paramer 'id' is required")
 	}
@@ -868,7 +871,7 @@ func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]ChatRoomUser, er
 	if err != nil {
 		return []ChatRoomUser{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []ChatRoomUser{}, err
 	}

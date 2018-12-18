@@ -9,20 +9,20 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// UserReslut User 返回信息
-type UserReslut struct {
+// UserResult User 返回信息
+type UserResult struct {
 	Token        string `json:"token"`
 	UserID       string `json:"userId"`
 	BlockEndTime string `json:"blockEndTime"`
 }
 
-// BlockListReslut BlockListReslut
-type BlockListReslut struct {
+// BlockListResult BlockListResult
+type BlockListResult struct {
 	Users []UserInfo `json:"users"`
 }
 
-// BlacklistReslut BlacklistReslut
-type BlacklistReslut struct {
+// BlacklistResult BlacklistResult
+type BlacklistResult struct {
 	Users []string `json:"users"`
 }
 
@@ -38,17 +38,17 @@ type UserInfo struct {
 *@param  name:用户名称，最大长度 128 字节.用来在 Push 推送时显示用户的名称.用户名称，最大长度 128 字节.用来在 Push 推送时显示用户的名称。
 *@param  portraitUri:用户头像 URI，最大长度 1024 字节.用来在 Push 推送时显示用户的头像。
 *
-*@return UserReslut, RCError
+*@return UserResult, RCError
  */
-func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (UserReslut, error) {
+func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (UserResult, error) {
 	if userID == "" {
-		return UserReslut{}, RCErrorNew(20005, "Paramer 'userID' is required")
+		return UserResult{}, RCErrorNew(20005, "Paramer 'userID' is required")
 	}
 	if name == "" {
-		return UserReslut{}, RCErrorNew(20005, "Paramer 'name' is required")
+		return UserResult{}, RCErrorNew(20005, "Paramer 'name' is required")
 	}
 	if portraitURI == "" {
-		return UserReslut{}, RCErrorNew(20005, "Paramer 'portraitUri' is required")
+		return UserResult{}, RCErrorNew(20005, "Paramer 'portraitUri' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/user/getToken." + ReqType)
@@ -60,23 +60,23 @@ func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (UserReslut,
 
 	rep, err := req.Bytes()
 	if err != nil {
-		return UserReslut{}, err
+		return UserResult{}, err
 	}
 
-	var code CodeReslut
-	var userReslut UserReslut
+	var code CodeResult
+	var userResult UserResult
 
 	if err := json.Unmarshal(rep, &struct {
-		*CodeReslut
-		*UserReslut
-	}{&code, &userReslut}); err != nil {
-		return UserReslut{}, err
+		*CodeResult
+		*UserResult
+	}{&code, &userResult}); err != nil {
+		return UserResult{}, err
 	}
 	if code.Code != 200 {
-		return UserReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return UserResult{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
-	return userReslut, nil
+	return userResult, nil
 }
 
 // UserUpdate 修改用户信息
@@ -110,7 +110,7 @@ func (rc RongCloud) UserUpdate(userID, name, portraitURI string) error {
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -150,7 +150,7 @@ func (rc *RongCloud) BlockAdd(id string, minute uint64) error {
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -180,7 +180,7 @@ func (rc *RongCloud) BlockRemove(id string) error {
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return RCErrorNew(20100, err.Error())
 	}
@@ -193,9 +193,9 @@ func (rc *RongCloud) BlockRemove(id string) error {
 
 // BlockGetList 获取某用户的黑名单列表
 /*
-*@return QueryBlockUserReslut
+*@return QueryBlockUserResult
  */
-func (rc *RongCloud) BlockGetList() (BlockListReslut, error) {
+func (rc *RongCloud) BlockGetList() (BlockListResult, error) {
 	req := httplib.Post(rc.RongCloudURI + "/user/block/query." + ReqType)
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
@@ -203,19 +203,19 @@ func (rc *RongCloud) BlockGetList() (BlockListReslut, error) {
 	rep, err := req.Bytes()
 
 	if err != nil {
-		return BlockListReslut{}, err
+		return BlockListResult{}, err
 	}
 
-	var dat BlockListReslut
-	var code CodeReslut
+	var dat BlockListResult
+	var code CodeResult
 	if err := json.Unmarshal(rep, &dat); err != nil {
-		return BlockListReslut{}, err
+		return BlockListResult{}, err
 	}
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return BlockListReslut{}, err
+		return BlockListResult{}, err
 	}
 	if code.Code != 200 {
-		return BlockListReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return BlockListResult{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 
 	return dat, nil
@@ -250,7 +250,7 @@ func (rc *RongCloud) BlacklistAdd(id string, blacklist []string) error {
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -290,7 +290,7 @@ func (rc *RongCloud) BlacklistRemove(id string, blacklist []string) error {
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -305,11 +305,11 @@ func (rc *RongCloud) BlacklistRemove(id string, blacklist []string) error {
 /*
 *@param  userId:用户 Id。
 *
-*@return QueryBlacklistUserReslut error
+*@return QueryBlacklistUserResult error
  */
-func (rc *RongCloud) BlacklistGet(id string) (BlacklistReslut, error) {
+func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 	if id == "" {
-		return BlacklistReslut{}, RCErrorNew(20005, "Paramer 'id' is required")
+		return BlacklistResult{}, RCErrorNew(20005, "Paramer 'id' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/user/blacklist/query." + ReqType)
@@ -319,21 +319,21 @@ func (rc *RongCloud) BlacklistGet(id string) (BlacklistReslut, error) {
 
 	rep, err := req.Bytes()
 	if err != nil {
-		return BlacklistReslut{}, err
+		return BlacklistResult{}, err
 	}
 
-	var listReslut BlacklistReslut
-	var code CodeReslut
-	if err := json.Unmarshal(rep, &listReslut); err != nil {
-		return BlacklistReslut{}, err
+	var listResult BlacklistResult
+	var code CodeResult
+	if err := json.Unmarshal(rep, &listResult); err != nil {
+		return BlacklistResult{}, err
 	}
 	if err := json.Unmarshal(rep, &code); err != nil {
-		return BlacklistReslut{}, err
+		return BlacklistResult{}, err
 	}
 
 	if code.Code != 200 {
-		return BlacklistReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return BlacklistResult{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	fmt.Println(string(rep))
-	return listReslut, nil
+	return listResult, nil
 }

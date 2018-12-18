@@ -7,8 +7,8 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// ListWordfilterReslut listWordfilter返回结果
-type ListWordfilterReslut struct {
+// ListWordFilterResult listWordFilter返回结果
+type ListWordFilterResult struct {
 	Words []SensitiveWord `json:"words"`
 }
 
@@ -47,7 +47,7 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(byteData, &code); err != nil {
 		return err
 	}
@@ -60,27 +60,27 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 
 // SensitiveGetList 查询敏感词列表方法
 /*
-*@return ListWordfilterReslut
+*@return ListWordFilterResult
  */
-func (rc *RongCloud) SensitiveGetList() (ListWordfilterReslut, error) {
+func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 
 	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/list." + ReqType)
 	rc.FillHeader(req)
 	byteData, err := req.Bytes()
 	if err != nil {
-		return ListWordfilterReslut{}, err
+		return ListWordFilterResult{}, err
 	}
 
-	var ret ListWordfilterReslut
+	var ret ListWordFilterResult
 	if err := json.Unmarshal(byteData, &ret); err != nil {
-		return ListWordfilterReslut{}, err
+		return ListWordFilterResult{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(byteData, &code); err != nil {
-		return ListWordfilterReslut{}, err
+		return ListWordFilterResult{}, err
 	}
 	if code.Code != 200 {
-		return ListWordfilterReslut{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return ListWordFilterResult{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	return ret, err
 
@@ -107,7 +107,7 @@ func (rc *RongCloud) SensitiveRemove(keywords []string) error {
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(byteData, &code); err != nil {
 		return err
 	}

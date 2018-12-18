@@ -91,7 +91,7 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgC
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -135,7 +135,7 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, con
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -195,7 +195,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template M
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -249,7 +249,7 @@ func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg MsgCon
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -292,7 +292,7 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conve
 		return err
 	}
 
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -349,7 +349,7 @@ func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -392,7 +392,7 @@ func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg Msg
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -429,7 +429,7 @@ func (rc *RongCloud) ChatroomBroadcast(senderID, objectName string, msg MsgConte
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -487,7 +487,7 @@ func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg MsgCo
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -524,7 +524,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg MsgContent
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
@@ -583,7 +583,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template Ms
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
@@ -604,7 +604,7 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	if err != nil {
 		return History{}, err
 	}
-	var code CodeReslut
+	var code CodeResult
 	var history History
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return History{}, err
@@ -632,7 +632,7 @@ func (rc *RongCloud) HistoryRemove(date string) error {
 	if err != nil {
 		return err
 	}
-	var code CodeReslut
+	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
