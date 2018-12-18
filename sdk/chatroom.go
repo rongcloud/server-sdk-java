@@ -7,7 +7,6 @@ import (
 	"errors"
 	"strconv"
 
-	"fmt"
 	"github.com/astaxie/beego/httplib"
 )
 
@@ -866,7 +865,6 @@ func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	fmt.Println(string(rep))
 	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return []string{}, err
