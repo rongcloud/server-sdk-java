@@ -1,6 +1,6 @@
 // Conversation 会话
 
-package rcserversdk
+package sdk
 
 import (
 	"encoding/json"

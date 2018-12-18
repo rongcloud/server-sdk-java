@@ -6,7 +6,7 @@
  * v3.0.0
  */
 
-package rcserversdk
+package sdk
 
 import (
 	"crypto/sha1"

@@ -1,4 +1,4 @@
-package rcserversdk
+package sdk
 
 // RCErrorNew 创建新的err信息
 func RCErrorNew(code int, text string) error {

@@ -1,4 +1,4 @@
-package rcserversdk
+package sdk
 
 import (
 	"fmt"

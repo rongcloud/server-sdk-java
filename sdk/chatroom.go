@@ -1,6 +1,6 @@
 // ChatRoom 聊天室
 
-package rcserversdk
+package sdk
 
 import (
 	"encoding/json"
@@ -707,7 +707,7 @@ func (rc *RongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
 	}
-	return dat.ChatroomIds, nil
+	return dat.ChatRoomIDs, nil
 }
 
 // ChatRoomWhitelistAdd 添加聊天室消息白名单
