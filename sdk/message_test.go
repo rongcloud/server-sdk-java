@@ -8,8 +8,8 @@ import (
 func TestMessage_PrivateSend(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -38,8 +38,8 @@ func TestMessage_PrivateSend(t *testing.T) {
 func TestMessage_PrivateRecall(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -57,8 +57,8 @@ func TestMessage_PrivateRecall(t *testing.T) {
 func TestMessage_PrivateSendTemplate(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -100,8 +100,8 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 func TestRongCloud_GroupSend(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -128,8 +128,8 @@ func TestRongCloud_GroupSend(t *testing.T) {
 func TestRongCloud_PrivateRecall(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -147,13 +147,13 @@ func TestRongCloud_PrivateRecall(t *testing.T) {
 func TestRongCloud_GroupSendMention(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
 	msg := MentionMsgContent{
-		Content: "@user_2 hello",
+		Content:       "@user_2 hello",
 		MentionedInfo: MentionedInfo{Type: 2, UserIDs: []string{"4kIvGJmETlYqDoVFgWdYdM"}, PushContent: "有人@你"},
 	}
 	err := private.GroupSendMention(
@@ -176,8 +176,8 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 func TestRongCloud_ChatRoomSend(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -200,8 +200,8 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -210,7 +210,7 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := private.ChatroomBroadcast(
+	err := private.ChatRoomBroadcast(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		msg,
@@ -221,8 +221,8 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 func TestRongCloud_SystemSend(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -249,8 +249,8 @@ func TestRongCloud_SystemSend(t *testing.T) {
 func TestRongCloud_SystemBroadcast(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -271,8 +271,8 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 func TestRongCloud_SystemSendTemplate(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -314,8 +314,8 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 func TestRongCloud_HistoryGet(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -329,8 +329,8 @@ func TestRongCloud_HistoryGet(t *testing.T) {
 func TestRongCloud_HistoryRemove(t *testing.T) {
 
 	private := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 

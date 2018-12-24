@@ -8,8 +8,8 @@ import (
 func TestRongCloud_SensitiveAdd(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -24,8 +24,8 @@ func TestRongCloud_SensitiveAdd(t *testing.T) {
 
 func TestRongCloud_SensitiveGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -39,8 +39,8 @@ func TestRongCloud_SensitiveGetList(t *testing.T) {
 func TestRongCloud_SensitiveRemove(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 

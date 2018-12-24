@@ -13,10 +13,10 @@ type RCError struct {
 
 // Error 获取错误信息
 func (e *RCError) Error() string {
-	return e.message
+	return string(e.code) + ":" + e.message
 }
 
 // ErrorCode 获取错误码
-func (e *RCError) ErrorCode() int {
-	return e.code
+func (e *RCError) ErrorCode() string {
+	return string(e.code)
 }

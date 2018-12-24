@@ -1,14 +1,14 @@
 package sdk
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestRongCloud_ConversationMute(t *testing.T) {
 	conversation := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := conversation.ConversationMute(
@@ -22,8 +22,8 @@ func TestRongCloud_ConversationMute(t *testing.T) {
 
 func TestRongCloud_ConversationUnmute(t *testing.T) {
 	conversation := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := conversation.ConversationMute(

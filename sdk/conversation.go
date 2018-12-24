@@ -26,6 +26,13 @@ const (
 )
 
 // ConversationMute 设置用户某个会话屏蔽 Push
+/*
+*@param  conversationType:会话类型 PRIVATE、GROUP、DISCUSSION、SYSTEM。
+*@param  userID:设置用户 ID。
+*@param  targetID:需要屏蔽的目标 ID。
+*
+*@return error
+ */
 func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
 
 	if conversationType == 0 {
@@ -62,6 +69,13 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 }
 
 // ConversationUnmute 设置用户某个会话接收 Push
+/*
+*@param  conversationType:会话类型 PRIVATE、GROUP、DISCUSSION、SYSTEM。
+*@param  userID:设置用户 ID。
+*@param  targetID:需要屏蔽的目标 ID。
+*
+*@return error
+ */
 func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
 	if conversationType == 0 {
 		return RCErrorNew(20005, "Paramer 'conversationType' is required")

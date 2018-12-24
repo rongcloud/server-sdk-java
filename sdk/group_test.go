@@ -7,8 +7,8 @@ import (
 
 func TestRongCloud_GroupCreate(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -23,8 +23,8 @@ func TestRongCloud_GroupCreate(t *testing.T) {
 
 func TestRongCloud_GroupGet(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -39,8 +39,8 @@ func TestRongCloud_GroupGet(t *testing.T) {
 
 func TestRongCloud_GroupJoin(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -55,8 +55,8 @@ func TestRongCloud_GroupJoin(t *testing.T) {
 
 func TestRongCloud_GroupUpdate(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -71,8 +71,8 @@ func TestRongCloud_GroupUpdate(t *testing.T) {
 func TestRongCloud_GroupQuit(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -87,8 +87,8 @@ func TestRongCloud_GroupQuit(t *testing.T) {
 func TestRongCloud_GroupSync(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	group := Group{ID: "u02", Name: "rongcloud_group02"}
@@ -105,8 +105,8 @@ func TestRongCloud_GroupSync(t *testing.T) {
 func TestRongCloud_GroupGagAdd(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -121,8 +121,8 @@ func TestRongCloud_GroupGagAdd(t *testing.T) {
 func TestRongCloud_GROUPGagList(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -138,8 +138,8 @@ func TestRongCloud_GROUPGagList(t *testing.T) {
 func TestRongCloud_GroupGagremove(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -154,8 +154,8 @@ func TestRongCloud_GroupGagremove(t *testing.T) {
 func TestRongCloud_GroupDismiss(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 

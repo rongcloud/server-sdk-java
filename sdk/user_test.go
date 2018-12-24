@@ -8,8 +8,8 @@ import (
 func TestRongCloud_UserRegister(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -21,13 +21,13 @@ func TestRongCloud_UserRegister(t *testing.T) {
 	if err == nil {
 		fmt.Println(rep)
 	}
-	fmt.Println(err)
+	fmt.Println(err.Error())
 }
 
 func TestRongCloud_UserUpdate(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -38,8 +38,8 @@ func TestRongCloud_UserUpdate(t *testing.T) {
 func TestRongCloud_BlockAdd(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 
@@ -52,8 +52,8 @@ func TestRongCloud_BlockAdd(t *testing.T) {
 
 func TestRongCloud_BlockGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.BlockGetList()
@@ -66,8 +66,8 @@ func TestRongCloud_BlockGetList(t *testing.T) {
 func TestRongCloud_BlockRemove(t *testing.T) {
 
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.BlockRemove(
@@ -79,8 +79,8 @@ func TestRongCloud_BlockRemove(t *testing.T) {
 
 func TestRongCloud_BlacklistAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.BlacklistAdd(
@@ -93,8 +93,8 @@ func TestRongCloud_BlacklistAdd(t *testing.T) {
 
 func TestRongCloud_BlacklistGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	req, err := rc.BlacklistGet(
@@ -106,8 +106,8 @@ func TestRongCloud_BlacklistGetList(t *testing.T) {
 
 func TestRongCloud_BlacklistRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.BlacklistRemove(

@@ -14,8 +14,8 @@ func TestNewRongCloud(t *testing.T) {
 		TimeOut:         30,
 	}
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		&rcex,
 	)
 	fmt.Println(rc)
@@ -23,8 +23,8 @@ func TestNewRongCloud(t *testing.T) {
 
 func TestRongCloud_FillHeader(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	req := httplib.Post(rc.RongCloudURI)

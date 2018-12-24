@@ -1,14 +1,14 @@
 package sdk
 
 import (
-		"fmt"
+	"fmt"
 	"testing"
 )
 
 func TestRongCloud_ChatRoomCreate(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomCreate(
@@ -20,8 +20,8 @@ func TestRongCloud_ChatRoomCreate(t *testing.T) {
 
 func TestRongCloud_ChatRoomGet(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomGet(
@@ -36,8 +36,8 @@ func TestRongCloud_ChatRoomGet(t *testing.T) {
 
 func TestRongCloud_ChatRoomIsExist(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomIsExist(
@@ -50,8 +50,8 @@ func TestRongCloud_ChatRoomIsExist(t *testing.T) {
 
 func TestRongCloud_ChatRoomDestroy(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomDestroy(
@@ -62,8 +62,8 @@ func TestRongCloud_ChatRoomDestroy(t *testing.T) {
 
 func TestRongCloud_ChatRoomBanAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomBanAdd(
@@ -74,8 +74,8 @@ func TestRongCloud_ChatRoomBanAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomBanGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomBanGetList()
@@ -85,8 +85,8 @@ func TestRongCloud_ChatRoomBanGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomBanRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomBanRemove(
@@ -97,8 +97,8 @@ func TestRongCloud_ChatRoomBanRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomBlockAdd(
@@ -111,8 +111,8 @@ func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomBlockGetList(
@@ -124,8 +124,8 @@ func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomBlockRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomBlockRemove(
@@ -137,8 +137,8 @@ func TestRongCloud_ChatRoomBlockRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomDemotionAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	txtmsg := "RC:TxtMsg"
@@ -152,8 +152,8 @@ func TestRongCloud_ChatRoomDemotionAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomDemotionGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomDemotionGetList()
@@ -163,8 +163,8 @@ func TestRongCloud_ChatRoomDemotionGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomDemotionRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	txtmsg := "RC:TxtMsg"
@@ -178,8 +178,8 @@ func TestRongCloud_ChatRoomDemotionRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomDistributionStop(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomDistributionStop(
@@ -190,8 +190,8 @@ func TestRongCloud_ChatRoomDistributionStop(t *testing.T) {
 
 func TestRongCloud_ChatRoomDistributionResume(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomDistributionResume(
@@ -202,8 +202,8 @@ func TestRongCloud_ChatRoomDistributionResume(t *testing.T) {
 
 func TestRongCloud_ChatRoomGagAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomGagAdd(
@@ -216,8 +216,8 @@ func TestRongCloud_ChatRoomGagAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomGagGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomGagGetList(
@@ -229,8 +229,8 @@ func TestRongCloud_ChatRoomGagGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomGagRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomGagRemove(
@@ -242,8 +242,8 @@ func TestRongCloud_ChatRoomGagRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomKeepAliveAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomKeepAliveAdd(
@@ -254,8 +254,8 @@ func TestRongCloud_ChatRoomKeepAliveAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomKeepAliveGetList(
@@ -267,8 +267,8 @@ func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomKeepAliveRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomKeepAliveRemove(
@@ -279,10 +279,11 @@ func TestRongCloud_ChatRoomKeepAliveRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomUserWhitelistAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
+
 	err := rc.ChatRoomUserWhitelistAdd(
 		"chrm01",
 		[]string{"u01"},
@@ -292,8 +293,8 @@ func TestRongCloud_ChatRoomUserWhitelistAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomUserWhitelistGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomUserWhitelistGetList(
@@ -305,8 +306,8 @@ func TestRongCloud_ChatRoomUserWhitelistGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomUserWhitelistRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	err := rc.ChatRoomUserWhitelistRemove(
@@ -316,11 +317,10 @@ func TestRongCloud_ChatRoomUserWhitelistRemove(t *testing.T) {
 	fmt.Println(err)
 }
 
-
 func TestRongCloud_ChatRoomWhitelistAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	txtmsg := "RC:TxtMsg"
@@ -333,8 +333,8 @@ func TestRongCloud_ChatRoomWhitelistAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomWhitelistGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	rep, err := rc.ChatRoomWhitelistGetList()
@@ -342,16 +342,15 @@ func TestRongCloud_ChatRoomWhitelistGetList(t *testing.T) {
 	fmt.Println(rep)
 }
 
-
 func TestRongCloud_ChatRoomWhitelistRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"ik1qhw016nsfp",
-		"S7eyGBASFSU42",
+		"输入用户app key",
+		"输入用户app secret",
 		nil,
 	)
 	txtmsg := "RC:TxtMsg"
 	err := rc.ChatRoomWhitelistRemove(
-		[]string{txtmsg,},
+		[]string{txtmsg},
 	)
 	fmt.Println(err)
 }

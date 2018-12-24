@@ -3,9 +3,10 @@ package sdk
 import (
 	"encoding/json"
 	"errors"
-	"github.com/astaxie/beego/httplib"
 	"strconv"
 	"time"
+
+	"github.com/astaxie/beego/httplib"
 )
 
 // TemplateMsgContent 消息模版
@@ -41,10 +42,10 @@ type History struct {
 
 // PrivateSend 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
 /*
- *@param  senderId:发送人用户 Id。
- *@param  targetId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。
+ *@param  senderID:发送人用户 ID。
+ *@param  targetId:接收用户 ID。
  *@param  objectName:发送的消息类型。
- *@param  msg:消息。
+ *@param  msg:消息内容。
  *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
  *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
  *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
@@ -104,9 +105,9 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgC
 // PrivateRecall 撤回单聊消息方法
 /*
 *
-*@param  senderId:发送人用户 Id。
-*@param  targetId:接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。
-*@param  uId:消息的唯一标识，各端 SDK 发送消息成功后会返回 uId。
+*@param  senderID:发送人用户 ID。
+*@param  targetID:接收用户 ID，可以实现向多人发送消息，每次上限为 1000 人。
+*@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
 *@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
 *
@@ -147,7 +148,7 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, con
 
 // PrivateSendTemplate 向多个用户发送不同内容消息
 /*
- *@param  senderID:发送人用户 Id。
+ *@param  senderID:发送人用户 ID。
  *@param  objectName:发送的消息类型。
  *@param  template:消息模版。
  *@param  content:数据内容，包含消息内容和接收者。
@@ -359,7 +360,7 @@ func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg
 	return nil
 }
 
-// ChatroomSend 发送聊天室消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+// ChatRoomSend 发送聊天室消息方法。（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
 /*
 *@param  senderID:发送人用户 ID 。
 *@param  targetID:接收聊天室ID.
@@ -402,7 +403,7 @@ func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg Msg
 	return nil
 }
 
-// ChatroomBroadcast 向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
+// ChatRoomBroadcast 向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
 /*
 *@param  senderID:发送人用户 ID 。
 *@param  objectName:消息类型
@@ -410,7 +411,7 @@ func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg Msg
 *
 *@return error
  */
-func (rc *RongCloud) ChatroomBroadcast(senderID, objectName string, msg MsgContent) error {
+func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg MsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(20005, "Paramer 'senderID' is required")
 	}
@@ -595,6 +596,11 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template Ms
 }
 
 // HistoryGet 按小时获取历史消息日志文件 URL，包含小时内应用产生的所有消息，消息日志文件无论是否已下载，3 天后将从融云服务器删除
+/*
+*@param date:精确到小时，例如: 2018030210 表示获取 2018 年 3 月 2 日 10 点至 11 点产生的数据
+*
+*@return History error
+ */
 func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	req := httplib.Post(rc.RongCloudURI + "/message/history." + ReqType)
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
@@ -620,6 +626,11 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 }
 
 // HistoryRemove 删除历史消息日志文件
+/*
+*@param date:精确到小时，例如: 2018030210 表示获取 2018 年 3 月 2 日 10 点至 11 点产生的数据
+*
+*@return error
+ */
 func (rc *RongCloud) HistoryRemove(date string) error {
 	if date == "" {
 		return RCErrorNew(20005, "Paramer 'date' is required")
