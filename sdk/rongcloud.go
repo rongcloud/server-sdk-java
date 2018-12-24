@@ -17,7 +17,6 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/httplib"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 const (
@@ -32,8 +31,6 @@ const (
 	// DEFAULTTIMEOUT 默认超时时间
 	DEFAULTTIMEOUT = 30
 )
-
-var validate *validator.Validate
 
 // RongCloud ak sk
 type RongCloud struct {

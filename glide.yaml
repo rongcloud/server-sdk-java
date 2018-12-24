@@ -1,6 +1,0 @@
-package: github.com/rongcloud/server-sdk-go
-import:
-- package: github.com/astaxie/beego
-  version: ~1.11.1
-  subpackages:
-  - httplib
