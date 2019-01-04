@@ -59,11 +59,11 @@ type History struct {
 func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgContent,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
-		return RCErrorNew(20005, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if targetID == "" {
-		return RCErrorNew(20005, "Paramer 'targetID' is required")
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(RONGCLOUDURI + "/message/private/publish." + ReqType)
@@ -115,11 +115,11 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgC
  */
 func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
 	if senderID == "" {
-		return RCErrorNew(20005, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if targetID == "" {
-		return RCErrorNew(20005, "Paramer 'targetID' is required")
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/recall." + ReqType)
@@ -157,7 +157,7 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, con
  */
 func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
 	if senderID == "" {
-		return RCErrorNew(20005, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/private/publish_template." + ReqType)
@@ -169,7 +169,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template M
 
 	for _, v := range content {
 		if v.TargetID == "" {
-			return RCErrorNew(20005, "Paramer 'TargetID' is required")
+			return RCErrorNew(1002, "Paramer 'TargetID' is required")
 		}
 		toUserIDs = append(toUserIDs, v.TargetID)
 		values = append(values, v.Data)
@@ -272,11 +272,11 @@ func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg MsgCon
  */
 func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
 	if senderID == "" {
-		return RCErrorNew(20005, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if targetID == "" {
-		return RCErrorNew(20005, "Paramer 'targetID' is required")
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/recall." + ReqType)
@@ -413,7 +413,7 @@ func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg Msg
  */
 func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg MsgContent) error {
 	if senderID == "" {
-		return RCErrorNew(20005, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/broadcast." + ReqType)
@@ -458,11 +458,11 @@ func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg MsgCo
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
 	if senderID == "" {
-		return RCErrorNew(20005, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if targetID == "" {
-		return RCErrorNew(20005, "Paramer 'targetID' is required")
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(RONGCLOUDURI + "/message/system/publish." + ReqType)
@@ -546,7 +546,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg MsgContent
  */
 func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
 	if senderID == "" {
-		return errors.New("20005 Paramer 'senderID' is required")
+		return errors.New("1002 Paramer 'senderID' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/message/system/publish_template." + ReqType)
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
@@ -557,7 +557,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template Ms
 
 	for _, v := range content {
 		if v.TargetID == "" {
-			return errors.New("20005 Paramer 'TargetID' is required")
+			return errors.New("1002 Paramer 'TargetID' is required")
 		}
 		toUserIDs = append(toUserIDs, v.TargetID)
 		values = append(values, v.Data)
@@ -633,7 +633,7 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
  */
 func (rc *RongCloud) HistoryRemove(date string) error {
 	if date == "" {
-		return RCErrorNew(20005, "Paramer 'date' is required")
+		return RCErrorNew(1002, "Paramer 'date' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/message/history/delete." + ReqType)
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)

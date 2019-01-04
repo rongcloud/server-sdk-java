@@ -36,15 +36,15 @@ const (
 func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
 
 	if conversationType == 0 {
-		return RCErrorNew(20005, "Paramer 'userId' is required")
+		return RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 
 	if userID == "" {
-		return RCErrorNew(20005, "Paramer 'userID' is required")
+		return RCErrorNew(1002, "Paramer 'userID' is required")
 	}
 
 	if targetID == "" {
-		return RCErrorNew(20005, "Paramer 'targetID' is required")
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)
@@ -78,15 +78,15 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
  */
 func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
 	if conversationType == 0 {
-		return RCErrorNew(20005, "Paramer 'conversationType' is required")
+		return RCErrorNew(1002, "Paramer 'conversationType' is required")
 	}
 
 	if userID == "" {
-		return RCErrorNew(20005, "Paramer 'userID' is required")
+		return RCErrorNew(1002, "Paramer 'userID' is required")
 	}
 
 	if targetID == "" {
-		return RCErrorNew(20005, "Paramer 'targetID' is required")
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)

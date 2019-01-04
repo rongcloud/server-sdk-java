@@ -9,8 +9,8 @@ import (
 
 func TestNewRongCloud(t *testing.T) {
 	rcex := RongCloudExtra{
-		RongCloudURI:    "http://172",
-		RongCloudSMSURI: "123",
+		RongCloudURI:    "http://192.168.1.1",
+		RongCloudSMSURI: "http://192.168.1.2",
 		TimeOut:         30,
 	}
 	rc := NewRongCloud(

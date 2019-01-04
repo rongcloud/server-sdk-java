@@ -29,10 +29,10 @@ type SensitiveWord struct {
  */
 func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) error {
 	if keyword == "" {
-		return errors.New("20005 Paramer 'keyword' is required")
+		return errors.New("1002 Paramer 'keyword' is required")
 	}
 	if replace == "" {
-		return errors.New("20005 Paramer 'replace' is required")
+		return errors.New("1002 Paramer 'replace' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/add." + ReqType)
 	rc.FillHeader(req)
@@ -43,7 +43,7 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 	case 1:
 
 	default:
-		return errors.New("20005 Paramer 'replace' is required")
+		return errors.New("1002 Paramer 'replace' is required")
 	}
 	byteData, err := req.Bytes()
 	if err != nil {
@@ -96,7 +96,7 @@ func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
  */
 func (rc *RongCloud) SensitiveRemove(keywords []string) error {
 	if len(keywords) == 0 {
-		return errors.New("20005 Paramer 'keywords' is required")
+		return errors.New("1002 Paramer 'keywords' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/batch/delete." + ReqType)

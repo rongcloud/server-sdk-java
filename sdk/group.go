@@ -31,15 +31,15 @@ type GroupUser struct {
  */
 func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	if len(members) == 0 {
-		return RCErrorNew(20005, "Paramer 'userId' is required")
+		return RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'groupId' is required")
+		return RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 
 	if name == "" {
-		return RCErrorNew(20005, "Paramer 'groupName' is required")
+		return RCErrorNew(1002, "Paramer 'groupName' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/create." + ReqType)
@@ -72,11 +72,11 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
  */
 func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'userId' is required")
+		return RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 
 	if len(groups) == 0 {
-		return RCErrorNew(20005, "Paramer 'groups' is required")
+		return RCErrorNew(1002, "Paramer 'groups' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/sync." + ReqType)
@@ -108,11 +108,11 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
  */
 func (rc *RongCloud) GroupUpdate(id, name string) error {
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'groupId' is required")
+		return RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 
 	if name == "" {
-		return RCErrorNew(20005, "Paramer 'groupName' is required")
+		return RCErrorNew(1002, "Paramer 'groupName' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/refresh." + ReqType)
@@ -143,15 +143,15 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
  */
 func (rc *RongCloud) GroupJoin(id, name, member string) error {
 	if member == "" {
-		return RCErrorNew(20005, "Paramer 'userId' is required")
+		return RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'groupId' is required")
+		return RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 
 	if name == "" {
-		return RCErrorNew(20005, "Paramer 'groupName' is required")
+		return RCErrorNew(1002, "Paramer 'groupName' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/join." + ReqType)
@@ -182,7 +182,7 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
  */
 func (rc *RongCloud) GroupGet(id string) (Group, error) {
 	if id == "" {
-		return Group{}, RCErrorNew(20005, "Paramer 'ID' is required")
+		return Group{}, RCErrorNew(1002, "Paramer 'ID' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/group/user/query." + ReqType)
 	rc.FillHeader(req)
@@ -215,11 +215,11 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
  */
 func (rc *RongCloud) GroupQuit(member, id string) error {
 	if member == "" {
-		return RCErrorNew(20005, "Paramer 'member' is required")
+		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
 
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'ID' is required")
+		return RCErrorNew(1002, "Paramer 'ID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/quit." + ReqType)
@@ -250,11 +250,11 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
  */
 func (rc *RongCloud) GroupDismiss(id, member string) error {
 	if member == "" {
-		return RCErrorNew(20005, "Paramer 'member' is required")
+		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
 
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'ID' is required")
+		return RCErrorNew(1002, "Paramer 'ID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/dismiss." + ReqType)
@@ -286,15 +286,15 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
  */
 func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error {
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'ID' is required")
+		return RCErrorNew(1002, "Paramer 'ID' is required")
 	}
 
 	if len(members) == 0 {
-		return RCErrorNew(20005, "Paramer 'members' is required")
+		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
 
 	if minute == 0 {
-		return RCErrorNew(20005, "Paramer 'minute' is required")
+		return RCErrorNew(1002, "Paramer 'minute' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/add." + ReqType)
@@ -326,7 +326,7 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
  */
 func (rc *RongCloud) GroupGagList(id string) (Group, error) {
 	if id == "" {
-		return Group{}, RCErrorNew(20005, "Paramer 'groupId' is required")
+		return Group{}, RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/list." + ReqType)
@@ -359,11 +359,11 @@ func (rc *RongCloud) GroupGagList(id string) (Group, error) {
  */
 func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 	if len(members) == 0 {
-		return RCErrorNew(20005, "Paramer 'members' is required")
+		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
 
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'groupId' is required")
+		return RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/rollback.json")

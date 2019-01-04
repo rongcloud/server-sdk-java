@@ -50,10 +50,10 @@ type ChatRoomUser struct {
  */
 func (rc *RongCloud) ChatRoomCreate(id, name string) error {
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'id' is required")
+		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 	if name == "" {
-		return RCErrorNew(20005, "Paramer 'name' is required")
+		return RCErrorNew(1002, "Paramer 'name' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/create." + ReqType)
@@ -84,7 +84,7 @@ func (rc *RongCloud) ChatRoomCreate(id, name string) error {
  */
 func (rc *RongCloud) ChatRoomDestroy(id string) error {
 	if id == "" {
-		return RCErrorNew(20005, "Paramer 'id' is required")
+		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/chatroom/destroy." + ReqType)
