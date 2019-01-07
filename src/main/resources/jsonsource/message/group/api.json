@@ -57,7 +57,7 @@
 		"docs": "http://rongcloud.cn/docs/server.html#message_recall",
 		"url": "message/recall",
 		"params": {
-			"message": {
+			"recallMessage": {
 				"senderId": "fDR2cVpxxR5zSMUNh3yAwh",
 				"targetId": "MersNRhaKwJkRV9mJR5JXY",
 				"uId": "5FGT-7VA9-G4DD-4V5P",
