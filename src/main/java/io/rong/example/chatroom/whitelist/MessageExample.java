@@ -32,14 +32,14 @@ public class MessageExample {
 
         /**
          * API: 文档http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#add
-         * 添加聊天室全局禁言
+         * 添加聊天室消息白名单
          * */
 
         ResponseResult addResult = whitelist.message.add(messageType);
         System.out.println("add whitelist:  " + addResult.toString());
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#getList
-         * 添加聊天室全局禁言
+         * 获取聊天室消息白名单
          * */
 
         ChatroomWhitelistMsgResult getResult = whitelist.message.getList();
@@ -47,7 +47,7 @@ public class MessageExample {
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#remove
-         * 添加聊天室全局禁言
+         * 删除聊天室消息白名单
          * */
 
         ResponseResult removeResult = whitelist.message.remove(messageType);

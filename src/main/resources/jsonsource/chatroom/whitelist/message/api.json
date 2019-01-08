@@ -3,11 +3,8 @@
 		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_whitelist_add",
 		"url": "chatroom/user/whitelist/add",
 		"params": {
-			"chatroom": {
-				"id": "chatroomId01",
-				"members": [{
-					"id": "memberId01"
-				}]
+			"message": {
+				"type": ["RC:TxtMsg", "RC:ImgMsg"]
 			}
 		},
 		"response": {
@@ -43,11 +40,8 @@
 		"docs": "http://rongcloud.cn/docs/server.html#chatroom_message_priority_remove",
 		"url": "chatroom/message/priority/remove",
 		"params": {
-			"chatroom": {
-				"id": "chatroomId01",
-				"members": [{
-					"id": "memberId01"
-				}]
+			"message": {
+				"type": ["RC:TxtMsg", "RC:ImgMsg"]
 			}
 		},
 		"response": {
@@ -82,11 +76,7 @@
 	"getList": {
 		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_whitelist_query",
 		"url": "chatroom/user/whitelist/query",
-		"params": {
-			"chatroom": {
-				"id": "chatroomId01"
-			}
-		},
+		"params": {},
 		"response": {
 			"success": {
 				"code": "200",
