@@ -1,4 +1,4 @@
 # github.com/astaxie/beego v1.11.1
 github.com/astaxie/beego/httplib
-# gopkg.in/yaml.v2 v2.2.2
+# gopkg.in/yaml.v2 v2.2.1
 gopkg.in/yaml.v2
