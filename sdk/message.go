@@ -445,7 +445,7 @@ func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg RCMsg,
 	req.Param("fromUserId", senderID)
 	req.Param("toGroupId", targetID)
 	req.Param("objectName", objectName)
-	msgstr, err := msg.ToString()
+	msgstr, err := msg.toString()
 	if err != nil {
 		return err
 	}
