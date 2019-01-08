@@ -134,7 +134,7 @@ type History struct {
 	URL string `json:"url"`
 }
 
-// ToString MsgContent
+// toString MsgContent
 func (msg *MsgContent) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -143,7 +143,7 @@ func (msg *MsgContent) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString TXTMsg
+// toString TXTMsg
 func (msg *TXTMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -152,7 +152,7 @@ func (msg *TXTMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString InfoNtf
+// toString InfoNtf
 func (msg *InfoNtf) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -161,7 +161,7 @@ func (msg *InfoNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString VCMsg
+// toString VCMsg
 func (msg *VCMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -170,7 +170,7 @@ func (msg *VCMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString IMGTextMsg
+// toString IMGTextMsg
 func (msg *IMGTextMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -179,7 +179,7 @@ func (msg *IMGTextMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString FileMsg
+// toString FileMsg
 func (msg *FileMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -188,7 +188,7 @@ func (msg *FileMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString LBSMsg
+// toString LBSMsg
 func (msg *LBSMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -197,7 +197,7 @@ func (msg *LBSMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString ProfileNtf
+// toString ProfileNtf
 func (msg *ProfileNtf) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -206,7 +206,7 @@ func (msg *ProfileNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString CMDNtf
+// toString CMDNtf
 func (msg *CMDNtf) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -215,7 +215,7 @@ func (msg *CMDNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString CMDMsg
+// toString CMDMsg
 func (msg *CMDMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -224,7 +224,7 @@ func (msg *CMDMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString ContactNtf
+// toString ContactNtf
 func (msg *ContactNtf) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -233,7 +233,7 @@ func (msg *ContactNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString GrpNtf
+// toString GrpNtf
 func (msg *GrpNtf) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -242,7 +242,7 @@ func (msg *GrpNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// ToString DizNtf
+// toString DizNtf
 func (msg *DizNtf) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
