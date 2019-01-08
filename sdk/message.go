@@ -9,6 +9,100 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
+// RCMsg RCMsg接口
+type RCMsg interface {
+	toString() (string, error)
+}
+
+// TXTMsg 消息
+type TXTMsg struct {
+	Content string `json:"content"`
+	Extra   string `json:"extra"`
+}
+
+// InfoNtf 消息
+type InfoNtf struct {
+	Message string `json:"message"`
+	Extra   string `json:"extra"`
+}
+
+// VCMsg 消息
+type VCMsg struct {
+	Content  string `json:"content"`
+	Extra    string `json:"extra"`
+	Duration string `json:"duration"`
+}
+
+// IMGTextMsg 消息
+type IMGTextMsg struct {
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Extra    string `json:"extra"`
+	Duration string `json:"duration"`
+	URL      string `json:"url"`
+}
+
+// FileMsg 消息
+type FileMsg struct {
+	Name    string `json:"name"`
+	Size    string `json:"size"`
+	Type    string `json:"type"`
+	FileURL string `json:"fileUrl"`
+}
+
+// LBSMsg 消息
+type LBSMsg struct {
+	Content   string  `json:"content"`
+	Extra     string  `json:"extra"`
+	POI       string  `json:"poi"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+}
+
+// ProfileNtf 消息
+type ProfileNtf struct {
+	Operation string `json:"operation"`
+	Data      string `json:"data"`
+	Extra     string `json:"extra"`
+}
+
+// CMDNtf 消息
+type CMDNtf struct {
+	Name string `json:"operation"`
+	Data string `json:"data"`
+}
+
+// CMDMsg 消息
+type CMDMsg struct {
+	Name string `json:"operation"`
+	Data string `json:"data"`
+}
+
+// ContactNtf 消息
+type ContactNtf struct {
+	Operation    string `json:"operation"`
+	SourceUserID string `json:"sourceUserId"`
+	TargetUserID string `json:"targetUserId"`
+	Message      string `json:"message"`
+	Extra        string `json:"extra"`
+}
+
+// GrpNtf 消息
+type GrpNtf struct {
+	OperatorUserID string `json:"operatorUserId"`
+	Operation      string `json:"operation"`
+	Data           string `json:"data"`
+	Message        string `json:"message"`
+	Extra          string `json:"extra"`
+}
+
+// DizNtf 消息
+type DizNtf struct {
+	Type      int    `json:"type"`
+	Extension string `json:"extension"`
+	Operation string `json:"operation"`
+}
+
 // TemplateMsgContent 消息模版
 type TemplateMsgContent struct {
 	TargetID    string
@@ -40,10 +134,127 @@ type History struct {
 	URL string `json:"url"`
 }
 
+// toString MsgContent
+func (msg *MsgContent) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString TXTMsg
+func (msg *TXTMsg) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString InfoNtf
+func (msg *InfoNtf) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString VCMsg
+func (msg *VCMsg) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString IMGTextMsg
+func (msg *IMGTextMsg) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString FileMsg
+func (msg *FileMsg) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString LBSMsg
+func (msg *LBSMsg) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString ProfileNtf
+func (msg *ProfileNtf) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString CMDNtf
+func (msg *CMDNtf) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString CMDMsg
+func (msg *CMDMsg) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString ContactNtf
+func (msg *ContactNtf) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString GrpNtf
+func (msg *GrpNtf) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// toString DizNtf
+func (msg *DizNtf) toString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
 // PrivateSend 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
 /*
  *@param  senderID:发送人用户 ID。
- *@param  targetId:接收用户 ID。
+ *@param  targetID:接收用户 ID。
  *@param  objectName:发送的消息类型。
  *@param  msg:消息内容。
  *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
@@ -56,7 +267,7 @@ type History struct {
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgContent,
+func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg RCMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -73,12 +284,11 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg MsgC
 	req.Param("toUserId", targetID)
 	req.Param("objectName", objectName)
 
-	bytes, err := json.Marshal(msg)
+	msgstr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-
-	req.Param("content", string(bytes))
+	req.Param("content", msgstr)
 	req.Param("pushData", pushData)
 	req.Param("pushContent", pushContent)
 	req.Param("count", strconv.Itoa(count))
@@ -220,7 +430,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template M
  *
  *@return error
  */
-func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg MsgContent,
+func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg RCMsg,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(20013, "Paramer 'senderID' is required")
@@ -235,11 +445,11 @@ func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg MsgCon
 	req.Param("fromUserId", senderID)
 	req.Param("toGroupId", targetID)
 	req.Param("objectName", objectName)
-	bytes, err := json.Marshal(msg)
+	msgstr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", string(bytes))
+	req.Param("content", msgstr)
 	req.Param("pushContent", pushContent)
 	req.Param("pushData", pushData)
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
@@ -369,7 +579,7 @@ func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg MsgContent) error {
+func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(20013, "Paramer 'senderID' is required")
 	}
@@ -383,11 +593,11 @@ func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg Msg
 	req.Param("fromUserId", senderID)
 	req.Param("toChatroomId", targetID)
 	req.Param("objectName", objectName)
-	bytes, err := json.Marshal(msg)
+	msgstr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", string(bytes))
+	req.Param("content", msgstr)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -411,7 +621,7 @@ func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg Msg
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg MsgContent) error {
+func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -420,11 +630,11 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg MsgConte
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	bytes, err := json.Marshal(msg)
+	msgstr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", string(bytes))
+	req.Param("content", msgstr)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -454,7 +664,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg MsgConte
 *
 *@return error
  */
-func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg MsgContent,
+func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg RCMsg,
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
 	if senderID == "" {
@@ -471,13 +681,12 @@ func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg MsgCo
 	req.Param("fromUserId", senderID)
 	req.Param("toUserId", targetID)
 	req.Param("objectName", objectName)
-
-	bytes, err := json.Marshal(msg)
+	msgstr, err := msg.toString()
 	if err != nil {
 		return err
 	}
 
-	req.Param("content", string(bytes))
+	req.Param("content", msgstr)
 	req.Param("pushData", pushData)
 	req.Param("pushContent", pushContent)
 	req.Param("count", strconv.Itoa(count))
@@ -506,7 +715,7 @@ func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg MsgCo
 *
 *@return error
  */
-func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg MsgContent) error {
+func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(20013, "Paramer 'senderID' is required")
 	}
@@ -515,11 +724,11 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg MsgContent
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	bytes, err := json.Marshal(msg)
+	msgstr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", string(bytes))
+	req.Param("content", msgstr)
 
 	rep, err := req.Bytes()
 	if err != nil {
