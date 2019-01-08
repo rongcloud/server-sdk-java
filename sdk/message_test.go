@@ -7,22 +7,22 @@ import (
 
 func TestMessage_PrivateSend(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
 
-	err := private.PrivateSend(
+	err := rc.PrivateSend(
 		"7Szq13MKRVortoknTAk7W8",
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"RC:TxtMsg",
-		msg,
+		&msg,
 		"",
 		"",
 		1,
@@ -37,13 +37,13 @@ func TestMessage_PrivateSend(t *testing.T) {
 
 func TestMessage_PrivateRecall(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	err := private.PrivateRecall(
+	err := rc.PrivateRecall(
 		"7Szq13MKRVortoknTAk7W8",
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"B7CE-U880-31M6-D3EE",
@@ -56,7 +56,7 @@ func TestMessage_PrivateRecall(t *testing.T) {
 
 func TestMessage_PrivateSendTemplate(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
@@ -88,7 +88,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	var tpl []TemplateMsgContent
 	tpl = append(tpl, tpl1)
 	tpl = append(tpl, tpl2)
-	err := private.PrivateSendTemplate(
+	err := rc.PrivateSendTemplate(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		msg,
@@ -99,7 +99,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 
 func TestRongCloud_GroupSend(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
@@ -110,11 +110,11 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := private.GroupSend(
+	err := rc.GroupSend(
 		"7Szq13MKRVortoknTAk7W8",
 		"CFtiYbXNQNYtSr7rzUfHco",
 		"RC:TxtMsg",
-		msg,
+		&msg,
 		"",
 		"",
 		1,
@@ -190,7 +190,7 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 		"7Szq13MKRVortoknTAk7W8",
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"RC:TxtMsg",
-		msg,
+		&msg,
 	)
 
 	fmt.Println(err)
@@ -199,7 +199,7 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 
 func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
@@ -210,10 +210,10 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := private.ChatRoomBroadcast(
+	err := rc.ChatRoomBroadcast(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
-		msg,
+		&msg,
 	)
 	fmt.Println(err)
 }
@@ -235,7 +235,7 @@ func TestRongCloud_SystemSend(t *testing.T) {
 		"7Szq13MKRVortoknTAk7W8",
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"RC:TxtMsg",
-		msg,
+		&msg,
 		"",
 		"",
 		0,
@@ -262,7 +262,7 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 	err := private.SystemBroadcast(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
-		msg,
+		&msg,
 	)
 
 	fmt.Println(err)
