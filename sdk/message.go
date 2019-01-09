@@ -20,6 +20,13 @@ type TXTMsg struct {
 	Extra   string `json:"extra"`
 }
 
+// ImgMsg 消息
+type ImgMsg struct{
+	Content string `json:"content"`
+	ImageURI string `json:"imageURI"`
+	Extra   string `json:"extra"`
+}
+
 // InfoNtf 消息
 type InfoNtf struct {
 	Message string `json:"message"`
@@ -110,12 +117,6 @@ type TemplateMsgContent struct {
 	PushContent string
 }
 
-// MsgContent 消息
-type MsgContent struct {
-	Content string `json:"content"`
-	Extra   string `json:"extra"`
-}
-
 // MentionedInfo Mentioned
 type MentionedInfo struct {
 	Type        int      `json:"type"`
@@ -134,8 +135,8 @@ type History struct {
 	URL string `json:"url"`
 }
 
-// toString MsgContent
-func (msg *MsgContent) toString() (string, error) {
+// toString TXTMsg
+func (msg *TXTMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -143,8 +144,8 @@ func (msg *MsgContent) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString TXTMsg
-func (msg *TXTMsg) toString() (string, error) {
+// toString ImgMsg
+func (msg *ImgMsg) toString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -365,7 +366,7 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, con
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
+func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -753,7 +754,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 *
 *@return error
  */
-func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template MsgContent, content []TemplateMsgContent) error {
+func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return errors.New("1002 Paramer 'senderID' is required")
 	}

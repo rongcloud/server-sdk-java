@@ -80,7 +80,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 		PushContent: "{name} 你的成绩出来了",
 	}
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "{name}, 语文成绩 {score} 分",
 		Extra:   "helloExtra",
 	}
@@ -105,7 +105,7 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		nil,
 	)
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
@@ -127,13 +127,13 @@ func TestRongCloud_GroupSend(t *testing.T) {
 
 func TestRongCloud_PrivateRecall(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	err := private.GroupRecall(
+	err := rc.GroupRecall(
 		"7Szq13MKRVortoknTAk7W8",
 		"CFtiYbXNQNYtSr7rzUfHco",
 		"B7CE-U880-31M6-D3EE",
@@ -146,7 +146,7 @@ func TestRongCloud_PrivateRecall(t *testing.T) {
 
 func TestRongCloud_GroupSendMention(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
@@ -156,7 +156,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 		Content:       "@user_2 hello",
 		MentionedInfo: MentionedInfo{Type: 2, UserIDs: []string{"4kIvGJmETlYqDoVFgWdYdM"}, PushContent: "有人@你"},
 	}
-	err := private.GroupSendMention(
+	err := rc.GroupSendMention(
 		"7Szq13MKRVortoknTAk7W8",
 		"cYgiKZzRSUsrfrx6C3u_GI",
 		"RC:TxtMsg",
@@ -175,18 +175,18 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 
 func TestRongCloud_ChatRoomSend(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
 
-	err := private.ChatRoomSend(
+	err := rc.ChatRoomSend(
 		"7Szq13MKRVortoknTAk7W8",
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"RC:TxtMsg",
@@ -205,7 +205,7 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 		nil,
 	)
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
@@ -220,18 +220,18 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 
 func TestRongCloud_SystemSend(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
 
-	err := private.SystemSend(
+	err := rc.SystemSend(
 		"7Szq13MKRVortoknTAk7W8",
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"RC:TxtMsg",
@@ -248,18 +248,18 @@ func TestRongCloud_SystemSend(t *testing.T) {
 
 func TestRongCloud_SystemBroadcast(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
 
-	err := private.SystemBroadcast(
+	err := rc.SystemBroadcast(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		&msg,
@@ -270,7 +270,7 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 
 func TestRongCloud_SystemSendTemplate(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
@@ -294,7 +294,7 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 		PushContent: "{name} 你的成绩出来了",
 	}
 
-	msg := MsgContent{
+	msg := TXTMsg{
 		Content: "{name}, 语文成绩 {score} 分",
 		Extra:   "helloExtra",
 	}
@@ -302,7 +302,7 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	var tpl []TemplateMsgContent
 	tpl = append(tpl, tpl1)
 	tpl = append(tpl, tpl2)
-	err := private.SystemSendTemplate(
+	err := rc.SystemSendTemplate(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		msg,
@@ -313,13 +313,13 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 
 func TestRongCloud_HistoryGet(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	history, err := private.HistoryGet(
+	history, err := rc.HistoryGet(
 		"2018030210",
 	)
 	fmt.Println(history)
@@ -328,13 +328,13 @@ func TestRongCloud_HistoryGet(t *testing.T) {
 
 func TestRongCloud_HistoryRemove(t *testing.T) {
 
-	private := NewRongCloud(
+	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
 		nil,
 	)
 
-	err := private.HistoryRemove(
+	err := rc.HistoryRemove(
 		"2018030210",
 	)
 
