@@ -438,7 +438,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName st
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	if len(targetID) == 0 && len(targetID) > 3 {
+	if len(targetID) == 0 {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
