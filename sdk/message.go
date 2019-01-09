@@ -21,10 +21,10 @@ type TXTMsg struct {
 }
 
 // ImgMsg 消息
-type ImgMsg struct{
-	Content string `json:"content"`
+type ImgMsg struct {
+	Content  string `json:"content"`
 	ImageURI string `json:"imageURI"`
-	Extra   string `json:"extra"`
+	Extra    string `json:"extra"`
 }
 
 // InfoNtf 消息
@@ -112,7 +112,7 @@ type DizNtf struct {
 
 // TemplateMsgContent 消息模版
 type TemplateMsgContent struct {
-	TargetID    string
+	TargetID    []string
 	Data        map[string]string
 	PushContent string
 }
@@ -252,10 +252,10 @@ func (msg *DizNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// PrivateSend 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
+// PrivateSend 发送单聊消息方法（一个用户向多个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
 /*
  *@param  senderID:发送人用户 ID。
- *@param  targetID:接收用户 ID。
+ *@param  targetID:接收用户 ID。可以实现向多人发送消息，每次上限为 1000 人。
  *@param  objectName:发送的消息类型。
  *@param  msg:消息内容。
  *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
@@ -268,13 +268,13 @@ func (msg *DizNtf) toString() (string, error) {
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg RCMsg,
+func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	if targetID == "" {
+	if len(targetID) == 0 {
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
@@ -282,7 +282,9 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg RCMs
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
-	req.Param("toUserId", targetID)
+	for _, v := range targetID {
+		req.Param("toUserId", v)
+	}
 	req.Param("objectName", objectName)
 
 	msgstr, err := msg.toString()
@@ -317,7 +319,7 @@ func (rc *RongCloud) PrivateSend(senderID, targetID, objectName string, msg RCMs
 /*
 *
 *@param  senderID:发送人用户 ID。
-*@param  targetID:接收用户 ID，可以实现向多人发送消息，每次上限为 1000 人。
+*@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
 *@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
@@ -431,20 +433,22 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *
  *@return error
  */
-func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg RCMsg,
+func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
-		return RCErrorNew(20013, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	if targetID == "" {
-		return RCErrorNew(20013, "Paramer 'senderID' is required")
+	if len(targetID) == 0 && len(targetID) > 3 {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
-	req.Param("toGroupId", targetID)
+	for _, v := range targetID {
+		req.Param("toGroupId", v)
+	}
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
 	if err != nil {
@@ -474,7 +478,7 @@ func (rc *RongCloud) GroupSend(senderID, targetID, objectName string, msg RCMsg,
 // GroupRecall 撤回群聊消息
 /*
 *@param  senderID:发送人用户 ID。
-*@param  targetID:接收用户 ID，可以实现向多人发送消息，每次上限为 1000 人。
+*@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
 *@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
@@ -517,7 +521,7 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conve
 // GroupSendMention 发送群组 @ 消息
 /*
 *@param  senderID:发送人用户 ID 。
-*@param  targetID:接收群ID。
+*@param  targetID:接收群ID,最多不超过 3 个群组。
 *@param  objectName:消息类型。
 *@param  msg:发送消息内容。
 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
@@ -530,20 +534,22 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conve
 *
 *@return error
  */
-func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg MentionMsgContent,
+func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
 	pushContent, pushData string, isPersisted int, isCounted int, isIncludeSender, isMentioned, contentAvailable int) error {
 	if senderID == "" {
-		return RCErrorNew(20013, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	if targetID == "" {
-		return RCErrorNew(20013, "Paramer 'senderID' is required")
+	if len(targetID) == 0 && len(targetID) > 3 {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
-	req.Param("toGroupId", targetID)
+	for _, v := range targetID {
+		req.Param("toGroupId", v)
+	}
 	req.Param("objectName", objectName)
 	bytes, err := json.Marshal(msg)
 	if err != nil {
@@ -574,25 +580,27 @@ func (rc *RongCloud) GroupSendMention(senderID, targetID, objectName string, msg
 // ChatRoomSend 发送聊天室消息方法。（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
 /*
 *@param  senderID:发送人用户 ID 。
-*@param  targetID:接收聊天室ID.
+*@param  targetID:接收聊天室ID, 建议最多不超过 10 个聊天室。
 *@param  objectName:消息类型
 *@param  msg:发送消息内容
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomSend(senderID, targetID, objectName string, msg RCMsg) error {
+func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg RCMsg) error {
 	if senderID == "" {
-		return RCErrorNew(20013, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	if targetID == "" {
-		return RCErrorNew(20013, "Paramer 'senderID' is required")
+	if len(targetID) == 0 {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/publish." + ReqType)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
-	req.Param("toChatroomId", targetID)
+	for _, v := range targetID {
+		req.Param("toChatroomId", v)
+	}
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
 	if err != nil {
@@ -654,7 +662,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 // SystemSend 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
 /*
 *@param  senderID:发送人用户 ID。
-*@param  targetID:接收用户 ID。
+*@param  targetID:接收用户 ID, 上限为 100 人。
 *@param  objectName:发送的消息类型。
 *@param  msg:消息。
 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
@@ -665,14 +673,14 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 *
 *@return error
  */
-func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg RCMsg,
+func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	if targetID == "" {
+	if len(targetID) == 0 {
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
@@ -680,7 +688,9 @@ func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg RCMsg
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
-	req.Param("toUserId", targetID)
+	for _, v := range targetID {
+		req.Param("toUserId", v)
+	}
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
 	if err != nil {
@@ -718,7 +728,7 @@ func (rc *RongCloud) SystemSend(senderID, targetID, objectName string, msg RCMsg
  */
 func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
 	if senderID == "" {
-		return RCErrorNew(20013, "Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/broadcast." + ReqType)
@@ -766,10 +776,12 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	var values []map[string]string
 
 	for _, v := range content {
-		if v.TargetID == "" {
+		if len(v.TargetID) == 0 {
 			return errors.New("1002 Paramer 'TargetID' is required")
 		}
-		toUserIDs = append(toUserIDs, v.TargetID)
+		for _, id := range v.TargetID {
+			toUserIDs = append(toUserIDs, id)
+		}
 		values = append(values, v.Data)
 		push = append(push, v.PushContent)
 	}

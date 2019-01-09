@@ -20,7 +20,7 @@ func TestMessage_PrivateSend(t *testing.T) {
 
 	err := rc.PrivateSend(
 		"7Szq13MKRVortoknTAk7W8",
-		"4kIvGJmETlYqDoVFgWdYdM",
+		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
 		&msg,
 		"",
@@ -63,7 +63,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	)
 
 	tpl1 := TemplateMsgContent{
-		TargetID: "4kIvGJmETlYqDoVFgWdYdM",
+		TargetID: []string{"4kIvGJmETlYqDoVFgWdYdM"},
 		Data: map[string]string{
 			"{name}":  "小明",
 			"{score}": "90",
@@ -72,7 +72,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	}
 
 	tpl2 := TemplateMsgContent{
-		TargetID: "GvYBoFJQTggripS_qoiVaA",
+		TargetID: []string{"GvYBoFJQTggripS_qoiVaA"},
 		Data: map[string]string{
 			"{name}":  "小红",
 			"{score}": "95",
@@ -112,7 +112,7 @@ func TestRongCloud_GroupSend(t *testing.T) {
 
 	err := rc.GroupSend(
 		"7Szq13MKRVortoknTAk7W8",
-		"CFtiYbXNQNYtSr7rzUfHco",
+		[]string{"CFtiYbXNQNYtSr7rzUfHco"},
 		"RC:TxtMsg",
 		&msg,
 		"",
@@ -158,7 +158,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 	}
 	err := rc.GroupSendMention(
 		"7Szq13MKRVortoknTAk7W8",
-		"cYgiKZzRSUsrfrx6C3u_GI",
+		[]string{"cYgiKZzRSUsrfrx6C3u_GI"},
 		"RC:TxtMsg",
 		msg,
 		"",
@@ -188,7 +188,7 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 
 	err := rc.ChatRoomSend(
 		"7Szq13MKRVortoknTAk7W8",
-		"4kIvGJmETlYqDoVFgWdYdM",
+		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
 		&msg,
 	)
@@ -233,7 +233,7 @@ func TestRongCloud_SystemSend(t *testing.T) {
 
 	err := rc.SystemSend(
 		"7Szq13MKRVortoknTAk7W8",
-		"4kIvGJmETlYqDoVFgWdYdM",
+		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
 		&msg,
 		"",
@@ -277,7 +277,7 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	)
 
 	tpl1 := TemplateMsgContent{
-		TargetID: "4kIvGJmETlYqDoVFgWdYdM",
+		TargetID: []string{"4kIvGJmETlYqDoVFgWdYdM"},
 		Data: map[string]string{
 			"{name}":  "小明",
 			"{score}": "90",
@@ -286,7 +286,7 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	}
 
 	tpl2 := TemplateMsgContent{
-		TargetID: "GvYBoFJQTggripS_qoiVaA",
+		TargetID: []string{"GvYBoFJQTggripS_qoiVaA"},
 		Data: map[string]string{
 			"{name}":  "小红",
 			"{score}": "95",
