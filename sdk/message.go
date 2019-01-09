@@ -2,7 +2,6 @@ package sdk
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 	"time"
 
@@ -112,7 +111,7 @@ type DizNtf struct {
 
 // TemplateMsgContent 消息模版
 type TemplateMsgContent struct {
-	TargetID    []string
+	TargetID    string
 	Data        map[string]string
 	PushContent string
 }
@@ -766,7 +765,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
  */
 func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
 	if senderID == "" {
-		return errors.New("1002 Paramer 'senderID' is required")
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/message/system/publish_template." + ReqType)
 	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
@@ -776,12 +775,10 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	var values []map[string]string
 
 	for _, v := range content {
-		if len(v.TargetID) == 0 {
-			return errors.New("1002 Paramer 'TargetID' is required")
+		if v.TargetID == "" {
+			return RCErrorNew(1002, "Paramer 'TargetID' is required")
 		}
-		for _, id := range v.TargetID {
-			toUserIDs = append(toUserIDs, id)
-		}
+		toUserIDs = append(toUserIDs, v.TargetID)
 		values = append(values, v.Data)
 		push = append(push, v.PushContent)
 	}

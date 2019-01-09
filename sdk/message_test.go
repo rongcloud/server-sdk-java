@@ -63,7 +63,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	)
 
 	tpl1 := TemplateMsgContent{
-		TargetID: []string{"4kIvGJmETlYqDoVFgWdYdM"},
+		TargetID: "4kIvGJmETlYqDoVFgWdYdM",
 		Data: map[string]string{
 			"{name}":  "小明",
 			"{score}": "90",
@@ -72,7 +72,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	}
 
 	tpl2 := TemplateMsgContent{
-		TargetID: []string{"GvYBoFJQTggripS_qoiVaA"},
+		TargetID: "GvYBoFJQTggripS_qoiVaA",
 		Data: map[string]string{
 			"{name}":  "小红",
 			"{score}": "95",
@@ -277,7 +277,7 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	)
 
 	tpl1 := TemplateMsgContent{
-		TargetID: []string{"4kIvGJmETlYqDoVFgWdYdM"},
+		TargetID: "4kIvGJmETlYqDoVFgWdYdM",
 		Data: map[string]string{
 			"{name}":  "小明",
 			"{score}": "90",
@@ -286,7 +286,7 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	}
 
 	tpl2 := TemplateMsgContent{
-		TargetID: []string{"GvYBoFJQTggripS_qoiVaA"},
+		TargetID: "GvYBoFJQTggripS_qoiVaA",
 		Data: map[string]string{
 			"{name}":  "小红",
 			"{score}": "95",
