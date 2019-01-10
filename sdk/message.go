@@ -321,11 +321,10 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 *@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-*@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
 *
 *@return error
  */
-func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
+func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -341,7 +340,7 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, con
 	req.Param("targetId", targetID)
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
-	req.Param("conversationType", strconv.Itoa(conversationType))
+	req.Param("conversationType", strconv.Itoa(1))
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -480,11 +479,10 @@ func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName st
 *@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-*@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
 *
 *@return error
  */
-func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
+func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -500,7 +498,7 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conve
 	req.Param("targetId", targetID)
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
-	req.Param("conversationType", strconv.Itoa(conversationType))
+	req.Param("conversationType", strconv.Itoa(3))
 
 	rep, err := req.Bytes()
 	if err != nil {
