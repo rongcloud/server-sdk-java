@@ -34,7 +34,7 @@
 	},
 	"remove": {
 		"docs": "http://rongcloud.cn/docs/server.html#history_message_delete",
-		"url": "message/delete",
+		"url": "message/history/delete",
 		"params": {
 			"message": {
 				"date": "2017010101"

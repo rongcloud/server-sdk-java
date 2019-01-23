@@ -19,11 +19,11 @@ public class ConversationExample {
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "appKey";
+    private static final String appKey = "8luwapkv8s7pl";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
+    private static final String appSecret = "lmkgpHuXezTjV2";
     /**
      * 自定义api地址
      * */
@@ -60,5 +60,15 @@ public class ConversationExample {
         ResponseResult unMuteConversationResult = Conversation.unMute(conversation);
 
         System.out.println("unMuteConversationResult:  " + unMuteConversationResult.toString());
+
+        /**
+         *
+         * API 文档: https://www.rongcloud.cn/docs/server.html#conversation_notification_get
+         * 获取消息免打扰
+         *
+         * */
+        ConversationNotificationResult getMuteConversationResult = (ConversationNotificationResult)Conversation.get(conversation);
+
+        System.out.println("getMuteConversationResult:  " + getMuteConversationResult.toString());
     }
 }

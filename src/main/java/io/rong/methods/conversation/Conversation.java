@@ -94,4 +94,28 @@ public class Conversation {
 
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.UNMUTE,HttpUtil.returnResult(conn)), ResponseResult.class);
     }
+    /**
+     * 查询会话消息免打扰方法。
+     *
+     * @param conversation 会话信息 其中type(必传)
+     * @return ResponseResult
+     **/
+    public Result get(ConversationModel conversation) throws Exception {
+        String message = CommonUtil.checkFiled(conversation,PATH,CheckMethod.GET);
+        if(null != message){
+            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&conversationType=").append(URLEncoder.encode(conversation.type, UTF8));
+        sb.append("&requestId=").append(URLEncoder.encode(conversation.userId, UTF8));
+        sb.append("&targetId=").append(URLEncoder.encode(conversation.targetId, UTF8));
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/conversation/notification/get.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn);
+
+        return (ConversationNotificationResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), ConversationNotificationResult.class);
+    }
 }
