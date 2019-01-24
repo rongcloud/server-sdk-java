@@ -7,7 +7,7 @@
 			},
 			"typeof": {
 				"type": "object",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},
 		"id": {
@@ -59,7 +59,7 @@
 			},
 			"typeof": {
 				"type": "number|int",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},
 		"blacklist": {
@@ -69,7 +69,7 @@
 			},
 			"typeof": {
 				"type": "array",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		}
 

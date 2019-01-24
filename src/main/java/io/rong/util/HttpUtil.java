@@ -4,12 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -28,6 +26,10 @@ public class HttpUtil {
 	private static final String NONCE = "Nonce";
 	private static final String TIMESTAMP = "Timestamp";
 	private static final String SIGNATURE = "Signature";
+    public static AtomicInteger timeoutNum = new AtomicInteger();
+
+	private static final String API_HOST = "http://api.cn.ronghub.com";
+	private static final String API_HOST_BACKUP = "http://api2-cn.ronghub.com";
 
 	private static SSLContext sslCtx = null;
 	static {
@@ -84,10 +86,22 @@ public class HttpUtil {
 	}
 
 	public static void setBodyParameter(String str, HttpURLConnection conn) throws IOException {
-		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-		out.write(str.getBytes("utf-8"));
-		out.flush();
-		out.close();
+		try{
+			DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+			out.write(str.getBytes("utf-8"));
+			out.flush();
+			out.close();
+		}catch (UnknownHostException e){
+			timeoutNum.incrementAndGet();
+			e.printStackTrace();
+		}catch (SocketTimeoutException e){
+			timeoutNum.incrementAndGet();
+			e.printStackTrace();
+		}catch (Exception e){
+			timeoutNum.incrementAndGet();
+			e.printStackTrace();
+		}
+
 	}
 
 	public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret, String uri,

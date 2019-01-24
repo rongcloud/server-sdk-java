@@ -35,6 +35,7 @@ public class CheckMethod {
     public static final String CHECK = "check";
     public static final String QUERY = "query";
     public static final String PUBLISH = "send";
+    public static final String SEND_MENTION = "sendMention";
     public static final String SENDTEMPLATE = "sendTemplate";
     public static final String PUBLISHTEMPLATE = "sendTemplate";
     public static final String BROADCAST = "broadcast";

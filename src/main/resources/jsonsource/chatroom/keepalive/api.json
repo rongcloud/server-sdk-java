@@ -10,24 +10,24 @@
 		"response": {
 			"success": {
 				"code": "200",
-				"msg": "成功返回"
+				"errorMessage": "成功返回"
 			},
 			"fail": {
 				"20003": {
-					"code": "20003",
-					"msg": "chatroomId 长度超限, chatroomId >= 1 且 chatroomId <= 64 单位: 字节"
+					"code": "1002",
+					"errorMessage": "chatroomId 长度超限, chatroomId >= 1 且 chatroomId <= 64 单位: 字节"
 				},
 				"20005": {
-					"code": "20005",
-					"msg": "{{name}} 参数为必传项"
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
 				},
 				"1004": {
-					"code": "20000",
-					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
 				},
 				"1008": {
-					"code": "20001",
-					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"code": "1008",
+					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
 				}
 			}
 		}
@@ -43,24 +43,24 @@
 		"response": {
 			"success": {
 				"code": "200",
-				"msg": "成功返回"
+				"errorMessage": "成功返回"
 			},
 			"fail": {
 				"20003": {
-					"code": "20003",
-					"msg": "chatroomId 长度超限, chatroomId >= 1 且 chatroomId <= 64 单位: 字节"
+					"code": "1002",
+					"errorMessage": "chatroomId 长度超限, chatroomId >= 1 且 chatroomId <= 64 单位: 字节"
 				},
 				"20005": {
-					"code": "20005",
-					"msg": "{{name}} 参数为必传项"
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
 				},
 				"1004": {
-					"code": "20000",
-					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
 				},
 				"1008": {
-					"code": "20001",
-					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"code": "1008",
+					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
 				}
 			}
 		}
@@ -76,20 +76,20 @@
 			},
 			"fail": {
 				"20003": {
-					"code": "20003",
-					"msg": "chatroomId 长度超限, chatroomId >= 1 且 chatroomId <= 64 单位: 字节"
+					"code": "1002",
+					"errorMessage": "chatroomId 长度超限, chatroomId >= 1 且 chatroomId <= 64 单位: 字节"
 				},
 				"20005": {
-					"code": "20005",
-					"msg": "{{name}} 参数为必传项"
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
 				},
 				"1004": {
-					"code": "20000",
-					"msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
 				},
 				"1008": {
-					"code": "20001",
-					"msg": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"code": "1008",
+					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
 				}
 			}
 		}

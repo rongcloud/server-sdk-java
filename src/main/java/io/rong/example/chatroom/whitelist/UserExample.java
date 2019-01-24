@@ -46,7 +46,7 @@ public class UserExample {
          * 获取聊天室用户白名单
          * */
 
-        WhiteListResult getResult = whitelist.user.getList(chatroom);
+        WhiteListResult getResult = (WhiteListResult)whitelist.user.getList(chatroom);
         System.out.println("get whitelist:  " + getResult.toString());
 
 

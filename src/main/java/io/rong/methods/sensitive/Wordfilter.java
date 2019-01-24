@@ -93,8 +93,9 @@ public class Wordfilter {
 	 * @return ResponseResult
 	 **/
 	public ResponseResult remove(String word) throws Exception {
-		if (word == null) {
-			throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/wordfilter/delete","Paramer 'word' is required");
+		String message = CommonUtil.checkParam("keyword",word,PATH,CheckMethod.REMOVE);
+		if(null != message){
+			return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
 		}
 		
 	    StringBuilder sb = new StringBuilder();

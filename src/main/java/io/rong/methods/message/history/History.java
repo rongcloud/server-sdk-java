@@ -3,6 +3,7 @@ package io.rong.methods.message.history;
 import io.rong.RongCloud;
 import io.rong.exception.ParamException;
 import io.rong.models.CheckMethod;
+import io.rong.models.Result;
 import io.rong.models.response.HistoryMessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
@@ -45,9 +46,9 @@ public class History {
      * @return HistoryMessageResult
      * @throws Exception
      **/
-    public HistoryMessageResult get(String date) throws Exception {
+    public Result get(String date) throws Exception {
         if (date == null) {
-            throw new ParamException("Paramer 'date' is required");
+            return new ResponseResult(1002,"Paramer 'date' is required");
         }
 
         StringBuilder sb = new StringBuilder();
@@ -73,7 +74,7 @@ public class History {
      **/
     public ResponseResult remove(String date) throws Exception {
         if (date == null) {
-            throw new ParamException("Paramer 'date' is required");
+            return new ResponseResult(1002,"Paramer 'date' is required");
         }
 
         StringBuilder sb = new StringBuilder();

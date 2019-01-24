@@ -18,7 +18,7 @@
 			},
 			"typeof": {
 				"type": "string",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},
 		"name": {
@@ -39,7 +39,7 @@
 			},
 			"typeof": {
 				"type": "array",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},	
 		"count": {
@@ -54,7 +54,7 @@
 			},
 			"typeof": {
 				"type": "number|int",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},
 		"order": {
@@ -64,7 +64,7 @@
 			},
 			"typeof": {
 				"type": "string",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},
 		"minute": {
@@ -79,7 +79,7 @@
 			},
 			"typeof": {
 				"type": "number|int",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		}
 	},
@@ -102,7 +102,7 @@
 			},
 			"typeof": {
 				"type": "array",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		}
 	},

@@ -60,5 +60,14 @@ public class ConversationExample {
         ResponseResult unMuteConversationResult = Conversation.unMute(conversation);
 
         System.out.println("unMuteConversationResult:  " + unMuteConversationResult.toString());
+        /**
+         *
+         * API 文档: https://www.rongcloud.cn/docs/server.html#conversation_notification_get
+         * 获取消息免打扰
+         *
+         * */
+        ConversationNotificationResult getMuteConversationResult = (ConversationNotificationResult)Conversation.get(conversation);
+
+        System.out.println("getMuteConversationResult:  " + getMuteConversationResult.toString());
     }
 }

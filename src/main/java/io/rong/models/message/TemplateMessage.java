@@ -19,7 +19,7 @@ public class TemplateMessage {
      * 发送消息内容，内容中定义模版，标识通过 content 中的标识位内容进行替换，
      * 参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
      * */
-    private Object template;
+    private Map<String,String> template;
     /**
      * key 用户Id ,value 模板赋值内容
      *
@@ -61,13 +61,13 @@ public class TemplateMessage {
      * 获取template
      * @return String
      */
-    public Object getTemplate() {
-        return this.template;
+    public Map<String, String> getTemplate() {
+        return template;
     }
     /**
      * 设置 template
      */
-    public void setTemplate(Object template) {
+    public void setTemplate(Map<String, String> template) {
         this.template = template;
     }
 

@@ -78,6 +78,10 @@ public class CommonUtil {
                 fileds = entry.getValue();
                 checkObjectKey = entry.getKey();
             }
+            if(null == model){
+                String message = (String)CommonUtil.getErrorMessage(apiPath,method,"20005","object",String.valueOf(max),"1",type);
+                return message;
+            }
             //获取校验文件
             JSONObject verify =  JsonUtil.getJsonObject(path,VERIFY_JSON_NAME);
             //获取校验key
@@ -164,10 +168,10 @@ public class CommonUtil {
                             }
                         }
                         if(!"200".equals(code)){
-                            //更具错误吗获取错误信息
+                            //根据错误吗获取错误信息
                             String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,name,String.valueOf(max),"1",type);
-                            //对 errorMessage  替换
-                            message = StringUtils.replace(message,"errorMessage","msg");
+                            // 对 errorMessage  替换 目前不需要替换
+                            // message = StringUtils.replace(message,"errorMessage","msg");
                             return message;
                         }
                     }
@@ -283,7 +287,7 @@ public class CommonUtil {
                         }
                     }
                     String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,checkFiled,String.valueOf(max),"1",type);
-                    message = StringUtils.replace(message,"errorMessage","msg");
+                    //message = StringUtils.replace(message,"errorMessage","msg");
                     return message;
 
                 }
@@ -434,7 +438,7 @@ public class CommonUtil {
                         return text;
                     }
                 }
-                text = StringUtils.replace(response,"errorMessage","msg");
+                //text = StringUtils.replace(response,"errorMessage","msg");
                 if(path.contains("chatroom")){
                     text = StringUtils.replace(text,"users","members");
                     //对于 聊天室保活成功返回的code是0 更改统一返回200

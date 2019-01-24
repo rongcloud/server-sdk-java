@@ -2,6 +2,7 @@ package io.rong.example.message;
 
 import io.rong.RongCloud;
 import io.rong.messages.CustomTxtMessage;
+import io.rong.messages.GroupNotificationMessage;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
 import io.rong.methods.message._private.Private;
@@ -19,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
 
 
 /**
@@ -28,15 +30,14 @@ import java.io.Reader;
  * @version 3.0.0
  */
 public class MessageExample {
-    private static final String JSONFILE = MessageExample.class.getClassLoader().getResource("jsonsource").getPath()+"/";
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "appKey";
+    private static final String appKey = "8luwapkv8s7pl";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
+    private static final String appSecret = "lmkgpHuXezTjV2";
 
     private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
@@ -309,7 +310,7 @@ public class MessageExample {
          *
          * */
 
-        HistoryMessageResult historyMessageResult = history.get("2018032810");
+        HistoryMessageResult historyMessageResult = (HistoryMessageResult)history.get("2018032810");
         System.out.println("get history  message:  " + historyMessageResult.toString());
 
         /**

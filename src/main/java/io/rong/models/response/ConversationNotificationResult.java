@@ -12,7 +12,7 @@ public class ConversationNotificationResult extends Result {
         super(code,errorMessage);
         this.code = code;
         this.isMuted = isMuted;
-        this.msg = errorMessage;
+        this.errorMessage = errorMessage;
     }
 
     /**

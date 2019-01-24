@@ -15,7 +15,7 @@ public class CheckOnlineResult extends Result {
 		super(code, errorMessage);
 		this.code = code;
 		this.status = status;
-		this.msg = errorMessage;
+		this.errorMessage = errorMessage;
 	}
 	/**
 	 * 设置status

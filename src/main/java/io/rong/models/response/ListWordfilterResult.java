@@ -17,7 +17,7 @@ public class ListWordfilterResult extends Result {
 		super(code, errorMessage);
 		this.code = code;
 		this.words = words;
-		this.msg = errorMessage;
+		this.errorMessage = errorMessage;
 	}
 	
 	/**

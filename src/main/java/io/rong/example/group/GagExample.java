@@ -17,11 +17,11 @@ public class GagExample {
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "appKey";
+    private static final String appKey = "8luwapkv8s7pl";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSercet";
+    private static final String appSecret = "lmkgpHuXezTjV2";
     /**
      * 自定义api地址
      * */
@@ -68,8 +68,8 @@ public class GagExample {
                 .setId("IXQhMs3ny")
                 .setMembers(members);
 
-        //Result groupRollBackGagUserResult = Gag.remove(group);
-        //System.out.println("group.gag.remove:  " + groupRollBackGagUserResult.toString());
+        Result groupRollBackGagUserResult = Gag.remove(group);
+        System.out.println("group.gag.remove:  " + groupRollBackGagUserResult.toString());
 
     }
 }

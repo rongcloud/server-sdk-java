@@ -16,7 +16,7 @@ public class SMSImageCodeResult extends Result {
 		this.code = code;
 		this.url = url;
 		this.verifyId = verifyId;
-		this.msg = errorMessage;
+		this.errorMessage = errorMessage;
 	}
 
 	/**

@@ -7,7 +7,7 @@
 			},
 			"typeof": {
 				"type": "object",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},
 		"keyword": {
@@ -37,7 +37,7 @@
 			},
 			"typeof": {
 				"type": "object",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		},
 		"keyword": {
@@ -70,7 +70,7 @@
 			},
 			"typeof": {
 				"type": "array",
-				"invalid": "20006"
+				"invalid": "20001"
 			}
 		}
 	}

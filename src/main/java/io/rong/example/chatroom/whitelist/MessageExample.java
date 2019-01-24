@@ -12,11 +12,11 @@ public class MessageExample {
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "appKey";
+    private static final String appKey = "8luwapkv8s7pl";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
+    private static final String appSecret = "lmkgpHuXezTjV2";
     /**
      * 自定义api地址
      * */
@@ -32,14 +32,15 @@ public class MessageExample {
 
         /**
          * API: 文档http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#add
-         * 添加聊天室全局禁言
+         * 添加聊天室消息白名单
          * */
 
         ResponseResult addResult = whitelist.message.add(messageType);
         System.out.println("add whitelist:  " + addResult.toString());
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#getList
-         * 添加聊天室全局禁言
+         *
+         * 获取聊天室消息白名单
          * */
 
         ChatroomWhitelistMsgResult getResult = whitelist.message.getList();
@@ -47,11 +48,11 @@ public class MessageExample {
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#remove
-         * 添加聊天室全局禁言
+         * 删除聊天室消息白名单
          * */
 
         ResponseResult removeResult = whitelist.message.remove(messageType);
-        System.out.println("remove whitelist:  " + addResult.toString());
+        System.out.println("remove whitelist:  " + removeResult.toString());
 
        }
 }

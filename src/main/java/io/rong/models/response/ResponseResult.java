@@ -11,7 +11,7 @@ public class ResponseResult extends Result {
 	public ResponseResult(Integer code, String msg) {
 		super(code, msg);
 		this.code = code;
-		this.msg = msg;
+		this.errorMessage = msg;
 	}
 
 	@Override

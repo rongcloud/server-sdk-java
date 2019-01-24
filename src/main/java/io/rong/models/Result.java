@@ -12,11 +12,11 @@ public abstract class Result {
      * 错误信息。
      *
      */
-    public String msg;
+    public String errorMessage;
 
-    public Result(Integer code, String msg) {
+    public Result(Integer code, String errorMessage) {
         this.code = code;
-        this.msg = msg;
+        this.errorMessage = errorMessage;
     }
 
     public Result() {
@@ -40,19 +40,19 @@ public abstract class Result {
     }
 
     /**
-     * 获取msg
+     * 获取错误信息
      *
      * @return String
      */
-    public String getMsg() {
-        return this.msg;
+    public String getErrorMessage() {
+        return errorMessage;
     }
     /**
-     * 设置msg
+     * 设置错误信息 msg
      *
      */
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override

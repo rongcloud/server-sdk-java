@@ -1,5 +1,7 @@
 package io.rong.methods.message._private;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import io.rong.RongCloud;
 import io.rong.exception.ParamException;
 import io.rong.models.CheckMethod;
@@ -57,9 +59,6 @@ public class Private {
 	 * @throws Exception
 	 **/
 	public ResponseResult send(PrivateMessage message) throws Exception {
-		if(null == message){
-			throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,PATH, "Paramer 'message' is required");
-		}
 		String errMsg = CommonUtil.checkFiled(message,PATH, CheckMethod.SEND);
 		if(null != errMsg){
 			return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);
@@ -145,7 +144,7 @@ public class Private {
 		templateMessage.setFromUserId(message.getSenderId());
 		templateMessage.setToUserId(toUserIds.toArray(new String[toUserIds.size()]));
 		templateMessage.setObjectName(message.getObjectName());
-		templateMessage.setContent(message.getTemplate().toString());
+		templateMessage.setContent(GsonUtil.toJson(message.getTemplate(),Map.class));
 		templateMessage.setValues(values);
 		templateMessage.setPushContent(push.toArray(new String[push.size()]));
 		templateMessage.setPushData(message.getPushData());

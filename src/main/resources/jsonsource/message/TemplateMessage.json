@@ -1,18 +1,18 @@
 {
-  "senderId": "kamdnq",
+  "senderId": "OScHVP1tQ",
   "objectName": "RC:TxtMsg",
   "template": {
     "content": "{name}, 语文成绩 {score} 分"
   },
   "content": {
-    "sea9901": {
+    "NomSvNyME": {
       "data": {
         "{name}": "小明",
         "{score}": "90"
       },
       "push": "{name} 你的成绩出来了"
     },
-    "sea9902": {
+    "8LNK7JOeR": {
       "data": {
         "{name}": "小红",
         "{score}": "95"

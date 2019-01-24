@@ -88,10 +88,6 @@ public class Ban {
      * @return ResponseResult
      **/
     public ResponseResult remove(ChatroomModel chatroom) throws Exception {
-        if (chatroom == null) {
-            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/user/ban/remove","Paramer 'chatroom' is required");
-        }
-
         String errMsg = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.REMOVE);
         if(null != errMsg){
             return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);

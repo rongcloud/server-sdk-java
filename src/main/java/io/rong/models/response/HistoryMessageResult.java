@@ -17,7 +17,7 @@ public class HistoryMessageResult extends Result {
 		this.code = code;
 		this.url = url;
 		this.date = date;
-		this.msg = errorMessage;
+		this.errorMessage = errorMessage;
 	}
 	/**
 	 * 设置url

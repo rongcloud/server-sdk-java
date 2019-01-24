@@ -4,6 +4,7 @@ import io.rong.RongCloud;
 import io.rong.exception.ParamException;
 import io.rong.models.CheckMethod;
 import io.rong.models.CommonConstrants;
+import io.rong.models.Result;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.ResponseResult;
@@ -41,11 +42,9 @@ public class User {
      * @return ResponseResult
      **/
     public ResponseResult add(ChatroomModel chatroom) throws Exception {
-
         if (chatroom == null) {
-            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/whitelist/user/add", "Paramer 'chatroom' is required");
+            return new ResponseResult(1002,"Paramer chatroom is required");
         }
-
         String message = CommonUtil.checkFiled(chatroom,PATH, CheckMethod.ADD);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
@@ -77,7 +76,7 @@ public class User {
      **/
     public ResponseResult remove(ChatroomModel chatroom) throws Exception {
         if (chatroom == null) {
-            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/whitelist/user/remove", "Paramer 'chatroom' is required");
+            return new ResponseResult(1002,"Paramer chatroom is required");
         }
 
         String message = CommonUtil.checkFiled(chatroom,PATH, CheckMethod.REMOVE);
@@ -86,7 +85,7 @@ public class User {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId().toString(), UTF8));
+        sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
 
         ChatroomMember[] members = chatroom.getMembers();
         for(ChatroomMember member : members){
@@ -110,9 +109,9 @@ public class User {
      *
      * @return WhiteListResult
      **/
-    public WhiteListResult getList(ChatroomModel chatroom) throws Exception {
+    public Result getList(ChatroomModel chatroom) throws Exception {
         if (chatroom == null) {
-            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/whitelist/user/getList", "Paramer 'chatroom' is required");
+            return new ResponseResult(1002,"Paramer chatroom is required");
         }
 
         String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.GETLIST);

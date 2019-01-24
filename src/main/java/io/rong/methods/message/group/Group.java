@@ -111,9 +111,15 @@ public class Group {
      **/
     public ResponseResult sendMention(MentionMessage message) throws Exception {
 
-        String code = CommonUtil.checkFiled(message,PATH, CheckMethod.PUBLISH);
+        String code = CommonUtil.checkFiled(message,PATH, CheckMethod.SEND_MENTION);
         if(null != code){
             return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
+        }
+        if(null == message.getContent().getMentionedInfo()){
+            return new ResponseResult(1002,"mentionedInfo 参数为必传项");
+        }
+        if(null == message.getContent().getContent()){
+            return new ResponseResult(1002,"MentionMessageContent.content 参数为必传项");
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));

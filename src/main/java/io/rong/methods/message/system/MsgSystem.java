@@ -126,7 +126,7 @@ public class MsgSystem {
         templateMessage.setFromUserId(template.getSenderId());
         templateMessage.setToUserId(toUserIds.toArray(new String[toUserIds.size()]));
         templateMessage.setObjectName(template.getObjectName());
-        templateMessage.setContent(template.getTemplate().toString());
+        templateMessage.setContent(GsonUtil.toJson(template.getTemplate(),Map.class));
         templateMessage.setValues(values);
         templateMessage.setPushContent(push.toArray(new String[push.size()]));
         templateMessage.setPushData(template.getPushData());

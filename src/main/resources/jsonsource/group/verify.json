@@ -7,7 +7,7 @@
       },
       "typeof": {
         "type": "object",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "id": {
@@ -33,7 +33,7 @@
       },
       "typeof": {
         "type": "array",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "name": {
@@ -74,7 +74,7 @@
       },
       "typeof": {
         "type": "number|int",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "operator": {
@@ -108,7 +108,7 @@
       },
       "typeof": {
         "type": "array",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     }
   },
@@ -124,7 +124,7 @@
     },
     "typeof": {
       "type": "number|int",
-      "invalid": "20006"
+      "invalid": "20001"
     }
   }
 

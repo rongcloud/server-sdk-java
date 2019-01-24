@@ -4,6 +4,8 @@ import io.rong.RongCloud;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
 import io.rong.models.Result;
+import io.rong.models.chatroom.ChatroomMember;
+import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.group.UserGroup;
@@ -16,7 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
@@ -26,7 +27,6 @@ import static org.junit.Assert.assertEquals;
  * 一些api的调用示例和测试
  */
 public class Example {
-	private static final String JSONFILE = Example.class.getClassLoader().getResource("jsonsource").getPath()+"/";
 	private RongCloud rongCloud ;
 	private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
 	private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
@@ -34,10 +34,12 @@ public class Example {
 
 	@Before
 	public void setUp() throws Exception {
-		String appKey = "appKey";
-		String appSecret = "appSercet";
-		//String api = "http://api.cn.ronghub.com";
-		rongCloud = RongCloud.getInstance(appKey, appSecret);
+		//String appKey = "8luwapkv8s7pl";
+		String appKey = "e0x9wycfx7flq";
+		//String appSecret = "lmkgpHuXezTjV2";
+		String appSecret = "STCevzDS6Xy18n";
+		String api = "http://apixq.rongcloud.net:9200";
+		rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 	}
 
 	/**
@@ -180,7 +182,7 @@ public class Example {
 	 */
 	@Test
 	public void testSendSystem() throws Exception {
-		String[] targetIds = new String[98];
+		String[] targetIds = new String[100];
 
 		for(int i=0;i<2;i++) {
 			targetIds[i] = "test"+i;
@@ -232,12 +234,12 @@ public class Example {
 	@Test
 	public void testSendBroadcast() throws Exception {
 		BroadcastMessage message = new BroadcastMessage()
-				.setSenderId("Hji8yh76")
+				.setSenderId("OScHVP1tQ")
 				.setObjectName(txtMessage.getType())
 				.setContent(txtMessage)
 				.setPushContent("this is a push")
 				.setPushData("{'pushData':'hello'}")
-				.setOs("iOS");
+				.setOs("Android");
 		ResponseResult result = rongCloud.message.system.broadcast(message);
 		System.out.println("send broadcast:  " + result.toString());
 
@@ -253,6 +255,7 @@ public class Example {
 		try {
 			reader =new BufferedReader( new InputStreamReader(Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
 			TemplateMessage template  =  (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
+			System.out.println(template.toString());
 			ResponseResult messagePublishTemplateResult = rongCloud.message.msgPrivate.sendTemplate(template);
 			System.out.println("sendPrivateTemplate:  " + messagePublishTemplateResult.toString());
 
@@ -297,10 +300,10 @@ public class Example {
 	@Test
 	public void testRecallPrivate() throws Exception {
 		RecallMessage message = new RecallMessage()
-				.setSenderId("sea9901")
-				.setTargetId("markoiwm")
-				.setuId("5GSB-RPM1-KP8H-9JHF")
-				.setSentTime("1519444243981");
+				.setSenderId("OScHVP1tQ")
+				.setTargetId("NomSvNyME")
+				.setuId("B8FV-QAHO-I1E4-JLRI")
+				.setSentTime("1548334967010");
 		ResponseResult result = (ResponseResult)rongCloud.message.msgPrivate.recall(message);
 
 		System.out.println("recall private message:  " + result.toString());
@@ -367,10 +370,10 @@ public class Example {
 	@Test
 	public void testRecallGroup() throws Exception {
 		RecallMessage message = new RecallMessage()
-				.setSenderId("sea9901")
-				.setTargetId("markoiwm")
-				.setuId("5GSB-RPM1-KP8H-9JHF")
-				.setSentTime("1519444243981");
+				.setSenderId("NomSvNyME")
+				.setTargetId("BauMbEShY")
+				.setuId("B8FV-UKT9-TJMD-KV6A")
+				.setSentTime("1548335533735");
 		ResponseResult result = (ResponseResult)rongCloud.message.group.recall(message);
 
 		System.out.println("send recall message:  " + result.toString());
@@ -410,7 +413,7 @@ public class Example {
 	 * */
 	@Test
 	public void testGetHistory() throws Exception {
-		HistoryMessageResult result = rongCloud.message.history.get("2018032810");
+		HistoryMessageResult result = (HistoryMessageResult)rongCloud.message.history.get("2018032810");
 		System.out.println("get history  message:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());
@@ -448,7 +451,7 @@ public class Example {
 	@Test
 	public void testDeleteSensitiveword() throws Exception {
 
-		ResponseResult result = rongCloud.sensitiveword.remove("money");
+		ResponseResult result = rongCloud.sensitiveword.remove(null);
 		System.out.println("SensitivewordDelete:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());
@@ -620,5 +623,426 @@ public class Example {
 
 		assertEquals("200",result.getCode().toString());
 
+	}
+	/**
+	 * 创建聊天室
+	 *
+	 * */
+	@Test
+	public void testCreateChatroom() throws Exception {
+		ChatroomModel[] chatrooms = {
+				new ChatroomModel().setId("chatroomId1").setName("chatroomName1"),
+				new ChatroomModel().setId("chatroomId2").setName("chatroomName2")
+		};
+		ResponseResult result =  rongCloud.chatroom.create(chatrooms);
+
+		System.out.println("create:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 *
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#getMembers
+	 * 查询聊天室成员demo
+	 *
+	 * */
+	@Test
+	public void testGetChatroom() throws Exception {
+		ChatroomModel chatroomModel = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548");
+
+		ResponseResult result =  rongCloud.chatroom.destroy(chatroomModel);
+		System.out.println("destroy:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 *
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#isExist
+	 * 查询聊天室成员是否存在
+	 *
+	 * */
+	@Test
+	public void testChatroomIsExist() throws Exception {
+		ChatroomMember member = new ChatroomMember()
+				.setId("76894")
+				.setChatroomId("76891");
+
+		CheckChatRoomUserResult result = rongCloud.chatroom.isExist(member);
+		System.out.println("checkChatroomUserResult:  " + result.isInChrm);
+
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 *  添加聊天室消息白名单
+	 */
+	@Test
+	public void addChatroomMsgWhiteList() throws Exception {
+		String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
+		ResponseResult result = rongCloud.chatroom.whiteList.message.add(messageType);
+		System.out.println("remove chatroon whitelist msg:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 *  删除聊天室消息白名单
+	 */
+	@Test
+	public void testRemoveChatroomMsgWhiteList() throws Exception {
+		String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
+		ResponseResult result = rongCloud.chatroom.whiteList.message.remove(messageType);
+		System.out.println("remove chatroon whitelist msg::  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 *  获取聊天室消息白名单
+	 */
+	@Test
+	public void testGetChatroomMsgWhiteList() throws Exception {
+		ChatroomWhitelistMsgResult result = rongCloud.chatroom.whiteList.message.getList();
+		System.out.println("get chatroon whitelist msg:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 *  添加聊天室用户白名单
+	 */
+	@Test
+	public void addChatroomUserWhiteList() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548")
+				.setMembers(members);
+		ResponseResult result = rongCloud.chatroom.whiteList.user.add(chatroom);
+		System.out.println("remove chatroon whitelist msg:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 *  删除聊天室用户白名单
+	 */
+	@Test
+	public void testRemoveChatroomWhiteListMsg() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548")
+				.setMembers(members);
+		ResponseResult result = rongCloud.chatroom.whiteList.user.remove(chatroom);
+		System.out.println("remove chatroom user whitelist:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 *  获取聊天室消息白名单
+	 */
+	@Test
+	public void testGetChatroomWhiteListMsg() throws Exception {
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548");
+		Result result = rongCloud.chatroom.whiteList.user.getList(chatroom);
+		System.out.println("get chatroom user whitelist:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 * 添加聊天室全局禁言
+	 */
+	@Test
+	public void testChatroomBan() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setMembers(members)
+				.setMinute(5);
+		ResponseResult result = rongCloud.chatroom.ban.add(chatroom);
+		System.out.println("addGagUser:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 * 添加聊天室全局禁言
+	 */
+	@Test
+	public void testAddChatroomBan() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setMembers(members)
+				.setMinute(5);
+		ResponseResult result = rongCloud.chatroom.ban.add(chatroom);
+		System.out.println("addGagUser:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 * 获取聊天时全局禁言列表
+	 */
+	@Test
+	public void testGetChatroomBan() throws Exception {
+
+		ListGagChatroomUserResult chatroomListGagUserResult = rongCloud.chatroom.ban.getList();
+		System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
+
+		assertEquals("200",chatroomListGagUserResult.getCode().toString());
+
+	}
+	/**
+	 * 删除聊天时全局禁言
+	 */
+	@Test
+	public void testRemoveChatroomBan() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setMembers(members)
+				.setMinute(5);
+		ResponseResult removeResult = rongCloud.chatroom.ban.remove(chatroom);
+		System.out.println("removeBanUser:  " + removeResult.toString());
+
+		assertEquals("200",removeResult.getCode().toString());
+
+	}
+	/**
+	 * 添加封禁聊天室成员方法
+	 */
+	@Test
+	public void testAddChatroomBlock() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548")
+				.setMembers(members)
+				.setMinute(5);
+		ResponseResult result = rongCloud.chatroom.block.add(chatroom);
+		System.out.println("addBlockUser:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 * 移除封禁聊天室成员方法
+	 */
+	@Test
+	public void testRemoveChatroomBlock() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548")
+				.setMembers(members);
+		ResponseResult result = rongCloud.chatroom.block.remove(chatroom);
+		System.out.println("removeBlockUser:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 * 获取封禁聊天室成员方法
+	 */
+	@Test
+	public void testGetChatroomBlock() throws Exception {
+
+		ListBlockChatroomUserResult result = rongCloud.chatroom.block.getList("d7ec7a8b8d8546c98b0973417209a548");
+		System.out.println("getListBlockUser:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 *
+	 * 销毁聊天室
+	 *
+	 * */
+	@Test
+	public void testDestroyChatroom() throws Exception {
+		ChatroomModel chatroomModel = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548");
+
+		ResponseResult result =  rongCloud.chatroom.destroy(chatroomModel);
+		System.out.println("destroy:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 *
+	 * 添加应用内聊天室降级消息
+	 *
+	 * */
+	@Test
+	public void testAddChatroomDemotion() throws Exception {
+		String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
+		ResponseResult result = rongCloud.chatroom.demotion.add(messageType);
+		System.out.println("add demotion:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 *
+	 * 移除应用内聊天室降级消息
+	 *
+	 * */
+	@Test
+	public void testRemoveChatroomDemotion() throws Exception {
+		String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg"};
+		ResponseResult result = rongCloud.chatroom.demotion.remove(messageType);
+		System.out.println("remove demotion:  " + result.toString());
+		System.out.println("add demotion:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 *
+	 * 添加聊天室消息优先级demo
+	 *
+	 * */
+	@Test
+	public void testGetChatroomDemotion() throws Exception {
+		ChatroomDemotionMsgResult result =rongCloud.chatroom.demotion.getList();
+		System.out.println("get demotion:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 *
+	 * 聊天室消息停止分发
+	 *
+	 */
+	@Test
+	public void testStopChatroomDistributio() throws Exception {
+		ChatroomModel chatroomModel = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548");
+		ResponseResult result = rongCloud.chatroom.distribute.stop(chatroomModel);
+
+		System.out.println("stopDistributionMessage:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+
+	/**
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/distribute.html#resume
+	 *
+	 * 聊天室消息恢复分发方法（每秒钟限 100 次）
+	 */
+	@Test
+	public void testResumeChatroomDistributio() throws Exception {
+
+		ChatroomModel chatroomModel = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548");
+		ResponseResult result = rongCloud.chatroom.distribute.resume(chatroomModel);
+		System.out.println("resumeDistributionMessage:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 *
+	 * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，
+	 * 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法（每秒钟限 100 次）
+	 */
+	@Test
+	public void testAddChatroomGag() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("hjhf07kk")
+				.setMembers(members)
+				.setMinute(5);
+		ResponseResult result =  rongCloud.chatroom.gag.add(chatroom);
+		System.out.println("addGagUser:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 *
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/gag.html#remove
+	 * 查询被禁言聊天室成员方法
+	 */
+	@Test
+	public void testGetChatroomGag() throws Exception {
+		ChatroomModel chatroom = new ChatroomModel()
+						.setId("hjhf07kk");
+		ListGagChatroomUserResult result =  rongCloud.chatroom.gag.getList(chatroom);
+		System.out.println("ListGagUser:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 *
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/gag.html#getList
+	 *
+	 * 移除禁言聊天室成员
+	 */
+	@Test
+	public void testRemoveChatroomGag() throws Exception {
+		ChatroomMember[] members = {
+				new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+		};
+		ChatroomModel chatroom = new ChatroomModel()
+						.setId("hjhf07kk")
+						.setMembers(members);
+		ResponseResult result =  rongCloud.chatroom.gag.remove(chatroom);
+		System.out.println("rollbackGagUser:  " + result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/keepalive.html#add
+	 *
+	 * 添加保活聊天室
+	 *
+	 **/
+	@Test
+	public void testAddChatroomKeepalive() throws Exception {
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548");
+		ResponseResult result =  rongCloud.chatroom.keepalive.add(chatroom);
+		System.out.println("add keepalive result"+result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/keepalive.html#remove
+	 *
+	 * 删除保活聊天室
+	 *
+	 **/
+	@Test
+	public void testRemoveChatroomKeepalive() throws Exception {
+
+		ChatroomModel chatroom = new ChatroomModel()
+				.setId("d7ec7a8b8d8546c98b0973417209a548");
+		ResponseResult result =  rongCloud.chatroom.keepalive.remove(chatroom);
+		System.out.println("keepalive remove"+result.toString());
+		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 *
+	 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/keepalive.html#getList
+	 *
+	 * 获取保活聊天室
+	 *
+	 **/
+	@Test
+	public void testGetChatroomKeepalive() throws Exception {
+
+		ChatroomKeepaliveResult result =  rongCloud.chatroom.keepalive.getList();
+
+		System.out.println("keepalive getList"+result.toString());
+		assertEquals("200",result.getCode().toString());
 	}
 }

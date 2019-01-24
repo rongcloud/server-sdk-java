@@ -86,9 +86,6 @@ public class Group {
 	 **/
 	public Result sync(UserGroup user) throws Exception {
 
-		if (user == null) {
-			throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL, "/group/sync", "Paramer 'user' is required");
-		}
 		String message = CommonUtil.checkFiled(user,PATH,CheckMethod.SYNC);
 		if(null != message){
 			return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
@@ -99,10 +96,11 @@ public class Group {
 		for (int i = 0 ; i< user.getGroups().length; i++) {
 			GroupModel child  = user.getGroups()[i];
 			if (child.getName() == null) {
-				throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL, "/group/sync", "Paramer 'group.name' is required");
+				return new ResponseResult(1002,"Paramer 'group.name' is required");
+
 			}
 			if (child.getId() == null) {
-				throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL, "/group/sync", "Paramer 'group.id' is required");
+				return new ResponseResult(1002,"Paramer 'group.id' is required");
 			}
 			sb.append("&group["+child.getId()+"]=").append(URLEncoder.encode(child.getName(), UTF8));
 		}

@@ -80,9 +80,14 @@ public class Chatroom {
 	 **/
 	public ResponseResult create(ChatroomModel[] chatrooms) throws Exception {
 		if (chatrooms == null) {
-			throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL, "/chatroom/create","Paramer 'chatrooms' is required");
+			return new ResponseResult(1002,"chatrooms 'chatrooms' is required");
 		}
-		
+		for(ChatroomModel chatroom : chatrooms){
+			String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.DESTORY);
+			if(null != message){
+				return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+			}
+		}
 	   	StringBuilder sb = new StringBuilder();
 		for (int i = 0 ; i< chatrooms.length; i++) {
 			ChatroomModel chatroom  = chatrooms[i];
@@ -107,9 +112,7 @@ public class Chatroom {
 	 * @return ResponseResult
 	 **/
 	public ResponseResult destroy(ChatroomModel chatroom) throws Exception {
-		if (chatroom == null) {
-			throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL, "/chatroom/destroy", "Paramer 'chatroomId' is required");
-		}
+
 		String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.DESTORY);
 		if(null != message){
 			return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);

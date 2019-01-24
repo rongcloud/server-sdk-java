@@ -7,7 +7,7 @@
       },
       "typeof": {
         "type": "object",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "senderId": {
@@ -26,14 +26,9 @@
         "must": true,
         "invalid": "20005"
       },
-      "size": {
-        "max": 1000,
-        "min": 1,
-        "invalid": "20002"
-      },
       "typeof": {
         "type": "array",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "objectName": {
@@ -62,7 +57,7 @@
       },
       "typeof": {
         "type": "object",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "senderId": {
@@ -81,14 +76,9 @@
         "must": true,
         "invalid": "20005"
       },
-      "size": {
-        "max": 100,
-        "min": 1,
-        "invalid": "20002"
-      },
       "typeof": {
         "type": "array",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "objectName": {
@@ -117,7 +107,7 @@
       },
       "typeof": {
         "type": "object",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "senderId": {
@@ -136,14 +126,9 @@
         "must": true,
         "invalid": "20005"
       },
-      "size": {
-        "max": 3,
-        "min": 1,
-        "invalid": "20002"
-      },
       "typeof": {
         "type": "array",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "objectName": {
@@ -172,7 +157,7 @@
       },
       "typeof": {
         "type": "object",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "senderId": {
@@ -191,14 +176,9 @@
         "must": true,
         "invalid": "20005"
       },
-      "size": {
-        "max": 10,
-        "min": 1,
-        "invalid": "20002"
-      },
       "typeof": {
         "type": "array",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "objectName": {
@@ -227,7 +207,7 @@
       },
       "typeof": {
         "type": "object",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "senderId": {
@@ -246,14 +226,63 @@
         "must": true,
         "invalid": "20005"
       },
-      "size": {
-        "max": 3,
-        "min": 1,
-        "invalid": "20002"
-      },
       "typeof": {
         "type": "array",
-        "invalid": "20006"
+        "invalid": "20001"
+      }
+    },
+    "objectName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 32,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "content": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "mentionedInfo":{
+    "type": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "mentionMessage": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "senderId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
       }
     },
     "objectName": {
@@ -282,7 +311,7 @@
       },
       "typeof": {
         "type": "object",
-        "invalid": "20006"
+        "invalid": "20001"
       }
     },
     "senderId": {
