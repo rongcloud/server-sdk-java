@@ -145,7 +145,7 @@ public class Private {
 		templateMessage.setFromUserId(message.getSenderId());
 		templateMessage.setToUserId(toUserIds.toArray(new String[toUserIds.size()]));
 		templateMessage.setObjectName(message.getObjectName());
-		templateMessage.setContent(message.getTemplate().toString());
+		templateMessage.setContent(GsonUtil.toJson(message.getTemplate(),Map.class));
 		templateMessage.setValues(values);
 		templateMessage.setPushContent(push.toArray(new String[push.size()]));
 		templateMessage.setPushData(message.getPushData());
