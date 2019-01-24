@@ -31,9 +31,12 @@ package sdk
 
 import (
 	"crypto/sha1"
+	"errors"
 	"fmt"
 	"io"
 	"math/rand"
+	"net/url"
+	"reflect"
 	"strconv"
 	"time"
 
@@ -44,13 +47,17 @@ const (
 	// RONGCLOUDSMSURI 容云默认 SMS API 地址
 	RONGCLOUDSMSURI = "http://api.sms.ronghub.com"
 	// RONGCLOUDURI 容云默认 API 地址
-	RONGCLOUDURI = "http://api.cn.ronghub.com"
+	RONGCLOUDURI = "http://api-cn.ronghub.com"
+	// RONGCLOUDURI_2 容云备用 API 地址
+	RONGCLOUDURI_2 = "http://api2-cn.ronghub.com"
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
 	USERAGENT = "rc-go-sdk/3.0"
 	// DEFAULTTIMEOUT 默认超时时间
-	DEFAULTTIMEOUT = 30
+	DEFAULTTIMEOUT = 10
+	// NUMTIMEOUT 默认超时次数切换 api 地址
+	NUMTIMEOUT = 3
 )
 
 // RongCloud appKey appSecret extra
@@ -65,6 +72,7 @@ type RongCloudExtra struct {
 	RongCloudURI    string
 	RongCloudSMSURI string
 	TimeOut         time.Duration
+	numTimeOut      int
 }
 
 // CodeResult 容云返回状态码和错误码
@@ -110,6 +118,7 @@ func NewRongCloud(appKey, appSecret string, extra *RongCloudExtra) *RongCloud {
 		RongCloudURI:    RONGCLOUDURI,
 		RongCloudSMSURI: RONGCLOUDSMSURI,
 		TimeOut:         DEFAULTTIMEOUT,
+		numTimeOut:      NUMTIMEOUT,
 	}
 	// 使用默认服务器地址
 	if extra == nil {
@@ -135,4 +144,40 @@ func NewRongCloud(appKey, appSecret string, extra *RongCloudExtra) *RongCloud {
 		RongCloudExtra: extra,
 	}
 	return &rc
+}
+
+// SetRongCloudURI 设置 api 服务器地址
+func (rc *RongCloud) setRongCloudURI() {
+	if rc.RongCloudURI == RONGCLOUDURI {
+		rc.RongCloudURI = RONGCLOUDURI_2
+		return
+	}
+	if rc.RongCloudURI != RONGCLOUDURI && rc.RongCloudURI == RONGCLOUDURI_2 {
+		return
+	}
+	rc.RongCloudURI = RONGCLOUDURI
+}
+
+// SetNumTimeOut 设置切换 api 超时次数
+func (rc *RongCloud) SetNumTimeOut(num int) error {
+	if num < 0 {
+		return errors.New("invalid num, only allow greater than and equal to the 0 ")
+	}
+	rc.numTimeOut = num
+	return nil
+}
+
+// URLError 判断是否为 url.Error
+func (rc *RongCloud) URLError(err error) {
+	if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
+		if rc.numTimeOut == 0 {
+			return
+		}
+		if rc.numTimeOut >= 3 {
+			rc.setRongCloudURI()
+			rc.numTimeOut = 1
+		} else {
+			rc.numTimeOut += 1
+		}
+	}
 }

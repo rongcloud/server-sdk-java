@@ -5,6 +5,7 @@ package sdk
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/astaxie/beego/httplib"
 )
@@ -48,6 +49,7 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("requestId", userID)
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
@@ -56,6 +58,7 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -90,6 +93,7 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("requestId", userID)
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
@@ -98,6 +102,7 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult

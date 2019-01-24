@@ -3,6 +3,7 @@ package sdk
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/astaxie/beego/httplib"
 )
@@ -43,7 +44,9 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/create." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
+
 	for _, item := range members {
 		req.Param("userId", item)
 	}
@@ -51,6 +54,7 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	req.Param("groupName", name)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -80,13 +84,16 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/sync." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
+
 	req.Param("userId", id)
 	for _, item := range groups {
 		req.Param("group["+item.ID+"]", item.Name)
 	}
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -116,11 +123,14 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/refresh." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
+
 	req.Param("groupId", id)
 	req.Param("groupName", name)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -155,6 +165,7 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/join." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 
 	req.Param("userId", member)
@@ -162,6 +173,7 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
 	req.Param("groupName", name)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -185,10 +197,13 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
 		return Group{}, RCErrorNew(1002, "Paramer 'ID' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/group/user/query." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
+
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return Group{}, err
 	}
 	var code CodeResult
@@ -223,12 +238,14 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/quit." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 
 	req.Param("userId", member)
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -258,12 +275,14 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/dismiss." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 
 	req.Param("userId", member)
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -298,6 +317,7 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/add." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	for _, item := range members {
 		req.Param("userId", item)
@@ -306,6 +326,7 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 	req.Param("minute", strconv.Itoa(minute))
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -330,10 +351,13 @@ func (rc *RongCloud) GroupGagList(id string) (Group, error) {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/list." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
+
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return Group{}, err
 	}
 	var code CodeResult
@@ -367,14 +391,17 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/rollback.json")
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
+
 	for _, item := range members {
 		req.Param("userId", item)
 	}
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		return RCErrorNew(20013, err.Error())
+		rc.URLError(err)
+		return err
 	}
 	var code CodeResult
 	if err := json.Unmarshal(rep, &code); err != nil {

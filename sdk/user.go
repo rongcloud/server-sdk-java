@@ -53,6 +53,7 @@ func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (User, error
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return User{}, err
 	}
 
@@ -100,6 +101,7 @@ func (rc RongCloud) UserUpdate(userID, name, portraitURI string) error {
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -137,6 +139,7 @@ func (rc *RongCloud) BlockAdd(id string, minute uint64) error {
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -167,6 +170,7 @@ func (rc *RongCloud) BlockRemove(id string) error {
 	req.Param("userId", id)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -191,6 +195,7 @@ func (rc *RongCloud) BlockGetList() (BlockListResult, error) {
 	rc.FillHeader(req)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return BlockListResult{}, err
 	}
 
@@ -234,6 +239,7 @@ func (rc *RongCloud) BlacklistAdd(id string, blacklist []string) error {
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -274,6 +280,7 @@ func (rc *RongCloud) BlacklistRemove(id string, blacklist []string) error {
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -306,6 +313,7 @@ func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return BlacklistResult{}, err
 	}
 

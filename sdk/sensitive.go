@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"github.com/astaxie/beego/httplib"
+	"time"
 )
 
 // ListWordFilterResult listWordFilter返回结果
@@ -35,6 +36,7 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 		return RCErrorNew(1002, "Paramer 'replace' is required")
 	}
 	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/add." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("word", keyword)
 	switch sensitiveType {
@@ -47,6 +49,7 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 	}
 	byteData, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -67,9 +70,11 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 
 	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/list." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	byteData, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return ListWordFilterResult{}, err
 	}
 
@@ -100,12 +105,14 @@ func (rc *RongCloud) SensitiveRemove(keywords []string) error {
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/batch/delete." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	for _, v := range keywords {
 		req.Param("words", v)
 	}
 	byteData, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 

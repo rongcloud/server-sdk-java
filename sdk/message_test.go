@@ -120,7 +120,6 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		0,
 		1,
 	)
-
 	fmt.Println(err)
 }
 
