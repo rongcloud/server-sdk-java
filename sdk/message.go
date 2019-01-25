@@ -2,6 +2,8 @@ package sdk
 
 import (
 	"encoding/json"
+	"net/url"
+	"reflect"
 	"strconv"
 	"time"
 
@@ -301,6 +303,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -321,11 +324,10 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 *@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-*@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
 *
 *@return error
  */
-func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
+func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -341,10 +343,11 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime, con
 	req.Param("targetId", targetID)
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
-	req.Param("conversationType", strconv.Itoa(conversationType))
+	req.Param("conversationType", strconv.Itoa(1))
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -405,6 +408,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -443,6 +447,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName st
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
@@ -451,6 +456,9 @@ func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName st
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
 	if err != nil {
+		if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
+			rc.NumTimeOut()
+		}
 		return err
 	}
 	req.Param("content", msgstr)
@@ -461,6 +469,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName st
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -480,11 +489,10 @@ func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName st
 *@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-*@param  conversationType:会话类型，二人会话是 1 、群组会话是 3 。
 *
 *@return error
  */
-func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conversationType int) error {
+func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -500,10 +508,11 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime, conve
 	req.Param("targetId", targetID)
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
-	req.Param("conversationType", strconv.Itoa(conversationType))
+	req.Param("conversationType", strconv.Itoa(3))
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 
@@ -544,6 +553,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
@@ -564,6 +574,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -595,6 +606,7 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
@@ -609,6 +621,7 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -635,6 +648,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
@@ -646,6 +660,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -705,6 +720,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -731,6 +747,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 	}
 
 	req := httplib.Post(rc.RongCloudURI + "/message/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
 	rc.FillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
@@ -742,6 +759,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -801,6 +819,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	rep, err := req.Bytes()
 
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult
@@ -827,6 +846,7 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	req.Param("date", date)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return History{}, err
 	}
 	var code CodeResult
@@ -860,6 +880,7 @@ func (rc *RongCloud) HistoryRemove(date string) error {
 	req.Param("date", date)
 	rep, err := req.Bytes()
 	if err != nil {
+		rc.URLError(err)
 		return err
 	}
 	var code CodeResult

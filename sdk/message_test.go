@@ -48,7 +48,6 @@ func TestMessage_PrivateRecall(t *testing.T) {
 		"4kIvGJmETlYqDoVFgWdYdM",
 		"B7CE-U880-31M6-D3EE",
 		1543566558208,
-		1,
 	)
 
 	fmt.Println(err)
@@ -121,7 +120,6 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		0,
 		1,
 	)
-
 	fmt.Println(err)
 }
 
@@ -138,7 +136,6 @@ func TestRongCloud_PrivateRecall(t *testing.T) {
 		"CFtiYbXNQNYtSr7rzUfHco",
 		"B7CE-U880-31M6-D3EE",
 		1543566558208,
-		1,
 	)
 
 	fmt.Println(err)
