@@ -2,6 +2,7 @@ package io.rong.methods.group;
 
 import io.rong.RongCloud;
 import io.rong.exception.ParamException;
+import io.rong.methods.group.ban.Ban;
 import io.rong.methods.group.gag.Gag;
 import io.rong.models.*;
 import io.rong.models.group.*;
@@ -25,6 +26,7 @@ public class Group {
 	private String appKey;
 	private String appSecret;
 	public  Gag gag;
+	public Ban ban;
 	private RongCloud rongCloud;
 
 	public RongCloud getRongCloud() {
@@ -33,13 +35,13 @@ public class Group {
 
 	public void setRongCloud(RongCloud rongCloud) {
 		this.rongCloud = rongCloud;
-		this.gag.setRongCloud(rongCloud);
 	}
-	public Group(String appKey, String appSecret) {
+	public Group(String appKey, String appSecret, RongCloud rongCloud) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
-		this.gag = new Gag(appKey,appSecret);
-		gag.setRongCloud(rongCloud);
+		this.rongCloud = rongCloud;
+		this.gag = new Gag(appKey,appSecret,rongCloud);
+		this.ban = new Ban(appKey,appSecret,rongCloud);
 
 	}
 	/**

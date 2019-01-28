@@ -12,11 +12,11 @@ public class MessageExample {
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "8luwapkv8s7pl";
+    private static final String appKey = "appKey";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "lmkgpHuXezTjV2";
+    private static final String appSecret = "appSecret";
     /**
      * 自定义api地址
      * */

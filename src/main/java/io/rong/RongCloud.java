@@ -40,6 +40,7 @@ public class RongCloud {
 		if(HttpUtil.timeoutNum.get() >= 3){
 			for(HostType host : apiHostListBackUp){
 				if(!apiHostType.getStrType().equals(host.getStrType())){
+					HttpUtil.timeoutNum.set(1);
 					return host;
 				}
 			}
@@ -76,8 +77,8 @@ public class RongCloud {
 		wordfilter.setRongCloud(this);
 		sensitiveword = new SensitiveWord(appKey, appSecret);
 		sensitiveword.setRongCloud(this);
-		group = new Group(appKey, appSecret);
-		group.setRongCloud(this);
+		group = new Group(appKey, appSecret, this);
+		//group.setRongCloud(this);
 		chatroom = new Chatroom(appKey, appSecret);
 		chatroom.setRongCloud(this);
 		conversation = new Conversation(appKey,appSecret);
@@ -88,9 +89,9 @@ public class RongCloud {
 	public static RongCloud getInstance(String appKey, String appSecret) {
 		if (null == rongCloud.get(appKey)) {
 			rongCloud.putIfAbsent(appKey, new RongCloud(appKey, appSecret));
+			apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
+			apiHostListBackUp.add(new HostType("http://api.cn.ronghub.com"));
 		}
-		apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
-		apiHostListBackUp.add(new HostType("http://api.cn.ronghub.com"));
 		return rongCloud.get(appKey);
 	}
 
@@ -100,6 +101,7 @@ public class RongCloud {
 			if(api!=null && api.trim().length()>0){
 				rc.setApiHostType(new HostType(api));
 			}
+			apiHostListBackUp.add(new HostType(api));
 			rongCloud.putIfAbsent(appKey,rc );
 		}
 		return rongCloud.get(appKey);

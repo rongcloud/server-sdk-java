@@ -1,8 +1,8 @@
-package io.rong.methods.group.gag;
+package io.rong.methods.group.ban.user;
 
 import io.rong.RongCloud;
-import io.rong.models.Result;
 import io.rong.models.CheckMethod;
+import io.rong.models.Result;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.ListGagGroupUserResult;
@@ -14,13 +14,14 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
- * 群组成员禁言服务
- * docs : http://www.rongcloud.cn/docs/server.html#group_user_gag
+ * 群组禁言服务
+ * 群成员禁言 groupId 不加即为全局禁言
+ * docs : https://www.rongcloud.cn/docs/server.html#group_user_gag
  *
  * */
-public class Gag {
+public class User {
     private static final String UTF8 = "UTF-8";
-    private static final String PATH = "group/gag";
+    private static final String PATH = "group/ban/user";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -31,14 +32,14 @@ public class Gag {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
-    public Gag(String appKey, String appSecret, RongCloud rongCloud) {
+    public User(String appKey, String appSecret, RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
-        this.rongCloud = rongCloud;
+        this.rongCloud  = rongCloud;
 
     }
     /**
-     * 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
+     * 添加全局禁言群方法
      *
      * @param group:群组信息。id , munite , memberIds（必传）
      *
@@ -49,18 +50,12 @@ public class Gag {
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
-
-       /* message = CommonUtil.checkParam("munite",munite,PATH,CheckMethod.ADD);
-        if(null != message){
-            return (Result)GsonUtil.fromJson(message,Result.class);
-        }*/
-
         StringBuilder sb = new StringBuilder();
         GroupMember[] members = group.getMembers();
         for(GroupMember member : members){
             sb.append("&userId=").append(URLEncoder.encode(member.getId().toString(), UTF8));
         }
-        sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+        //sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
         sb.append("&minute=").append(URLEncoder.encode(group.getMinute().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
@@ -74,19 +69,13 @@ public class Gag {
     }
 
     /**
-     * 查询被禁言群成员方法
-     *
-     * @param  groupId:群组Id。（必传）
+     * 查询被全局禁言群方法
      *
      * @return ListGagGroupUserResult
      **/
-    public ListGagGroupUserResult getList(String groupId) throws Exception {
-        String message = CommonUtil.checkParam("id",groupId,PATH,CheckMethod.GETLIST);
-        if(null != message){
-            return (ListGagGroupUserResult)GsonUtil.fromJson(message,ListGagGroupUserResult.class);
-        }
+    public ListGagGroupUserResult getList() throws Exception {
         StringBuilder sb = new StringBuilder();
-        sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
+        //sb.append("&groupId=").append(URLEncoder.encode(groupId.toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -99,7 +88,7 @@ public class Gag {
     }
 
     /**
-     * 移除禁言群成员方法
+     * 移除全局群禁言方法
      *
      * @param  group:群组（必传）
      *
@@ -118,7 +107,7 @@ public class Gag {
             sb.append("&userId=").append(URLEncoder.encode(member.getId().toString(), UTF8));
         }
 
-        sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+        //sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -130,3 +119,4 @@ public class Gag {
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn)), ResponseResult.class);
     }
 }
+
