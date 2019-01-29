@@ -57,7 +57,6 @@ public class TemplateMessage {
     public void setObjectName(String objectName) {
         this.objectName = objectName;
     }
-
     /**
      * 获取template
      * @return String

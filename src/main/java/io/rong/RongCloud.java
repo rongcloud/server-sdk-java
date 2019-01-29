@@ -40,6 +40,8 @@ public class RongCloud {
 		if(HttpUtil.timeoutNum.get() >= 3){
 			for(HostType host : apiHostListBackUp){
 				if(!apiHostType.getStrType().equals(host.getStrType())){
+					HttpUtil.timeoutNum.set(0);
+					this.setApiHostType(host);
 					return host;
 				}
 			}
@@ -76,8 +78,7 @@ public class RongCloud {
 		wordfilter.setRongCloud(this);
 		sensitiveword = new SensitiveWord(appKey, appSecret);
 		sensitiveword.setRongCloud(this);
-		group = new Group(appKey, appSecret);
-		group.setRongCloud(this);
+		group = new Group(appKey, appSecret, this);
 		chatroom = new Chatroom(appKey, appSecret);
 		chatroom.setRongCloud(this);
 		conversation = new Conversation(appKey,appSecret);
@@ -88,12 +89,14 @@ public class RongCloud {
 	public static RongCloud getInstance(String appKey, String appSecret) {
 		if (null == rongCloud.get(appKey)) {
 			rongCloud.putIfAbsent(appKey, new RongCloud(appKey, appSecret));
+			apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
+			apiHostListBackUp.add(new HostType("http://api.cn.ronghub.com"));
 		}
-		apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
-		apiHostListBackUp.add(new HostType("http://api.cn.ronghub.com"));
 		return rongCloud.get(appKey);
 	}
-
+	/**
+	 * 自定义 API 地址
+	 * */
 	public static RongCloud getInstance(String appKey, String appSecret,String api) {
 		if (null == rongCloud.get(appKey)) {
 			RongCloud rc =  new RongCloud(appKey, appSecret);
@@ -106,12 +109,17 @@ public class RongCloud {
 	}
 	/**
 	 * 自定义 api 支持备用域名
+	 * @param appKey
+	 * @param appSecret
+	 * @param api 主 API 地址
+	 * @param apiBackUp 备用 API 地址列表
 	 * */
 	public static RongCloud getInstance(String appKey, String appSecret,String api,List<String> apiBackUp) {
 		if (null == rongCloud.get(appKey)) {
 			RongCloud rc =  new RongCloud(appKey, appSecret);
 			if(api!=null && api.trim().length()>0){
 				rc.setApiHostType(new HostType(api));
+				rc.apiHostListBackUp.add(new HostType(api));
 			}
 			for(String apiHost : apiBackUp){
 				rc.apiHostListBackUp.add(new HostType(apiHost));

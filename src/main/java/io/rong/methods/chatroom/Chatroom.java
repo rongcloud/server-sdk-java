@@ -80,7 +80,7 @@ public class Chatroom {
 	 **/
 	public ResponseResult create(ChatroomModel[] chatrooms) throws Exception {
 		if (chatrooms == null) {
-			return new ResponseResult(1002,"chatrooms 'chatrooms' is required");
+			return new ResponseResult(1002,"Paramer 'chatrooms' is required");
 		}
 		for(ChatroomModel chatroom : chatrooms){
 			String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.DESTORY);

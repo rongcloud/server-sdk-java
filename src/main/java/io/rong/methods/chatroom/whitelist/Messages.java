@@ -1,9 +1,7 @@
 package io.rong.methods.chatroom.whitelist;
 
 import io.rong.RongCloud;
-import io.rong.exception.ParamException;
 import io.rong.models.CheckMethod;
-import io.rong.models.CommonConstrants;
 import io.rong.models.response.ChatroomWhitelistMsgResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
@@ -43,10 +41,6 @@ public class Messages {
      * @return ResponseResult
      **/
     public ResponseResult add(String[] objectNames) throws Exception {
-        if (objectNames == null) {
-            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/message/whitelist/add",
-                    "Paramer 'objectNames' is required");
-        }
         String errMsg = CommonUtil.checkParam("type",objectNames,PATH, CheckMethod.ADD);
         if(null != errMsg){
             return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);
@@ -77,10 +71,6 @@ public class Messages {
      * @return ResponseResult
      **/
     public ResponseResult remove(String[] objectNames) throws Exception {
-        if (objectNames == null) {
-            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/message/whitelist/remove",
-                    "Paramer 'objectNames' is required");
-        }
         String errMsg = CommonUtil.checkParam("type",objectNames,PATH, CheckMethod.REMOVE);
         if(null != errMsg){
             return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);

@@ -35,8 +35,16 @@ public class Example {
 	@Before
 	public void setUp() throws Exception {
 		String appKey = "appKey";
-		String appSecret = "appSercet";
+		String appSecret = "appSecrets";
 		rongCloud = RongCloud.getInstance(appKey, appSecret);
+		//rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+		/**
+		 * 自定义备用 API 地址用法
+		 * List apiList = new ArrayList<>();
+		 * apiList.add("http://api2-cn.ronghub.com");
+		 * apiList.add("http://api-na02.ronghub.com");
+		 * rongCloud = RongCloud.getInstance(appKey, appSecret,api,apiList);
+		 * */
 	}
 
 	/**
@@ -617,6 +625,148 @@ public class Example {
 
 		Result result = (Result)rongCloud.group.dismiss(group);
 		System.out.println("groupDismissResult:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 *  添加全局禁言群方法
+	 */
+	@Test
+	public void testGroupBanUserResult() throws Exception {
+		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
+
+		GroupModel groupModel = new GroupModel()
+				.setMembers(members)
+				.setMinute(1000000);
+		Result result = rongCloud.group.ban.user.add(groupModel);
+		System.out.println("group.ban.add:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+
+	/**
+	 *
+	 * 获取全局禁言群方法
+	 */
+	@Test
+	public void testGroupBanUserGetListResult() throws Exception {
+
+		ListGagGroupUserResult result = (ListGagGroupUserResult) rongCloud.group.ban.user.getList();
+		System.out.println("group.ban.getList:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+
+	/**
+	 *
+	 * 移除用户全局禁言群方法
+	 */
+	@Test
+	public void testGroupBanUserRemoveResult() throws Exception {
+
+		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
+
+		GroupModel groupModel = new GroupModel()
+				.setMembers(members);
+		Result result =  rongCloud.group.ban.user.remove(groupModel);
+		System.out.println("group.ban.remove:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+
+
+	/**
+	 * 添加禁言白名单用户方法
+	 */
+	@Test
+	public void testGroupBanWhitelistAddResult() throws Exception {
+
+		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
+
+		GroupModel groupModel = new GroupModel()
+				.setId("groupId")
+				.setMembers(members);
+		Result result = rongCloud.group.ban.whitelist.add(groupModel);
+		System.out.println("group.ban.add:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+
+	/**
+	 * API 文档:
+	 * 查询禁言白名单用户方法
+	 */
+	@Test
+	public void testGroupBanWhitelistGetListResult() throws Exception {
+
+		GroupBanWhitelistResult result = (GroupBanWhitelistResult) rongCloud.group.ban.whitelist.getList("groupId");
+		System.out.println("group.ban.getList:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+
+
+	/**
+	 * API 文档:
+	 * 移除禁言白名单用户方法
+	 */
+	@Test
+	public void testGroupBanWhitelistRemoveResult() throws Exception {
+
+		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
+
+		GroupModel groupModel = new GroupModel()
+				.setMembers(members)
+				.setId("groupId");
+		Result result =  rongCloud.group.ban.whitelist.remove(groupModel);
+		System.out.println("group.ban.remove:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 * 添加禁言群方法
+	 */
+	@Test
+	public void testGroupBanAddResult() throws Exception {
+		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8","ghJiu7H9","ghJiu7H10"};
+		Result result = rongCloud.group.ban.add(groupIds);
+
+		System.out.println("group.ban.remove:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+
+	/**
+	 * 查询禁言群方法
+	 */
+	@Test
+	public void testGroupBanGetListResult() throws Exception {
+		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8"};
+
+		GroupBanResult result = (GroupBanResult)rongCloud.group.ban.getList(groupIds);
+		System.out.println("group.ban.getList:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+
+	/**
+	 * 移除禁言群方法
+	 */
+	@Test
+	public void testGroupBanRemoveResult() throws Exception {
+		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7"};
+
+		Result result = rongCloud.group.ban.remove(groupIds);
+		System.out.println("group.ban.remove:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());
 

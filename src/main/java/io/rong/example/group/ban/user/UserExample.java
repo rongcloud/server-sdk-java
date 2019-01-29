@@ -1,19 +1,19 @@
-package io.rong.example.group;
+package io.rong.example.group.ban.user;
 
 import io.rong.RongCloud;
-import io.rong.methods.group.gag.Gag;
+import io.rong.methods.group.Group;
 import io.rong.models.Result;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.ListGagGroupUserResult;
 /**
  *
- * 群组成员禁言例子
+ * 群组成员全部禁言例子
  * @author RongCloud
  *
  * @version 3.0.0
  */
-public class GagExample {
+public class UserExample {
     /**
      * 此处替换成您的appKey
      * */
@@ -38,38 +38,38 @@ public class GagExample {
         //自定义 api 地址方式
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
-        Gag Gag = rongCloud.group.gag;
+        Group group = rongCloud.group;
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#add
-         * 添加禁言群成员方法
+         * 设置用户在加入的所有群组中都不能发送消息
          */
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
 
-        GroupModel group = new GroupModel()
-                .setId("groupId")
+        GroupModel groupModel = new GroupModel()
                 .setMembers(members)
                 .setMinute(5);
-        Result result = Gag.add(group);
-        System.out.println("group.gag.add:  " + result.toString());
+        Result result = group.ban.user.add(groupModel);
+        System.out.println("group.ban.add:  " + result.toString());
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#getList
-         * 查询被禁言群成员
+         * 获取所有群组禁言用户列表
          */
-        ListGagGroupUserResult groupLisGagUserResult = Gag.getList("groupId");
-        System.out.println("group.gag.getList:  " + groupLisGagUserResult.toString());
+        groupModel = new GroupModel()
+                .setMembers(members);
+        ListGagGroupUserResult GroupBanResult = (ListGagGroupUserResult) group.ban.user.getList();
+        System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#remove
-         * 移除禁言群成员
+         * 移除用户在所有群组中的禁言设置
          */
-        group = new GroupModel()
-                .setId("groupId")
+        groupModel = new GroupModel()
                 .setMembers(members);
+        Result groupRollBackGagUserResult =  group.ban.user.remove(groupModel);
+        System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
 
-        Result groupRollBackGagUserResult = Gag.remove(group);
-        System.out.println("group.gag.remove:  " + groupRollBackGagUserResult.toString());
 
     }
 }

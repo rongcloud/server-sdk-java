@@ -79,7 +79,7 @@ public class CommonUtil {
                 checkObjectKey = entry.getKey();
             }
             if(null == model){
-                String message = (String)CommonUtil.getErrorMessage(apiPath,method,"20005","object",String.valueOf(max),"1",type);
+                String message = (String)CommonUtil.getErrorMessage(apiPath,method,"20005","object",String.valueOf(max),"1",type,0);
                 return message;
             }
             //获取校验文件
@@ -88,6 +88,7 @@ public class CommonUtil {
             Set<String> keys = verify.getJSONObject(checkObjectKey).keySet();
             //获取具体校验规则
             JSONObject entity = verify.getJSONObject(checkObjectKey);
+            int size = 0;
             for(String name : fileds){
                 for (String key : keys) {
                     if(name.equals(key)){
@@ -122,11 +123,13 @@ public class CommonUtil {
                                     code = (String)object.getJSONObject("length").get("invalid");
                                 }
                                 if("200".equals(code) && value.length() > max){
+                                    size = value.length();
                                     code = (String)object.getJSONObject("length").get("invalid");
                                 }
                             }else if(m.invoke(model)  instanceof String[]){
                                 String[] value = (String[]) m.invoke(model);
                                 if("200".equals(code) && value.length > max){
+                                    size = value.length;
                                     code = (String)object.getJSONObject("length").get("invalid");
                                 }
                             }/*else{
@@ -147,6 +150,7 @@ public class CommonUtil {
                                     code = (String)object.getJSONObject("size").get("invalid");
                                 }
                                 if("200".equals(code) && value.length > max){
+                                    size = value.length;
                                     code = (String)object.getJSONObject("size").get("invalid");
                                 }
 
@@ -162,6 +166,7 @@ public class CommonUtil {
                                     code = (String)object.getJSONObject("size").get("invalid");
                                 }
                                 if("200".equals(code) && value > max){
+                                    size = value;
                                     code = (String)object.getJSONObject("size").get("invalid");
                                 }
 
@@ -169,7 +174,7 @@ public class CommonUtil {
                         }
                         if(!"200".equals(code)){
                             //根据错误吗获取错误信息
-                            String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,name,String.valueOf(max),"1",type);
+                            String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,name,String.valueOf(max),"1",type,size);
                             // 对 errorMessage  替换 目前不需要替换
                             // message = StringUtils.replace(message,"errorMessage","msg");
                             return message;
@@ -214,6 +219,7 @@ public class CommonUtil {
             JSONObject verify =  JsonUtil.getJsonObject(path,VERIFY_JSON_NAME);
             Set<String> keys = verify.getJSONObject(checkObject).keySet();
             JSONObject entity = verify.getJSONObject(checkObject);
+            int size = 0;
             for (String key : keys) {
                 if(checkFiled.equals(key)){
                     JSONObject object =  entity.getJSONObject(checkFiled);
@@ -237,6 +243,7 @@ public class CommonUtil {
                                 code = (String)object.getJSONObject("length").get("invalid");
                             }
                             if("200".equals(code) && String.valueOf(value).length() > max){
+                                size = String.valueOf(value).length();
                                 code = (String)object.getJSONObject("length").get("invalid");
                             }
                         }else if(value  instanceof String[]){
@@ -267,6 +274,7 @@ public class CommonUtil {
                             }
 
                             if("200".equals(code) && valueTemp.length > max){
+                                size = valueTemp.length;
                                 code = (String)object.getJSONObject("size").get("invalid");
                             }
 
@@ -281,12 +289,13 @@ public class CommonUtil {
                                 code = (String)object.getJSONObject("size").get("invalid");
                             }
                             if("200".equals(code) && valueTemp > max){
+                                size = valueTemp;
                                 code = (String)object.getJSONObject("size").get("invalid");
                             }
 
                         }
                     }
-                    String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,checkFiled,String.valueOf(max),"1",type);
+                    String message = (String)CommonUtil.getErrorMessage(apiPath,method,code,checkFiled,String.valueOf(max),"1",type,size);
                     //message = StringUtils.replace(message,"errorMessage","msg");
                     return message;
 
@@ -310,13 +319,13 @@ public class CommonUtil {
      *
      * @return Map
      **/
-    public static Object getErrorMessage(String path,String method,String errorCode,String name,String max ,String min,String type){
+    public static Object getErrorMessage(String path,String method,String errorCode,String name,String max ,String min,String type, int size){
         JSONObject api = null;
         try {
             api = JsonUtil.getJsonObject(path,API_JSON_NAME);
             Set<Map.Entry<String,Object>> keys = api.getJSONObject(method).getJSONObject("response").getJSONObject("fail").entrySet();
-            String[] serchList = {"{{name}}","{{max}}","{{name}}","{{min}}","{{currentType}}"};
-            String[] replaceList = {name,max,name,min,type};
+            String[] serchList = {"{{name}}","{{max}}","{{name}}","{{min}}","{{currentType}}","{{size}}"};
+            String[] replaceList = {name,max,name,min,type,String.valueOf(size)};
             for (Map.Entry<String,Object> entry : keys) {
                 if(errorCode.equals(entry.getKey())){
                     String text = entry.getValue().toString();

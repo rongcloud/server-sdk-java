@@ -97,7 +97,7 @@
 		"url": "group/user/gag/list",
 		"params": {
 			"group": {
-				"id": "10001",
+				"id": "10001"
 			}
 		},
 		"response":{

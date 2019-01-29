@@ -1,0 +1,131 @@
+{
+  "add": {
+    "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_add",
+    "url": "/group/user/ban/whitelist/add",
+    "params": {
+      "group": {
+        "id": "10001",
+        "members": [{
+          "id": "memberId01"
+        }]
+      }
+    },
+    "response":{
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 数量超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "封禁时间不正确, 当前传入为 {{size}}, 正确范围 0 - 43200 分钟, 0 为永久禁言"
+        }
+      }
+    }
+  },
+  "remove": {
+    "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_rollback",
+    "url": "/group/user/ban/whitelist/rollback",
+    "params": {
+      "group": {
+        "id": "10001",
+        "members": [{
+          "id": "memberId01"
+        }]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "封禁时间超限, 最长不超过 43200 分钟"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        }
+      }
+    }
+  },
+  "getList": {
+    "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_list",
+    "url": "/group/user/ban/whitelist/query",
+    "params": {
+      "group": {
+        "id": "10001"
+      }
+    },
+    "response":{
+      "success": {
+        "code": "200",
+        "userIds": ["2583","2582"]
+      },
+      "fail": {
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+        }
+      }
+    }
+  }
+}

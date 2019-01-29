@@ -27,10 +27,6 @@ public class HttpUtil {
 	private static final String TIMESTAMP = "Timestamp";
 	private static final String SIGNATURE = "Signature";
     public static AtomicInteger timeoutNum = new AtomicInteger();
-
-	private static final String API_HOST = "http://api.cn.ronghub.com";
-	private static final String API_HOST_BACKUP = "http://api2-cn.ronghub.com";
-
 	private static SSLContext sslCtx = null;
 	static {
 
@@ -86,20 +82,24 @@ public class HttpUtil {
 	}
 
 	public static void setBodyParameter(String str, HttpURLConnection conn) throws IOException {
+		DataOutputStream out = null;
 		try{
-			DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+			out = new DataOutputStream(conn.getOutputStream());
 			out.write(str.getBytes("utf-8"));
 			out.flush();
-			out.close();
 		}catch (UnknownHostException e){
 			timeoutNum.incrementAndGet();
 			e.printStackTrace();
 		}catch (SocketTimeoutException e){
 			timeoutNum.incrementAndGet();
 			e.printStackTrace();
-		}catch (Exception e){
+		}catch (IOException e){
 			timeoutNum.incrementAndGet();
 			e.printStackTrace();
+		}finally {
+			if(null != out){
+				out.close();
+			}
 		}
 
 	}
@@ -143,7 +143,7 @@ public class HttpUtil {
 		return data;
 	}
 
-	public static String returnResult(HttpURLConnection conn) throws Exception, IOException {
+	public static String returnResult(HttpURLConnection conn) throws Exception{
 		InputStream input = null;
 		if (conn.getResponseCode() == 200) {
 			input = conn.getInputStream();
