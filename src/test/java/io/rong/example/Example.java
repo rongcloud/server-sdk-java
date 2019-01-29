@@ -34,13 +34,18 @@ public class Example {
 
 	@Before
 	public void setUp() throws Exception {
-		String appKey = "8luwapkv8s7pl";
-		//String appKey = "e0x9wycfx7flq";
-		String appSecret = "lmkgpHuXezTjV2";
-		//String appSecret = "STCevzDS6Xy18n";
-		String api = "http://apixq.rongcloud.net";
-		//rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+		String appKey = "appKey";
+		String appSecret = "appSecrets";
 		rongCloud = RongCloud.getInstance(appKey, appSecret);
+		//rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+
+		/**
+		 * 自定义备用 API 地址用法
+		 * List apiList = new ArrayList<>();
+		 * apiList.add("http://api2-cn.ronghub.com");
+		 * apiList.add("http://api-na02.ronghub.com");
+		 * rongCloud = RongCloud.getInstance(appKey, appSecret,api,apiList);
+		 * */
 	}
 
 	/**
@@ -634,7 +639,7 @@ public class Example {
 
 		GroupModel groupModel = new GroupModel()
 				.setMembers(members)
-				.setMinute(5);
+				.setMinute(1000000);
 		Result result = rongCloud.group.ban.user.add(groupModel);
 		System.out.println("group.ban.add:  " + result.toString());
 
@@ -731,7 +736,7 @@ public class Example {
 	 */
 	@Test
 	public void testGroupBanAddResult() throws Exception {
-		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8","ghJiu7H9","ghJiu7H10","ghJiu7H11","ghJiu7H12","ghJiu7H13","ghJiu7H14","ghJiu7H15","ghJiu7H16","ghJiu7H12","ghJiu7H18","ghJiu7H19","ghJiu7H20","ghJiu7H21"};
+		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8","ghJiu7H9","ghJiu7H10"};
 		Result result = rongCloud.group.ban.add(groupIds);
 
 		System.out.println("group.ban.remove:  " + result.toString());
@@ -745,7 +750,7 @@ public class Example {
 	 */
 	@Test
 	public void testGroupBanGetListResult() throws Exception {
-		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8","ghJiu7H9","ghJiu7H10","ghJiu7H11","ghJiu7H12","ghJiu7H13","ghJiu7H14","ghJiu7H15","ghJiu7H16","ghJiu7H12","ghJiu7H18","ghJiu7H19","ghJiu7H20","ghJiu7H21"};
+		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8"};
 
 		GroupBanResult result = (GroupBanResult)rongCloud.group.ban.getList(groupIds);
 		System.out.println("group.ban.getList:  " + result.toString());
@@ -759,7 +764,7 @@ public class Example {
 	 */
 	@Test
 	public void testGroupBanRemoveResult() throws Exception {
-		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8","ghJiu7H9","ghJiu7H10","ghJiu7H11","ghJiu7H12","ghJiu7H13","ghJiu7H14","ghJiu7H15","ghJiu7H16","ghJiu7H12","ghJiu7H18","ghJiu7H19","ghJiu7H20","ghJiu7H21"};
+		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7"};
 
 		Result result = rongCloud.group.ban.remove(groupIds);
 		System.out.println("group.ban.remove:  " + result.toString());

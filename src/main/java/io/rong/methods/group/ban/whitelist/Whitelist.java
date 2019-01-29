@@ -79,7 +79,7 @@ public class Whitelist {
     public Result getList(String groupId) throws Exception {
         String message = CommonUtil.checkParam("id",groupId,PATH,CheckMethod.GETLIST);
         if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ListGagGroupUserResult.class);
+            return (Result)GsonUtil.fromJson(message,GroupBanWhitelistResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));

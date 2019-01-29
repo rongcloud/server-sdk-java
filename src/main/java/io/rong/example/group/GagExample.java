@@ -47,7 +47,7 @@ public class GagExample {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
 
         GroupModel group = new GroupModel()
-                .setId("12")
+                .setId("groupId")
                 .setMembers(members)
                 .setMinute(5);
         Result result = Gag.add(group);
@@ -57,7 +57,7 @@ public class GagExample {
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#getList
          * 查询被禁言群成员
          */
-        ListGagGroupUserResult groupLisGagUserResult = Gag.getList("12");
+        ListGagGroupUserResult groupLisGagUserResult = Gag.getList("groupId");
         System.out.println("group.gag.getList:  " + groupLisGagUserResult.toString());
 
         /**
@@ -65,7 +65,7 @@ public class GagExample {
          * 移除禁言群成员
          */
         group = new GroupModel()
-                .setId("IXQhMs3ny")
+                .setId("groupId")
                 .setMembers(members);
 
         Result groupRollBackGagUserResult = Gag.remove(group);

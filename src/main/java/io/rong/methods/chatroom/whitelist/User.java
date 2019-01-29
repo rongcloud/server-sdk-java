@@ -1,9 +1,7 @@
 package io.rong.methods.chatroom.whitelist;
 
 import io.rong.RongCloud;
-import io.rong.exception.ParamException;
 import io.rong.models.CheckMethod;
-import io.rong.models.CommonConstrants;
 import io.rong.models.Result;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;

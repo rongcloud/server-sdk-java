@@ -2,7 +2,6 @@ package io.rong.example.message;
 
 import io.rong.RongCloud;
 import io.rong.messages.CustomTxtMessage;
-import io.rong.messages.GroupNotificationMessage;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
 import io.rong.methods.message._private.Private;
@@ -17,10 +16,8 @@ import io.rong.models.response.ResponseResult;
 import io.rong.util.GsonUtil;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
 
 
 /**
