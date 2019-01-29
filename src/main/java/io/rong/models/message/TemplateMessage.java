@@ -57,6 +57,7 @@ public class TemplateMessage {
     public void setObjectName(String objectName) {
         this.objectName = objectName;
     }
+
     /**
      * 获取template
      * @return String
@@ -70,7 +71,6 @@ public class TemplateMessage {
     public void setTemplate(Map<String, String> template) {
         this.template = template;
     }
-
     public Map<String, TemplateMessage.Data> getContent() {
         return content;
     }

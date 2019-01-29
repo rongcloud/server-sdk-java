@@ -34,12 +34,9 @@ public class Example {
 
 	@Before
 	public void setUp() throws Exception {
-		//String appKey = "8luwapkv8s7pl";
-		String appKey = "e0x9wycfx7flq";
-		//String appSecret = "lmkgpHuXezTjV2";
-		String appSecret = "STCevzDS6Xy18n";
-		String api = "http://apixq.rongcloud.net:9200";
-		rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+		String appKey = "appKey";
+		String appSecret = "appSercet";
+		rongCloud = RongCloud.getInstance(appKey, appSecret);
 	}
 
 	/**

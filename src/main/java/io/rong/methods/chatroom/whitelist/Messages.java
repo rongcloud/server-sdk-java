@@ -43,6 +43,10 @@ public class Messages {
      * @return ResponseResult
      **/
     public ResponseResult add(String[] objectNames) throws Exception {
+        if (objectNames == null) {
+            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/message/whitelist/add",
+                    "Paramer 'objectNames' is required");
+        }
         String errMsg = CommonUtil.checkParam("type",objectNames,PATH, CheckMethod.ADD);
         if(null != errMsg){
             return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);
@@ -73,6 +77,10 @@ public class Messages {
      * @return ResponseResult
      **/
     public ResponseResult remove(String[] objectNames) throws Exception {
+        if (objectNames == null) {
+            throw new ParamException(CommonConstrants.RCLOUD_PARAM_NULL,"/chatroom/message/whitelist/remove",
+                    "Paramer 'objectNames' is required");
+        }
         String errMsg = CommonUtil.checkParam("type",objectNames,PATH, CheckMethod.REMOVE);
         if(null != errMsg){
             return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);

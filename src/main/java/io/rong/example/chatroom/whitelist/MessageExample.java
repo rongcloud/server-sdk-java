@@ -39,7 +39,6 @@ public class MessageExample {
         System.out.println("add whitelist:  " + addResult.toString());
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/message.html#getList
-         *
          * 获取聊天室消息白名单
          * */
 

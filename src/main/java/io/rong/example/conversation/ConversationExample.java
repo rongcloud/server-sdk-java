@@ -23,7 +23,7 @@ public class ConversationExample {
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
+    private static final String appSecret = "appSercet";
     /**
      * 自定义api地址
      * */
@@ -60,6 +60,7 @@ public class ConversationExample {
         ResponseResult unMuteConversationResult = Conversation.unMute(conversation);
 
         System.out.println("unMuteConversationResult:  " + unMuteConversationResult.toString());
+
         /**
          *
          * API 文档: https://www.rongcloud.cn/docs/server.html#conversation_notification_get
