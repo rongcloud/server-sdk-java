@@ -2,8 +2,6 @@ package sdk
 
 import (
 	"encoding/json"
-	"net/url"
-	"reflect"
 	"strconv"
 	"time"
 
@@ -456,9 +454,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName st
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
 	if err != nil {
-		if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
-			rc.NumTimeOut()
-		}
+		rc.URLError(err)
 		return err
 	}
 	req.Param("content", msgstr)
