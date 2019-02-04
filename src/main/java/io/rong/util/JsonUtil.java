@@ -17,8 +17,6 @@ import java.util.jar.JarFile;
  * @author RongCloud
  */
 public class JsonUtil {
-    private static final String JSONFILE = JsonUtil.class.getClassLoader().getResource("jsonsource").getPath()+"/";
-
     /**
      * 获取JsonObject
      *
@@ -38,7 +36,7 @@ public class JsonUtil {
             }else{
                 reader =new BufferedReader( new InputStreamReader(new FileInputStream(JSONFILE+path+jsonName)));
             }*/
-            reader = new BufferedReader(new InputStreamReader(JsonUtil.class.getResourceAsStream("/jsonsource/" + path + jsonName)));
+            reader = new BufferedReader(new InputStreamReader(JsonUtil.class.getResourceAsStream("/jsonsource/" + path + jsonName),"UTF-8"));
             while ((line = reader.readLine()) != null){
                 arrs.append(line);
             }
