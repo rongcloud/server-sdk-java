@@ -13,6 +13,7 @@ type User struct {
 	Token        string `json:"token"`
 	UserID       string `json:"userId"`
 	BlockEndTime string `json:"blockEndTime,omitempty"`
+	Status       int    `json:"status,omitempty"`
 }
 
 // BlockListResult 返回信息
@@ -330,4 +331,42 @@ func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 		return BlacklistResult{}, RCErrorNew(code.Code, code.ErrorMessage)
 	}
 	return listResult, nil
+}
+
+// OnlineStatusCheck 检查用户在线状态
+/*
+*@param  userID:用户 ID，最大长度 64 字节.是用户在 App 中的唯一标识码，必须保证在同一个 App 内不重复，重复的用户 Id 将被当作是同一用户。
+*
+*@return int, error
+ */
+func (rc *RongCloud) OnlineStatusCheck(userID string) (int, error) {
+	if userID == "" {
+		return -1, RCErrorNew(1002, "Paramer 'userID' is required")
+	}
+
+	req := httplib.Post(rc.RongCloudURI + "/user/checkOnline." + ReqType)
+	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
+	rc.FillHeader(req)
+	req.Param("userId", userID)
+
+	rep, err := req.Bytes()
+	if err != nil {
+		rc.URLError(err)
+		return -1, err
+	}
+
+	var code CodeResult
+	var userResult User
+
+	if err := json.Unmarshal(rep, &struct {
+		*CodeResult
+		*User
+	}{&code, &userResult}); err != nil {
+		return -1, err
+	}
+	if code.Code != 200 {
+		return -1, RCErrorNew(code.Code, code.ErrorMessage)
+	}
+
+	return userResult.Status, nil
 }

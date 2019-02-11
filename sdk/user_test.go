@@ -116,3 +116,14 @@ func TestRongCloud_BlacklistRemove(t *testing.T) {
 	)
 	fmt.Println(err)
 }
+
+func TestRongCloud_OnlineStatusCheck(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	status, err := rc.OnlineStatusCheck("4kIvGJmETlYqDoVFgWdYdM")
+	fmt.Println(err)
+	fmt.Println(status)
+}
