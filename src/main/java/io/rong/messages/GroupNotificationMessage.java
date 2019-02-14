@@ -3,7 +3,9 @@ package io.rong.messages;
 import io.rong.util.GsonUtil;
 
 import java.util.Map;
-
+/**
+ * 群组通知消息
+ */
 public class GroupNotificationMessage extends BaseMessage {
     //操作人用户 Id
     private String operatorUserId;
@@ -72,7 +74,7 @@ public class GroupNotificationMessage extends BaseMessage {
 
     @Override
     public String getType() {
-        return null;
+        return TYPE;
     }
 
     @Override
