@@ -166,3 +166,143 @@ func TestRongCloud_GroupDismiss(t *testing.T) {
 
 	fmt.Println(err)
 }
+
+func TestRongCloud_GroupMuteAllMembersAdd(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.GroupMuteAllMembersAdd(
+		[]string{
+			"group01",
+			"group02",
+		})
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupMuteAllMembersList(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	group, err := rc.GroupMuteAllMembersGetList(
+		[]string{
+			"group01",
+			"group02",
+		})
+	if err == nil {
+		fmt.Println(group)
+	}
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupMuteAllMembersRemove(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.GroupMuteAllMembersRemove(
+		[]string{
+			"group01",
+			"group02",
+		})
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupGMuteMembersAdd(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.GroupMuteMembersAdd(
+		"gourp01",
+		[]string{
+			"u01",
+			"u02",
+		},
+		30,
+	)
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupMuteMembersGetList(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	rep, err := rc.GroupMuteMembersGetList(
+		"gourp01",
+	)
+	if err == nil {
+		fmt.Println(rep)
+	}
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupMuteMembersRemove(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.GroupMuteMembersRemove(
+		"gourp01",
+		[]string{
+			"u01",
+			"u02",
+		},
+	)
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupMuteWhiteListUserAdd(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.GroupMuteWhiteListUserAdd(
+		"gourp01",
+		[]string{
+			"u01",
+			"u02",
+		},
+	)
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupMuteWhiteListUserGetList(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	rep, err := rc.GroupMuteWhiteListUserGetList(
+		"gourp01",
+	)
+	if err == nil {
+		fmt.Println(rep)
+	}
+	fmt.Println(err)
+}
+
+func TestRongCloud_GroupMuteWhiteListUserRemove(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.GroupMuteWhiteListUserRemove(
+		"gourp01",
+		[]string{
+			"u01",
+			"u02",
+		},
+	)
+	fmt.Println(err)
+}
