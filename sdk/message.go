@@ -423,10 +423,9 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 // GroupSend 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
 /*
  *@param  senderID:发送人用户 ID 。
- *@param  targetID:接收群ID。
- *@param  objectName:消息类型。
- *@param  msg:发送消息内容。
- *@param  userID:群定向消息功能，向群中指定的一个或多个用户发送消息，群中其他用户无法收到该消息，当 targetID 为一个群组时此参数有效。注：如果开通了“单群聊消息云存储”功能，群定向消息不会存储到云端，向群中部分用户发送消息阅读状态回执时可使用此功能。（可选）
+ *@param  targetID:接收群ID.
+ *@param  objectName:消息类型
+ *@param  msg:发送消息内容
  *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
  *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
  *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
@@ -435,7 +434,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *
  *@return error
  */
-func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) GroupSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -453,11 +452,6 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		req.Param("toGroupId", v)
 	}
 	req.Param("objectName", objectName)
-	if len(userID) > 0 {
-		for _, v := range userID {
-			req.Param("toUserId", v)
-		}
-	}
 	msgstr, err := msg.toString()
 	if err != nil {
 		rc.URLError(err)
