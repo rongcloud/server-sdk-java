@@ -1,0 +1,102 @@
+{
+	"broadcast": {
+		"docs": "https://www.rongcloud.cn/docs/push_service.html#broadcast",
+		"url": "push",
+		"params": {
+			"broadcast": {
+				"platform": ["ios", "android"],
+				"fromuserid": "aFo990k",
+				"message": {
+					"content": "hello",
+					"objectName": "RC:TxtMsg"
+				},
+				"audience":{
+					"is_to_all":true
+				},
+				"notification":{
+					"alert":"this is a push"
+				}
+			}
+		},
+		"response": {
+			"success": {
+				"code": 200,
+				"id":"50whSR6kQiHb7YgFwQzXIb"
+			},
+			"fail": {
+				"2007": {
+					"code": "2007",
+					"errorMessage": "开发环境下注册用户上限为 100 个，生产环境下注册用户不超过 100 可免费使用，超过 100 需要开通 IM 商用版"
+				},
+				"20003": {
+					"code": "1002",
+					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
+				},
+				"20001": {
+					"code": "1002",
+					"errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "1008",
+					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	},
+	"push": {
+		"docs": "https://www.rongcloud.cn/docs/push_service.html#push",
+		"url": "push",
+		"params": {
+			"broadcast": {
+				"platform": ["ios", "android"],
+				"audience":{
+					"is_to_all":true
+				},
+				"notification":{
+					"alert":"this is a push"
+				}
+			}
+		},
+		"response": {
+			"success": {
+				"code": 200,
+				"userId": "jlk456j5",
+				"token": "MAo+IhwqEO3+h/DdXg1w6m20V27XsDF2Dx+"
+			},
+			"fail": {
+				"2007": {
+					"code": "2007",
+					"errorMessage": "开发环境下注册用户上限为 100 个，生产环境下注册用户不超过 100 可免费使用，超过 100 需要开通 IM 商用版"
+				},
+				"20003": {
+					"code": "1002",
+					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
+				},
+				"20001": {
+					"code": "1002",
+					"errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"1008": {
+					"code": "1008",
+					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+				}
+			}
+		}
+	}
+}

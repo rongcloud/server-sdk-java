@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import io.rong.methods.chatroom.*;
+import io.rong.methods.chatroom.Chatroom;
 import io.rong.methods.conversation.Conversation;
 import io.rong.methods.group.Group;
 import io.rong.methods.message.Message;
+import io.rong.methods.push.Push;
 import io.rong.methods.sensitive.SensitiveWord;
 import io.rong.methods.sensitive.Wordfilter;
 import io.rong.methods.user.User;
@@ -32,6 +33,7 @@ public class RongCloud {
 	public Group group;
 	public Chatroom chatroom;
 	public Conversation conversation;
+	public Push push;
 	private HostType apiHostType = new HostType("http://api.cn.ronghub.com");
 	private HostType smsHostType = new HostType("http://api.sms.ronghub.com");
 	private static List<HostType> apiHostListBackUp = new ArrayList();
@@ -83,7 +85,8 @@ public class RongCloud {
 		chatroom.setRongCloud(this);
 		conversation = new Conversation(appKey,appSecret);
 		conversation.setRongCloud(this);
-
+		push = new Push(appKey,appSecret);
+		push.setRongCloud(this);
 	}
 
 	public static RongCloud getInstance(String appKey, String appSecret) {

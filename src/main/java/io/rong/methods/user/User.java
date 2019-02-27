@@ -1,17 +1,21 @@
 package io.rong.methods.user;
 
+import java.net.HttpURLConnection;
+import java.net.URLEncoder;
+
 import io.rong.RongCloud;
 import io.rong.methods.user.blacklist.Blacklist;
 import io.rong.methods.user.block.Block;
 import io.rong.methods.user.onlinestatus.OnlineStatus;
-import io.rong.models.*;
+import io.rong.methods.user.tag.Tag;
+import io.rong.models.CheckMethod;
+import io.rong.models.Result;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.response.TokenResult;
 import io.rong.models.user.UserModel;
-import io.rong.util.*;
-
-import java.net.HttpURLConnection;
-import java.net.URLEncoder;
+import io.rong.util.CommonUtil;
+import io.rong.util.GsonUtil;
+import io.rong.util.HttpUtil;
 
 
 /**
@@ -27,6 +31,7 @@ public class User {
 	public Block block;
 	public Blacklist blackList;
 	public OnlineStatus onlineStatus;
+	public Tag tag;
 	private RongCloud rongCloud;
 
 	public RongCloud getRongCloud() {
@@ -37,6 +42,7 @@ public class User {
 		block.setRongCloud(rongCloud);
 		blackList.setRongCloud(rongCloud);
 		onlineStatus.setRongCloud(rongCloud);
+		tag.setRongCloud(rongCloud);
 	}
 	public User(String appKey, String appSecret) {
 		this.appKey = appKey;
@@ -44,6 +50,7 @@ public class User {
 		this.block = new Block(appKey,appSecret);
 		this.blackList = new Blacklist(appKey,appSecret);
 		this.onlineStatus = new OnlineStatus(appKey,appSecret);
+		this.tag = new Tag(appKey,appSecret);
 	}
 	/**
 	 * 获取 Token 方法 

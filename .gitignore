@@ -13,3 +13,5 @@ src/com.fcloud.connectmanager/build.xml
 .fuse*
 src/out/
 *.pyc
+.project
+.classpath
