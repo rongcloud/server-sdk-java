@@ -112,6 +112,7 @@ func TestRongCloud_GroupSend(t *testing.T) {
 	err := rc.GroupSend(
 		"7Szq13MKRVortoknTAk7W8",
 		[]string{"CFtiYbXNQNYtSr7rzUfHco"},
+		[]string{},
 		"RC:TxtMsg",
 		&msg,
 		"",
