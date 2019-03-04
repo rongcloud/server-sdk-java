@@ -88,6 +88,9 @@ public class Discussion {
         if (message.getIsIncludeSender() != null) {
             sb.append("&isIncludeSender=").append(URLEncoder.encode(message.getIsIncludeSender().toString(), UTF8));
         }
+        if (message.getContentAvailable() != null) {
+            sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
