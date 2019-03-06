@@ -354,3 +354,43 @@ func TestRongCloud_ChatRoomWhitelistRemove(t *testing.T) {
 	)
 	fmt.Println(err)
 }
+
+func TestRongCloud_ChatRoomMuteMembersAdd(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.ChatRoomMuteMembersAdd(
+		"chrm01",
+		[]string{"u01"},
+		30,
+	)
+	fmt.Println(err)
+}
+
+func TestRongCloud_ChatRoomMuteMembersGetList(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	rep, err := rc.ChatRoomMuteMembersGetList(
+		"chrm01",
+	)
+	fmt.Println(err)
+	fmt.Println(rep)
+}
+
+func TestRongCloud_ChatRoomMuteMembersRemove(t *testing.T) {
+	rc := NewRongCloud(
+		"输入用户app key",
+		"输入用户app secret",
+		nil,
+	)
+	err := rc.ChatRoomGagRemove(
+		"chrm01",
+		[]string{"u01"},
+	)
+	fmt.Println(err)
+}
