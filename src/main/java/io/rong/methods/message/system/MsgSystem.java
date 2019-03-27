@@ -69,7 +69,7 @@ public class MsgSystem {
             }
         }
 
-        sb.append("&objectName=").append(URLEncoder.encode(systemMessage.getContent().getType(), UTF8));
+        sb.append("&objectName=").append(URLEncoder.encode(systemMessage.getObjectName(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(systemMessage.getContent().toString(), UTF8));
 
         if (systemMessage.getPushContent() != null) {
