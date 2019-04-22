@@ -83,7 +83,7 @@ public class Chatroom {
 			return new ResponseResult(1002,"Paramer 'chatrooms' is required");
 		}
 		for(ChatroomModel chatroom : chatrooms){
-			String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.DESTORY);
+			String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.CREATE);
 			if(null != message){
 				return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
 			}

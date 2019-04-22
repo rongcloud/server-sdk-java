@@ -25,7 +25,7 @@ public class UserExample {
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api.cn.ronghub.com";
+    private static final String api = "http://api-cn.ronghub.com";
 
     /**
      * 本地调用测试
@@ -67,8 +67,8 @@ public class UserExample {
          */
         groupModel = new GroupModel()
                 .setMembers(members);
-        Result groupRollBackGagUserResult =  group.ban.user.remove(groupModel);
-        System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
+        //Result groupRollBackGagUserResult =  group.ban.user.remove(groupModel);
+        //System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
 
 
     }

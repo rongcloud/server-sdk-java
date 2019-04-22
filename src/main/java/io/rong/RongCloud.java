@@ -32,7 +32,7 @@ public class RongCloud {
 	public Group group;
 	public Chatroom chatroom;
 	public Conversation conversation;
-	private HostType apiHostType = new HostType("http://api.cn.ronghub.com");
+	private HostType apiHostType = new HostType("http://api-cn.ronghub.com");
 	private HostType smsHostType = new HostType("http://api.sms.ronghub.com");
 	private static List<HostType> apiHostListBackUp = new ArrayList();
 
@@ -89,8 +89,8 @@ public class RongCloud {
 	public static RongCloud getInstance(String appKey, String appSecret) {
 		if (null == rongCloud.get(appKey)) {
 			rongCloud.putIfAbsent(appKey, new RongCloud(appKey, appSecret));
+			apiHostListBackUp.add(new HostType("http://api-cn.ronghub.com"));
 			apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
-			apiHostListBackUp.add(new HostType("http://api.cn.ronghub.com"));
 		}
 		return rongCloud.get(appKey);
 	}

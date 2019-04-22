@@ -30,7 +30,7 @@ public class Example {
 	private RongCloud rongCloud ;
 	private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
 	private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
-	private static final String[] targetIds = {"userId2","userid3","userId4"};
+	private static final String[] targetIds = {"LoDld8izA"};
 
 	@Before
 	public void setUp() throws Exception {
@@ -329,7 +329,6 @@ public class Example {
 				.setPushContent("this is a push")
 				.setPushData("{\"pushData\":\"hello\"}")
 				.setIsPersisted(0)
-				.setIsCounted(0)
 				.setIsIncludeSender(0)
 				.setContentAvailable(0);
 		ResponseResult result = rongCloud.message.group.send(groupMessage);
@@ -364,6 +363,30 @@ public class Example {
 				.setIsIncludeSender(0)
 				.setContentAvailable(0);
 		ResponseResult result = rongCloud.message.group.sendMention(mentionMessage);
+
+		System.out.println("send group:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+	}
+	/**
+	 * 测试群组定向消息
+	 * */
+	@Test
+	public void testSendGroupDirection() throws Exception {
+		//群组消息
+		String[] toUserIds= {"aRUuikSyp"};
+		GroupMessage groupMessage = new GroupMessage()
+				.setSenderId("XN3gZdUOB")
+				.setTargetId(targetIds)
+				.setToUserId(toUserIds)
+				.setObjectName(txtMessage.getType())
+				.setContent(txtMessage)
+				.setPushContent("this is a push")
+				.setPushData("{\"pushData\":\"hello\"}")
+				.setIsPersisted(0)
+				.setIsIncludeSender(0)
+				.setContentAvailable(0);
+		ResponseResult result = rongCloud.message.group.sendDirection(groupMessage);
 
 		System.out.println("send group:  " + result.toString());
 
