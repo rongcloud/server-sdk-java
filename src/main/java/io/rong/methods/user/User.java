@@ -65,9 +65,9 @@ public class User {
 		}
 
 	    StringBuilder sb = new StringBuilder();
-	    sb.append("&userId=").append(URLEncoder.encode(user.id.toString(), UTF8));
-	    sb.append("&name=").append(URLEncoder.encode(user.name.toString(), UTF8));
-	    sb.append("&portraitUri=").append(URLEncoder.encode(user.portrait.toString(), UTF8));
+	    sb.append("&userId=").append(URLEncoder.encode(user.id, UTF8));
+	    sb.append("&name=").append(URLEncoder.encode(user.name, UTF8));
+	    sb.append("&portraitUri=").append(URLEncoder.encode(user.portrait, UTF8));
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());

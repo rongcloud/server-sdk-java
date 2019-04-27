@@ -67,8 +67,8 @@ public class UserExample {
          */
         groupModel = new GroupModel()
                 .setMembers(members);
-        Result groupRollBackGagUserResult =  group.ban.user.remove(groupModel);
-        System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
+        //Result groupRollBackGagUserResult =  group.ban.user.remove(groupModel);
+        //System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
 
 
     }

@@ -84,8 +84,11 @@ public class MsgSystem {
             sb.append("&isPersisted=").append(URLEncoder.encode(systemMessage.getIsPersisted().toString(), UTF8));
         }
 
-        if (systemMessage.getPushData() != null) {
+        if (systemMessage.getIsCounted() != null) {
             sb.append("&isCounted=").append(URLEncoder.encode(systemMessage.getIsCounted().toString(), UTF8));
+        }
+        if (systemMessage.getContentAvailable() != null) {
+            sb.append("&contentAvailable=").append(URLEncoder.encode(systemMessage.getContentAvailable().toString(), UTF8));
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
