@@ -5,7 +5,6 @@ import io.rong.models.response.BlockUserResult;
 import io.rong.models.Result;
 import io.rong.models.CheckMethod;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.response.TokenResult;
 import io.rong.models.user.UserModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;

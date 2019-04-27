@@ -2,7 +2,6 @@ package io.rong.methods.user.blacklist;
 
 import io.rong.RongCloud;
 import io.rong.models.response.BlackListResult;
-import io.rong.models.response.ChatroomUserQueryResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Result;
 import io.rong.models.CheckMethod;

@@ -33,9 +33,9 @@ public class BanExample {
          * @throws Exception
          */
         public static void main(String[] args) throws Exception {
-            //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+            RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
             //自定义 api 地址方式
-            RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+            //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
             Ban ban = rongCloud.group.ban;
             /**
