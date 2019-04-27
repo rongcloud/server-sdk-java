@@ -37,6 +37,7 @@ public class Example {
 		String appKey = "appKey";
 		String appSecret = "appSecret";
 		rongCloud = RongCloud.getInstance(appKey, appSecret);
+		//rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 		/**
 		 * 自定义备用 API 地址用法
 		 * List apiList = new ArrayList<>();
@@ -1212,5 +1213,51 @@ public class Example {
 
 		System.out.println("keepalive getList"+result.toString());
 		assertEquals("200",result.getCode().toString());
+	}
+
+	/**
+	 *  新添加禁言群成员方法测试
+	 */
+	@Test
+	public void testGroupMuteMembersAdd() throws Exception {
+
+		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
+		GroupModel group = new GroupModel()
+				.setId("appSecret")
+				.setMembers(members)
+				.setMinute(5);
+		Result result = (Result)rongCloud.group.muteMembers.add(group);
+		System.out.println("group.gag.add:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+
+	}
+	/**
+	 *  新查询被禁言群成员方法
+	 */
+	@Test
+	public void testGroupMuteMemberList() throws Exception {
+		GroupMuteMembersListResult result = rongCloud.group.muteMembers.getList("25");
+		System.out.println("group.gag.getList:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
+	}
+	/**
+	 *  新移除禁言群成员方法
+	 */
+	@Test
+	public void testGroupRemoveMuteMemberr() throws Exception {
+		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
+		GroupModel group = new GroupModel()
+				.setMembers(members)
+				.setId("jhgui85hh");
+
+		ResponseResult result = (ResponseResult)rongCloud.group.muteMembers.remove(group);
+		System.out.println("group.gag.remove:  " + result.toString());
+
+		assertEquals("200",result.getCode().toString());
+
 	}
 }

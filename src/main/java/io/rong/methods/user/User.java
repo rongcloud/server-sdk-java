@@ -42,6 +42,7 @@ public class User {
 	public User(String appKey, String appSecret,RongCloud rongCloud) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
+		this.rongCloud = rongCloud;
 		this.block = new Block(appKey,appSecret,rongCloud);
 		this.blackList = new Blacklist(appKey,appSecret,rongCloud);
 		this.onlineStatus = new OnlineStatus(appKey,appSecret,rongCloud);
