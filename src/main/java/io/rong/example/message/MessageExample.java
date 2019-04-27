@@ -41,7 +41,7 @@ public class MessageExample {
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api.cn.ronghub.com";
+    private static final String api = "http://api-cn.ronghub.com";
 
     public static void main(String[] args) throws Exception {
 
@@ -179,13 +179,32 @@ public class MessageExample {
                 .setPushContent("this is a push")
                 .setPushData("{\"pushData\":\"hello\"}")
                 .setIsPersisted(0)
-                .setIsCounted(0)
                 .setIsIncludeSender(0)
                 .setContentAvailable(0);
        ResponseResult groupResult = group.send(groupMessage);
 
        System.out.println("send Group message:  " + groupResult.toString());
+        /**
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#send
+         *
+         * 群组定向消息
+         * */
+        String[] targetId = {"2651280140445094444"};
+        String[] toUserIds = {"2651280140445094444"};
+        GroupMessage groupDirectionMessage = new GroupMessage()
+                .setSenderId("userId")
+                .setTargetId(targetId)
+                .setToUserId(toUserIds)
+                .setObjectName(txtMessage.getType())
+                .setContent(txtMessage)
+                .setPushContent("this is a push")
+                .setPushData("{\"pushData\":\"hello\"}")
+                .setIsPersisted(0)
+                .setIsIncludeSender(0)
+                .setContentAvailable(0);
+        ResponseResult groupDirectionResult = group.sendDirection(groupDirectionMessage);
 
+        System.out.println("send group direction message:  " + groupDirectionResult.toString());
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#recall
          *

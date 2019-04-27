@@ -1,17 +1,16 @@
 package io.rong.methods.chatroom;
 
 import io.rong.RongCloud;
-import io.rong.exception.ParamException;
 import io.rong.methods.chatroom.ban.Ban;
 import io.rong.methods.chatroom.distribute.Distribute;
 import io.rong.methods.chatroom.gag.Gag;
 import io.rong.methods.chatroom.keepalive.Keepalive;
 import io.rong.methods.chatroom.demotion.Demotion;
+import io.rong.methods.chatroom.mute.MuteMembers;
 import io.rong.methods.chatroom.whitelist.Whitelist;
 import io.rong.methods.chatroom.block.Block;
 import io.rong.models.*;
 import io.rong.models.chatroom.*;
-import io.rong.models.response.ChatroomQueryResult;
 import io.rong.models.response.ChatroomUserQueryResult;
 import io.rong.models.response.CheckChatRoomUserResult;
 import io.rong.models.response.ResponseResult;
@@ -35,6 +34,7 @@ public class Chatroom {
 	private String appSecret;
 	public 	 Block block;
 	public Gag gag;
+	public MuteMembers muteMembers;
 	public Ban ban;
 	public Keepalive keepalive;
 	public Demotion demotion;
@@ -57,9 +57,8 @@ public class Chatroom {
 		demotion.setRongCloud(rongCloud);
 		distribute.setRongCloud(rongCloud);
 		ban.setRongCloud(rongCloud);
-
 	}
-	public Chatroom(String appKey, String appSecret) {
+	public Chatroom(String appKey, String appSecret,RongCloud rongCloud) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
 		this.gag = new Gag(appKey,appSecret);
@@ -69,6 +68,7 @@ public class Chatroom {
 		this.block = new Block(appKey,appSecret);
 		this.distribute = new Distribute(appKey,appSecret);
 		this.ban = new Ban(appKey,appSecret);
+		this.muteMembers = new MuteMembers(appKey,appSecret,rongCloud);
 
 	}
 	/**
@@ -83,7 +83,7 @@ public class Chatroom {
 			return new ResponseResult(1002,"Paramer 'chatrooms' is required");
 		}
 		for(ChatroomModel chatroom : chatrooms){
-			String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.DESTORY);
+			String message = CommonUtil.checkFiled(chatroom,PATH,CheckMethod.CREATE);
 			if(null != message){
 				return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
 			}
@@ -154,7 +154,7 @@ public class Chatroom {
 			body = body.substring(1, body.length());
 		}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/query.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/query.xml", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 
 		return (ChatroomUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), ChatroomUserQueryResult.class);

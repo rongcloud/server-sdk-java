@@ -33,9 +33,10 @@ public class Block {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
-    public Block(String appKey, String appSecret) {
+    public Block(String appKey, String appSecret,RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
+        this.rongCloud = rongCloud;
 
     }
     /**

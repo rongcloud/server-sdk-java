@@ -25,7 +25,7 @@ public class GagExample {
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api.cn.ronghub.com";
+    private static final String api = "http://api-cn.ronghub.com";
 
     /**
      * 本地调用测试

@@ -1,9 +1,11 @@
 package io.rong.methods.group;
 
 import io.rong.RongCloud;
-import io.rong.exception.ParamException;
 import io.rong.methods.group.ban.Ban;
 import io.rong.methods.group.gag.Gag;
+import io.rong.methods.group.mute.MuteAllMembers;
+import io.rong.methods.group.mute.MuteMembers;
+import io.rong.methods.group.mute.whitelist.MuteWhiteList;
 import io.rong.models.*;
 import io.rong.models.group.*;
 import io.rong.models.response.GroupUserQueryResult;
@@ -27,6 +29,9 @@ public class Group {
 	private String appSecret;
 	public  Gag gag;
 	public Ban ban;
+	public MuteAllMembers muteAllMembers;
+	public MuteMembers muteMembers;
+	public MuteWhiteList muteWhiteList;
 	private RongCloud rongCloud;
 
 	public RongCloud getRongCloud() {
@@ -42,6 +47,9 @@ public class Group {
 		this.rongCloud = rongCloud;
 		this.gag = new Gag(appKey,appSecret,rongCloud);
 		this.ban = new Ban(appKey,appSecret,rongCloud);
+		this.muteAllMembers = new MuteAllMembers(appKey,appSecret,rongCloud);
+		this.muteMembers = new MuteMembers(appKey,appSecret,rongCloud);
+		this.muteWhiteList = new MuteWhiteList(appKey,appSecret,rongCloud);
 
 	}
 	/**
@@ -226,7 +234,7 @@ public class Group {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/user/query.json", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/user/query.xml", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 	    
 	    return (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), GroupUserQueryResult.class);

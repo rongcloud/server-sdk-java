@@ -39,6 +39,6 @@ public class Whitelist {
         this.appKey = appKey;
         this.appSecret = appSecret;
         this.message = new Messages(appKey,appSecret);
-        this.user = new User(appKey,appSecret);
+        this.user = new User(appKey,appSecret,rongCloud);
     }
 }

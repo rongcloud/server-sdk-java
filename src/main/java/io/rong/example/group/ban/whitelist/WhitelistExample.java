@@ -19,7 +19,7 @@ public class WhitelistExample {
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api.cn.ronghub.com";
+    private static final String api = "http://api-cn.ronghub.com";
 
     /**
      * 本地调用测试
@@ -44,7 +44,7 @@ public class WhitelistExample {
         GroupModel groupModel = new GroupModel()
                 .setId("groupId")
                 .setMembers(members);
-        Result result = group.ban.whitelist.add(groupModel);
+        Result result = group.ban.whitelist.user.add(groupModel);
         System.out.println("group.ban.add:  " + result.toString());
 
         /**
@@ -53,7 +53,7 @@ public class WhitelistExample {
          */
         groupModel = new GroupModel()
                 .setId("12");
-        GroupBanWhitelistResult GroupBanResult = (GroupBanWhitelistResult) group.ban.whitelist.getList("groupId");
+        GroupBanWhitelistResult GroupBanResult = (GroupBanWhitelistResult) group.ban.whitelist.user.getList("groupId");
         System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
         /**
@@ -63,7 +63,7 @@ public class WhitelistExample {
         groupModel = new GroupModel()
                 .setMembers(members)
                 .setId("groupId");
-        Result groupRollBackGagUserResult =  group.ban.whitelist.remove(groupModel);
+        Result groupRollBackGagUserResult =  group.ban.whitelist.user.remove(groupModel);
         System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
 
 

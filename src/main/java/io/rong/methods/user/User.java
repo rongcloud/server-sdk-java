@@ -3,6 +3,8 @@ package io.rong.methods.user;
 import io.rong.RongCloud;
 import io.rong.methods.user.blacklist.Blacklist;
 import io.rong.methods.user.block.Block;
+import io.rong.methods.user.mute.MuteChatrooms;
+import io.rong.methods.user.mute.MuteGroups;
 import io.rong.methods.user.onlinestatus.OnlineStatus;
 import io.rong.models.*;
 import io.rong.models.response.ResponseResult;
@@ -27,6 +29,8 @@ public class User {
 	public Block block;
 	public Blacklist blackList;
 	public OnlineStatus onlineStatus;
+	public MuteChatrooms muteChatrooms;
+	public MuteGroups muteGroups;
 	private RongCloud rongCloud;
 
 	public RongCloud getRongCloud() {
@@ -34,16 +38,15 @@ public class User {
 	}
 	public void setRongCloud(RongCloud rongCloud) {
 		this.rongCloud = rongCloud;
-		block.setRongCloud(rongCloud);
-		blackList.setRongCloud(rongCloud);
-		onlineStatus.setRongCloud(rongCloud);
 	}
-	public User(String appKey, String appSecret) {
+	public User(String appKey, String appSecret,RongCloud rongCloud) {
 		this.appKey = appKey;
 		this.appSecret = appSecret;
-		this.block = new Block(appKey,appSecret);
-		this.blackList = new Blacklist(appKey,appSecret);
-		this.onlineStatus = new OnlineStatus(appKey,appSecret);
+		this.block = new Block(appKey,appSecret,rongCloud);
+		this.blackList = new Blacklist(appKey,appSecret,rongCloud);
+		this.onlineStatus = new OnlineStatus(appKey,appSecret,rongCloud);
+		this.muteChatrooms = new MuteChatrooms(appKey,appSecret,rongCloud);
+		this.muteGroups = new MuteGroups(appKey,appSecret,rongCloud);
 	}
 	/**
 	 * 获取 Token 方法 

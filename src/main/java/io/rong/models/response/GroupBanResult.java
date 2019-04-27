@@ -1,17 +1,23 @@
 package io.rong.models.response;
 
 import io.rong.models.Result;
+import io.rong.models.group.GroupModel;
 import io.rong.util.GsonUtil;
 
 public class GroupBanResult extends Result {
-    private GroupBanInfo[] groupinfo;
-
-    public GroupBanInfo[] getGroupinfo() {
-        return groupinfo;
+    public GroupBanResult(Integer code, String errorMessage, GroupModel[] groups) {
+        super(code, errorMessage);
+        this.groups = groups;
     }
 
-    public void setGroupinfo(GroupBanInfo[] groupinfo) {
-        this.groupinfo = groupinfo;
+    private GroupModel[] groups;
+
+    public GroupModel[] getGroups() {
+        return groups;
+    }
+
+    public void setGroups(GroupModel[] groups) {
+        this.groups = groups;
     }
 
     @Override

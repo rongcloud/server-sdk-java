@@ -35,9 +35,8 @@ public class Example {
 	@Before
 	public void setUp() throws Exception {
 		String appKey = "appKey";
-		String appSecret = "appSecrets";
+		String appSecret = "appSecret";
 		rongCloud = RongCloud.getInstance(appKey, appSecret);
-		//rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 		/**
 		 * 自定义备用 API 地址用法
 		 * List apiList = new ArrayList<>();
@@ -470,9 +469,8 @@ public class Example {
 	public void testGroupCreate() throws Exception {
 
 		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
-
 		GroupModel group = new GroupModel()
-				.setId("groupId")
+				.setId("ghJiu7H3")
 				.setMembers(members)
 				.setName("groupName");
 		Result result = (Result)rongCloud.group.create(group);
@@ -690,7 +688,7 @@ public class Example {
 		GroupModel groupModel = new GroupModel()
 				.setId("groupId")
 				.setMembers(members);
-		Result result = rongCloud.group.ban.whitelist.add(groupModel);
+		Result result = rongCloud.group.ban.whitelist.user.add(groupModel);
 		System.out.println("group.ban.add:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());
@@ -704,7 +702,7 @@ public class Example {
 	@Test
 	public void testGroupBanWhitelistGetListResult() throws Exception {
 
-		GroupBanWhitelistResult result = (GroupBanWhitelistResult) rongCloud.group.ban.whitelist.getList("groupId");
+		GroupBanWhitelistResult result = (GroupBanWhitelistResult) rongCloud.group.ban.whitelist.user.getList("groupId");
 		System.out.println("group.ban.getList:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());
@@ -724,7 +722,7 @@ public class Example {
 		GroupModel groupModel = new GroupModel()
 				.setMembers(members)
 				.setId("groupId");
-		Result result =  rongCloud.group.ban.whitelist.remove(groupModel);
+		Result result =  rongCloud.group.ban.whitelist.user.remove(groupModel);
 		System.out.println("group.ban.remove:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());
@@ -751,7 +749,7 @@ public class Example {
 	public void testGroupBanGetListResult() throws Exception {
 		String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H5","ghJiu7H6","ghJiu7H7","ghJiu7H8"};
 
-		GroupBanResult result = (GroupBanResult)rongCloud.group.ban.getList(groupIds);
+		GroupBanResult result = (GroupBanResult)rongCloud.group.ban.getList();
 		System.out.println("group.ban.getList:  " + result.toString());
 
 		assertEquals("200",result.getCode().toString());

@@ -27,9 +27,10 @@ public class User {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
-    public User(String appKey, String appSecret) {
+    public User(String appKey, String appSecret,RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
+        this.rongCloud = rongCloud;
 
     }
     /**

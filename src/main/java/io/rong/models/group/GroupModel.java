@@ -23,6 +23,10 @@ public class GroupModel {
      * 禁言时间
      * */
     private Integer minute;
+    /**
+     * 禁言状态
+     * */
+    private Integer status;
 
     public GroupModel() {
     }
@@ -38,6 +42,10 @@ public class GroupModel {
         this.members = members;
         this.name = name;
         this.minute = minute;
+    }
+    public GroupModel(String id, Integer status) {
+        this.id = id;
+        this.status = status;
     }
 
     public String getId() {
@@ -73,6 +81,15 @@ public class GroupModel {
 
     public GroupModel setMinute(Integer minute) {
         this.minute = minute;
+        return this;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public GroupModel setStatus(Integer status) {
+        this.status = status;
         return this;
     }
 }

@@ -2,9 +2,9 @@ package io.rong.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.rong.models.response.BlackListResult;
-import io.rong.models.response.UserList;
-import io.rong.models.response.WhiteListResult;
+import io.rong.models.group.GroupBanModel;
+import io.rong.models.group.GroupModel;
+import io.rong.models.response.*;
 import io.rong.models.user.UserModel;
 import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
@@ -424,6 +424,20 @@ public class CommonUtil {
                    if(path.contains("gag")||path.contains("block")){
                        text = StringUtils.replace(text,"userId","id");
                    }
+                   if(path.contains("mute")){
+                       GroupBanModel groupBanModel = (GroupBanModel)GsonUtil.fromJson(response,GroupBanModel.class);
+                       GroupBanInfo[] groupBanInfos = groupBanModel.getGroupinfo();
+                       ArrayList<GroupModel> groupinfos = new ArrayList<>();
+                       if(null != groupBanInfos){
+                           for(GroupBanInfo groupBanInfo : groupBanInfos){
+                               groupinfos.add(new GroupModel(groupBanInfo.getGroupId(),groupBanInfo.getStat()));
+                            }
+                           GroupModel[] groupModels = groupinfos.toArray(new GroupModel[groupinfos.size()]);
+                           GroupBanResult groupBanResult = new GroupBanResult(groupBanModel.getCode(),null,groupModels);
+                           text = groupBanResult.toString();
+                       }
+                   }
+
                 }else if(path.contains("user")){
                    if(path.contains("block") || path.contains("blacklist")){
                        text = StringUtils.replace(response,"userId","id");
@@ -460,7 +474,7 @@ public class CommonUtil {
                 return text;
             }
         } catch (Exception e) {
-            System.out.println("-------------"+e);
+            e.printStackTrace();
         }
         return response;
     }

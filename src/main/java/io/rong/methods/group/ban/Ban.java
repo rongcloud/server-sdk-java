@@ -73,11 +73,28 @@ public class Ban {
     /**
      * 查询被禁言群方法
      *
+     * @return ListGagGroupUserResult
+     **/
+    public Result getList() throws Exception {
+        StringBuilder sb = new StringBuilder();
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/ban/query.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn);
+
+        return (GroupBanResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), GroupBanResult.class);
+    }
+    /**
+     * 查询被禁言群方法
+     *
      * @param  groupIds:群组Id。（必传）
      *
      * @return ListGagGroupUserResult
      **/
-    public Result getList(String[] groupIds) throws Exception {
+    public Result check(String[] groupIds) throws Exception {
         String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.ADD);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);

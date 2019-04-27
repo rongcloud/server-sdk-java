@@ -16,6 +16,7 @@ import java.net.URLEncoder;
 /**
  * @author RongCloud
  */
+@Deprecated
 public class Gag {
 
     private static final String UTF8 = "UTF-8";

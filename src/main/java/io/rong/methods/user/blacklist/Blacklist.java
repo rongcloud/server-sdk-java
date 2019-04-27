@@ -35,9 +35,10 @@ public class Blacklist {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
-    public Blacklist(String appKey, String appSecret) {
+    public Blacklist(String appKey, String appSecret,RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
+        this.rongCloud = rongCloud;
 
     }
 

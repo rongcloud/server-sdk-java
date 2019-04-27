@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- * 敏感词服务
+ *  在线状态
  * docs: "http://www.rongcloud.cn/docs/server.html#sensitiveword"
  *
  * @version
@@ -30,9 +30,10 @@ public class OnlineStatus {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
-    public OnlineStatus(String appKey, String appSecret) {
+    public OnlineStatus(String appKey, String appSecret,RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
+        this.rongCloud = rongCloud;
 
     }
     /**

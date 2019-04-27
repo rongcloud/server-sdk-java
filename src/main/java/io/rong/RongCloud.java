@@ -32,7 +32,7 @@ public class RongCloud {
 	public Group group;
 	public Chatroom chatroom;
 	public Conversation conversation;
-	private HostType apiHostType = new HostType("http://api.cn.ronghub.com");
+	private HostType apiHostType = new HostType("http://api-cn.ronghub.com");
 	private HostType smsHostType = new HostType("http://api.sms.ronghub.com");
 	private static List<HostType> apiHostListBackUp = new ArrayList();
 
@@ -70,8 +70,7 @@ public class RongCloud {
 	}
 
 	private RongCloud(String appKey, String appSecret) {
-		user = new User(appKey, appSecret);
-		user.setRongCloud(this);
+		user = new User(appKey, appSecret,this);
 		message = new Message(appKey, appSecret);
 		message.setRongCloud(this);
 		wordfilter = new Wordfilter(appKey, appSecret);
@@ -79,7 +78,7 @@ public class RongCloud {
 		sensitiveword = new SensitiveWord(appKey, appSecret);
 		sensitiveword.setRongCloud(this);
 		group = new Group(appKey, appSecret, this);
-		chatroom = new Chatroom(appKey, appSecret);
+		chatroom = new Chatroom(appKey, appSecret,this);
 		chatroom.setRongCloud(this);
 		conversation = new Conversation(appKey,appSecret);
 		conversation.setRongCloud(this);
@@ -89,8 +88,8 @@ public class RongCloud {
 	public static RongCloud getInstance(String appKey, String appSecret) {
 		if (null == rongCloud.get(appKey)) {
 			rongCloud.putIfAbsent(appKey, new RongCloud(appKey, appSecret));
+			apiHostListBackUp.add(new HostType("http://api-cn.ronghub.com"));
 			apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
-			apiHostListBackUp.add(new HostType("http://api.cn.ronghub.com"));
 		}
 		return rongCloud.get(appKey);
 	}

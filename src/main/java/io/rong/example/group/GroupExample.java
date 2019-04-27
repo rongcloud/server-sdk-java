@@ -27,7 +27,7 @@ public class GroupExample {
 	/**
 	 * 自定义api地址
 	 * */
-	private static final String api = "http://api.cn.ronghub.com";
+	private static final String api = "http://api-cn.ronghub.com";
 
 	/**
 	 * 本地调用测试
@@ -39,7 +39,7 @@ public class GroupExample {
 
 		RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
 		//自定义 api 地址方式
-		// RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+		//RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
 		Group Group = rongCloud.group;
 
