@@ -159,7 +159,7 @@ func (rc *rongCloud) PrivateURI(uri, sms string) {
 	rc.rongCloudSMSURI = sms
 }
 
-// URLError 判断是否为 url.Error
+// urlError 判断是否为 url.Error
 func (rc *rongCloud) urlError(err error) {
 	if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
 		if rc.numTimeout == 0 {

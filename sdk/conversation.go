@@ -15,15 +15,15 @@ type ConversationType int
 
 const (
 	// PRIVATE 单聊
-	PRIVATE ConversationType = 1
+	PRIVATE ConversationType = iota + 1
 	// DISCUSSION 讨论组
-	DISCUSSION ConversationType = 2
+	DISCUSSION
 	// GROUP 群聊
-	GROUP ConversationType = 3
+	GROUP
 	// SYSTEM 系统
-	SYSTEM ConversationType = 4
+	SYSTEM
 	// CUSTOMERSERVICE 客服
-	CUSTOMERSERVICE ConversationType = 5
+	CUSTOMERSERVICE
 )
 
 // ConversationMute 设置用户某个会话屏蔽 Push
