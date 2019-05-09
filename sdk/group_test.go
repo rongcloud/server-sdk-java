@@ -1,7 +1,6 @@
 package sdk
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -9,7 +8,6 @@ func TestRongCloud_GroupCreate(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	err := rc.GroupCreate(
@@ -18,23 +16,22 @@ func TestRongCloud_GroupCreate(t *testing.T) {
 		[]string{"u01", "u02"},
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupGet(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	rep, err := rc.GroupGet(
 		"u01",
 	)
 	if err == nil {
-		fmt.Println(rep)
+		t.Log(rep)
 	}
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupJoin(t *testing.T) {
@@ -50,7 +47,7 @@ func TestRongCloud_GroupJoin(t *testing.T) {
 		"u03",
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupUpdate(t *testing.T) {
@@ -65,7 +62,7 @@ func TestRongCloud_GroupUpdate(t *testing.T) {
 		"rongcloud_group02",
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupQuit(t *testing.T) {
@@ -81,7 +78,7 @@ func TestRongCloud_GroupQuit(t *testing.T) {
 		"u01",
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupSync(t *testing.T) {
@@ -99,7 +96,7 @@ func TestRongCloud_GroupSync(t *testing.T) {
 		groups,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupGagAdd(t *testing.T) {
@@ -115,7 +112,7 @@ func TestRongCloud_GroupGagAdd(t *testing.T) {
 		[]string{"u02"},
 		300,
 	)
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GROUPGagList(t *testing.T) {
@@ -130,9 +127,9 @@ func TestRongCloud_GROUPGagList(t *testing.T) {
 		"u01",
 	)
 	if err == nil {
-		fmt.Println(rep)
+		t.Log(rep)
 	}
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupGagremove(t *testing.T) {
@@ -148,7 +145,7 @@ func TestRongCloud_GroupGagremove(t *testing.T) {
 		[]string{"u02"},
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupDismiss(t *testing.T) {
@@ -164,7 +161,7 @@ func TestRongCloud_GroupDismiss(t *testing.T) {
 		"u01",
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteAllMembersAdd(t *testing.T) {
@@ -178,7 +175,7 @@ func TestRongCloud_GroupMuteAllMembersAdd(t *testing.T) {
 			"group01",
 			"group02",
 		})
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteAllMembersList(t *testing.T) {
@@ -193,9 +190,9 @@ func TestRongCloud_GroupMuteAllMembersList(t *testing.T) {
 			"group02",
 		})
 	if err == nil {
-		fmt.Println(group)
+		t.Log(group)
 	}
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteAllMembersRemove(t *testing.T) {
@@ -209,7 +206,7 @@ func TestRongCloud_GroupMuteAllMembersRemove(t *testing.T) {
 			"group01",
 			"group02",
 		})
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupGMuteMembersAdd(t *testing.T) {
@@ -226,7 +223,7 @@ func TestRongCloud_GroupGMuteMembersAdd(t *testing.T) {
 		},
 		30,
 	)
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteMembersGetList(t *testing.T) {
@@ -239,9 +236,9 @@ func TestRongCloud_GroupMuteMembersGetList(t *testing.T) {
 		"gourp01",
 	)
 	if err == nil {
-		fmt.Println(rep)
+		t.Log(rep)
 	}
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteMembersRemove(t *testing.T) {
@@ -257,7 +254,7 @@ func TestRongCloud_GroupMuteMembersRemove(t *testing.T) {
 			"u02",
 		},
 	)
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteWhiteListUserAdd(t *testing.T) {
@@ -273,7 +270,7 @@ func TestRongCloud_GroupMuteWhiteListUserAdd(t *testing.T) {
 			"u02",
 		},
 	)
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteWhiteListUserGetList(t *testing.T) {
@@ -286,9 +283,9 @@ func TestRongCloud_GroupMuteWhiteListUserGetList(t *testing.T) {
 		"gourp01",
 	)
 	if err == nil {
-		fmt.Println(rep)
+		t.Log(rep)
 	}
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteWhiteListUserRemove(t *testing.T) {
@@ -304,5 +301,5 @@ func TestRongCloud_GroupMuteWhiteListUserRemove(t *testing.T) {
 			"u02",
 		},
 	)
-	fmt.Println(err)
+	t.Log(err)
 }

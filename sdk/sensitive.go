@@ -28,16 +28,16 @@ type SensitiveWord struct {
 *
 *@return error
  */
-func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) error {
+func (rc *rongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) error {
 	if keyword == "" {
 		return RCErrorNew(1002, "Paramer 'keyword' is required")
 	}
 	if replace == "" {
 		return RCErrorNew(1002, "Paramer 'replace' is required")
 	}
-	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/add." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/sensitiveword/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("word", keyword)
 	switch sensitiveType {
 	case 0:
@@ -49,7 +49,7 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 	}
 	byteData, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -67,14 +67,14 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 /*
 *@return ListWordFilterResult error
  */
-func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
+func (rc *rongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 
-	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/list." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/sensitiveword/list." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	byteData, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return ListWordFilterResult{}, err
 	}
 
@@ -99,20 +99,20 @@ func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 *
 *@return error
  */
-func (rc *RongCloud) SensitiveRemove(keywords []string) error {
+func (rc *rongCloud) SensitiveRemove(keywords []string) error {
 	if len(keywords) == 0 {
 		return RCErrorNew(1002, "Paramer 'keywords' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/sensitiveword/batch/delete." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/sensitiveword/batch/delete." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	for _, v := range keywords {
 		req.Param("words", v)
 	}
 	byteData, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 

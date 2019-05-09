@@ -36,7 +36,7 @@ type GroupInfo struct {
  *
  *@return error
  */
-func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
+func (rc *rongCloud) GroupCreate(id, name string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -49,9 +49,9 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 		return RCErrorNew(1002, "Paramer 'name' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/create." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/create." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	for _, item := range members {
 		req.Param("userId", item)
@@ -60,7 +60,7 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	req.Param("groupName", name)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -80,7 +80,7 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
  *
  *@return error
  */
-func (rc *RongCloud) GroupSync(id string, groups []Group) error {
+func (rc *rongCloud) GroupSync(id string, groups []Group) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -89,9 +89,9 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 		return RCErrorNew(1002, "Paramer 'groups' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/sync." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/sync." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("userId", id)
 	for _, item := range groups {
@@ -99,7 +99,7 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 	}
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -119,7 +119,7 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 *
 *@return error
  */
-func (rc *RongCloud) GroupUpdate(id, name string) error {
+func (rc *rongCloud) GroupUpdate(id, name string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -128,15 +128,15 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 		return RCErrorNew(1002, "Paramer 'name' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/refresh." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/refresh." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("groupId", id)
 	req.Param("groupName", name)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -157,7 +157,7 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
  *
  *@return error
  */
-func (rc *RongCloud) GroupJoin(id, name, member string) error {
+func (rc *rongCloud) GroupJoin(id, name, member string) error {
 	if member == "" {
 		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
@@ -170,16 +170,16 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
 		return RCErrorNew(1002, "Paramer 'name' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/join." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/join." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("userId", member)
 	req.Param("groupId", id)
 	req.Param("groupName", name)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -198,18 +198,18 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
  *
  *@return Group error
  */
-func (rc *RongCloud) GroupGet(id string) (Group, error) {
+func (rc *rongCloud) GroupGet(id string) (Group, error) {
 	if id == "" {
 		return Group{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
-	req := httplib.Post(rc.RongCloudURI + "/group/user/query." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return Group{}, err
 	}
 	var code CodeResult
@@ -234,7 +234,7 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
  *
  *@return error
  */
-func (rc *RongCloud) GroupQuit(member, id string) error {
+func (rc *rongCloud) GroupQuit(member, id string) error {
 	if member == "" {
 		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
@@ -243,15 +243,15 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/quit." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/quit." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("userId", member)
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -271,7 +271,7 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
  *
  *@return error
  */
-func (rc *RongCloud) GroupDismiss(id, member string) error {
+func (rc *rongCloud) GroupDismiss(id, member string) error {
 	if member == "" {
 		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
@@ -280,15 +280,15 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/dismiss." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/dismiss." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("userId", member)
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -309,7 +309,7 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
 *
 *@return error
  */
-func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error {
+func (rc *rongCloud) GroupGagAdd(id string, members []string, minute int) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -322,9 +322,9 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 		return RCErrorNew(1002, "Paramer 'minute' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/add." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/gag/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	for _, item := range members {
 		req.Param("userId", item)
 	}
@@ -332,7 +332,7 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 	req.Param("minute", strconv.Itoa(minute))
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -353,7 +353,7 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 *
 *@return error
  */
-func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int) error {
+func (rc *rongCloud) GroupMuteMembersAdd(id string, members []string, minute int) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -366,9 +366,9 @@ func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 		return RCErrorNew(1002, "Paramer 'minute' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/add." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/gag/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	for _, item := range members {
 		req.Param("userId", item)
 	}
@@ -376,7 +376,7 @@ func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 	req.Param("minute", strconv.Itoa(minute))
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -395,19 +395,19 @@ func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 *
 *@return Group error
  */
-func (rc *RongCloud) GroupGagList(id string) (Group, error) {
+func (rc *rongCloud) GroupGagList(id string) (Group, error) {
 	if id == "" {
 		return Group{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/list." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/gag/list." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return Group{}, err
 	}
 	var code CodeResult
@@ -430,19 +430,19 @@ func (rc *RongCloud) GroupGagList(id string) (Group, error) {
 *
 *@return Group error
  */
-func (rc *RongCloud) GroupMuteMembersGetList(id string) (Group, error) {
+func (rc *rongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 	if id == "" {
 		return Group{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/list." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/gag/list." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return Group{}, err
 	}
 	var code CodeResult
@@ -466,7 +466,7 @@ func (rc *RongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 *
 *@return error
  */
-func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
+func (rc *rongCloud) GroupGagRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -475,9 +475,9 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/rollback." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/gag/rollback." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	for _, item := range members {
 		req.Param("userId", item)
@@ -485,7 +485,7 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -505,7 +505,7 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 *
 *@return error
  */
-func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
+func (rc *rongCloud) GroupMuteMembersRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -514,9 +514,9 @@ func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/gag/rollback." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/gag/rollback." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	for _, item := range members {
 		req.Param("userId", item)
@@ -524,7 +524,7 @@ func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -543,21 +543,21 @@ func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
 *
 *@return error
  */
-func (rc *RongCloud) GroupMuteAllMembersAdd(members []string) error {
+func (rc *rongCloud) GroupMuteAllMembersAdd(members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/ban/add." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/ban/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	for _, item := range members {
 		req.Param("groupId", item)
 	}
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -576,21 +576,21 @@ func (rc *RongCloud) GroupMuteAllMembersAdd(members []string) error {
 *
 *@return error
  */
-func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
+func (rc *rongCloud) GroupMuteAllMembersRemove(members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/ban/rollback." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/ban/rollback." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	for _, item := range members {
 		req.Param("groupId", item)
 	}
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -609,11 +609,11 @@ func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 *
 *@return Group error
  */
-func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, error) {
+func (rc *rongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, error) {
 
-	req := httplib.Post(rc.RongCloudURI + "/group/ban/query." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/ban/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	if len(members) > 0 {
 		for _, item := range members {
 			req.Param("groupId", item)
@@ -622,7 +622,7 @@ func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, er
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return GroupInfo{}, err
 	}
 	var code CodeResult
@@ -650,7 +650,7 @@ func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, er
 *
 *@return error
  */
-func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) error {
+func (rc *rongCloud) GroupMuteWhiteListUserAdd(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -659,9 +659,9 @@ func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/ban/whitelist/add." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/ban/whitelist/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	for _, item := range members {
 		req.Param("userId", item)
@@ -669,7 +669,7 @@ func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -690,7 +690,7 @@ func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 *
 *@return error
  */
-func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) error {
+func (rc *rongCloud) GroupMuteWhiteListUserRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -699,9 +699,9 @@ func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/ban/whitelist/rollback." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/ban/whitelist/rollback." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	for _, item := range members {
 		req.Param("userId", item)
@@ -709,7 +709,7 @@ func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -729,19 +729,19 @@ func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 *
 *@return error
  */
-func (rc *RongCloud) GroupMuteWhiteListUserGetList(id string) ([]string, error) {
+func (rc *rongCloud) GroupMuteWhiteListUserGetList(id string) ([]string, error) {
 	if id == "" {
 		return []string{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/group/user/ban/whitelist/query." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/group/user/ban/whitelist/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	req.Param("groupId", id)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return []string{}, err
 	}
 	var code CodeResult
