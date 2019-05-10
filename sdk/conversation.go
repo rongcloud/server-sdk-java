@@ -150,7 +150,7 @@ func (rc *rongCloud) ConversationGet(conversationType ConversationType, userID, 
 	}
 	var code CodeResult
 	var isMuted int
-	_ := json.Unmarshal(rep, &struct {
+	_ = json.Unmarshal(rep, &struct {
 		*CodeResult
 		IsMuted *int `json:"isMuted"`
 	}{

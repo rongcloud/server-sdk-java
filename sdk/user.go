@@ -13,7 +13,7 @@ type User struct {
 	Token        string `json:"token"`
 	UserID       string `json:"userId"`
 	BlockEndTime string `json:"blockEndTime,omitempty"`
-	Status       int    `json:"status,omitempty"`
+	Status       string `json:"status,omitempty"`
 }
 
 // BlockListResult 返回信息
@@ -357,7 +357,6 @@ func (rc *rongCloud) OnlineStatusCheck(userID string) (int, error) {
 
 	var code CodeResult
 	var userResult User
-
 	if err := json.Unmarshal(rep, &struct {
 		*CodeResult
 		*User
@@ -367,6 +366,6 @@ func (rc *rongCloud) OnlineStatusCheck(userID string) (int, error) {
 	if code.Code != 200 {
 		return -1, RCErrorNew(code.Code, code.ErrorMessage)
 	}
-
-	return userResult.Status, nil
+	status, _ := strconv.Atoi(userResult.Status)
+	return status, nil
 }
