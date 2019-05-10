@@ -267,7 +267,7 @@ func (msg *DizNtf) toString() (string, error) {
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *rongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -278,8 +278,8 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	}
 
 	req := httplib.Post(RONGCLOUDURI + "/message/private/publish." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
 		req.Param("toUserId", v)
@@ -301,7 +301,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 
@@ -325,7 +325,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 *
 *@return error
  */
-func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
+func (rc *rongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -334,9 +334,9 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/recall." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("targetId", targetID)
 	req.Param("messageUID", uID)
@@ -345,7 +345,7 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 
@@ -368,14 +368,14 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
+func (rc *rongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/private/publish_template." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/private/publish_template." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	var toUserIDs, push []string
 	var values []map[string]string
@@ -406,7 +406,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 
@@ -435,7 +435,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *
  *@return error
  */
-func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg RCMsg,
+func (rc *rongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg RCMsg,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -445,9 +445,9 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
 		req.Param("toGroupId", v)
@@ -455,7 +455,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	req.Param("content", msgstr)
@@ -471,7 +471,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	}
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 
@@ -494,7 +494,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 *
 *@return error
  */
-func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
+func (rc *rongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -503,9 +503,9 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/recall." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("targetId", targetID)
 	req.Param("messageUID", uID)
@@ -514,7 +514,7 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 
@@ -544,7 +544,7 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 *
 *@return error
  */
-func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
+func (rc *rongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
 	pushContent, pushData string, isPersisted int, isCounted int, isIncludeSender, isMentioned, contentAvailable int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -554,9 +554,9 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/group/publish." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
 		req.Param("toGroupId", v)
@@ -576,7 +576,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -598,7 +598,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg RCMsg) error {
+func (rc *rongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -607,9 +607,9 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/publish." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/chatroom/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
 		req.Param("toChatroomId", v)
@@ -623,7 +623,7 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -644,14 +644,14 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *rongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/chatroom/broadcast." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/chatroom/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
@@ -662,7 +662,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -689,7 +689,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 *
 *@return error
  */
-func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *rongCloud) SystemSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
 	if senderID == "" {
@@ -701,8 +701,8 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	}
 
 	req := httplib.Post(RONGCLOUDURI + "/message/system/publish." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	for _, v := range targetID {
 		req.Param("toUserId", v)
@@ -722,7 +722,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -743,14 +743,14 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 *
 *@return error
  */
-func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *rongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/message/broadcast." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
 	msgstr, err := msg.toString()
@@ -761,7 +761,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -783,13 +783,13 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 *
 *@return error
  */
-func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
+func (rc *rongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
-	req := httplib.Post(rc.RongCloudURI + "/message/system/publish_template." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/system/publish_template." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
 	var toUserIDs, push []string
 	var values []map[string]string
@@ -821,7 +821,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	rep, err := req.Bytes()
 
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -841,14 +841,14 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 *
 *@return History error
  */
-func (rc *RongCloud) HistoryGet(date string) (History, error) {
-	req := httplib.Post(rc.RongCloudURI + "/message/history." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+func (rc *rongCloud) HistoryGet(date string) (History, error) {
+	req := httplib.Post(rc.rongCloudURI + "/message/history." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("date", date)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return History{}, err
 	}
 	var code CodeResult
@@ -872,17 +872,17 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 *
 *@return error
  */
-func (rc *RongCloud) HistoryRemove(date string) error {
+func (rc *rongCloud) HistoryRemove(date string) error {
 	if date == "" {
 		return RCErrorNew(1002, "Paramer 'date' is required")
 	}
-	req := httplib.Post(rc.RongCloudURI + "/message/history/delete." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/history/delete." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("date", date)
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult

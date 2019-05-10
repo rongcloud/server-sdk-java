@@ -15,15 +15,15 @@ type ConversationType int
 
 const (
 	// PRIVATE 单聊
-	PRIVATE ConversationType = 1
+	PRIVATE ConversationType = iota + 1
 	// DISCUSSION 讨论组
-	DISCUSSION ConversationType = 2
+	DISCUSSION
 	// GROUP 群聊
-	GROUP ConversationType = 3
+	GROUP
 	// SYSTEM 系统
-	SYSTEM ConversationType = 4
+	SYSTEM
 	// CUSTOMERSERVICE 客服
-	CUSTOMERSERVICE ConversationType = 5
+	CUSTOMERSERVICE
 )
 
 // ConversationMute 设置用户某个会话屏蔽 Push
@@ -34,7 +34,7 @@ const (
 *
 *@return error
  */
-func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
+func (rc *rongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
 
 	if conversationType == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -48,9 +48,9 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/set." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("requestId", userID)
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
 	req.Param("targetId", targetID)
@@ -58,7 +58,7 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -79,7 +79,7 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 *
 *@return error
  */
-func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
+func (rc *rongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
 	if conversationType == 0 {
 		return RCErrorNew(1002, "Paramer 'conversationType' is required")
 	}
@@ -92,9 +92,9 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/set." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/set." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("requestId", userID)
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
 	req.Param("targetId", targetID)
@@ -102,7 +102,7 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return err
 	}
 	var code CodeResult
@@ -123,8 +123,7 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 *
 *@return int error
  */
-
-func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, targetID string) (int, error) {
+func (rc *rongCloud) ConversationGet(conversationType ConversationType, userID, targetID string) (int, error) {
 	if conversationType == 0 {
 		return -1, RCErrorNew(1002, "Paramer 'conversationType' is required")
 	}
@@ -137,21 +136,21 @@ func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, 
 		return -1, RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
-	req := httplib.Post(rc.RongCloudURI + "/conversation/notification/get." + ReqType)
-	req.SetTimeout(time.Second*rc.TimeOut, time.Second*rc.TimeOut)
-	rc.FillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/get." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 	req.Param("requestId", userID)
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
 	req.Param("targetId", targetID)
 
 	rep, err := req.Bytes()
 	if err != nil {
-		rc.URLError(err)
+		rc.urlError(err)
 		return -1, err
 	}
 	var code CodeResult
 	var isMuted int
-	json.Unmarshal(rep, &struct {
+	_ = json.Unmarshal(rep, &struct {
 		*CodeResult
 		IsMuted *int `json:"isMuted"`
 	}{

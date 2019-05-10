@@ -31,13 +31,13 @@ package sdk
 
 import (
 	"crypto/sha1"
-	"errors"
 	"fmt"
 	"io"
 	"math/rand"
 	"net/url"
 	"reflect"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/astaxie/beego/httplib"
@@ -48,31 +48,44 @@ const (
 	RONGCLOUDSMSURI = "http://api.sms.ronghub.com"
 	// RONGCLOUDURI 容云默认 API 地址
 	RONGCLOUDURI = "http://api-cn.ronghub.com"
-	// RONGCLOUDURI_2 容云备用 API 地址
-	RONGCLOUDURI_2 = "http://api2-cn.ronghub.com"
+	// RONGCLOUDURI2 容云备用 API 地址
+	RONGCLOUDURI2 = "http://api2-cn.ronghub.com"
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
 	USERAGENT = "rc-go-sdk/3.0"
 	// DEFAULTTIMEOUT 默认超时时间
-	DEFAULTTIMEOUT = 10
-	// NUMTIMEOUT 默认超时次数切换 api 地址
+	DEFAULTTIMEOUT = 5
+	// NUMTIMEOUT 默认超时次数切换 Api 地址
 	NUMTIMEOUT = 3
 )
 
-// RongCloud appKey appSecret extra
-type RongCloud struct {
+var (
+	defaultExtra = rongCloudExtra{
+		rongCloudURI:    RONGCLOUDURI,
+		rongCloudSMSURI: RONGCLOUDSMSURI,
+		timeout:         DEFAULTTIMEOUT,
+		numTimeout:      NUMTIMEOUT,
+		count:           0,
+	}
+	rc   *rongCloud
+	once sync.Once
+)
+
+// rongCloud appKey appSecret extra
+type rongCloud struct {
 	appKey    string
 	appSecret string
-	*RongCloudExtra
+	*rongCloudExtra
 }
 
-// RongCloudExtra RongCloud扩展增加自定义容云服务器地址,请求超时时间
-type RongCloudExtra struct {
-	RongCloudURI    string
-	RongCloudSMSURI string
-	TimeOut         time.Duration
-	numTimeOut      int
+// rongCloudExtra rongCloud扩展增加自定义容云服务器地址,请求超时时间
+type rongCloudExtra struct {
+	rongCloudURI    string
+	rongCloudSMSURI string
+	timeout         time.Duration
+	numTimeout      uint
+	count           uint
 }
 
 // CodeResult 容云返回状态码和错误码
@@ -84,7 +97,7 @@ type CodeResult struct {
 // getSignature 本地生成签名
 // Signature (数据签名)计算方法：将系统分配的 App Secret、Nonce (随机数)、
 // Timestamp (时间戳)三个字符串按先后顺序拼接成一个字符串并进行 SHA1 哈希计算。如果调用的数据签名验证失败，接口调用会返回 HTTP 状态码 401。
-func (rc *RongCloud) getSignature() (nonce, timestamp, signature string) {
+func (rc rongCloud) getSignature() (nonce, timestamp, signature string) {
 	nonceInt := rand.Int()
 	nonce = strconv.Itoa(nonceInt)
 	timeInt64 := time.Now().Unix()
@@ -95,8 +108,8 @@ func (rc *RongCloud) getSignature() (nonce, timestamp, signature string) {
 	return
 }
 
-// FillHeader 在http header 增加API签名
-func (rc *RongCloud) FillHeader(req *httplib.BeegoHTTPRequest) {
+// fillHeader 在http header 增加API签名
+func (rc rongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
 	nonce, timestamp, signature := rc.getSignature()
 	req.Header("App-Key", rc.appKey)
 	req.Header("Nonce", nonce)
@@ -106,78 +119,57 @@ func (rc *RongCloud) FillHeader(req *httplib.BeegoHTTPRequest) {
 	req.Header("User-Agent", USERAGENT)
 }
 
-// FillJSONHeader 在http header Content-Type 设置为josn格式
-func FillJSONHeader(req *httplib.BeegoHTTPRequest) {
+// fillJSONHeader 在http header Content-Type 设置为josn格式
+func fillJSONHeader(req *httplib.BeegoHTTPRequest) {
 	req.Header("Content-Type", "application/json")
 }
 
-// NewRongCloud 创建RongCloud对象
-func NewRongCloud(appKey, appSecret string, extra *RongCloudExtra) *RongCloud {
-	// 默认扩展配置
-	defaultExtra := RongCloudExtra{
-		RongCloudURI:    RONGCLOUDURI,
-		RongCloudSMSURI: RONGCLOUDSMSURI,
-		TimeOut:         DEFAULTTIMEOUT,
-		numTimeOut:      NUMTIMEOUT,
-	}
-	// 使用默认服务器地址
-	if extra == nil {
-		rc := RongCloud{
-			appKey:         appKey,    //app key
-			appSecret:      appSecret, //app secret
-			RongCloudExtra: &defaultExtra,
+// NewRongCloud 创建rongCloud对象
+func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *rongCloud {
+	once.Do(func() {
+		// 默认扩展配置
+		defaultRongCloud := defaultExtra
+		rc = &rongCloud{
+			appKey:         appKey,
+			appSecret:      appSecret,
+			rongCloudExtra: &defaultRongCloud,
 		}
-		return &rc
-	}
-	if extra.TimeOut == 0 {
-		extra.TimeOut = DEFAULTTIMEOUT
-	}
-	// RongCloudSMSURI RongCloudURI 必须同时修改
-	if extra.RongCloudSMSURI == "" || extra.RongCloudURI == "" {
-		extra.RongCloudURI = RONGCLOUDURI
-		extra.RongCloudSMSURI = RONGCLOUDSMSURI
-	}
-	// 使用扩展配置地址
-	rc := RongCloud{
-		appKey:         appKey,    //app key
-		appSecret:      appSecret, //app secret
-		RongCloudExtra: extra,
-	}
-	return &rc
+		for _, option := range options {
+			option(rc)
+		}
+	},
+	)
+	return rc
 }
 
-// SetRongCloudURI 设置 api 服务器地址
-func (rc *RongCloud) setRongCloudURI() {
-	if rc.RongCloudURI == RONGCLOUDURI {
-		rc.RongCloudURI = RONGCLOUDURI_2
-		return
+// changeURI 切换 Api 服务器地址
+func (rc *rongCloud) changeURI() {
+	switch rc.rongCloudURI {
+	case RONGCLOUDURI:
+		rc.rongCloudURI = RONGCLOUDURI2
+	case RONGCLOUDURI2:
+		rc.rongCloudURI = RONGCLOUDURI
+	default:
 	}
-	if rc.RongCloudURI != RONGCLOUDURI && rc.RongCloudURI == RONGCLOUDURI_2 {
-		return
-	}
-	rc.RongCloudURI = RONGCLOUDURI
 }
 
-// SetNumTimeOut 设置切换 api 超时次数
-func (rc *RongCloud) SetNumTimeOut(num int) error {
-	if num < 0 {
-		return errors.New("invalid num, only allow greater than and equal to the 0 ")
-	}
-	rc.numTimeOut = num
-	return nil
+// PrivateURI 私有云设置 Api 地址
+func (rc *rongCloud) PrivateURI(uri, sms string) {
+	rc.rongCloudURI = uri
+	rc.rongCloudSMSURI = sms
 }
 
-// URLError 判断是否为 url.Error
-func (rc *RongCloud) URLError(err error) {
+// urlError 判断是否为 url.Error
+func (rc *rongCloud) urlError(err error) {
 	if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
-		if rc.numTimeOut == 0 {
+		if rc.numTimeout == 0 {
 			return
 		}
-		if rc.numTimeOut >= 3 {
-			rc.setRongCloudURI()
-			rc.numTimeOut = 1
+		if rc.count >= rc.numTimeout {
+			rc.changeURI()
+			rc.count = 1
 		} else {
-			rc.numTimeOut += 1
+			rc.count++
 		}
 	}
 }

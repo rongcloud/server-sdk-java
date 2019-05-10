@@ -1,7 +1,6 @@
 package sdk
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,7 +9,6 @@ func TestMessage_PrivateSend(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	msg := TXTMsg{
@@ -32,7 +30,7 @@ func TestMessage_PrivateSend(t *testing.T) {
 		0,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestMessage_PrivateRecall(t *testing.T) {
@@ -40,7 +38,6 @@ func TestMessage_PrivateRecall(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	err := rc.PrivateRecall(
@@ -50,7 +47,7 @@ func TestMessage_PrivateRecall(t *testing.T) {
 		1543566558208,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestMessage_PrivateSendTemplate(t *testing.T) {
@@ -58,7 +55,6 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	tpl1 := TemplateMsgContent{
@@ -93,7 +89,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 		msg,
 		tpl)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupSend(t *testing.T) {
@@ -101,7 +97,6 @@ func TestRongCloud_GroupSend(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	msg := TXTMsg{
@@ -121,7 +116,7 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		0,
 		1,
 	)
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_PrivateRecall(t *testing.T) {
@@ -129,7 +124,6 @@ func TestRongCloud_PrivateRecall(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	err := rc.GroupRecall(
@@ -139,7 +133,7 @@ func TestRongCloud_PrivateRecall(t *testing.T) {
 		1543566558208,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_GroupSendMention(t *testing.T) {
@@ -147,7 +141,6 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	msg := MentionMsgContent{
@@ -168,7 +161,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 		0,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_ChatRoomSend(t *testing.T) {
@@ -176,7 +169,6 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	msg := TXTMsg{
@@ -191,7 +183,7 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 		&msg,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 
 }
 
@@ -200,7 +192,6 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	msg := TXTMsg{
@@ -213,7 +204,7 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 		"RC:TxtMsg",
 		&msg,
 	)
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_SystemSend(t *testing.T) {
@@ -221,7 +212,6 @@ func TestRongCloud_SystemSend(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	msg := TXTMsg{
@@ -241,7 +231,7 @@ func TestRongCloud_SystemSend(t *testing.T) {
 		1,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_SystemBroadcast(t *testing.T) {
@@ -249,7 +239,6 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	msg := TXTMsg{
@@ -263,7 +252,7 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 		&msg,
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
 
 func TestRongCloud_SystemSendTemplate(t *testing.T) {
@@ -271,7 +260,6 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	tpl1 := TemplateMsgContent{
@@ -305,8 +293,8 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 		"RC:TxtMsg",
 		msg,
 		tpl)
-	fmt.Println(456)
-	fmt.Println(err)
+	t.Log(456)
+	t.Log(err)
 }
 
 func TestRongCloud_HistoryGet(t *testing.T) {
@@ -314,14 +302,13 @@ func TestRongCloud_HistoryGet(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	history, err := rc.HistoryGet(
 		"2018030210",
 	)
-	fmt.Println(history)
-	fmt.Println(err)
+	t.Log(history)
+	t.Log(err)
 }
 
 func TestRongCloud_HistoryRemove(t *testing.T) {
@@ -329,12 +316,11 @@ func TestRongCloud_HistoryRemove(t *testing.T) {
 	rc := NewRongCloud(
 		"输入用户app key",
 		"输入用户app secret",
-		nil,
 	)
 
 	err := rc.HistoryRemove(
 		"2018030210",
 	)
 
-	fmt.Println(err)
+	t.Log(err)
 }
