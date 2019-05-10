@@ -1,32 +1,34 @@
 package sdk
 
 import (
+	"os"
 	"testing"
 )
 
 func TestRongCloud_ConversationMute(t *testing.T) {
 	conversation := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 	err := conversation.ConversationMute(
 		PRIVATE,
 		"u01",
-		"u02")
-
+		"u02",
+	)
 	t.Log(err)
 
 }
 
 func TestRongCloud_ConversationUnmute(t *testing.T) {
 	conversation := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 	err := conversation.ConversationMute(
 		PRIVATE,
 		"u01",
-		"u02")
+		"u02",
+	)
 
 	t.Log(err)
 
@@ -34,8 +36,8 @@ func TestRongCloud_ConversationUnmute(t *testing.T) {
 
 func TestRongCloud_ConversationGet(t *testing.T) {
 	conversation := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 	isMuted, err := conversation.ConversationGet(
 		PRIVATE,

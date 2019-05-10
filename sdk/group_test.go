@@ -1,13 +1,14 @@
 package sdk
 
 import (
+	"os"
 	"testing"
 )
 
 func TestRongCloud_GroupCreate(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	err := rc.GroupCreate(
@@ -21,23 +22,21 @@ func TestRongCloud_GroupCreate(t *testing.T) {
 
 func TestRongCloud_GroupGet(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	rep, err := rc.GroupGet(
 		"u01",
 	)
-	if err == nil {
-		t.Log(rep)
-	}
 	t.Log(err)
+	t.Log(rep)
 }
 
 func TestRongCloud_GroupJoin(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 
@@ -46,14 +45,13 @@ func TestRongCloud_GroupJoin(t *testing.T) {
 		"rongcloud_group01",
 		"u03",
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_GroupUpdate(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 
@@ -61,15 +59,14 @@ func TestRongCloud_GroupUpdate(t *testing.T) {
 		"u01",
 		"rongcloud_group02",
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_GroupQuit(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 
@@ -77,15 +74,14 @@ func TestRongCloud_GroupQuit(t *testing.T) {
 		"u03",
 		"u01",
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_GroupSync(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	group := Group{ID: "u02", Name: "rongcloud_group02"}
@@ -95,15 +91,14 @@ func TestRongCloud_GroupSync(t *testing.T) {
 		"u04",
 		groups,
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_GroupGagAdd(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 
@@ -118,25 +113,23 @@ func TestRongCloud_GroupGagAdd(t *testing.T) {
 func TestRongCloud_GROUPGagList(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 
 	rep, err := rc.GroupGagList(
 		"u01",
 	)
-	if err == nil {
-		t.Log(rep)
-	}
 	t.Log(err)
+	t.Log(rep)
 }
 
 func TestRongCloud_GroupGagremove(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 
@@ -144,15 +137,14 @@ func TestRongCloud_GroupGagremove(t *testing.T) {
 		"u01",
 		[]string{"u02"},
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_GroupDismiss(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 
@@ -160,14 +152,13 @@ func TestRongCloud_GroupDismiss(t *testing.T) {
 		"u01",
 		"u01",
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_GroupMuteAllMembersAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	err := rc.GroupMuteAllMembersAdd(
@@ -180,8 +171,8 @@ func TestRongCloud_GroupMuteAllMembersAdd(t *testing.T) {
 
 func TestRongCloud_GroupMuteAllMembersList(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	group, err := rc.GroupMuteAllMembersGetList(
@@ -189,16 +180,14 @@ func TestRongCloud_GroupMuteAllMembersList(t *testing.T) {
 			"group01",
 			"group02",
 		})
-	if err == nil {
-		t.Log(group)
-	}
 	t.Log(err)
+	t.Log(group)
 }
 
 func TestRongCloud_GroupMuteAllMembersRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	err := rc.GroupMuteAllMembersRemove(
@@ -211,8 +200,8 @@ func TestRongCloud_GroupMuteAllMembersRemove(t *testing.T) {
 
 func TestRongCloud_GroupGMuteMembersAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	err := rc.GroupMuteMembersAdd(
@@ -228,23 +217,23 @@ func TestRongCloud_GroupGMuteMembersAdd(t *testing.T) {
 
 func TestRongCloud_GroupMuteMembersGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	rep, err := rc.GroupMuteMembersGetList(
 		"gourp01",
 	)
-	if err == nil {
-		t.Log(rep)
+	if err != nil {
+		t.Error(err)
 	}
-	t.Log(err)
+	t.Log(rep)
 }
 
 func TestRongCloud_GroupMuteMembersRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	err := rc.GroupMuteMembersRemove(
@@ -259,8 +248,8 @@ func TestRongCloud_GroupMuteMembersRemove(t *testing.T) {
 
 func TestRongCloud_GroupMuteWhiteListUserAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	err := rc.GroupMuteWhiteListUserAdd(
@@ -275,23 +264,21 @@ func TestRongCloud_GroupMuteWhiteListUserAdd(t *testing.T) {
 
 func TestRongCloud_GroupMuteWhiteListUserGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	rep, err := rc.GroupMuteWhiteListUserGetList(
 		"gourp01",
 	)
-	if err == nil {
-		t.Log(rep)
-	}
 	t.Log(err)
+	t.Log(rep)
 }
 
 func TestRongCloud_GroupMuteWhiteListUserRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		nil,
 	)
 	err := rc.GroupMuteWhiteListUserRemove(

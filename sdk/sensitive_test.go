@@ -1,13 +1,14 @@
 package sdk
 
 import (
+	"os"
 	"testing"
 )
 
 func TestRongCloud_SensitiveAdd(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 	err := rc.SensitiveAdd(
 		"7Szq13MKRVortoknTAk7W8",
@@ -19,20 +20,18 @@ func TestRongCloud_SensitiveAdd(t *testing.T) {
 
 func TestRongCloud_SensitiveGetList(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 	rep, err := rc.SensitiveGetList()
-	if err == nil {
-		t.Log(rep)
-	}
 	t.Log(err)
+	t.Log(rep)
 }
 
 func TestRongCloud_SensitiveRemove(t *testing.T) {
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 	err := rc.SensitiveRemove(
 		[]string{"7Szq13MKRVortoknTAk7W8"},
