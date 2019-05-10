@@ -1,14 +1,15 @@
 package sdk
 
 import (
+	"os"
 	"testing"
 )
 
 func TestMessage_PrivateSend(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	msg := TXTMsg{
@@ -29,15 +30,14 @@ func TestMessage_PrivateSend(t *testing.T) {
 		1,
 		0,
 	)
-
 	t.Log(err)
 }
 
 func TestMessage_PrivateRecall(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	err := rc.PrivateRecall(
@@ -46,15 +46,14 @@ func TestMessage_PrivateRecall(t *testing.T) {
 		"B7CE-U880-31M6-D3EE",
 		1543566558208,
 	)
-
 	t.Log(err)
 }
 
 func TestMessage_PrivateSendTemplate(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	tpl1 := TemplateMsgContent{
@@ -88,15 +87,14 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 		"RC:TxtMsg",
 		msg,
 		tpl)
-
 	t.Log(err)
 }
 
 func TestRongCloud_GroupSend(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	msg := TXTMsg{
@@ -122,8 +120,8 @@ func TestRongCloud_GroupSend(t *testing.T) {
 func TestRongCloud_PrivateRecall(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	err := rc.GroupRecall(
@@ -139,8 +137,8 @@ func TestRongCloud_PrivateRecall(t *testing.T) {
 func TestRongCloud_GroupSendMention(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	msg := MentionMsgContent{
@@ -160,15 +158,14 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 		1,
 		0,
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_ChatRoomSend(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	msg := TXTMsg{
@@ -182,7 +179,6 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 		"RC:TxtMsg",
 		&msg,
 	)
-
 	t.Log(err)
 
 }
@@ -190,8 +186,8 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	msg := TXTMsg{
@@ -210,8 +206,8 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 func TestRongCloud_SystemSend(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	msg := TXTMsg{
@@ -230,15 +226,14 @@ func TestRongCloud_SystemSend(t *testing.T) {
 		1,
 		1,
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_SystemBroadcast(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	msg := TXTMsg{
@@ -251,15 +246,14 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 		"RC:TxtMsg",
 		&msg,
 	)
-
 	t.Log(err)
 }
 
 func TestRongCloud_SystemSendTemplate(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	tpl1 := TemplateMsgContent{
@@ -293,34 +287,32 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 		"RC:TxtMsg",
 		msg,
 		tpl)
-	t.Log(456)
 	t.Log(err)
 }
 
 func TestRongCloud_HistoryGet(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	history, err := rc.HistoryGet(
 		"2018030210",
 	)
-	t.Log(history)
 	t.Log(err)
+	t.Log(history)
 }
 
 func TestRongCloud_HistoryRemove(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 	)
 
 	err := rc.HistoryRemove(
 		"2018030210",
 	)
-
 	t.Log(err)
 }

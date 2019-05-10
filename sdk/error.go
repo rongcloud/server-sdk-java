@@ -1,5 +1,7 @@
 package sdk
 
+import "strconv"
+
 // RCErrorNew 创建新的err信息
 func RCErrorNew(code int, text string) error {
 	return &RCError{code, text}
@@ -13,7 +15,7 @@ type RCError struct {
 
 // Error 获取错误信息
 func (e *RCError) Error() string {
-	return string(e.code) + ": " + e.message
+	return strconv.Itoa(e.code) + ": " + e.message
 }
 
 // ErrorCode 获取错误码

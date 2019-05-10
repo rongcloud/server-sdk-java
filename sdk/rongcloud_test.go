@@ -1,6 +1,7 @@
 package sdk
 
 import (
+	"os"
 	"testing"
 	"time"
 )
@@ -8,8 +9,8 @@ import (
 func TestNewRongCloud(t *testing.T) {
 
 	rc := NewRongCloud(
-		"输入用户app key",
-		"输入用户app secret",
+		os.Getenv("RC_APP_ID"),
+		os.Getenv("RC_APP_SECRET"),
 		WithTimeout(3*time.Second),
 		WithNumTimeout(2),
 	)
