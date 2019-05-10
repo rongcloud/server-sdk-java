@@ -57,7 +57,7 @@ func (rc *rongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -87,7 +87,7 @@ func (rc *rongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 		return ListWordFilterResult{}, err
 	}
 	if code.Code != 200 {
-		return ListWordFilterResult{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return ListWordFilterResult{}, code
 	}
 	return ret, err
 

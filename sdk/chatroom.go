@@ -72,7 +72,7 @@ func (rc *rongCloud) ChatRoomCreate(id, name string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -105,7 +105,7 @@ func (rc *rongCloud) ChatRoomDestroy(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -147,7 +147,7 @@ func (rc *rongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, e
 		return ChatRoomResult{}, err
 	}
 	if code.Code != 200 {
-		return ChatRoomResult{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return ChatRoomResult{}, code
 	}
 
 	var dat ChatRoomResult
@@ -191,7 +191,7 @@ func (rc *rongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	var dat ChatRoomResult
 	if err := json.Unmarshal(rep, &dat); err != nil {
@@ -241,7 +241,7 @@ func (rc *rongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -280,7 +280,7 @@ func (rc *rongCloud) ChatRoomBlockRemove(id string, members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -312,7 +312,7 @@ func (rc *rongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
 		return dat, err
 	}
 	if code.Code != 200 {
-		return dat, RCErrorNew(code.Code, code.ErrorMessage)
+		return dat, code
 	}
 
 	if err := json.Unmarshal(rep, &dat); err != nil {
@@ -356,7 +356,7 @@ func (rc *rongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -391,7 +391,7 @@ func (rc *rongCloud) ChatRoomBanRemove(members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -417,7 +417,7 @@ func (rc *rongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
@@ -466,7 +466,7 @@ func (rc *rongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -504,7 +504,7 @@ func (rc *rongCloud) ChatRoomGagRemove(id string, members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -534,7 +534,7 @@ func (rc *rongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
@@ -568,7 +568,7 @@ func (rc *rongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -599,7 +599,7 @@ func (rc *rongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -624,7 +624,7 @@ func (rc *rongCloud) ChatRoomDemotionGetList() ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -656,7 +656,7 @@ func (rc *rongCloud) ChatRoomDistributionStop(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -684,7 +684,7 @@ func (rc *rongCloud) ChatRoomDistributionResume(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -712,7 +712,7 @@ func (rc *rongCloud) ChatRoomKeepAliveAdd(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -740,7 +740,7 @@ func (rc *rongCloud) ChatRoomKeepAliveRemove(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -769,7 +769,7 @@ func (rc *rongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -804,7 +804,7 @@ func (rc *rongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -837,7 +837,7 @@ func (rc *rongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -864,7 +864,7 @@ func (rc *rongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -905,7 +905,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -942,7 +942,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -971,7 +971,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -1027,7 +1027,7 @@ func (rc *rongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -1057,7 +1057,7 @@ func (rc *rongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, erro
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
@@ -1098,7 +1098,7 @@ func (rc *rongCloud) ChatRoomMuteMembersRemove(id string, members []string) erro
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }

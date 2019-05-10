@@ -55,7 +55,7 @@ const (
 	// USERAGENT sdk 名称
 	USERAGENT = "rc-go-sdk/3.0"
 	// DEFAULTTIMEOUT 默认超时时间
-	DEFAULTTIMEOUT = 5
+	DEFAULTTIMEOUT = 10
 	// NUMTIMEOUT 默认超时次数切换 Api 地址
 	NUMTIMEOUT = 3
 )

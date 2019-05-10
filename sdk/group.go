@@ -68,7 +68,7 @@ func (rc *rongCloud) GroupCreate(id, name string, members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -107,7 +107,7 @@ func (rc *rongCloud) GroupSync(id string, groups []Group) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -144,7 +144,7 @@ func (rc *rongCloud) GroupUpdate(id, name string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -187,7 +187,7 @@ func (rc *rongCloud) GroupJoin(id, name, member string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -217,7 +217,7 @@ func (rc *rongCloud) GroupGet(id string) (Group, error) {
 		return Group{}, err
 	}
 	if code.Code != 200 {
-		return Group{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return Group{}, code
 	}
 	var dat Group
 	if err := json.Unmarshal(rep, &dat); err != nil {
@@ -259,7 +259,7 @@ func (rc *rongCloud) GroupQuit(member, id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -296,7 +296,7 @@ func (rc *rongCloud) GroupDismiss(id, member string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -340,7 +340,7 @@ func (rc *rongCloud) GroupGagAdd(id string, members []string, minute int) error 
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -384,7 +384,7 @@ func (rc *rongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -419,7 +419,7 @@ func (rc *rongCloud) GroupGagList(id string) (Group, error) {
 		return Group{}, err
 	}
 	if code.Code != 200 {
-		return Group{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return Group{}, code
 	}
 	return dat, nil
 }
@@ -454,7 +454,7 @@ func (rc *rongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 		return Group{}, err
 	}
 	if code.Code != 200 {
-		return Group{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return Group{}, code
 	}
 	return dat, nil
 }
@@ -493,7 +493,7 @@ func (rc *rongCloud) GroupGagRemove(id string, members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -532,7 +532,7 @@ func (rc *rongCloud) GroupMuteMembersRemove(id string, members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -565,7 +565,7 @@ func (rc *rongCloud) GroupMuteAllMembersAdd(members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -598,7 +598,7 @@ func (rc *rongCloud) GroupMuteAllMembersRemove(members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -637,7 +637,7 @@ func (rc *rongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, er
 		return GroupInfo{}, err
 	}
 	if code.Code != 200 {
-		return GroupInfo{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return GroupInfo{}, code
 	}
 
 	return group, nil
@@ -677,7 +677,7 @@ func (rc *rongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -717,7 +717,7 @@ func (rc *rongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -756,7 +756,7 @@ func (rc *rongCloud) GroupMuteWhiteListUserGetList(id string) ([]string, error) 
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 
 	return userIDs, nil

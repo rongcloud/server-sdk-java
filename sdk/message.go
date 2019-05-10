@@ -310,7 +310,7 @@ func (rc *rongCloud) PrivateSend(senderID string, targetID []string, objectName 
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -354,7 +354,7 @@ func (rc *rongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -415,7 +415,7 @@ func (rc *rongCloud) PrivateSendTemplate(senderID, objectName string, template T
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -480,7 +480,7 @@ func (rc *rongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -523,7 +523,7 @@ func (rc *rongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -584,7 +584,7 @@ func (rc *rongCloud) GroupSendMention(senderID string, targetID []string, object
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -631,7 +631,7 @@ func (rc *rongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -670,7 +670,7 @@ func (rc *rongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -730,7 +730,7 @@ func (rc *rongCloud) SystemSend(senderID string, targetID []string, objectName s
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -769,7 +769,7 @@ func (rc *rongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -817,7 +817,7 @@ func (rc *rongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	param["pushContent"] = push
 	param["verifyBlacklist"] = 0
 
-	req.JSONBody(param)
+	_, _ = req.JSONBody(param)
 	rep, err := req.Bytes()
 
 	if err != nil {
@@ -830,7 +830,7 @@ func (rc *rongCloud) SystemSendTemplate(senderID, objectName string, template TX
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -861,7 +861,7 @@ func (rc *rongCloud) HistoryGet(date string) (History, error) {
 	}
 
 	if code.Code != 200 {
-		return History{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return History{}, code
 	}
 	return history, nil
 }
@@ -890,7 +890,7 @@ func (rc *rongCloud) HistoryRemove(date string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 

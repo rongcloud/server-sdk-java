@@ -68,7 +68,7 @@ func (rc *rongCloud) UserRegister(userID, name, portraitURI string) (User, error
 		return User{}, err
 	}
 	if code.Code != 200 {
-		return User{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return User{}, code
 	}
 
 	return userResult, nil
@@ -112,7 +112,7 @@ func (rc *rongCloud) UserUpdate(userID, name, portraitURI string) error {
 	}
 
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -150,7 +150,7 @@ func (rc *rongCloud) BlockAdd(id string, minute uint64) error {
 	}
 
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -181,7 +181,7 @@ func (rc *rongCloud) BlockRemove(id string) error {
 	}
 
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -209,7 +209,7 @@ func (rc *rongCloud) BlockGetList() (BlockListResult, error) {
 		return BlockListResult{}, err
 	}
 	if code.Code != 200 {
-		return BlockListResult{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return BlockListResult{}, code
 	}
 
 	return dat, nil
@@ -250,7 +250,7 @@ func (rc *rongCloud) BlacklistAdd(id string, blacklist []string) error {
 	}
 
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -291,7 +291,7 @@ func (rc *rongCloud) BlacklistRemove(id string, blacklist []string) error {
 	}
 
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -328,7 +328,7 @@ func (rc *rongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 	}
 
 	if code.Code != 200 {
-		return BlacklistResult{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return BlacklistResult{}, code
 	}
 	return listResult, nil
 }
@@ -364,7 +364,7 @@ func (rc *rongCloud) OnlineStatusCheck(userID string) (int, error) {
 		return -1, err
 	}
 	if code.Code != 200 {
-		return -1, RCErrorNew(code.Code, code.ErrorMessage)
+		return -1, code
 	}
 	status, _ := strconv.Atoi(userResult.Status)
 	return status, nil
