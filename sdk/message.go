@@ -267,7 +267,7 @@ func (msg *DizNtf) toString() (string, error) {
  *
  *@return error
  */
-func (rc *rongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -325,7 +325,7 @@ func (rc *rongCloud) PrivateSend(senderID string, targetID []string, objectName 
 *
 *@return error
  */
-func (rc *rongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
+func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -368,7 +368,7 @@ func (rc *rongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
  *
  *@return error
  */
-func (rc *rongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
+func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -435,7 +435,7 @@ func (rc *rongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *
  *@return error
  */
-func (rc *rongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg RCMsg,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -494,7 +494,7 @@ func (rc *rongCloud) GroupSend(senderID string, targetID, userID []string, objec
 *
 *@return error
  */
-func (rc *rongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
+func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -544,7 +544,7 @@ func (rc *rongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 *
 *@return error
  */
-func (rc *rongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
+func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
 	pushContent, pushData string, isPersisted int, isCounted int, isIncludeSender, isMentioned, contentAvailable int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -598,7 +598,7 @@ func (rc *rongCloud) GroupSendMention(senderID string, targetID []string, object
 *
 *@return error
  */
-func (rc *rongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg RCMsg) error {
+func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -644,7 +644,7 @@ func (rc *rongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 *
 *@return error
  */
-func (rc *rongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -689,7 +689,7 @@ func (rc *rongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 *
 *@return error
  */
-func (rc *rongCloud) SystemSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg RCMsg,
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
 	if senderID == "" {
@@ -743,7 +743,7 @@ func (rc *rongCloud) SystemSend(senderID string, targetID []string, objectName s
 *
 *@return error
  */
-func (rc *rongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -783,7 +783,7 @@ func (rc *rongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 *
 *@return error
  */
-func (rc *rongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
+func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -841,7 +841,7 @@ func (rc *rongCloud) SystemSendTemplate(senderID, objectName string, template TX
 *
 *@return History error
  */
-func (rc *rongCloud) HistoryGet(date string) (History, error) {
+func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	req := httplib.Post(rc.rongCloudURI + "/message/history." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
@@ -872,7 +872,7 @@ func (rc *rongCloud) HistoryGet(date string) (History, error) {
 *
 *@return error
  */
-func (rc *rongCloud) HistoryRemove(date string) error {
+func (rc *RongCloud) HistoryRemove(date string) error {
 	if date == "" {
 		return RCErrorNew(1002, "Paramer 'date' is required")
 	}

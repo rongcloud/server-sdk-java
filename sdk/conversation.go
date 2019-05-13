@@ -34,7 +34,7 @@ const (
 *
 *@return error
  */
-func (rc *rongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
+func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
 
 	if conversationType == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -79,7 +79,7 @@ func (rc *rongCloud) ConversationMute(conversationType ConversationType, userID,
 *
 *@return error
  */
-func (rc *rongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
+func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
 	if conversationType == 0 {
 		return RCErrorNew(1002, "Paramer 'conversationType' is required")
 	}
@@ -123,7 +123,7 @@ func (rc *rongCloud) ConversationUnmute(conversationType ConversationType, userI
 *
 *@return int error
  */
-func (rc *rongCloud) ConversationGet(conversationType ConversationType, userID, targetID string) (int, error) {
+func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, targetID string) (int, error) {
 	if conversationType == 0 {
 		return -1, RCErrorNew(1002, "Paramer 'conversationType' is required")
 	}

@@ -36,7 +36,7 @@ type GroupInfo struct {
  *
  *@return error
  */
-func (rc *rongCloud) GroupCreate(id, name string, members []string) error {
+func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -80,7 +80,7 @@ func (rc *rongCloud) GroupCreate(id, name string, members []string) error {
  *
  *@return error
  */
-func (rc *rongCloud) GroupSync(id string, groups []Group) error {
+func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -119,7 +119,7 @@ func (rc *rongCloud) GroupSync(id string, groups []Group) error {
 *
 *@return error
  */
-func (rc *rongCloud) GroupUpdate(id, name string) error {
+func (rc *RongCloud) GroupUpdate(id, name string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -157,7 +157,7 @@ func (rc *rongCloud) GroupUpdate(id, name string) error {
  *
  *@return error
  */
-func (rc *rongCloud) GroupJoin(id, name, member string) error {
+func (rc *RongCloud) GroupJoin(id, name, member string) error {
 	if member == "" {
 		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
@@ -198,7 +198,7 @@ func (rc *rongCloud) GroupJoin(id, name, member string) error {
  *
  *@return Group error
  */
-func (rc *rongCloud) GroupGet(id string) (Group, error) {
+func (rc *RongCloud) GroupGet(id string) (Group, error) {
 	if id == "" {
 		return Group{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -234,7 +234,7 @@ func (rc *rongCloud) GroupGet(id string) (Group, error) {
  *
  *@return error
  */
-func (rc *rongCloud) GroupQuit(member, id string) error {
+func (rc *RongCloud) GroupQuit(member, id string) error {
 	if member == "" {
 		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
@@ -271,7 +271,7 @@ func (rc *rongCloud) GroupQuit(member, id string) error {
  *
  *@return error
  */
-func (rc *rongCloud) GroupDismiss(id, member string) error {
+func (rc *RongCloud) GroupDismiss(id, member string) error {
 	if member == "" {
 		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
@@ -309,7 +309,7 @@ func (rc *rongCloud) GroupDismiss(id, member string) error {
 *
 *@return error
  */
-func (rc *rongCloud) GroupGagAdd(id string, members []string, minute int) error {
+func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -353,7 +353,7 @@ func (rc *rongCloud) GroupGagAdd(id string, members []string, minute int) error 
 *
 *@return error
  */
-func (rc *rongCloud) GroupMuteMembersAdd(id string, members []string, minute int) error {
+func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -395,7 +395,7 @@ func (rc *rongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 *
 *@return Group error
  */
-func (rc *rongCloud) GroupGagList(id string) (Group, error) {
+func (rc *RongCloud) GroupGagList(id string) (Group, error) {
 	if id == "" {
 		return Group{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -430,7 +430,7 @@ func (rc *rongCloud) GroupGagList(id string) (Group, error) {
 *
 *@return Group error
  */
-func (rc *rongCloud) GroupMuteMembersGetList(id string) (Group, error) {
+func (rc *RongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 	if id == "" {
 		return Group{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -466,7 +466,7 @@ func (rc *rongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 *
 *@return error
  */
-func (rc *rongCloud) GroupGagRemove(id string, members []string) error {
+func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -505,7 +505,7 @@ func (rc *rongCloud) GroupGagRemove(id string, members []string) error {
 *
 *@return error
  */
-func (rc *rongCloud) GroupMuteMembersRemove(id string, members []string) error {
+func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -543,7 +543,7 @@ func (rc *rongCloud) GroupMuteMembersRemove(id string, members []string) error {
 *
 *@return error
  */
-func (rc *rongCloud) GroupMuteAllMembersAdd(members []string) error {
+func (rc *RongCloud) GroupMuteAllMembersAdd(members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -576,7 +576,7 @@ func (rc *rongCloud) GroupMuteAllMembersAdd(members []string) error {
 *
 *@return error
  */
-func (rc *rongCloud) GroupMuteAllMembersRemove(members []string) error {
+func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -609,7 +609,7 @@ func (rc *rongCloud) GroupMuteAllMembersRemove(members []string) error {
 *
 *@return Group error
  */
-func (rc *rongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, error) {
+func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, error) {
 
 	req := httplib.Post(rc.rongCloudURI + "/group/ban/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -650,7 +650,7 @@ func (rc *rongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, er
 *
 *@return error
  */
-func (rc *rongCloud) GroupMuteWhiteListUserAdd(id string, members []string) error {
+func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -690,7 +690,7 @@ func (rc *rongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 *
 *@return error
  */
-func (rc *rongCloud) GroupMuteWhiteListUserRemove(id string, members []string) error {
+func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -729,7 +729,7 @@ func (rc *rongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 *
 *@return error
  */
-func (rc *rongCloud) GroupMuteWhiteListUserGetList(id string) ([]string, error) {
+func (rc *RongCloud) GroupMuteWhiteListUserGetList(id string) ([]string, error) {
 	if id == "" {
 		return []string{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}

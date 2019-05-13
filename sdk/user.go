@@ -34,7 +34,7 @@ type BlacklistResult struct {
 *
 *@return User, error
  */
-func (rc *rongCloud) UserRegister(userID, name, portraitURI string) (User, error) {
+func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (User, error) {
 	if userID == "" {
 		return User{}, RCErrorNew(1002, "Paramer 'userID' is required")
 	}
@@ -82,7 +82,7 @@ func (rc *rongCloud) UserRegister(userID, name, portraitURI string) (User, error
 *
 *@return error
  */
-func (rc *rongCloud) UserUpdate(userID, name, portraitURI string) error {
+func (rc *RongCloud) UserUpdate(userID, name, portraitURI string) error {
 	if userID == "" {
 		return RCErrorNew(1002, "Paramer 'userID' is required")
 	}
@@ -124,7 +124,7 @@ func (rc *rongCloud) UserUpdate(userID, name, portraitURI string) error {
 *
 *@return error
  */
-func (rc *rongCloud) BlockAdd(id string, minute uint64) error {
+func (rc *RongCloud) BlockAdd(id string, minute uint64) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -161,7 +161,7 @@ func (rc *rongCloud) BlockAdd(id string, minute uint64) error {
 *
 *@return error
  */
-func (rc *rongCloud) BlockRemove(id string) error {
+func (rc *RongCloud) BlockRemove(id string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -190,7 +190,7 @@ func (rc *rongCloud) BlockRemove(id string) error {
 /*
 *@return QueryBlockUserResult error
  */
-func (rc *rongCloud) BlockGetList() (BlockListResult, error) {
+func (rc *RongCloud) BlockGetList() (BlockListResult, error) {
 	req := httplib.Post(rc.rongCloudURI + "/user/block/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
@@ -222,7 +222,7 @@ func (rc *rongCloud) BlockGetList() (BlockListResult, error) {
 *
 *@return error
  */
-func (rc *rongCloud) BlacklistAdd(id string, blacklist []string) error {
+func (rc *RongCloud) BlacklistAdd(id string, blacklist []string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -263,7 +263,7 @@ func (rc *rongCloud) BlacklistAdd(id string, blacklist []string) error {
 *
 *@return error
  */
-func (rc *rongCloud) BlacklistRemove(id string, blacklist []string) error {
+func (rc *RongCloud) BlacklistRemove(id string, blacklist []string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -302,7 +302,7 @@ func (rc *rongCloud) BlacklistRemove(id string, blacklist []string) error {
 *
 *@return BlacklistResult error
  */
-func (rc *rongCloud) BlacklistGet(id string) (BlacklistResult, error) {
+func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 	if id == "" {
 		return BlacklistResult{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -339,7 +339,7 @@ func (rc *rongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 *
 *@return int, error
  */
-func (rc *rongCloud) OnlineStatusCheck(userID string) (int, error) {
+func (rc *RongCloud) OnlineStatusCheck(userID string) (int, error) {
 	if userID == "" {
 		return -1, RCErrorNew(1002, "Paramer 'userID' is required")
 	}
