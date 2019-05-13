@@ -55,7 +55,7 @@ const (
 	// USERAGENT sdk 名称
 	USERAGENT = "rc-go-sdk/3.0"
 	// DEFAULTTIMEOUT 默认超时时间
-	DEFAULTTIMEOUT = 5
+	DEFAULTTIMEOUT = 10
 	// NUMTIMEOUT 默认超时次数切换 Api 地址
 	NUMTIMEOUT = 3
 )
@@ -68,12 +68,12 @@ var (
 		numTimeout:      NUMTIMEOUT,
 		count:           0,
 	}
-	rc   *rongCloud
+	rc   *RongCloud
 	once sync.Once
 )
 
-// rongCloud appKey appSecret extra
-type rongCloud struct {
+// RongCloud appKey appSecret extra
+type RongCloud struct {
 	appKey    string
 	appSecret string
 	*rongCloudExtra
@@ -97,7 +97,7 @@ type CodeResult struct {
 // getSignature 本地生成签名
 // Signature (数据签名)计算方法：将系统分配的 App Secret、Nonce (随机数)、
 // Timestamp (时间戳)三个字符串按先后顺序拼接成一个字符串并进行 SHA1 哈希计算。如果调用的数据签名验证失败，接口调用会返回 HTTP 状态码 401。
-func (rc rongCloud) getSignature() (nonce, timestamp, signature string) {
+func (rc RongCloud) getSignature() (nonce, timestamp, signature string) {
 	nonceInt := rand.Int()
 	nonce = strconv.Itoa(nonceInt)
 	timeInt64 := time.Now().Unix()
@@ -109,7 +109,7 @@ func (rc rongCloud) getSignature() (nonce, timestamp, signature string) {
 }
 
 // fillHeader 在http header 增加API签名
-func (rc rongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
+func (rc RongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
 	nonce, timestamp, signature := rc.getSignature()
 	req.Header("App-Key", rc.appKey)
 	req.Header("Nonce", nonce)
@@ -125,11 +125,11 @@ func fillJSONHeader(req *httplib.BeegoHTTPRequest) {
 }
 
 // NewRongCloud 创建rongCloud对象
-func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *rongCloud {
+func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongCloud {
 	once.Do(func() {
 		// 默认扩展配置
 		defaultRongCloud := defaultExtra
-		rc = &rongCloud{
+		rc = &RongCloud{
 			appKey:         appKey,
 			appSecret:      appSecret,
 			rongCloudExtra: &defaultRongCloud,
@@ -142,8 +142,13 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *rongClo
 	return rc
 }
 
+// GetRongCloud
+func GetRongCloud() *RongCloud {
+	return rc
+}
+
 // changeURI 切换 Api 服务器地址
-func (rc *rongCloud) changeURI() {
+func (rc *RongCloud) changeURI() {
 	switch rc.rongCloudURI {
 	case RONGCLOUDURI:
 		rc.rongCloudURI = RONGCLOUDURI2
@@ -154,13 +159,13 @@ func (rc *rongCloud) changeURI() {
 }
 
 // PrivateURI 私有云设置 Api 地址
-func (rc *rongCloud) PrivateURI(uri, sms string) {
+func (rc *RongCloud) PrivateURI(uri, sms string) {
 	rc.rongCloudURI = uri
 	rc.rongCloudSMSURI = sms
 }
 
 // urlError 判断是否为 url.Error
-func (rc *rongCloud) urlError(err error) {
+func (rc *RongCloud) urlError(err error) {
 	if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
 		if rc.numTimeout == 0 {
 			return

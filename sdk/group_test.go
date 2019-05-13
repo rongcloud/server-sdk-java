@@ -37,7 +37,6 @@ func TestRongCloud_GroupJoin(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 
 	err := rc.GroupJoin(
@@ -52,7 +51,6 @@ func TestRongCloud_GroupUpdate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 
 	err := rc.GroupUpdate(
@@ -67,7 +65,6 @@ func TestRongCloud_GroupQuit(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 
 	err := rc.GroupQuit(
@@ -82,7 +79,6 @@ func TestRongCloud_GroupSync(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	group := Group{ID: "u02", Name: "rongcloud_group02"}
 	groups := []Group{}
@@ -99,7 +95,6 @@ func TestRongCloud_GroupGagAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 
 	err := rc.GroupGagAdd(
@@ -115,7 +110,6 @@ func TestRongCloud_GROUPGagList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 
 	rep, err := rc.GroupGagList(
@@ -130,7 +124,6 @@ func TestRongCloud_GroupGagremove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 
 	err := rc.GroupGagRemove(
@@ -145,7 +138,6 @@ func TestRongCloud_GroupDismiss(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 
 	err := rc.GroupDismiss(
@@ -159,7 +151,6 @@ func TestRongCloud_GroupMuteAllMembersAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	err := rc.GroupMuteAllMembersAdd(
 		[]string{
@@ -173,7 +164,6 @@ func TestRongCloud_GroupMuteAllMembersList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	group, err := rc.GroupMuteAllMembersGetList(
 		[]string{
@@ -188,7 +178,6 @@ func TestRongCloud_GroupMuteAllMembersRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	err := rc.GroupMuteAllMembersRemove(
 		[]string{
@@ -202,7 +191,6 @@ func TestRongCloud_GroupGMuteMembersAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	err := rc.GroupMuteMembersAdd(
 		"gourp01",
@@ -219,7 +207,6 @@ func TestRongCloud_GroupMuteMembersGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	rep, err := rc.GroupMuteMembersGetList(
 		"gourp01",
@@ -266,7 +253,6 @@ func TestRongCloud_GroupMuteWhiteListUserGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	rep, err := rc.GroupMuteWhiteListUserGetList(
 		"gourp01",
@@ -279,7 +265,6 @@ func TestRongCloud_GroupMuteWhiteListUserRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	err := rc.GroupMuteWhiteListUserRemove(
 		"gourp01",

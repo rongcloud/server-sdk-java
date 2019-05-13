@@ -48,7 +48,7 @@ type ChatRoomUser struct {
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomCreate(id, name string) error {
+func (rc *RongCloud) ChatRoomCreate(id, name string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -72,7 +72,7 @@ func (rc *rongCloud) ChatRoomCreate(id, name string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -84,7 +84,7 @@ func (rc *rongCloud) ChatRoomCreate(id, name string) error {
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomDestroy(id string) error {
+func (rc *RongCloud) ChatRoomDestroy(id string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -105,7 +105,7 @@ func (rc *rongCloud) ChatRoomDestroy(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -118,7 +118,7 @@ func (rc *rongCloud) ChatRoomDestroy(id string) error {
  *
  *@return ChatRoomResult error
  */
-func (rc *rongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, error) {
+func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, error) {
 	if id == "" {
 		return ChatRoomResult{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -147,7 +147,7 @@ func (rc *rongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, e
 		return ChatRoomResult{}, err
 	}
 	if code.Code != 200 {
-		return ChatRoomResult{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return ChatRoomResult{}, code
 	}
 
 	var dat ChatRoomResult
@@ -164,7 +164,7 @@ func (rc *rongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, e
  *
  *@return ChatRoomResult error
  */
-func (rc *rongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUser, error) {
+func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUser, error) {
 	if id == "" {
 		return []ChatRoomUser{}, RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -191,7 +191,7 @@ func (rc *rongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	var dat ChatRoomResult
 	if err := json.Unmarshal(rep, &dat); err != nil {
@@ -209,7 +209,7 @@ func (rc *rongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -241,7 +241,7 @@ func (rc *rongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -254,7 +254,7 @@ func (rc *rongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomBlockRemove(id string, members []string) error {
+func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -280,7 +280,7 @@ func (rc *rongCloud) ChatRoomBlockRemove(id string, members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -291,7 +291,7 @@ func (rc *rongCloud) ChatRoomBlockRemove(id string, members []string) error {
  *
  *@return ChatRoomResult error
  */
-func (rc *rongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
+func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
 	var dat ChatRoomResult
 	var code CodeResult
 	if id == "" {
@@ -312,7 +312,7 @@ func (rc *rongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
 		return dat, err
 	}
 	if code.Code != 200 {
-		return dat, RCErrorNew(code.Code, code.ErrorMessage)
+		return dat, code
 	}
 
 	if err := json.Unmarshal(rep, &dat); err != nil {
@@ -329,7 +329,7 @@ func (rc *rongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomBanAdd(members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 
 	var code CodeResult
 	if len(members) == 0 {
@@ -356,7 +356,7 @@ func (rc *rongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -368,7 +368,7 @@ func (rc *rongCloud) ChatRoomBanAdd(members []string, minute uint) error {
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomBanRemove(members []string) error {
+func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
 
 	var code CodeResult
 	if len(members) == 0 {
@@ -391,7 +391,7 @@ func (rc *rongCloud) ChatRoomBanRemove(members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -401,7 +401,7 @@ func (rc *rongCloud) ChatRoomBanRemove(members []string) error {
 /*
  *@return []ChatRoomUser error
  */
-func (rc *rongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
+func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
 	var code CodeResult
 	var dat ChatRoomResult
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/query." + ReqType)
@@ -417,7 +417,7 @@ func (rc *rongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
@@ -434,7 +434,7 @@ func (rc *rongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomGagAdd(id string, members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -466,7 +466,7 @@ func (rc *rongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -478,7 +478,7 @@ func (rc *rongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomGagRemove(id string, members []string) error {
+func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -504,7 +504,7 @@ func (rc *rongCloud) ChatRoomGagRemove(id string, members []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -515,7 +515,7 @@ func (rc *rongCloud) ChatRoomGagRemove(id string, members []string) error {
  *
  *@return []ChatRoomUser error
  */
-func (rc *rongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
+func (rc *RongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 	var dat ChatRoomResult
 	if id == "" {
 		return []ChatRoomUser{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -534,7 +534,7 @@ func (rc *rongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
@@ -547,7 +547,7 @@ func (rc *rongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
  *@param  objectName:消息类型列表，最多 20 个。
  *@return err
  */
-func (rc *rongCloud) ChatRoomDemotionAdd(objectNames []string) error {
+func (rc *RongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 	if len(objectNames) == 0 {
 		return RCErrorNew(1002, "Paramer 'objectName' is required")
 	}
@@ -568,7 +568,7 @@ func (rc *rongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -578,7 +578,7 @@ func (rc *rongCloud) ChatRoomDemotionAdd(objectNames []string) error {
  *@param  objectName:消息类型列表。
  *@return err
  */
-func (rc *rongCloud) ChatRoomDemotionRemove(objectNames []string) error {
+func (rc *RongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 	if len(objectNames) == 0 {
 		return RCErrorNew(1002, "Paramer 'objectName' is required")
 	}
@@ -599,7 +599,7 @@ func (rc *rongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -608,7 +608,7 @@ func (rc *rongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 /*
  *@return []string error
  */
-func (rc *rongCloud) ChatRoomDemotionGetList() ([]string, error) {
+func (rc *RongCloud) ChatRoomDemotionGetList() ([]string, error) {
 	var dat ChatRoomResult
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/message/priority/query." + ReqType)
@@ -624,7 +624,7 @@ func (rc *rongCloud) ChatRoomDemotionGetList() ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -637,7 +637,7 @@ func (rc *rongCloud) ChatRoomDemotionGetList() ([]string, error) {
  *@param  id:聊天室 ID。
  *@return error
  */
-func (rc *rongCloud) ChatRoomDistributionStop(id string) error {
+func (rc *RongCloud) ChatRoomDistributionStop(id string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
 	}
@@ -656,7 +656,7 @@ func (rc *rongCloud) ChatRoomDistributionStop(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -666,7 +666,7 @@ func (rc *rongCloud) ChatRoomDistributionStop(id string) error {
  *@param  id:聊天室 ID。
  *@return error
  */
-func (rc *rongCloud) ChatRoomDistributionResume(id string) error {
+func (rc *RongCloud) ChatRoomDistributionResume(id string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
 	}
@@ -684,7 +684,7 @@ func (rc *rongCloud) ChatRoomDistributionResume(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -694,7 +694,7 @@ func (rc *rongCloud) ChatRoomDistributionResume(id string) error {
  *@param  id:聊天室 ID。
  *@return error
  */
-func (rc *rongCloud) ChatRoomKeepAliveAdd(id string) error {
+func (rc *RongCloud) ChatRoomKeepAliveAdd(id string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
 	}
@@ -712,7 +712,7 @@ func (rc *rongCloud) ChatRoomKeepAliveAdd(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -722,7 +722,7 @@ func (rc *rongCloud) ChatRoomKeepAliveAdd(id string) error {
  *@param  id:聊天室 ID。
  *@return error
  */
-func (rc *rongCloud) ChatRoomKeepAliveRemove(id string) error {
+func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
 	}
@@ -740,7 +740,7 @@ func (rc *rongCloud) ChatRoomKeepAliveRemove(id string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -750,7 +750,7 @@ func (rc *rongCloud) ChatRoomKeepAliveRemove(id string) error {
  *@param  id:聊天室 ID。
  *@return []string error
  */
-func (rc *rongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
+func (rc *RongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
 	var dat ChatRoomResult
 	if id == "" {
 		return []string{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -769,7 +769,7 @@ func (rc *rongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -782,7 +782,7 @@ func (rc *rongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
  *@param  objectNames:消息类型列表。
  *@return error
  */
-func (rc *rongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
+func (rc *RongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
 
 	if len(objectNames) == 0 {
 		return RCErrorNew(1002, "Paramer 'objectNames' is required")
@@ -804,7 +804,7 @@ func (rc *rongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -814,7 +814,7 @@ func (rc *rongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
  *@param  objectNames:消息类型列表。
  *@return error
  */
-func (rc *rongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
+func (rc *RongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 
 	if len(objectNames) == 0 {
 		return RCErrorNew(1002, "Paramer 'objectNames' is required")
@@ -837,7 +837,7 @@ func (rc *rongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -846,7 +846,7 @@ func (rc *rongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 /*
  *@return []string error
  */
-func (rc *rongCloud) ChatRoomWhitelistGetList() ([]string, error) {
+func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 	var dat ChatRoomResult
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/whitelist/query." + ReqType)
@@ -864,7 +864,7 @@ func (rc *rongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -879,7 +879,7 @@ func (rc *rongCloud) ChatRoomWhitelistGetList() ([]string, error) {
  *@param  members:白名单列表，最多不超过 5 个。
  *@return error
  */
-func (rc *rongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error {
+func (rc *RongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -905,7 +905,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -916,7 +916,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error
  *@param  members:白名单列表，最多不超过 5 个。
  *@return error
  */
-func (rc *rongCloud) ChatRoomUserWhitelistRemove(id string, members []string) error {
+func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -942,7 +942,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -952,7 +952,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
  *@param  id:聊天室 ID。
  *@return []string error
  */
-func (rc *rongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
+func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
 	var dat map[string]interface{}
 	if id == "" {
 		return []string{}, RCErrorNew(1002, "Paramer 'id' is required")
@@ -971,7 +971,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
 		return []string{}, err
 	}
 	if code.Code != 200 {
-		return []string{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []string{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []string{}, err
@@ -995,7 +995,7 @@ func (rc *rongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute uint) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -1027,7 +1027,7 @@ func (rc *rongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }
@@ -1038,7 +1038,7 @@ func (rc *rongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
  *
  *@return []ChatRoomUser error
  */
-func (rc *rongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, error) {
+func (rc *RongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, error) {
 	var dat ChatRoomResult
 	if id == "" {
 		return []ChatRoomUser{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -1057,7 +1057,7 @@ func (rc *rongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, erro
 		return []ChatRoomUser{}, err
 	}
 	if code.Code != 200 {
-		return []ChatRoomUser{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return []ChatRoomUser{}, code
 	}
 	if err := json.Unmarshal(rep, &dat); err != nil {
 		return []ChatRoomUser{}, err
@@ -1072,7 +1072,7 @@ func (rc *rongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, erro
  *
  *@return error
  */
-func (rc *rongCloud) ChatRoomMuteMembersRemove(id string, members []string) error {
+func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -1098,7 +1098,7 @@ func (rc *rongCloud) ChatRoomMuteMembersRemove(id string, members []string) erro
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 	return nil
 }

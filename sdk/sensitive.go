@@ -28,7 +28,7 @@ type SensitiveWord struct {
 *
 *@return error
  */
-func (rc *rongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) error {
+func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) error {
 	if keyword == "" {
 		return RCErrorNew(1002, "Paramer 'keyword' is required")
 	}
@@ -57,7 +57,7 @@ func (rc *rongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 		return err
 	}
 	if code.Code != 200 {
-		return RCErrorNew(code.Code, code.ErrorMessage)
+		return code
 	}
 
 	return nil
@@ -67,7 +67,7 @@ func (rc *rongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 /*
 *@return ListWordFilterResult error
  */
-func (rc *rongCloud) SensitiveGetList() (ListWordFilterResult, error) {
+func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 
 	req := httplib.Post(rc.rongCloudURI + "/sensitiveword/list." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -87,7 +87,7 @@ func (rc *rongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 		return ListWordFilterResult{}, err
 	}
 	if code.Code != 200 {
-		return ListWordFilterResult{}, RCErrorNew(code.Code, code.ErrorMessage)
+		return ListWordFilterResult{}, code
 	}
 	return ret, err
 
@@ -99,7 +99,7 @@ func (rc *rongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 *
 *@return error
  */
-func (rc *rongCloud) SensitiveRemove(keywords []string) error {
+func (rc *RongCloud) SensitiveRemove(keywords []string) error {
 	if len(keywords) == 0 {
 		return RCErrorNew(1002, "Paramer 'keywords' is required")
 	}
