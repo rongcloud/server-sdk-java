@@ -16,7 +16,7 @@ func (s selfExtras) ToJSON() ([]byte, error) {
 
 }
 
-func TestRongCloud_Send(t *testing.T) {
+func TestRongCloud_PushSend(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
@@ -46,7 +46,7 @@ func TestRongCloud_Send(t *testing.T) {
 			},
 		},
 	}
-	p, err := rc.Send(push)
+	p, err := rc.PushSend(push)
 	if err != nil {
 		t.Log(err)
 	} else {
@@ -76,7 +76,7 @@ func TestRongCloud_Send(t *testing.T) {
 			ObjectName: "RC:TxtMsg",
 		},
 	}
-	p, err = rc.Send(broadcast)
+	p, err = rc.PushSend(broadcast)
 	if err != nil {
 		t.Log(err)
 	} else {
