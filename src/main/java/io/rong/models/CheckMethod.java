@@ -42,5 +42,6 @@ public class CheckMethod {
     public static final String SET_USER_TAG = "setUserTag";
     public static final String RECALL = "recall";
 
-
+    public static final String BATCH_SET_TAG = "batchSetTag";
+    public static final String GET_TAG = "getTag";
 }

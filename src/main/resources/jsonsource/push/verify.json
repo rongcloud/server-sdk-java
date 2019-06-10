@@ -1,5 +1,5 @@
 {
-  "user": {
+  "broadcast": {
     "_self": {
       "require": {
         "must": true,
@@ -10,7 +10,7 @@
         "invalid": "20001"
       }
     },
-    "id": {
+    "fromUserId": {
       "require": {
         "must": true,
         "invalid": "20005"
@@ -21,59 +21,53 @@
         "invalid": "20003"
       }
     },
-    "name": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      },
-      "length": {
-        "max": 64,
-        "min": 1,
-        "invalid": "20003"
-      }
-    },
-    "portrait": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      },
-      "length": {
-        "max": 1024,
-        "min": 1,
-        "invalid": "20003"
-      },
-      "url": {
-        "legal": "url 正则",
-        "invalid": "20007"
-      }
-    },
-    "minute": {
+    "platform": {
       "require": {
         "must": true,
         "invalid": "20005"
       },
       "size": {
-        "max": 43200,
+        "max": 2,
         "min": 1,
-        "invalid": "20004"
-      },
-      "typeof": {
-        "type": "number|int",
-        "invalid": "20001"
-      }
-    },
-    "blacklist": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
+        "invalid": "20002"
       },
       "typeof": {
         "type": "array",
         "invalid": "20001"
       }
+    },
+    "message": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "audience": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "notification": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
     }
   },
-  "tag": {
+  "push": {
     "_self": {
       "require": {
         "must": true,
@@ -84,24 +78,13 @@
         "invalid": "20001"
       }
     },
-    "userId": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      },
-      "length": {
-        "max": 64,
-        "min": 1,
-        "invalid": "20003"
-      }
-    },
-    "tags": {
+    "platform": {
       "require": {
         "must": true,
         "invalid": "20005"
       },
       "size": {
-        "max": 20,
+        "max": 2,
         "min": 1,
         "invalid": "20002"
       },
@@ -109,10 +92,8 @@
         "type": "array",
         "invalid": "20001"
       }
-    }
-  },
-  "batchTag": {
-    "_self": {
+    },
+    "audience": {
       "require": {
         "must": true,
         "invalid": "20005"
@@ -122,60 +103,13 @@
         "invalid": "20001"
       }
     },
-    "userIds": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      },
-      "size": {
-        "max": 1000,
-        "min": 1,
-        "invalid": "20002"
-      },
-      "typeof": {
-        "type": "array",
-        "invalid": "20001"
-      }
-    },
-    "tags": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      },
-      "size": {
-        "max": 20,
-        "min": 1,
-        "invalid": "20002"
-      },
-      "typeof": {
-        "type": "array",
-        "invalid": "20001"
-      }
-    }
-  },
-  "getTag": {
-    "_self": {
+    "notification": {
       "require": {
         "must": true,
         "invalid": "20005"
       },
       "typeof": {
         "type": "object",
-        "invalid": "20001"
-      }
-    },
-    "userIds": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      },
-      "size": {
-        "max": 50,
-        "min": 1,
-        "invalid": "20002"
-      },
-      "typeof": {
-        "type": "array",
         "invalid": "20001"
       }
     }
