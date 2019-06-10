@@ -50,7 +50,7 @@ public class PushExample {
         Notification notification = new Notification();
         notification.setAlert("this is broadcast");
         broadcast.setNotification(notification);
-        PushResult result = rongCloud.push.send(broadcast);
+        PushResult result = rongCloud.push.message(broadcast);
 
         System.out.println("broadcast: " + result.toString());
 
@@ -71,7 +71,7 @@ public class PushExample {
         notification = new Notification();
         notification.setAlert("this is push");
         pushmodel.setNotification(notification);
-        result = rongCloud.push.send(pushmodel);
+        result = rongCloud.push.push(pushmodel);
 
         System.out.println("push: " + result.toString());
     }

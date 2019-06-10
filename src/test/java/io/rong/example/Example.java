@@ -1304,7 +1304,7 @@ public class Example {
         Notification notification = new Notification();
         notification.setAlert("this is broadcast");
         broadcast.setNotification(notification);
-        PushResult result = rongCloud.push.send(broadcast);
+        PushResult result = rongCloud.push.message(broadcast);
 
         System.out.println("broadcast: " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1328,7 +1328,7 @@ public class Example {
         Notification notification = new Notification();
         notification.setAlert("this is push");
         pushmodel.setNotification(notification);
-        PushResult result = rongCloud.push.send(pushmodel);
+        PushResult result = rongCloud.push.push(pushmodel);
 
         System.out.println("push: " + result.toString());
         assertEquals("200", result.getCode().toString());

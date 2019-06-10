@@ -44,7 +44,7 @@ public class Push {
      * @param broadcast 广播数据
      * @return PushResult
      **/
-    public PushResult send(BroadcastModel broadcast) throws Exception {
+    public PushResult message(BroadcastModel broadcast) throws Exception {
         // 需要校验的字段
         String message = CommonUtil.checkFiled(broadcast, PATH, CheckMethod.BROADCAST);
         if (null != message) {
@@ -66,7 +66,7 @@ public class Push {
      * @param push 推送数据
      * @return PushResult
      **/
-    public PushResult send(PushModel push) throws Exception {
+    public PushResult push(PushModel push) throws Exception {
         // 需要校验的字段
         String message = CommonUtil.checkFiled(push, PATH, CheckMethod.PUSH);
         if (null != message) {
