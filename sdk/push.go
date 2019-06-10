@@ -91,14 +91,14 @@ type Audience struct {
 	PackageName string   `json:"packageName"`      // 应用包名，is_to_all 为 true 时，此参数无效。与 tag、tag_or 同时存在时为 And 的关系，向同时满足条件的用户推送。与 userid 条件同时存在时，以 userid 为准进行推送。（非必传）
 }
 
-// Send 此方法与 /message/broadcast 广播消息方法发送机制一样，可选择更多发送条件。 该功能开发环境下可免费使用。生产环境下，您需要在开发者后台高级功能设置中开通 IM 商用版后，在“广播消息和推送”中，开启后才能使用。
+// PushSend 此方法与 /message/broadcast 广播消息方法发送机制一样，可选择更多发送条件。 该功能开发环境下可免费使用。生产环境下，您需要在开发者后台高级功能设置中开通 IM 商用版后，在“广播消息和推送”中，开启后才能使用。
 // 推送和广播消息合计每小时只能发送 2 次，每天最多发送 3 次。如需要调整发送频率.
 /*
 *@param  Push: 广播消息体 push。
 *
 *@return PushResult, error
  */
-func (rc *RongCloud) Send(sender Sender) (PushResult, error) {
+func (rc *RongCloud) PushSend(sender Sender) (PushResult, error) {
 	req := httplib.Post(rc.rongCloudURI + "/push." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
