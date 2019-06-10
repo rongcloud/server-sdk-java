@@ -662,7 +662,6 @@ func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 	req := httplib.Post(rc.rongCloudURI + "/group/user/ban/whitelist/add." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-
 	for _, item := range members {
 		req.Param("userId", item)
 	}

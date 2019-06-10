@@ -221,7 +221,6 @@ func TestRongCloud_GroupMuteMembersRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	err := rc.GroupMuteMembersRemove(
 		"gourp01",
@@ -237,7 +236,6 @@ func TestRongCloud_GroupMuteWhiteListUserAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	err := rc.GroupMuteWhiteListUserAdd(
 		"gourp01",

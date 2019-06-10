@@ -49,7 +49,6 @@ func TestRongCloud_BlockGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("RC_APP_ID"),
 		os.Getenv("RC_APP_SECRET"),
-		nil,
 	)
 	rep, err := rc.BlockGetList()
 	t.Log(err)

@@ -18,3 +18,11 @@ func TestNewRongCloud(t *testing.T) {
 	t.Log(rc.timeout)
 	t.Log(rc.numTimeout)
 }
+
+func TestGetRongCloud(t *testing.T) {
+	rc := GetRongCloud()
+	t.Log(rc.appKey)
+	t.Log(rc.appSecret)
+	t.Log(rc.numTimeout)
+	t.Log(rc.timeout)
+}
