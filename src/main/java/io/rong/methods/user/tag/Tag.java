@@ -65,7 +65,7 @@ public class Tag {
     /**
      * 为应用中的用户添加标签，如果某用户已经添加了标签，再次对用户添加标签时将覆盖之前设置的标签内容。
      *
-     * @param tags 多个用户标签信息
+     * @param batchTag 多个用户标签信息
      * @return ResponseResult
      **/
     public Result batchSet(BatchTagModel batchTag) throws Exception {
@@ -86,7 +86,7 @@ public class Tag {
     /**
      * 查询用户所有标签功能，支持批量查询每次最多查询 50 个用户。
      *
-     * @param tags 多个用户ids
+     * @param getTag 多个用户ids
      * @return GetTagResult
      **/
     public GetTagResult get(GetTagModel getTag) throws Exception {
