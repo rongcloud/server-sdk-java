@@ -286,11 +286,11 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	}
 	req.Param("objectName", objectName)
 
-	msgstr, err := msg.toString()
+	msgr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", msgstr)
+	req.Param("content", msgr)
 	req.Param("pushData", pushData)
 	req.Param("pushContent", pushContent)
 	req.Param("count", strconv.Itoa(count))
@@ -453,12 +453,12 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		req.Param("toGroupId", v)
 	}
 	req.Param("objectName", objectName)
-	msgstr, err := msg.toString()
+	msgr, err := msg.toString()
 	if err != nil {
 		rc.urlError(err)
 		return err
 	}
-	req.Param("content", msgstr)
+	req.Param("content", msgr)
 	req.Param("pushContent", pushContent)
 	req.Param("pushData", pushData)
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
@@ -615,11 +615,11 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 		req.Param("toChatroomId", v)
 	}
 	req.Param("objectName", objectName)
-	msgstr, err := msg.toString()
+	msgr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", msgstr)
+	req.Param("content", msgr)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -654,11 +654,11 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	msgstr, err := msg.toString()
+	msgr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", msgstr)
+	req.Param("content", msgr)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -708,12 +708,12 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 		req.Param("toUserId", v)
 	}
 	req.Param("objectName", objectName)
-	msgstr, err := msg.toString()
+	msgr, err := msg.toString()
 	if err != nil {
 		return err
 	}
 
-	req.Param("content", msgstr)
+	req.Param("content", msgr)
 	req.Param("pushData", pushData)
 	req.Param("pushContent", pushContent)
 	req.Param("count", strconv.Itoa(count))
@@ -753,11 +753,11 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	msgstr, err := msg.toString()
+	msgr, err := msg.toString()
 	if err != nil {
 		return err
 	}
-	req.Param("content", msgstr)
+	req.Param("content", msgr)
 
 	rep, err := req.Bytes()
 	if err != nil {

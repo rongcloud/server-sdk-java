@@ -23,25 +23,44 @@ type Extras interface {
 	ToJSON() ([]byte, error)
 }
 
+// Sender 广播推送接口
+type Sender interface {
+	sender()
+}
+
 // PushResult Send 函数返回
 type PushResult struct {
 	*CodeResult
 	ID string `json:"id"`
 }
 
-// Push Send 函数参数
-type Push struct {
-	PlatForm     []PlatForm   `json:"platform"`             // 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。（必传）
-	FromUserID   string       `json:"fromuserid,omitempty"` // 发送人用户 Id。
-	Audience     Audience     `json:"audience"`             // 推送条件，包括：tag 、userid 、packageName 、 is_to_all。（必传）
-	Notification Notification `json:"notification"`         // 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（必传）
+// Broadcast 广播消息
+type Broadcast struct {
+	PlatForm     []PlatForm   `json:"platform"`               // 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。（必传）
+	FromUserID   string       `json:"fromuserid"`             // 发送人用户 Id。 （必传）
+	Message      Message      `json:"message"`                // 广播消息。（必传）
+	Audience     Audience     `json:"audience"`               // 推送条件，包括：tag 、userid 、packageName 、 is_to_all。（必传）
+	Notification Notification `json:"notification,omitempty"` // 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（非必传）
 }
 
-// IOSBroadcast 设置 iOS 平台下的推送及附加信息。
-type IOSBroadcast struct {
+// Push 广播推送
+type Push struct {
+	PlatForm     []PlatForm   `json:"platform"`     // 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。（必传）
+	Audience     Audience     `json:"audience"`     // 推送条件，包括：tag 、userid 、packageName 、 is_to_all。（必传）
+	Notification Notification `json:"notification"` // 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（必传）
+}
+
+// Message 广播消息内容
+type Message struct {
+	Content    string `json:"content"`    // 融云的内置消息，请务必参考 RCMsg Interface 。自定义消息请，自行实现 RCMsg Interface 转换成 String 传入
+	ObjectName string `json:"objectName"` // 融云的内置消息，自定义消息
+}
+
+// IOSPush 设置 iOS 平台下的推送及附加信息。
+type IOSPush struct {
 	Title            string `json:"title,omitempty"`            // 通知栏显示的推送标题，仅针对 iOS 平台，支持 iOS 8.2 及以上版本，参数在 ios 节点下设置，详细可参考“设置 iOS 推送标题请求示例”。（非必传）
 	ContentAvailable int    `json:"contentAvailable,omitempty"` // 针对 iOS 平台，静默推送是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行。1 表示为开启，0 表示为关闭，默认为 0（非必传）
-	Alert            string `json:"alert"`                      // iOS 或 Android 不同平台下的推送消息内容，传入后默认的推送消息内容失效，不能为空。（非必传）
+	Alert            string `json:"alert,omitempty"`            // iOS 或 Android 不同平台下的推送消息内容，传入后默认的推送消息内容失效，不能为空。（非必传）
 	// Extras 请自行实现 Extras Interface
 	Extras       Extras `json:"extras,omitempty"`       // iOS 或 Android 不同平台下的附加信息，如果开发者自己需要，可以自己在 App 端进行解析。（非必传）
 	Badge        int    `json:"badge,omitempty"`        // 应用角标，仅针对 iOS 平台；不填时，表示不改变角标数；为 0 或负数时，表示 App 角标上的数字清零；否则传相应数字表示把角标数改为指定的数字，最大不超过 9999，参数在 ios 节点下设置，详细可参考“设置 iOS 角标数 HTTP 请求示例”。（非必传）
@@ -49,18 +68,18 @@ type IOSBroadcast struct {
 	RichMediaURI string `json:"richMediaUri,omitempty"` // iOS 富文本推送内容的 URL，与 category 一起使用。（非必传）
 }
 
-// AndroidBroadcast 设置 Android 平台下的推送及附加信息。
-type AndroidBroadcast struct {
-	Alert string `json:"alert"` // iOS 或 Android 不同平台下的推送消息内容，传入后默认的推送消息内容失效，不能为空。（非必传）
+// AndroidPush 设置 Android 平台下的推送及附加信息。
+type AndroidPush struct {
+	Alert string `json:"alert,omitempty"` // iOS 或 Android 不同平台下的推送消息内容，传入后默认的推送消息内容失效，不能为空。（非必传）
 	// Extras 请自行实现 Extras Interface
 	Extras Extras `json:"extras,omitempty"` // iOS 或 Android 不同平台下的附加信息，如果开发者自己需要，可以自己在 App 端进行解析。（非必传）
 }
 
 // Notification 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（必传）
 type Notification struct {
-	Alert   string           `json:"alert"`   // 默认推送消息内容，如填写了 iOS 或 Android 下的 alert 时，则推送内容以对应平台系统的 alert 为准。（必传）
-	IOS     IOSBroadcast     `json:"ios"`     // 设置 iOS 平台下的推送及附加信息。
-	Android AndroidBroadcast `json:"android"` // 设置 Android 平台下的推送及附加信息。
+	Alert   string      `json:"alert"`             // 默认推送消息内容，如填写了 iOS 或 Android 下的 alert 时，则推送内容以对应平台系统的 alert 为准。（必传）
+	IOS     IOSPush     `json:"ios,omitempty"`     // 设置 iOS 平台下的推送及附加信息。
+	Android AndroidPush `json:"android,omitempty"` // 设置 Android 平台下的推送及附加信息。
 }
 
 // Audience 推送条件。
@@ -79,11 +98,11 @@ type Audience struct {
 *
 *@return PushResult, error
  */
-func (rc *RongCloud) Send(push Push) (PushResult, error) {
+func (rc *RongCloud) Send(sender Sender) (PushResult, error) {
 	req := httplib.Post(rc.rongCloudURI + "/push." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-	req, err := req.JSONBody(push)
+	req, err := req.JSONBody(sender)
 	if err != nil {
 		rc.urlError(err)
 		return PushResult{}, err
@@ -102,4 +121,12 @@ func (rc *RongCloud) Send(push Push) (PushResult, error) {
 		return PushResult{}, RCErrorNew(pushResult.Code, pushResult.ErrorMessage)
 	}
 	return pushResult, nil
+}
+
+func (p Push) sender() {
+
+}
+
+func (b Broadcast) sender() {
+
 }

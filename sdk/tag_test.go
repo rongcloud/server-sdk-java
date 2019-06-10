@@ -54,8 +54,13 @@ func TestRongCloud_TagGet(t *testing.T) {
 			"u03",
 		},
 	)
-	if err != nil {
-		t.Log(result)
+	if err == nil {
+		for k, v := range result.Result {
+			t.Log(k)
+			for _, tag := range v {
+				t.Log(tag)
+			}
+		}
 	}
 	t.Log(err)
 }
