@@ -26,20 +26,19 @@ func TestRongCloud_Send(t *testing.T) {
 			IOSPlatForm,
 			AndroidPlatForm,
 		},
-		FromUserID: "",
 		Audience: Audience{
 			IsToAll: true,
 		},
 		Notification: Notification{
 			Alert: "this is a push",
-			IOS: IOSBroadcast{
+			IOS: IOSPush{
 				Title: "iOS 平台显示标题",
 				Alert: "iOS 平台显示内容",
 				Extras: selfExtras{
 					ID: 1,
 				},
 			},
-			Android: AndroidBroadcast{
+			Android: AndroidPush{
 				Alert: "Android 平台显示内容",
 				Extras: selfExtras{
 					ID: 1,
@@ -55,4 +54,33 @@ func TestRongCloud_Send(t *testing.T) {
 		t.Log(p.ID)
 	}
 
+	msg := TXTMsg{
+		Content: "hello",
+		Extra:   "helloExtra",
+	}
+	msgr, err := msg.toString()
+	if err != nil {
+		t.Fatal(err)
+	}
+	broadcast := Broadcast{
+		PlatForm: []PlatForm{
+			IOSPlatForm,
+			AndroidPlatForm,
+		},
+		FromUserID: "u01",
+		Audience: Audience{
+			IsToAll: true,
+		},
+		Message: Message{
+			Content:    msgr,
+			ObjectName: "RC:TxtMsg",
+		},
+	}
+	p, err = rc.Send(broadcast)
+	if err != nil {
+		t.Log(err)
+	} else {
+		t.Log(p.Code)
+		t.Log(p.ID)
+	}
 }
