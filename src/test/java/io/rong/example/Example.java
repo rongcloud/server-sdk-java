@@ -1304,7 +1304,7 @@ public class Example {
         Notification notification = new Notification();
         notification.setAlert("this is broadcast");
         broadcast.setNotification(notification);
-        PushResult result = rongCloud.push.push(broadcast);
+        PushResult result = rongCloud.push.send(broadcast);
 
         System.out.println("broadcast: " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1320,15 +1320,15 @@ public class Example {
      **/
     @Test
     public void testPush() throws Exception {
-        PushModel broadcast = new PushModel();
-        broadcast.setPlatform(new String[] {"ios", "android"});
+        PushModel pushmodel = new PushModel();
+        pushmodel.setPlatform(new String[] {"ios", "android"});
         Audience audience = new Audience();
         audience.setUserid(new String[] { "userid1", "userid2" });
-        broadcast.setAudience(audience);
+        pushmodel.setAudience(audience);
         Notification notification = new Notification();
         notification.setAlert("this is push");
-        broadcast.setNotification(notification);
-        PushResult result = rongCloud.push.push(broadcast);
+        pushmodel.setNotification(notification);
+        PushResult result = rongCloud.push.send(pushmodel);
 
         System.out.println("push: " + result.toString());
         assertEquals("200", result.getCode().toString());
