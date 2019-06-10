@@ -103,12 +103,12 @@ func (rc RongCloud) getSignature() (nonce, timestamp, signature string) {
 	timeInt64 := time.Now().Unix()
 	timestamp = strconv.FormatInt(timeInt64, 10)
 	h := sha1.New()
-	io.WriteString(h, rc.appSecret+nonce+timestamp)
+	_, _ = io.WriteString(h, rc.appSecret+nonce+timestamp)
 	signature = fmt.Sprintf("%x", h.Sum(nil))
 	return
 }
 
-// fillHeader 在http header 增加API签名
+// fillHeader 在 Http Header 增加API签名
 func (rc RongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
 	nonce, timestamp, signature := rc.getSignature()
 	req.Header("App-Key", rc.appKey)
@@ -119,12 +119,12 @@ func (rc RongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
 	req.Header("User-Agent", USERAGENT)
 }
 
-// fillJSONHeader 在http header Content-Type 设置为josn格式
+// fillJSONHeader 在 Http Header Content-Type 设置为josn格式
 func fillJSONHeader(req *httplib.BeegoHTTPRequest) {
 	req.Header("Content-Type", "application/json")
 }
 
-// NewRongCloud 创建rongCloud对象
+// NewRongCloud 创建 RongCloud 对象
 func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongCloud {
 	once.Do(func() {
 		// 默认扩展配置
@@ -134,15 +134,15 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongClo
 			appSecret:      appSecret,
 			rongCloudExtra: &defaultRongCloud,
 		}
-		for _, option := range options {
-			option(rc)
-		}
 	},
 	)
+	for _, option := range options {
+		option(rc)
+	}
 	return rc
 }
 
-// GetRongCloud
+// GetRongCloud 获取 RongCloud 对象
 func GetRongCloud() *RongCloud {
 	return rc
 }
@@ -166,15 +166,17 @@ func (rc *RongCloud) PrivateURI(uri, sms string) {
 
 // urlError 判断是否为 url.Error
 func (rc *RongCloud) urlError(err error) {
+	if rc.numTimeout == 0 {
+		return
+	}
 	if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
-		if rc.numTimeout == 0 {
-			return
-		}
-		if rc.count >= rc.numTimeout {
-			rc.changeURI()
-			rc.count = 1
-		} else {
-			rc.count++
+		if err.(*url.Error).Timeout() {
+			if rc.count >= rc.numTimeout {
+				rc.changeURI()
+				rc.count = 1
+			} else {
+				rc.count++
+			}
 		}
 	}
 }
