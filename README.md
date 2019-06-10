@@ -5,13 +5,13 @@ RongCloud IM Server SDK in Java.
 
 ## 集成
 
-   * 中央仓库获取[JAR](https://search.maven.org/remotecontent?filepath=cn/rongcloud/im/server-sdk-java/3.0.2/server-sdk-java-3.0.2.jar)
+   * 中央仓库获取[JAR](https://search.maven.org/search?q=g:cn.rongcloud.im%20AND%20a:server-sdk-java&core=gav)
    * Maven
 ```
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>3.0.2</version>
+        <version>3.0.4</version>
     </dependency>
 ```
    * Gradle
