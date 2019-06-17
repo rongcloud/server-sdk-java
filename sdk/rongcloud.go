@@ -44,12 +44,12 @@ import (
 )
 
 const (
-	// RONGCLOUDSMSURI 容云默认 SMS API 地址
+	// RONGCLOUDSMSURI 融云默认 SMS API 地址
 	RONGCLOUDSMSURI = "http://api.sms.ronghub.com"
-	// RONGCLOUDURI 容云默认 API 地址
+	// RONGCLOUDURI 融云默认 API 地址
 	RONGCLOUDURI = "http://api-cn.ronghub.com"
-	// RONGCLOUDURI2 容云备用 API 地址
-	RONGCLOUDURI2 = "http://api2-cn.ronghub.com"
+	// RONGCLOUDURI2 融云备用 API 地址
+	RONGCLOUDURI2 = "http://api-cn2.ronghub.com"
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
@@ -79,7 +79,7 @@ type RongCloud struct {
 	*rongCloudExtra
 }
 
-// rongCloudExtra rongCloud扩展增加自定义容云服务器地址,请求超时时间
+// rongCloudExtra rongCloud扩展增加自定义融云服务器地址,请求超时时间
 type rongCloudExtra struct {
 	rongCloudURI    string
 	rongCloudSMSURI string
@@ -88,7 +88,7 @@ type rongCloudExtra struct {
 	count           uint
 }
 
-// CodeResult 容云返回状态码和错误码
+// CodeResult 融云返回状态码和错误码
 type CodeResult struct {
 	Code         int    `json:"code"`         // 返回码，200 为正常。
 	ErrorMessage string `json:"errorMessage"` // 错误信息

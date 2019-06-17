@@ -11,7 +11,7 @@ Rong Cloud Server SDK in Go.
 
 ##如何使用
 
-`go get github.com/rongcloud/server-sdk-go/sdk`
+`go get github.com/rongcloud/server-sdk-go`
 
 ###方法调用
 * 请参考 rongcloud_test.go 上面提供了所有的 API 接口的调用用例。
