@@ -49,7 +49,7 @@ const (
 	// RONGCLOUDURI 融云默认 API 地址
 	RONGCLOUDURI = "http://api-cn.ronghub.com"
 	// RONGCLOUDURI2 融云备用 API 地址
-	RONGCLOUDURI2 = "http://api-cn2.ronghub.com"
+	RONGCLOUDURI2 = "http://api2-cn.ronghub.com"
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
