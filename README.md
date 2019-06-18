@@ -18,9 +18,9 @@ Rong Cloud Server SDK in Go.
 
 ### GO SDK 功能支持的版本清单
 
-| 模块 | 方法名 | 说明 | 支持版本 |
+| 模块 | 方法名 | 说明 | 支持版本（master 分支） |
 | :-----| :-----  | :------ | :----- | 
-|[用户信息](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/user_test.go)| UserRegister | 注册， 获取 token| master |
+|[用户信息](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/user_test.go)| UserRegister | 注册， 获取 token| √ |
 || UserUpdate | 更新用户信息 |√|
 || OnlineStatusCheck| 检查用户在线状态|√|
 || BlacklistAdd | 添加黑名单 |√|
