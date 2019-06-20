@@ -154,7 +154,7 @@ public class Chatroom {
 			body = body.substring(1, body.length());
 		}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/query.xml", "application/x-www-form-urlencoded");
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/query.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn);
 
 		return (ChatroomUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), ChatroomUserQueryResult.class);

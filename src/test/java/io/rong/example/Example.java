@@ -836,13 +836,18 @@ public class Example {
      */
     @Test
     public void testGetChatroom() throws Exception {
+        ChatroomModel[] chatrooms = {
+                new ChatroomModel().setId("chatroomId1").setName("chatroomName1")
+        };
+        ResponseResult result = rongCloud.chatroom.create(chatrooms);
         ChatroomModel chatroomModel = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+                .setId("chatroomId1")
+                .setCount(500)
+                .setOrder(1);
 
-        ResponseResult result = rongCloud.chatroom.destroy(chatroomModel);
-        System.out.println("destroy:  " + result.toString());
-
-        assertEquals("200", result.getCode().toString());
+        ChatroomUserQueryResult chatroomQueryUserResult = rongCloud.chatroom.get(chatroomModel);
+        System.out.println("queryUser:  " + chatroomQueryUserResult.toString());
+        assertEquals("200", chatroomQueryUserResult.getCode().toString());
     }
 
     /**

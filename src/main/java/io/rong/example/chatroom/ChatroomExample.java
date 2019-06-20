@@ -15,7 +15,7 @@ public class ChatroomExample {
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSercet";
+    private static final String appSecret = "appSecret";
     /**
      * 自定义api地址
      * */
@@ -66,7 +66,7 @@ public class ChatroomExample {
          * */
 
         chatroomModel = new ChatroomModel()
-                .setId("76891")
+                .setId("chatroomId1")
                 .setCount(500)
                 .setOrder(1);
 
