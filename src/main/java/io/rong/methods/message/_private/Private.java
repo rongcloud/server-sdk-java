@@ -162,7 +162,7 @@ public class Private {
 	}
 
 	/**
-	 * 设置用户某会话接收新消息时是否进行消息提醒。
+	 * 消息单聊撤回。
 	 *
 	 * @param message
 	 *
