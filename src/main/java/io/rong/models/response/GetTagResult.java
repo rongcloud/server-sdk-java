@@ -5,21 +5,20 @@ import io.rong.util.GsonUtil;
 
 /**
  * getTag 返回结果
- *
  */
 public class GetTagResult extends Result {
 
     /**
      * 用户所有的标签数组。
      */
-    private String[] tags;
+    private Object result;
 
-    public String[] getTags() {
-        return tags;
+    public Object getResult() {
+        return result;
     }
 
-    public void setTags(String[] tags) {
-        this.tags = tags;
+    public void setResult(Object result) {
+        this.result = result;
     }
 
     @Override
