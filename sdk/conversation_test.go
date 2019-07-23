@@ -7,8 +7,8 @@ import (
 
 func TestRongCloud_ConversationMute(t *testing.T) {
 	conversation := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := conversation.ConversationMute(
 		PRIVATE,
@@ -21,8 +21,8 @@ func TestRongCloud_ConversationMute(t *testing.T) {
 
 func TestRongCloud_ConversationUnmute(t *testing.T) {
 	conversation := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := conversation.ConversationMute(
 		PRIVATE,
@@ -36,8 +36,8 @@ func TestRongCloud_ConversationUnmute(t *testing.T) {
 
 func TestRongCloud_ConversationGet(t *testing.T) {
 	conversation := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	isMuted, err := conversation.ConversationGet(
 		PRIVATE,

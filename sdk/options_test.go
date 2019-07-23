@@ -9,8 +9,8 @@ import (
 func TestWithNumTimeout(t *testing.T) {
 
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 		WithTimeout(3*time.Second),
 		WithNumTimeout(2),
 	)
@@ -20,8 +20,8 @@ func TestWithNumTimeout(t *testing.T) {
 
 func TestWithTimeout(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 		WithTimeout(3*time.Second),
 	)
 	t.Log(rc)

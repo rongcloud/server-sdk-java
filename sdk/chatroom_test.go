@@ -7,8 +7,8 @@ import (
 
 func TestRongCloud_ChatRoomCreate(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomCreate(
 		"chrm01",
@@ -19,8 +19,8 @@ func TestRongCloud_ChatRoomCreate(t *testing.T) {
 
 func TestRongCloud_ChatRoomGet(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomGet(
 		"chrm01",
@@ -34,8 +34,8 @@ func TestRongCloud_ChatRoomGet(t *testing.T) {
 
 func TestRongCloud_ChatRoomIsExist(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomIsExist(
 		"chrm01",
@@ -47,8 +47,8 @@ func TestRongCloud_ChatRoomIsExist(t *testing.T) {
 
 func TestRongCloud_ChatRoomDestroy(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomDestroy(
 		"chrm01",
@@ -58,8 +58,8 @@ func TestRongCloud_ChatRoomDestroy(t *testing.T) {
 
 func TestRongCloud_ChatRoomBanAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomBanAdd(
 		[]string{"u01"},
@@ -69,8 +69,8 @@ func TestRongCloud_ChatRoomBanAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomBanGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomBanGetList()
 	t.Log(err)
@@ -79,8 +79,8 @@ func TestRongCloud_ChatRoomBanGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomBanRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomBanRemove(
 		[]string{"u01"},
@@ -90,8 +90,8 @@ func TestRongCloud_ChatRoomBanRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomBlockAdd(
 		"chrm01",
@@ -103,8 +103,8 @@ func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomBlockGetList(
 		"chrm01",
@@ -115,8 +115,8 @@ func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomBlockRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomBlockRemove(
 		"chrm01",
@@ -127,8 +127,8 @@ func TestRongCloud_ChatRoomBlockRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomDemotionAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	txtmsg := "RC:TxtMsg"
 	err := rc.ChatRoomDemotionAdd(
@@ -141,8 +141,8 @@ func TestRongCloud_ChatRoomDemotionAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomDemotionGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomDemotionGetList()
 	t.Log(err)
@@ -151,8 +151,8 @@ func TestRongCloud_ChatRoomDemotionGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomDemotionRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	txtmsg := "RC:TxtMsg"
 	err := rc.ChatRoomDemotionRemove(
@@ -165,8 +165,8 @@ func TestRongCloud_ChatRoomDemotionRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomDistributionStop(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomDistributionStop(
 		"chrm01",
@@ -176,8 +176,8 @@ func TestRongCloud_ChatRoomDistributionStop(t *testing.T) {
 
 func TestRongCloud_ChatRoomDistributionResume(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomDistributionResume(
 		"chrm01",
@@ -187,8 +187,8 @@ func TestRongCloud_ChatRoomDistributionResume(t *testing.T) {
 
 func TestRongCloud_ChatRoomGagAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomGagAdd(
 		"chrm01",
@@ -200,8 +200,8 @@ func TestRongCloud_ChatRoomGagAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomGagGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomGagGetList(
 		"chrm01",
@@ -212,8 +212,8 @@ func TestRongCloud_ChatRoomGagGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomGagRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomGagRemove(
 		"chrm01",
@@ -224,8 +224,8 @@ func TestRongCloud_ChatRoomGagRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomKeepAliveAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomKeepAliveAdd(
 		"chrm01",
@@ -235,8 +235,8 @@ func TestRongCloud_ChatRoomKeepAliveAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomKeepAliveGetList(
 		"chrm01",
@@ -247,8 +247,8 @@ func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomKeepAliveRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomKeepAliveRemove(
 		"chrm01",
@@ -258,8 +258,8 @@ func TestRongCloud_ChatRoomKeepAliveRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomUserWhitelistAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	err := rc.ChatRoomUserWhitelistAdd(
@@ -271,8 +271,8 @@ func TestRongCloud_ChatRoomUserWhitelistAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomUserWhitelistGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomUserWhitelistGetList(
 		"chrm01",
@@ -283,8 +283,8 @@ func TestRongCloud_ChatRoomUserWhitelistGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomUserWhitelistRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomUserWhitelistRemove(
 		"chrm01",
@@ -295,8 +295,8 @@ func TestRongCloud_ChatRoomUserWhitelistRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomWhitelistAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	txtmsg := "RC:TxtMsg"
 
@@ -308,8 +308,8 @@ func TestRongCloud_ChatRoomWhitelistAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomWhitelistGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomWhitelistGetList()
 	t.Log(err)
@@ -318,8 +318,8 @@ func TestRongCloud_ChatRoomWhitelistGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomWhitelistRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	txtmsg := "RC:TxtMsg"
 	err := rc.ChatRoomWhitelistRemove(
@@ -330,8 +330,8 @@ func TestRongCloud_ChatRoomWhitelistRemove(t *testing.T) {
 
 func TestRongCloud_ChatRoomMuteMembersAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomMuteMembersAdd(
 		"chrm01",
@@ -343,8 +343,8 @@ func TestRongCloud_ChatRoomMuteMembersAdd(t *testing.T) {
 
 func TestRongCloud_ChatRoomMuteMembersGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.ChatRoomMuteMembersGetList(
 		"chrm01",
@@ -355,8 +355,8 @@ func TestRongCloud_ChatRoomMuteMembersGetList(t *testing.T) {
 
 func TestRongCloud_ChatRoomMuteMembersRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.ChatRoomGagRemove(
 		"chrm01",
