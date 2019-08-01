@@ -22,7 +22,7 @@ type TXTMsg struct {
 // ImgMsg 消息
 type ImgMsg struct {
 	Content  string `json:"content"`
-	ImageURI string `json:"imageURI"`
+	ImageURI string `json:"imageUri"`
 	Extra    string `json:"extra"`
 }
 
