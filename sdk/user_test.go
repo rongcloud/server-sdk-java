@@ -8,8 +8,8 @@ import (
 func TestRongCloud_UserRegister(t *testing.T) {
 
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	rep, err := rc.UserRegister(
@@ -23,8 +23,8 @@ func TestRongCloud_UserRegister(t *testing.T) {
 
 func TestRongCloud_UserUpdate(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	rep := rc.UserUpdate("7Szq13MKRVortoknTAk7W8", "7Szq13MKRVortoknTAk7W8", "http://rongcloud.cn/portrait.jpg")
@@ -34,8 +34,8 @@ func TestRongCloud_UserUpdate(t *testing.T) {
 func TestRongCloud_BlockAdd(t *testing.T) {
 
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	err := rc.BlockAdd(
@@ -47,8 +47,8 @@ func TestRongCloud_BlockAdd(t *testing.T) {
 
 func TestRongCloud_BlockGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	rep, err := rc.BlockGetList()
 	t.Log(err)
@@ -58,8 +58,8 @@ func TestRongCloud_BlockGetList(t *testing.T) {
 func TestRongCloud_BlockRemove(t *testing.T) {
 
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.BlockRemove(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -69,8 +69,8 @@ func TestRongCloud_BlockRemove(t *testing.T) {
 
 func TestRongCloud_BlacklistAdd(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.BlacklistAdd(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -82,8 +82,8 @@ func TestRongCloud_BlacklistAdd(t *testing.T) {
 
 func TestRongCloud_BlacklistGetList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	req, err := rc.BlacklistGet(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -94,8 +94,8 @@ func TestRongCloud_BlacklistGetList(t *testing.T) {
 
 func TestRongCloud_BlacklistRemove(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	err := rc.BlacklistRemove(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -106,8 +106,8 @@ func TestRongCloud_BlacklistRemove(t *testing.T) {
 
 func TestRongCloud_OnlineStatusCheck(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	status, err := rc.OnlineStatusCheck("4kIvGJmETlYqDoVFgWdYdM")
 	t.Log(err)
@@ -116,8 +116,8 @@ func TestRongCloud_OnlineStatusCheck(t *testing.T) {
 
 func TestRongCloud_TagSet(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	err := rc.TagSet(
@@ -132,8 +132,8 @@ func TestRongCloud_TagSet(t *testing.T) {
 
 func TestRongCloud_TagBatchSet(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	err := rc.TagBatchSet(
@@ -152,8 +152,8 @@ func TestRongCloud_TagBatchSet(t *testing.T) {
 
 func TestRongCloud_TagGet(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	result, err := rc.TagGet(

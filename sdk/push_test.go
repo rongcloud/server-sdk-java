@@ -18,8 +18,8 @@ func (s selfExtras) ToJSON() ([]byte, error) {
 
 func TestRongCloud_PushSend(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RC_APP_ID"),
-		os.Getenv("RC_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 	push := Push{
 		PlatForm: []PlatForm{
