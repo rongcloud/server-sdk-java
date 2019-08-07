@@ -8,9 +8,9 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// RCMsg RCMsg接口
-type RCMsg interface {
-	toString() (string, error)
+// rcMsg rcMsg接口
+type rcMsg interface {
+	ToString() (string, error)
 }
 
 // TXTMsg 消息
@@ -134,8 +134,8 @@ type History struct {
 	URL string `json:"url"`
 }
 
-// toString TXTMsg
-func (msg *TXTMsg) toString() (string, error) {
+// ToString TXTMsg
+func (msg *TXTMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -143,8 +143,8 @@ func (msg *TXTMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString ImgMsg
-func (msg *ImgMsg) toString() (string, error) {
+// ToString ImgMsg
+func (msg *ImgMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -152,8 +152,8 @@ func (msg *ImgMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString InfoNtf
-func (msg *InfoNtf) toString() (string, error) {
+// ToString InfoNtf
+func (msg *InfoNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -161,8 +161,8 @@ func (msg *InfoNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString VCMsg
-func (msg *VCMsg) toString() (string, error) {
+// ToString VCMsg
+func (msg *VCMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -170,8 +170,8 @@ func (msg *VCMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString IMGTextMsg
-func (msg *IMGTextMsg) toString() (string, error) {
+// ToString IMGTextMsg
+func (msg *IMGTextMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -179,8 +179,8 @@ func (msg *IMGTextMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString FileMsg
-func (msg *FileMsg) toString() (string, error) {
+// ToString FileMsg
+func (msg *FileMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -188,8 +188,8 @@ func (msg *FileMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString LBSMsg
-func (msg *LBSMsg) toString() (string, error) {
+// ToString LBSMsg
+func (msg *LBSMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -197,8 +197,8 @@ func (msg *LBSMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString ProfileNtf
-func (msg *ProfileNtf) toString() (string, error) {
+// ToString ProfileNtf
+func (msg *ProfileNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -206,8 +206,8 @@ func (msg *ProfileNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString CMDNtf
-func (msg *CMDNtf) toString() (string, error) {
+// ToString CMDNtf
+func (msg *CMDNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -215,8 +215,8 @@ func (msg *CMDNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString CMDMsg
-func (msg *CMDMsg) toString() (string, error) {
+// ToString CMDMsg
+func (msg *CMDMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -224,8 +224,8 @@ func (msg *CMDMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString ContactNtf
-func (msg *ContactNtf) toString() (string, error) {
+// ToString ContactNtf
+func (msg *ContactNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -233,8 +233,8 @@ func (msg *ContactNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString GrpNtf
-func (msg *GrpNtf) toString() (string, error) {
+// ToString GrpNtf
+func (msg *GrpNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -242,8 +242,8 @@ func (msg *GrpNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString DizNtf
-func (msg *DizNtf) toString() (string, error) {
+// ToString DizNtf
+func (msg *DizNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -267,7 +267,7 @@ func (msg *DizNtf) toString() (string, error) {
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg rcMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -286,7 +286,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	}
 	req.Param("objectName", objectName)
 
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -435,7 +435,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *
  *@return error
  */
-func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -453,7 +453,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		req.Param("toGroupId", v)
 	}
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		rc.urlError(err)
 		return err
@@ -598,7 +598,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg RCMsg) error {
+func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -615,7 +615,7 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 		req.Param("toChatroomId", v)
 	}
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -644,7 +644,7 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -654,7 +654,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -689,7 +689,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 *
 *@return error
  */
-func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg rcMsg,
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
 	if senderID == "" {
@@ -708,7 +708,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 		req.Param("toUserId", v)
 	}
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -743,7 +743,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 *
 *@return error
  */
-func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -753,7 +753,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
