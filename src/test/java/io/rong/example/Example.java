@@ -428,7 +428,7 @@ public class Example {
     public void testSendChatroom() throws Exception {
         //聊天室消息
         ChatroomMessage message = new ChatroomMessage()
-                .setSenderId("targetIds")
+                .setSenderId("fromUserId")
                 .setTargetId(targetIds)
                 .setContent(txtMessage)
                 .setObjectName(txtMessage.getType());
