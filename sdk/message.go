@@ -13,100 +13,121 @@ type rcMsg interface {
 	ToString() (string, error)
 }
 
+// MsgUserInfo 融云内置消息用户信息
+type MsgUserInfo struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Icon  string `json:"icon"`
+	Extra string `json:"extra"`
+}
+
 // TXTMsg 消息
 type TXTMsg struct {
-	Content string `json:"content"`
-	Extra   string `json:"extra"`
+	Content string      `json:"content"`
+	User    MsgUserInfo `json:"user"`
+	Extra   string      `json:"extra"`
 }
 
 // ImgMsg 消息
 type ImgMsg struct {
-	Content  string `json:"content"`
-	ImageURI string `json:"imageUri"`
-	Extra    string `json:"extra"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	ImageURI string      `json:"imageUri"`
+	Extra    string      `json:"extra"`
 }
 
 // InfoNtf 消息
 type InfoNtf struct {
-	Message string `json:"message"`
-	Extra   string `json:"extra"`
+	Message string      `json:"message"`
+	User    MsgUserInfo `json:"user"`
+	Extra   string      `json:"extra"`
 }
 
 // VCMsg 消息
 type VCMsg struct {
-	Content  string `json:"content"`
-	Extra    string `json:"extra"`
-	Duration string `json:"duration"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	Extra    string      `json:"extra"`
+	Duration string      `json:"duration"`
 }
 
 // IMGTextMsg 消息
 type IMGTextMsg struct {
-	Title    string `json:"title"`
-	Content  string `json:"content"`
-	Extra    string `json:"extra"`
-	Duration string `json:"duration"`
-	URL      string `json:"url"`
+	Title    string      `json:"title"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	Extra    string      `json:"extra"`
+	Duration string      `json:"duration"`
+	URL      string      `json:"url"`
 }
 
 // FileMsg 消息
 type FileMsg struct {
-	Name    string `json:"name"`
-	Size    string `json:"size"`
-	Type    string `json:"type"`
-	FileURL string `json:"fileUrl"`
+	Name    string      `json:"name"`
+	Size    string      `json:"size"`
+	Type    string      `json:"type"`
+	FileURL string      `json:"fileUrl"`
+	User    MsgUserInfo `json:"user"`
 }
 
 // LBSMsg 消息
 type LBSMsg struct {
-	Content   string  `json:"content"`
-	Extra     string  `json:"extra"`
-	POI       string  `json:"poi"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
+	Content   string      `json:"content"`
+	Extra     string      `json:"extra"`
+	POI       string      `json:"poi"`
+	Latitude  float64     `json:"latitude"`
+	Longitude float64     `json:"longitude"`
+	User      MsgUserInfo `json:"user"`
 }
 
 // ProfileNtf 消息
 type ProfileNtf struct {
-	Operation string `json:"operation"`
-	Data      string `json:"data"`
-	Extra     string `json:"extra"`
+	Operation string      `json:"operation"`
+	Data      string      `json:"data"`
+	User      MsgUserInfo `json:"user"`
+	Extra     string      `json:"extra"`
 }
 
 // CMDNtf 消息
 type CMDNtf struct {
-	Name string `json:"operation"`
-	Data string `json:"data"`
+	Name string      `json:"operation"`
+	Data string      `json:"data"`
+	User MsgUserInfo `json:"user"`
 }
 
 // CMDMsg 消息
 type CMDMsg struct {
-	Name string `json:"operation"`
-	Data string `json:"data"`
+	Name string      `json:"operation"`
+	Data string      `json:"data"`
+	User MsgUserInfo `json:"user"`
 }
 
 // ContactNtf 消息
 type ContactNtf struct {
-	Operation    string `json:"operation"`
-	SourceUserID string `json:"sourceUserId"`
-	TargetUserID string `json:"targetUserId"`
-	Message      string `json:"message"`
-	Extra        string `json:"extra"`
+	Operation    string      `json:"operation"`
+	SourceUserID string      `json:"sourceUserId"`
+	TargetUserID string      `json:"targetUserId"`
+	Message      string      `json:"message"`
+	Extra        string      `json:"extra"`
+	User         MsgUserInfo `json:"user"`
 }
 
 // GrpNtf 消息
 type GrpNtf struct {
-	OperatorUserID string `json:"operatorUserId"`
-	Operation      string `json:"operation"`
-	Data           string `json:"data"`
-	Message        string `json:"message"`
-	Extra          string `json:"extra"`
+	OperatorUserID string      `json:"operatorUserId"`
+	Operation      string      `json:"operation"`
+	Data           string      `json:"data"`
+	Message        string      `json:"message"`
+	Extra          string      `json:"extra"`
+	User           MsgUserInfo `json:"user"`
 }
 
 // DizNtf 消息
 type DizNtf struct {
-	Type      int    `json:"type"`
-	Extension string `json:"extension"`
-	Operation string `json:"operation"`
+	Type      int         `json:"type"`
+	Extension string      `json:"extension"`
+	Operation string      `json:"operation"`
+	User      MsgUserInfo `json:"user"`
 }
 
 // TemplateMsgContent 消息模版
