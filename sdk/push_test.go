@@ -58,7 +58,7 @@ func TestRongCloud_PushSend(t *testing.T) {
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		t.Fatal(err)
 	}

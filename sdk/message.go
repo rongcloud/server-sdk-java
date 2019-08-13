@@ -8,105 +8,126 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// RCMsg RCMsg接口
-type RCMsg interface {
-	toString() (string, error)
+// rcMsg rcMsg接口
+type rcMsg interface {
+	ToString() (string, error)
+}
+
+// MsgUserInfo 融云内置消息用户信息
+type MsgUserInfo struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Icon  string `json:"icon"`
+	Extra string `json:"extra"`
 }
 
 // TXTMsg 消息
 type TXTMsg struct {
-	Content string `json:"content"`
-	Extra   string `json:"extra"`
+	Content string      `json:"content"`
+	User    MsgUserInfo `json:"user"`
+	Extra   string      `json:"extra"`
 }
 
 // ImgMsg 消息
 type ImgMsg struct {
-	Content  string `json:"content"`
-	ImageURI string `json:"imageUri"`
-	Extra    string `json:"extra"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	ImageURI string      `json:"imageUri"`
+	Extra    string      `json:"extra"`
 }
 
 // InfoNtf 消息
 type InfoNtf struct {
-	Message string `json:"message"`
-	Extra   string `json:"extra"`
+	Message string      `json:"message"`
+	User    MsgUserInfo `json:"user"`
+	Extra   string      `json:"extra"`
 }
 
 // VCMsg 消息
 type VCMsg struct {
-	Content  string `json:"content"`
-	Extra    string `json:"extra"`
-	Duration string `json:"duration"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	Extra    string      `json:"extra"`
+	Duration string      `json:"duration"`
 }
 
 // IMGTextMsg 消息
 type IMGTextMsg struct {
-	Title    string `json:"title"`
-	Content  string `json:"content"`
-	Extra    string `json:"extra"`
-	Duration string `json:"duration"`
-	URL      string `json:"url"`
+	Title    string      `json:"title"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	Extra    string      `json:"extra"`
+	Duration string      `json:"duration"`
+	URL      string      `json:"url"`
 }
 
 // FileMsg 消息
 type FileMsg struct {
-	Name    string `json:"name"`
-	Size    string `json:"size"`
-	Type    string `json:"type"`
-	FileURL string `json:"fileUrl"`
+	Name    string      `json:"name"`
+	Size    string      `json:"size"`
+	Type    string      `json:"type"`
+	FileURL string      `json:"fileUrl"`
+	User    MsgUserInfo `json:"user"`
 }
 
 // LBSMsg 消息
 type LBSMsg struct {
-	Content   string  `json:"content"`
-	Extra     string  `json:"extra"`
-	POI       string  `json:"poi"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
+	Content   string      `json:"content"`
+	Extra     string      `json:"extra"`
+	POI       string      `json:"poi"`
+	Latitude  float64     `json:"latitude"`
+	Longitude float64     `json:"longitude"`
+	User      MsgUserInfo `json:"user"`
 }
 
 // ProfileNtf 消息
 type ProfileNtf struct {
-	Operation string `json:"operation"`
-	Data      string `json:"data"`
-	Extra     string `json:"extra"`
+	Operation string      `json:"operation"`
+	Data      string      `json:"data"`
+	User      MsgUserInfo `json:"user"`
+	Extra     string      `json:"extra"`
 }
 
 // CMDNtf 消息
 type CMDNtf struct {
-	Name string `json:"operation"`
-	Data string `json:"data"`
+	Name string      `json:"operation"`
+	Data string      `json:"data"`
+	User MsgUserInfo `json:"user"`
 }
 
 // CMDMsg 消息
 type CMDMsg struct {
-	Name string `json:"operation"`
-	Data string `json:"data"`
+	Name string      `json:"operation"`
+	Data string      `json:"data"`
+	User MsgUserInfo `json:"user"`
 }
 
 // ContactNtf 消息
 type ContactNtf struct {
-	Operation    string `json:"operation"`
-	SourceUserID string `json:"sourceUserId"`
-	TargetUserID string `json:"targetUserId"`
-	Message      string `json:"message"`
-	Extra        string `json:"extra"`
+	Operation    string      `json:"operation"`
+	SourceUserID string      `json:"sourceUserId"`
+	TargetUserID string      `json:"targetUserId"`
+	Message      string      `json:"message"`
+	Extra        string      `json:"extra"`
+	User         MsgUserInfo `json:"user"`
 }
 
 // GrpNtf 消息
 type GrpNtf struct {
-	OperatorUserID string `json:"operatorUserId"`
-	Operation      string `json:"operation"`
-	Data           string `json:"data"`
-	Message        string `json:"message"`
-	Extra          string `json:"extra"`
+	OperatorUserID string      `json:"operatorUserId"`
+	Operation      string      `json:"operation"`
+	Data           string      `json:"data"`
+	Message        string      `json:"message"`
+	Extra          string      `json:"extra"`
+	User           MsgUserInfo `json:"user"`
 }
 
 // DizNtf 消息
 type DizNtf struct {
-	Type      int    `json:"type"`
-	Extension string `json:"extension"`
-	Operation string `json:"operation"`
+	Type      int         `json:"type"`
+	Extension string      `json:"extension"`
+	Operation string      `json:"operation"`
+	User      MsgUserInfo `json:"user"`
 }
 
 // TemplateMsgContent 消息模版
@@ -134,8 +155,8 @@ type History struct {
 	URL string `json:"url"`
 }
 
-// toString TXTMsg
-func (msg *TXTMsg) toString() (string, error) {
+// ToString TXTMsg
+func (msg *TXTMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -143,8 +164,8 @@ func (msg *TXTMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString ImgMsg
-func (msg *ImgMsg) toString() (string, error) {
+// ToString ImgMsg
+func (msg *ImgMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -152,8 +173,8 @@ func (msg *ImgMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString InfoNtf
-func (msg *InfoNtf) toString() (string, error) {
+// ToString InfoNtf
+func (msg *InfoNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -161,8 +182,8 @@ func (msg *InfoNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString VCMsg
-func (msg *VCMsg) toString() (string, error) {
+// ToString VCMsg
+func (msg *VCMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -170,8 +191,8 @@ func (msg *VCMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString IMGTextMsg
-func (msg *IMGTextMsg) toString() (string, error) {
+// ToString IMGTextMsg
+func (msg *IMGTextMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -179,8 +200,8 @@ func (msg *IMGTextMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString FileMsg
-func (msg *FileMsg) toString() (string, error) {
+// ToString FileMsg
+func (msg *FileMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -188,8 +209,8 @@ func (msg *FileMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString LBSMsg
-func (msg *LBSMsg) toString() (string, error) {
+// ToString LBSMsg
+func (msg *LBSMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -197,8 +218,8 @@ func (msg *LBSMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString ProfileNtf
-func (msg *ProfileNtf) toString() (string, error) {
+// ToString ProfileNtf
+func (msg *ProfileNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -206,8 +227,8 @@ func (msg *ProfileNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString CMDNtf
-func (msg *CMDNtf) toString() (string, error) {
+// ToString CMDNtf
+func (msg *CMDNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -215,8 +236,8 @@ func (msg *CMDNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString CMDMsg
-func (msg *CMDMsg) toString() (string, error) {
+// ToString CMDMsg
+func (msg *CMDMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -224,8 +245,8 @@ func (msg *CMDMsg) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString ContactNtf
-func (msg *ContactNtf) toString() (string, error) {
+// ToString ContactNtf
+func (msg *ContactNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -233,8 +254,8 @@ func (msg *ContactNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString GrpNtf
-func (msg *GrpNtf) toString() (string, error) {
+// ToString GrpNtf
+func (msg *GrpNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -242,8 +263,8 @@ func (msg *GrpNtf) toString() (string, error) {
 	return string(bytes), nil
 }
 
-// toString DizNtf
-func (msg *DizNtf) toString() (string, error) {
+// ToString DizNtf
+func (msg *DizNtf) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
@@ -267,7 +288,7 @@ func (msg *DizNtf) toString() (string, error) {
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg rcMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isCounted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -286,7 +307,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	}
 	req.Param("objectName", objectName)
 
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -435,7 +456,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *
  *@return error
  */
-func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
 	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -453,7 +474,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		req.Param("toGroupId", v)
 	}
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		rc.urlError(err)
 		return err
@@ -598,7 +619,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg RCMsg) error {
+func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -615,7 +636,7 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 		req.Param("toChatroomId", v)
 	}
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -644,7 +665,7 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -654,7 +675,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -689,7 +710,7 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg RCMsg) e
 *
 *@return error
  */
-func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg RCMsg,
+func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg rcMsg,
 	pushContent, pushData string, count, isPersisted, isCounted int) error {
 
 	if senderID == "" {
@@ -708,7 +729,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 		req.Param("toUserId", v)
 	}
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
@@ -743,7 +764,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 *
 *@return error
  */
-func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) error {
+func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -753,7 +774,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg RCMsg) err
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
-	msgr, err := msg.toString()
+	msgr, err := msg.ToString()
 	if err != nil {
 		return err
 	}
