@@ -27,7 +27,7 @@ func TestMessage_PrivateSend(t *testing.T) {
 		1,
 		0,
 		1,
-		1,
+		0,
 		0,
 	)
 	t.Log(err)
