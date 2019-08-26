@@ -112,7 +112,6 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		"",
 		1,
 		0,
-		1,
 	)
 	t.Log(err)
 }
@@ -154,7 +153,6 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 		"",
 		1,
 		0,
-		1,
 		1,
 		0,
 	)
@@ -223,7 +221,6 @@ func TestRongCloud_SystemSend(t *testing.T) {
 		"",
 		"",
 		0,
-		1,
 		1,
 	)
 	t.Log(err)
