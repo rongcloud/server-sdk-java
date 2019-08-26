@@ -451,13 +451,12 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
  *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
  *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
- *@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
  *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
  *
  *@return error
  */
 func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
-	pushContent string, pushData string, isPersisted int, isCounted int, isIncludeSender int) error {
+	pushContent string, pushData string, isPersisted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -483,7 +482,6 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	req.Param("pushContent", pushContent)
 	req.Param("pushData", pushData)
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
-	req.Param("isCounted", strconv.Itoa(isCounted))
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	if len(userID) > 0 {
 		for _, v := range userID {
@@ -558,7 +556,6 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
-*@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
 *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
 *@param  isMentioned:是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0。当为 1 时 content 参数中必须携带 mentionedInfo @消息的详细内容。为 0 时则不需要携带 mentionedInfo。当指定了 toUserId 时，则 @ 的用户必须为 toUserId 中的用户。
 *@param  contentAvailable:针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0
@@ -566,7 +563,7 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 *@return error
  */
 func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
-	pushContent, pushData string, isPersisted int, isCounted int, isIncludeSender, isMentioned, contentAvailable int) error {
+	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -591,7 +588,6 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	req.Param("pushContent", pushContent)
 	req.Param("pushData", pushData)
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
-	req.Param("isCounted", strconv.Itoa(isCounted))
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	req.Param("isMentioned", strconv.Itoa(isMentioned))
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
@@ -706,12 +702,11 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) e
 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
 *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
-*@param  isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。
 *
 *@return error
  */
 func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg rcMsg,
-	pushContent, pushData string, count, isPersisted, isCounted int) error {
+	pushContent, pushData string, count, isPersisted int) error {
 
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -739,7 +734,6 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	req.Param("pushContent", pushContent)
 	req.Param("count", strconv.Itoa(count))
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
-	req.Param("isCounted", strconv.Itoa(isCounted))
 
 	rep, err := req.Bytes()
 	if err != nil {
