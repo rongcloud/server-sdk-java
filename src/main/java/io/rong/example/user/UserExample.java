@@ -5,6 +5,7 @@ import io.rong.methods.user.User;
 import io.rong.models.*;
 import io.rong.models.response.*;
 import io.rong.models.user.UserModel;
+import io.rong.util.BaiduHttpDNSUtil;
 
 /**
  * Demo class
@@ -29,8 +30,10 @@ public class UserExample {
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
-        //自定义 api 地址方式
+        // 自定义 api 地址方式
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        // 使用 百度 HTTPDNS 获取最快的 IP 地址进行连接
+        // BaiduHttpDNSUtil.setHostTypeIp("account_id", "secret", rongCloud.getApiHostType());
         User User = rongCloud.user;
 
         /**

@@ -34,7 +34,7 @@ public class MessageExample {
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSercet";
+    private static final String appSecret = "appSecret";
 
     private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
@@ -217,7 +217,7 @@ public class MessageExample {
                 .setSentTime("1522242030641");
         ResponseResult recallMessageResult = (ResponseResult)group.recall(recallMessage);
 
-        System.out.println("send recall group message:  " + recallMessageResult.toString());
+        System.out.println("recall group message:  " + recallMessageResult.toString());
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#sendMention
@@ -300,6 +300,22 @@ public class MessageExample {
 
         ResponseResult chatroomResult = chatroom.send(chatroomMessage);
         System.out.println("send chatroom message:  " + chatroomResult.toString());
+        /**
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/chatroom.html#recall
+         *
+         * 聊天室撤回消息
+         * */
+        recallMessage = new RecallMessage()
+                .setSenderId("1")
+                .setTargetId("15222258878654823358")
+                .setuId("5GSB-RPM1-KP8H-9JHF")
+                .setSentTime("1522242030641");
+        ResponseResult recallChatroomResult = (ResponseResult)chatroom.recall(recallMessage);
+
+        System.out.println("recall chatroom message:  " + recallChatroomResult.toString());
+
+
+
         /**
          *
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/chatroom.html#broadcast

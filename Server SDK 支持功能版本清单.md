@@ -8,6 +8,9 @@ Server SDK 功能支持的版本清单
 | [黑名单](./src/main/java/io/rong/methods/user/blacklist/Blacklist.java) | blacklist.add | 添加黑名单 | 3.0.1 |
 |  | blacklist.getList | 获取黑名单列表| 3.0.1 |
 |  | blacklist.remove | 移除黑名单 | 3.0.1 |
+| [白名单](./src/main/java/io/rong/methods/user/whitelist/Whitelist.java) | whitelist.add | 添加白名单 | 3.0.7 |
+|  | whitelist.getList | 获取白名单列表| 3.0.7 |
+|  | whitelist.remove | 移除白名单 | 3.0.7 |
 | [用户封禁](./src/main/java/io/rong/methods/user/block/Block.java) | block.add |添加用户封禁 | 3.0.1 |
 |  | block.getList| 获取用户封禁列表| 3.0.1 |
 |  | block.remove| 移除用户封禁| 3.0.1 |
@@ -27,6 +30,7 @@ Server SDK 功能支持的版本清单
 |  | private.sendTemplate | 发送单聊模板消息 | 3.0.1 |
 |  | private.recall | 消息单聊撤回 | 3.0.1 |
 |  | chatroom.send | 发送聊天室消息 | 3.0.1 |
+|  | chatroom.recall | 撤回聊天室消息 | 3.0.7 |
 |  | chatroom.broadcast| 发送聊天室广播消息 | 3.0.1 |
 |  | group.send | 发送群组消息 | 3.0.1 |
 |  | group.sendMention | 发送群组 @ 消息 | 3.0.1 |
@@ -34,6 +38,7 @@ Server SDK 功能支持的版本清单
 |  | system.send | 发送系统消息 | 3.0.1 |
 |  | system.sendTemplate | 发送系统模板消息 | 3.0.1 |
 |  | system.broadcast | 发送广播消息，单个应用每小时只能发送 2 次，每天最多发送 3 次。 | 3.0.1 |
+|  | system.broadcast | 支持将通过 /push 发送的广播消息撤回功能，撤回广播消息也占用广播消息每天的使用配额。 | 3.0.7 |
 | [消息历史记录](./src/main/java/io/rong/methods/message/history/History.java) | message.history.get | 消息历史记录下载地址获取 | 3.0.1 |
 |  | message.history.remove | 消息历史记录删除方法 | 3.0.1 |
 | [广播推送](./src/main/java/io/rong/methods/push/Push.java) | Push.push | 发送推送，推送和广播消息合计，单个应用每小时只能发送 2 次，每天最多发送 3 次。 | 3.0.4 |

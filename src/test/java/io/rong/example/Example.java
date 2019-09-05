@@ -3,6 +3,7 @@ package io.rong.example;
 import io.rong.RongCloud;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
+import io.rong.messages.RcCmdMessage;
 import io.rong.models.Result;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
@@ -31,6 +32,7 @@ public class Example {
     private RongCloud rongCloud;
     private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
+    private static final RcCmdMessage rcCmdMessage = new RcCmdMessage("BCVD-DV70-EKOC-7ES6");
     private static final String[] targetIds = {"LoDld8izA"};
 
     @Before
@@ -143,13 +145,13 @@ public class Example {
     @Test
     public void testAddBlacklist() throws Exception {
 
-        UserModel blackUser = new UserModel().setId("hdsjGB89");
+        UserModel blackUser = new UserModel().setId("blt02");
         UserModel[] blacklist = {blackUser};
         UserModel user = new UserModel()
-                .setId("hdsjGB89")
+                .setId("blt01")
                 .setBlacklist(blacklist);
 
-        Result result = (Result) rongCloud.user.blackList.add(user);
+        Result result = rongCloud.user.blackList.add(user);
         System.out.println("addBlacklist:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
@@ -161,7 +163,7 @@ public class Example {
      */
     @Test
     public void testGetBlacklist() throws Exception {
-        UserModel user = new UserModel().setId("hdsjGB89");
+        UserModel user = new UserModel().setId("blt01");
 
         BlackListResult result = rongCloud.user.blackList.getList(user);
         System.out.println("queryBlacklist:  " + result.toString());
@@ -184,6 +186,72 @@ public class Example {
         System.out.println("removeBlacklist:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
+    }
+
+
+    /**
+     * 添加用户到白名单方法（每秒钟限 100 次）
+     */
+    @Test
+    public void testAddWhitelist() throws Exception {
+        UserModel whiteUser = new UserModel().setId("wlt02");
+        UserModel[] whitelist = {whiteUser};
+        UserModel user = new UserModel();
+        Result result = rongCloud.user.whiteList.add(user);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("addWhitelist: [t1] " + result.toString());
+
+        user.setId("wlt01");
+        user.setWhitelist(new UserModel[]{});
+        result = rongCloud.user.whiteList.add(user);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("addWhitelist: [t2] " + result.toString());
+
+        user.setId("wlt01");
+        user.setWhitelist(whitelist);
+        result = rongCloud.user.whiteList.add(user);
+        assertEquals("200", result.getCode().toString());
+        System.out.println("addWhitelist: [t3] " + result.toString());
+    }
+
+    /**
+     * 获取某用户的白名单列表方法（每秒钟限 100 次）
+     */
+    @Test
+    public void testGetWhitelist() throws Exception {
+        UserModel user = new UserModel().setId("wlt01");
+        PWhiteListResult result = rongCloud.user.whiteList.getList(new UserModel().setId(""));
+        System.out.println("queryWhitelist: [t1] " + result.toString());
+        assertEquals("1002", result.getCode().toString());
+
+        result = rongCloud.user.whiteList.getList(user);
+        System.out.println("queryWhitelist: [t2] " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 从白名单中移除用户方法（每秒钟限 100 次）
+     */
+    @Test
+    public void testRemoveWhitelist() throws Exception {
+        UserModel whiteUser = new UserModel().setId("wlt02");
+        UserModel[] whitelist = {whiteUser};
+        UserModel user = new UserModel();
+        Result result = rongCloud.user.whiteList.remove(user);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("removeWhitelist: [t1] " + result.toString());
+
+        user.setId("wlt01");
+        user.setWhitelist(new UserModel[]{});
+        result = rongCloud.user.whiteList.remove(user);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("removeWhitelist: [t2] " + result.toString());
+
+        user.setId("wlt01");
+        user.setWhitelist(whitelist);
+        result = rongCloud.user.whiteList.remove(user);
+        assertEquals("200", result.getCode().toString());
+        System.out.println("removeWhitelist: [t3] " + result.toString());
     }
 
     /**
@@ -253,6 +321,20 @@ public class Example {
                 .setOs("Android");
         ResponseResult result = rongCloud.message.system.broadcast(message);
         System.out.println("send broadcast:  " + result.toString());
+
+        assertEquals("200", result.getCode().toString());
+    }
+    /**
+     * 广播消息撤回测试
+     */
+    @Test
+    public void testRecallBroadcast() throws Exception {
+        BroadcastMessage message = new BroadcastMessage()
+                .setSenderId("OScHVP1tQ")
+                .setObjectName(rcCmdMessage.getType())
+                .setContent(rcCmdMessage);
+        ResponseResult result = rongCloud.message.system.broadcast(message);
+        System.out.println("recall broadcast:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
     }
@@ -434,6 +516,23 @@ public class Example {
                 .setObjectName(txtMessage.getType());
         ResponseResult result = rongCloud.message.chatroom.send(message);
         System.out.println("publishChatroomPrivate:  " + result.toString());
+
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 测试撤回聊天室消息
+     */
+    @Test
+    public void testRecallChatroom() throws Exception {
+        RecallMessage message = new RecallMessage()
+                .setSenderId("fromUserId")
+                .setTargetId(targetIds[0])
+                .setuId("B8FV-QAHO-I1E4-JLRI")
+                .setSentTime("1548334967010");
+        ResponseResult result = (ResponseResult) rongCloud.message.chatroom.recall(message);
+
+        System.out.println("recall chatroom message:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
     }
@@ -1287,20 +1386,18 @@ public class Example {
     }
 
     /**
-     *
      * API 文档:
      * https://www.rongcloud.cn/docs/push_service.html#broadcast
-     *
+     * <p>
      * 广播消息
-     *
      **/
     @Test
     public void testBroadcast() throws Exception {
         BroadcastModel broadcast = new BroadcastModel();
         broadcast.setFromuserid("fromuserid");
-        broadcast.setPlatform(new String[] {"ios", "android"});
+        broadcast.setPlatform(new String[]{"ios", "android"});
         Audience audience = new Audience();
-        audience.setUserid(new String[] { "userid1", "userid2" });
+        audience.setUserid(new String[]{"userid1", "userid2"});
         broadcast.setAudience(audience);
         Message message = new Message();
         message.setContent("this is message");
@@ -1316,19 +1413,17 @@ public class Example {
     }
 
     /**
-     *
      * API 文档:
      * https://www.rongcloud.cn/docs/push_service.html#push
-     *
+     * <p>
      * 推送消息
-     *
      **/
     @Test
     public void testPush() throws Exception {
         PushModel pushmodel = new PushModel();
-        pushmodel.setPlatform(new String[] {"ios", "android"});
+        pushmodel.setPlatform(new String[]{"ios", "android"});
         Audience audience = new Audience();
-        audience.setUserid(new String[] { "userid1", "userid2" });
+        audience.setUserid(new String[]{"userid1", "userid2"});
         pushmodel.setAudience(audience);
         Notification notification = new Notification();
         notification.setAlert("this is push");
@@ -1340,17 +1435,15 @@ public class Example {
     }
 
     /**
-     *
      * API 文档:
      * https://www.rongcloud.cn/docs/push_service.html#user_tag_set
-     *
+     * <p>
      * 添加标签
-     *
      **/
     @Test
     public void testSetTag() throws Exception {
         TagModel tag = new TagModel();
-        tag.setTags(new String[] {"男", "90后"});
+        tag.setTags(new String[]{"男", "90后"});
         tag.setUserId("userId1");
         Result result = rongCloud.user.tag.set(tag);
 
@@ -1359,18 +1452,16 @@ public class Example {
     }
 
     /**
-     *
      * API 文档:
      * https://www.rongcloud.cn/docs/push_service.html#user_tag_batch_set
-     *
+     * <p>
      * 批量添加标签
-     *
      **/
     @Test
     public void testBatchSetTag() throws Exception {
         BatchTagModel tag = new BatchTagModel();
-        tag.setTags(new String[] {"男", "90后"});
-        tag.setUserIds(new String[] {"userId1", "userId2"});
+        tag.setTags(new String[]{"男", "90后"});
+        tag.setUserIds(new String[]{"userId1", "userId2"});
         Result result = rongCloud.user.tag.batchSet(tag);
 
         System.out.println("batchSetTag: " + result.toString());
@@ -1378,17 +1469,15 @@ public class Example {
     }
 
     /**
-     *
      * API 文档:
      * https://www.rongcloud.cn/docs/push_service.html#user_tags_get
-     *
+     * <p>
      * 查询用户标签
-     *
      **/
     @Test
     public void testGetTag() throws Exception {
         GetTagModel tag = new GetTagModel();
-        tag.setUserIds(new String[] {"userId1", "userId2"});
+        tag.setUserIds(new String[]{"userId1", "userId2"});
         GetTagResult result = rongCloud.user.tag.get(tag);
 
         System.out.println("getTag: " + result.toString());

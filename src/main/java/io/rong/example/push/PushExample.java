@@ -1,8 +1,13 @@
 package io.rong.example.push;
 
 import io.rong.RongCloud;
+import io.rong.messages.RcCmdMessage;
+import io.rong.models.message.BroadcastMessage;
 import io.rong.models.push.*;
 import io.rong.models.response.PushResult;
+import io.rong.models.response.ResponseResult;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Demo class
@@ -53,6 +58,21 @@ public class PushExample {
         PushResult result = rongCloud.push.message(broadcast);
 
         System.out.println("broadcast: " + result.toString());
+
+        /**
+         *
+         * API 文档:
+         * https://www.rongcloud.cn/docs/server.html#message_broadcast_recall
+         * 广播消息撤回
+         *
+         */
+        RcCmdMessage rcCmdMessage = new RcCmdMessage("BCVD-DV70-EKOC-7ES6");
+        BroadcastMessage bmessage = new BroadcastMessage()
+                .setSenderId("OScHVP1tQ")
+                .setObjectName(rcCmdMessage.getType())
+                .setContent(rcCmdMessage);
+        ResponseResult bresult = rongCloud.message.system.broadcast(bmessage);
+        System.out.println("recall broadcast:  " + result.toString());
 
 
         /**

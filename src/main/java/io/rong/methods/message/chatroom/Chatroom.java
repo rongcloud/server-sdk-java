@@ -2,6 +2,8 @@ package io.rong.methods.message.chatroom;
 
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
+import io.rong.models.Result;
+import io.rong.models.message.RecallMessage;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.message.ChatroomMessage;
 import io.rong.util.CommonUtil;
@@ -10,15 +12,17 @@ import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+
 /**
  * 发送聊天室消息方法
  * docs : http://www.rongcloud.cn/docs/server.html#message_chatroom_publish
- * @author RongCloud
  *
+ * @author RongCloud
  */
 public class Chatroom {
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "message/chatroom";
+    private static final String RECAL_PATH = "message/recall";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -30,6 +34,7 @@ public class Chatroom {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
+
     public Chatroom(String appKey, String appSecret) {
         this.appKey = appKey;
         this.appSecret = appSecret;
@@ -39,23 +44,22 @@ public class Chatroom {
     /**
      * 发送聊天室消息方法（一个用户向聊天室发送消息，单条消息最大 128k。每秒钟限 100 次。）
      *
-     * @param  message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
-     *
+     * @param message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
      * @return ResponseResult
      * @throws Exception
      **/
     public ResponseResult send(ChatroomMessage message) throws Exception {
 
-        String code = CommonUtil.checkFiled(message,PATH, CheckMethod.SEND);
-        if(null != code){
-            return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
+        String code = CommonUtil.checkFiled(message, PATH, CheckMethod.SEND);
+        if (null != code) {
+            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId(), UTF8));
 
-        for (int i = 0 ; i< message.getTargetId().length; i++) {
-            String child  = message.getTargetId()[i];
-            if(null != child){
+        for (int i = 0; i < message.getTargetId().length; i++) {
+            String child = message.getTargetId()[i];
+            if (null != child) {
                 sb.append("&toChatroomId=").append(URLEncoder.encode(child, UTF8));
             }
         }
@@ -70,22 +74,21 @@ public class Chatroom {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/message/chatroom/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn);
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn)), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn)), ResponseResult.class);
     }
 
     /**
      * 发送聊天室消广播消息方法（一个用户向聊天室发送消息，单条消息最大 128k。每秒钟限 100 次。）
      *
-     * @param  message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
-     *
+     * @param message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult broadcast (ChatroomMessage message) throws Exception {
+    public ResponseResult broadcast(ChatroomMessage message) throws Exception {
 
-        String code = CommonUtil.checkFiled(message,PATH,CheckMethod.BROADCAST);
-        if(null != code){
-            return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
+        String code = CommonUtil.checkFiled(message, PATH, CheckMethod.BROADCAST);
+        if (null != code) {
+            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -101,6 +104,36 @@ public class Chatroom {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/message/chatroom/broadcast.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn);
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.BROADCAST,HttpUtil.returnResult(conn)), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn)), ResponseResult.class);
+    }
+
+
+    /**
+     * 撤回聊天室消息。
+     *
+     * @param message
+     * @return ResponseResult
+     * @throws Exception
+     **/
+    public Result recall(RecallMessage message) throws Exception {
+        //需要校验的字段
+        String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
+        if (null != errMsg) {
+            return (Result) GsonUtil.fromJson(errMsg, Result.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&conversationType=").append(URLEncoder.encode("4", UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderId.toString(), UTF8));
+        sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
+        sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
+        sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn);
+
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn)), ResponseResult.class);
     }
 }

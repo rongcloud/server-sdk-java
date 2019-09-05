@@ -30,6 +30,10 @@ public class UserModel {
      * 黑名单列表。
      */
     private UserModel[] blacklist;
+    /**
+     * 白名单列表。
+     */
+    private UserModel[] whitelist;
 
 
     public UserModel() {
@@ -83,6 +87,15 @@ public class UserModel {
 
     public UserModel setBlacklist(UserModel[] blacklist) {
         this.blacklist = blacklist;
+        return this;
+    }
+
+    public UserModel[] getWhitelist() {
+        return whitelist;
+    }
+
+    public UserModel setWhitelist(UserModel[] whitelist) {
+        this.whitelist = whitelist;
         return this;
     }
 

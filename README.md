@@ -11,12 +11,12 @@ RongCloud IM Server SDK in Java.
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>3.0.6</version>
+        <version>3.0.7</version>
     </dependency>
 ```
    * Gradle
 ```
-    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.0.5'
+    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.0.7'
    
 ```
    * 基于源码 Meavn 打包构建
@@ -82,5 +82,5 @@ RongCloud IM Server SDK in Java.
 
 
 # 版本说明
-为方便开发者的接入使用，更好的对融云 Server SDK 进行维护管理，现更新SDK 3.0.4,老版本的 Server SDK仍可使用
+为方便开发者的接入使用，更好的对融云 Server SDK 进行维护管理，现更新SDK 3.0 版本,老版本的 Server SDK仍可使用
 但不兼容。
