@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: ran.ding
+ * @Date: 2019-09-02 18:29:55
+ * @LastEditors: ran.ding
+ * @LastEditTime: 2019-09-10 11:37:14
+ */
 package sdk
 
 import (
@@ -155,6 +163,30 @@ type History struct {
 	URL string `json:"url"`
 }
 
+// BroadcastRecallContent content of message broadcast recall
+type BroadcastRecallContent struct {
+	MessageId        string `json:"messageUId"`
+	ConversationType int    `json:"conversationType"`
+	IsAdmin          int    `json:"isAdmin"`
+	IsDelete         int    `json:"isDelete"`
+}
+
+/**
+ * @name: ToString
+ * @test:
+ * @msg: 将广播消息撤回接口需要的 content 结构体参数转换为 json
+ * @param {type}
+ * @return: string error
+ */
+func (content *BroadcastRecallContent) ToString() (string, error) {
+	bytes, err := json.Marshal(content)
+	if err != nil {
+		return "", err
+	}
+
+	return string(bytes), nil
+}
+
 // ToString TXTMsg
 func (msg *TXTMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
@@ -270,6 +302,111 @@ func (msg *DizNtf) ToString() (string, error) {
 		return "", err
 	}
 	return string(bytes), nil
+}
+
+/**
+ * @name: MessageBroadcastRecall
+ * @test:
+ * @msg:广播消息撤回
+ * @param string userId
+ * @param string objectName
+ * @param BroadcastRecallContent content
+ * @return: error
+ */
+func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, content BroadcastRecallContent) error {
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if objectName == "" {
+		return RCErrorNew(1002, "Paramer 'objectName' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", userId)
+	req.Param("objectName", objectName)
+
+	msg, err := content.ToString()
+	if err != nil {
+		return err
+	}
+
+	req.Param("content", msg)
+
+	resp, err := req.Bytes()
+	if err != nil {
+		rc.urlError(err)
+		return err
+	}
+
+	var code CodeResult
+	if err := json.Unmarshal(resp, &code); err != nil {
+		return err
+	}
+
+	if code.Code != 200 {
+		return code
+	}
+
+	return nil
+}
+
+/**
+ * @name: ChatRoomRecall
+ * @test:
+ * @msg: 消息撤回 - 聊天室
+ * @param string userId
+ * @param string targetId
+ * @param string messageId
+ * @param int sentTime
+ * @return: error
+ */
+func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId string, sentTime int) error {
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if targetId == "" {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+
+	if messageId == "" {
+		return RCErrorNew(1002, "Paramer 'messageId' is required")
+	}
+
+	if sentTime == 0 {
+		return RCErrorNew(1002, "Paramer 'sentTime' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("fromUserId", userId)
+	req.Param("conversationType", strconv.Itoa(4))
+	req.Param("targetId", targetId)
+	req.Param("messageUID", messageId)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+
+	resp, err := req.Bytes()
+	if err != nil {
+		rc.urlError(err)
+
+		return err
+	}
+
+	var code CodeResult
+	if err := json.Unmarshal(resp, &code); err != nil {
+		return err
+	}
+
+	if code.Code != 200 {
+		return code
+	}
+
+	return nil
 }
 
 // PrivateSend 发送单聊消息方法（一个用户向多个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）

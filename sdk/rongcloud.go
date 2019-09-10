@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: ran.ding
+ * @Date: 2019-09-02 18:29:55
+ * @LastEditors: ran.ding
+ * @LastEditTime: 2019-09-10 15:39:14
+ */
 // The MIT License (MIT)
 
 // Copyright (c) 2014 融云 Rong Cloud
@@ -53,7 +61,7 @@ const (
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
-	USERAGENT = "rc-go-sdk/3.0"
+	USERAGENT = "rc-go-sdk/3.0.1"
 	// DEFAULTTIMEOUT 默认超时时间
 	DEFAULTTIMEOUT = 10
 	// NUMTIMEOUT 默认超时次数切换 Api 地址
