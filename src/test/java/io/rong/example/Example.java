@@ -99,6 +99,20 @@ public class Example {
     }
 
     /**
+     * 查询用户信息
+     */
+    @Test
+    public void testGetUserInfo() throws Exception {
+        UserModel user = new UserModel()
+                .setId("userId1");
+
+        UserResult result = rongCloud.user.get(user);
+        System.out.println("getUserInfo:  " + result.toString());
+
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
      * 测试用户封禁方法（每秒钟限 100 次）
      */
     @Test

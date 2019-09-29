@@ -11,20 +11,19 @@ import io.rong.util.BaiduHttpDNSUtil;
  * Demo class
  *
  * @author RongCloud
- *
  */
 public class UserExample {
     /**
      * 此处替换成您的appKey
-     * */
+     */
     private static final String appKey = "appKey";
     /**
      * 此处替换成您的appSecret
-     * */
+     */
     private static final String appSecret = "appSecret";
     /**
      * 自定义api地址
-     * */
+     */
     private static final String api = "http://api-cn.ronghub.com";
 
     public static void main(String[] args) throws Exception {
@@ -57,5 +56,13 @@ public class UserExample {
         Result refreshResult = User.update(user);
         System.out.println("refresh:  " + refreshResult.toString());
 
+        /**
+         *
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#get
+         *
+         * 查询用户信息方法
+         */
+        UserResult userResult = User.get(user);
+        System.out.println("getUserInfo:  " + userResult.toString());
     }
 }

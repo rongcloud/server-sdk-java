@@ -10,6 +10,7 @@ import io.rong.methods.user.whitelist.Whitelist;
 import io.rong.models.*;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.response.TokenResult;
+import io.rong.models.response.UserResult;
 import io.rong.models.user.UserModel;
 import io.rong.methods.user.tag.Tag;
 import io.rong.util.*;
@@ -125,5 +126,30 @@ public class User {
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.UPDATE, HttpUtil.returnResult(conn)), ResponseResult.class);
     }
 
+    /**
+     * 查询用户信息方法
+     * url  "/user/info"
+     * docs "http://www.rongcloud.cn/docs/server.html#user_info"
+     *
+     * @param user 用户信息 id (必传)
+     * @return UserResult
+     * @throws Exception
+     */
+    public UserResult get(UserModel user) throws Exception {
+        //需要校验的字段
+        String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
+        if (null != message) {
+            return (UserResult) GsonUtil.fromJson(message, UserResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("userId=").append(URLEncoder.encode(user.id, UTF8));
+        String body = sb.toString();
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret,
+                "/user/info.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn);
+
+        return (UserResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn)), UserResult.class);
+    }
 
 }
