@@ -1,9 +1,50 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: ran.ding
+ * @Date: 2019-09-02 18:29:55
+ * @LastEditors: ran.ding
+ * @LastEditTime: 2019-09-10 11:37:27
+ */
 package sdk
 
 import (
 	"os"
 	"testing"
 )
+
+func TestMessageBroadcastRecall(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("RCLOUD_APP_KEY"),
+		os.Getenv("RCLOUD_APP_SECRET"),
+	)
+
+	content := BroadcastRecallContent{
+		MessageId:        "BC52-ESJ0-022O-001H",
+		ConversationType: 6,
+		IsAdmin:          0,
+		IsDelete:         0,
+	}
+
+	if err := rc.MessageBroadcastRecall("123", "RC:RcCmd", content); err != nil {
+		t.Errorf("ERROR: %v", err)
+	} else {
+		t.Log("PASS")
+	}
+}
+
+func TestChatRoomRecall(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("RCLOUD_APP_KEY"),
+		os.Getenv("RCLOUD_APP_SECRET"),
+	)
+
+	if err := rc.ChatRoomRecall("fDR2cVpxxR5zSMUNh3yAwh", "MersNRhaKwJkRV9mJR5JXY", "5FGT-7VA9-G4DD-4V5P", 1507778882124); err != nil {
+		t.Errorf("error: %v", err)
+	} else {
+		t.Log("Pass")
+	}
+}
 
 func TestMessage_PrivateSend(t *testing.T) {
 

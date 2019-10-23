@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: ran.ding
+ * @Date: 2019-09-02 18:29:55
+ * @LastEditors: ran.ding
+ * @LastEditTime: 2019-09-10 12:14:41
+ */
 package sdk
 
 import (
@@ -5,11 +13,51 @@ import (
 	"testing"
 )
 
+func TestQueryWhiteList(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("RCLOUD_APP_KEY"),
+		os.Getenv("RCLOUD_APP_SECRET"),
+	)
+
+	_, err := rc.QueryWhiteList("123")
+	if err != nil {
+		t.Errorf("ERROR: %v", err)
+	} else {
+		t.Log("PASS")
+	}
+}
+
+func TestRemoveWhiteList(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("RCLOUD_APP_KEY"),
+		os.Getenv("RCLOUD_APP_SECRET"),
+	)
+
+	if err := rc.RemoveWhiteList("123", []string{"234", "456"}); err != nil {
+		t.Errorf("ERROR: %v", err)
+	} else {
+		t.Log("PASS")
+	}
+}
+
+func TestAddWhiteList(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("RCLOUD_APP_KEY"),
+		os.Getenv("RCLOUD_APP_SECRET"),
+	)
+
+	if err := rc.AddWhiteList("123", []string{"234", "345"}); err != nil {
+		t.Errorf("ERROR: %v", err)
+	} else {
+		t.Log("PASS")
+	}
+}
+
 func TestRongCloud_UserRegister(t *testing.T) {
 
 	rc := NewRongCloud(
-		os.Getenv("APP_KEY"),
-		os.Getenv("APP_SECRET"),
+		os.Getenv("RCLOUD_APP_KEY"),
+		os.Getenv("RCLOUD_APP_SECRET"),
 	)
 
 	rep, err := rc.UserRegister(

@@ -238,9 +238,7 @@ func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
 	)
-	rep, err := rc.ChatRoomKeepAliveGetList(
-		"chrm01",
-	)
+	rep, err := rc.ChatRoomKeepAliveGetList()
 	t.Log(err)
 	t.Log(rep)
 }

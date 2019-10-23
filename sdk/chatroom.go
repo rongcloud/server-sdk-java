@@ -750,15 +750,15 @@ func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
  *@param  id:聊天室 ID。
  *@return []string error
  */
-func (rc *RongCloud) ChatRoomKeepAliveGetList(id string) ([]string, error) {
+func (rc *RongCloud) ChatRoomKeepAliveGetList() ([]string, error) {
 	var dat ChatRoomResult
-	if id == "" {
-		return []string{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
-	}
+	// if id == "" {
+	// 	return []string{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	// }
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/keepalive/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-	req.Param("chatroomId", id)
+	// req.Param("chatroomId", id)
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)

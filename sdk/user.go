@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: ran.ding
+ * @Date: 2019-09-02 18:29:55
+ * @LastEditors: ran.ding
+ * @LastEditTime: 2019-09-10 11:22:38
+ */
 package sdk
 
 import (
@@ -42,6 +50,146 @@ type TagBatch struct {
 type TagResult struct {
 	*CodeResult
 	Result map[string][]string `json:"result"` // 用户所有的标签数组。
+}
+
+// WhiteList QueryWhiteList 返回数据
+type WhiteList struct {
+	Users []string `json:"users"`
+}
+
+/**
+ * @name: AddWhiteList
+ * @test:
+ * @msg: 添加用户到白名单（每秒限 100 次）
+ * @param string userId
+ * @param []string whiteList
+ * @return: error
+ */
+func (rc *RongCloud) AddWhiteList(userId string, whiteList []string) error {
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if len(whiteList) == 0 {
+		return RCErrorNew(1002, "Paramer 'whiteList' cannot empty")
+	}
+
+	if len(whiteList) > 20 {
+		return RCErrorNew(1002, "Length of paramer 'whiteList' must less than 20")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/whitelist/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	for _, v := range whiteList {
+		req.Param("whiteUserId", v)
+	}
+
+	resp, err := req.Bytes()
+	if err != nil {
+		rc.urlError(err)
+		return err
+	}
+
+	var code CodeResult
+	if err := json.Unmarshal(resp, &code); err != nil {
+		return err
+	}
+
+	if code.Code != 200 {
+		return code
+	}
+
+	return nil
+}
+
+/**
+ * @name: RemoveWhiteList
+ * @test:
+ * @msg: 移除白名单中用户（每秒限 100 次）
+ * @param string userId
+ * @param []string whiteList
+ * @return: error
+ */
+func (rc *RongCloud) RemoveWhiteList(userId string, whiteList []string) error {
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if len(whiteList) == 0 {
+		return RCErrorNew(1002, "Paramer 'whiteList' is required")
+	}
+
+	if len(whiteList) > 20 {
+		return RCErrorNew(1002, "Length of paramer 'whiteList' must less than 20")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/whitelist/remove." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	for _, v := range whiteList {
+		req.Param("whiteUserId", v)
+	}
+
+	resp, err := req.Bytes()
+	if err != nil {
+		rc.urlError(err)
+		return err
+	}
+
+	var code CodeResult
+	if err := json.Unmarshal(resp, &code); err != nil {
+		return err
+	}
+
+	if code.Code != 200 {
+		return code
+	}
+
+	return nil
+}
+
+/**
+ * @name: QueryWhiteList
+ * @test:
+ * @msg: 获取某用户白名单列表（每秒限100次）
+ * @param string userId
+ * @return: WhiteList error
+ */
+func (rc *RongCloud) QueryWhiteList(userId string) (WhiteList, error) {
+	if userId == "" {
+		return WhiteList{}, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/whitelist/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+
+	resp, err := req.Bytes()
+	if err != nil {
+		rc.urlError(err)
+		return WhiteList{}, err
+	}
+
+	var whiteList WhiteList
+	var code CodeResult
+
+	if err := json.Unmarshal(resp, &whiteList); err != nil {
+		return WhiteList{}, err
+	}
+
+	if err := json.Unmarshal(resp, &code); err != nil {
+		return WhiteList{}, err
+	}
+
+	if code.Code != 200 {
+		return WhiteList{}, code
+	}
+
+	return whiteList, nil
 }
 
 // UserRegister 注册用户，生成用户在融云的唯一身份标识 Token
