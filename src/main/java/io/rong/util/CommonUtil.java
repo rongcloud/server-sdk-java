@@ -414,6 +414,9 @@ public class CommonUtil {
                         text = StringUtils.replace(text, "userId", "id");
                     }
                     if (path.contains("mute")) {
+                        if(path.contains("chatroom/mute/member")){
+                            text = StringUtils.replace(text, "\"userId\"", "\"id\"");
+                        }
                         GroupBanModel groupBanModel = (GroupBanModel) GsonUtil.fromJson(response, GroupBanModel.class);
                         GroupBanInfo[] groupBanInfos = groupBanModel.getGroupinfo();
                         ArrayList<GroupModel> groupinfos = new ArrayList<>();
