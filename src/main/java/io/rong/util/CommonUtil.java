@@ -18,6 +18,7 @@ import java.util.*;
  * @author RongCloud
  */
 public class CommonUtil {
+
     public static final String VERIFY_JSON_NAME = "/verify.json";
     public static final String API_JSON_NAME = "/api.json";
     public static final String CHRARCTER = "UTF-8";
@@ -55,8 +56,8 @@ public class CommonUtil {
     /**
      * 参数校验方法
      *
-     * @param model  校验对象
-     * @param path   路径
+     * @param model 校验对象
+     * @param path 路径
      * @param method 需要校验方法
      * @return String
      **/
@@ -79,7 +80,8 @@ public class CommonUtil {
                 checkObjectKey = entry.getKey();
             }
             if (null == model) {
-                String message = (String) CommonUtil.getErrorMessage(apiPath, method, "20005", "object", String.valueOf(max), "1", type, 0);
+                String message = (String) CommonUtil
+                    .getErrorMessage(apiPath, method, "20005", "object", String.valueOf(max), "1", type, 0);
                 return message;
             }
             //获取校验文件
@@ -174,7 +176,8 @@ public class CommonUtil {
                         }
                         if (!"200".equals(code)) {
                             //根据错误吗获取错误信息
-                            String message = (String) CommonUtil.getErrorMessage(apiPath, method, code, name, String.valueOf(max), "1", type, size);
+                            String message = (String) CommonUtil
+                                .getErrorMessage(apiPath, method, code, name, String.valueOf(max), "1", type, size);
                             // 对 errorMessage  替换 目前不需要替换
                             // message = StringUtils.replace(message,"errorMessage","msg");
                             return message;
@@ -193,9 +196,9 @@ public class CommonUtil {
      * 参数校验
      *
      * @param checkFiled 需要校验的字段
-     * @param value      传入参数值
-     * @param path       路径 （获取校验文件路径）
-     * @param method     需要校验方法
+     * @param value 传入参数值
+     * @param path 路径 （获取校验文件路径）
+     * @param method 需要校验方法
      * @return String
      **/
     public static String checkParam(String checkFiled, Object value, String path, String method) {
@@ -295,7 +298,8 @@ public class CommonUtil {
 
                         }
                     }
-                    String message = (String) CommonUtil.getErrorMessage(apiPath, method, code, checkFiled, String.valueOf(max), "1", type, size);
+                    String message = (String) CommonUtil
+                        .getErrorMessage(apiPath, method, code, checkFiled, String.valueOf(max), "1", type, size);
                     //message = StringUtils.replace(message,"errorMessage","msg");
                     return message;
 
@@ -310,20 +314,22 @@ public class CommonUtil {
     /**
      * 获取错误信息
      *
-     * @param path      路径 （获取校验文件路径）
-     * @param method    校验方法（需要校验的方法）
+     * @param path 路径 （获取校验文件路径）
+     * @param method 校验方法（需要校验的方法）
      * @param errorCode 错误码
-     * @param name      具体字段名
-     * @param max       字段需要的最大值
-     * @param min       字段的最小值
-     * @param type      类型
+     * @param name 具体字段名
+     * @param max 字段需要的最大值
+     * @param min 字段的最小值
+     * @param type 类型
      * @return Map
      **/
-    public static Object getErrorMessage(String path, String method, String errorCode, String name, String max, String min, String type, int size) {
+    public static Object getErrorMessage(String path, String method, String errorCode, String name, String max,
+        String min, String type, int size) {
         JSONObject api = null;
         try {
             api = JsonUtil.getJsonObject(path, API_JSON_NAME);
-            Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response").getJSONObject("fail").entrySet();
+            Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response")
+                .getJSONObject("fail").entrySet();
             String[] serchList = {"{{name}}", "{{max}}", "{{name}}", "{{min}}", "{{currentType}}", "{{size}}"};
             String[] replaceList = {name, max, name, min, type, String.valueOf(size)};
             for (Map.Entry<String, Object> entry : keys) {
@@ -342,7 +348,7 @@ public class CommonUtil {
     /**
      * 获取校验信息
      *
-     * @param path   路径 （获取校验文件路径）
+     * @param path 路径 （获取校验文件路径）
      * @param method 校验方法（需要校验的方法）
      * @return Map
      **/
@@ -376,8 +382,8 @@ public class CommonUtil {
     /**
      * 获取response信息
      *
-     * @param path     路径 （获取校验文件路径）
-     * @param method   校验方法（需要校验的方法）
+     * @param path 路径 （获取校验文件路径）
+     * @param method 校验方法（需要校验的方法）
      * @param response 返回信息
      * @return String
      **/
@@ -387,7 +393,8 @@ public class CommonUtil {
             JSONObject object = JSON.parseObject(response);
             String code = String.valueOf(object.get("code"));
             api = JsonUtil.getJsonObject(path, API_JSON_NAME);
-            Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response").getJSONObject("fail").entrySet();
+            Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response")
+                .getJSONObject("fail").entrySet();
             String text = response;
             if (code.equals("200")) {
                 if (path.contains("blacklist") && method.equals("getList")) {
@@ -414,7 +421,7 @@ public class CommonUtil {
                         text = StringUtils.replace(text, "userId", "id");
                     }
                     if (path.contains("mute")) {
-                        if(path.contains("member")){
+                        if (path.contains("member")) {
                             text = StringUtils.replace(text, "\"userId\"", "\"id\"");
                         }
                         GroupBanModel groupBanModel = (GroupBanModel) GsonUtil.fromJson(response, GroupBanModel.class);
@@ -425,11 +432,16 @@ public class CommonUtil {
                                 groupinfos.add(new GroupModel(groupBanInfo.getGroupId(), groupBanInfo.getStat()));
                             }
                             GroupModel[] groupModels = groupinfos.toArray(new GroupModel[groupinfos.size()]);
-                            GroupBanResult groupBanResult = new GroupBanResult(groupBanModel.getCode(), null, groupModels);
+                            GroupBanResult groupBanResult = new GroupBanResult(groupBanModel.getCode(), null,
+                                groupModels);
                             text = groupBanResult.toString();
                         }
                     }
-
+                    if (path.equals("group/ban") && method.equals("getList")) {
+                        text = StringUtils.replace(response, "\"groupinfo\"", "\"groups\"");
+                        text = StringUtils.replace(text, "\"groupId\"", "\"id\"");
+                        text = StringUtils.replace(text, "\"stat\"", "\"status\"");
+                    }
                 } else if (path.contains("user")) {
                     if (path.contains("block") || path.contains("blacklist")) {
                         text = StringUtils.replace(response, "userId", "id");
@@ -440,7 +452,6 @@ public class CommonUtil {
                         text = StringUtils.replace(text, "keywords", "words");
                     }
                     text = StringUtils.replace(text, "replaceWord", "replace");
-
                 } else {
                     text = response;
                 }
