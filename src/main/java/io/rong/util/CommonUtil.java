@@ -417,7 +417,7 @@ public class CommonUtil {
                     if (text.contains("whitlistMsgType")) {
                         text = StringUtils.replace(text, "whitlistMsgType", "objectNames");
                     }
-                    if (path.contains("gag") || path.contains("block")) {
+                    if (path.contains("gag") || path.contains("block") || path.contains("ban/user")) {
                         text = StringUtils.replace(text, "userId", "id");
                     }
                     if (path.contains("mute")) {
