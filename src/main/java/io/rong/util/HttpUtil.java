@@ -70,14 +70,6 @@ public class HttpUtil {
 
     }
 
-    // 设置body体
-    public static void setBodyParameter(StringBuilder sb, HttpURLConnection conn) throws IOException {
-        DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-        out.writeBytes(sb.toString());
-        out.flush();
-        out.close();
-    }
-
     public static HttpURLConnection CreateGetHttpConnection(String uri) throws MalformedURLException, IOException {
         URL url = new URL(uri);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -86,7 +78,7 @@ public class HttpUtil {
         return conn;
     }
 
-
+    // 设置body体
     public static void setBodyParameter(String str, HttpURLConnection conn) throws IOException {
         DataOutputStream out = null;
         try {

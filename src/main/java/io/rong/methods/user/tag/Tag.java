@@ -110,7 +110,7 @@ public class Tag {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret,
                 "/user/tags/get.json", "application/x-www-form-urlencoded");
 
-        HttpUtil.setBodyParameter(sb, conn);
+        HttpUtil.setBodyParameter(sb.toString(), conn);
         return (GetTagResult) GsonUtil.fromJson(
                 CommonUtil.getResponseByCode(PATH, CheckMethod.GET_TAG, HttpUtil.returnResult(conn)),
                 GetTagResult.class);

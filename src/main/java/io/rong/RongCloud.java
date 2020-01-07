@@ -39,7 +39,7 @@ public class RongCloud {
 	private static List<HostType> apiHostListBackUp = new ArrayList();
 
 	public HostType getApiHostType() {
-		if(HttpUtil.timeoutNum.get() >= 3){
+		if(HttpUtil.timeoutNum.get() >= 1){
 			for(HostType host : apiHostListBackUp){
 				if(!apiHostType.getStrType().equals(host.getStrType())){
 					HttpUtil.timeoutNum.set(0);
