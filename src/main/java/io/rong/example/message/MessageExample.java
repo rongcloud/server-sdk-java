@@ -3,6 +3,7 @@ package io.rong.example.message;
 import io.rong.RongCloud;
 import io.rong.messages.CustomTxtMessage;
 import io.rong.messages.TxtMessage;
+import io.rong.messages.UserInfo;
 import io.rong.messages.VoiceMessage;
 import io.rong.methods.message._private.Private;
 import io.rong.methods.message.chatroom.Chatroom;
@@ -36,8 +37,13 @@ public class MessageExample {
      * */
     private static final String appSecret = "appSecret";
 
+    private static final UserInfo userinfo = new UserInfo("rc1","rc_user1",
+        "http://www.rongcloud.cn/images/logo.png","");
     private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
+
+
+    private static final TxtMessage txtMessage1 = new TxtMessage("hello", "helloExtra",userinfo);
     /**
      * 自定义api地址
      * */
@@ -66,8 +72,8 @@ public class MessageExample {
         SystemMessage systemMessage = new SystemMessage()
                 .setSenderId("usetId")
                 .setTargetId(targetIds)
-                .setObjectName(txtMessage.getType())
-                .setContent(txtMessage)
+                .setObjectName(txtMessage1.getType())
+                .setContent(txtMessage1)
                 .setPushContent("this is a push")
                 .setPushData("{'pushData':'hello'}")
                 .setIsPersisted(0)

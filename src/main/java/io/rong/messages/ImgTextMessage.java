@@ -13,14 +13,24 @@ public class ImgTextMessage extends BaseMessage {
 	private String title = "";
 	private String imageUri = "";
 	private String url = "";
+	private UserInfo user = null;
 	private transient static final String TYPE = "RC:ImgTextMsg";
-	
+
 	public ImgTextMessage(String content, String extra, String title, String imageUri, String url) {
 		this.content = content;
 		this.extra = extra;
 		this.title = title;
 		this.imageUri = imageUri;
 		this.url = url;
+	}
+
+	public ImgTextMessage(String content, String extra, String title, String imageUri, String url, UserInfo user) {
+		this.content = content;
+		this.extra = extra;
+		this.title = title;
+		this.imageUri = imageUri;
+		this.url = url;
+		this.user = user;
 	}
 	@Override
 	public String getType() {
@@ -115,8 +125,24 @@ public class ImgTextMessage extends BaseMessage {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
-	}  
-	
+	}
+
+	/**
+	 * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 *
+	 * @return UserInfo
+	 */
+	public UserInfo getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 */
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, ImgTextMessage.class);

@@ -106,12 +106,13 @@ public class HttpUtil {
     }
 
     public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret,
-            String uri) throws MalformedURLException, IOException, ProtocolException {
+        String uri) throws MalformedURLException, IOException, ProtocolException {
         return CreatePostHttpConnection(hostType, appKey, appSecret, uri, "application/x-www-form-urlencoded");
     }
 
-    public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret, String uri,
-            String contentType) throws MalformedURLException, IOException, ProtocolException {
+    public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret,
+        String uri,
+        String contentType) throws MalformedURLException, IOException, ProtocolException {
         String nonce = String.valueOf(Math.random() * 1000000);
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         StringBuilder toSign = new StringBuilder(appSecret).append(nonce).append(timestamp);
@@ -136,7 +137,7 @@ public class HttpUtil {
     }
 
     public static HttpURLConnection getHttpURLConnection(HostType hostType, String uri)
-            throws IOException {
+        throws IOException {
         //是否配置了 IP 如果配置了，则走 Header + Host 模式
         if (StringUtils.isEmpty(hostType.getIp())) {
             uri = hostType.getStrType() + uri;
@@ -167,13 +168,31 @@ public class HttpUtil {
 
     public static String returnResult(HttpURLConnection conn) throws Exception {
         InputStream input = null;
-        if (conn.getResponseCode() == 200) {
-            input = conn.getInputStream();
-        } else {
-            input = conn.getErrorStream();
+        String result = "";
+        try {
+            if (conn.getResponseCode() == 200) {
+                input = conn.getInputStream();
+            } else {
+                if(conn.getResponseCode() == 502){
+                    timeoutNum.incrementAndGet();
+                }
+                input = conn.getErrorStream();
+            }
+            result = new String(readInputStream(input), "UTF-8");
+        } catch (UnknownHostException e) {
+            timeoutNum.incrementAndGet();
+            e.printStackTrace();
+        } catch (SocketTimeoutException e) {
+            timeoutNum.incrementAndGet();
+            e.printStackTrace();
+        } catch (IOException e) {
+            timeoutNum.incrementAndGet();
+            e.printStackTrace();
+        } catch (Exception e) {
+            timeoutNum.incrementAndGet();
+            e.printStackTrace();
+            throw e;
         }
-        String result = new String(readInputStream(input), "UTF-8");
         return result;
     }
-
 }

@@ -11,12 +11,19 @@ public class VoiceMessage extends BaseMessage {
 	private String content = "";
 	private String extra = "";
 	private Long duration = 0L;
+	private UserInfo user = null;
 	private transient static final String TYPE = "RC:VcMsg";
 	
 	public VoiceMessage(String content, String extra, Long duration) {
 		this.content = content;
 		this.extra = extra;
 		this.duration = duration;
+	}
+	public VoiceMessage(String content, String extra, Long duration, UserInfo user) {
+		this.content = content;
+		this.extra = extra;
+		this.duration = duration;
+		this.user = user;
 	}
 	@Override
 	public String getType() {
@@ -75,8 +82,24 @@ public class VoiceMessage extends BaseMessage {
 	 */
 	public void setDuration(Long duration) {
 		this.duration = duration;
-	}  
-	
+	}
+
+	/**
+	 * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 *
+	 * @return UserInfo
+	 */
+	public UserInfo getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 */
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, VoiceMessage.class);

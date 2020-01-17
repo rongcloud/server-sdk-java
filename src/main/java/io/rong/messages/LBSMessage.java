@@ -13,6 +13,7 @@ public class LBSMessage extends BaseMessage {
 	private double latitude = 0;
 	private double longitude = 0;
 	private String poi = "";
+	private UserInfo user = null;
 	private transient static final String TYPE = "RC:LBSMsg";
 	
 	public LBSMessage(String content, String extra, double latitude, double longitude, String poi) {
@@ -21,6 +22,15 @@ public class LBSMessage extends BaseMessage {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.poi = poi;
+	}
+
+	public LBSMessage(String content, String extra, double latitude, double longitude, String poi, UserInfo user) {
+		this.content = content;
+		this.extra = extra;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.poi = poi;
+		this.user = user;
 	}
 	@Override
 	public String getType() {
@@ -117,8 +127,24 @@ public class LBSMessage extends BaseMessage {
 	 */
 	public void setPoi(String poi) {
 		this.poi = poi;
-	}  
-	
+	}
+
+	/**
+	 * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 *
+	 * @return UserInfo
+	 */
+	public UserInfo getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 */
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, LBSMessage.class);

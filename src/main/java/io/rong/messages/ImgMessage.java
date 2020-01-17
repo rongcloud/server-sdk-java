@@ -11,12 +11,19 @@ public class ImgMessage extends BaseMessage {
 	private String content = "";
 	private String extra = "";
 	private String imageUri = "";
+	private UserInfo user = null;
 	private transient static final String TYPE = "RC:ImgMsg";
 	
 	public ImgMessage(String content, String extra, String imageUri) {
 		this.content = content;
 		this.extra = extra;
 		this.imageUri = imageUri;
+	}
+	public ImgMessage(String content, String extra, String imageUri, UserInfo user) {
+		this.content = content;
+		this.extra = extra;
+		this.imageUri = imageUri;
+		this.user = user;
 	}
 	@Override
 	public String getType() {
@@ -75,8 +82,24 @@ public class ImgMessage extends BaseMessage {
 	 */
 	public void setImageUri(String imageUri) {
 		this.imageUri = imageUri;
-	}  
-	
+	}
+
+	/**
+	 * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 *
+	 * @return UserInfo
+	 */
+	public UserInfo getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 */
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, ImgMessage.class);

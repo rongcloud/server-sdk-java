@@ -9,6 +9,14 @@ public class UserInfo {
     private String icon;
     private String extra;
 
+    public UserInfo() {
+    }
+    public UserInfo(String id, String name,String icon,String extra) {
+        this.id = id;
+        this.name = name;
+        this.icon = icon;
+        this.extra = extra;
+    }
     /**
      * 获取 发送人用户 Id
      * @return
