@@ -62,6 +62,13 @@ func (rc *RongCloud) ChatRoomCreate(id, name string) error {
 
 	req.Param("chatroom["+id+"]", name)
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -94,6 +101,13 @@ func (rc *RongCloud) ChatRoomDestroy(id string) error {
 	rc.fillHeader(req)
 
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -137,6 +151,14 @@ func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, e
 	req.Param("chatroomId", id)
 	req.Param("count", strconv.Itoa(count))
 	req.Param("order", strconv.Itoa(order))
+
+	response, err := req.Response()
+	if err != nil {
+		return ChatRoomResult{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -180,6 +202,13 @@ func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 	for _, v := range members {
 		req.Param("userId", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return []ChatRoomUser{}, err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -231,6 +260,14 @@ func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
 	}
 
 	req.Param("minute", strconv.Itoa(int(minute)))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -270,6 +307,14 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -302,6 +347,14 @@ func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return ChatRoomResult{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -346,6 +399,14 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 		req.Param("userId", v)
 	}
 	req.Param("minute", strconv.Itoa(int(minute)))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -381,6 +442,14 @@ func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
 	for _, v := range members {
 		req.Param("userId", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -407,6 +476,13 @@ func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
+
+	response, err := req.Response()
+	if err != nil {
+		return []ChatRoomUser{}, err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -456,6 +532,14 @@ func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
 
 	req.Param("chatroomId", id)
 	req.Param("minute", strconv.Itoa(int(minute)))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -494,6 +578,14 @@ func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -524,6 +616,14 @@ func (rc *RongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return []ChatRoomUser{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -558,6 +658,14 @@ func (rc *RongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 	for _, v := range objectNames {
 		req.Param("objectName", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -589,6 +697,14 @@ func (rc *RongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 	for _, v := range objectNames {
 		req.Param("objectName", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -614,6 +730,14 @@ func (rc *RongCloud) ChatRoomDemotionGetList() ([]string, error) {
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/message/priority/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
+
+	response, err := req.Response()
+	if err != nil {
+		return []string{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -646,6 +770,14 @@ func (rc *RongCloud) ChatRoomDistributionStop(id string) error {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -674,6 +806,14 @@ func (rc *RongCloud) ChatRoomDistributionResume(id string) error {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -702,6 +842,14 @@ func (rc *RongCloud) ChatRoomKeepAliveAdd(id string) error {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -730,6 +878,14 @@ func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -759,6 +915,14 @@ func (rc *RongCloud) ChatRoomKeepAliveGetList() ([]string, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	// req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return []string{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -794,6 +958,14 @@ func (rc *RongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
 	for _, v := range objectNames {
 		req.Param("objectnames", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -827,6 +999,14 @@ func (rc *RongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 	for _, v := range objectNames {
 		req.Param("objectnames", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -852,6 +1032,13 @@ func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/whitelist/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
+
+	response, err := req.Response()
+	if err != nil {
+		return []string{}, err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -895,6 +1082,14 @@ func (rc *RongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error
 	for _, v := range members {
 		req.Param("userId", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -932,6 +1127,14 @@ func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 	for _, v := range members {
 		req.Param("userId", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -961,6 +1164,14 @@ func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return []string{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -1017,6 +1228,14 @@ func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
 
 	req.Param("chatroomId", id)
 	req.Param("minute", strconv.Itoa(int(minute)))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -1047,6 +1266,14 @@ func (rc *RongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, erro
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return []ChatRoomUser{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -1088,6 +1315,14 @@ func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string) erro
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)

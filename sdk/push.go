@@ -107,6 +107,14 @@ func (rc *RongCloud) PushSend(sender Sender) (PushResult, error) {
 		rc.urlError(err)
 		return PushResult{}, err
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return PushResult{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)

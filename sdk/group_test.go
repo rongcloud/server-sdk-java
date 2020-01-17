@@ -12,7 +12,7 @@ func TestRongCloud_GroupCreate(t *testing.T) {
 	)
 
 	err := rc.GroupCreate(
-		"u01",
+		"u02",
 		"rongcloud_group01",
 		[]string{"u01", "u02"},
 	)
@@ -27,7 +27,7 @@ func TestRongCloud_GroupGet(t *testing.T) {
 	)
 
 	rep, err := rc.GroupGet(
-		"u01",
+		"u02",
 	)
 	t.Log(err)
 	t.Log(rep)

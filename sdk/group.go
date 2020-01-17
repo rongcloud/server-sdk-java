@@ -58,6 +58,14 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	}
 	req.Param("groupId", id)
 	req.Param("groupName", name)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -97,6 +105,14 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 	for _, item := range groups {
 		req.Param("group["+item.ID+"]", item.Name)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -134,6 +150,14 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 
 	req.Param("groupId", id)
 	req.Param("groupName", name)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -177,6 +201,14 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
 	req.Param("userId", member)
 	req.Param("groupId", id)
 	req.Param("groupName", name)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -207,6 +239,14 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
 	rc.fillHeader(req)
 
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return Group{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -249,6 +289,14 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
 
 	req.Param("userId", member)
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -286,6 +334,14 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
 
 	req.Param("userId", member)
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -330,6 +386,14 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 	}
 	req.Param("groupId", id)
 	req.Param("minute", strconv.Itoa(minute))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -374,6 +438,14 @@ func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 	}
 	req.Param("groupId", id)
 	req.Param("minute", strconv.Itoa(minute))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -405,6 +477,14 @@ func (rc *RongCloud) GroupGagList(id string) (Group, error) {
 	rc.fillHeader(req)
 
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return Group{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -440,6 +520,14 @@ func (rc *RongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 	rc.fillHeader(req)
 
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return Group{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -483,6 +571,14 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 		req.Param("userId", item)
 	}
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -522,6 +618,14 @@ func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
 		req.Param("userId", item)
 	}
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -555,6 +659,14 @@ func (rc *RongCloud) GroupMuteAllMembersAdd(members []string) error {
 	for _, item := range members {
 		req.Param("groupId", item)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -588,6 +700,14 @@ func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 	for _, item := range members {
 		req.Param("groupId", item)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -619,6 +739,13 @@ func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, er
 			req.Param("groupId", item)
 		}
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return GroupInfo{}, err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -666,6 +793,14 @@ func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 		req.Param("userId", item)
 	}
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -706,6 +841,14 @@ func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 		req.Param("userId", item)
 	}
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -738,6 +881,14 @@ func (rc *RongCloud) GroupMuteWhiteListUserGetList(id string) ([]string, error) 
 	rc.fillHeader(req)
 
 	req.Param("groupId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return []string{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)

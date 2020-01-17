@@ -47,6 +47,14 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 	default:
 		return RCErrorNew(1002, "Paramer 'replace' is required")
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	byteData, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -72,6 +80,14 @@ func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 	req := httplib.Post(rc.rongCloudURI + "/sensitiveword/list." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
+
+	response, err := req.Response()
+	if err != nil {
+		return ListWordFilterResult{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	byteData, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -110,6 +126,14 @@ func (rc *RongCloud) SensitiveRemove(keywords []string) error {
 	for _, v := range keywords {
 		req.Param("words", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	byteData, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)

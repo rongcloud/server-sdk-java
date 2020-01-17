@@ -335,6 +335,13 @@ func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, co
 
 	req.Param("content", msg)
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	resp, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -389,6 +396,13 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
 	req.Param("targetId", targetId)
 	req.Param("messageUID", messageId)
 	req.Param("sentTime", strconv.Itoa(sentTime))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
 
 	resp, err := req.Bytes()
 	if err != nil {
@@ -457,6 +471,13 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -500,6 +521,13 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(1))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -560,7 +588,17 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 	param["values"] = values
 	param["pushContent"] = push
 	param["verifyBlacklist"] = 0
-	req.JSONBody(param)
+	req, err = req.JSONBody(param)
+	if err != nil {
+		return err
+	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -625,6 +663,14 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 			req.Param("toUserId", v)
 		}
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -667,6 +713,13 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(3))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -717,6 +770,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 		req.Param("toGroupId", v)
 	}
 	req.Param("objectName", objectName)
+
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return err
@@ -728,6 +782,14 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	req.Param("isMentioned", strconv.Itoa(isMentioned))
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -775,6 +837,13 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 	}
 	req.Param("content", msgr)
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -813,6 +882,13 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) e
 		return err
 	}
 	req.Param("content", msgr)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -872,6 +948,13 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	req.Param("count", strconv.Itoa(count))
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -910,6 +993,13 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) err
 		return err
 	}
 	req.Param("content", msgr)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -970,6 +1060,14 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	param["verifyBlacklist"] = 0
 
 	_, _ = req.JSONBody(param)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 
 	if err != nil {
@@ -998,6 +1096,14 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("date", date)
+
+	response, err := req.Response()
+	if err != nil {
+		return History{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -1032,6 +1138,14 @@ func (rc *RongCloud) HistoryRemove(date string) error {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("date", date)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)

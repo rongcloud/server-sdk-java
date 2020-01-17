@@ -15,8 +15,8 @@ import (
 
 func TestQueryWhiteList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RCLOUD_APP_KEY"),
-		os.Getenv("RCLOUD_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	_, err := rc.QueryWhiteList("123")
@@ -29,8 +29,8 @@ func TestQueryWhiteList(t *testing.T) {
 
 func TestRemoveWhiteList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RCLOUD_APP_KEY"),
-		os.Getenv("RCLOUD_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	if err := rc.RemoveWhiteList("123", []string{"234", "456"}); err != nil {
@@ -42,8 +42,8 @@ func TestRemoveWhiteList(t *testing.T) {
 
 func TestAddWhiteList(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RCLOUD_APP_KEY"),
-		os.Getenv("RCLOUD_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	if err := rc.AddWhiteList("123", []string{"234", "345"}); err != nil {
@@ -56,8 +56,8 @@ func TestAddWhiteList(t *testing.T) {
 func TestRongCloud_UserRegister(t *testing.T) {
 
 	rc := NewRongCloud(
-		os.Getenv("RCLOUD_APP_KEY"),
-		os.Getenv("RCLOUD_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	rep, err := rc.UserRegister(

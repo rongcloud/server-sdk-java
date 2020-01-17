@@ -86,7 +86,15 @@ func (rc *RongCloud) AddWhiteList(userId string, whiteList []string) error {
 		req.Param("whiteUserId", v)
 	}
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	resp, err := req.Bytes()
+
 	if err != nil {
 		rc.urlError(err)
 		return err
@@ -133,6 +141,13 @@ func (rc *RongCloud) RemoveWhiteList(userId string, whiteList []string) error {
 		req.Param("whiteUserId", v)
 	}
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	resp, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -167,6 +182,13 @@ func (rc *RongCloud) QueryWhiteList(userId string) (WhiteList, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("userId", userId)
+
+	response, err := req.Response()
+	if err != nil {
+		return WhiteList{}, err
+	}
+
+	rc.checkStatusCode(response)
 
 	resp, err := req.Bytes()
 	if err != nil {
@@ -218,7 +240,15 @@ func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (User, error
 	req.Param("name", name)
 	req.Param("portraitUri", portraitURI)
 
+	response, err := req.Response()
+	if err != nil {
+		return User{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
+
 	if err != nil {
 		rc.urlError(err)
 		return User{}, err
@@ -266,6 +296,13 @@ func (rc *RongCloud) UserUpdate(userID, name, portraitURI string) error {
 	req.Param("name", name)
 	req.Param("portraitUri", portraitURI)
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -304,6 +341,13 @@ func (rc *RongCloud) BlockAdd(id string, minute uint64) error {
 	req.Param("userId", id)
 	req.Param("minute", strconv.FormatUint(minute, 10))
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -335,6 +379,14 @@ func (rc *RongCloud) BlockRemove(id string) error {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("userId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -360,6 +412,14 @@ func (rc *RongCloud) BlockGetList() (BlockListResult, error) {
 	req := httplib.Post(rc.rongCloudURI + "/user/block/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
+
+	response, err := req.Response()
+	if err != nil {
+		return BlockListResult{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -404,6 +464,13 @@ func (rc *RongCloud) BlacklistAdd(id string, blacklist []string) error {
 		req.Param("blackUserId", v)
 	}
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -445,6 +512,13 @@ func (rc *RongCloud) BlacklistRemove(id string, blacklist []string) error {
 		req.Param("blackUserId", v)
 	}
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -477,6 +551,13 @@ func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("userId", id)
+
+	response, err := req.Response()
+	if err != nil {
+		return BlacklistResult{}, err
+	}
+
+	rc.checkStatusCode(response)
 
 	rep, err := req.Bytes()
 	if err != nil {
@@ -515,6 +596,13 @@ func (rc *RongCloud) OnlineStatusCheck(userID string) (int, error) {
 	rc.fillHeader(req)
 	req.Param("userId", userID)
 
+	response, err := req.Response()
+	if err != nil {
+		return -1, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -551,6 +639,14 @@ func (rc *RongCloud) TagSet(tag Tag) error {
 		rc.urlError(err)
 		return err
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -583,6 +679,13 @@ func (rc *RongCloud) TagBatchSet(tagBatch TagBatch) error {
 		return err
 	}
 
+	response, err := req.Response()
+	if err != nil {
+		return err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)
@@ -612,6 +715,14 @@ func (rc *RongCloud) TagGet(userIds []string) (TagResult, error) {
 	for _, v := range userIds {
 		req.Param("userIds", v)
 	}
+
+	response, err := req.Response()
+	if err != nil {
+		return TagResult{}, err
+	}
+
+	rc.checkStatusCode(response)
+
 	rep, err := req.Bytes()
 	if err != nil {
 		rc.urlError(err)

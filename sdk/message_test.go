@@ -15,8 +15,8 @@ import (
 
 func TestMessageBroadcastRecall(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RCLOUD_APP_KEY"),
-		os.Getenv("RCLOUD_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	content := BroadcastRecallContent{
@@ -35,8 +35,8 @@ func TestMessageBroadcastRecall(t *testing.T) {
 
 func TestChatRoomRecall(t *testing.T) {
 	rc := NewRongCloud(
-		os.Getenv("RCLOUD_APP_KEY"),
-		os.Getenv("RCLOUD_APP_SECRET"),
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 	)
 
 	if err := rc.ChatRoomRecall("fDR2cVpxxR5zSMUNh3yAwh", "MersNRhaKwJkRV9mJR5JXY", "5FGT-7VA9-G4DD-4V5P", 1507778882124); err != nil {
