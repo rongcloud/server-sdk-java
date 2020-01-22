@@ -2,6 +2,12 @@ package sdk
 
 import "strconv"
 
+// CodeResult 融云返回状态码和错误码
+type CodeResult struct {
+	Code         int    `json:"code"`         // 返回码，200 为正常。
+	ErrorMessage string `json:"errorMessage"` // 错误信息
+}
+
 // RCErrorNew 创建新的err信息
 func RCErrorNew(code int, text string) error {
 	return CodeResult{code, text}

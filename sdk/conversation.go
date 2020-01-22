@@ -56,26 +56,11 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 	req.Param("targetId", targetID)
 	req.Param("isMuted", "1")
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ConversationUnmute 设置用户某个会话接收 Push
@@ -107,26 +92,11 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 	req.Param("targetId", targetID)
 	req.Param("isMuted", "0")
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ConversationGet 免打扰会话状态获取

@@ -2,7 +2,6 @@ package sdk
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/httplib"
@@ -108,25 +107,14 @@ func (rc *RongCloud) PushSend(sender Sender) (PushResult, error) {
 		return PushResult{}, err
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return PushResult{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return PushResult{}, err
 	}
 	var pushResult PushResult
-	if err := json.Unmarshal(rep, &pushResult); err != nil {
+	if err := json.Unmarshal(resp, &pushResult); err != nil {
 		return PushResult{}, err
-	}
-	if pushResult.Code != 200 {
-		fmt.Println(pushResult.ErrorMessage)
-		return PushResult{}, RCErrorNew(pushResult.Code, pushResult.ErrorMessage)
 	}
 	return pushResult, nil
 }

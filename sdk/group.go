@@ -59,26 +59,11 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	req.Param("groupId", id)
 	req.Param("groupName", name)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupSync 同步用户所属群组方法（当第一次连接融云服务器时，需要向融云服务器提交 ID 对应的用户当前所加入的所有群组，此接口主要为防止应用中用户群信息同融云已知的用户所属群信息不同步。）
@@ -106,26 +91,11 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 		req.Param("group["+item.ID+"]", item.Name)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupUpdate 刷新群组信息方法
@@ -151,26 +121,11 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 	req.Param("groupId", id)
 	req.Param("groupName", name)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupJoin 将用户加入指定群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
@@ -202,26 +157,11 @@ func (rc *RongCloud) GroupJoin(id, name, member string) error {
 	req.Param("groupId", id)
 	req.Param("groupName", name)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupGet 查询群成员方法
@@ -240,27 +180,13 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
 
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return Group{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return Group{}, err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return Group{}, err
-	}
-	if code.Code != 200 {
-		return Group{}, code
-	}
 	var dat Group
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return Group{}, err
 	}
 	return dat, nil
@@ -290,26 +216,11 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
 	req.Param("userId", member)
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupDismiss 解散群组方法
@@ -335,26 +246,11 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
 	req.Param("userId", member)
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupGagAdd 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
@@ -387,26 +283,11 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 	req.Param("groupId", id)
 	req.Param("minute", strconv.Itoa(minute))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupMuteMembersAdd 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
@@ -439,26 +320,11 @@ func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 	req.Param("groupId", id)
 	req.Param("minute", strconv.Itoa(minute))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupGagList 查询被禁言群成员方法
@@ -478,28 +344,14 @@ func (rc *RongCloud) GroupGagList(id string) (Group, error) {
 
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return Group{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return Group{}, err
 	}
-	var code CodeResult
 	var dat Group
-	if err := json.Unmarshal(rep, &code); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return Group{}, err
-	}
-	if err := json.Unmarshal(rep, &dat); err != nil {
-		return Group{}, err
-	}
-	if code.Code != 200 {
-		return Group{}, code
 	}
 	return dat, nil
 }
@@ -521,28 +373,14 @@ func (rc *RongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return Group{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return Group{}, err
 	}
-	var code CodeResult
 	var dat Group
-	if err := json.Unmarshal(rep, &code); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return Group{}, err
-	}
-	if err := json.Unmarshal(rep, &dat); err != nil {
-		return Group{}, err
-	}
-	if code.Code != 200 {
-		return Group{}, code
 	}
 	return dat, nil
 }
@@ -572,26 +410,11 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 	}
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupMuteMembersRemove 移除禁言群成员方法
@@ -619,26 +442,11 @@ func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
 	}
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupMuteAllMembersAdd 设置某一群组禁言，禁言后群组中所有成员禁止发送消息，如需要某些用户可以发言时，可将此用户加入到群禁言用户白名单中。
@@ -660,26 +468,11 @@ func (rc *RongCloud) GroupMuteAllMembersAdd(members []string) error {
 		req.Param("groupId", item)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupMuteAllMembersRemove 解除群组禁言
@@ -701,26 +494,11 @@ func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 		req.Param("groupId", item)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupMuteAllMembersGetList 查询全部群组禁言列表
@@ -740,33 +518,15 @@ func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, er
 		}
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return GroupInfo{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return GroupInfo{}, err
 	}
-	var code CodeResult
 	var group GroupInfo
-	if err := json.Unmarshal(rep, &struct {
-		*CodeResult
-		*GroupInfo
-	}{
-		&code,
-		&group,
-	}); err != nil {
+	if err := json.Unmarshal(resp, &group); err != nil {
 		return GroupInfo{}, err
 	}
-	if code.Code != 200 {
-		return GroupInfo{}, code
-	}
-
 	return group, nil
 }
 
@@ -794,27 +554,11 @@ func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 	}
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 // GroupMuteWhiteListUserRemove 移除群禁言白名单用户。
@@ -842,27 +586,11 @@ func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 	}
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 // GroupMuteWhiteListUserGetList 查询群禁言白名单用户列表。
@@ -882,32 +610,18 @@ func (rc *RongCloud) GroupMuteWhiteListUserGetList(id string) ([]string, error) 
 
 	req.Param("groupId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return []string{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return []string{}, err
 	}
-	var code CodeResult
 	var userIDs []string
-	if err := json.Unmarshal(rep, &struct {
-		*CodeResult
+	if err := json.Unmarshal(resp, &struct {
 		UserIDs *[]string `json:"userids"`
 	}{
-		&code,
 		&userIDs,
 	}); err != nil {
 		return []string{}, err
 	}
-	if code.Code != 200 {
-		return []string{}, code
-	}
-
 	return userIDs, nil
 }

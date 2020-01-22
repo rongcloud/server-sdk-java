@@ -2,8 +2,6 @@ package sdk
 
 import (
 	"encoding/json"
-	"errors"
-
 	"github.com/astaxie/beego/httplib"
 	"time"
 )
@@ -48,27 +46,11 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 		return RCErrorNew(1002, "Paramer 'replace' is required")
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	byteData, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(byteData, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 // SensitiveGetList 查询敏感词列表方法
@@ -81,29 +63,15 @@ func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	response, err := req.Response()
-	if err != nil {
-		return ListWordFilterResult{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	byteData, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return ListWordFilterResult{}, err
 	}
 
 	var ret ListWordFilterResult
-	if err := json.Unmarshal(byteData, &ret); err != nil {
+	if err := json.Unmarshal(resp, &ret); err != nil {
 		return ListWordFilterResult{}, err
-	}
-	var code CodeResult
-	if err := json.Unmarshal(byteData, &code); err != nil {
-		return ListWordFilterResult{}, err
-	}
-	if code.Code != 200 {
-		return ListWordFilterResult{}, code
 	}
 	return ret, err
 
@@ -127,26 +95,10 @@ func (rc *RongCloud) SensitiveRemove(keywords []string) error {
 		req.Param("words", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	byteData, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(byteData, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return errors.New(code.ErrorMessage)
-	}
-	return nil
+	return err
 
 }

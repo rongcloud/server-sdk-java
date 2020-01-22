@@ -332,32 +332,13 @@ func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, co
 	if err != nil {
 		return err
 	}
-
 	req.Param("content", msg)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	resp, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(resp, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 /**
@@ -397,30 +378,11 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
 	req.Param("messageUID", messageId)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	resp, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(resp, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 // PrivateSend 发送单聊消息方法（一个用户向多个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
@@ -471,27 +433,11 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // PrivateRecall 撤回单聊消息方法
@@ -522,27 +468,11 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(1))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // PrivateSendTemplate 向多个用户发送不同内容消息
@@ -593,27 +523,11 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 		return err
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupSend 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
@@ -664,27 +578,11 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		}
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupRecall 撤回群聊消息
@@ -714,27 +612,11 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(3))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // GroupSendMention 发送群组 @ 消息
@@ -783,26 +665,11 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	req.Param("isMentioned", strconv.Itoa(isMentioned))
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomSend 发送聊天室消息方法。（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
@@ -837,26 +704,11 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 	}
 	req.Param("content", msgr)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomBroadcast 向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
@@ -883,26 +735,11 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) e
 	}
 	req.Param("content", msgr)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // SystemSend 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
@@ -948,26 +785,11 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	req.Param("count", strconv.Itoa(count))
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // SystemBroadcast 给应用内所有用户发送消息方法，每小时最多发 2 次，每天最多发送 3 次（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
@@ -994,26 +816,11 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) err
 	}
 	req.Param("content", msgr)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // SystemSendTemplate 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM
@@ -1061,28 +868,11 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 
 	_, _ = req.JSONBody(param)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
-
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // HistoryGet 按小时获取历史消息日志文件 URL，包含小时内应用产生的所有消息，消息日志文件无论是否已下载，3 天后将从融云服务器删除
@@ -1097,29 +887,14 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	rc.fillHeader(req)
 	req.Param("date", date)
 
-	response, err := req.Response()
-	if err != nil {
-		return History{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return History{}, err
 	}
-	var code CodeResult
 	var history History
-	if err := json.Unmarshal(rep, &code); err != nil {
+	if err := json.Unmarshal(resp, &history); err != nil {
 		return History{}, err
-	}
-	if err := json.Unmarshal(rep, &history); err != nil {
-		return History{}, err
-	}
-
-	if code.Code != 200 {
-		return History{}, code
 	}
 	return history, nil
 }
@@ -1139,25 +914,10 @@ func (rc *RongCloud) HistoryRemove(date string) error {
 	rc.fillHeader(req)
 	req.Param("date", date)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 
 }

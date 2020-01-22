@@ -62,26 +62,11 @@ func (rc *RongCloud) ChatRoomCreate(id, name string) error {
 
 	req.Param("chatroom["+id+"]", name)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomDestroy 销毁聊天室方法
@@ -102,26 +87,11 @@ func (rc *RongCloud) ChatRoomDestroy(id string) error {
 
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomGet 查询聊天室内用户方法
@@ -152,28 +122,13 @@ func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, e
 	req.Param("count", strconv.Itoa(count))
 	req.Param("order", strconv.Itoa(order))
 
-	response, err := req.Response()
-	if err != nil {
-		return ChatRoomResult{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return ChatRoomResult{}, err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return ChatRoomResult{}, err
-	}
-	if code.Code != 200 {
-		return ChatRoomResult{}, code
-	}
-
 	var dat ChatRoomResult
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return ChatRoomResult{}, err
 	}
 	return dat, nil
@@ -203,27 +158,13 @@ func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 		req.Param("userId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return []ChatRoomUser{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return []ChatRoomUser{}, err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return []ChatRoomUser{}, err
-	}
-	if code.Code != 200 {
-		return []ChatRoomUser{}, code
-	}
 	var dat ChatRoomResult
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return []ChatRoomUser{}, err
 	}
 	return dat.Result, nil
@@ -258,29 +199,13 @@ func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
 	for _, v := range members {
 		req.Param("userId", v)
 	}
-
 	req.Param("minute", strconv.Itoa(int(minute)))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomBlockRemove 移除封禁聊天室成员方法
@@ -308,26 +233,11 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
 	}
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomBlockGetList 查询被封禁聊天室成员方法
@@ -338,7 +248,6 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
  */
 func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
 	var dat ChatRoomResult
-	var code CodeResult
 	if id == "" {
 		return dat, RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -348,30 +257,14 @@ func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return ChatRoomResult{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return dat, err
 	}
-
-	if err := json.Unmarshal(rep, &code); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return dat, err
 	}
-	if code.Code != 200 {
-		return dat, code
-	}
-
-	if err := json.Unmarshal(rep, &dat); err != nil {
-		return dat, err
-	}
-
 	return dat, nil
 }
 
@@ -384,7 +277,6 @@ func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
  */
 func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 
-	var code CodeResult
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -400,27 +292,11 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 	}
 	req.Param("minute", strconv.Itoa(int(minute)))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 // ChatRoomBanRemove 解除聊天室全局禁言
@@ -431,7 +307,6 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
  */
 func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
 
-	var code CodeResult
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
@@ -443,27 +318,11 @@ func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
 		req.Param("userId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 // ChatRoomBanGetList 获取聊天室全局禁言列表
@@ -471,31 +330,17 @@ func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
  *@return []ChatRoomUser error
  */
 func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
-	var code CodeResult
 	var dat ChatRoomResult
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	response, err := req.Response()
-	if err != nil {
-		return []ChatRoomUser{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return []ChatRoomUser{}, err
 	}
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return []ChatRoomUser{}, err
-	}
-	if code.Code != 200 {
-		return []ChatRoomUser{}, code
-	}
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return []ChatRoomUser{}, err
 	}
 	return dat.Users, nil
@@ -529,30 +374,14 @@ func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
 	for _, v := range members {
 		req.Param("userId", v)
 	}
-
 	req.Param("chatroomId", id)
 	req.Param("minute", strconv.Itoa(int(minute)))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomGagRemove 移除禁言聊天室成员方法
@@ -579,26 +408,11 @@ func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
 	}
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomGagGetList 查询被禁言聊天室成员方法
@@ -617,26 +431,12 @@ func (rc *RongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return []ChatRoomUser{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return []ChatRoomUser{}, err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return []ChatRoomUser{}, err
-	}
-	if code.Code != 200 {
-		return []ChatRoomUser{}, code
-	}
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return []ChatRoomUser{}, err
 	}
 	return dat.Users, nil
@@ -659,26 +459,11 @@ func (rc *RongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 		req.Param("objectName", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomDemotionRemove 移除应用内聊天室降级消息
@@ -698,26 +483,11 @@ func (rc *RongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 		req.Param("objectName", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomDemotionGetList 获取应用内聊天室降级消息
@@ -731,26 +501,12 @@ func (rc *RongCloud) ChatRoomDemotionGetList() ([]string, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	response, err := req.Response()
-	if err != nil {
-		return []string{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return []string{}, err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return []string{}, err
-	}
-	if code.Code != 200 {
-		return []string{}, code
-	}
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return []string{}, err
 	}
 	return dat.ObjectNames, nil
@@ -771,26 +527,11 @@ func (rc *RongCloud) ChatRoomDistributionStop(id string) error {
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomDistributionResume 聊天室消息恢复分发方法
@@ -807,26 +548,11 @@ func (rc *RongCloud) ChatRoomDistributionResume(id string) error {
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomKeepAliveAdd 添加保活聊天室
@@ -843,26 +569,11 @@ func (rc *RongCloud) ChatRoomKeepAliveAdd(id string) error {
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomKeepAliveRemove 删除保活聊天室
@@ -879,26 +590,11 @@ func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomKeepAliveGetList 获取保活聊天室
@@ -916,26 +612,12 @@ func (rc *RongCloud) ChatRoomKeepAliveGetList() ([]string, error) {
 	rc.fillHeader(req)
 	// req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return []string{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return []string{}, err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return []string{}, err
-	}
-	if code.Code != 200 {
-		return []string{}, code
-	}
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return []string{}, err
 	}
 	return dat.ChatRoomIDs, nil
@@ -959,26 +641,11 @@ func (rc *RongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
 		req.Param("objectnames", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomWhitelistRemove 删除聊天室消息白名单
@@ -1000,26 +667,11 @@ func (rc *RongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 		req.Param("objectnames", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomWhitelistGetList 获取聊天室消息白名单
@@ -1033,27 +685,12 @@ func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	response, err := req.Response()
-	if err != nil {
-		return []string{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return []string{}, err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return []string{}, err
-	}
-	if code.Code != 200 {
-		return []string{}, code
-	}
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return []string{}, err
 	}
 
@@ -1083,26 +720,11 @@ func (rc *RongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error
 		req.Param("userId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomUserWhitelistRemove 将用户从白名单中移除
@@ -1128,26 +750,11 @@ func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 		req.Param("userId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomUserWhitelistGetList 获取聊天室用户白名单
@@ -1229,26 +836,11 @@ func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
 	req.Param("chatroomId", id)
 	req.Param("minute", strconv.Itoa(int(minute)))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // ChatRoomMuteMembersGetList 查询被禁言聊天室成员方法
@@ -1316,24 +908,9 @@ func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string) erro
 	}
 	req.Param("chatroomId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }

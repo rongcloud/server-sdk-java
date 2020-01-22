@@ -86,30 +86,11 @@ func (rc *RongCloud) AddWhiteList(userId string, whiteList []string) error {
 		req.Param("whiteUserId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	resp, err := req.Bytes()
-
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(resp, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 /**
@@ -141,29 +122,11 @@ func (rc *RongCloud) RemoveWhiteList(userId string, whiteList []string) error {
 		req.Param("whiteUserId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	resp, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(resp, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 /**
@@ -183,34 +146,16 @@ func (rc *RongCloud) QueryWhiteList(userId string) (WhiteList, error) {
 	rc.fillHeader(req)
 	req.Param("userId", userId)
 
-	response, err := req.Response()
-	if err != nil {
-		return WhiteList{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	resp, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return WhiteList{}, err
 	}
 
 	var whiteList WhiteList
-	var code CodeResult
-
 	if err := json.Unmarshal(resp, &whiteList); err != nil {
 		return WhiteList{}, err
 	}
-
-	if err := json.Unmarshal(resp, &code); err != nil {
-		return WhiteList{}, err
-	}
-
-	if code.Code != 200 {
-		return WhiteList{}, code
-	}
-
 	return whiteList, nil
 }
 
@@ -240,33 +185,16 @@ func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (User, error
 	req.Param("name", name)
 	req.Param("portraitUri", portraitURI)
 
-	response, err := req.Response()
-	if err != nil {
-		return User{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
-
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return User{}, err
 	}
 
-	var code CodeResult
 	var userResult User
-
-	if err := json.Unmarshal(rep, &struct {
-		*CodeResult
-		*User
-	}{&code, &userResult}); err != nil {
+	if err := json.Unmarshal(resp, &userResult); err != nil {
 		return User{}, err
 	}
-	if code.Code != 200 {
-		return User{}, code
-	}
-
 	return userResult, nil
 }
 
@@ -296,28 +224,11 @@ func (rc *RongCloud) UserUpdate(userID, name, portraitURI string) error {
 	req.Param("name", name)
 	req.Param("portraitUri", portraitURI)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // BlockAdd 添加用户到黑名单
@@ -341,28 +252,11 @@ func (rc *RongCloud) BlockAdd(id string, minute uint64) error {
 	req.Param("userId", id)
 	req.Param("minute", strconv.FormatUint(minute, 10))
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // BlockRemove 从黑名单中移除用户
@@ -380,28 +274,11 @@ func (rc *RongCloud) BlockRemove(id string) error {
 	rc.fillHeader(req)
 	req.Param("userId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return RCErrorNew(20100, err.Error())
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // BlockGetList 获取某用户的黑名单列表
@@ -413,29 +290,15 @@ func (rc *RongCloud) BlockGetList() (BlockListResult, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	response, err := req.Response()
-	if err != nil {
-		return BlockListResult{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return BlockListResult{}, err
 	}
 
 	var dat BlockListResult
-	var code CodeResult
-	if err := json.Unmarshal(rep, &dat); err != nil {
+	if err := json.Unmarshal(resp, &dat); err != nil {
 		return BlockListResult{}, err
-	}
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return BlockListResult{}, err
-	}
-	if code.Code != 200 {
-		return BlockListResult{}, code
 	}
 
 	return dat, nil
@@ -464,29 +327,11 @@ func (rc *RongCloud) BlacklistAdd(id string, blacklist []string) error {
 		req.Param("blackUserId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-
-	return nil
+	return err
 }
 
 // BlacklistRemove 从黑名单中移除用户方法（每秒钟限 100 次）
@@ -512,28 +357,11 @@ func (rc *RongCloud) BlacklistRemove(id string, blacklist []string) error {
 		req.Param("blackUserId", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-
-	if code.Code != 200 {
-		return code
-	}
-	return nil
+	return err
 }
 
 // BlacklistGet 获取某用户的黑名单列表方法（每秒钟限 100 次）
@@ -552,30 +380,15 @@ func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 	rc.fillHeader(req)
 	req.Param("userId", id)
 
-	response, err := req.Response()
-	if err != nil {
-		return BlacklistResult{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return BlacklistResult{}, err
 	}
 
 	var listResult BlacklistResult
-	var code CodeResult
-	if err := json.Unmarshal(rep, &listResult); err != nil {
+	if err := json.Unmarshal(resp, &listResult); err != nil {
 		return BlacklistResult{}, err
-	}
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return BlacklistResult{}, err
-	}
-
-	if code.Code != 200 {
-		return BlacklistResult{}, code
 	}
 	return listResult, nil
 }
@@ -596,29 +409,14 @@ func (rc *RongCloud) OnlineStatusCheck(userID string) (int, error) {
 	rc.fillHeader(req)
 	req.Param("userId", userID)
 
-	response, err := req.Response()
-	if err != nil {
-		return -1, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return -1, err
 	}
-
-	var code CodeResult
 	var userResult User
-	if err := json.Unmarshal(rep, &struct {
-		*CodeResult
-		*User
-	}{&code, &userResult}); err != nil {
+	if err := json.Unmarshal(resp, &userResult); err != nil {
 		return -1, err
-	}
-	if code.Code != 200 {
-		return -1, code
 	}
 	status, _ := strconv.Atoi(userResult.Status)
 	return status, nil
@@ -640,27 +438,11 @@ func (rc *RongCloud) TagSet(tag Tag) error {
 		return err
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-
-		return RCErrorNew(code.Code, code.ErrorMessage)
-	}
-	return nil
+	return err
 }
 
 // TagBatchSet 为应用中的用户批量添加标签，如果某用户已经添加了标签，再次对用户添加标签时将覆盖之前设置的标签内容。
@@ -679,27 +461,11 @@ func (rc *RongCloud) TagBatchSet(tagBatch TagBatch) error {
 		return err
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	_, err = rc.do(req)
 	if err != nil {
 		rc.urlError(err)
-		return err
 	}
-	var code CodeResult
-	if err := json.Unmarshal(rep, &code); err != nil {
-		return err
-	}
-	if code.Code != 200 {
-
-		return RCErrorNew(code.Code, code.ErrorMessage)
-	}
-	return nil
+	return err
 }
 
 // TagGet 查询用户所有标签功能，支持批量查询每次最多查询 50 个用户。
@@ -716,27 +482,16 @@ func (rc *RongCloud) TagGet(userIds []string) (TagResult, error) {
 		req.Param("userIds", v)
 	}
 
-	response, err := req.Response()
-	if err != nil {
-		return TagResult{}, err
-	}
-
-	rc.checkStatusCode(response)
-
-	rep, err := req.Bytes()
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return TagResult{}, err
 	}
 
 	var tag TagResult
-	if err := json.Unmarshal(rep, &tag); err != nil {
+	if err := json.Unmarshal(resp, &tag); err != nil {
 		return TagResult{}, err
 	}
-	if tag.Code != 200 {
-		return TagResult{}, RCErrorNew(tag.Code, tag.ErrorMessage)
-	}
-
 	return tag, nil
 
 }
