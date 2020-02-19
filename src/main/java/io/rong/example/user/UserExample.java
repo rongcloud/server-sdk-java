@@ -6,6 +6,8 @@ import io.rong.models.*;
 import io.rong.models.response.*;
 import io.rong.models.user.UserModel;
 import io.rong.util.BaiduHttpDNSUtil;
+import io.rong.util.HostType;
+import java.util.List;
 
 /**
  * Demo class
@@ -33,6 +35,19 @@ public class UserExample {
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
         // 使用 百度 HTTPDNS 获取最快的 IP 地址进行连接
         // BaiduHttpDNSUtil.setHostTypeIp("account_id", "secret", rongCloud.getApiHostType());
+
+        // 设置连接超时时间
+        // rongCloud.getApiHostType().setConnectTimeout(10000);
+        // 设置读取超时时间
+        // rongCloud.getApiHostType().setReadTimeout(10000);
+        // 获取备用域名List
+        // List<HostType> hosttypes = rongCloud.getApiHostListBackUp();
+        // 设置连接、读取超时时间
+        // for (HostType hosttype : hosttypes) {
+        //     hosttype.setConnectTimeout(10000);
+        //     hosttype.setReadTimeout(10000);
+        // }
+
         User User = rongCloud.user;
 
         /**

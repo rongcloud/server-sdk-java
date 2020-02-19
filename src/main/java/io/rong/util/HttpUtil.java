@@ -123,8 +123,8 @@ public class HttpUtil {
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
         conn.setInstanceFollowRedirects(true);
-        conn.setConnectTimeout(30000);
-        conn.setReadTimeout(30000);
+        conn.setConnectTimeout(hostType.getConnectTimeout());
+        conn.setReadTimeout(hostType.getReadTimeout());
 
         conn.setRequestProperty(APPKEY, appKey);
         conn.setRequestProperty(NONCE, nonce);
@@ -173,7 +173,7 @@ public class HttpUtil {
             if (conn.getResponseCode() == 200) {
                 input = conn.getInputStream();
             } else {
-                if(conn.getResponseCode() == 502){
+                if (conn.getResponseCode() == 502) {
                     timeoutNum.incrementAndGet();
                 }
                 input = conn.getErrorStream();
