@@ -15,6 +15,7 @@ import java.util.List;
  * @author RongCloud
  */
 public class UserExample {
+
     /**
      * 此处替换成您的appKey
      */
@@ -56,9 +57,9 @@ public class UserExample {
          * 注册用户，生成用户在融云的唯一身份标识 Token
          */
         UserModel user = new UserModel()
-                .setId("userxxd2")
-                .setName("username")
-                .setPortrait("http://www.rongcloud.cn/images/logo.png");
+            .setId("userxxd2")
+            .setName("username")
+            .setPortrait("http://www.rongcloud.cn/images/logo.png");
         TokenResult result = User.register(user);
         System.out.println("getToken:  " + result.toString());
 

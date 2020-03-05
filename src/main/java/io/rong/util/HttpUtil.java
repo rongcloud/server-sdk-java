@@ -1,5 +1,6 @@
 package io.rong.util;
 
+import io.rong.models.response.ResponseResult;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -180,12 +181,15 @@ public class HttpUtil {
             }
             result = new String(readInputStream(input), "UTF-8");
         } catch (UnknownHostException e) {
+            result = getExceptionMessage("UnknownHostException:" + e.getMessage());
             timeoutNum.incrementAndGet();
             e.printStackTrace();
         } catch (SocketTimeoutException e) {
+            result = getExceptionMessage("SocketTimeoutException:" + e.getMessage());
             timeoutNum.incrementAndGet();
             e.printStackTrace();
         } catch (IOException e) {
+            result = getExceptionMessage("IOException:" + e.getMessage());
             timeoutNum.incrementAndGet();
             e.printStackTrace();
         } catch (Exception e) {
@@ -195,4 +199,9 @@ public class HttpUtil {
         }
         return result;
     }
+
+    private static String getExceptionMessage(String error) {
+        return GsonUtil.toJson(new ResponseResult(400, error), ResponseResult.class);
+    }
+
 }

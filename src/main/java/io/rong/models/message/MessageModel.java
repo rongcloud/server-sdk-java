@@ -4,29 +4,27 @@ import io.rong.messages.BaseMessage;
 
 /**
  * 发送消息的消息体
+ *
  * @author RongCloud
  */
 public class MessageModel {
 
     private String senderId;
     /**
-     *
      * 接受 Id 可能是用户Id，聊天Id ，群组Id，讨论组Id（必传）
      **/
     private String[] targetId;
     /**
-     *消息类型 （必传）
+     * 消息类型 （必传）
      **/
     private String objectName;
     /**
-     * 发送消息内容，参考融云消息类型表.示例说明；如果 objectName
-     * 为自定义消息类型，该参数可自定义格式。（必传）。
+     * 发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）。
      **/
     private BaseMessage content;
     /**
-     * 定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，
-     * 则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent
-     * 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。（可选）
+     * 定义显示的 Push 内容，如果 objectName 为融云内置消息类型时， 则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到
+     * Push 通知。（可选）
      */
     private String pushContent;
     /**
@@ -39,7 +37,7 @@ public class MessageModel {
     }
 
     public MessageModel(String senderId, String[] targetId, String objectName, BaseMessage content,
-                        String pushContent, String pushData) {
+        String pushContent, String pushData) {
         this.senderId = senderId;
         this.targetId = targetId;
         this.objectName = objectName;
@@ -61,6 +59,12 @@ public class MessageModel {
         return this.objectName;
     }
 
+    /**
+     * 此属性已经不再使用了，消息类型改为通过 BaseMessage 里的 getType 获取
+     * @param objectName
+     * @return
+     */
+    @Deprecated
     public MessageModel setObjectName(String objectName) {
         this.objectName = objectName;
         return this;
