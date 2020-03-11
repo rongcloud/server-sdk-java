@@ -183,18 +183,14 @@ public class HttpUtil {
         } catch (UnknownHostException e) {
             result = getExceptionMessage("UnknownHostException:" + e.getMessage());
             timeoutNum.incrementAndGet();
-            e.printStackTrace();
         } catch (SocketTimeoutException e) {
             result = getExceptionMessage("SocketTimeoutException:" + e.getMessage());
             timeoutNum.incrementAndGet();
-            e.printStackTrace();
         } catch (IOException e) {
             result = getExceptionMessage("IOException:" + e.getMessage());
             timeoutNum.incrementAndGet();
-            e.printStackTrace();
         } catch (Exception e) {
             timeoutNum.incrementAndGet();
-            e.printStackTrace();
             throw e;
         }
         return result;
