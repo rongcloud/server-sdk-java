@@ -181,13 +181,13 @@ public class HttpUtil {
             }
             result = new String(readInputStream(input), "UTF-8");
         } catch (UnknownHostException e) {
-            result = getExceptionMessage("UnknownHostException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,UnknownHostException:" + e.getMessage());
             timeoutNum.incrementAndGet();
         } catch (SocketTimeoutException e) {
-            result = getExceptionMessage("SocketTimeoutException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,SocketTimeoutException:" + e.getMessage());
             timeoutNum.incrementAndGet();
         } catch (IOException e) {
-            result = getExceptionMessage("IOException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,IOException:" + e.getMessage());
             timeoutNum.incrementAndGet();
         } catch (Exception e) {
             timeoutNum.incrementAndGet();
