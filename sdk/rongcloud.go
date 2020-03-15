@@ -125,29 +125,6 @@ func fillJSONHeader(req *httplib.BeegoHTTPRequest) {
     req.Header("Content-Type", "application/json")
 }
 
-/*
-NewRC 设置并获取 RongCloud 实例
-*/
-func NewRC(appKey, appSecret, rcURI, rcSmsURI string) *RongCloud {
-    once.Do(func() {
-        rc = &RongCloud{
-            appKey:         appKey,
-            appSecret:      appSecret,
-            rongCloudExtra: &defaultExtra,
-        }
-
-        if (rcURI != "") {
-            rc.rongCloudExtra.rongCloudURI = rcURI
-        }
-
-        if (rcSmsURI != "") {
-            rc.rongCloudExtra.rongCloudSMSURI = rcSmsURI
-        }
-    })
-
-    return rc
-}
-
 // NewRongCloud 创建 RongCloud 对象
 func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongCloud {
     once.Do(func() {
