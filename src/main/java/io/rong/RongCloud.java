@@ -7,7 +7,6 @@
  */
 package io.rong;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,6 +20,7 @@ import io.rong.methods.user.User;
 import io.rong.methods.push.Push;
 import io.rong.util.HostType;
 import io.rong.util.HttpUtil;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RongCloud {
 
@@ -36,7 +36,7 @@ public class RongCloud {
 	public Push push;
 	private HostType apiHostType = new HostType("http://api-cn.ronghub.com");
 	private HostType smsHostType = new HostType("http://api.sms.ronghub.com");
-	private static List<HostType> apiHostListBackUp = new ArrayList();
+	private static List<HostType> apiHostListBackUp = new CopyOnWriteArrayList<HostType>();
 
 	public HostType getApiHostType() {
 		if(HttpUtil.timeoutNum.get() >= 1){
@@ -90,9 +90,11 @@ public class RongCloud {
 
 	public static RongCloud getInstance(String appKey, String appSecret) {
 		if (null == rongCloud.get(appKey)) {
-			rongCloud.putIfAbsent(appKey, new RongCloud(appKey, appSecret));
-			apiHostListBackUp.add(new HostType("http://api-cn.ronghub.com"));
-			apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
+			RongCloud rong = rongCloud.putIfAbsent(appKey, new RongCloud(appKey, appSecret));
+			if (rong == null){
+				apiHostListBackUp.add(new HostType("http://api-cn.ronghub.com"));
+				apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
+			}
 		}
 		return rongCloud.get(appKey);
 	}
