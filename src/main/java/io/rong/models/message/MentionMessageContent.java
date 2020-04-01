@@ -1,7 +1,8 @@
 package io.rong.models.message;
 
+import com.alibaba.fastjson.JSONObject;
+
 import io.rong.messages.BaseMessage;
-import io.rong.util.GsonUtil;
 
 /**
  * @author RongCloud
@@ -33,6 +34,24 @@ public class MentionMessageContent {
 
     @Override
     public String toString(){
-        return GsonUtil.toJson(this, MentionMessageContent.class);
+    	JSONObject atMessage = new JSONObject();
+    	
+		if (content != null) {
+			JSONObject baseMessage = new JSONObject();
+			baseMessage = JSONObject.parseObject(content.toString());
+
+			atMessage.put("content", baseMessage.get("content"));
+			atMessage.put("extra", baseMessage.get("extra"));
+
+			if (mentionedInfo != null) {
+				JSONObject mention = new JSONObject();
+				mention.put("type", mentionedInfo.getType());
+				mention.put("userIdList", mentionedInfo.getUserIds());
+				mention.put("mentionedContent", mentionedInfo.getPushContent());
+				
+				atMessage.put("mentionedInfo", mention);
+			}
+		}
+        return atMessage.toJSONString();
     }
 }

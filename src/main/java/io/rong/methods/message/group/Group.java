@@ -130,7 +130,7 @@ public class Group {
         }
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getContent().getType(), UTF8));
-        sb.append("&content=").append(URLEncoder.encode(message.getContent().getContent().toString(), UTF8));
+        sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
 
         if (message.getPushContent() != null) {
             sb.append("&pushContent=").append(URLEncoder.encode(message.getPushContent().toString(), UTF8));
