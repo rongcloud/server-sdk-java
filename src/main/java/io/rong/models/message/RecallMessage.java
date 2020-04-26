@@ -1,8 +1,5 @@
 package io.rong.models.message;
 
-import io.rong.messages.BaseMessage;
-import io.rong.util.ParamNotNull;
-
 public class RecallMessage {
     /**
      * 撤回消息体

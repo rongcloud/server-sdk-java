@@ -2,7 +2,6 @@ package io.rong.models.group;
 
 import io.rong.models.Result;
 import io.rong.models.response.GroupBanInfo;
-import io.rong.models.response.GroupBanResult;
 import io.rong.util.GsonUtil;
 
 public class GroupBanModel extends Result {

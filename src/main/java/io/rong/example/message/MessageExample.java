@@ -3,6 +3,7 @@ package io.rong.example.message;
 import io.rong.RongCloud;
 import io.rong.messages.CustomTxtMessage;
 import io.rong.messages.TxtMessage;
+import io.rong.messages.TypingStatusMessage;
 import io.rong.messages.UserInfo;
 import io.rong.messages.VoiceMessage;
 import io.rong.methods.message._private.Private;
@@ -53,7 +54,7 @@ public class MessageExample {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
         //自定义 api 地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+//        RongCloud rongCloud = RongCloud.getInstance("appKey", "appSecret", api);
 
         Private Private = rongCloud.message.msgPrivate;
         MsgSystem system = rongCloud.message.system;
@@ -172,6 +173,37 @@ public class MessageExample {
         ResponseResult recallPrivateResult = (ResponseResult)Private.recall(recallMessage);
         System.out.println("recall private:  " + recallPrivateResult.toString());
 
+        
+        /**
+         * API 文档: https://docs.rongcloud.cn/im/server/message/#statusmessage_private
+         * 
+         * 发送单聊状态消息
+         */
+        PrivateStatusMessage statusMessage = new PrivateStatusMessage()
+        		.setSenderId("IotBnm9K4")
+        		.setTargetId(new String[]{"jf8yVWgZO"})
+        		.setObjectName(txtMessage.getType())
+        		.setContent(txtMessage);
+        ResponseResult statusMessageResult = Private.sendStatusMessage(statusMessage);
+        System.out.println("private status message result:  " + statusMessageResult.toString());
+        
+        
+		/**
+		 * API 文档: https://www.rongcloud.cn/docs/message_architecture.html#typing_status_message
+		 * 
+		 * 单聊-发送正在输入状态消息
+		 * 
+		 * 正在输入状态消息只支持单聊文本消息，不支持其他消息类型(包括自定义消息)
+		 */
+		TypingStatusMessage typpingStatusMessage = new TypingStatusMessage();
+		PrivateMessage privateMsg = new PrivateMessage()
+				.setSenderId("BzUPcKM2B")
+				.setTargetId(new String[] { "jf8yVWgZO" })
+				.setObjectName(typpingStatusMessage.getType())
+				.setContent(typpingStatusMessage);
+		ResponseResult statusResult = Private.sendTypingStatusMessage(privateMsg);
+		System.out.println("send private message:  " + statusResult.toString());
+		
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#send
          *
@@ -252,6 +284,21 @@ public class MessageExample {
 
         System.out.println("group mention result:  " + mentionResult.toString());
 
+        /**
+         * 发送群组状态消息
+         * 
+         * API 文档: https://docs.rongcloud.cn/im/server/message/#_6
+         */
+        GroupStatusMessage groupStatusMessage = new GroupStatusMessage();
+        groupStatusMessage.setSenderId("BzUPcKM2B")
+        .setGroupId(new String[] {"ckHduTB4f"})
+        .setContent(txtMessage)
+        .setObjectName(txtMessage.getType())
+        .setVerifyBlacklist(0)
+        .setIsIncludeSender(1);
+        ResponseResult groupStatusResult = group.sendStatusMessage(groupStatusMessage);
+        System.out.println("group status message result:  " + groupStatusResult.toString());
+        
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/discussion.html#send
          *

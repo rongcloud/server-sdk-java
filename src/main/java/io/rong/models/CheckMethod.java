@@ -37,6 +37,8 @@ public class CheckMethod {
     public static final String PUBLISH = "send";
     public static final String SEND_MENTION = "sendMention";
     public static final String SENDTEMPLATE = "sendTemplate";
+    public static final String SENDSTATUS = "sendStatus";
+    public static final String SENDGROUPSTATUS = "sendGroupStatus";
     public static final String PUBLISHTEMPLATE = "sendTemplate";
     public static final String BROADCAST = "broadcast";
     public static final String SET_USER_TAG = "setUserTag";

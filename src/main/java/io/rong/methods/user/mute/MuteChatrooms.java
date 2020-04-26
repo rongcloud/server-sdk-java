@@ -73,7 +73,7 @@ public class MuteChatrooms {
      **/
     public ListGagChatroomUserResult getList() throws Exception {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/ban/query.json", "application/x-www-form-urlencoded");
-
+        HttpUtil.setBodyParameter("", conn);
         return (ListGagChatroomUserResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), ListGagChatroomUserResult.class);
     }
 

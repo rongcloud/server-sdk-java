@@ -7,12 +7,15 @@ import io.rong.models.message.MentionMessage;
 import io.rong.models.message.RecallMessage;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.message.GroupMessage;
+import io.rong.models.message.GroupStatusMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+
+import org.apache.commons.lang3.StringUtils;
 /**
  * 发送群组消息方法
  *
@@ -269,4 +272,48 @@ public class Group {
 
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.RECALL,HttpUtil.returnResult(conn)), ResponseResult.class);
     }
+    
+    /**
+	 * 发送单聊状态消息
+	 * 
+	 * @param message
+	 * @return
+	 * @throws Exception
+	 */
+	public ResponseResult sendStatusMessage(GroupStatusMessage message) throws Exception{
+		String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.SENDGROUPSTATUS);
+		if (null != errMsg) {
+			return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+	    sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId(), UTF8));
+	    
+	    for (int i = 0 ; i< message.getGroupId().length; i++) {
+			String child  = message.getGroupId()[i];
+			if(null != child){
+				sb.append("&toGroupId=").append(URLEncoder.encode(child, UTF8));
+			}
+		}
+	    
+		if (!StringUtils.isBlank(message.getObjectName())) {
+			sb.append("&objectName=").append(URLEncoder.encode(message.getObjectName(), UTF8));
+		} else {
+			sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
+		}
+	    
+   	    sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
+   	    sb.append("&verifyBlacklist=").append(URLEncoder.encode(String.valueOf(message.getVerifyBlacklist()), UTF8));
+   	    sb.append("&isIncludeSender=").append(URLEncoder.encode(String.valueOf(message.getIsIncludeSender()), UTF8));
+   	    
+		String body = sb.toString();
+		if (body.indexOf("&") == 0) {
+			body = body.substring(1, body.length());
+		}
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/statusmessage/group/publish.json", "application/x-www-form-urlencoded");
+	    HttpUtil.setBodyParameter(body, conn);
+	    
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDGROUPSTATUS, HttpUtil.returnResult(conn)), ResponseResult.class);
+	}
 }

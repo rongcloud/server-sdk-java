@@ -1,9 +1,7 @@
 package io.rong.methods.chatroom.ban;
 
 import io.rong.RongCloud;
-import io.rong.exception.ParamException;
 import io.rong.models.CheckMethod;
-import io.rong.models.CommonConstrants;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.ListGagChatroomUserResult;
@@ -73,10 +71,10 @@ public class Ban {
      * @return ListGagChatroomUserResult
      **/
     public ListGagChatroomUserResult getList() throws Exception {
-        StringBuilder sb = new StringBuilder();
+//        StringBuilder sb = new StringBuilder();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/user/ban/query.json", "application/x-www-form-urlencoded");
-
+		HttpUtil.setBodyParameter("", conn);
         return (ListGagChatroomUserResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), ListGagChatroomUserResult.class);
     }
 

@@ -93,7 +93,7 @@ public class Keepalive {
      **/
     public ChatroomKeepaliveResult getList() throws Exception {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/keepalive/query.json", "application/x-www-form-urlencoded");
-
+        HttpUtil.setBodyParameter("", conn);
         return (ChatroomKeepaliveResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), ChatroomKeepaliveResult.class);
     }
 }

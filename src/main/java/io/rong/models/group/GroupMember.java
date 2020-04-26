@@ -1,6 +1,5 @@
 package io.rong.models.group;
 
-import io.rong.models.chatroom.ChatroomMember;
 import io.rong.util.GsonUtil;
 
 /**

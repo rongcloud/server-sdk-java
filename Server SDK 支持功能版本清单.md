@@ -34,7 +34,7 @@ Server SDK 功能支持的版本清单
 |  | chatroom.recall | 撤回聊天室消息 | 3.0.7 |
 |  | chatroom.broadcast| 发送聊天室广播消息 | 3.0.1 |
 |  | group.send | 发送群组消息 | 3.0.1 |
-|  | group.sendMention | 发送群组 @ 消息 | 3.0.1 |
+|  | group.sendMention | 发送群组 @ 消息 | 3.1.6 |
 |  | group.recall | 撤回群组消息 | 3.0.1 |
 |  | system.send | 发送系统消息 | 3.0.1 |
 |  | system.sendTemplate | 发送系统模板消息 | 3.0.1 |

@@ -99,6 +99,7 @@ public class Messages {
     public ChatroomWhitelistMsgResult getList() throws Exception {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/chatroom/whitelist/query.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter("", conn);
         return (ChatroomWhitelistMsgResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), ChatroomWhitelistMsgResult.class);
     }
 }
