@@ -61,10 +61,10 @@ public class Conversation {
             body = body.substring(1, body.length());
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/conversation/notification/set.json", "application/x-www-form-urlencoded");
-        HttpUtil.setBodyParameter(body, conn);
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/conversation/notification/set.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.MUTE,HttpUtil.returnResult(conn)), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.MUTE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
@@ -89,10 +89,10 @@ public class Conversation {
             body = body.substring(1, body.length());
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/conversation/notification/set.json", "application/x-www-form-urlencoded");
-        HttpUtil.setBodyParameter(body, conn);
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/conversation/notification/set.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.UNMUTE,HttpUtil.returnResult(conn)), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.UNMUTE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
     /**
      * 查询会话消息免打扰方法。
@@ -113,9 +113,9 @@ public class Conversation {
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
         }
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/conversation/notification/get.json", "application/x-www-form-urlencoded");
-        HttpUtil.setBodyParameter(body, conn);
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/conversation/notification/get.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ConversationNotificationResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), ConversationNotificationResult.class);
+        return (ConversationNotificationResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn, rongCloud.getConfig())), ConversationNotificationResult.class);
     }
 }

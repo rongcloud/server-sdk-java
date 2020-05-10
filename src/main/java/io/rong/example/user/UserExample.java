@@ -5,8 +5,6 @@ import io.rong.methods.user.User;
 import io.rong.models.*;
 import io.rong.models.response.*;
 import io.rong.models.user.UserModel;
-import io.rong.util.BaiduHttpDNSUtil;
-import io.rong.util.HostType;
 import java.util.List;
 
 /**

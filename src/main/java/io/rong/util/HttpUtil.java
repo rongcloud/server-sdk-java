@@ -1,7 +1,7 @@
 package io.rong.util;
 
+import io.rong.RongCloudConfig;
 import io.rong.models.response.ResponseResult;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.net.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -31,7 +30,6 @@ public class HttpUtil {
     private static final String NONCE = "Nonce";
     private static final String TIMESTAMP = "Timestamp";
     private static final String SIGNATURE = "Signature";
-    public static AtomicInteger timeoutNum = new AtomicInteger();
     private static SSLContext sslCtx = null;
 
     static {
@@ -80,20 +78,20 @@ public class HttpUtil {
     }
 
     // 设置body体
-    public static void setBodyParameter(String str, HttpURLConnection conn) throws IOException {
+    public static void setBodyParameter(String str, HttpURLConnection conn, RongCloudConfig config) throws IOException {
         DataOutputStream out = null;
         try {
             out = new DataOutputStream(conn.getOutputStream());
             out.write(str.getBytes("utf-8"));
             out.flush();
         } catch (UnknownHostException e) {
-            timeoutNum.incrementAndGet();
+            config.errorCounter.incrementAndGet();
             e.printStackTrace();
         } catch (SocketTimeoutException e) {
-            timeoutNum.incrementAndGet();
+        	config.errorCounter.incrementAndGet();
             e.printStackTrace();
         } catch (IOException e) {
-            timeoutNum.incrementAndGet();
+        	config.errorCounter.incrementAndGet();
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,26 +104,26 @@ public class HttpUtil {
 
     }
 
-    public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret,
+    public static HttpURLConnection CreatePostHttpConnection(RongCloudConfig config, String appKey, String appSecret,
         String uri) throws MalformedURLException, IOException, ProtocolException {
-        return CreatePostHttpConnection(hostType, appKey, appSecret, uri, "application/x-www-form-urlencoded");
+        return CreatePostHttpConnection(config, appKey, appSecret, uri, "application/x-www-form-urlencoded");
     }
 
-    public static HttpURLConnection CreatePostHttpConnection(HostType hostType, String appKey, String appSecret,
+    public static HttpURLConnection CreatePostHttpConnection(RongCloudConfig config, String appKey, String appSecret,
         String uri,
         String contentType) throws MalformedURLException, IOException, ProtocolException {
         String nonce = String.valueOf(Math.random() * 1000000);
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         StringBuilder toSign = new StringBuilder(appSecret).append(nonce).append(timestamp);
         String sign = CodeUtil.hexSHA1(toSign.toString());
-        HttpURLConnection conn = getHttpURLConnection(hostType, uri);
+        HttpURLConnection conn = getHttpURLConnection(config, uri);
         conn.setUseCaches(false);
         conn.setDoInput(true);
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
         conn.setInstanceFollowRedirects(true);
-        conn.setConnectTimeout(hostType.getConnectTimeout());
-        conn.setReadTimeout(hostType.getReadTimeout());
+        conn.setConnectTimeout(config.httpConnectTimeout);
+        conn.setReadTimeout(config.httpReadTimeout);
 
         conn.setRequestProperty(APPKEY, appKey);
         conn.setRequestProperty(NONCE, nonce);
@@ -137,21 +135,10 @@ public class HttpUtil {
         return conn;
     }
 
-    public static HttpURLConnection getHttpURLConnection(HostType hostType, String uri)
+    public static HttpURLConnection getHttpURLConnection(RongCloudConfig config, String uri)
         throws IOException {
-        //是否配置了 IP 如果配置了，则走 Header + Host 模式
-        if (StringUtils.isEmpty(hostType.getIp())) {
-            uri = hostType.getStrType() + uri;
-            URL url = new URL(uri);
-            return (HttpURLConnection) url.openConnection();
-        } else {
-            System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
-            uri = "http://" + hostType.getIp() + uri;
-            URL url = new URL(uri);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("Host", new java.net.URL(hostType.getStrType()).getHost());
-            return conn;
-        }
+    	URL url = new URL(config.getDomain()+uri);
+    	return (HttpURLConnection) url.openConnection();
     }
 
     public static byte[] readInputStream(InputStream inStream) throws Exception {
@@ -167,7 +154,7 @@ public class HttpUtil {
         return data;
     }
 
-    public static String returnResult(HttpURLConnection conn) throws Exception {
+    public static String returnResult(HttpURLConnection conn, RongCloudConfig config) throws Exception {
         InputStream input = null;
         String result = "";
         try {
@@ -175,22 +162,22 @@ public class HttpUtil {
                 input = conn.getInputStream();
             } else {
                 if (conn.getResponseCode() == 502) {
-                    timeoutNum.incrementAndGet();
+                    config.errorCounter.incrementAndGet();
                 }
                 input = conn.getErrorStream();
             }
             result = new String(readInputStream(input), "UTF-8");
         } catch (UnknownHostException e) {
             result = getExceptionMessage("request:" + conn.getURL() + " ,UnknownHostException:" + e.getMessage());
-            timeoutNum.incrementAndGet();
+            config.errorCounter.incrementAndGet();
         } catch (SocketTimeoutException e) {
             result = getExceptionMessage("request:" + conn.getURL() + " ,SocketTimeoutException:" + e.getMessage());
-            timeoutNum.incrementAndGet();
+            config.errorCounter.incrementAndGet();
         } catch (IOException e) {
             result = getExceptionMessage("request:" + conn.getURL() + " ,IOException:" + e.getMessage());
-            timeoutNum.incrementAndGet();
+            config.errorCounter.incrementAndGet();
         } catch (Exception e) {
-            timeoutNum.incrementAndGet();
+        	config.errorCounter.incrementAndGet();
             throw e;
         }
         return result;

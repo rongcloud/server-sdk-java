@@ -51,12 +51,12 @@ public class Push {
             return (PushResult) GsonUtil.fromJson(message, PushResult.class);
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/push.json",
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/push.json",
                 "application/json");
-        HttpUtil.setBodyParameter(broadcast.toString(), conn);
+        HttpUtil.setBodyParameter(broadcast.toString(), conn, rongCloud.getConfig());
 
         return (PushResult) GsonUtil.fromJson(
-                CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn)),
+                CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig())),
                 PushResult.class);
     }
 
@@ -73,13 +73,13 @@ public class Push {
             return (PushResult) GsonUtil.fromJson(message, PushResult.class);
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/push.json",
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/push.json",
                 "application/json");
 
-        HttpUtil.setBodyParameter(push.toString(), conn);
+        HttpUtil.setBodyParameter(push.toString(), conn, rongCloud.getConfig());
 
         return (PushResult) GsonUtil.fromJson(
-                CommonUtil.getResponseByCode(PATH, CheckMethod.PUSH, HttpUtil.returnResult(conn)),
+                CommonUtil.getResponseByCode(PATH, CheckMethod.PUSH, HttpUtil.returnResult(conn, rongCloud.getConfig())),
                 PushResult.class);
     }
 

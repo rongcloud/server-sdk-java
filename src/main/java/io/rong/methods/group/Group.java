@@ -82,9 +82,9 @@ public class Group {
 	   		body = body.substring(1, body.length());
 	   	}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/create.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
-		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CREATE,HttpUtil.returnResult(conn)), ResponseResult.class);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/create.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CREATE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 
 	/**
@@ -120,10 +120,10 @@ public class Group {
 	   		body = body.substring(1, body.length());
 	   	}
 
-	   	HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/sync.json", "application/x-www-form-urlencoded");
-	   	HttpUtil.setBodyParameter(body, conn);
+	   	HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/sync.json", "application/x-www-form-urlencoded");
+	   	HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.SYNC,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.SYNC,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 
 	/**
@@ -145,9 +145,9 @@ public class Group {
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/refresh.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.UPDATE,HttpUtil.returnResult(conn)), ResponseResult.class);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/refresh.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.UPDATE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	/**
 	 * 邀请用户加入指定群组，加入后可以接收该群消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
@@ -176,10 +176,10 @@ public class Group {
 			body = body.substring(1, body.length());
 		}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.INVITE,HttpUtil.returnResult(conn)), ResponseResult.class);
+		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.INVITE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	/**
 	 * 将用户加入指定群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
@@ -208,10 +208,10 @@ public class Group {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.JOIN,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.JOIN,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	
 	/**
@@ -234,10 +234,10 @@ public class Group {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/user/query.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/user/query.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn)), GroupUserQueryResult.class);
+	    return (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn, rongCloud.getConfig())), GroupUserQueryResult.class);
 	}
 	
 	/**
@@ -266,10 +266,10 @@ public class Group {
 	   		body = body.substring(1, body.length());
 	   	}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/quit.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/quit.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.QUIT,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.QUIT,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 
 	/**
@@ -294,9 +294,9 @@ public class Group {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/group/dismiss.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/dismiss.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.DISMISS,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.DISMISS,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 }

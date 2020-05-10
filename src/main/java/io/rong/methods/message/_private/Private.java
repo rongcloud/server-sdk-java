@@ -111,10 +111,10 @@ public class Private {
 			body = body.substring(1, body.length());
 		}
 	   	System.out.println(body);
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	
 	/**
@@ -154,10 +154,10 @@ public class Private {
 		templateMessage.setContentAvailable(message.getContentAvailable());
 
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/message/private/publish_template.json", "application/json");
-	    HttpUtil.setBodyParameter(templateMessage.toString(), conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish_template.json", "application/json");
+	    HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 
 	/**
@@ -184,10 +184,10 @@ public class Private {
 		if (body.indexOf("&") == 0) {
 			body = body.substring(1, body.length());
 		}
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn)), ResponseResult.class);
+		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	 
 	/**
@@ -228,10 +228,10 @@ public class Private {
 			body = body.substring(1, body.length());
 		}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/statusmessage/private/publish.json", "application/x-www-form-urlencoded");
-	    HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/statusmessage/private/publish.json", "application/x-www-form-urlencoded");
+	    HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDSTATUS, HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDSTATUS, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	
 	/**
@@ -264,9 +264,9 @@ public class Private {
 			body = body.substring(1, body.length());
 		}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 }

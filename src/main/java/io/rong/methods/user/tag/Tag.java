@@ -53,12 +53,12 @@ public class Tag {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret,
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/user/tag/set.json", "application/json");
 
-        HttpUtil.setBodyParameter(tag.toString(), conn);
+        HttpUtil.setBodyParameter(tag.toString(), conn, rongCloud.getConfig());
         return (ResponseResult) GsonUtil.fromJson(
-                CommonUtil.getResponseByCode(PATH, CheckMethod.SET_TAG, HttpUtil.returnResult(conn)),
+                CommonUtil.getResponseByCode(PATH, CheckMethod.SET_TAG, HttpUtil.returnResult(conn, rongCloud.getConfig())),
                 ResponseResult.class);
     }
 
@@ -74,12 +74,12 @@ public class Tag {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret,
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/user/tag/batch/set.json", "application/json");
 
-        HttpUtil.setBodyParameter(batchTag.toString(), conn);
+        HttpUtil.setBodyParameter(batchTag.toString(), conn, rongCloud.getConfig());
         return (ResponseResult) GsonUtil.fromJson(
-                CommonUtil.getResponseByCode(PATH, CheckMethod.BATCH_SET_TAG, HttpUtil.returnResult(conn)),
+                CommonUtil.getResponseByCode(PATH, CheckMethod.BATCH_SET_TAG, HttpUtil.returnResult(conn, rongCloud.getConfig())),
                 ResponseResult.class);
     }
 
@@ -107,12 +107,12 @@ public class Tag {
             sb.deleteCharAt(0);
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret,
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/user/tags/get.json", "application/x-www-form-urlencoded");
 
-        HttpUtil.setBodyParameter(sb.toString(), conn);
+        HttpUtil.setBodyParameter(sb.toString(), conn, rongCloud.getConfig());
         return (GetTagResult) GsonUtil.fromJson(
-                CommonUtil.getResponseByCode(PATH, CheckMethod.GET_TAG, HttpUtil.returnResult(conn)),
+                CommonUtil.getResponseByCode(PATH, CheckMethod.GET_TAG, HttpUtil.returnResult(conn, rongCloud.getConfig())),
                 GetTagResult.class);
     }
 

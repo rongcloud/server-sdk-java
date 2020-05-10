@@ -7,6 +7,7 @@
  */
 package io.rong;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,9 +19,6 @@ import io.rong.methods.sensitive.SensitiveWord;
 import io.rong.methods.sensitive.Wordfilter;
 import io.rong.methods.user.User;
 import io.rong.methods.push.Push;
-import io.rong.util.HostType;
-import io.rong.util.HttpUtil;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RongCloud {
 
@@ -34,44 +32,13 @@ public class RongCloud {
 	public Chatroom chatroom;
 	public Conversation conversation;
 	public Push push;
-	private HostType apiHostType = new HostType("http://api-cn.ronghub.com");
-	private HostType smsHostType = new HostType("http://api.sms.ronghub.com");
-	private static List<HostType> apiHostListBackUp = new CopyOnWriteArrayList<HostType>();
+	public final RongCloudConfig config;
 
-	public HostType getApiHostType() {
-		if(HttpUtil.timeoutNum.get() >= 1){
-			for(HostType host : apiHostListBackUp){
-				if(!apiHostType.getStrType().equals(host.getStrType())){
-					HttpUtil.timeoutNum.set(0);
-					this.setApiHostType(host);
-					return host;
-				}
-			}
-		}
-		return apiHostType;
+	public RongCloudConfig getConfig() {
+		return this.config;
 	}
 
-	public void setApiHostType(HostType apiHostType) {
-		this.apiHostType = apiHostType;
-	}
-
-	public HostType getSmsHostType() {
-		return smsHostType;
-	}
-
-	public void setSmsHostType(HostType smsHostType) {
-		this.smsHostType = smsHostType;
-	}
-
-	public static List<HostType> getApiHostListBackUp() {
-		return apiHostListBackUp;
-	}
-
-	public static void setApiHostListBackUp(List<HostType> apiHostListBackUp) {
-		RongCloud.apiHostListBackUp = apiHostListBackUp;
-	}
-
-	private RongCloud(String appKey, String appSecret) {
+	private RongCloud(String appKey, String appSecret, RongCloudConfig config) {
 		user = new User(appKey, appSecret,this);
 		message = new Message(appKey, appSecret);
 		message.setRongCloud(this);
@@ -86,30 +53,48 @@ public class RongCloud {
 		conversation.setRongCloud(this);
 		push = new Push(appKey,appSecret);
 		push.setRongCloud(this);
+		this.config = config;
 	}
 
+	/**
+	 * 获取访问北京数据中心的实例
+	 * @param appKey
+	 * @param appSecret
+	 * @return
+	 */
 	public static RongCloud getInstance(String appKey, String appSecret) {
-		if (null == rongCloud.get(appKey)) {
-			RongCloud rong = rongCloud.putIfAbsent(appKey, new RongCloud(appKey, appSecret));
-			if (rong == null){
-				apiHostListBackUp.add(new HostType("http://api-cn.ronghub.com"));
-				apiHostListBackUp.add(new HostType("http://api2-cn.ronghub.com"));
-			}
+		return getInstance(appKey, appSecret, RongCloudConfig.DefaultConfig);
+	}
+	/**
+	 * 获取访问新加坡数据中心的实例
+	 * @param appKey
+	 * @param appSecret
+	 * @return
+	 */
+	public static RongCloud getSingaporeInstance(String appKey, String appSecret) {
+		return getInstance(appKey, appSecret, RongCloudConfig.SingaporeConfig);
+	}
+	/**
+	 * 自定义访问实例
+	 * @param appKey
+	 * @param appSecret
+	 * @param config
+	 * @return
+	 */
+	public static RongCloud getInstance(String appKey, String appSecret, RongCloudConfig config) {
+		if(null == rongCloud.get(appKey)) {
+			RongCloud rc = new RongCloud(appKey, appSecret, config);
+			rongCloud.putIfAbsent(appKey, rc);
 		}
 		return rongCloud.get(appKey);
 	}
+	
 	/**
 	 * 自定义 API 地址
 	 * */
+	@Deprecated
 	public static RongCloud getInstance(String appKey, String appSecret,String api) {
-		if (null == rongCloud.get(appKey)) {
-			RongCloud rc =  new RongCloud(appKey, appSecret);
-			if(api!=null && api.trim().length()>0){
-				rc.setApiHostType(new HostType(api));
-			}
-			rongCloud.putIfAbsent(appKey,rc );
-		}
-		return rongCloud.get(appKey);
+		return getInstance(appKey, appSecret, new RongCloudConfig(api));
 	}
 	/**
 	 * 自定义 api 支持备用域名
@@ -118,19 +103,13 @@ public class RongCloud {
 	 * @param api 主 API 地址
 	 * @param apiBackUp 备用 API 地址列表
 	 * */
+	@Deprecated
 	public static RongCloud getInstance(String appKey, String appSecret,String api,List<String> apiBackUp) {
-		if (null == rongCloud.get(appKey)) {
-			RongCloud rc =  new RongCloud(appKey, appSecret);
-			if(api!=null && api.trim().length()>0){
-				rc.setApiHostType(new HostType(api));
-				rc.apiHostListBackUp.add(new HostType(api));
-			}
-			for(String apiHost : apiBackUp){
-				rc.apiHostListBackUp.add(new HostType(apiHost));
-			}
-			rongCloud.putIfAbsent(appKey,rc );
+		if(apiBackUp==null) {
+			apiBackUp = new ArrayList<String>();
 		}
-		return rongCloud.get(appKey);
+		apiBackUp.add(api);
+		return getInstance(appKey, appSecret, new RongCloudConfig(api));
 	}
 
 }

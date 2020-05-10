@@ -60,10 +60,10 @@ public class OnlineStatus {
             body = body.substring(1, body.length());
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret,
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/user/checkOnline.json", "application/x-www-form-urlencoded");
-        HttpUtil.setBodyParameter(body, conn);
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (CheckOnlineResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CHECK,HttpUtil.returnResult(conn)), CheckOnlineResult.class);
+        return (CheckOnlineResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CHECK,HttpUtil.returnResult(conn, rongCloud.getConfig())), CheckOnlineResult.class);
     }
 }

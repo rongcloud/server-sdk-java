@@ -68,10 +68,10 @@ public class SensitiveWord {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/sensitiveword/add.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/add.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	
 	/**
@@ -92,10 +92,10 @@ public class SensitiveWord {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/sensitiveword/list.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/list.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (ListWordfilterResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn)), ListWordfilterResult.class);
+	    return (ListWordfilterResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn, rongCloud.getConfig())), ListWordfilterResult.class);
 	}
 	
 	/**
@@ -117,10 +117,10 @@ public class SensitiveWord {
 	   		body = body.substring(1, body.length());
 	   	}
 	   	
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/sensitiveword/delete.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/delete.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn)), ResponseResult.class);
+	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	/**
 	 * 批量移除敏感词方法（从敏感词列表中，移除某一敏感词。）
@@ -143,10 +143,10 @@ public class SensitiveWord {
 			body = body.substring(1, body.length());
 		}
 
-		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getApiHostType(), appKey, appSecret, "/sensitiveword/batch/delete.json", "application/x-www-form-urlencoded");
-		HttpUtil.setBodyParameter(body, conn);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/batch/delete.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.BATCH_DELETE,HttpUtil.returnResult(conn)), ResponseResult.class);
+		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.BATCH_DELETE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	 
 }
