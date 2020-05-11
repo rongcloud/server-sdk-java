@@ -96,20 +96,29 @@ public class RongCloud {
 	public static RongCloud getInstance(String appKey, String appSecret,String api) {
 		return getInstance(appKey, appSecret, new RongCloudConfig(api));
 	}
+	
 	/**
 	 * 自定义 api 支持备用域名
+	 * 
 	 * @param appKey
 	 * @param appSecret
-	 * @param api 主 API 地址
+	 * @param api       主 API 地址
 	 * @param apiBackUp 备用 API 地址列表
-	 * */
+	 */
 	@Deprecated
-	public static RongCloud getInstance(String appKey, String appSecret,String api,List<String> apiBackUp) {
-		if(apiBackUp==null) {
-			apiBackUp = new ArrayList<String>();
+	public static RongCloud getInstance(String appKey, String appSecret, String api, List<String> apiBackUp) {
+		List<String> apiList = new ArrayList<String>();
+		if (api != null) {
+			apiList.add(api);
 		}
-		apiBackUp.add(api);
-		return getInstance(appKey, appSecret, new RongCloudConfig(api));
+		if (apiBackUp != null && apiBackUp.size() > 0) {
+			for (String item : apiBackUp) {
+				if (item != null)
+					apiList.add(item);
+			}
+		}
+		return getInstance(appKey, appSecret, new RongCloudConfig(apiList));
 	}
+	
 
 }
