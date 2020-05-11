@@ -57,7 +57,7 @@ public class RongCloudConfig {
 				this.errorCounter.set(0);
 				this.index.incrementAndGet();
 			}
-			return this.apiDomains[this.index.get()%this.apiDomains.length];
+			return this.apiDomains[Math.abs(this.index.get())%this.apiDomains.length];
 		}catch(Exception e) {
 			throw new RuntimeException("Can not get Server API Domain.", e);
 		}
