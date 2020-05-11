@@ -110,7 +110,7 @@ public class Private {
 		if (body.indexOf("&") == 0) {
 			body = body.substring(1, body.length());
 		}
-	   	System.out.println(body);
+
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
