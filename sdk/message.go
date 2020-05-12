@@ -411,7 +411,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
-	req := httplib.Post(RONGCLOUDURI + "/message/private/publish." + ReqType)
+	req := httplib.Post(rc.rongCloudURI + "/message/private/publish." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
