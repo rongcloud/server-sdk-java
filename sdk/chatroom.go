@@ -4,6 +4,7 @@ package sdk
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -23,6 +24,11 @@ type ChatRoom struct {
 	Time       string `json:"time"`
 }
 
+// ChatRoomQueryResult 聊天室查询接口返回数据
+type ChatRoomQueryResult struct {
+	ChatRooms []ChatRoom `json:"chatRooms"`
+}
+
 // ChatRoomResult ChatRoom 返回结果
 type ChatRoomResult struct {
 	Total            int            `json:"total"`
@@ -39,6 +45,20 @@ type ChatRoomUser struct {
 	UserID   string `json:"userId"`
 	Time     string `json:"time"`
 	IsInChrm int    `json:"isInChrm"`
+}
+
+// ChatRoomAttr 聊天室属性自定义结构
+type ChatRoomAttr struct {
+	Key         string `json:"key"`
+	Value       string `json:"value"`
+	UserID      string `json:"userID"`
+	AutoDelete  string `json:"autoDelete"`
+	LastSetTime string `json:"lastSetTime"`
+}
+
+// ChatRoomAttrResult 聊天室属性自定义返回结果
+type ChatRoomAttrResult struct {
+	Keys []ChatRoomAttr `json:"keys"`
 }
 
 // ChatRoomCreate 创建聊天室方法
@@ -913,4 +933,156 @@ func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string) erro
 		rc.urlError(err)
 	}
 	return err
+}
+
+// ChatRoomEntrySet 设置聊天室自定义属性
+/**
+ * @param	chatRoomID	聊天室 Id
+ * @param	userID		操作用户 Id。通过 Server API 非聊天室中用户可以进行设置。
+ * @param	key			聊天室属性名称，Key 支持大小写英文字母、数字、部分特殊符号 + = - _ 的组合方式，大小写敏感。最大长度 128 字符
+ * @param	value		聊天室属性对应的值，最大长度 4096 个字符
+ * @param	autoDelete	用户退出聊天室后，是否删除此 Key 值。为 true 时删除此 Key 值，为 false 时用户退出后不删除此 Key
+ *
+ * @retrun error
+ */
+func (rc *RongCloud) ChatRoomEntrySet(chatRoomID, userID, key, value string, autoDelete bool) error {
+	if chatRoomID == "" {
+		return RCErrorNew(1002, "Paramer 'chatRoomID' is required")
+	}
+
+	if userID == "" {
+		return RCErrorNew(1002, "Paramer 'userID' is required")
+	}
+
+	if key == "" {
+		return RCErrorNew(1002, "Paramer 'key' is required")
+	}
+
+	if value == "" {
+		return RCErrorNew(1002, "Paramer 'value' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/set." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatRoomID)
+	req.Param("userId", userID)
+	req.Param("key", key)
+	req.Param("value", value)
+	req.Param("autoDelete", strconv.FormatBool(autoDelete))
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+
+	return err
+}
+
+// ChatRoomEntryRemove 删除聊天室自定义属性
+/**
+ * @param	chatRoomID	聊天室 Id
+ * @param	userID		操作用户 Id。通过 Server API 非聊天室中用户可以进行设置。
+ * @param	key			聊天室属性名称，Key 支持大小写英文字母、数字、部分特殊符号 + = - _ 的组合方式，大小写敏感。最大长度 128 字
+ *
+ * @return error
+ */
+func (rc *RongCloud) ChatRoomEntryRemove(chatRoomID, userID, key string) error {
+	if chatRoomID == "" {
+		return RCErrorNew(1002, "Paramer 'chatRoomID' is required")
+	}
+
+	if userID == "" {
+		return RCErrorNew(1002, "Paramer 'userID' is required")
+	}
+
+	if key == "" {
+		return RCErrorNew(1002, "Paramer 'key' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/remove." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatRoomID)
+	req.Param("userId", userID)
+	req.Param("key", key)
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+
+	return err
+}
+
+// ChatRoomEntryQuery 获取聊天室属性自定义
+/**
+ * @param ChatRoomID	聊天室 Id
+ * @param keys			批量获取指定聊天室中的 Key 值，最多上限为 100 个，为空时获取全部 key 值。
+ *
+ * @return []ChatRoomAttr	属性列表
+ * @return error 			错误
+ */
+func (rc *RongCloud) ChatRoomEntryQuery(chatRoomID, keys string) ([]ChatRoomAttr, error) {
+	if chatRoomID == "" {
+		return nil, RCErrorNew(1002, "Paramer 'chatRoomID' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatRoomID)
+	req.Param("keys", keys)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+		return nil, err
+	}
+
+	var data ChatRoomAttrResult
+	if err := json.Unmarshal(resp, &data); err != nil {
+		return nil, err
+	}
+
+	return data.Keys, nil
+}
+
+// ChatRoomQuery 查询聊天室基础信息
+/**
+ * @param chatRoomID	要查询的聊天室id
+ *
+ * @return []ChatRoom	聊天室信息数组
+ * @return error 		错误信息
+ *
+ */
+func (rc *RongCloud) ChatRoomQuery(chatRoomID []string) ([]ChatRoom, error) {
+	if len(chatRoomID) <= 0 {
+		return nil, RCErrorNew(1002, "Paramer 'chatRoomID' is required")
+	}
+
+	url := fmt.Sprintf(`%s/chatroom/query.%s`, rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	for _, v := range chatRoomID {
+		req.Param("chatroomId", v)
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+		return nil, err
+	}
+
+	var data ChatRoomQueryResult
+	if err := json.Unmarshal(resp, &data); err != nil {
+		return nil, err
+	}
+
+	return data.ChatRooms, nil
 }

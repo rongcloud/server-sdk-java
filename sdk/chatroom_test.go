@@ -362,3 +362,46 @@ func TestRongCloud_ChatRoomMuteMembersRemove(t *testing.T) {
 	)
 	t.Log(err)
 }
+
+func TestRongCloud_ChatRoomEntrySet(t *testing.T) {
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+
+	t.Logf("app key: %s; app secret: %s", os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+
+	if err := rc.ChatRoomEntrySet("chrm01", "abc", "aaa", "bbb", false); err != nil {
+		t.Errorf("failed to chatroom entry set. err: %v", err)
+	} else {
+		t.Log("success")
+	}
+}
+
+func TestRongCloud_ChatRoomEntryQuery(t *testing.T) {
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+
+	if data, err := rc.ChatRoomEntryQuery("chrm01", "aaa"); err != nil {
+		t.Errorf("err: %v", err)
+	} else {
+		t.Logf("data: %v", data)
+	}
+}
+
+func TestRongCloud_ChatRoomEntryRemove(t *testing.T) {
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+
+	if err := rc.ChatRoomEntryRemove("chrm01", "abc", "aaa"); err != nil {
+		t.Errorf("failed to remove chatroom entry. err: %v", err)
+	} else {
+		t.Log("success")
+	}
+}
+
+func TestRongCloud_ChatRoomQuery(t *testing.T) {
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+
+	if data, err := rc.ChatRoomQuery([]string{"chrm01"}); err != nil {
+		t.Errorf("err: %v", err)
+	} else {
+		t.Logf("data: %v", data)
+	}
+}
+
