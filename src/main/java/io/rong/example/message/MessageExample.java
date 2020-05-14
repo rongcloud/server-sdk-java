@@ -1,7 +1,10 @@
 package io.rong.example.message;
 
 import io.rong.RongCloud;
+//import io.rong.RongCloudConfig;
 import io.rong.messages.CustomTxtMessage;
+import io.rong.messages.InfoNtfMessage;
+import io.rong.messages.ReadReceiptMessage;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.TypingStatusMessage;
 import io.rong.messages.UserInfo;
@@ -15,12 +18,12 @@ import io.rong.methods.message.system.MsgSystem;
 import io.rong.models.message.*;
 import io.rong.models.response.HistoryMessageResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.util.CodeUtil;
 import io.rong.util.GsonUtil;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 
 /**
  * 消息发送示例
@@ -48,14 +51,15 @@ public class MessageExample {
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api-cn.ronghub.com";
+//    private static final String api = "http://api-cn.ronghub.com";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
         //自定义 api 地址方式
 //        RongCloud rongCloud = RongCloud.getInstance("appKey", "appSecret", api);
-
+//        RongCloud rongCloud2 = RongCloud.getInstance("appKey", "appSecret", new RongCloudConfig("api"));
+        
         Private Private = rongCloud.message.msgPrivate;
         MsgSystem system = rongCloud.message.system;
         Group group = rongCloud.message.group;
@@ -204,6 +208,31 @@ public class MessageExample {
 		ResponseResult statusResult = Private.sendTypingStatusMessage(privateMsg);
 		System.out.println("send private message:  " + statusResult.toString());
 		
+		/**
+		 * API 文档: https://docs.rongcloud.cn/im/introduction/message_structure/#InfoNtf
+		 * 发送单聊小灰条消息
+		 */
+		InfoNtfMessage infoNotify = new InfoNtfMessage("小灰条消息内容", "helloExtra");
+		PrivateMessage p = new PrivateMessage()
+				.setSenderId("BzUPcKM2B")
+				.setTargetId(new String[] { "jf8yVWgZO" })
+				.setObjectName(infoNotify.getType())
+				.setContent(infoNotify);
+		ResponseResult infoNotifyResult = Private.send(p);
+		System.out.println("send private infoNotify message:  " + infoNotifyResult.toString());
+		
+		/**
+		 * 发送单聊已读回执消息(会话类型可设置)
+		 */
+		ReadReceiptMessage receiptMessage = new ReadReceiptMessage("1589425641984", "BI24-J9K0-0007-VD72", CodeUtil.ConversationType.PRIVATE.getIntValue());
+		PrivateMessage privateReceipt = new PrivateMessage()
+				.setSenderId("BzUPcKM2B")
+				.setTargetId(new String[] { "jf8yVWgZO" })
+				.setObjectName(receiptMessage.getType())
+				.setContent(receiptMessage);
+		ResponseResult privateReceiptResult = Private.send(privateReceipt);
+		System.out.println("send private ReceiptResult message:  " + privateReceiptResult.toString());
+		
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#send
          *
@@ -299,6 +328,29 @@ public class MessageExample {
         ResponseResult groupStatusResult = group.sendStatusMessage(groupStatusMessage);
         System.out.println("group status message result:  " + groupStatusResult.toString());
         
+        /**
+         * 发送群聊小灰条消息（所有人）
+         */
+        GroupMessage groupMessage2 = new GroupMessage()
+                .setSenderId("BzUPcKM2B")
+                .setTargetId(targetIds)
+                .setObjectName(infoNotify.getType())
+                .setContent(infoNotify);
+        ResponseResult groupinfoNotifyResult = group.send(groupMessage2);
+        System.out.println("group info Notify message result:  " + groupinfoNotifyResult.toString());
+        
+		/**
+		 * 发送群聊小灰条消息-定向用户(单次请求最多 1000 人）
+		 */
+        String[] userIds = {"2651280140445094444", "2651280140445094445"};
+        GroupMessage groupMessage3 = new GroupMessage()
+                .setSenderId("BzUPcKM2B")
+                .setTargetId(targetIds)// 群Id
+                .setToUserId(userIds)// 群里的用户Id
+                .setObjectName(infoNotify.getType())
+                .setContent(infoNotify);
+		group.sendDirection(groupMessage3);
+		
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/discussion.html#send
          *

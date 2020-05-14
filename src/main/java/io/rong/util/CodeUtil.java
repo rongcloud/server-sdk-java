@@ -9,29 +9,34 @@ public class CodeUtil {
 	/**
 	 * 会话类型
 	 */
-	public static enum ConversationType{
-		//二人会话
+	public static enum ConversationType {
+		// 二人会话
 		PRIVATE("1"),
-		//讨论组会话
+		// 讨论组会话
 		DISCUSSION("2"),
-		//群组会话
+		// 群组会话
 		GROUP("3"),
-		//系统通知
+		// 系统通知
 		SYSTEM("6"),
-		//客服会话
+		// 客服会话
 		KF("5"),
-		//应用公众服务
+		// 应用公众服务
 		MC("7"),
-		//公众服务
+		// 公众服务
 		MP("8");
 
-
 		private String name;
-		private ConversationType(String name){
+
+		private ConversationType(String name) {
 			this.name = name;
 		}
-		public String getName(){
-			return  this.name;
+
+		public String getName() {
+			return this.name;
+		}
+
+		public int getIntValue() {
+			return Integer.parseInt(this.name);
 		}
 	}
 
@@ -45,13 +50,13 @@ public class CodeUtil {
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
 	public static String byteToHexString(byte[] bytes) {
 		return String.valueOf(Hex.encodeHex(bytes));
 	}
 
-	public static enum ServiceType{
-		chatRoom(1),group(2),message(3),push(4),sensitiveword(5),sms(6),user(7),worefilter(8);
+	public static enum ServiceType {
+		chatRoom(1), group(2), message(3), push(4), sensitiveword(5), sms(6), user(7), worefilter(8);
 
 		private int resultCode;
 
@@ -68,8 +73,8 @@ public class CodeUtil {
 		}
 	}
 
-	public static enum ErrorType{
-		chatRoom(1),group(2),message(3),push(4),sensitiveword(5),sms(6),user(7),worefilter(8);
+	public static enum ErrorType {
+		chatRoom(1), group(2), message(3), push(4), sensitiveword(5), sms(6), user(7), worefilter(8);
 
 		private int resultCode;
 
@@ -80,7 +85,6 @@ public class CodeUtil {
 		public int getResultCode() {
 			return this.resultCode;
 		}
-
 	}
 
 }
