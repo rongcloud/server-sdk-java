@@ -9,184 +9,184 @@
 package sdk
 
 import (
-    "encoding/json"
-    "strconv"
-    "time"
+	"encoding/json"
+	"strconv"
+	"time"
 
-    "github.com/astaxie/beego/httplib"
+	"github.com/astaxie/beego/httplib"
 )
 
 // rcMsg rcMsg接口
 type rcMsg interface {
-    ToString() (string, error)
+	ToString() (string, error)
 }
 
 // MsgUserInfo 融云内置消息用户信息
 type MsgUserInfo struct {
-    ID    string `json:"id"`
-    Name  string `json:"name"`
-    Icon  string `json:"icon"`
-    Extra string `json:"extra"`
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Icon  string `json:"icon"`
+	Extra string `json:"extra"`
 }
 
 // TXTMsg 消息
 type TXTMsg struct {
-    Content string      `json:"content"`
-    User    MsgUserInfo `json:"user"`
-    Extra   string      `json:"extra"`
+	Content string      `json:"content"`
+	User    MsgUserInfo `json:"user"`
+	Extra   string      `json:"extra"`
 }
 
 // ImgMsg 消息
 type ImgMsg struct {
-    Content  string      `json:"content"`
-    User     MsgUserInfo `json:"user"`
-    ImageURI string      `json:"imageUri"`
-    Extra    string      `json:"extra"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	ImageURI string      `json:"imageUri"`
+	Extra    string      `json:"extra"`
 }
 
 // InfoNtf 消息
 type InfoNtf struct {
-    Message string      `json:"message"`
-    User    MsgUserInfo `json:"user"`
-    Extra   string      `json:"extra"`
+	Message string      `json:"message"`
+	User    MsgUserInfo `json:"user"`
+	Extra   string      `json:"extra"`
 }
 
 // VCMsg 消息
 type VCMsg struct {
-    Content  string      `json:"content"`
-    User     MsgUserInfo `json:"user"`
-    Extra    string      `json:"extra"`
-    Duration string      `json:"duration"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	Extra    string      `json:"extra"`
+	Duration interface{} `json:"duration"`
 }
 
 // IMGTextMsg 消息
 type IMGTextMsg struct {
-    Title    string      `json:"title"`
-    Content  string      `json:"content"`
-    User     MsgUserInfo `json:"user"`
-    Extra    string      `json:"extra"`
-    Duration string      `json:"duration"`
-    URL      string      `json:"url"`
+	Title    string      `json:"title"`
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	Extra    string      `json:"extra"`
+	Duration interface{} `json:"duration"`
+	URL      string      `json:"url"`
 }
 
 // FileMsg 消息
 type FileMsg struct {
-    Name    string      `json:"name"`
-    Size    string      `json:"size"`
-    Type    string      `json:"type"`
-    FileURL string      `json:"fileUrl"`
-    User    MsgUserInfo `json:"user"`
+	Name    string      `json:"name"`
+	Size    string      `json:"size"`
+	Type    string      `json:"type"`
+	FileURL string      `json:"fileUrl"`
+	User    MsgUserInfo `json:"user"`
 }
 
 // LBSMsg 消息
 type LBSMsg struct {
-    Content   string      `json:"content"`
-    Extra     string      `json:"extra"`
-    POI       string      `json:"poi"`
-    Latitude  float64     `json:"latitude"`
-    Longitude float64     `json:"longitude"`
-    User      MsgUserInfo `json:"user"`
+	Content   string      `json:"content"`
+	Extra     string      `json:"extra"`
+	POI       string      `json:"poi"`
+	Latitude  float64     `json:"latitude"`
+	Longitude float64     `json:"longitude"`
+	User      MsgUserInfo `json:"user"`
 }
 
 // ProfileNtf 消息
 type ProfileNtf struct {
-    Operation string      `json:"operation"`
-    Data      string      `json:"data"`
-    User      MsgUserInfo `json:"user"`
-    Extra     string      `json:"extra"`
+	Operation string      `json:"operation"`
+	Data      string      `json:"data"`
+	User      MsgUserInfo `json:"user"`
+	Extra     string      `json:"extra"`
 }
 
 // CMDNtf 消息
 type CMDNtf struct {
-    Name string      `json:"operation"`
-    Data string      `json:"data"`
-    User MsgUserInfo `json:"user"`
+	Name string      `json:"operation"`
+	Data string      `json:"data"`
+	User MsgUserInfo `json:"user"`
 }
 
 // CMDMsg 消息
 type CMDMsg struct {
-    Name string      `json:"operation"`
-    Data string      `json:"data"`
-    User MsgUserInfo `json:"user"`
+	Name string      `json:"operation"`
+	Data string      `json:"data"`
+	User MsgUserInfo `json:"user"`
 }
 
 // ContactNtf 消息
 type ContactNtf struct {
-    Operation    string      `json:"operation"`
-    SourceUserID string      `json:"sourceUserId"`
-    TargetUserID string      `json:"targetUserId"`
-    Message      string      `json:"message"`
-    Extra        string      `json:"extra"`
-    User         MsgUserInfo `json:"user"`
+	Operation    string      `json:"operation"`
+	SourceUserID string      `json:"sourceUserId"`
+	TargetUserID string      `json:"targetUserId"`
+	Message      string      `json:"message"`
+	Extra        string      `json:"extra"`
+	User         MsgUserInfo `json:"user"`
 }
 
 // GrpNtf 消息
 type GrpNtf struct {
-    OperatorUserID string      `json:"operatorUserId"`
-    Operation      string      `json:"operation"`
-    Data           string      `json:"data"`
-    Message        string      `json:"message"`
-    Extra          string      `json:"extra"`
-    User           MsgUserInfo `json:"user"`
+	OperatorUserID string      `json:"operatorUserId"`
+	Operation      string      `json:"operation"`
+	Data           string      `json:"data"`
+	Message        string      `json:"message"`
+	Extra          string      `json:"extra"`
+	User           MsgUserInfo `json:"user"`
 }
 
 // DizNtf 消息
 type DizNtf struct {
-    Type      int         `json:"type"`
-    Extension string      `json:"extension"`
-    Operation string      `json:"operation"`
-    User      MsgUserInfo `json:"user"`
+	Type      int         `json:"type"`
+	Extension string      `json:"extension"`
+	Operation string      `json:"operation"`
+	User      MsgUserInfo `json:"user"`
 }
 
 // TemplateMsgContent 消息模版
 type TemplateMsgContent struct {
-    TargetID    string
-    Data        map[string]string
-    PushContent string
+	TargetID    string
+	Data        map[string]string
+	PushContent string
 }
 
 // MentionedInfo Mentioned
 type MentionedInfo struct {
-    Type        int      `json:"type"`
-    UserIDs     []string `json:"userIdList"`
-    PushContent string   `json:"mentionedContent"`
+	Type        int      `json:"type"`
+	UserIDs     []string `json:"userIdList"`
+	PushContent string   `json:"mentionedContent"`
 }
 
 // MentionMsgContent MentionMsgContent
 type MentionMsgContent struct {
-    Content       string        `json:"content"`
-    MentionedInfo MentionedInfo `json:"mentionedinfo"`
+	Content       string        `json:"content"`
+	MentionedInfo MentionedInfo `json:"mentionedinfo"`
 }
 
 // History History
 type History struct {
-    URL string `json:"url"`
+	URL string `json:"url"`
 }
 
 // BroadcastRecallContent content of message broadcast recall
 type BroadcastRecallContent struct {
-    MessageId        string `json:"messageUId"`
-    ConversationType int    `json:"conversationType"`
-    IsAdmin          int    `json:"isAdmin"`
-    IsDelete         int    `json:"isDelete"`
+	MessageId        string `json:"messageUId"`
+	ConversationType int    `json:"conversationType"`
+	IsAdmin          int    `json:"isAdmin"`
+	IsDelete         int    `json:"isDelete"`
 }
 
 // ChatRoomKVNotiMessage 聊天室属性通知消息
 type ChatRoomKVNotiMessage struct {
-    Type  int    `json:"type"`
-    Key   string `json:"string"`
-    Value string `json:"string"`
-    Extra string `json:"string"`
+	Type  int    `json:"type"`
+	Key   string `json:"string"`
+	Value string `json:"string"`
+	Extra string `json:"string"`
 }
 
 // ToString ChatRoomKVNotiMessage
 func (msg *ChatRoomKVNotiMessage) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
 
-    return string(bytes), nil
+	return string(bytes), nil
 }
 
 /**
@@ -197,129 +197,129 @@ func (msg *ChatRoomKVNotiMessage) ToString() (string, error) {
  * @return: string error
  */
 func (content *BroadcastRecallContent) ToString() (string, error) {
-    bytes, err := json.Marshal(content)
-    if err != nil {
-        return "", err
-    }
+	bytes, err := json.Marshal(content)
+	if err != nil {
+		return "", err
+	}
 
-    return string(bytes), nil
+	return string(bytes), nil
 }
 
 // ToString TXTMsg
 func (msg *TXTMsg) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString ImgMsg
 func (msg *ImgMsg) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString InfoNtf
 func (msg *InfoNtf) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString VCMsg
 func (msg *VCMsg) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString IMGTextMsg
 func (msg *IMGTextMsg) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString FileMsg
 func (msg *FileMsg) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString LBSMsg
 func (msg *LBSMsg) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString ProfileNtf
 func (msg *ProfileNtf) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString CMDNtf
 func (msg *CMDNtf) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString CMDMsg
 func (msg *CMDMsg) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString ContactNtf
 func (msg *ContactNtf) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString GrpNtf
 func (msg *GrpNtf) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // ToString DizNtf
 func (msg *DizNtf) ToString() (string, error) {
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return "", err
-    }
-    return string(bytes), nil
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 /**
@@ -332,31 +332,31 @@ func (msg *DizNtf) ToString() (string, error) {
  * @return: error
  */
 func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, content BroadcastRecallContent) error {
-    if userId == "" {
-        return RCErrorNew(1002, "Paramer 'userId' is required")
-    }
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
 
-    if objectName == "" {
-        return RCErrorNew(1002, "Paramer 'objectName' is required")
-    }
+	if objectName == "" {
+		return RCErrorNew(1002, "Paramer 'objectName' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", userId)
-    req.Param("objectName", objectName)
+	req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", userId)
+	req.Param("objectName", objectName)
 
-    msg, err := content.ToString()
-    if err != nil {
-        return err
-    }
-    req.Param("content", msg)
+	msg, err := content.ToString()
+	if err != nil {
+		return err
+	}
+	req.Param("content", msg)
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 /**
@@ -370,37 +370,37 @@ func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, co
  * @return: error
  */
 func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId string, sentTime int) error {
-    if userId == "" {
-        return RCErrorNew(1002, "Paramer 'userId' is required")
-    }
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
 
-    if targetId == "" {
-        return RCErrorNew(1002, "Paramer 'targetId' is required")
-    }
+	if targetId == "" {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
 
-    if messageId == "" {
-        return RCErrorNew(1002, "Paramer 'messageId' is required")
-    }
+	if messageId == "" {
+		return RCErrorNew(1002, "Paramer 'messageId' is required")
+	}
 
-    if sentTime == 0 {
-        return RCErrorNew(1002, "Paramer 'sentTime' is required")
-    }
+	if sentTime == 0 {
+		return RCErrorNew(1002, "Paramer 'sentTime' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
-    req.Param("fromUserId", userId)
-    req.Param("conversationType", strconv.Itoa(4))
-    req.Param("targetId", targetId)
-    req.Param("messageUID", messageId)
-    req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("fromUserId", userId)
+	req.Param("conversationType", strconv.Itoa(4))
+	req.Param("targetId", targetId)
+	req.Param("messageUID", messageId)
+	req.Param("sentTime", strconv.Itoa(sentTime))
 
-    _, err := rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // PrivateSend 发送单聊消息方法（一个用户向多个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
@@ -469,28 +469,28 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 *@return error
  */
 func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    if targetID == "" {
-        return RCErrorNew(1002, "Paramer 'targetID' is required")
-    }
+	if targetID == "" {
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    req.Param("targetId", targetID)
-    req.Param("messageUID", uID)
-    req.Param("sentTime", strconv.Itoa(sentTime))
-    req.Param("conversationType", strconv.Itoa(1))
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("targetId", targetID)
+	req.Param("messageUID", uID)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("conversationType", strconv.Itoa(1))
 
-    _, err := rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // PrivateSendTemplate 向多个用户发送不同内容消息
@@ -503,49 +503,49 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
  *@return error
  */
 func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/private/publish_template." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
+	req := httplib.Post(rc.rongCloudURI + "/message/private/publish_template." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
-    var toUserIDs, push []string
-    var values []map[string]string
+	var toUserIDs, push []string
+	var values []map[string]string
 
-    for _, v := range content {
-        if v.TargetID == "" {
-            return RCErrorNew(1002, "Paramer 'TargetID' is required")
-        }
-        toUserIDs = append(toUserIDs, v.TargetID)
-        values = append(values, v.Data)
-        push = append(push, v.PushContent)
-    }
+	for _, v := range content {
+		if v.TargetID == "" {
+			return RCErrorNew(1002, "Paramer 'TargetID' is required")
+		}
+		toUserIDs = append(toUserIDs, v.TargetID)
+		values = append(values, v.Data)
+		push = append(push, v.PushContent)
+	}
 
-    bytes, err := json.Marshal(template)
-    if err != nil {
-        return err
-    }
+	bytes, err := json.Marshal(template)
+	if err != nil {
+		return err
+	}
 
-    param := map[string]interface{}{}
-    param["fromUserId"] = senderID
-    param["objectName"] = objectName
-    param["content"] = string(bytes)
-    param["toUserId"] = toUserIDs
-    param["values"] = values
-    param["pushContent"] = push
-    param["verifyBlacklist"] = 0
-    req, err = req.JSONBody(param)
-    if err != nil {
-        return err
-    }
+	param := map[string]interface{}{}
+	param["fromUserId"] = senderID
+	param["objectName"] = objectName
+	param["content"] = string(bytes)
+	param["toUserId"] = toUserIDs
+	param["values"] = values
+	param["pushContent"] = push
+	param["verifyBlacklist"] = 0
+	req, err = req.JSONBody(param)
+	if err != nil {
+		return err
+	}
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // GroupSend 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
@@ -563,44 +563,44 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *@return error
  */
 func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
-    pushContent string, pushData string, isPersisted, isIncludeSender int) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	pushContent string, pushData string, isPersisted, isIncludeSender int) error {
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    if len(targetID) == 0 {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if len(targetID) == 0 {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    for _, v := range targetID {
-        req.Param("toGroupId", v)
-    }
-    req.Param("objectName", objectName)
-    msgr, err := msg.ToString()
-    if err != nil {
-        rc.urlError(err)
-        return err
-    }
-    req.Param("content", msgr)
-    req.Param("pushContent", pushContent)
-    req.Param("pushData", pushData)
-    req.Param("isPersisted", strconv.Itoa(isPersisted))
-    req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
-    if len(userID) > 0 {
-        for _, v := range userID {
-            req.Param("toUserId", v)
-        }
-    }
+	req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	for _, v := range targetID {
+		req.Param("toGroupId", v)
+	}
+	req.Param("objectName", objectName)
+	msgr, err := msg.ToString()
+	if err != nil {
+		rc.urlError(err)
+		return err
+	}
+	req.Param("content", msgr)
+	req.Param("pushContent", pushContent)
+	req.Param("pushData", pushData)
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	if len(userID) > 0 {
+		for _, v := range userID {
+			req.Param("toUserId", v)
+		}
+	}
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // GroupRecall 撤回群聊消息
@@ -613,28 +613,28 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 *@return error
  */
 func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    if targetID == "" {
-        return RCErrorNew(1002, "Paramer 'targetID' is required")
-    }
+	if targetID == "" {
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    req.Param("targetId", targetID)
-    req.Param("messageUID", uID)
-    req.Param("sentTime", strconv.Itoa(sentTime))
-    req.Param("conversationType", strconv.Itoa(3))
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("targetId", targetID)
+	req.Param("messageUID", uID)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("conversationType", strconv.Itoa(3))
 
-    _, err := rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // GroupSendMention 发送群组 @ 消息
@@ -653,41 +653,41 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 *@return error
  */
 func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
-    pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int) error {
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    if len(targetID) == 0 && len(targetID) > 3 {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if len(targetID) == 0 && len(targetID) > 3 {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    for _, v := range targetID {
-        req.Param("toGroupId", v)
-    }
-    req.Param("objectName", objectName)
+	req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	for _, v := range targetID {
+		req.Param("toGroupId", v)
+	}
+	req.Param("objectName", objectName)
 
-    bytes, err := json.Marshal(msg)
-    if err != nil {
-        return err
-    }
-    req.Param("content", string(bytes))
-    req.Param("pushContent", pushContent)
-    req.Param("pushData", pushData)
-    req.Param("isPersisted", strconv.Itoa(isPersisted))
-    req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
-    req.Param("isMentioned", strconv.Itoa(isMentioned))
-    req.Param("contentAvailable", strconv.Itoa(contentAvailable))
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return err
+	}
+	req.Param("content", string(bytes))
+	req.Param("pushContent", pushContent)
+	req.Param("pushData", pushData)
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	req.Param("isMentioned", strconv.Itoa(isMentioned))
+	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // ChatRoomSend 发送聊天室消息方法。（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
@@ -700,33 +700,33 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 *@return error
  */
 func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    if len(targetID) == 0 {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if len(targetID) == 0 {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/chatroom/publish." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    for _, v := range targetID {
-        req.Param("toChatroomId", v)
-    }
-    req.Param("objectName", objectName)
-    msgr, err := msg.ToString()
-    if err != nil {
-        return err
-    }
-    req.Param("content", msgr)
+	req := httplib.Post(rc.rongCloudURI + "/message/chatroom/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	for _, v := range targetID {
+		req.Param("toChatroomId", v)
+	}
+	req.Param("objectName", objectName)
+	msgr, err := msg.ToString()
+	if err != nil {
+		return err
+	}
+	req.Param("content", msgr)
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // ChatRoomBroadcast 向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
@@ -738,26 +738,26 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 *@return error
  */
 func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/chatroom/broadcast." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    req.Param("objectName", objectName)
-    msgr, err := msg.ToString()
-    if err != nil {
-        return err
-    }
-    req.Param("content", msgr)
+	req := httplib.Post(rc.rongCloudURI + "/message/chatroom/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("objectName", objectName)
+	msgr, err := msg.ToString()
+	if err != nil {
+		return err
+	}
+	req.Param("content", msgr)
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // SystemSend 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
@@ -774,40 +774,40 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) e
 *@return error
  */
 func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg rcMsg,
-    pushContent, pushData string, count, isPersisted int) error {
+	pushContent, pushData string, count, isPersisted int) error {
 
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    if len(targetID) == 0 {
-        return RCErrorNew(1002, "Paramer 'targetID' is required")
-    }
+	if len(targetID) == 0 {
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
+	}
 
-    req := httplib.Post(RONGCLOUDURI + "/message/system/publish." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    for _, v := range targetID {
-        req.Param("toUserId", v)
-    }
-    req.Param("objectName", objectName)
-    msgr, err := msg.ToString()
-    if err != nil {
-        return err
-    }
+	req := httplib.Post(RONGCLOUDURI + "/message/system/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	for _, v := range targetID {
+		req.Param("toUserId", v)
+	}
+	req.Param("objectName", objectName)
+	msgr, err := msg.ToString()
+	if err != nil {
+		return err
+	}
 
-    req.Param("content", msgr)
-    req.Param("pushData", pushData)
-    req.Param("pushContent", pushContent)
-    req.Param("count", strconv.Itoa(count))
-    req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("content", msgr)
+	req.Param("pushData", pushData)
+	req.Param("pushContent", pushContent)
+	req.Param("count", strconv.Itoa(count))
+	req.Param("isPersisted", strconv.Itoa(isPersisted))
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // SystemBroadcast 给应用内所有用户发送消息方法，每小时最多发 2 次，每天最多发送 3 次（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
@@ -819,26 +819,26 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 *@return error
  */
 func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
 
-    req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("fromUserId", senderID)
-    req.Param("objectName", objectName)
-    msgr, err := msg.ToString()
-    if err != nil {
-        return err
-    }
-    req.Param("content", msgr)
+	req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	req.Param("objectName", objectName)
+	msgr, err := msg.ToString()
+	if err != nil {
+		return err
+	}
+	req.Param("content", msgr)
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // SystemSendTemplate 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM
@@ -851,46 +851,46 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) err
 *@return error
  */
 func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
-    if senderID == "" {
-        return RCErrorNew(1002, "Paramer 'senderID' is required")
-    }
-    req := httplib.Post(rc.rongCloudURI + "/message/system/publish_template." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/message/system/publish_template." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
 
-    var toUserIDs, push []string
-    var values []map[string]string
+	var toUserIDs, push []string
+	var values []map[string]string
 
-    for _, v := range content {
-        if v.TargetID == "" {
-            return RCErrorNew(1002, "Paramer 'TargetID' is required")
-        }
-        toUserIDs = append(toUserIDs, v.TargetID)
-        values = append(values, v.Data)
-        push = append(push, v.PushContent)
-    }
+	for _, v := range content {
+		if v.TargetID == "" {
+			return RCErrorNew(1002, "Paramer 'TargetID' is required")
+		}
+		toUserIDs = append(toUserIDs, v.TargetID)
+		values = append(values, v.Data)
+		push = append(push, v.PushContent)
+	}
 
-    bytes, err := json.Marshal(template)
-    if err != nil {
-        return err
-    }
+	bytes, err := json.Marshal(template)
+	if err != nil {
+		return err
+	}
 
-    param := map[string]interface{}{}
-    param["fromUserId"] = senderID
-    param["objectName"] = objectName
-    param["content"] = string(bytes)
-    param["toUserId"] = toUserIDs
-    param["values"] = values
-    param["pushContent"] = push
-    param["verifyBlacklist"] = 0
+	param := map[string]interface{}{}
+	param["fromUserId"] = senderID
+	param["objectName"] = objectName
+	param["content"] = string(bytes)
+	param["toUserId"] = toUserIDs
+	param["values"] = values
+	param["pushContent"] = push
+	param["verifyBlacklist"] = 0
 
-    _, _ = req.JSONBody(param)
+	_, _ = req.JSONBody(param)
 
-    _, err = rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 // HistoryGet 按小时获取历史消息日志文件 URL，包含小时内应用产生的所有消息，消息日志文件无论是否已下载，3 天后将从融云服务器删除
@@ -900,21 +900,21 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 *@return History error
  */
 func (rc *RongCloud) HistoryGet(date string) (History, error) {
-    req := httplib.Post(rc.rongCloudURI + "/message/history." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("date", date)
+	req := httplib.Post(rc.rongCloudURI + "/message/history." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("date", date)
 
-    resp, err := rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-        return History{}, err
-    }
-    var history History
-    if err := json.Unmarshal(resp, &history); err != nil {
-        return History{}, err
-    }
-    return history, nil
+	resp, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+		return History{}, err
+	}
+	var history History
+	if err := json.Unmarshal(resp, &history); err != nil {
+		return History{}, err
+	}
+	return history, nil
 }
 
 // HistoryRemove 删除历史消息日志文件
@@ -924,18 +924,18 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 *@return error
  */
 func (rc *RongCloud) HistoryRemove(date string) error {
-    if date == "" {
-        return RCErrorNew(1002, "Paramer 'date' is required")
-    }
-    req := httplib.Post(rc.rongCloudURI + "/message/history/delete." + ReqType)
-    req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
-    rc.fillHeader(req)
-    req.Param("date", date)
+	if date == "" {
+		return RCErrorNew(1002, "Paramer 'date' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/message/history/delete." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("date", date)
 
-    _, err := rc.do(req)
-    if err != nil {
-        rc.urlError(err)
-    }
-    return err
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 
 }
