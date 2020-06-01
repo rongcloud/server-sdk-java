@@ -1,6 +1,15 @@
 package sdk
 
-import "strconv"
+import (
+	"strconv"
+	"sync"
+)
+
+var codePool = sync.Pool{
+	New: func() interface{} {
+		return CodeResult{}
+	},
+}
 
 // CodeResult 融云返回状态码和错误码
 type CodeResult struct {
