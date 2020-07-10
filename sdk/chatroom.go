@@ -446,7 +446,7 @@ func (rc *RongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 	if id == "" {
 		return []ChatRoomUser{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
 	}
-	req := httplib.Post(RONGCLOUDURI + "/chatroom/user/gag/list." + ReqType)
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/gag/list." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)
@@ -874,7 +874,7 @@ func (rc *RongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, erro
 	if id == "" {
 		return []ChatRoomUser{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
 	}
-	req := httplib.Post(RONGCLOUDURI + "/chatroom/user/gag/list." + ReqType)
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/gag/list." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("chatroomId", id)

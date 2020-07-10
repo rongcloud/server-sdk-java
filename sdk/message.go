@@ -784,7 +784,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
-	req := httplib.Post(RONGCLOUDURI + "/message/system/publish." + ReqType)
+	req := httplib.Post(rc.rongCloudURI + "/message/system/publish." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
