@@ -46,4 +46,6 @@ public class CheckMethod {
 
     public static final String BATCH_SET_TAG = "batchSetTag";
     public static final String GET_TAG = "getTag";
+    
+    public static final String SET = "set";
 }

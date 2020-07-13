@@ -3,6 +3,7 @@ package io.rong.methods.chatroom;
 import io.rong.RongCloud;
 import io.rong.methods.chatroom.ban.Ban;
 import io.rong.methods.chatroom.distribute.Distribute;
+import io.rong.methods.chatroom.entry.ChatroomEntry;
 import io.rong.methods.chatroom.gag.Gag;
 import io.rong.methods.chatroom.keepalive.Keepalive;
 import io.rong.methods.chatroom.demotion.Demotion;
@@ -40,6 +41,8 @@ public class Chatroom {
 	public Demotion demotion;
 	public Whitelist whiteList;
 	public Distribute distribute;
+	public ChatroomEntry entry;
+	
 	private RongCloud rongCloud;
 
 
@@ -57,6 +60,7 @@ public class Chatroom {
 		demotion.setRongCloud(rongCloud);
 		distribute.setRongCloud(rongCloud);
 		ban.setRongCloud(rongCloud);
+		entry.setRongCloud(rongCloud);
 	}
 	public Chatroom(String appKey, String appSecret,RongCloud rongCloud) {
 		this.appKey = appKey;
@@ -69,6 +73,7 @@ public class Chatroom {
 		this.distribute = new Distribute(appKey,appSecret);
 		this.ban = new Ban(appKey,appSecret);
 		this.muteMembers = new MuteMembers(appKey,appSecret,rongCloud);
+		this.entry = new ChatroomEntry(appKey,appSecret);
 
 	}
 	/**
