@@ -84,24 +84,15 @@ public class HttpUtil {
             out = new DataOutputStream(conn.getOutputStream());
             out.write(str.getBytes("utf-8"));
             out.flush();
-        } catch (UnknownHostException e) {
-            config.errorCounter.incrementAndGet();
-            e.printStackTrace();
-        } catch (SocketTimeoutException e) {
-        	config.errorCounter.incrementAndGet();
-            e.printStackTrace();
-        } catch (IOException e) {
-        	config.errorCounter.incrementAndGet();
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+            config.errorCounter.incrementAndGet();
             throw e;
         } finally {
             if (null != out) {
                 out.close();
             }
         }
-
     }
 
     public static HttpURLConnection CreatePostHttpConnection(RongCloudConfig config, String appKey, String appSecret,

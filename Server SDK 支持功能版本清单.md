@@ -39,7 +39,13 @@ Server SDK 功能支持的版本清单
 |  | system.send | 发送系统消息 | 3.0.1 |
 |  | system.sendTemplate | 发送系统模板消息 | 3.0.1 |
 |  | system.broadcast | 发送广播消息，单个应用每小时只能发送 2 次，每天最多发送 3 次。 | 3.0.1 |
-|  | system.broadcast | 支持将通过 /push 发送的广播消息撤回功能，撤回广播消息也占用广播消息每天的使用配额。 | 3.0.7 |
+|  | Private.sendStatusMessage | 支持发送单聊状态消息 | 3.1.7 |
+|  | group.sendStatusMessage| 支持发送群聊状态消息 | 3.1.7 |
+|  | Private.sendTypingStatusMessage | 支持发送正在输入状态消息，只针对单聊文本消息 | 3.1.7 |
+|  | Private.send(InfoNtfMessage) | 支持发送小灰条消息（群聊全员接收，群聊指定用户接收，单聊小灰条消息）| 3.1.8 |
+|  | Private.send(ReadReceiptMessage) | 支持发送单聊已读回执消息，会话类型可设置 | 3.1.8 |
+|  | Private.send - SightMessage| 支持发送小视频类型的消息 | 3.1.10 |
+|  | Private.send - FileMessage | 支持发送文件类型的消息 | 3.1.10 |
 | [消息历史记录](./src/main/java/io/rong/methods/message/history/History.java) | message.history.get | 消息历史记录下载地址获取 | 3.0.1 |
 |  | message.history.remove | 消息历史记录删除方法 | 3.0.1 |
 | [广播推送](./src/main/java/io/rong/methods/push/Push.java) | Push.push | 发送推送，推送和广播消息合计，单个应用每小时只能发送 2 次，每天最多发送 3 次。 | 3.0.4 |
@@ -87,3 +93,6 @@ Server SDK 功能支持的版本清单
 | [聊天室用户白名单](./src/main/java/io/rong/methods/chatroom/whitelist/User.java) | whiteList.user.add | 添加白名单用户，白名单中用户发送的消息，在消息量激增导致服务器压力较大时不会被丢弃，确保消息到达 | 3.0.1 |
 |  | whiteList.user.remove | 移除白名单用户 | 3.0.1 |
 |  | whiteList.user.getList | 获取白名单用户列表 | 3.0.1 |
+| [聊天室属性设置](./src/main/java/io/rong/methods/chatroom/entry/ChatroomEntry.java) | ChatroomEntry.set | 设置聊天室属性 | 3.1.9 |
+|  | ChatroomEntry.remove | 删除聊天室属性 | 3.1.9 |
+|  | ChatroomEntry.query | 查询聊天室属性 | 3.1.9 |

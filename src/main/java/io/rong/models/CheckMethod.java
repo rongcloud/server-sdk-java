@@ -4,6 +4,7 @@ public class CheckMethod {
     public static final String ADD = "add";
     public static final String GETLIST = "getList";
     public static final String REMOVE = "remove";
+    public static final String CLEAN = "clean";
     public static final String CREATE = "create";
     public static final String DESTORY = "destory";
     public static final String GET_MEMBERS = "getMembers";

@@ -1,7 +1,6 @@
 package io.rong.example.message;
 
 import io.rong.RongCloud;
-//import io.rong.RongCloudConfig;
 import io.rong.messages.CustomTxtMessage;
 import io.rong.messages.InfoNtfMessage;
 import io.rong.messages.ReadReceiptMessage;
@@ -43,11 +42,9 @@ public class MessageExample {
 
     private static final UserInfo userinfo = new UserInfo("rc1","rc_user1",
         "http://www.rongcloud.cn/images/logo.png","");
-    private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
+    private static final TxtMessage txtMessage = new TxtMessage("helloAAAA", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
 
-
-    private static final TxtMessage txtMessage1 = new TxtMessage("hello", "helloExtra",userinfo);
     /**
      * 自定义api地址
      * */
@@ -77,8 +74,8 @@ public class MessageExample {
         SystemMessage systemMessage = new SystemMessage()
                 .setSenderId("usetId")
                 .setTargetId(targetIds)
-                .setObjectName(txtMessage1.getType())
-                .setContent(txtMessage1)
+                .setObjectName(txtMessage.getType())
+                .setContent(txtMessage)
                 .setPushContent("this is a push")
                 .setPushData("{'pushData':'hello'}")
                 .setIsPersisted(0)
@@ -125,11 +122,11 @@ public class MessageExample {
         System.out.println("send broadcast:  " + broadcastResult.toString());
 
 
-        /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/private.html#send
-         *
-         * 发送单聊消息
-         * */
+		/**
+		 * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/private.html#send
+		 *
+		 * 发送单聊消息<文本, 语音, 文件类型 等消息类型>
+		 */
         PrivateMessage privateMessage = new PrivateMessage()
                 .setSenderId("2609751433442958892")
                 .setTargetId(targetIds)
@@ -292,14 +289,14 @@ public class MessageExample {
          * 群组@消息
          * */
         //要@的人
-        String[] mentionIds = {"Hji8yh76","sea9901"};
-
-        MentionedInfo mentionedInfo = new MentionedInfo(1,mentionIds,"");
+        String[] mentionIds = {"jf8yVWgZO"};
+//        String[] targetIds = { "ckHduTB4f" };
+        MentionedInfo mentionedInfo = new MentionedInfo(1, mentionIds, "");
         //@内容
-        MentionMessageContent content = new MentionMessageContent(txtMessage,mentionedInfo);
+        MentionMessageContent content = new MentionMessageContent(txtMessage, mentionedInfo);
 
         MentionMessage mentionMessage = new MentionMessage()
-                .setSenderId("userId")
+                .setSenderId("BzUPcKM2B")
                 .setTargetId(targetIds)
                 .setObjectName(txtMessage.getType())
                 .setContent(content)
@@ -461,6 +458,12 @@ public class MessageExample {
         ResponseResult removeHistoryMessageResult = history.remove("2018030210");
         System.out.println("remove history  message:  " + removeHistoryMessageResult.toString());
 
-
+		/**
+		 * 清除历史消息
+		 * 
+		 * API 文档: https://docs.rongcloud.cn/im/server/message_clean/
+		 */
+		ResponseResult cleanResult = history.clean("1", "jf8yVWgZO", "IotBnm9K4", null);
+		System.out.println("clean history  message:  " + cleanResult.toString());
     }
 }
