@@ -277,7 +277,7 @@ public class Group {
     }
     
     /**
-	 * 发送单聊状态消息
+	 * 发送群聊状态消息
 	 * 
 	 * @param message
 	 * @return
@@ -308,7 +308,9 @@ public class Group {
    	    sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
    	    sb.append("&verifyBlacklist=").append(URLEncoder.encode(String.valueOf(message.getVerifyBlacklist()), UTF8));
    	    sb.append("&isIncludeSender=").append(URLEncoder.encode(String.valueOf(message.getIsIncludeSender()), UTF8));
-   	    
+   	    sb.append("&isPersisted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
+   	    sb.append("&isCounted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
+     
 		String body = sb.toString();
 		if (body.indexOf("&") == 0) {
 			body = body.substring(1, body.length());

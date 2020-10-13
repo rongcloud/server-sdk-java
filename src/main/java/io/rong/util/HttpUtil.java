@@ -103,7 +103,7 @@ public class HttpUtil {
     public static HttpURLConnection CreatePostHttpConnection(RongCloudConfig config, String appKey, String appSecret,
         String uri,
         String contentType) throws MalformedURLException, IOException, ProtocolException {
-        String nonce = String.valueOf(Math.random() * 1000000);
+        String nonce = String.valueOf(Math.random() * 1000000);// SecureRandom random = new SecureRandom(); random.nextInt(1000000);
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         StringBuilder toSign = new StringBuilder(appSecret).append(nonce).append(timestamp);
         String sign = CodeUtil.hexSHA1(toSign.toString());
