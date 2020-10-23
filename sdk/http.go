@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego/httplib"
 	"io/ioutil"
+	"net"
 )
 
 func (rc *RongCloud) do(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
@@ -14,6 +15,10 @@ func (rc *RongCloud) do(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
 func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
 	resp, err := b.DoRequest()
 	if err != nil {
+		// 超时处理
+		if e, ok := err.(net.Error); ok && e.Timeout() {
+			rc.changeURI()
+		}
 		return nil, err
 	}
 	if resp.Body == nil {
