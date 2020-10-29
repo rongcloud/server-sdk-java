@@ -138,7 +138,7 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongClo
 	once.Do(func() {
 		// 默认扩展配置
 		defaultRongCloud := defaultExtra
-		defaultRongCloud.lastChageUriTime = time.Now().Unix()
+		defaultRongCloud.lastChageUriTime = 0
 		rc = &RongCloud{
 			appKey:         appKey,
 			appSecret:      appSecret,
