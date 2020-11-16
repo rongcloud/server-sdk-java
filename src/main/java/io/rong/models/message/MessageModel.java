@@ -32,6 +32,10 @@ public class MessageModel {
      */
     private String pushData;
 
+    /**
+     * 推送通知属性设置，详细查看 pushExt 结构说明，pushExt 为 JSON 结构请求时需要做转义处理。（可选）
+     */
+    private String pushExt;
 
     public MessageModel() {
     }
@@ -44,6 +48,18 @@ public class MessageModel {
         this.content = content;
         this.pushContent = pushContent;
         this.pushData = pushData;
+        this.pushExt = null;
+    }
+
+    public MessageModel(String senderId, String[] targetId, String objectName, BaseMessage content,
+        String pushContent, String pushData, String pushExt) {
+        this.senderId = senderId;
+        this.targetId = targetId;
+        this.objectName = objectName;
+        this.content = content;
+        this.pushContent = pushContent;
+        this.pushData = pushData;
+        this.pushExt = pushExt;
     }
 
     public String[] getTargetId() {
@@ -61,8 +77,6 @@ public class MessageModel {
 
     /**
      * 此属性已经不再使用了，消息类型改为通过 BaseMessage 里的 getType 获取
-     * @param objectName
-     * @return
      */
     @Deprecated
     public MessageModel setObjectName(String objectName) {
@@ -94,6 +108,15 @@ public class MessageModel {
 
     public MessageModel setPushData(String pushData) {
         this.pushData = pushData;
+        return this;
+    }
+
+    public String getPushExt() {
+        return this.pushExt;
+    }
+
+    public MessageModel setPushExt(String pushExt) {
+        this.pushExt = pushExt;
         return this;
     }
 

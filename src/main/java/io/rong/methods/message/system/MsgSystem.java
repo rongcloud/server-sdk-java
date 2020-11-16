@@ -80,6 +80,10 @@ public class MsgSystem {
             sb.append("&pushData=").append(URLEncoder.encode(systemMessage.getPushData().toString(), UTF8));
         }
 
+        if (message.getPushExt() != null) {
+            sb.append("&pushExt=").append(URLEncoder.encode(message.getPushExt(), UTF8));
+        }
+
         if (systemMessage.getIsPersisted() != null) {
             sb.append("&isPersisted=").append(URLEncoder.encode(systemMessage.getIsPersisted().toString(), UTF8));
         }
@@ -97,8 +101,10 @@ public class MsgSystem {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+        ResponseResult  result =  (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig()))), ResponseResult.class);
+        result.setReqBody(body);
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig()))), ResponseResult.class);
+        return result;
     }
 
     /**
@@ -133,6 +139,7 @@ public class MsgSystem {
         templateMessage.setValues(values);
         templateMessage.setPushContent(push.toArray(new String[push.size()]));
         templateMessage.setPushData(template.getPushData());
+        templateMessage.setPushExt(template.getPushExt());
         templateMessage.setContentAvailable(template.getContentAvailable());
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish_template.json", "application/json");
@@ -169,14 +176,18 @@ public class MsgSystem {
             sb.append("&pushData=").append(URLEncoder.encode(message.getPushData().toString(), UTF8));
         }
 
+        if (message.getPushExt() != null) {
+            sb.append("&pushExt=").append(URLEncoder.encode(message.getPushExt(), UTF8));
+        }
+
         if (message.getOs() != null) {
             sb.append("&os=").append(URLEncoder.encode(message.getOs().toString(), UTF8));
         }
-        
+
 		if (message.getContentAvailable() != null) {
 			sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
 		}
-		
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -184,7 +195,9 @@ public class MsgSystem {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+        ResponseResult result =(ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.BROADCAST,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        result.setReqBody(body);
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.BROADCAST,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return result;
     }
 }

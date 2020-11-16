@@ -22,8 +22,14 @@ public class BroadcastMessage extends MessageModel {
 	}
 
 	public BroadcastMessage(String senderUserId, String[] targetId, String objectName, BaseMessage content,
-			String pushContent, String pushData, String os) {
-		super(senderUserId, targetId, objectName, content, pushContent, pushData);
+		String pushContent, String pushData, String os) {
+		super(senderUserId, targetId, objectName, content, pushContent, pushData, null);
+		this.os = os;
+	}
+
+	public BroadcastMessage(String senderUserId, String[] targetId, String objectName, BaseMessage content,
+			String pushContent, String pushData, String os,String pushExt) {
+		super(senderUserId, targetId, objectName, content, pushContent, pushData, pushExt);
 		this.os = os;
 	}
 
@@ -54,6 +60,12 @@ public class BroadcastMessage extends MessageModel {
 	@Override
 	public BroadcastMessage setPushData(String pushData) {
 		super.setPushData(pushData);
+		return this;
+	}
+
+	@Override
+	public BroadcastMessage setPushExt(String pushExt) {
+		super.setPushExt(pushExt);
 		return this;
 	}
 

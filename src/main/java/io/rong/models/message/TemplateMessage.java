@@ -28,6 +28,8 @@ public class TemplateMessage {
 
     private String[] pushData;
 
+    private String[] pushExt;
+
     private Integer verifyBlacklist;
 
     private Integer contentAvailable;
@@ -79,6 +81,20 @@ public class TemplateMessage {
     public void setContent(Map<String, TemplateMessage.Data> content) {
         this.content = content;
     }
+    /**
+     * 获取pushExt
+     * @return String
+     */
+    public String[] getPushExt() {
+        return this.pushExt;
+    }
+    /**
+     * 设置 pushExt
+     */
+    public void setPushExt(String[] pushExt) {
+        this.pushExt = pushExt;
+    }
+
     /**
      * 获取pushData
      * @return String

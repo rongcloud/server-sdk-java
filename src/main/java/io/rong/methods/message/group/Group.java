@@ -76,7 +76,11 @@ public class Group {
         }
 
         if (message.getPushData() != null) {
-            sb.append("&pushData=").append(URLEncoder.encode(message.getPushData().toString(), UTF8));
+            sb.append("&pushData=").append(URLEncoder.encode(message.getPushData(), UTF8));
+        }
+
+        if (message.getPushExt() != null) {
+            sb.append("&pushExt=").append(URLEncoder.encode(message.getPushExt(), UTF8));
         }
 
         if (message.getIsPersisted() != null) {
@@ -103,7 +107,7 @@ public class Group {
 
         ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
         result.setReqBody(body);
-        
+
         return result;
     }
 
@@ -142,8 +146,12 @@ public class Group {
             sb.append("&pushContent=").append(URLEncoder.encode(message.getPushContent().toString(), UTF8));
         }
 
-        if (message.getPushContent() != null) {
-            sb.append("&pushData=").append(URLEncoder.encode(message.getPushContent().toString(), UTF8));
+        if (message.getPushData() != null) {
+            sb.append("&pushData=").append(URLEncoder.encode(message.getPushData(), UTF8));
+        }
+
+        if (message.getPushExt() != null) {
+            sb.append("&pushExt=").append(URLEncoder.encode(message.getPushExt(), UTF8));
         }
 
         if (message.getIsPersisted() != null) {
@@ -171,7 +179,10 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        result.setReqBody(body);
+
+        return result;
     }
 
     /**
@@ -221,6 +232,10 @@ public class Group {
             sb.append("&pushData=").append(URLEncoder.encode(message.getPushData(), UTF8));
         }
 
+        if (message.getPushExt() != null) {
+            sb.append("&pushExt=").append(URLEncoder.encode(message.getPushExt(), UTF8));
+        }
+
         if (message.getIsPersisted() != null) {
             sb.append("&isPersisted=").append(URLEncoder.encode(message.getIsPersisted().toString(), UTF8));
         }
@@ -243,7 +258,10 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result =(ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        result.setReqBody(body);
+
+        return result;
     }
 
     /**
@@ -275,10 +293,10 @@ public class Group {
 
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.RECALL,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
-    
+
     /**
 	 * 发送群聊状态消息
-	 * 
+	 *
 	 * @param message
 	 * @return
 	 * @throws Exception
@@ -288,29 +306,29 @@ public class Group {
 		if (null != errMsg) {
 			return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 	    sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId(), UTF8));
-	    
+
 	    for (int i = 0 ; i< message.getGroupId().length; i++) {
 			String child  = message.getGroupId()[i];
 			if(null != child){
 				sb.append("&toGroupId=").append(URLEncoder.encode(child, UTF8));
 			}
 		}
-	    
+
 		if (!StringUtils.isBlank(message.getObjectName())) {
 			sb.append("&objectName=").append(URLEncoder.encode(message.getObjectName(), UTF8));
 		} else {
 			sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
 		}
-	    
+
    	    sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
    	    sb.append("&verifyBlacklist=").append(URLEncoder.encode(String.valueOf(message.getVerifyBlacklist()), UTF8));
    	    sb.append("&isIncludeSender=").append(URLEncoder.encode(String.valueOf(message.getIsIncludeSender()), UTF8));
    	    sb.append("&isPersisted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
    	    sb.append("&isCounted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
-     
+
 		String body = sb.toString();
 		if (body.indexOf("&") == 0) {
 			body = body.substring(1, body.length());
@@ -318,7 +336,10 @@ public class Group {
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/statusmessage/group/publish.json", "application/x-www-form-urlencoded");
 	    HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDGROUPSTATUS, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
-	}
+
+        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDGROUPSTATUS, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        result.setReqBody(body);
+
+        return result;
+    }
 }

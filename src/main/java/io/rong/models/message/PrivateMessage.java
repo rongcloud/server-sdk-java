@@ -4,6 +4,7 @@ import io.rong.messages.BaseMessage;
 
 /**
  * 单聊 消息体
+ *
  * @author RongCloud
  */
 public class PrivateMessage extends MessageModel {
@@ -17,13 +18,12 @@ public class PrivateMessage extends MessageModel {
      */
     public Integer isPersisted;
     /**
-     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，
-     * 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数， 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
      */
     public Integer isCounted;
 
     /**
-     *是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。（可选
+     * 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。（可选
      */
     public Integer verifyBlacklist;
     /**
@@ -36,9 +36,22 @@ public class PrivateMessage extends MessageModel {
     public PrivateMessage() {
     }
 
-    public PrivateMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData,
-                          String count, Integer isPersisted, Integer isCounted, Integer verifyBlacklist, Integer isIncludeSender, Integer contentAvailable) {
+    public PrivateMessage(String senderId, String[] targetId, String objectName, BaseMessage content,
+        String pushContent, String pushData, String count, Integer isPersisted, Integer isCounted,
+        Integer verifyBlacklist, Integer isIncludeSender, Integer contentAvailable) {
         super(senderId, targetId, objectName, content, pushContent, pushData);
+        this.count = count;
+        this.isPersisted = isPersisted;
+        this.isCounted = isCounted;
+        this.verifyBlacklist = verifyBlacklist;
+        this.isIncludeSender = isIncludeSender;
+        this.contentAvailable = contentAvailable;
+    }
+
+    public PrivateMessage(String senderId, String[] targetId, String objectName, BaseMessage content,
+        String pushContent, String pushData, String pushExt, String count, Integer isPersisted, Integer isCounted,
+        Integer verifyBlacklist, Integer isIncludeSender, Integer contentAvailable) {
+        super(senderId, targetId, objectName, content, pushContent, pushData, pushExt);
         this.count = count;
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -52,6 +65,7 @@ public class PrivateMessage extends MessageModel {
         super.setSenderId(senderId);
         return this;
     }
+
     /**
      * 获取接受用户id
      *
@@ -61,6 +75,7 @@ public class PrivateMessage extends MessageModel {
     public String[] getTargetId() {
         return super.getTargetId();
     }
+
     /**
      * 设置接受用户id
      */
@@ -72,7 +87,7 @@ public class PrivateMessage extends MessageModel {
 
     @Override
     public PrivateMessage setContent(BaseMessage content) {
-         super.setContent(content);
+        super.setContent(content);
         return this;
     }
 
@@ -81,9 +96,16 @@ public class PrivateMessage extends MessageModel {
         super.setPushContent(pushContent);
         return this;
     }
+
     @Override
     public PrivateMessage setPushData(String pushData) {
         super.setPushData(pushData);
+        return this;
+    }
+
+    @Override
+    public PrivateMessage setPushExt(String pushExt) {
+        super.setPushExt(pushExt);
         return this;
     }
 
@@ -104,6 +126,7 @@ public class PrivateMessage extends MessageModel {
         this.verifyBlacklist = verifyBlacklist;
         return this;
     }
+
     public Integer getIsPersisted() {
         return this.isPersisted;
     }
@@ -112,6 +135,7 @@ public class PrivateMessage extends MessageModel {
         this.isPersisted = isPersisted;
         return this;
     }
+
     public Integer getIsCounted() {
         return this.isCounted;
     }
@@ -129,6 +153,7 @@ public class PrivateMessage extends MessageModel {
         this.isIncludeSender = isIncludeSender;
         return this;
     }
+
     @Override
     public PrivateMessage setObjectName(String objectName) {
         super.setObjectName(objectName);
@@ -143,9 +168,6 @@ public class PrivateMessage extends MessageModel {
         this.contentAvailable = contentAvailable;
         return this;
     }
-
-
-
 
 
 }

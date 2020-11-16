@@ -1,10 +1,10 @@
 package io.rong.models.message;
 
 /**
- *
  * @author rongcloud
  */
 public class MentionMessage {
+
     public String senderId;
     /**
      * 接收群 Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
@@ -17,6 +17,7 @@ public class MentionMessage {
     public MentionMessageContent content;
     public String pushContent;
     public String pushData;
+    public String pushExt;
     public Integer isPersisted;
     public Integer isCounted;
     public Integer isIncludeSender;
@@ -25,8 +26,9 @@ public class MentionMessage {
     public MentionMessage() {
     }
 
-    public MentionMessage(String senderId, String[] targetId, String objectName, MentionMessageContent content, String pushContent, String pushData,
-                          Integer isPersisted, Integer isCounted, Integer isIncludeSender, Integer contentAvailable) {
+    public MentionMessage(String senderId, String[] targetId, String objectName, MentionMessageContent content,
+        String pushContent, String pushData,
+        Integer isPersisted, Integer isCounted, Integer isIncludeSender, Integer contentAvailable) {
         this.senderId = senderId;
         this.targetId = targetId;
         this.objectName = objectName;
@@ -37,6 +39,22 @@ public class MentionMessage {
         this.isCounted = isCounted;
         this.isIncludeSender = isIncludeSender;
         this.contentAvailable = contentAvailable;
+    }
+
+    public MentionMessage(String senderId, String[] targetId, String objectName, MentionMessageContent content,
+        String pushContent, String pushData, String pushExt, Integer isPersisted, Integer isCounted,
+        Integer isIncludeSender, Integer contentAvailable) {
+        this.senderId = senderId;
+        this.targetId = targetId;
+        this.objectName = objectName;
+        this.content = content;
+        this.pushContent = pushContent;
+        this.pushData = pushData;
+        this.isPersisted = isPersisted;
+        this.isCounted = isCounted;
+        this.isIncludeSender = isIncludeSender;
+        this.contentAvailable = contentAvailable;
+        this.pushExt = pushExt;
     }
 
     public String getSenderId() {
@@ -92,6 +110,16 @@ public class MentionMessage {
         this.pushData = pushData;
         return this;
     }
+
+    public String getPushExt() {
+        return this.pushExt;
+    }
+
+    public MentionMessage setPushExt(String pushExt) {
+        this.pushExt = pushExt;
+        return this;
+    }
+
 
     public Integer getIsPersisted() {
         return this.isPersisted;

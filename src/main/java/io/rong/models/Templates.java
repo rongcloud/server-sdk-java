@@ -31,6 +31,8 @@ public class Templates {
 	String[] pushContent;
 	// 针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。如不需要 Push 功能对应数组传空值即可。（可选）
 	String[] pushData;
+
+	String[] pushExt;
 	// 是否过滤发送人黑名单列表，0 为不过滤、 1 为过滤，默认为 0 不过滤。（可选）
 	Integer verifyBlacklist;
 
@@ -47,6 +49,17 @@ public class Templates {
 		this.objectName = objectName;
 		this.pushContent = pushContent;
 		this.pushData = pushData;
+		this.verifyBlacklist = verifyBlacklist;
+	}
+	public Templates(String fromUserId, String[] toUserId, String content, List<Map<String, String>> values, String objectName, String[] pushContent, String[] pushData, String[] pushExt, Integer verifyBlacklist) {
+		this.fromUserId = fromUserId;
+		this.toUserId = toUserId;
+		this.content = content;
+		this.values = values;
+		this.objectName = objectName;
+		this.pushContent = pushContent;
+		this.pushData = pushData;
+		this.pushExt = pushExt;
 		this.verifyBlacklist = verifyBlacklist;
 	}
 
@@ -168,6 +181,25 @@ public class Templates {
 	public String[] getPushData() {
 		return pushData;
 	}
+
+
+	/**
+	 * 设置pushExt
+	 *
+	 */
+	public void setPushExt(String[] pushExt) {
+		this.pushData = pushExt;
+	}
+
+	/**
+	 * 获取pushExt
+	 *
+	 * @return String[]
+	 */
+	public String[] getPushExt() {
+		return pushExt;
+	}
+
 
 	/**
 	 * 设置verifyBlacklist

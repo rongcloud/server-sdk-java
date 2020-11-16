@@ -4,6 +4,7 @@ import io.rong.messages.BaseMessage;
 
 /**
  * 讨论组消息体
+ *
  * @author hc
  */
 public class DiscussionMessage extends MessageModel {
@@ -13,14 +14,12 @@ public class DiscussionMessage extends MessageModel {
      */
     public Integer isPersisted;
     /**
-     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，
-     * 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数， 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
      */
     public Integer isCounted;
 
     /**
-     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，
-     * 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数， 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
      */
     private Integer isIncludeSender;
 
@@ -32,8 +31,9 @@ public class DiscussionMessage extends MessageModel {
     public DiscussionMessage() {
     }
 
-    public DiscussionMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent, String pushData,
-                             Integer isPersisted, Integer isCounted, Integer isIncludeSender, Integer contentAvailable) {
+    public DiscussionMessage(String senderId, String[] targetId, String objectName, BaseMessage content,
+        String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender,
+        Integer contentAvailable) {
         super(senderId, targetId, objectName, content, pushContent, pushData);
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -41,11 +41,22 @@ public class DiscussionMessage extends MessageModel {
         this.contentAvailable = contentAvailable;
     }
 
-   @Override
+    public DiscussionMessage(String senderId, String[] targetId, String objectName, BaseMessage content,
+        String pushContent, String pushData, String pushExt, Integer isPersisted, Integer isCounted,
+        Integer isIncludeSender, Integer contentAvailable) {
+        super(senderId, targetId, objectName, content, pushContent, pushData, pushExt);
+        this.isPersisted = isPersisted;
+        this.isCounted = isCounted;
+        this.isIncludeSender = isIncludeSender;
+        this.contentAvailable = contentAvailable;
+    }
+
+    @Override
     public DiscussionMessage setSenderId(String senderId) {
         super.setSenderId(senderId);
         return this;
     }
+
     /**
      * 获取接受聊天室Id
      *
@@ -55,6 +66,7 @@ public class DiscussionMessage extends MessageModel {
     public String[] getTargetId() {
         return super.getTargetId();
     }
+
     /**
      * 设置接受聊天室Id
      *
@@ -71,14 +83,22 @@ public class DiscussionMessage extends MessageModel {
         super.setContent(content);
         return this;
     }
+
     @Override
     public DiscussionMessage setPushContent(String pushContent) {
         super.setPushContent(pushContent);
         return this;
     }
+
     @Override
     public DiscussionMessage setPushData(String pushData) {
         super.setPushData(pushData);
+        return this;
+    }
+
+    @Override
+    public DiscussionMessage setPushExt(String pushExt) {
+        super.setPushExt(pushExt);
         return this;
     }
 

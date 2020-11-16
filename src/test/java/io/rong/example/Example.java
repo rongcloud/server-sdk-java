@@ -29,11 +29,12 @@ import static org.junit.Assert.assertEquals;
  * 一些api的调用示例和测试
  */
 public class Example {
+
     private RongCloud rongCloud;
-    private static final TxtMessage txtMessage = new TxtMessage("hello", "helloExtra");
+    private static final TxtMessage txtMessage = new TxtMessage("hello4455", "helloExtra");
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
     private static final RcCmdMessage rcCmdMessage = new RcCmdMessage("BCVD-DV70-EKOC-7ES6");
-    private static final String[] targetIds = {"LoDld8izA"};
+    private static final String[] targetIds = {"tB0QMmDbq"};
 
     @Before
     public void setUp() throws Exception {
@@ -71,9 +72,9 @@ public class Example {
     public void testRegister() throws Exception {
 
         UserModel user = new UserModel()
-                .setId("userId1")
-                .setName("username")
-                .setPortrait("http://www.rongcloud.cn/images/logo.png");
+            .setId("userId1")
+            .setName("username")
+            .setPortrait("http://www.rongcloud.cn/images/logo.png");
 
         TokenResult result = rongCloud.user.register(user);
 
@@ -88,9 +89,9 @@ public class Example {
     @Test
     public void testUserRefresh() throws Exception {
         UserModel user = new UserModel()
-                .setId("userId1")
-                .setName("username")
-                .setPortrait("http://www.rongcloud.cn/images/logo.png");
+            .setId("userId1")
+            .setName("username")
+            .setPortrait("http://www.rongcloud.cn/images/logo.png");
 
         Result result = (ResponseResult) rongCloud.user.update(user);
         System.out.println("refresh:  " + result.toString());
@@ -104,7 +105,7 @@ public class Example {
     @Test
     public void testGetUserInfo() throws Exception {
         UserModel user = new UserModel()
-                .setId("userId1");
+            .setId("userId1");
 
         UserResult result = rongCloud.user.get(user);
         System.out.println("getUserInfo:  " + result.toString());
@@ -118,8 +119,8 @@ public class Example {
     @Test
     public void testUserAddBlock() throws Exception {
         UserModel user = new UserModel()
-                .setId("hkjo09h")
-                .setMinute(1000);
+            .setId("hkjo09h")
+            .setMinute(1000);
         Result result = (ResponseResult) rongCloud.user.block.add(user);
         System.out.println("userAddBlock:  " + result.toString());
 
@@ -162,8 +163,8 @@ public class Example {
         UserModel blackUser = new UserModel().setId("blt02");
         UserModel[] blacklist = {blackUser};
         UserModel user = new UserModel()
-                .setId("blt01")
-                .setBlacklist(blacklist);
+            .setId("blt01")
+            .setBlacklist(blacklist);
 
         Result result = rongCloud.user.blackList.add(user);
         System.out.println("addBlacklist:  " + result.toString());
@@ -194,8 +195,8 @@ public class Example {
         UserModel blackUser = new UserModel().setId("hdsjGB89");
         UserModel[] blacklist = {blackUser};
         UserModel user = new UserModel()
-                .setId("hdsjGB89")
-                .setBlacklist(blacklist);
+            .setId("hdsjGB89")
+            .setBlacklist(blacklist);
         Result result = (Result) rongCloud.user.blackList.remove(user);
         System.out.println("removeBlacklist:  " + result.toString());
 
@@ -278,16 +279,18 @@ public class Example {
         for (int i = 0; i < 2; i++) {
             targetIds[i] = "test" + i;
         }
+        targetIds[3] = "tB0QMmDbq";
         SystemMessage systemMessage = new SystemMessage()
-                .setSenderId("usetId")
-                .setTargetId(targetIds)
-                .setObjectName(txtMessage.getType())
-                .setContent(txtMessage)
-                .setPushContent("this is a push")
-                .setPushData("{'pushData':'hello'}")
-                .setIsPersisted(0)
-                .setIsCounted(0)
-                .setContentAvailable(0);
+            .setSenderId("xQ9vi5Maf")
+            .setTargetId(targetIds)
+            .setObjectName(txtMessage.getType())
+            .setContent(txtMessage)
+            .setPushContent("this is a push2")
+            .setPushData("{'pushData':'hello'}")
+            .setPushExt("{\"forceShowPushContent\":0,\"title\":\"12234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+            .setIsPersisted(0)
+            .setIsCounted(0)
+            .setContentAvailable(0);
         ResponseResult result = rongCloud.message.system.send(systemMessage);
         System.out.println("publishSystem:  " + result.toString());
 
@@ -295,16 +298,16 @@ public class Example {
     }
 
     /**
-     * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，
-     * 会话类型为 SYSTEM.每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：
-     * 一次发送 100 人时，示为 100 条消息。）
+     * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k， 会话类型为 SYSTEM.每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如： 一次发送 100 人时，示为 100
+     * 条消息。）
      */
     @Test
     public void testSendSystemTemplate() throws Exception {
         Reader reader = null;
         try {
 
-            reader = new BufferedReader(new InputStreamReader(Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
+            reader = new BufferedReader(new InputStreamReader(
+                Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
 
             TemplateMessage template = (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
 
@@ -327,26 +330,28 @@ public class Example {
     @Test
     public void testSendBroadcast() throws Exception {
         BroadcastMessage message = new BroadcastMessage()
-                .setSenderId("OScHVP1tQ")
-                .setObjectName(txtMessage.getType())
-                .setContent(txtMessage)
-                .setPushContent("this is a push")
-                .setPushData("{'pushData':'hello'}")
-                .setOs("Android");
+            .setSenderId("xQ9vi5Maf")
+            .setObjectName(txtMessage.getType())
+            .setContent(txtMessage)
+            .setPushContent("this is a push4455")
+            .setPushData("{'pushData':'hello'}")
+            .setPushExt("{\"forceShowPushContent\":0,\"title\":\"11223344\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+            .setOs("Android");
         ResponseResult result = rongCloud.message.system.broadcast(message);
         System.out.println("send broadcast:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
     }
+
     /**
      * 广播消息撤回测试
      */
     @Test
     public void testRecallBroadcast() throws Exception {
         BroadcastMessage message = new BroadcastMessage()
-                .setSenderId("OScHVP1tQ")
-                .setObjectName(rcCmdMessage.getType())
-                .setContent(rcCmdMessage);
+            .setSenderId("OScHVP1tQ")
+            .setObjectName(rcCmdMessage.getType())
+            .setContent(rcCmdMessage);
         ResponseResult result = rongCloud.message.system.broadcast(message);
         System.out.println("recall broadcast:  " + result.toString());
 
@@ -361,7 +366,8 @@ public class Example {
         Reader reader = null;
         // 发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人。）
         try {
-            reader = new BufferedReader(new InputStreamReader(Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
+            reader = new BufferedReader(new InputStreamReader(
+                Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
             TemplateMessage template = (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
             System.out.println(template.toString());
             ResponseResult messagePublishTemplateResult = rongCloud.message.msgPrivate.sendTemplate(template);
@@ -385,17 +391,18 @@ public class Example {
     public void testSendPrivate() throws Exception {
         Reader reader = null;
         PrivateMessage privateMessage = new PrivateMessage()
-                .setSenderId("userId")
-                .setTargetId(targetIds)
-                .setObjectName(voiceMessage.getType())
-                .setContent(voiceMessage)
-                .setPushContent("")
-                .setPushData("{\"pushData\":\"hello\"}")
-                .setCount("4")
-                .setVerifyBlacklist(0)
-                .setIsPersisted(0)
-                .setIsCounted(0)
-                .setIsIncludeSender(0);
+            .setSenderId("xQ9vi5Maf")
+            .setTargetId(targetIds)
+            .setObjectName(txtMessage.getType())
+            .setContent(txtMessage)
+            .setPushContent("")
+            .setPushData("{\"pushData\":\"hello\"}")
+            .setCount("4")
+            .setVerifyBlacklist(0)
+            .setIsPersisted(0)
+            .setIsCounted(0)
+            .setPushExt("{\"forceShowPushContent\":0,\"title\":\"1234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+            .setIsIncludeSender(0);
 
         //发送单聊方法
         ResponseResult publishPrivateResult = rongCloud.message.msgPrivate.send(privateMessage);
@@ -410,10 +417,10 @@ public class Example {
     @Test
     public void testRecallPrivate() throws Exception {
         RecallMessage message = new RecallMessage()
-                .setSenderId("OScHVP1tQ")
-                .setTargetId("NomSvNyME")
-                .setuId("B8FV-QAHO-I1E4-JLRI")
-                .setSentTime("1548334967010");
+            .setSenderId("OScHVP1tQ")
+            .setTargetId("NomSvNyME")
+            .setuId("B8FV-QAHO-I1E4-JLRI")
+            .setSentTime("1548334967010");
         ResponseResult result = (ResponseResult) rongCloud.message.msgPrivate.recall(message);
 
         System.out.println("recall private message:  " + result.toString());
@@ -426,17 +433,19 @@ public class Example {
      */
     @Test
     public void testSendGroup() throws Exception {
+        String[] gTid = {"N1ocTOPsU"};
         //群组消息
         GroupMessage groupMessage = new GroupMessage()
-                .setSenderId("Hji8yh76")
-                .setTargetId(targetIds)
-                .setObjectName(txtMessage.getType())
-                .setContent(txtMessage)
-                .setPushContent("this is a push")
-                .setPushData("{\"pushData\":\"hello\"}")
-                .setIsPersisted(0)
-                .setIsIncludeSender(0)
-                .setContentAvailable(0);
+            .setSenderId("xQ9vi5Maf")
+            .setTargetId(gTid)
+            .setObjectName(txtMessage.getType())
+            .setContent(txtMessage)
+            .setPushContent("this is a push1")
+            .setPushData("{\"pushData\":\"hello\"}")
+            .setPushExt("{\"forceShowPushContent\":0,\"title\":\"11234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+            .setIsPersisted(0)
+            .setIsIncludeSender(0)
+            .setContentAvailable(0);
         ResponseResult result = rongCloud.message.group.send(groupMessage);
 
         System.out.println("send group:  " + result.toString());
@@ -449,25 +458,26 @@ public class Example {
      */
     @Test
     public void testSendGroupMention() throws Exception {
-        String[] targetId = {"HJjjd98k"};
+        String[] targetId = {"N1ocTOPsU"};
         //要@的人
-        String[] mentionIds = {"Hji8yh76", "sea9901"};
+        String[] mentionIds = {"tB0QMmDbq", "sea9901"};
         //@内容
         MentionedInfo mentionedInfo = new MentionedInfo(1, mentionIds, "push");
         //@消息的消息内容
         MentionMessageContent content = new MentionMessageContent(txtMessage, mentionedInfo);
 
         MentionMessage mentionMessage = new MentionMessage()
-                .setSenderId("userId")
-                .setTargetId(targetId)
-                .setObjectName(txtMessage.getType())
-                .setContent(content)
-                .setPushContent("this is a push")
-                .setPushData("{\"pushData\":\"hello\"}")
-                .setIsPersisted(0)
-                .setIsCounted(0)
-                .setIsIncludeSender(0)
-                .setContentAvailable(0);
+            .setSenderId("xQ9vi5Maf")
+            .setTargetId(targetId)
+            .setObjectName(txtMessage.getType())
+            .setContent(content)
+            .setPushContent("this is a push")
+            .setPushData("{\"pushData\":\"hello\"}")
+            .setPushExt("{\"forceShowPushContent\":0,\"title\":\"4321\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+            .setIsPersisted(0)
+            .setIsCounted(0)
+            .setIsIncludeSender(0)
+            .setContentAvailable(0);
         ResponseResult result = rongCloud.message.group.sendMention(mentionMessage);
 
         System.out.println("send group:  " + result.toString());
@@ -481,18 +491,20 @@ public class Example {
     @Test
     public void testSendGroupDirection() throws Exception {
         //群组消息
-        String[] toUserIds = {"aRUuikSyp"};
+        String[] toUserIds = {"tB0QMmDbq"};
+        String[] targetId = {"N1ocTOPsU"};
         GroupMessage groupMessage = new GroupMessage()
-                .setSenderId("XN3gZdUOB")
-                .setTargetId(targetIds)
-                .setToUserId(toUserIds)
-                .setObjectName(txtMessage.getType())
-                .setContent(txtMessage)
-                .setPushContent("this is a push")
-                .setPushData("{\"pushData\":\"hello\"}")
-                .setIsPersisted(0)
-                .setIsIncludeSender(0)
-                .setContentAvailable(0);
+            .setSenderId("xQ9vi5Maf")
+            .setTargetId(targetId)
+            .setToUserId(toUserIds)
+            .setObjectName(txtMessage.getType())
+            .setContent(txtMessage)
+            .setPushContent("this is a push2")
+            .setPushData("{\"pushData\":\"hello\"}")
+            .setPushExt("{\"forceShowPushContent\":0,\"title\":\"44321\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+            .setIsPersisted(0)
+            .setIsIncludeSender(0)
+            .setContentAvailable(0);
         ResponseResult result = rongCloud.message.group.sendDirection(groupMessage);
 
         System.out.println("send group:  " + result.toString());
@@ -506,10 +518,10 @@ public class Example {
     @Test
     public void testRecallGroup() throws Exception {
         RecallMessage message = new RecallMessage()
-                .setSenderId("NomSvNyME")
-                .setTargetId("BauMbEShY")
-                .setuId("B8FV-UKT9-TJMD-KV6A")
-                .setSentTime("1548335533735");
+            .setSenderId("NomSvNyME")
+            .setTargetId("BauMbEShY")
+            .setuId("B8FV-UKT9-TJMD-KV6A")
+            .setSentTime("1548335533735");
         ResponseResult result = (ResponseResult) rongCloud.message.group.recall(message);
 
         System.out.println("send recall message:  " + result.toString());
@@ -524,10 +536,10 @@ public class Example {
     public void testSendChatroom() throws Exception {
         //聊天室消息
         ChatroomMessage message = new ChatroomMessage()
-                .setSenderId("fromUserId")
-                .setTargetId(targetIds)
-                .setContent(txtMessage)
-                .setObjectName(txtMessage.getType());
+            .setSenderId("fromUserId")
+            .setTargetId(targetIds)
+            .setContent(txtMessage)
+            .setObjectName(txtMessage.getType());
         ResponseResult result = rongCloud.message.chatroom.send(message);
         System.out.println("publishChatroomPrivate:  " + result.toString());
 
@@ -540,10 +552,10 @@ public class Example {
     @Test
     public void testRecallChatroom() throws Exception {
         RecallMessage message = new RecallMessage()
-                .setSenderId("fromUserId")
-                .setTargetId(targetIds[0])
-                .setuId("B8FV-QAHO-I1E4-JLRI")
-                .setSentTime("1548334967010");
+            .setSenderId("fromUserId")
+            .setTargetId(targetIds[0])
+            .setuId("B8FV-QAHO-I1E4-JLRI")
+            .setSentTime("1548334967010");
         ResponseResult result = (ResponseResult) rongCloud.message.chatroom.recall(message);
 
         System.out.println("recall chatroom message:  " + result.toString());
@@ -579,9 +591,9 @@ public class Example {
     @Test
     public void testAddSensitiveword() throws Exception {
         SensitiveWordModel sentiveWord = new SensitiveWordModel()
-                .setType(0)
-                .setKeyword("黄赌毒")
-                .setReplace("***");
+            .setType(0)
+            .setKeyword("黄赌毒")
+            .setReplace("***");
         ResponseResult result = rongCloud.sensitiveword.add(sentiveWord);
         System.out.println("add:  " + result.toString());
 
@@ -612,17 +624,17 @@ public class Example {
     }
 
     /**
-     * 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，
-     * 每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join 的别名。）
+     * 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群， 每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join
+     * 的别名。）
      */
     @Test
     public void testGroupCreate() throws Exception {
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
         GroupModel group = new GroupModel()
-                .setId("ghJiu7H3")
-                .setMembers(members)
-                .setName("groupName");
+            .setId("ghJiu7H3")
+            .setMembers(members)
+            .setName("groupName");
         Result result = (Result) rongCloud.group.create(group);
         System.out.println("group create result:  " + result.toString());
 
@@ -631,8 +643,7 @@ public class Example {
     }
 
     /**
-     * 同步用户所属群组方法测试（当第一次连接融云服务器时，需要向融云服务器提交 userId 对应的用户当前所加入的所有群组，
-     * 此接口主要为防止应用中用户群信息同融云已知的用户所属群信息不同步。）
+     * 同步用户所属群组方法测试（当第一次连接融云服务器时，需要向融云服务器提交 userId 对应的用户当前所加入的所有群组， 此接口主要为防止应用中用户群信息同融云已知的用户所属群信息不同步。）
      */
     @Test
     public void testGroupSync() throws Exception {
@@ -661,9 +672,9 @@ public class Example {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
 
         GroupModel group = new GroupModel()
-                .setId("hiuyr743k")
-                .setMembers(members)
-                .setName("RongCloud");
+            .setId("hiuyr743k")
+            .setMembers(members)
+            .setName("RongCloud");
         Result result = (Result) rongCloud.group.update(group);
         System.out.println("refresh:  " + result.toString());
 
@@ -677,9 +688,9 @@ public class Example {
     public void testGroupJoin() throws Exception {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
         GroupModel group = new GroupModel()
-                .setId("hgir769ll")
-                .setMembers(members)
-                .setName("RongClooud");
+            .setId("hgir769ll")
+            .setMembers(members)
+            .setName("RongClooud");
         Result result = (Result) rongCloud.group.join(group);
         System.out.println("join:  " + result.toString());
 
@@ -710,9 +721,9 @@ public class Example {
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
         GroupModel group = new GroupModel()
-                .setId("groupId")
-                .setMembers(members)
-                .setName("groupName");
+            .setId("groupId")
+            .setMembers(members)
+            .setName("groupName");
         Result result = (Result) rongCloud.group.quit(group);
         System.out.println("quit:  " + result.toString());
 
@@ -728,9 +739,9 @@ public class Example {
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
         GroupModel group = new GroupModel()
-                .setId("appSecret")
-                .setMembers(members)
-                .setMinute(5);
+            .setId("appSecret")
+            .setMembers(members)
+            .setMinute(5);
         Result result = (Result) rongCloud.group.gag.add(group);
         System.out.println("group.gag.add:  " + result.toString());
 
@@ -758,8 +769,8 @@ public class Example {
     public void testGroupRollBackGagUser() throws Exception {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
         GroupModel group = new GroupModel()
-                .setMembers(members)
-                .setId("jhgui85hh");
+            .setMembers(members)
+            .setId("jhgui85hh");
 
         ResponseResult result = (ResponseResult) rongCloud.group.gag.remove(group);
         System.out.println("group.gag.remove:  " + result.toString());
@@ -775,8 +786,8 @@ public class Example {
     public void testGroupDismissResult() throws Exception {
         GroupMember[] members = new GroupMember[]{new GroupMember().setId("ghJiu7H1")};
         GroupModel group = new GroupModel()
-                .setId("groupId")
-                .setMembers(members);
+            .setId("groupId")
+            .setMembers(members);
 
         Result result = (Result) rongCloud.group.dismiss(group);
         System.out.println("groupDismissResult:  " + result.toString());
@@ -793,8 +804,8 @@ public class Example {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
 
         GroupModel groupModel = new GroupModel()
-                .setMembers(members)
-                .setMinute(1000000);
+            .setMembers(members)
+            .setMinute(1000000);
         Result result = rongCloud.group.ban.user.add(groupModel);
         System.out.println("group.ban.add:  " + result.toString());
 
@@ -824,7 +835,7 @@ public class Example {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
 
         GroupModel groupModel = new GroupModel()
-                .setMembers(members);
+            .setMembers(members);
         Result result = rongCloud.group.ban.user.remove(groupModel);
         System.out.println("group.ban.remove:  " + result.toString());
 
@@ -842,8 +853,8 @@ public class Example {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
 
         GroupModel groupModel = new GroupModel()
-                .setId("groupId")
-                .setMembers(members);
+            .setId("groupId")
+            .setMembers(members);
         Result result = rongCloud.group.ban.whitelist.user.add(groupModel);
         System.out.println("group.ban.add:  " + result.toString());
 
@@ -852,13 +863,13 @@ public class Example {
     }
 
     /**
-     * API 文档:
-     * 查询禁言白名单用户方法
+     * API 文档: 查询禁言白名单用户方法
      */
     @Test
     public void testGroupBanWhitelistGetListResult() throws Exception {
 
-        GroupBanWhitelistResult result = (GroupBanWhitelistResult) rongCloud.group.ban.whitelist.user.getList("groupId");
+        GroupBanWhitelistResult result = (GroupBanWhitelistResult) rongCloud.group.ban.whitelist.user
+            .getList("groupId");
         System.out.println("group.ban.getList:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
@@ -867,8 +878,7 @@ public class Example {
 
 
     /**
-     * API 文档:
-     * 移除禁言白名单用户方法
+     * API 文档: 移除禁言白名单用户方法
      */
     @Test
     public void testGroupBanWhitelistRemoveResult() throws Exception {
@@ -876,8 +886,8 @@ public class Example {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
 
         GroupModel groupModel = new GroupModel()
-                .setMembers(members)
-                .setId("groupId");
+            .setMembers(members)
+            .setId("groupId");
         Result result = rongCloud.group.ban.whitelist.user.remove(groupModel);
         System.out.println("group.ban.remove:  " + result.toString());
 
@@ -890,7 +900,8 @@ public class Example {
      */
     @Test
     public void testGroupBanAddResult() throws Exception {
-        String[] groupIds = {"ghJiu7H1", "ghJiu7H2", "ghJiu7H3", "ghJiu7H4", "ghJiu7H5", "ghJiu7H6", "ghJiu7H7", "ghJiu7H8", "ghJiu7H9", "ghJiu7H10"};
+        String[] groupIds = {"ghJiu7H1", "ghJiu7H2", "ghJiu7H3", "ghJiu7H4", "ghJiu7H5", "ghJiu7H6", "ghJiu7H7",
+            "ghJiu7H8", "ghJiu7H9", "ghJiu7H10"};
         Result result = rongCloud.group.ban.add(groupIds);
 
         System.out.println("group.ban.remove:  " + result.toString());
@@ -904,7 +915,8 @@ public class Example {
      */
     @Test
     public void testGroupBanGetListResult() throws Exception {
-        String[] groupIds = {"ghJiu7H1", "ghJiu7H2", "ghJiu7H3", "ghJiu7H4", "ghJiu7H5", "ghJiu7H6", "ghJiu7H7", "ghJiu7H8"};
+        String[] groupIds = {"ghJiu7H1", "ghJiu7H2", "ghJiu7H3", "ghJiu7H4", "ghJiu7H5", "ghJiu7H6", "ghJiu7H7",
+            "ghJiu7H8"};
 
         GroupBanResult result = (GroupBanResult) rongCloud.group.ban.getList();
         System.out.println("group.ban.getList:  " + result.toString());
@@ -933,8 +945,8 @@ public class Example {
     @Test
     public void testCreateChatroom() throws Exception {
         ChatroomModel[] chatrooms = {
-                new ChatroomModel().setId("chatroomId1").setName("chatroomName1"),
-                new ChatroomModel().setId("chatroomId2").setName("chatroomName2")
+            new ChatroomModel().setId("chatroomId1").setName("chatroomName1"),
+            new ChatroomModel().setId("chatroomId2").setName("chatroomName2")
         };
         ResponseResult result = rongCloud.chatroom.create(chatrooms);
 
@@ -944,19 +956,18 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#getMembers
-     * 查询聊天室成员demo
+     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#getMembers 查询聊天室成员demo
      */
     @Test
     public void testGetChatroom() throws Exception {
         ChatroomModel[] chatrooms = {
-                new ChatroomModel().setId("chatroomId1").setName("chatroomName1")
+            new ChatroomModel().setId("chatroomId1").setName("chatroomName1")
         };
         ResponseResult result = rongCloud.chatroom.create(chatrooms);
         ChatroomModel chatroomModel = new ChatroomModel()
-                .setId("chatroomId1")
-                .setCount(500)
-                .setOrder(1);
+            .setId("chatroomId1")
+            .setCount(500)
+            .setOrder(1);
 
         ChatroomUserQueryResult chatroomQueryUserResult = rongCloud.chatroom.get(chatroomModel);
         System.out.println("queryUser:  " + chatroomQueryUserResult.toString());
@@ -964,14 +975,13 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#isExist
-     * 查询聊天室成员是否存在
+     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#isExist 查询聊天室成员是否存在
      */
     @Test
     public void testChatroomIsExist() throws Exception {
         ChatroomMember member = new ChatroomMember()
-                .setId("76894")
-                .setChatroomId("76891");
+            .setId("76894")
+            .setChatroomId("76891");
 
         CheckChatRoomUserResult result = rongCloud.chatroom.isExist(member);
         System.out.println("checkChatroomUserResult:  " + result.isInChrm);
@@ -1023,11 +1033,11 @@ public class Example {
     @Test
     public void addChatroomUserWhiteList() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548")
-                .setMembers(members);
+            .setId("d7ec7a8b8d8546c98b0973417209a548")
+            .setMembers(members);
         ResponseResult result = rongCloud.chatroom.whiteList.user.add(chatroom);
         System.out.println("remove chatroon whitelist msg:  " + result.toString());
 
@@ -1041,11 +1051,11 @@ public class Example {
     @Test
     public void testRemoveChatroomWhiteListMsg() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548")
-                .setMembers(members);
+            .setId("d7ec7a8b8d8546c98b0973417209a548")
+            .setMembers(members);
         ResponseResult result = rongCloud.chatroom.whiteList.user.remove(chatroom);
         System.out.println("remove chatroom user whitelist:  " + result.toString());
 
@@ -1059,7 +1069,7 @@ public class Example {
     @Test
     public void testGetChatroomWhiteListMsg() throws Exception {
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+            .setId("d7ec7a8b8d8546c98b0973417209a548");
         Result result = rongCloud.chatroom.whiteList.user.getList(chatroom);
         System.out.println("get chatroom user whitelist:  " + result.toString());
 
@@ -1073,11 +1083,11 @@ public class Example {
     @Test
     public void testChatroomBan() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setMembers(members)
-                .setMinute(5);
+            .setMembers(members)
+            .setMinute(5);
         ResponseResult result = rongCloud.chatroom.ban.add(chatroom);
         System.out.println("addGagUser:  " + result.toString());
 
@@ -1091,11 +1101,11 @@ public class Example {
     @Test
     public void testAddChatroomBan() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setMembers(members)
-                .setMinute(5);
+            .setMembers(members)
+            .setMinute(5);
         ResponseResult result = rongCloud.chatroom.ban.add(chatroom);
         System.out.println("addGagUser:  " + result.toString());
 
@@ -1122,11 +1132,11 @@ public class Example {
     @Test
     public void testRemoveChatroomBan() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setMembers(members)
-                .setMinute(5);
+            .setMembers(members)
+            .setMinute(5);
         ResponseResult removeResult = rongCloud.chatroom.ban.remove(chatroom);
         System.out.println("removeBanUser:  " + removeResult.toString());
 
@@ -1140,12 +1150,12 @@ public class Example {
     @Test
     public void testAddChatroomBlock() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548")
-                .setMembers(members)
-                .setMinute(5);
+            .setId("d7ec7a8b8d8546c98b0973417209a548")
+            .setMembers(members)
+            .setMinute(5);
         ResponseResult result = rongCloud.chatroom.block.add(chatroom);
         System.out.println("addBlockUser:  " + result.toString());
 
@@ -1159,11 +1169,11 @@ public class Example {
     @Test
     public void testRemoveChatroomBlock() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548")
-                .setMembers(members);
+            .setId("d7ec7a8b8d8546c98b0973417209a548")
+            .setMembers(members);
         ResponseResult result = rongCloud.chatroom.block.remove(chatroom);
         System.out.println("removeBlockUser:  " + result.toString());
 
@@ -1189,7 +1199,7 @@ public class Example {
     @Test
     public void testDestroyChatroom() throws Exception {
         ChatroomModel chatroomModel = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+            .setId("d7ec7a8b8d8546c98b0973417209a548");
 
         ResponseResult result = rongCloud.chatroom.destroy(chatroomModel);
         System.out.println("destroy:  " + result.toString());
@@ -1236,7 +1246,7 @@ public class Example {
     @Test
     public void testStopChatroomDistributio() throws Exception {
         ChatroomModel chatroomModel = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+            .setId("d7ec7a8b8d8546c98b0973417209a548");
         ResponseResult result = rongCloud.chatroom.distribute.stop(chatroomModel);
 
         System.out.println("stopDistributionMessage:  " + result.toString());
@@ -1253,38 +1263,36 @@ public class Example {
     public void testResumeChatroomDistributio() throws Exception {
 
         ChatroomModel chatroomModel = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+            .setId("d7ec7a8b8d8546c98b0973417209a548");
         ResponseResult result = rongCloud.chatroom.distribute.resume(chatroomModel);
         System.out.println("resumeDistributionMessage:  " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
 
     /**
-     * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，
-     * 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法（每秒钟限 100 次）
+     * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言， 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法（每秒钟限 100 次）
      */
     @Test
     public void testAddChatroomGag() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("hjhf07kk")
-                .setMembers(members)
-                .setMinute(5);
+            .setId("hjhf07kk")
+            .setMembers(members)
+            .setMinute(5);
         ResponseResult result = rongCloud.chatroom.gag.add(chatroom);
         System.out.println("addGagUser:  " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/gag.html#remove
-     * 查询被禁言聊天室成员方法
+     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/gag.html#remove 查询被禁言聊天室成员方法
      */
     @Test
     public void testGetChatroomGag() throws Exception {
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("hjhf07kk");
+            .setId("hjhf07kk");
         ListGagChatroomUserResult result = rongCloud.chatroom.gag.getList(chatroom);
         System.out.println("ListGagUser:  " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1298,11 +1306,11 @@ public class Example {
     @Test
     public void testRemoveChatroomGag() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
+            new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("hjhf07kk")
-                .setMembers(members);
+            .setId("hjhf07kk")
+            .setMembers(members);
         ResponseResult result = rongCloud.chatroom.gag.remove(chatroom);
         System.out.println("rollbackGagUser:  " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1316,7 +1324,7 @@ public class Example {
     @Test
     public void testAddChatroomKeepalive() throws Exception {
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+            .setId("d7ec7a8b8d8546c98b0973417209a548");
         ResponseResult result = rongCloud.chatroom.keepalive.add(chatroom);
         System.out.println("add keepalive result" + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1331,7 +1339,7 @@ public class Example {
     public void testRemoveChatroomKeepalive() throws Exception {
 
         ChatroomModel chatroom = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+            .setId("d7ec7a8b8d8546c98b0973417209a548");
         ResponseResult result = rongCloud.chatroom.keepalive.remove(chatroom);
         System.out.println("keepalive remove" + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1359,9 +1367,9 @@ public class Example {
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
         GroupModel group = new GroupModel()
-                .setId("appSecret")
-                .setMembers(members)
-                .setMinute(5);
+            .setId("appSecret")
+            .setMembers(members)
+            .setMinute(5);
         Result result = (Result) rongCloud.group.muteMembers.add(group);
         System.out.println("group.gag.add:  " + result.toString());
 
@@ -1389,8 +1397,8 @@ public class Example {
     public void testGroupRemoveMuteMemberr() throws Exception {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
         GroupModel group = new GroupModel()
-                .setMembers(members)
-                .setId("jhgui85hh");
+            .setMembers(members)
+            .setId("jhgui85hh");
 
         ResponseResult result = (ResponseResult) rongCloud.group.muteMembers.remove(group);
         System.out.println("group.gag.remove:  " + result.toString());
@@ -1400,8 +1408,7 @@ public class Example {
     }
 
     /**
-     * API 文档:
-     * https://www.rongcloud.cn/docs/push_service.html#broadcast
+     * API 文档: https://www.rongcloud.cn/docs/push_service.html#broadcast
      * <p>
      * 广播消息
      **/
@@ -1427,8 +1434,7 @@ public class Example {
     }
 
     /**
-     * API 文档:
-     * https://www.rongcloud.cn/docs/push_service.html#push
+     * API 文档: https://www.rongcloud.cn/docs/push_service.html#push
      * <p>
      * 推送消息
      **/
@@ -1449,8 +1455,7 @@ public class Example {
     }
 
     /**
-     * API 文档:
-     * https://www.rongcloud.cn/docs/push_service.html#user_tag_set
+     * API 文档: https://www.rongcloud.cn/docs/push_service.html#user_tag_set
      * <p>
      * 添加标签
      **/
@@ -1466,8 +1471,7 @@ public class Example {
     }
 
     /**
-     * API 文档:
-     * https://www.rongcloud.cn/docs/push_service.html#user_tag_batch_set
+     * API 文档: https://www.rongcloud.cn/docs/push_service.html#user_tag_batch_set
      * <p>
      * 批量添加标签
      **/
@@ -1483,8 +1487,7 @@ public class Example {
     }
 
     /**
-     * API 文档:
-     * https://www.rongcloud.cn/docs/push_service.html#user_tags_get
+     * API 文档: https://www.rongcloud.cn/docs/push_service.html#user_tags_get
      * <p>
      * 查询用户标签
      **/
