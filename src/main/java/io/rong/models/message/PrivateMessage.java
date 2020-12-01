@@ -10,7 +10,7 @@ import io.rong.messages.BaseMessage;
 public class PrivateMessage extends MessageModel {
 
     /**
-     * 针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。（可选）
+     * 针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效，客户端获取远程推送内容时为 badge，为 -1 时不改变角标数，传入相应数字表示把角标数改为指定的数字，最大不超过 9999。(可选)
      **/
     public String count;
     /**
