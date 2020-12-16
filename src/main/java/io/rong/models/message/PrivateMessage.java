@@ -109,6 +109,12 @@ public class PrivateMessage extends MessageModel {
         return this;
     }
 
+    @Override
+    public PrivateMessage setPushExt(PushExt pe) {
+        super.setPushExt(pe);
+        return this;
+    }
+
     public String getCount() {
         return this.count;
     }

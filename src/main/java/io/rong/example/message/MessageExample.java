@@ -56,13 +56,17 @@ public class MessageExample {
         //自定义 api 地址方式
 //        RongCloud rongCloud = RongCloud.getInstance("appKey", "appSecret", api);
 //        RongCloud rongCloud2 = RongCloud.getInstance("appKey", "appSecret", new RongCloudConfig("api"));
-        
+
         Private Private = rongCloud.message.msgPrivate;
         MsgSystem system = rongCloud.message.system;
         Group group = rongCloud.message.group;
         Chatroom chatroom = rongCloud.message.chatroom;
         Discussion discussion = rongCloud.message.discussion;
         History history = rongCloud.message.history;
+        PushExt pe = PushExt.build("testTitle", 1,
+                new PushExt.HW("channelId"), new PushExt.VIVO("1"),
+                new PushExt.APNs("234353efsfwd", "232"),
+                new PushExt.OPPO("134324"));
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/system.html#send
@@ -78,6 +82,7 @@ public class MessageExample {
                 .setContent(txtMessage)
                 .setPushContent("this is a push")
                 .setPushData("{'pushData':'hello'}")
+//                .setPushExt(GsonUtil.toJson(pe, PushExt.class))
                 .setIsPersisted(0)
                 .setIsCounted(0)
                 .setContentAvailable(0);
@@ -134,6 +139,7 @@ public class MessageExample {
                 .setContent(voiceMessage)
                 .setPushContent("")
                 .setPushData("{\"pushData\":\"hello\"}")
+//                .setPushExt(GsonUtil.toJson(pe, PushExt.class))
                 .setCount("4")
                 .setVerifyBlacklist(0)
                 .setIsPersisted(0)
@@ -174,10 +180,10 @@ public class MessageExample {
         ResponseResult recallPrivateResult = (ResponseResult)Private.recall(recallMessage);
         System.out.println("recall private:  " + recallPrivateResult.toString());
 
-        
+
         /**
          * API 文档: https://docs.rongcloud.cn/im/server/message/#statusmessage_private
-         * 
+         *
          * 发送单聊状态消息
          */
         PrivateStatusMessage statusMessage = new PrivateStatusMessage()
@@ -187,13 +193,13 @@ public class MessageExample {
         		.setContent(txtMessage);
         ResponseResult statusMessageResult = Private.sendStatusMessage(statusMessage);
         System.out.println("private status message result:  " + statusMessageResult.toString());
-        
-        
+
+
 		/**
 		 * API 文档: https://www.rongcloud.cn/docs/message_architecture.html#typing_status_message
-		 * 
+		 *
 		 * 单聊-发送正在输入状态消息
-		 * 
+		 *
 		 * 正在输入状态消息只支持单聊文本消息，不支持其他消息类型(包括自定义消息)
 		 */
 		TypingStatusMessage typpingStatusMessage = new TypingStatusMessage();
@@ -204,7 +210,7 @@ public class MessageExample {
 				.setContent(typpingStatusMessage);
 		ResponseResult statusResult = Private.sendTypingStatusMessage(privateMsg);
 		System.out.println("send private message:  " + statusResult.toString());
-		
+
 		/**
 		 * API 文档: https://docs.rongcloud.cn/im/introduction/message_structure/#InfoNtf
 		 * 发送单聊小灰条消息
@@ -217,7 +223,7 @@ public class MessageExample {
 				.setContent(infoNotify);
 		ResponseResult infoNotifyResult = Private.send(p);
 		System.out.println("send private infoNotify message:  " + infoNotifyResult.toString());
-		
+
 		/**
 		 * 发送单聊已读回执消息(会话类型可设置)
 		 */
@@ -229,7 +235,7 @@ public class MessageExample {
 				.setContent(receiptMessage);
 		ResponseResult privateReceiptResult = Private.send(privateReceipt);
 		System.out.println("send private ReceiptResult message:  " + privateReceiptResult.toString());
-		
+
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#send
          *
@@ -242,6 +248,7 @@ public class MessageExample {
                 .setContent(txtMessage)
                 .setPushContent("this is a push")
                 .setPushData("{\"pushData\":\"hello\"}")
+//                .setPushExt(GsonUtil.toJson(pe, PushExt.class))
                 .setIsPersisted(0)
                 .setIsIncludeSender(0)
                 .setContentAvailable(0);
@@ -263,6 +270,7 @@ public class MessageExample {
                 .setContent(txtMessage)
                 .setPushContent("this is a push")
                 .setPushData("{\"pushData\":\"hello\"}")
+//                .setPushExt(GsonUtil.toJson(pe, PushExt.class))
                 .setIsPersisted(0)
                 .setIsIncludeSender(0)
                 .setContentAvailable(0);
@@ -302,6 +310,7 @@ public class MessageExample {
                 .setContent(content)
                 .setPushContent("this is a push")
                 .setPushData("{\"pushData\":\"hello\"}")
+//                .setPushExt(GsonUtil.toJson(pe, PushExt.class))
                 .setIsPersisted(0)
                 .setIsCounted(0)
                 .setIsIncludeSender(0)
@@ -312,7 +321,7 @@ public class MessageExample {
 
         /**
          * 发送群组状态消息
-         * 
+         *
          * API 文档: https://docs.rongcloud.cn/im/server/message/#_6
          */
         GroupStatusMessage groupStatusMessage = new GroupStatusMessage();
@@ -324,7 +333,7 @@ public class MessageExample {
         .setIsIncludeSender(1);
         ResponseResult groupStatusResult = group.sendStatusMessage(groupStatusMessage);
         System.out.println("group status message result:  " + groupStatusResult.toString());
-        
+
         /**
          * 发送群聊小灰条消息（所有人）
          */
@@ -335,7 +344,7 @@ public class MessageExample {
                 .setContent(infoNotify);
         ResponseResult groupinfoNotifyResult = group.send(groupMessage2);
         System.out.println("group info Notify message result:  " + groupinfoNotifyResult.toString());
-        
+
 		/**
 		 * 发送群聊小灰条消息-定向用户(单次请求最多 1000 人）
 		 */
@@ -347,7 +356,7 @@ public class MessageExample {
                 .setObjectName(infoNotify.getType())
                 .setContent(infoNotify);
 		group.sendDirection(groupMessage3);
-		
+
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/discussion.html#send
          *
@@ -460,7 +469,7 @@ public class MessageExample {
 
 		/**
 		 * 清除历史消息
-		 * 
+		 *
 		 * API 文档: https://docs.rongcloud.cn/im/server/message_clean/
 		 */
 		ResponseResult cleanResult = history.clean("1", "jf8yVWgZO", "IotBnm9K4", null);

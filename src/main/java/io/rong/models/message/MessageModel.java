@@ -1,6 +1,11 @@
 package io.rong.models.message;
 
+import com.google.gson.Gson;
+import io.rong.util.GsonUtil;
 import io.rong.messages.BaseMessage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 发送消息的消息体
@@ -41,7 +46,7 @@ public class MessageModel {
     }
 
     public MessageModel(String senderId, String[] targetId, String objectName, BaseMessage content,
-        String pushContent, String pushData) {
+                        String pushContent, String pushData) {
         this.senderId = senderId;
         this.targetId = targetId;
         this.objectName = objectName;
@@ -52,7 +57,7 @@ public class MessageModel {
     }
 
     public MessageModel(String senderId, String[] targetId, String objectName, BaseMessage content,
-        String pushContent, String pushData, String pushExt) {
+                        String pushContent, String pushData, String pushExt) {
         this.senderId = senderId;
         this.targetId = targetId;
         this.objectName = objectName;
@@ -119,6 +124,18 @@ public class MessageModel {
         this.pushExt = pushExt;
         return this;
     }
+
+    /**
+     * 获取PushExt json参数
+     *
+     * @param pe  构建的 PushExt 对象
+     * @return
+     */
+    public MessageModel setPushExt(PushExt pe) {
+        this.pushExt = GsonUtil.toJson(pe, PushExt.class);
+        return this;
+    }
+
 
     public String getSenderId() {
         return this.senderId;

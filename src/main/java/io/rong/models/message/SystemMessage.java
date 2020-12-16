@@ -26,7 +26,7 @@ public class SystemMessage extends MessageModel {
     }
 
     public SystemMessage(String senderUserId, String[] targetId, String objectName, BaseMessage content,
-        String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer contentAvailable) {
+                         String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer contentAvailable) {
         super(senderUserId, targetId, objectName, content, pushContent, pushData);
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -34,8 +34,8 @@ public class SystemMessage extends MessageModel {
     }
 
     public SystemMessage(String senderUserId, String[] targetId, String objectName, BaseMessage content,
-        String pushContent, String pushData, String pushExt, Integer isPersisted, Integer isCounted,
-        Integer contentAvailable) {
+                         String pushContent, String pushData, String pushExt, Integer isPersisted, Integer isCounted,
+                         Integer contentAvailable) {
         super(senderUserId, targetId, objectName, content, pushContent, pushData, pushExt);
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -90,6 +90,12 @@ public class SystemMessage extends MessageModel {
     @Override
     public SystemMessage setPushExt(String pushExt) {
         super.setPushExt(pushExt);
+        return this;
+    }
+
+    @Override
+    public SystemMessage setPushExt(PushExt pe) {
+        super.setPushExt(pe);
         return this;
     }
 

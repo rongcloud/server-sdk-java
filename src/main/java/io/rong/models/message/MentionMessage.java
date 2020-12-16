@@ -1,5 +1,10 @@
 package io.rong.models.message;
 
+import io.rong.util.GsonUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author rongcloud
  */
@@ -120,6 +125,20 @@ public class MentionMessage {
         return this;
     }
 
+    public MentionMessage setPushExt(String title, Integer forceShowPushContent, Platform... platforms) {
+        PushExt pe = new PushExt();
+        pe.setTitle(title);
+        if (forceShowPushContent != null) {
+            pe.setForceShowPushContent(forceShowPushContent);
+        }
+        List<Platform> pushConfigs = new ArrayList<Platform>();
+        for (Platform p : platforms) {
+            pushConfigs.add(p);
+        }
+        pe.setPushConfigs(pushConfigs);
+        this.pushExt = GsonUtil.toJson(pe, PushExt.class);
+        return this;
+    }
 
     public Integer getIsPersisted() {
         return this.isPersisted;

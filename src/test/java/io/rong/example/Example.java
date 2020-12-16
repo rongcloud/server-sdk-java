@@ -35,12 +35,17 @@ public class Example {
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
     private static final RcCmdMessage rcCmdMessage = new RcCmdMessage("BCVD-DV70-EKOC-7ES6");
     private static final String[] targetIds = {"tB0QMmDbq"};
+    private static final PushExt pe = PushExt.build("testTitle", 1,
+            new PushExt.HW("channelId"), new PushExt.VIVO("1"),
+            new PushExt.APNs("234353efsfwd", "232"),
+            new PushExt.OPPO("134324"));
 
     @Before
     public void setUp() throws Exception {
         String appKey = "appKey";
         String appSecret = "appSecret";
         rongCloud = RongCloud.getInstance(appKey, appSecret);
+
         //rongCloud = RongCloud.getInstance(appKey, appSecret,api);
         /**
          * 自定义备用 API 地址用法
@@ -288,6 +293,7 @@ public class Example {
             .setPushContent("this is a push2")
             .setPushData("{'pushData':'hello'}")
             .setPushExt("{\"forceShowPushContent\":0,\"title\":\"12234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+//            .setPushExt(GsonUtil.toJson(pe, PushExt.class))
             .setIsPersisted(0)
             .setIsCounted(0)
             .setContentAvailable(0);
@@ -336,6 +342,7 @@ public class Example {
             .setPushContent("this is a push4455")
             .setPushData("{'pushData':'hello'}")
             .setPushExt("{\"forceShowPushContent\":0,\"title\":\"11223344\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+//            .setPushExt(GsonUtil.toJson(pe, PushExt.class))
             .setOs("Android");
         ResponseResult result = rongCloud.message.system.broadcast(message);
         System.out.println("send broadcast:  " + result.toString());
@@ -402,6 +409,7 @@ public class Example {
             .setIsPersisted(0)
             .setIsCounted(0)
             .setPushExt("{\"forceShowPushContent\":0,\"title\":\"1234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+//            .setPushExt(GsonUtil.toJson(pe, PushExt.class))
             .setIsIncludeSender(0);
 
         //发送单聊方法
@@ -443,6 +451,7 @@ public class Example {
             .setPushContent("this is a push1")
             .setPushData("{\"pushData\":\"hello\"}")
             .setPushExt("{\"forceShowPushContent\":0,\"title\":\"11234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+//            .setPushExt(GsonUtil.toJson(pe, PushExt.class))
             .setIsPersisted(0)
             .setIsIncludeSender(0)
             .setContentAvailable(0);
@@ -474,6 +483,7 @@ public class Example {
             .setPushContent("this is a push")
             .setPushData("{\"pushData\":\"hello\"}")
             .setPushExt("{\"forceShowPushContent\":0,\"title\":\"4321\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+//            .setPushExt(GsonUtil.toJson(pe, PushExt.class))
             .setIsPersisted(0)
             .setIsCounted(0)
             .setIsIncludeSender(0)
@@ -502,6 +512,7 @@ public class Example {
             .setPushContent("this is a push2")
             .setPushData("{\"pushData\":\"hello\"}")
             .setPushExt("{\"forceShowPushContent\":0,\"title\":\"44321\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
+//            .setPushExt(GsonUtil.toJson(pe, PushExt.class))
             .setIsPersisted(0)
             .setIsIncludeSender(0)
             .setContentAvailable(0);

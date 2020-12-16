@@ -32,8 +32,8 @@ public class DiscussionMessage extends MessageModel {
     }
 
     public DiscussionMessage(String senderId, String[] targetId, String objectName, BaseMessage content,
-        String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender,
-        Integer contentAvailable) {
+                             String pushContent, String pushData, Integer isPersisted, Integer isCounted, Integer isIncludeSender,
+                             Integer contentAvailable) {
         super(senderId, targetId, objectName, content, pushContent, pushData);
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -42,8 +42,8 @@ public class DiscussionMessage extends MessageModel {
     }
 
     public DiscussionMessage(String senderId, String[] targetId, String objectName, BaseMessage content,
-        String pushContent, String pushData, String pushExt, Integer isPersisted, Integer isCounted,
-        Integer isIncludeSender, Integer contentAvailable) {
+                             String pushContent, String pushData, String pushExt, Integer isPersisted, Integer isCounted,
+                             Integer isIncludeSender, Integer contentAvailable) {
         super(senderId, targetId, objectName, content, pushContent, pushData, pushExt);
         this.isPersisted = isPersisted;
         this.isCounted = isCounted;
@@ -99,6 +99,12 @@ public class DiscussionMessage extends MessageModel {
     @Override
     public DiscussionMessage setPushExt(String pushExt) {
         super.setPushExt(pushExt);
+        return this;
+    }
+
+    @Override
+    public DiscussionMessage setPushExt(PushExt pe) {
+        super.setPushExt(pe);
         return this;
     }
 
