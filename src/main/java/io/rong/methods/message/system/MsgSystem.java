@@ -91,9 +91,15 @@ public class MsgSystem {
         if (systemMessage.getIsCounted() != null) {
             sb.append("&isCounted=").append(URLEncoder.encode(systemMessage.getIsCounted().toString(), UTF8));
         }
+
         if (systemMessage.getContentAvailable() != null) {
             sb.append("&contentAvailable=").append(URLEncoder.encode(systemMessage.getContentAvailable().toString(), UTF8));
         }
+
+        if (systemMessage.getDisablePush() != null) {
+            sb.append("&disablePush=").append(URLEncoder.encode(systemMessage.getDisablePush().toString(), UTF8));
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -187,6 +193,10 @@ public class MsgSystem {
 		if (message.getContentAvailable() != null) {
 			sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
 		}
+
+        if (message.getDisablePush() != null) {
+            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+        }
 
         String body = sb.toString();
         if (body.indexOf("&") == 0) {

@@ -97,6 +97,13 @@ public class Group {
         if (message.getContentAvailable() != null) {
             sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
         }
+        if (message.getDisablePush() != null) {
+            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+        }
+        if (message.getExpansion() != null) {
+            sb.append("&expansion=").append(URLEncoder.encode(message.getExpansion().toString(), UTF8));
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

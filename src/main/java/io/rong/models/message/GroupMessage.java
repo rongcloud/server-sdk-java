@@ -32,6 +32,16 @@ public class GroupMessage extends MessageModel {
      **/
     public String[] toUserId;
 
+    /**
+     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     */
+    public Boolean disablePush;
+
+    /**
+     * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
+     */
+    public Boolean expansion;
+
     public GroupMessage() {
     }
 
@@ -203,6 +213,20 @@ public class GroupMessage extends MessageModel {
 
     public GroupMessage setToUserId(String[] toUserId) {
         this.toUserId = toUserId;
+        return this;
+    }
+
+    public Boolean getDisablePush() {   return disablePush;  }
+
+    public GroupMessage setDisablePush(Boolean disablePush) {
+        this.disablePush = disablePush;
+        return this;
+    }
+
+    public Boolean getExpansion() {   return expansion;  }
+
+    public GroupMessage setExpansion(Boolean expansion) {
+        this.expansion = expansion;
         return this;
     }
 }

@@ -110,6 +110,12 @@ public class Private {
 		if (message.getContentAvailable() != null) {
 			sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
 		}
+		if (message.getDisablePush() != null) {
+			sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+		}
+		if (message.getExpansion() != null) {
+			sb.append("&expansion=").append(URLEncoder.encode(message.getExpansion().toString(), UTF8));
+		}
 		String body = sb.toString();
 		if (body.indexOf("&") == 0) {
 			body = body.substring(1, body.length());
@@ -160,12 +166,16 @@ public class Private {
 		templateMessage.setPushData(message.getPushExt());
 		templateMessage.setVerifyBlacklist(message.getVerifyBlacklist());
 		templateMessage.setContentAvailable(message.getContentAvailable());
-
+		if (message.getDisablePush() != null) {
+			templateMessage.setDisablePush(message.getDisablePush());
+		}
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish_template.json", "application/json");
 	    HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+		ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+		result.setReqBody(templateMessage.toString());
+	    return result;
 	}
 
 	/**
@@ -188,6 +198,10 @@ public class Private {
 		sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
 		sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
 		sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+		if (message.getDisablePush() != null) {
+			sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+		}
+
 		String body = sb.toString();
 		if (body.indexOf("&") == 0) {
 			body = body.substring(1, body.length());
@@ -195,7 +209,9 @@ public class Private {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+		ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+		result.setReqBody(body);
+		return result;
 	}
 
 	/**

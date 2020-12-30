@@ -33,6 +33,11 @@ public class TemplateMessage {
     private Integer verifyBlacklist;
 
     private Integer contentAvailable;
+
+    /**
+     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     */
+    public Boolean disablePush;
     /**
      * 获取senderId
      * @return String
@@ -133,6 +138,12 @@ public class TemplateMessage {
      */
     public void setContentAvailable(Integer contentAvailable) {
         this.contentAvailable = contentAvailable;
+    }
+
+    public Boolean getDisablePush() {   return disablePush;  }
+
+    public void setDisablePush(Boolean disablePush) {
+        this.disablePush = disablePush;
     }
 
     /**

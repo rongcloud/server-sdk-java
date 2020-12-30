@@ -33,6 +33,16 @@ public class PrivateMessage extends MessageModel {
 
     public Integer contentAvailable;
 
+    /**
+     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     */
+    public Boolean disablePush;
+
+    /**
+     * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
+     */
+    public Boolean expansion;
+
     public PrivateMessage() {
     }
 
@@ -157,6 +167,20 @@ public class PrivateMessage extends MessageModel {
 
     public PrivateMessage setIsIncludeSender(Integer isIncludeSender) {
         this.isIncludeSender = isIncludeSender;
+        return this;
+    }
+
+    public Boolean getDisablePush() {   return disablePush;  }
+
+    public PrivateMessage setDisablePush(Boolean disablePush) {
+        this.disablePush = disablePush;
+        return this;
+    }
+
+    public Boolean getExpansion() {   return expansion;  }
+
+    public PrivateMessage setExpansion(Boolean expansion) {
+        this.expansion = expansion;
         return this;
     }
 
