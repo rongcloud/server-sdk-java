@@ -132,9 +132,9 @@ public class MsgSystem {
         sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
         sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
         sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
-        if (message.getDisablePush() != null) {
-            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
-        }
+//        if (message.getDisablePush() != null) {
+//            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+//        }
         if (message.getIsAdmin() != null) {
             sb.append("&isAdmin=").append(URLEncoder.encode(message.getIsAdmin().toString(), UTF8));
         }
@@ -239,9 +239,9 @@ public class MsgSystem {
 			sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
 		}
 
-        if (message.getDisablePush() != null) {
-            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
-        }
+//        if (message.getDisablePush() != null) {
+//            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+//        }
 
         String body = sb.toString();
         if (body.indexOf("&") == 0) {

@@ -20,7 +20,7 @@ public class BroadcastMessage extends MessageModel {
     /**
      * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
      */
-    public Boolean disablePush;
+//    public Boolean disablePush;
 
     public BroadcastMessage() {
     }
@@ -97,11 +97,11 @@ public class BroadcastMessage extends MessageModel {
         return this;
     }
 
-    public Boolean getDisablePush() {   return disablePush;  }
-
-    public BroadcastMessage setDisablePush(Boolean disablePush) {
-        this.disablePush = disablePush;
-        return this;
-    }
+//    public Boolean getDisablePush() {   return disablePush;  }
+//
+//    public BroadcastMessage setDisablePush(Boolean disablePush) {
+//        this.disablePush = disablePush;
+//        return this;
+//    }
 
 }
