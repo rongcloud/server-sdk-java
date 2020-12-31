@@ -201,6 +201,15 @@ public class Private {
 		if (message.getDisablePush() != null) {
 			sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
 		}
+		if (message.getIsAdmin() != null) {
+			sb.append("&isAdmin=").append(URLEncoder.encode(message.getIsAdmin().toString(), UTF8));
+		}
+		if (message.getIsDelete() != null) {
+			sb.append("&isDelete=").append(URLEncoder.encode(message.getIsDelete().toString(), UTF8));
+		}
+		if (message.getExtra() != null) {
+			sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+		}
 
 		String body = sb.toString();
 		if (body.indexOf("&") == 0) {

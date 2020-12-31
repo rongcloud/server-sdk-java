@@ -4,20 +4,35 @@ public class RecallMessage {
     /**
      * 撤回消息体
      * 发送人id
-     * */
+     */
     public String senderId;
     /**
      * 接收人id
-     * */
+     */
     public String targetId;
     /**
      * 消息唯一标识 各端 SDK 发送消息成功后会返回 uId
-     * */
+     */
     public String uId;
     /**
      * 消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime
-     * */
+     */
     public String sentTime;
+
+    /**
+     * 是否为管理员，默认为 0，设为 1 时，IMKit 收到此条消息后，小灰条默认显示为“管理员 撤回了一条消息”（可选）。
+     */
+    public Integer isAdmin;
+
+    /**
+     * 默认为 0 撤回该条消息同时，用户端将该条消息删除并替换为一条小灰条撤回提示消息；为 1 时，该条消息删除后，不替换为小灰条提示消息（可选）。
+     */
+    public Integer isDelete;
+
+    /**
+     * 扩展信息，可以放置任意的数据内容（可选）。
+     */
+    public String extra;
 
     /**
      * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
@@ -28,13 +43,12 @@ public class RecallMessage {
     }
 
     /**
-     * @param senderId	String	消息发送人用户 Id。（必传）
-     * @param conversationType	Int	会话类型，二人会话是 1 、讨论组会话是 2 、群组会话是 3 。（必传）
-     * @param targetId	String	目标 Id，根据不同的 ConversationType，可能是用户 Id、讨论组 Id、群组 Id。（必传）
-     * @param uId	String	消息唯一标识，可通过服务端实时消息路由获取，对应名称为 msgUID。（必传）
+     * @param senderId         String	消息发送人用户 Id。（必传）
+     * @param conversationType Int	会话类型，二人会话是 1 、讨论组会话是 2 、群组会话是 3 。（必传）
+     * @param targetId         String	目标 Id，根据不同的 ConversationType，可能是用户 Id、讨论组 Id、群组 Id。（必传）
+     * @param uId              String	消息唯一标识，可通过服务端实时消息路由获取，对应名称为 msgUID。（必传）
      * @param sentTime
-     *
-     * */
+     */
     public RecallMessage(String senderId, String conversationType, String targetId,
                          String uId, String sentTime) {
         this.senderId = senderId;
@@ -79,11 +93,39 @@ public class RecallMessage {
         return this;
     }
 
-    public Boolean getDisablePush() {   return disablePush;  }
+    public Boolean getDisablePush() {
+        return disablePush;
+    }
 
     public RecallMessage setDisablePush(Boolean disablePush) {
         this.disablePush = disablePush;
         return this;
     }
 
+    public Integer getIsAdmin() {
+        return isAdmin;
+    }
+
+    public RecallMessage setIsAdmin(Integer isAdmin) {
+        this.isAdmin = isAdmin;
+        return this;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public RecallMessage setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+        return this;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public RecallMessage setExtra(String extra) {
+        this.extra = extra;
+        return this;
+    }
 }

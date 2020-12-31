@@ -2,12 +2,10 @@ package io.rong.methods.message.system;
 
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
-import io.rong.models.message.BroadcastMessage;
-import io.rong.models.message.MessageModel;
-import io.rong.models.message.TemplateMessage;
+import io.rong.models.Result;
+import io.rong.models.message.*;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Templates;
-import io.rong.models.message.SystemMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -30,6 +28,7 @@ public class MsgSystem {
     private String appKey;
     private String appSecret;
     private static final String PATH = "message/system";
+    private static final String RECAL_PATH = "message/recall";
     private RongCloud rongCloud;
 
     public RongCloud getRongCloud() {
@@ -112,6 +111,52 @@ public class MsgSystem {
 
         return result;
     }
+
+    /**
+     * 系统消息撤回。
+     *
+     * @param message
+     *
+     * @return ResponseResult
+     * @throws Exception
+     **/
+    public Result recall(RecallMessage message) throws Exception {
+
+        String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
+        if (null != errMsg) {
+            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&conversationType=").append(URLEncoder.encode("6", UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderId.toString(), UTF8));
+        sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
+        sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
+        sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+        if (message.getDisablePush() != null) {
+            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+        }
+        if (message.getIsAdmin() != null) {
+            sb.append("&isAdmin=").append(URLEncoder.encode(message.getIsAdmin().toString(), UTF8));
+        }
+        if (message.getIsDelete() != null) {
+            sb.append("&isDelete=").append(URLEncoder.encode(message.getIsDelete().toString(), UTF8));
+        }
+        if (message.getExtra() != null) {
+            sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
+
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        result.setReqBody(body);
+        return result;
+    }
+
 
     /**
      * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM.每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）

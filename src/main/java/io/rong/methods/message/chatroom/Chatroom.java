@@ -130,6 +130,15 @@ public class Chatroom {
         sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
         sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
         sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+        if (message.getIsAdmin() != null) {
+            sb.append("&isAdmin=").append(URLEncoder.encode(message.getIsAdmin().toString(), UTF8));
+        }
+        if (message.getIsDelete() != null) {
+            sb.append("&isDelete=").append(URLEncoder.encode(message.getIsDelete().toString(), UTF8));
+        }
+        if (message.getExtra() != null) {
+            sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
