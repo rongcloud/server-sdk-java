@@ -143,6 +143,7 @@ type TemplateMsgContent struct {
 	TargetID    string
 	Data        map[string]string
 	PushContent string
+	PushData    string
 }
 
 // MentionedInfo Mentioned
@@ -322,6 +323,84 @@ func (msg *DizNtf) ToString() (string, error) {
 	return string(bytes), nil
 }
 
+// msgOptions is extra options for sending messages
+type msgOptions struct {
+	isMentioned      int
+	contentAvailable int
+	verifyBlacklist  int
+	expansion        bool
+	disablePush      bool
+	pushExt          string
+}
+
+// MsgOption 接口函数
+type MsgOption func(*msgOptions)
+
+// 是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0
+func WithMsgMentioned(isMentioned int) MsgOption {
+	return func(options *msgOptions) {
+		options.isMentioned = isMentioned
+	}
+}
+
+// 针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送
+// iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行
+// 1 表示为开启，0 表示为关闭，默认为 0
+func WithMsgContentAvailable(contentAvailable int) MsgOption {
+	return func(options *msgOptions) {
+		options.contentAvailable = contentAvailable
+	}
+}
+
+// 是否过滤发送人黑名单列表，0 为不过滤、 1 为过滤，默认为 0 不过滤。
+func WithMsgVerifyBlacklist(verifyBlacklist int) MsgOption {
+	return func(options *msgOptions) {
+		options.verifyBlacklist = verifyBlacklist
+	}
+}
+
+// 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息。暂不支持海外数据中心
+func WithMsgExpansion(isExpansion bool) MsgOption {
+	return func(options *msgOptions) {
+		options.expansion = isExpansion
+	}
+}
+
+// disablePush Boolean 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒。暂不支持海外数据中心
+func WithMsgDisablePush(isDisablePush bool) MsgOption {
+	return func(options *msgOptions) {
+		options.disablePush = isDisablePush
+	}
+}
+
+// pushExt String 推送通知属性设置，详细查看 pushExt 结构说明，pushExt 为 JSON 结构请求时需要做转义处理。
+// disablePush 为 true 时此属性无效。暂不支持海外数据中心
+func WithMsgPushExt(pushExt string) MsgOption {
+	return func(options *msgOptions) {
+		options.pushExt = pushExt
+	}
+}
+
+// 修改默认值
+func modifyMsgOptions(options []MsgOption) msgOptions {
+	// 默认值
+	defaultMsgOptions := msgOptions{
+		isMentioned:      0,
+		contentAvailable: 0,
+		verifyBlacklist:  0,
+		expansion:        false,
+		disablePush:      false,
+		pushExt:          "",
+	}
+
+	// 修改默认值
+	for _, ext := range options {
+		ext(&defaultMsgOptions)
+	}
+
+	return defaultMsgOptions
+}
+
 /**
  * @name: MessageBroadcastRecall
  * @test:
@@ -416,11 +495,13 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
  *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
  *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
  *@param  contentAvailable:针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0。
+ *@param  options 发送消息需要用的其他扩展参数
  *
  *@return error
  */
 func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg rcMsg,
-	pushContent, pushData string, count, verifyBlacklist, isPersisted, isIncludeSender, contentAvailable int) error {
+	pushContent, pushData string, count, verifyBlacklist, isPersisted, isIncludeSender, contentAvailable int,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -428,6 +509,8 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	if len(targetID) == 0 {
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/private/publish." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -450,6 +533,11 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	req.Param("expansion", strconv.FormatBool(extraOptins.expansion))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	if !extraOptins.disablePush && extraOptins.pushExt != "" {
+		req.Param("pushExt", extraOptins.pushExt)
+	}
 
 	_, err = rc.do(req)
 	if err != nil {
@@ -499,19 +587,23 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
  *@param  objectName:发送的消息类型。
  *@param  template:消息模版。
  *@param  content:数据内容，包含消息内容和接收者。
+ *@param  options 发送消息需要用的其他扩展参数
  *
  *@return error
  */
-func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
+func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/private/publish_template." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	var toUserIDs, push []string
+	var toUserIDs, push, pushData []string
 	var values []map[string]string
 
 	for _, v := range content {
@@ -521,6 +613,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 		toUserIDs = append(toUserIDs, v.TargetID)
 		values = append(values, v.Data)
 		push = append(push, v.PushContent)
+		pushData = append(pushData, v.PushData)
 	}
 
 	bytes, err := json.Marshal(template)
@@ -535,7 +628,10 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 	param["toUserId"] = toUserIDs
 	param["values"] = values
 	param["pushContent"] = push
-	param["verifyBlacklist"] = 0
+	param["pushData"] = pushData
+	param["verifyBlacklist"] = extraOptins.verifyBlacklist
+	param["contentAvailable"] = extraOptins.contentAvailable
+	param["disablePush"] = extraOptins.disablePush
 	req, err = req.JSONBody(param)
 	if err != nil {
 		return err
@@ -559,11 +655,13 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
  *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
  *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+ *@param  options 发送消息需要用的其他扩展参数
  *
  *@return error
  */
 func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
-	pushContent string, pushData string, isPersisted, isIncludeSender int) error {
+	pushContent string, pushData string, isPersisted, isIncludeSender int,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -571,6 +669,8 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	if len(targetID) == 0 {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -590,6 +690,13 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	req.Param("pushData", pushData)
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	req.Param("isMentioned", strconv.Itoa(extraOptins.isMentioned))
+	req.Param("contentAvailable", strconv.Itoa(extraOptins.contentAvailable))
+	req.Param("expansion", strconv.FormatBool(extraOptins.expansion))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	if !extraOptins.disablePush && extraOptins.pushExt != "" {
+		req.Param("pushExt", extraOptins.pushExt)
+	}
 	if len(userID) > 0 {
 		for _, v := range userID {
 			req.Param("toUserId", v)
@@ -770,11 +877,14 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) e
 *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
 *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
 *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
+*@param  options 发送消息需要用的其他扩展参数
+
 *
 *@return error
  */
 func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg rcMsg,
-	pushContent, pushData string, count, isPersisted int) error {
+	pushContent, pushData string, count, isPersisted int,
+	options ...MsgOption) error {
 
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -783,6 +893,8 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	if len(targetID) == 0 {
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/system/publish." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -802,6 +914,11 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	req.Param("pushContent", pushContent)
 	req.Param("count", strconv.Itoa(count))
 	req.Param("isPersisted", strconv.Itoa(isPersisted))
+	req.Param("contentAvailable", strconv.Itoa(extraOptins.contentAvailable))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	if !extraOptins.disablePush && extraOptins.pushExt != "" {
+		req.Param("pushExt", extraOptins.pushExt)
+	}
 
 	_, err = rc.do(req)
 	if err != nil {

@@ -74,6 +74,36 @@ func TestMessage_PrivateSend(t *testing.T) {
 	t.Log(err)
 }
 
+func TestMessage_PrivateSendOptions(t *testing.T) {
+
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	msg := TXTMsg{
+		Content: "hello",
+		Extra:   "helloExtra",
+	}
+
+	err := rc.PrivateSend(
+		"7Szq13MKRVortoknTAk7W8",
+		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
+		"RC:TxtMsg",
+		&msg,
+		"",
+		"",
+		1,
+		0,
+		1,
+		0,
+		0,
+		WithMsgDisablePush(true),
+		WithMsgPushExt(""),
+	)
+	t.Log(err)
+}
+
 func TestMessage_PrivateRecall(t *testing.T) {
 
 	rc := NewRongCloud(
