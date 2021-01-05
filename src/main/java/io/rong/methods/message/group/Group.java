@@ -16,6 +16,8 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 import org.apache.commons.lang3.StringUtils;
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.JsonSyntaxException;
 /**
  * 发送群组消息方法
  *
@@ -112,9 +114,15 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
         result.setReqBody(body);
-
         return result;
     }
 
@@ -186,9 +194,15 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
         result.setReqBody(body);
-
         return result;
     }
 
@@ -265,9 +279,15 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result =(ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
         result.setReqBody(body);
-
         return result;
     }
 
@@ -307,7 +327,16 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.RECALL,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH,CheckMethod.RECALL,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
     }
 
     /**
@@ -353,9 +382,15 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/statusmessage/group/publish.json", "application/x-www-form-urlencoded");
 	    HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDGROUPSTATUS, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.SENDGROUPSTATUS, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
         result.setReqBody(body);
-
         return result;
     }
 }

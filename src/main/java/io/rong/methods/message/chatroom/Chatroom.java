@@ -12,6 +12,8 @@ import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * 发送聊天室消息方法
@@ -74,9 +76,15 @@ public class Chatroom {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/chatroom/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
         result.setReqBody(body);
-        
         return result;
     }
 
@@ -95,8 +103,6 @@ public class Chatroom {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
-
-
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
         String body = sb.toString();
@@ -107,7 +113,17 @@ public class Chatroom {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/chatroom/broadcast.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
     }
 
 
@@ -146,6 +162,15 @@ public class Chatroom {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e){
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
     }
 }

@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.JsonSyntaxException;
+
 /**
  * 发送系统消息方法
- *
+ * <p>
  * docs : http://www.rongcloud.cn/docs/server.html#message_system_publish
- * @author RongCloud
  *
+ * @author RongCloud
  */
 public class MsgSystem {
     private static final String UTF8 = "UTF-8";
@@ -38,6 +41,7 @@ public class MsgSystem {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
+
     public MsgSystem(String appKey, String appSecret) {
         this.appKey = appKey;
         this.appSecret = appSecret;
@@ -53,17 +57,17 @@ public class MsgSystem {
      * @throws Exception
      **/
     public ResponseResult send(MessageModel message) throws Exception {
-        SystemMessage systemMessage = (SystemMessage)message;
-        String code = CommonUtil.checkFiled(systemMessage,PATH,CheckMethod.PUBLISH);
-        if(null != code){
-            return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
+        SystemMessage systemMessage = (SystemMessage) message;
+        String code = CommonUtil.checkFiled(systemMessage, PATH, CheckMethod.PUBLISH);
+        if (null != code) {
+            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(systemMessage.getSenderId().toString(), UTF8));
 
-        for (int i = 0 ; i< systemMessage.getTargetId().length; i++) {
-            String child  = systemMessage.getTargetId()[i];
-            if(null != child) {
+        for (int i = 0; i < systemMessage.getTargetId().length; i++) {
+            String child = systemMessage.getTargetId()[i];
+            if (null != child) {
                 sb.append("&toUserId=").append(URLEncoder.encode(child, UTF8));
             }
         }
@@ -106,17 +110,26 @@ public class MsgSystem {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        ResponseResult  result =  (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISH,HttpUtil.returnResult(conn, rongCloud.getConfig()))), ResponseResult.class);
-        result.setReqBody(body);
 
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.PUBLISH, CommonUtil.getResponseByCode(
+                            PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn, rongCloud.getConfig()))
+            ), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
         return result;
+
     }
 
     /**
      * 系统消息撤回。
      *
      * @param message
-     *
      * @return ResponseResult
      * @throws Exception
      **/
@@ -152,7 +165,14 @@ public class MsgSystem {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
         result.setReqBody(body);
         return result;
     }
@@ -161,24 +181,23 @@ public class MsgSystem {
     /**
      * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM.每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）
      *
-     * @param  template:系统模版消息。
-     *
+     * @param template:系统模版消息。
      * @return ResponseResult
      * @throws Exception
      **/
     public ResponseResult sendTemplate(TemplateMessage template) throws Exception {
 
-        String code = CommonUtil.checkFiled(template,PATH,CheckMethod.PUBLISHTEMPLATE);
-        if(null != code){
-            return (ResponseResult)GsonUtil.fromJson(code,ResponseResult.class);
+        String code = CommonUtil.checkFiled(template, PATH, CheckMethod.PUBLISHTEMPLATE);
+        if (null != code) {
+            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
         }
         Templates templateMessage = new Templates();
 
         ArrayList<String> toUserIds = new ArrayList<>();
-        List<Map<String,String>> values = new ArrayList<>();
+        List<Map<String, String>> values = new ArrayList<>();
         List<String> push = new ArrayList<>();
 
-        for(Map.Entry<String, TemplateMessage.Data> vo : template.getContent().entrySet()){
+        for (Map.Entry<String, TemplateMessage.Data> vo : template.getContent().entrySet()) {
             toUserIds.add(vo.getKey());
             values.add(vo.getValue().getData());
             push.add(vo.getValue().getPush());
@@ -186,7 +205,7 @@ public class MsgSystem {
         templateMessage.setFromUserId(template.getSenderId());
         templateMessage.setToUserId(toUserIds.toArray(new String[toUserIds.size()]));
         templateMessage.setObjectName(template.getObjectName());
-        templateMessage.setContent(GsonUtil.toJson(template.getTemplate(),Map.class));
+        templateMessage.setContent(GsonUtil.toJson(template.getTemplate(), Map.class));
         templateMessage.setValues(values);
         templateMessage.setPushContent(push.toArray(new String[push.size()]));
         templateMessage.setPushData(template.getPushData());
@@ -196,7 +215,17 @@ public class MsgSystem {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish_template.json", "application/json");
         HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.PUBLISHTEMPLATE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(templateMessage.toString());
+        return result;
+
     }
 
     /**
@@ -204,15 +233,14 @@ public class MsgSystem {
      * 该功能开发环境下可免费使用。生产环境下，您需要登录开发者后台，在“应用/IM 服务/高级功能设置”中开通公有云专业版后，在“广播消息和推送”中，开启后才能使用
      *
      * @param message 消息体
-     *
      * @return ResponseResult
      * @throws Exception
      **/
     public ResponseResult broadcast(BroadcastMessage message) throws Exception {
 
-        String errMsg = CommonUtil.checkFiled(message,PATH,CheckMethod.BROADCAST);
-        if(null != errMsg){
-            return (ResponseResult)GsonUtil.fromJson(errMsg,ResponseResult.class);
+        String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.BROADCAST);
+        if (null != errMsg) {
+            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -235,9 +263,9 @@ public class MsgSystem {
             sb.append("&os=").append(URLEncoder.encode(message.getOs().toString(), UTF8));
         }
 
-		if (message.getContentAvailable() != null) {
-			sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
-		}
+        if (message.getContentAvailable() != null) {
+            sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
+        }
 
 //        if (message.getDisablePush() != null) {
 //            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
@@ -250,9 +278,16 @@ public class MsgSystem {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        ResponseResult result =(ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.BROADCAST,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
-        result.setReqBody(body);
 
+        ResponseResult result = null;
+        try {
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
+                    PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        } catch (JSONException | JsonSyntaxException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
         return result;
     }
 }

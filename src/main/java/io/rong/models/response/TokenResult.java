@@ -12,6 +12,8 @@ public class TokenResult extends Result{
 	// 用户 Id，与输入的用户 Id 相同.
 	String userId;
 
+	private String reqBody;
+
 	public TokenResult(Integer code, String token, String userId, String errorMessage) {
 		this.code = code;
 		this.token = token;
@@ -51,6 +53,16 @@ public class TokenResult extends Result{
 	 */
 	public String getUserId() {
 		return userId;
+	}
+
+
+	public String getReqBody() {
+		return reqBody;
+	}
+
+
+	public void setReqBody(String reqBody) {
+		this.reqBody = reqBody;
 	}
 
 	@Override

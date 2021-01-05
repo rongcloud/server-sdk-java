@@ -18,6 +18,9 @@ import io.rong.util.*;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.JsonSyntaxException;
+
 
 /**
  * 用户服务
@@ -86,7 +89,15 @@ public class User {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/user/getToken.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (TokenResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.REGISTER, HttpUtil.returnResult(conn, rongCloud.getConfig())), TokenResult.class);
+        TokenResult result = null;
+        try {
+            result = (TokenResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.REGISTER, HttpUtil.returnResult(conn, rongCloud.getConfig())), TokenResult.class);
+        } catch (JSONException | JsonSyntaxException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new TokenResult(500, "", user.id, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
     }
 
     /**

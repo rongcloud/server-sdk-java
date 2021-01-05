@@ -23,6 +23,8 @@ import io.rong.util.GsonUtil;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * 消息发送示例
