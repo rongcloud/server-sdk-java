@@ -1,5 +1,6 @@
 package io.rong.methods.message.system;
 
+import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
@@ -112,14 +113,13 @@ public class MsgSystem {
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         ResponseResult result = null;
+        String response = "";
         try {
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
-                    PATH, CheckMethod.PUBLISH, CommonUtil.getResponseByCode(
-                            PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn, rongCloud.getConfig()))
-            ), ResponseResult.class);
-        } catch (JSONException | JsonSyntaxException e) {
+            response = CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn, rongCloud.getConfig()));
+            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e){
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -166,12 +166,13 @@ public class MsgSystem {
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         ResponseResult result = null;
+        String response = "";
         try {
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
-                    PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
-        } catch (JSONException | JsonSyntaxException e) {
+            response = CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig()));
+            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e){
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -216,12 +217,13 @@ public class MsgSystem {
         HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 
         ResponseResult result = null;
+        String response = "";
         try {
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
-                    PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
-        } catch (JSONException | JsonSyntaxException e) {
+            response = CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn, rongCloud.getConfig()));
+            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e){
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(templateMessage.toString());
         return result;
@@ -280,12 +282,13 @@ public class MsgSystem {
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         ResponseResult result = null;
+        String response = "";
         try {
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(
-                    PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
-        } catch (JSONException | JsonSyntaxException e) {
+            response = CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig()));
+            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e){
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

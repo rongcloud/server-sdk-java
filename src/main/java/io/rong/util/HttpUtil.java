@@ -152,7 +152,7 @@ public class HttpUtil {
             if (conn.getResponseCode() == 200) {
                 input = conn.getInputStream();
             } else {
-                if (conn.getResponseCode() == 502) {
+                if (conn.getResponseCode() > 500 && conn.getResponseCode() < 600) {
                     config.errorCounter.incrementAndGet();
                 }
                 input = conn.getErrorStream();

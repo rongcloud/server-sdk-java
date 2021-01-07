@@ -1,5 +1,6 @@
 package io.rong.methods.user;
 
+import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.methods.user.blacklist.Blacklist;
 import io.rong.methods.user.block.Block;
@@ -90,11 +91,14 @@ public class User {
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         TokenResult result = null;
+        String response = "";
         try {
-            result = (TokenResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.REGISTER, HttpUtil.returnResult(conn, rongCloud.getConfig())), TokenResult.class);
-        } catch (JSONException | JsonSyntaxException e) {
+            response = CommonUtil.getResponseByCode(PATH, CheckMethod.REGISTER, HttpUtil.returnResult(conn, rongCloud.getConfig()));
+            result = (TokenResult) GsonUtil.fromJson(response, TokenResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new TokenResult(500, "", user.id, "request:" + conn.getURL() + " ,JSONException:" + e.getMessage());
+            result = new TokenResult(500, "", user.id, "request:" + conn.getURL() +
+                    " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
