@@ -13,6 +13,7 @@ import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonSyntaxException;
 
@@ -80,9 +81,9 @@ public class Chatroom {
         ResponseResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
-        } catch (JSONException | JsonParseException | IllegalStateException e){
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
@@ -118,9 +119,9 @@ public class Chatroom {
         ResponseResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
-        } catch (JSONException | JsonParseException | IllegalStateException e){
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
@@ -167,9 +168,9 @@ public class Chatroom {
         ResponseResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
-        } catch (JSONException | JsonParseException | IllegalStateException e){
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }

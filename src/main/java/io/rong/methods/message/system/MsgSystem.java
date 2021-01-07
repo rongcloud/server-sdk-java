@@ -115,9 +115,9 @@ public class MsgSystem {
         ResponseResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
-        } catch (JSONException | JsonParseException | IllegalStateException e){
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
@@ -168,9 +168,9 @@ public class MsgSystem {
         ResponseResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
-        } catch (JSONException | JsonParseException | IllegalStateException e){
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
@@ -219,9 +219,9 @@ public class MsgSystem {
         ResponseResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
-        } catch (JSONException | JsonParseException | IllegalStateException e){
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
@@ -284,9 +284,9 @@ public class MsgSystem {
         ResponseResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (ResponseResult) GsonUtil.fromJson(response, ResponseResult.class);
-        } catch (JSONException | JsonParseException | IllegalStateException e){
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }

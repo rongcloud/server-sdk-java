@@ -93,8 +93,8 @@ public class User {
         TokenResult result = null;
         String response = "";
         try {
-            response = CommonUtil.getResponseByCode(PATH, CheckMethod.REGISTER, HttpUtil.returnResult(conn, rongCloud.getConfig()));
-            result = (TokenResult) GsonUtil.fromJson(response, TokenResult.class);
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (TokenResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.REGISTER, response), TokenResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new TokenResult(500, "", user.id, "request:" + conn.getURL() +
