@@ -5,6 +5,7 @@ Server SDK 功能支持的版本清单
 | [用户信息](./src/main/java/io/rong/methods/user/User.java) | register | 注册， 获取 token| 3.0.1 |
 |  | update | 更新用户信息 | 3.0.1 |
 |  | get | 查询用户信息 | 3.0.8 |
+|  | getGroups | 查询用户所在群组 | 3.2.3 |
 | [检查用户在线状态](./src/main/java/io/rong/methods/user/onlinestatus/OnlineStatus.java) | onlinestatus.check | 检查用户在线状态| 3.0.1 |
 | [黑名单](./src/main/java/io/rong/methods/user/blacklist/Blacklist.java) | blacklist.add | 添加黑名单 | 3.0.1 |
 |  | blacklist.getList | 获取黑名单列表| 3.0.1 |

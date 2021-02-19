@@ -14,6 +14,7 @@ public class CheckMethod {
     public static final String MUTE = "mute";
     public static final String UNMUTE = "unmute";
     public static final String GET = "get";
+    public static final String GET_GROUPS = "getGroups";
     public static final String SYNC = "sync";
     public static final String JOIN = "join";
     public static final String QUIT = "quit";

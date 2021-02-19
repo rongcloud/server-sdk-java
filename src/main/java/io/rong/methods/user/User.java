@@ -12,6 +12,7 @@ import io.rong.models.*;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.response.TokenResult;
 import io.rong.models.response.UserResult;
+import io.rong.models.response.UserGroupQueryResult;
 import io.rong.models.user.UserModel;
 import io.rong.methods.user.tag.Tag;
 import io.rong.util.*;
@@ -167,4 +168,40 @@ public class User {
         return (UserResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), UserResult.class);
     }
 
+    /**
+     * 查询用户所在群组
+     * url  "/user/group/query"
+     * docs "https://docs.rongcloud.cn/v4/views/im/server/group/basic.html#query"
+     *
+     * @param user 用户信息 id (必传)
+     * @return UserGroupQueryResult
+     * @throws Exception
+     */
+    public UserGroupQueryResult getGroups(UserModel user) throws Exception {
+        //需要校验的字段
+        String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET_GROUPS);
+        if (null != message) {
+            return (UserGroupQueryResult) GsonUtil.fromJson(message, UserGroupQueryResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("userId=").append(URLEncoder.encode(user.id, UTF8));
+        String body = sb.toString();
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
+                "/user/group/query.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        UserGroupQueryResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (UserGroupQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET_GROUPS, response), UserGroupQueryResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new UserGroupQueryResult(500, "request:" + conn.getURL() +
+                    " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
 }

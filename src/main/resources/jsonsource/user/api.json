@@ -1,126 +1,158 @@
 {
-	"register": {
-		"docs": "http://rongcloud.cn/docs/server.html#user_get_token",
-		"url": "user/getToken",
-		"params": {
-			"user": {
-				"id": "aFo990k",
-				"name": "Martin",
-				"portrait": "http://image.rongcloud.cn/portrait.png"
-			}
-		},
-		"response": {
-			"success": {
-				"code": 200,
-				"userId": "jlk456j5",
-				"token": "MAo+IhwqEO3+h/DdXg1w6m20V27XsDF2Dx+"
-			},
-			"fail": {
-				"2007": {
-					"code": "2007",
-					"errorMessage": "开发环境下注册用户上限为 100 个，生产环境下注册用户不超过 100 可免费使用，超过 100 需要开通 IM 商用版"
-				},
-				"20003": {
-					"code": "1002",
-					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
-				},
-				"20005": {
-					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
-				},
-				"20001": {
-					"code": "1002",
-					"errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
-				},
-				"20007": {
-					"code": "1002",
-					"errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
-				},
-				"1004": {
-					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
-				},
-				"1008": {
-					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
-				}
-			}
-		}
-
-	},
-	"update": {
-		"docs": "http://rongcloud.cn/docs/server.html#user_refresh",
-		"url": "user/refresh",
-		"params": {
-			"user": {
-				"id": "aFo990k",
-				"name": "Martin"
-			}
-		},
-		"response": {
-			"success": {
-				"code": "200",
-				"errorMessage": "成功返回"
-			},
-			"fail": {
-				"20003": {
-					"code": "1002",
-					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
-				},
-				"20005": {
-					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
-				},
-				"20007": {
-					"code": "1002",
-					"errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
-				},
-				"1004": {
-					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
-				},
-				"1008": {
-					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
-				}
-			}
-		}
-	},
-	"get": {
-		"docs": "http://rongcloud.cn/docs/server.html#user_get",
-		"url": "user/info",
-		"params": {
-			"user": {
-				"id": "aFo990k"
-			}
-		},
-		"response": {
-			"success": {
-				"code": "200",
-				"errorMessage": "成功返回"
-			},
-			"fail": {
-				"20003": {
-					"code": "1002",
-					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
-				},
-				"20005": {
-					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
-				},
-				"20007": {
-					"code": "1002",
-					"errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
-				},
-				"1004": {
-					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
-				},
-				"1008": {
-					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
-				}
-			}
-		}
-	}
+  "register": {
+    "docs": "http://rongcloud.cn/docs/server.html#user_get_token",
+    "url": "user/getToken",
+    "params": {
+      "user": {
+        "id": "aFo990k",
+        "name": "Martin",
+        "portrait": "http://image.rongcloud.cn/portrait.png"
+      }
+    },
+    "response": {
+      "success": {
+        "code": 200,
+        "userId": "jlk456j5",
+        "token": "MAo+IhwqEO3+h/DdXg1w6m20V27XsDF2Dx+"
+      },
+      "fail": {
+        "2007": {
+          "code": "2007",
+          "errorMessage": "开发环境下注册用户上限为 100 个，生产环境下注册用户不超过 100 可免费使用，超过 100 需要开通 IM 商用版"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+        },
+        "20007": {
+          "code": "1002",
+          "errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
+        },
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+        }
+      }
+    }
+  },
+  "update": {
+    "docs": "http://rongcloud.cn/docs/server.html#user_refresh",
+    "url": "user/refresh",
+    "params": {
+      "user": {
+        "id": "aFo990k",
+        "name": "Martin"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        },
+        "20007": {
+          "code": "1002",
+          "errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
+        },
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+        }
+      }
+    }
+  },
+  "get": {
+    "docs": "http://rongcloud.cn/docs/server.html#user_get",
+    "url": "user/info",
+    "params": {
+      "user": {
+        "id": "aFo990k"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        },
+        "20007": {
+          "code": "1002",
+          "errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
+        },
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+        }
+      }
+    }
+  },
+  "getGroups": {
+    "docs": "https://docs.rongcloud.cn/v4/views/im/server/group/basic.html#query",
+    "url": "user/group/query",
+    "params": {
+      "user": {
+        "id": "aFo990k"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "msg": "成功返回"
+      },
+      "fail": {
+        "1005": {
+          "code": "1005",
+          "msg": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "1002": {
+          "code": "1002",
+          "msg": "{{name}} 参数为必传项"
+        },
+        "1004": {
+          "code": "1004",
+          "msg": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "msg": "调用频率超限"
+        }
+      }
+    }
+  }
 }

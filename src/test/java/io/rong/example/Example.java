@@ -119,6 +119,21 @@ public class Example {
     }
 
     /**
+     * 查询用户所在群组
+     */
+    @Test
+    public void testGetUserGroups() throws Exception {
+        UserModel user = new UserModel()
+                .setId("userId1");
+
+        UserGroupQueryResult userGroupResult = rongCloud.user.getGroups(user);
+        System.out.println("getGroups:  " + userGroupResult.toString());
+
+        assertEquals("200", userGroupResult.getCode().toString());
+    }
+
+
+    /**
      * 测试用户封禁方法（每秒钟限 100 次）
      */
     @Test

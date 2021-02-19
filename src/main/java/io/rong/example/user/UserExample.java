@@ -78,5 +78,15 @@ public class UserExample {
          */
         UserResult userResult = User.get(user);
         System.out.println("getUserInfo:  " + userResult.toString());
+
+        /**
+         *
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#get
+         *
+         * 查询用户所在群组
+         */
+        UserGroupQueryResult userGroupResult = User.getGroups(user);
+        System.out.println("getGroups:  " + userGroupResult.toString());
+
     }
 }
