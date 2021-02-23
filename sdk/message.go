@@ -331,6 +331,8 @@ type msgOptions struct {
 	expansion        bool
 	disablePush      bool
 	pushExt          string
+	pushContent      string
+	pushData         string
 }
 
 // MsgOption 接口函数
@@ -381,6 +383,22 @@ func WithMsgPushExt(pushExt string) MsgOption {
 	}
 }
 
+// pushContent String 定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。
+// 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+func WithMsgPushContent(pushContent string) MsgOption {
+	return func(options *msgOptions) {
+		options.pushContent = pushContent
+	}
+}
+
+// pushData String 针对 iOS 平台为 Push 通知时附加到 payload 中，客户端获取远程推送内容时为 appData，
+// 同时融云默认携带了消息基本信息，客户端可通过 'rc' 属性获取，Android 客户端收到推送消息时对应字段名为 pushData。
+func WithMsgPushData(pushData string) MsgOption {
+	return func(options *msgOptions) {
+		options.pushData = pushData
+	}
+}
+
 // 修改默认值
 func modifyMsgOptions(options []MsgOption) msgOptions {
 	// 默认值
@@ -391,6 +409,8 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 		expansion:        false,
 		disablePush:      false,
 		pushExt:          "",
+		pushContent:      "",
+		pushData:         "",
 	}
 
 	// 修改默认值
@@ -935,10 +955,13 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 *
 *@return error
  */
-func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) error {
+func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -950,6 +973,17 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg) err
 		return err
 	}
 	req.Param("content", msgr)
+
+	if extraOptins.pushContent != "" {
+		req.Param("pushContent", extraOptins.pushContent)
+	}
+	if extraOptins.pushData != "" {
+		req.Param("pushData", extraOptins.pushData)
+	}
+	req.Param("contentAvailable", strconv.Itoa(extraOptins.contentAvailable))
+	if extraOptins.pushExt != "" {
+		req.Param("pushExt", extraOptins.pushExt)
+	}
 
 	_, err = rc.do(req)
 	if err != nil {

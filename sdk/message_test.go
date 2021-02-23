@@ -317,6 +317,27 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 	t.Log(err)
 }
 
+func TestRongCloud_SystemBroadcastOption(t *testing.T) {
+
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	msg := TXTMsg{
+		Content: "hello",
+		Extra:   "helloExtra",
+	}
+
+	err := rc.SystemBroadcast(
+		"7Szq13MKRVortoknTAk7W8",
+		"RC:TxtMsg",
+		&msg,
+		WithMsgPushContent("thisisapush"),
+	)
+	t.Log(err)
+}
+
 func TestRongCloud_SystemSendTemplate(t *testing.T) {
 
 	rc := NewRongCloud(
