@@ -61,7 +61,7 @@ const (
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
-	USERAGENT = "rc-go-sdk/3.1.1"
+	USERAGENT = "rc-go-sdk/3.1.2"
 	// DEFAULTTIMEOUT 默认超时时间
 	DEFAULTTIMEOUT = 10
 	// NUMTIMEOUT 默认超时次数切换 Api 地址
@@ -157,8 +157,9 @@ func GetRongCloud() *RongCloud {
 	return rc
 }
 
-// changeURI 切换 Api 服务器地址
-func (rc *RongCloud) changeURI() {
+// changeURI 自动切换 Api 服务器地址
+// 在 api、api2之间自动切换。无法切换其他域名。其他请使用 PrivateURI 设置
+func (rc *RongCloud) ChangeURI() {
 	nowUnix := time.Now().Unix()
 	// 检查距离上次更换uri的时间间隔
 	rc.uriLock.Lock()
