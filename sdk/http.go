@@ -61,7 +61,7 @@ func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err 
 	resp, err := b.DoRequest()
 	if err != nil {
 		if isNetError(err) {
-			rc.changeURI()
+			rc.ChangeURI()
 		}
 		return nil, err
 	}

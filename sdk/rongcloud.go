@@ -190,7 +190,7 @@ func (rc *RongCloud) urlError(err error) {
 	// if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
 	//     if err.(*url.Error).Timeout() {
 	//         if rc.count >= rc.numTimeout {
-	//             rc.changeURI()
+	//             rc.ChangeURI()
 	//             rc.count = 1
 	//         } else {
 	//             rc.count++
@@ -204,7 +204,7 @@ func (rc *RongCloud) urlError(err error) {
 */
 func (rc *RongCloud) checkStatusCode(resp *http.Response) {
 	if resp.StatusCode >= 500 && resp.StatusCode < 600 {
-		rc.changeURI()
+		rc.ChangeURI()
 	}
 
 	return
