@@ -27,11 +27,12 @@ Rong Cloud Server SDK in Go.
 ```go
 package main
 
+import "fmt"
 import "github.com/rongcloud/server-sdk-go/sdk"
 
 func main() {
-	rc = sdk.NewRongCloud("appKey", "appSecret")
-	msg := TXTMsg{
+	rc := sdk.NewRongCloud("appKey", "appSecret")
+	msg := sdk.TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
 	}
@@ -49,6 +50,48 @@ func main() {
 		0,
 		0,
 	)
+	
+	fmt.Println(err)
+}
+```
+
+### http 参数优化
+
+- http连接相关的性能优化
+- `sdk.WithMaxIdleConnsPerHost` : 每个域名最大活跃连接数，默认 100
+- `sdk.WithTimeout` : 连接超时设置，默认 10 秒
+- `sdk.WithKeepAlive` : 连接保活时间，默认 30 秒
+- `rc.SetHttpTransport` : 手动设置 http client
+- `rc.GetHttpTransport` : 获得当前全局 http client
+
+```go
+package main
+
+import "fmt"
+import "time"
+import "net"
+import "net/http"
+import "github.com/rongcloud/server-sdk-go/sdk"
+
+func main() {
+	// 方法1： 创建对象时设置
+	rc := sdk.NewRongCloud("appKey",
+		"appSecret",
+		// 每个域名最大活跃连接数
+		sdk.WithMaxIdleConnsPerHost(100),
+		)
+	
+	// 方法2： 自定义 http client， 调用 set 方法设置
+	dialer := &net.Dialer{
+        Timeout:   10 * time.Second,
+        KeepAlive: 30 * time.Second,
+    }
+    globalTransport := &http.Transport{
+        DialContext:         dialer.DialContext,
+        MaxIdleConnsPerHost: 100,
+    }
+    rc.SetHttpTransport(globalTransport)
+	
 }
 ```
 
