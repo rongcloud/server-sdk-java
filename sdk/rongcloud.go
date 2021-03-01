@@ -43,6 +43,7 @@ import (
 	"fmt"
 	"io"
 	"math/rand"
+	"net"
 	"net/http"
 	"strconv"
 	"sync"
@@ -62,23 +63,26 @@ const (
 	ReqType = "json"
 	// USERAGENT sdk 名称
 	USERAGENT = "rc-go-sdk/3.1.2"
-	// DEFAULTTIMEOUT 默认超时时间
-	DEFAULTTIMEOUT = 10
-	// NUMTIMEOUT 默认超时次数切换 Api 地址
-	NUMTIMEOUT = 3
+	// DEFAULTTIMEOUT 默认超时时间，10秒
+	DEFAULTTIMEOUT = 10 * time.Second
+	// DEFAULT_KEEPALIVE http 默认保活时间，30秒
+	DEFAULT_KEEPALIVE = 30 * time.Second
+	// DEFAULT_MAXIDLECONNSPERHOST http 默认每个域名连接数，100
+	DEFAULT_MAXIDLECONNSPERHOST = 100
 	// 自动切换 api 地址时间间隔，秒
 	DEFAULT_CHANGE_URI_DURATION = 30
 )
 
 var (
 	defaultExtra = rongCloudExtra{
-		rongCloudURI:      RONGCLOUDURI,
-		rongCloudSMSURI:   RONGCLOUDSMSURI,
-		timeout:           DEFAULTTIMEOUT,
-		numTimeout:        NUMTIMEOUT,
-		count:             0,
-		changeUriDuration: DEFAULT_CHANGE_URI_DURATION,
-		lastChageUriTime:  0,
+		rongCloudURI:        RONGCLOUDURI,
+		rongCloudSMSURI:     RONGCLOUDSMSURI,
+		timeout:             DEFAULTTIMEOUT,
+		keepAlive:           DEFAULT_KEEPALIVE,
+		maxIdleConnsPerHost: DEFAULT_MAXIDLECONNSPERHOST,
+		count:               0,
+		changeUriDuration:   DEFAULT_CHANGE_URI_DURATION,
+		lastChageUriTime:    0,
 	}
 	rc   *RongCloud
 	once sync.Once
@@ -89,18 +93,20 @@ type RongCloud struct {
 	appKey    string
 	appSecret string
 	*rongCloudExtra
-	uriLock sync.Mutex
+	uriLock         sync.Mutex
+	globalTransport *http.Transport
 }
 
 // rongCloudExtra rongCloud扩展增加自定义融云服务器地址,请求超时时间
 type rongCloudExtra struct {
-	rongCloudURI      string
-	rongCloudSMSURI   string
-	timeout           time.Duration
-	numTimeout        uint
-	count             uint
-	changeUriDuration int64
-	lastChageUriTime  int64
+	rongCloudURI        string
+	rongCloudSMSURI     string
+	timeout             time.Duration
+	keepAlive           time.Duration
+	maxIdleConnsPerHost int
+	count               uint
+	changeUriDuration   int64
+	lastChageUriTime    int64
 }
 
 // getSignature 本地生成签名
@@ -144,17 +150,38 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongClo
 			appSecret:      appSecret,
 			rongCloudExtra: &defaultRongCloud,
 		}
+
+		for _, option := range options {
+			option(rc)
+		}
+		// 全局 httpClient，解决 http 打开端口过多问题
+		dialer := &net.Dialer{
+			Timeout:   rc.timeout,
+			KeepAlive: rc.keepAlive,
+		}
+
+		rc.globalTransport = &http.Transport{
+			DialContext:         dialer.DialContext,
+			MaxIdleConnsPerHost: rc.maxIdleConnsPerHost,
+		}
 	},
 	)
-	for _, option := range options {
-		option(rc)
-	}
+
 	return rc
 }
 
 // GetRongCloud 获取 RongCloud 对象
 func GetRongCloud() *RongCloud {
 	return rc
+}
+
+// 自定义 http 参数
+func (rc *RongCloud) SetHttpTransport(httpTransport *http.Transport) {
+	rc.globalTransport = httpTransport
+}
+
+func (rc *RongCloud) GetHttpTransport() *http.Transport {
+	return rc.globalTransport
 }
 
 // changeURI 自动切换 Api 服务器地址
@@ -184,19 +211,7 @@ func (rc *RongCloud) PrivateURI(uri, sms string) {
 
 // urlError 判断是否为 url.Error
 func (rc *RongCloud) urlError(err error) {
-	// if rc.numTimeout == 0 {
-	//     return
-	// }
-	// if reflect.TypeOf(err) == reflect.TypeOf(&url.Error{}) {
-	//     if err.(*url.Error).Timeout() {
-	//         if rc.count >= rc.numTimeout {
-	//             rc.ChangeURI()
-	//             rc.count = 1
-	//         } else {
-	//             rc.count++
-	//         }
-	//     }
-	// }
+	// 方法已废弃
 }
 
 /**

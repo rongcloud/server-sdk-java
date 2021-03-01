@@ -58,6 +58,9 @@ func isNetError(err error) bool {
 }
 
 func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
+	// 使用全局 httpClient，解决 http 打开端口过多问题
+	b.SetTransport(rc.globalTransport)
+
 	resp, err := b.DoRequest()
 	if err != nil {
 		if isNetError(err) {
