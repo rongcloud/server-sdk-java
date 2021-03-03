@@ -42,6 +42,7 @@ public class MentionMessageContent {
 
 			atMessage.put("content", baseMessage.get("content"));
 			atMessage.put("extra", baseMessage.get("extra"));
+            atMessage.put("user", baseMessage.get("user"));
 
 			if (mentionedInfo != null) {
 				JSONObject mention = new JSONObject();
