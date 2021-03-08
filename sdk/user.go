@@ -163,7 +163,7 @@ func (rc *RongCloud) QueryWhiteList(userId string) (WhiteList, error) {
 /*
 *@param  userID:用户 ID，最大长度 64 字节.是用户在 App 中的唯一标识码，必须保证在同一个 App 内不重复，重复的用户 Id 将被当作是同一用户。
 *@param  name:用户名称，最大长度 128 字节.用来在 Push 推送时显示用户的名称.用户名称，最大长度 128 字节.用来在 Push 推送时显示用户的名称。
-*@param  portraitURI:用户头像 URI，最大长度 1024 字节.用来在 Push 推送时显示用户的头像。
+*@param  portraitURI:用户头像 URI，最大长度 1024 字节.用来在 Push 推送时显示用户的头像。可以为空
 *
 *@return User, error
  */
@@ -174,16 +174,15 @@ func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (User, error
 	if name == "" {
 		return User{}, RCErrorNew(1002, "Paramer 'name' is required")
 	}
-	if portraitURI == "" {
-		return User{}, RCErrorNew(1002, "Paramer 'portraitUri' is required")
-	}
 
 	req := httplib.Post(rc.rongCloudURI + "/user/getToken." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("userId", userID)
 	req.Param("name", name)
-	req.Param("portraitUri", portraitURI)
+	if portraitURI != "" {
+		req.Param("portraitUri", portraitURI)
+	}
 
 	resp, err := rc.do(req)
 	if err != nil {
