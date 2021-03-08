@@ -33,15 +33,6 @@
       }
     },
     "portrait": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      },
-      "length": {
-        "max": 1024,
-        "min": 1,
-        "invalid": "20003"
-      },
       "url": {
         "legal": "url 正则",
         "invalid": "20007"
