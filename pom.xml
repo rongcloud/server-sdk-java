@@ -6,7 +6,7 @@
 
     <groupId>cn.rongcloud.im</groupId>
     <artifactId>server-sdk-java</artifactId>
-    <version>3.2.7</version>
+    <version>3.2.8</version>
     <packaging>jar</packaging>
 
     <name>RongCloud IM Server SDK</name>

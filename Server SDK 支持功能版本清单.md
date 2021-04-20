@@ -97,3 +97,10 @@ Server SDK 功能支持的版本清单
 | [聊天室属性设置](./src/main/java/io/rong/methods/chatroom/entry/ChatroomEntry.java) | ChatroomEntry.set | 设置聊天室属性 | 3.1.9 |
 |  | ChatroomEntry.remove | 删除聊天室属性 | 3.1.9 |
 |  | ChatroomEntry.query | 查询聊天室属性 | 3.1.9 |
+| [聊天室全体成员禁言](./src/main/java/io/rong/methods/chatroom/ban/BanAllMember.java) | BanAllMember.add | 设置某一聊天室全部成员禁言，设置后该聊天室中的所有成员都不能通过终端 SDK 发送消息。 | 3.2.8 |
+|  | BanAllMember.remove | 移除全体禁言 | 3.2.8 |
+|  | BanAllMember.check | 禁言状态检查 | 3.2.8 |
+|  | BanAllMember.getList | 获取禁言列表 | 3.2.8 |
+| [聊天室全体成员禁言白名单](./src/main/java/io/rong/methods/chatroom/ban/BanAllMemberWhitelist.java) | BanAllMemberWhitelist.add | 用户添加到白名单后，该用户在聊天室中同时设置了用户禁言，则白名单功能权限大于聊天室中成员禁言，可发送消息。 | 3.2.8 |
+|  | BanAllMemberWhitelist.remove | 移除全体禁言 | 3.2.8 |
+|  | BanAllMemberWhitelist.getList | 获取禁言列表 | 3.2.8 |
