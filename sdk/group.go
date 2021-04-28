@@ -128,7 +128,7 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 	return err
 }
 
-// GroupJoin 将用户加入指定群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
+// GroupJoin 将用户加入指定群组，用户将可以收到该群的消息。
 /*
  *@param  id:加入的群组 Id。
  *@param  name:群组名称，最大长度 60 个字符。

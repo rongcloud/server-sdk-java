@@ -23,10 +23,11 @@ type rcMsg interface {
 
 // MsgUserInfo 融云内置消息用户信息
 type MsgUserInfo struct {
-	ID    string `json:"id"`
-	Name  string `json:"name"`
-	Icon  string `json:"icon"`
-	Extra string `json:"extra"`
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	Icon     string `json:"icon"`
+	Portrait string `json:"portrait"`
+	Extra    string `json:"extra"`
 }
 
 // TXTMsg 消息
@@ -57,6 +58,15 @@ type VCMsg struct {
 	User     MsgUserInfo `json:"user"`
 	Extra    string      `json:"extra"`
 	Duration interface{} `json:"duration"`
+}
+
+// 高清语音消息 RC:HQVCMsg
+type HQVCMsg struct {
+	LocalPath string      `json:"localPath"`
+	RemoteUrl string      `json:"remoteUrl"`
+	Duration  interface{} `json:"duration"`
+	User      MsgUserInfo `json:"user"`
+	Extra     string      `json:"extra"`
 }
 
 // IMGTextMsg 消息
@@ -105,7 +115,7 @@ type CMDNtf struct {
 
 // CMDMsg 消息
 type CMDMsg struct {
-	Name string      `json:"operation"`
+	Name string      `json:"name"`
 	Data string      `json:"data"`
 	User MsgUserInfo `json:"user"`
 }
@@ -235,6 +245,15 @@ func (msg *InfoNtf) ToString() (string, error) {
 
 // ToString VCMsg
 func (msg *VCMsg) ToString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// ToString HQVCMsg
+func (msg *HQVCMsg) ToString() (string, error) {
 	bytes, err := json.Marshal(msg)
 	if err != nil {
 		return "", err
