@@ -20,14 +20,14 @@ func WithRongCloudURI(rongCloudURI string) rongCloudOption {
 	}
 }
 
-// WithTimeout 设置超时时间
+// WithTimeout 设置超时时间，最小单位为秒
 func WithTimeout(t time.Duration) rongCloudOption {
 	return func(o *RongCloud) {
 		o.timeout = t
 	}
 }
 
-// WithKeepAlive 连接保活时间
+// WithKeepAlive 连接保活时间，最小单位为秒
 func WithKeepAlive(t time.Duration) rongCloudOption {
 	return func(o *RongCloud) {
 		o.keepAlive = t

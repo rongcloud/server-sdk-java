@@ -62,11 +62,11 @@ const (
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
-	USERAGENT = "rc-go-sdk/3.2.2"
+	USERAGENT = "rc-go-sdk/3.2.3"
 	// DEFAULTTIMEOUT 默认超时时间，10秒
-	DEFAULTTIMEOUT = 10 * time.Second
+	DEFAULTTIMEOUT = 10
 	// DEFAULT_KEEPALIVE http 默认保活时间，30秒
-	DEFAULT_KEEPALIVE = 30 * time.Second
+	DEFAULT_KEEPALIVE = 30
 	// DEFAULT_MAXIDLECONNSPERHOST http 默认每个域名连接数，100
 	DEFAULT_MAXIDLECONNSPERHOST = 100
 	// 自动切换 api 地址时间间隔，秒
@@ -156,8 +156,8 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongClo
 		}
 		// 全局 httpClient，解决 http 打开端口过多问题
 		dialer := &net.Dialer{
-			Timeout:   rc.timeout,
-			KeepAlive: rc.keepAlive,
+			Timeout:   rc.timeout * time.Second,
+			KeepAlive: rc.keepAlive * time.Second,
 		}
 
 		rc.globalTransport = &http.Transport{

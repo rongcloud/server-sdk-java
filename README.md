@@ -59,8 +59,8 @@ func main() {
 
 - http连接相关的性能优化
 - `sdk.WithMaxIdleConnsPerHost` : 每个域名最大活跃连接数，默认 100
-- `sdk.WithTimeout` : 连接超时设置，默认 10 秒
-- `sdk.WithKeepAlive` : 连接保活时间，默认 30 秒
+- `sdk.WithTimeout` : 连接超时设置，默认 10 秒；最小单位为秒， `sdk.WithTimeout(30)` 表示设置为30秒
+- `sdk.WithKeepAlive` : 连接保活时间，默认 30 秒；最小单位为秒， `sdk.WithKeepAlive(30)` 表示设置保活时间为30秒
 - `rc.SetHttpTransport` : 手动设置 http client
 - `rc.GetHttpTransport` : 获得当前全局 http client
 

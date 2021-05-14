@@ -3,7 +3,6 @@ package sdk
 import (
 	"os"
 	"testing"
-	"time"
 )
 
 func TestWithRongCloudSMSURI(t *testing.T) {
@@ -30,8 +29,8 @@ func TestWithTimeout(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
-		WithTimeout(3*time.Second),
+		// 设置超时时间为20秒
+		WithTimeout(20),
 	)
 	t.Log(rc)
-	t.Log(rc.timeout)
 }
