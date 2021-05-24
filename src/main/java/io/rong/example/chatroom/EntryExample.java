@@ -59,7 +59,7 @@ public class EntryExample {
 		model.setUserId("userId1");
 		model.setKey("key1");
 		model.setValue("value1");
-		model.setAutoDelete(false);// 可选
+		model.setAutoDelete(0);// 可选
 		model.setObjectName("RC:TxtMsg");// 可选
 		model.setContent("{\"key1\":\"value1\"}");// 可选
 

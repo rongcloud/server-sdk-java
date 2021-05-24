@@ -1,6 +1,7 @@
 package io.rong.models.response;
 
 import io.rong.models.Result;
+import io.rong.models.chatroom.ChatroomEntryModel;
 import io.rong.util.GsonUtil;
 
 /**
@@ -50,6 +51,10 @@ public class ChatroomEntryResult extends Result {
 
 	public void setAutoDelete(int autoDelete) {
 		this.autoDelete = autoDelete;
+	}
+
+	public void setAutoDelete(Boolean autoDelete) {
+		this.autoDelete = autoDelete ? 1 : 0;
 	}
 
 
