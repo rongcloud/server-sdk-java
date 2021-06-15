@@ -13,6 +13,8 @@ public class PushResult extends Result {
      */
     private String id;
 
+    private String reqBody;
+
     public String getId() {
         return id;
     }
@@ -21,6 +23,14 @@ public class PushResult extends Result {
         this.id = id;
     }
 
+    public String getReqBody() {
+        return reqBody;
+    }
+
+
+    public void setReqBody(String reqBody) {
+        this.reqBody = reqBody;
+    }
 
     public PushResult(Integer code, String id) {
         super(code, id);

@@ -32,6 +32,7 @@ public class CheckMethod {
     public static final String REGISTER = "register";
     public static final String GET_TOKEN = "getToken";
     public static final String INVITE = "invite";
+    public static final String EXPIRE = "expire";
 
 
     public static final String CHECK = "check";
@@ -45,6 +46,7 @@ public class CheckMethod {
     public static final String BROADCAST = "broadcast";
     public static final String SET_USER_TAG = "setUserTag";
     public static final String RECALL = "recall";
+    public static final String ONLINE = "online";
 
     public static final String BATCH_SET_TAG = "batchSetTag";
     public static final String GET_TAG = "getTag";

@@ -170,5 +170,105 @@
         "invalid": "20001"
       }
     }
+  },
+  "expire":{
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "1501"
+      }
+    },
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "1501"
+      }
+    },
+    "time": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "typeof": {
+        "type": "number",
+        "invalid": "1501"
+      }
+    }
+  },
+  "set": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "1501"
+      }
+    },
+
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "1501"
+      }
+    },
+    "state": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "length": {
+        "max": 1,
+        "min": 0,
+        "invalid": "1005"
+      }
+    },
+    "type": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "1005"
+      }
+    }
+  },
+  "getList":{
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "1501"
+      }
+    },
+    "type": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "1005"
+      }
+    }
   }
 }

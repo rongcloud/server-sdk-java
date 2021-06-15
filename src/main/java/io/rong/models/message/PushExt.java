@@ -65,6 +65,10 @@ public class PushExt {
         public HW(String channelId) {
             HW.put("channelId", channelId);
         }
+        public HW(String channelId,String importance) {
+            HW.put("channelId", channelId);
+            HW.put("importance", importance);
+        }
 
         public HashMap<String, String> getHW() {
             return HW;

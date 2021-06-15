@@ -1,6 +1,9 @@
 package io.rong.models.push;
 
 import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
+import io.rong.models.message.Platform;
 import io.rong.util.GsonUtil;
 
 /**
@@ -46,6 +49,23 @@ public class PlatformNotification {
      * iOS 富文本推送内容的 URL，与 category 一起使用。（非必传）
      */
     private String richMediaUri;
+
+    /**
+     * iOS 平台通知栏分组 ID，相同的 thread-id 推送分一组，单组超过 5 条推送会折叠展示
+     */
+    @SerializedName("thread-id")
+    private String thread_id;
+
+    /**
+     * iOS 平台，从 iOS10 开始支持，设置后设备收到有相同 ID 的消息，会合并成一条
+     */
+    @SerializedName("apns-collapse-id")
+    private String apns_collapse_id;
+
+    private Platform hw;
+    private Platform mi;
+    private Platform oppo;
+    private Platform vivo;
 
     public String getAlert() {
         return alert;
@@ -101,6 +121,62 @@ public class PlatformNotification {
 
     public void setRichMediaUri(String richMediaUri) {
         this.richMediaUri = richMediaUri;
+    }
+
+    public String getThread_id() {
+        return thread_id;
+    }
+
+    public void setThread_id(String thread_id) {
+        this.thread_id = thread_id;
+    }
+
+    public String getApns_collapse_id() {
+        return apns_collapse_id;
+    }
+
+    public void setApns_collapse_id(String apns_collapse_id) {
+        this.apns_collapse_id = apns_collapse_id;
+    }
+
+    public Platform getHw() {
+        return hw;
+    }
+
+    public void setHw(String channelId) {
+        this.hw = new Platform(channelId);
+    }
+
+    public Platform getMi() {
+        return mi;
+    }
+
+    public void setMi(String channelId) {
+        this.mi = new Platform(channelId);
+    }
+
+    public Platform getOppo() {
+        return oppo;
+    }
+
+    public void setOppo(String channelId) {
+        this.oppo = new Platform(channelId);
+    }
+
+    public Platform getVivo() {
+        return vivo;
+    }
+
+    public void setVivo(String channelId) {
+        this.vivo = new Platform(channelId);
+    }
+
+    public class Platform {
+        private String channelId;
+
+        public Platform(String channelId) {
+            this.channelId = channelId;
+        }
     }
 
     @Override

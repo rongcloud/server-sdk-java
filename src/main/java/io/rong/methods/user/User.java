@@ -8,11 +8,13 @@ import io.rong.methods.user.mute.MuteChatrooms;
 import io.rong.methods.user.mute.MuteGroups;
 import io.rong.methods.user.onlinestatus.OnlineStatus;
 import io.rong.methods.user.whitelist.Whitelist;
+import io.rong.methods.user.chat.Ban;
 import io.rong.models.*;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.response.TokenResult;
 import io.rong.models.response.UserResult;
 import io.rong.models.response.UserGroupQueryResult;
+import io.rong.models.user.ExpireModel;
 import io.rong.models.user.UserModel;
 import io.rong.methods.user.tag.Tag;
 import io.rong.util.*;
@@ -41,6 +43,7 @@ public class User {
     public Tag tag;
     public MuteChatrooms muteChatrooms;
     public MuteGroups muteGroups;
+    public Ban ban;
     private RongCloud rongCloud;
 
     public RongCloud getRongCloud() {
@@ -62,6 +65,7 @@ public class User {
         this.muteChatrooms = new MuteChatrooms(appKey, appSecret, rongCloud);
         this.muteGroups = new MuteGroups(appKey, appSecret, rongCloud);
         this.tag = new Tag(appKey, appSecret, rongCloud);
+        this.ban = new Ban(appKey, appSecret, rongCloud);
     }
 
     /**
@@ -208,4 +212,44 @@ public class User {
         result.setReqBody(body);
         return result;
     }
+
+    /**
+     * Token 失效
+     * url  "/user/refresh"
+     * docs "https://docs.rongcloud.cn/v4/5X/views/im/server/user/expire.html"
+     *
+     * @param user userId(必传) time(必传)
+     * @return ResponseResult
+     **/
+    public Result expire(ExpireModel user) throws Exception {
+        //需要校验的字段
+        String message = CommonUtil.checkFiled(user, PATH, CheckMethod.EXPIRE);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String userId : user.getUserId()) {
+            sb.append("&userId=").append(URLEncoder.encode(userId, UTF8));
+        }
+        sb.append("&time=").append(URLEncoder.encode(user.getTime().toString(), UTF8));
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1);
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
+                "/user/token/expire.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+        String response = "";
+        ResponseResult result;
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.EXPIRE, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
 }

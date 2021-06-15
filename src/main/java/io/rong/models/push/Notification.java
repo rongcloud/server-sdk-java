@@ -14,6 +14,17 @@ public class Notification {
     private String alert;
 
     /**
+     * 通知栏显示标题，最长不超过 50 个字符。
+     */
+    private String title;
+
+    /**
+     * 是否强制显示通知详细，0 为不强制、1 为强制，默认为 0，当用户设置通知不显示详细时，可通过此属性强制显示通知详细。
+     */
+    private Integer forceShowPushContent;
+
+
+    /**
      * 设置 iOS 平台下的推送及附加信息。
      */
     private PlatformNotification ios;
@@ -45,6 +56,22 @@ public class Notification {
 
     public void setAndroid(PlatformNotification android) {
         this.android = android;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getForceShowPushContent() {
+        return forceShowPushContent;
+    }
+
+    public void setForceShowPushContent(Integer forceShowPushContent) {
+        this.forceShowPushContent = forceShowPushContent;
     }
 
     @Override

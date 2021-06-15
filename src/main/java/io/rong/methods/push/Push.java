@@ -2,11 +2,14 @@ package io.rong.methods.push;
 
 import java.net.HttpURLConnection;
 
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.push.BroadcastModel;
 import io.rong.models.push.PushModel;
 import io.rong.models.response.PushResult;
+import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -78,9 +81,18 @@ public class Push {
 
         HttpUtil.setBodyParameter(push.toString(), conn, rongCloud.getConfig());
 
-        return (PushResult) GsonUtil.fromJson(
-                CommonUtil.getResponseByCode(PATH, CheckMethod.PUSH, HttpUtil.returnResult(conn, rongCloud.getConfig())),
-                PushResult.class);
+        PushResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (PushResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUSH, response), PushResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new PushResult(500, "");
+            result.setErrorMessage("request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(push.toString());
+        return result;
     }
 
 }

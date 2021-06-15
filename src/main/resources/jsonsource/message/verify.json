@@ -349,8 +349,41 @@
       }
     }
   },
-  
-  
+  "recallBroadcastMessage": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "senderId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "uId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "sentTime": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
   "sendStatus": {
     "_self": {
       "require": {
@@ -431,6 +464,46 @@
       "typeof": {
         "type": "array",
         "invalid": "20001"
+      }
+    },
+    "objectName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 32,
+        "min": 1,
+        "invalid": "20002"
+      }
+    },
+    "content": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "online": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "senderId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
       }
     },
     "objectName": {

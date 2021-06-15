@@ -290,6 +290,52 @@ public class Example {
     }
 
     /**
+     * 设置用户禁言
+     */
+    @Test
+    public void testBanUser() throws Exception {
+        BanModel model = new BanModel()
+                .setUserId(new String[]{"CHIQ1", "CHIQ2"})
+                .setState(1);
+
+        Result result = rongCloud.user.ban.set(model);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("testBanUser: [t1] " + result.toString());
+
+        model.setType("PERSON");
+        result = rongCloud.user.ban.set(model);
+        assertEquals("200", result.getCode().toString());
+        System.out.println("testBanUser: [t2] " + result.toString());
+    }
+
+    /**
+     * 查询禁言用户列表
+     */
+    @Test
+    public void testGetBanUserList() throws Exception {
+        BanListModel blModel = new BanListModel()
+                .setType("PERSON");
+        BanListResult blResult = rongCloud.user.ban.getList(blModel);
+        assertEquals("200", blResult.getCode().toString());
+        System.out.println("testGetBanUserList: [t1] " + blResult.toString());
+    }
+
+    /**
+     * Token 失效
+     * @throws Exception
+     */
+    @Test
+    public void testTokenExpire() throws Exception {
+        ExpireModel expireModel = new ExpireModel()
+                .setUserId(new String[]{"CHIQ1", "CHIQ2"})
+                .setTime(1623123911000L);
+        Result refreshResult = rongCloud.user.expire(expireModel);
+        assertEquals("200", refreshResult.getCode().toString());
+        System.out.println("testTokenExpire: [t1] " + refreshResult.toString());
+    }
+
+
+    /**
      * 系统消息测试
      */
     @Test
@@ -375,10 +421,39 @@ public class Example {
                 .setObjectName(rcCmdMessage.getType())
                 .setContent(rcCmdMessage);
         ResponseResult result = rongCloud.message.system.broadcast(message);
-        System.out.println("recall broadcast:  " + result.toString());
-
         assertEquals("200", result.getCode().toString());
+        System.out.println("recall broadcast: [t1] " + result.toString());
+
+
+        RecallMessage rMessage = new RecallMessage()
+                .setSenderId("fromUserId")
+                .setuId("B8FV-QAHO-I1E4-JLRI")
+                .setSentTime("1548334967010");
+
+        result = rongCloud.message.system.recallBroadcast(rMessage);
+        assertEquals("200", result.getCode().toString());
+        System.out.println("recall broadcast: [t2] " + result.toString());
+
     }
+
+
+    /**
+     * 在线用户广播测试
+     * @throws Exception
+     */
+    @Test
+    public void testOnlineBroadcast() throws Exception {
+        TxtMessage msg = new TxtMessage("this is message", "");
+        BroadcastMessage obmessage = new BroadcastMessage()
+                .setSenderId("OScHVP1tQ")
+                .setObjectName("RC:TxtMsg")
+                .setContent(msg);
+
+        ResponseResult bresult = rongCloud.message.system.onlineBroadcast(obmessage);
+        assertEquals("200", bresult.getCode().toString());
+        System.out.println("online broadcast: [t1] " + bresult.toString());
+    }
+
 
     /**
      * 测试单聊模板消息
@@ -1548,8 +1623,16 @@ public class Example {
         pushmodel.setPlatform(new String[]{"ios", "android"});
         Audience audience = new Audience();
         audience.setUserid(new String[]{"userid1", "userid2"});
+        audience.setIs_to_all(false);
         pushmodel.setAudience(audience);
         Notification notification = new Notification();
+        PlatformNotification pn = new PlatformNotification();
+        pn.setAlert("this is push");
+        pn.setThread_id("001");
+        pn.setApns_collapse_id("002");
+        pn.setHw("003");
+        pn.setMi("004");
+        notification.setAndroid(pn);
         notification.setAlert("this is push");
         pushmodel.setNotification(notification);
         PushResult result = rongCloud.push.push(pushmodel);

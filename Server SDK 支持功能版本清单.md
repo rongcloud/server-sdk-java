@@ -6,6 +6,7 @@ Server SDK 功能支持的版本清单
 |  | update | 更新用户信息 | 3.0.1 |
 |  | get | 查询用户信息 | 3.0.8 |
 |  | getGroups | 查询用户所在群组 | 3.2.3 |
+|  | expire | Token 失效 | 3.2.11 |
 | [检查用户在线状态](./src/main/java/io/rong/methods/user/onlinestatus/OnlineStatus.java) | onlinestatus.check | 检查用户在线状态| 3.0.1 |
 | [黑名单](./src/main/java/io/rong/methods/user/blacklist/Blacklist.java) | blacklist.add | 添加黑名单 | 3.0.1 |
 |  | blacklist.getList | 获取黑名单列表| 3.0.1 |
@@ -19,6 +20,8 @@ Server SDK 功能支持的版本清单
 | [用户标签](./src/main/java/io/rong/methods/user/tag/Tag.java) | tag.set | 添加用户标签 |  |
 |  | tag.batchset | 批量添加用户标签 | 3.0.4 |
 |  | tag.get | 获取用户标签 | 3.0.4 |
+| [用户单聊禁言](./src/main/java/io/rong/methods/user/chat/Ban.java) | ban.set | 添加用户标签 | 3.2.11 |
+|  | ban.getList | 获取用户标签 | 3.2.11 |
 | [用户全局群禁言](./src/main/java/io/rong/methods/user/mute/MuteGroups.java) | muteGroups.add | 添加全局群组禁言用户，添加后用户在应用下的所有群组中都不能发送消息 | 3.0.2 |
 |  | muteGroups.remove | 移除全局群组禁言用户 | 3.0.2 |
 |  | muteGroups.getList | 获取全局群组禁言用户列表 | 3.0.2 |
@@ -40,6 +43,8 @@ Server SDK 功能支持的版本清单
 |  | system.send | 发送系统消息 | 3.0.1 |
 |  | system.sendTemplate | 发送系统模板消息 | 3.0.1 |
 |  | system.broadcast | 发送广播消息，单个应用每小时只能发送 2 次，每天最多发送 3 次。 | 3.0.1 |
+|  | system.onlineBroadcast | 在线用户广播 | 3.2.11 |
+|  | system.recallBroadcast | 全量落地通知撤回 | 3.2.11 |
 |  | Private.sendStatusMessage | 支持发送单聊状态消息 | 3.1.7 |
 |  | group.sendStatusMessage| 支持发送群聊状态消息 | 3.1.7 |
 |  | Private.sendTypingStatusMessage | 支持发送正在输入状态消息，只针对单聊文本消息 | 3.1.7 |

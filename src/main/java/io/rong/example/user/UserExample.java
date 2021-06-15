@@ -4,8 +4,8 @@ import io.rong.RongCloud;
 import io.rong.methods.user.User;
 import io.rong.models.*;
 import io.rong.models.response.*;
+import io.rong.models.user.ExpireModel;
 import io.rong.models.user.UserModel;
-import java.util.List;
 
 /**
  * Demo class
@@ -87,6 +87,20 @@ public class UserExample {
          */
         UserGroupQueryResult userGroupResult = User.getGroups(user);
         System.out.println("getGroups:  " + userGroupResult.toString());
+
+
+        ExpireModel expireModel = new ExpireModel()
+                .setUserId(new String[]{"CHIQ1", "CHIQ2"})
+                .setTime(1623123911000L);
+        /**
+         *
+         * API 文档: https://docs.rongcloud.cn/v4/5X/views/im/server/user/expire.html
+         *
+         * Token 失效
+         */
+        refreshResult = User.expire(expireModel);
+        System.out.println("expire:  " + refreshResult.toString());
+
 
     }
 }

@@ -293,4 +293,97 @@ public class MsgSystem {
         result.setReqBody(body);
         return result;
     }
+
+    /**
+     * 在线用户广播
+     * 是指系统向 App 中所有在线用户发送消息的行为。当用户正在使用 App 时，消息会展示在聊天界面和会话列表界面，会话类型为 SYSTEM。
+     * 系统通知消息，只能通过 Server API 进行发送，终端用户收到系统消息后，不支持消息回复功能。
+     * 在线广播消息使用的是服务端通知 SDK 拉取机制实现，发送消息后极端情况下用户 5 分钟内可收到此条消息。
+     *
+     * @param message 消息体
+     * @return ResponseResult
+     * @throws Exception
+     **/
+    public ResponseResult onlineBroadcast(BroadcastMessage message) throws Exception {
+
+        String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.ONLINE);
+        if (null != errMsg) {
+            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
+        sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
+        sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
+
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/online/broadcast.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.ONLINE, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
+
+    /**
+     * 全量落地通知撤回
+     *
+     * @param message
+     * @return ResponseResult
+     * @throws Exception
+     **/
+    public ResponseResult recallBroadcast(RecallMessage message) throws Exception {
+
+        String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.BROADCAST);
+        if (null != errMsg) {
+            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderId.toString(), UTF8));
+        sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
+        sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+        if (message.getIsAdmin() != null) {
+            sb.append("&isAdmin=").append(URLEncoder.encode(message.getIsAdmin().toString(), UTF8));
+        }
+        if (message.getIsDelete() != null) {
+            sb.append("&isDelete=").append(URLEncoder.encode(message.getIsDelete().toString(), UTF8));
+        }
+        if (message.getExtra() != null) {
+            sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
+
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast/recall.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, response),
+                    ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
+
 }
