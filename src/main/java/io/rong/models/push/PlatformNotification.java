@@ -167,15 +167,21 @@ public class PlatformNotification {
         return vivo;
     }
 
-    public void setVivo(String channelId) {
-        this.vivo = new Platform(channelId);
+    public void setVivo(String channelId, String classification) {
+        this.vivo = new Platform(channelId, classification);
     }
 
     public class Platform {
         private String channelId;
+        private String classification;
 
         public Platform(String channelId) {
             this.channelId = channelId;
+        }
+
+        public Platform(String channelId, String classification) {
+            this.channelId = channelId;
+            this.classification = classification;
         }
     }
 
