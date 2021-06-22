@@ -75,7 +75,7 @@ type IMGTextMsg struct {
 	Content  string      `json:"content"`
 	User     MsgUserInfo `json:"user"`
 	Extra    string      `json:"extra"`
-	Duration interface{} `json:"duration"`
+	ImageUri string      `json:"imageUri"`
 	URL      string      `json:"url"`
 }
 
