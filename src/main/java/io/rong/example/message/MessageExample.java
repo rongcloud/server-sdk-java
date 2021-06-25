@@ -410,6 +410,7 @@ public class MessageExample {
                 .setSenderId("1")
                 .setTargetId(chatroomIds)
                 .setContent(ctm)
+                .setIsIncludeSender(1)
                 .setObjectName(ctm.getType());
 
         ResponseResult chatroomResult = chatroom.send(chatroomMessage);

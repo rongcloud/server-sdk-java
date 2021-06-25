@@ -8,6 +8,7 @@ import io.rong.messages.BaseMessage;
  */
 public class ChatroomMessage extends MessageModel {
 
+    public Integer isIncludeSender;
     public ChatroomMessage() {
 
     }
@@ -43,6 +44,15 @@ public class ChatroomMessage extends MessageModel {
     @Override
     public ChatroomMessage setObjectName(String objectName) {
         super.setObjectName(objectName);
+        return this;
+    }
+
+    public Integer getIsIncludeSender() {
+        return this.isIncludeSender;
+    }
+
+    public ChatroomMessage setIsIncludeSender(Integer isIncludeSender) {
+        this.isIncludeSender = isIncludeSender;
         return this;
     }
 
