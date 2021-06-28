@@ -70,7 +70,9 @@ public class Chatroom {
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
-
+        if (message.getIsPersisted() != null) {
+            sb.append("&isPersisted=").append(URLEncoder.encode(message.getIsPersisted().toString(), UTF8));
+        }
         if (message.getIsIncludeSender() != null) {
             sb.append("&isIncludeSender=").append(URLEncoder.encode(message.getIsIncludeSender().toString(), UTF8));
         }
