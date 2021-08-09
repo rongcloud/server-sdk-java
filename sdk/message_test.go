@@ -272,6 +272,22 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 	t.Log(err)
 }
 
+func TestRongCloud_OnlineBroadcast(t *testing.T) {
+
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	code, err := rc.OnlineBroadcast(
+		"someone",
+		"RC:TxtMsg",
+		"hello everyone",
+	)
+	t.Log(string(code))
+	t.Log(err)
+}
+
 func TestRongCloud_SystemSend(t *testing.T) {
 
 	rc := NewRongCloud(

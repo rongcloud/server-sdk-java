@@ -906,6 +906,38 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) e
 	return err
 }
 
+// 在线广播消息
+// 是指系统向 App 中所有在线用户发送消息的行为。当用户正在使用 App 时，消息会展示在聊天界面和会话列表界面，会话类型为 SYSTEM。
+// @param fromUserId  发送人用户 Id
+// @param objectName  消息类型，
+// @param content  发送消息内容
+func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, content string) ([]byte, error) {
+
+	if fromUserId == "" {
+		return nil, RCErrorNew(1002, "Paramer 'fromUserId' is required")
+	}
+	if objectName == "" {
+		return nil, RCErrorNew(1002, "Paramer 'objectName' is required")
+	}
+	if content == "" {
+		return nil, RCErrorNew(1002, "Paramer 'content' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/online/broadcast." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", fromUserId)
+	req.Param("objectName", objectName)
+	req.Param("content", content)
+
+	code, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+
+	return code, err
+}
+
 // SystemSend 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
 /*
 *@param  senderID:发送人用户 ID。
