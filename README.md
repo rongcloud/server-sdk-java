@@ -13,14 +13,22 @@ Rong Cloud Server SDK in Go.
 
 ## 如何使用
 
-以go mod为示例，引入工程：
-- 旧版本： `require github.com/rongcloud/server-sdk-go`
+### 1. go mod 使用旧版本
+
+- go mod 文件： `require github.com/rongcloud/server-sdk-go`
+- go 文件引入 ： `import "github.com/rongcloud/server-sdk-go/sdk"`
+
+### 2. go mode 方式使用 v3
+
 - v3 版本 : `require github.com/rongcloud/server-sdk-go/v3`
+- go 文件引入： `import "github.com/rongcloud/server-sdk-go/v3/sdk"`
 
-下载/更新包：
-`go get -u github.com/rongcloud/server-sdk-go`
+### 3. 非 go mod 直接使用
 
-### 方法调用
+- 直接下载/更新包到 GOPATH：`go get -u github.com/rongcloud/server-sdk-go`
+- go 文件引入： `import "github.com/rongcloud/server-sdk-go/sdk"`
+
+## 方法调用
 
 * 请参考 rongcloud_test.go 上面提供了所有的 API 接口的调用用例。
 
@@ -28,7 +36,12 @@ Rong Cloud Server SDK in Go.
 package main
 
 import "fmt"
+
+//旧版本引入 或者 非go mod方式使用
 import "github.com/rongcloud/server-sdk-go/sdk"
+
+// go mod v3 版本引入
+//import "github.com/rongcloud/server-sdk-go/v3/sdk"
 
 func main() {
 	rc := sdk.NewRongCloud("appKey", "appSecret")

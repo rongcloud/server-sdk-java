@@ -62,7 +62,7 @@ const (
 	// ReqType body类型
 	ReqType = "json"
 	// USERAGENT sdk 名称
-	USERAGENT = "rc-go-sdk/3.2.3"
+	USERAGENT = "rc-go-sdk/3.2.4"
 	// DEFAULTTIMEOUT 默认超时时间，10秒
 	DEFAULTTIMEOUT = 10
 	// DEFAULT_KEEPALIVE http 默认保活时间，30秒
