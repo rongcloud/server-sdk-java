@@ -96,13 +96,13 @@ public class HttpUtil {
     }
 
     public static HttpURLConnection CreatePostHttpConnection(RongCloudConfig config, String appKey, String appSecret,
-        String uri) throws MalformedURLException, IOException, ProtocolException {
+                                                             String uri) throws MalformedURLException, IOException, ProtocolException {
         return CreatePostHttpConnection(config, appKey, appSecret, uri, "application/x-www-form-urlencoded");
     }
 
     public static HttpURLConnection CreatePostHttpConnection(RongCloudConfig config, String appKey, String appSecret,
-        String uri,
-        String contentType) throws MalformedURLException, IOException, ProtocolException {
+                                                             String uri,
+                                                             String contentType) throws MalformedURLException, IOException, ProtocolException {
         String nonce = String.valueOf(Math.random() * 1000000);// SecureRandom random = new SecureRandom(); random.nextInt(1000000);
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         StringBuilder toSign = new StringBuilder(appSecret).append(nonce).append(timestamp);
@@ -127,16 +127,17 @@ public class HttpUtil {
     }
 
     public static HttpURLConnection getHttpURLConnection(RongCloudConfig config, String uri)
-        throws IOException {
-    	URL url = new URL(config.getDomain()+uri);
-    	return (HttpURLConnection) url.openConnection();
+            throws IOException {
+        URL url = new URL(config.getDomain() + uri);
+        return (HttpURLConnection) url.openConnection();
     }
 
     public static byte[] readInputStream(InputStream inStream) throws Exception {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
+        int buffer_size = 1024;
+        byte[] buffer = new byte[buffer_size];
         int len = 0;
-        while ((len = inStream.read(buffer)) != -1) {
+        while ((len = inStream.read(buffer, 0, buffer_size)) != -1) {
             outStream.write(buffer, 0, len);
         }
         byte[] data = outStream.toByteArray();
@@ -168,7 +169,7 @@ public class HttpUtil {
             result = getExceptionMessage("request:" + conn.getURL() + " ,IOException:" + e.getMessage());
             config.errorCounter.incrementAndGet();
         } catch (Exception e) {
-        	config.errorCounter.incrementAndGet();
+            config.errorCounter.incrementAndGet();
             throw e;
         }
         return result;
