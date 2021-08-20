@@ -209,12 +209,6 @@ func (rc *RongCloud) UserUpdate(userID, name, portraitURI string) error {
 	if userID == "" {
 		return RCErrorNew(1002, "Paramer 'userID' is required")
 	}
-	if name == "" {
-		return RCErrorNew(1002, "Paramer 'name' is required")
-	}
-	if portraitURI == "" {
-		return RCErrorNew(1002, "Paramer 'portraitURI' is required")
-	}
 
 	req := httplib.Post(rc.rongCloudURI + "/user/refresh." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)

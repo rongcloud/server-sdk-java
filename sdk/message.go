@@ -166,7 +166,7 @@ type MentionedInfo struct {
 // MentionMsgContent MentionMsgContent
 type MentionMsgContent struct {
 	Content       string        `json:"content"`
-	MentionedInfo MentionedInfo `json:"mentionedinfo"`
+	MentionedInfo MentionedInfo `json:"mentionedInfo"`
 }
 
 // History History
