@@ -22,6 +22,9 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -42,8 +45,8 @@ public class Example {
 
     @Before
     public void setUp() throws Exception {
-        String appKey = "appKey";
-        String appSecret = "appSecret";
+        String appKey = "qd46yzrfqde4f";
+        String appSecret = "Cy5Euhxrcl9b";
         rongCloud = RongCloud.getInstance(appKey, appSecret);
 
         //rongCloud = RongCloud.getInstance(appKey, appSecret,api);
@@ -1687,4 +1690,68 @@ public class Example {
         System.out.println("getTag: " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
+
+
+    /**
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set
+     * <p>
+     * 设置消息扩展
+     **/
+    @Test
+    public void testSetExpansion() throws Exception {
+        ExpansionModel msg = new ExpansionModel();
+        msg.setMsgUID("BS45-NPH4-HV87-10LM");
+        msg.setUserId("WNYZbMqpH");
+        msg.setTargetId("tjw3zbMrU");
+        msg.setConversationType(1);
+        HashMap<String, String> kv = new HashMap<String, String>();
+        kv.put("type1", "1");
+        kv.put("type2", "2");
+        kv.put("type3", "3");
+        kv.put("type4", "4");
+        msg.setExtraKeyVal(kv);
+        ResponseResult result = rongCloud.expansion.set(msg);
+
+        System.out.println("setExpansion: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+
+    /**
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete
+     * <p>
+     * 删除消息扩展
+     **/
+    @Test
+    public void testRemoveExpansion() throws Exception {
+        ExpansionModel msg = new ExpansionModel();
+        msg.setMsgUID("BS45-NPH4-HV87-10LM");
+        msg.setUserId("WNYZbMqpH");
+        msg.setTargetId("tjw3zbMrU");
+        msg.setConversationType(1);
+        Set eKey = new HashSet();
+        eKey.add("type1");
+        eKey.add("type2");
+        msg.setExtraKey(eKey);
+        ResponseResult result = rongCloud.expansion.remove(msg);
+
+        System.out.println("removeExpansion: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+
+    /**
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#query
+     * <p>
+     * 获取扩展信息
+     **/
+    @Test
+    public void testGetExpansion() throws Exception {
+        ExpansionResult eResult = (ExpansionResult)rongCloud.expansion.getList("BS45-NPH4-HV87-10LM");
+
+        System.out.println("getExpansion: " + eResult.toString());
+        assertEquals("200", eResult.getCode().toString());
+    }
+
+
 }

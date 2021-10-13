@@ -109,3 +109,6 @@ Server SDK 功能支持的版本清单
 | [聊天室全体成员禁言白名单](./src/main/java/io/rong/methods/chatroom/ban/BanAllMemberWhitelist.java) | BanAllMemberWhitelist.add | 用户添加到白名单后，该用户在聊天室中同时设置了用户禁言，则白名单功能权限大于聊天室中成员禁言，可发送消息。 | 3.2.8 |
 |  | BanAllMemberWhitelist.remove | 移除全体禁言 | 3.2.8 |
 |  | BanAllMemberWhitelist.getList | 获取禁言列表 | 3.2.8 |
+| [消息扩展](./src/main/java/io/rong/methods/message/expansion/Expansion.java) | Expansion.add | 设置消息扩展，发送消息时，如设置了 expansion 为 true，可对该条消息进行扩展信息设置，每次最多可以设置 100 个扩展属性信息，最多可设置 300 个。 | 3.2.15 |
+|  | Expansion.remove | 删除消息扩展 | 3.2.15 |
+|  | Expansion.getList | 获取扩展信息 | 3.2.15 |

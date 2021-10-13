@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 public class PushExt {
     private String title;
 
+    private String templateId;
+
     private int forceShowPushContent;
 
     private List<Platform> pushConfigs;
@@ -19,6 +21,14 @@ public class PushExt {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
     }
 
     public void setForceShowPushContent(int forceShowPushContent) {
@@ -40,9 +50,9 @@ public class PushExt {
     /**
      * 获取PushExt json参数
      *
-     * @param title   通知栏显示标题，最长不超过 50 个字符，默认情况下通知标题单聊会话显示用户名称，群聊会话显示群名称。
+     * @param title                通知栏显示标题，最长不超过 50 个字符，默认情况下通知标题单聊会话显示用户名称，群聊会话显示群名称。
      * @param forceShowPushContent 是否强制显示通知详细，0 为不强制、1 为强制，默认为 0，当用户设置通知不显示详细时，可通过此属性强制显示通知详细。
-     * @param platforms 不同厂商配置参数
+     * @param platforms            不同厂商配置参数
      * @return
      */
     public static PushExt build(String title, Integer forceShowPushContent, Platform... platforms) {
@@ -56,7 +66,7 @@ public class PushExt {
             pushConfigs.add(p);
         }
         pe.setPushConfigs(pushConfigs);
-        return  pe;
+        return pe;
     }
 
     public static class HW implements Platform {
@@ -65,7 +75,8 @@ public class PushExt {
         public HW(String channelId) {
             HW.put("channelId", channelId);
         }
-        public HW(String channelId,String importance) {
+
+        public HW(String channelId, String importance) {
             HW.put("channelId", channelId);
             HW.put("importance", importance);
         }

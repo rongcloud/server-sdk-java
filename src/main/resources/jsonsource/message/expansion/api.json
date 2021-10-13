@@ -1,0 +1,88 @@
+{
+	"set": {
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set",
+		"url": "message/expansion/set",
+		"params": {
+			"expansion": {
+				"msgUID": "BRGM-DEN2-01E4-BN66",
+				"userId": "2191",
+				"conversationType": 3,
+				"targetId": "2192",
+				"extraKeyVal": "{\"type\":\"3\"}"
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"errorMessage": "成功返回"
+			},
+			"fail": {
+				"20001": {
+					"code": "1002",
+					"errorMessage": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}}"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				}
+			}
+		}
+	},
+	"remove": {
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete",
+		"url": "message/expansion/delete",
+		"params": {
+			"expansion": {
+				"msgUID": "BRGM-DEN2-01E4-BN66",
+				"userId": "2191",
+				"conversationType": 3,
+				"targetId": "2192",
+				"extraKey": "[\"11111\"]"
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"errorMessage": "成功返回"
+			},
+			"fail": {
+				"20001": {
+					"code": "1002",
+					"errorMessage": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}}"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				}
+			}
+		}
+	},
+	"getList": {
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/message/expansion#query",
+		"url": "message/expansion/query",
+		"params": {
+			"expansion": {
+				"msgUID": "BRGM-DEN2-01E4-BN66",
+			}},
+		"response": {
+			"success": {
+				"code": "200",
+				"errorMessage": "成功返回"
+			},
+			"fail": {
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				}
+			}
+		}
+	}
+}
