@@ -9,7 +9,7 @@ Rong Cloud Server SDK in Go.
 - 如果您是新接入的开发者，建议您使用 Server SDK v3 版本。 对已集成使用老版本 Server SDK 的开发者，不能直接升级使用，强烈建议您重新测试后使用
 
 # API文档
-- [官方文档](https://docs.rongcloud.cn/v4-platform/)
+- [官方文档](https://doc.rongcloud.cn/imserver/server/v1/overview)
 
 ## 如何使用
 
