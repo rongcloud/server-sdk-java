@@ -34,7 +34,8 @@ const (
 *
 *@return error
  */
-func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string) error {
+func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID, targetID string,
+	options ...MsgOption) error {
 
 	if conversationType == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -48,6 +49,8 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
+	extraOptins := modifyMsgOptions(options)
+
 	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/set." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
@@ -55,6 +58,10 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
 	req.Param("targetId", targetID)
 	req.Param("isMuted", "1")
+
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -71,7 +78,8 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 *
 *@return error
  */
-func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string) error {
+func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userID, targetID string,
+	options ...MsgOption) error {
 	if conversationType == 0 {
 		return RCErrorNew(1002, "Paramer 'conversationType' is required")
 	}
@@ -84,6 +92,8 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
+	extraOptins := modifyMsgOptions(options)
+
 	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/set." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
@@ -91,6 +101,10 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
 	req.Param("targetId", targetID)
 	req.Param("isMuted", "0")
+
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -107,7 +121,8 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 *
 *@return int error
  */
-func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, targetID string) (int, error) {
+func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, targetID string,
+	options ...MsgOption) (int, error) {
 	if conversationType == 0 {
 		return -1, RCErrorNew(1002, "Paramer 'conversationType' is required")
 	}
@@ -120,12 +135,18 @@ func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, 
 		return -1, RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
+	extraOptins := modifyMsgOptions(options)
+
 	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/get." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("requestId", userID)
 	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
 	req.Param("targetId", targetID)
+
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	response, err := req.Response()
 	if err != nil {

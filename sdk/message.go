@@ -496,7 +496,8 @@ func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, co
  * @param int sentTime
  * @return: error
  */
-func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId string, sentTime int) error {
+func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId string, sentTime int,
+	options ...MsgOption) error {
 	if userId == "" {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
 	}
@@ -513,6 +514,8 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
 		return RCErrorNew(1002, "Paramer 'sentTime' is required")
 	}
 
+	extraOptins := modifyMsgOptions(options)
+
 	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
@@ -522,6 +525,10 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
 	req.Param("targetId", targetId)
 	req.Param("messageUID", messageId)
 	req.Param("sentTime", strconv.Itoa(sentTime))
+
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -607,7 +614,8 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 *
 *@return error
  */
-func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int) error {
+func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -615,6 +623,8 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
 	if targetID == "" {
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -624,6 +634,10 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int)
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(1))
+
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -683,6 +697,11 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 	param["verifyBlacklist"] = extraOptins.verifyBlacklist
 	param["contentAvailable"] = extraOptins.contentAvailable
 	param["disablePush"] = extraOptins.disablePush
+
+	if extraOptins.busChannel != "" {
+		param["busChannel"] = extraOptins.busChannel
+	}
+
 	req, err = req.JSONBody(param)
 	if err != nil {
 		return err
@@ -753,6 +772,9 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 			req.Param("toUserId", v)
 		}
 	}
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err = rc.do(req)
 	if err != nil {
@@ -770,7 +792,8 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 *
 *@return error
  */
-func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) error {
+func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -778,6 +801,8 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 	if targetID == "" {
 		return RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -787,6 +812,10 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int) e
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(3))
+
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -1002,6 +1031,9 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	if !extraOptins.disablePush && extraOptins.pushExt != "" {
 		req.Param("pushExt", extraOptins.pushExt)
 	}
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err = rc.do(req)
 	if err != nil {
@@ -1064,15 +1096,19 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg,
 *
 *@return error
  */
-func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent) error {
+func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
+
 	req := httplib.Post(rc.rongCloudURI + "/message/system/publish_template." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	var toUserIDs, push []string
+	var toUserIDs, push, pushData []string
 	var values []map[string]string
 
 	for _, v := range content {
@@ -1082,6 +1118,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 		toUserIDs = append(toUserIDs, v.TargetID)
 		values = append(values, v.Data)
 		push = append(push, v.PushContent)
+		pushData = append(pushData, v.PushData)
 	}
 
 	bytes, err := json.Marshal(template)
@@ -1097,6 +1134,12 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	param["values"] = values
 	param["pushContent"] = push
 	param["verifyBlacklist"] = 0
+	param["pushData"] = pushData
+	param["contentAvailable"] = extraOptins.contentAvailable
+	param["disablePush"] = extraOptins.disablePush
+	if extraOptins.busChannel != "" {
+		param["busChannel"] = extraOptins.busChannel
+	}
 
 	_, _ = req.JSONBody(param)
 
