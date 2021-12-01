@@ -352,6 +352,7 @@ type msgOptions struct {
 	pushExt          string
 	pushContent      string
 	pushData         string
+	busChannel       string
 }
 
 // MsgOption 接口函数
@@ -418,6 +419,13 @@ func WithMsgPushData(pushData string) MsgOption {
 	}
 }
 
+// busChannel 创建子会话
+func WithMsgBusChannel(busChannel string) MsgOption {
+	return func(options *msgOptions) {
+		options.busChannel = busChannel
+	}
+}
+
 // 修改默认值
 func modifyMsgOptions(options []MsgOption) msgOptions {
 	// 默认值
@@ -430,6 +438,7 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 		pushExt:          "",
 		pushContent:      "",
 		pushData:         "",
+		busChannel:       "",
 	}
 
 	// 修改默认值
@@ -576,6 +585,9 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
 	if !extraOptins.disablePush && extraOptins.pushExt != "" {
 		req.Param("pushExt", extraOptins.pushExt)
+	}
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
 	}
 
 	_, err = rc.do(req)

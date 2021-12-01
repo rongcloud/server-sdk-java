@@ -100,6 +100,7 @@ func TestMessage_PrivateSendOptions(t *testing.T) {
 		0,
 		WithMsgDisablePush(true),
 		WithMsgPushExt(""),
+		WithMsgBusChannel("bus"),
 	)
 	t.Log(err)
 }
