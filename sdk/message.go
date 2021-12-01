@@ -840,7 +840,8 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
 *@return error
  */
 func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
-	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int) error {
+	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int,
+	options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -848,6 +849,8 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	if len(targetID) == 0 && len(targetID) > 3 {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/group/publish." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -869,6 +872,14 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	req.Param("isMentioned", strconv.Itoa(isMentioned))
 	req.Param("contentAvailable", strconv.Itoa(contentAvailable))
+	req.Param("expansion", strconv.FormatBool(extraOptins.expansion))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	if !extraOptins.disablePush && extraOptins.pushExt != "" {
+		req.Param("pushExt", extraOptins.pushExt)
+	}
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
 
 	_, err = rc.do(req)
 	if err != nil {
