@@ -604,6 +604,54 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	return err
 }
 
+// 私聊状态消息发送
+// senderID: 发送人用户 ID。
+// targetID: 接收用户 ID，支持向多人发送消息，每次上限为 1000 人。
+// objectName: 消息类型
+// msg: 所发送消息的内容
+// verifyBlacklist: 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
+// isIncludeSender: 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objectName string, msg rcMsg,
+	verifyBlacklist int, isIncludeSender int,
+	options ...MsgOption) error {
+
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
+
+	if len(targetID) == 0 {
+		return RCErrorNew(1002, "Paramer 'targetID' is required")
+	}
+
+	extraOptins := modifyMsgOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/statusmessage/private/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	for _, v := range targetID {
+		req.Param("toUserId", v)
+	}
+	req.Param("objectName", objectName)
+
+	msgr, err := msg.ToString()
+	if err != nil {
+		return err
+	}
+	req.Param("content", msgr)
+	req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
+	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
+
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
 // PrivateRecall 撤回单聊消息方法
 /*
 *
@@ -772,6 +820,54 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 			req.Param("toUserId", v)
 		}
 	}
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
+
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 群聊状态消息发送
+// senderID: 发送人用户 ID。
+// toGroupIds: 接收群ID，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。
+// objectName: 消息类型
+// msg: 所发送消息的内容
+// verifyBlacklist: 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
+// isIncludeSender: 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objectName string, msg rcMsg,
+	verifyBlacklist int, isIncludeSender int,
+	options ...MsgOption) error {
+
+	if senderID == "" {
+		return RCErrorNew(1002, "Paramer 'senderID' is required")
+	}
+
+	if len(toGroupIds) == 0 {
+		return RCErrorNew(1002, "Paramer 'toGroupIds' is required")
+	}
+
+	extraOptins := modifyMsgOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/statusmessage/group/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", senderID)
+	for _, v := range toGroupIds {
+		req.Param("toGroupId", v)
+	}
+	req.Param("objectName", objectName)
+
+	msgr, err := msg.ToString()
+	if err != nil {
+		return err
+	}
+	req.Param("content", msgr)
+	req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
+	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
 	}
