@@ -46,6 +46,27 @@ func TestChatRoomRecall(t *testing.T) {
 	}
 }
 
+func TestSystemRecall(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	err := rc.SystemRecall("fDR2cVpxxR5zSMUNh3yAwh",
+		"MersNRhaKwJkRV9mJR5JXY",
+		"5FGT-7VA9-G4DD-4V5P",
+		1507778882124,
+		WithIsAdmin(1),
+		WithIsDelete(1),
+	)
+
+	if err != nil {
+		t.Errorf("error: %v", err)
+	} else {
+		t.Log("Pass")
+	}
+}
+
 func TestMessage_PrivateSend(t *testing.T) {
 
 	rc := NewRongCloud(

@@ -353,6 +353,8 @@ type msgOptions struct {
 	pushContent      string
 	pushData         string
 	busChannel       string
+	isAdmin          int
+	isDelete         int
 }
 
 // MsgOption 接口函数
@@ -426,6 +428,20 @@ func WithMsgBusChannel(busChannel string) MsgOption {
 	}
 }
 
+// 是否为管理员，默认为 0，设为 1 时，IMKit 收到此条消息后，小灰条默认显示为“管理员 撤回了一条消息”。
+func WithIsAdmin(isAdmin int) MsgOption {
+	return func(options *msgOptions) {
+		options.isAdmin = isAdmin
+	}
+}
+
+// 默认为 0 撤回该条消息同时，用户端将该条消息删除并替换为一条小灰条撤回提示消息；为 1 时，该条消息删除后，不替换为小灰条提示消息。
+func WithIsDelete(isDelete int) MsgOption {
+	return func(options *msgOptions) {
+		options.isDelete = isDelete
+	}
+}
+
 // 修改默认值
 func modifyMsgOptions(options []MsgOption) msgOptions {
 	// 默认值
@@ -439,6 +455,8 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 		pushContent:      "",
 		pushData:         "",
 		busChannel:       "",
+		isAdmin:          0,
+		isDelete:         0,
 	}
 
 	// 修改默认值
@@ -494,6 +512,9 @@ func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, co
  * @param string targetId
  * @param string messageId
  * @param int sentTime
+ * @param int isAdmin
+ * @param int isDelete
+ * @param bool disablePush
  * @return: error
  */
 func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId string, sentTime int,
@@ -525,6 +546,66 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
 	req.Param("targetId", targetId)
 	req.Param("messageUID", messageId)
 	req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	req.Param("isAdmin", strconv.Itoa(extraOptins.isAdmin))
+	req.Param("isDelete", strconv.Itoa(extraOptins.isDelete))
+
+	if extraOptins.busChannel != "" {
+		req.Param("busChannel", extraOptins.busChannel)
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+/**
+ * @name: SystemRecall
+ * @test:
+ * @msg: 消息撤回 - 系统会话
+ * @param string userId
+ * @param string targetId
+ * @param string messageId
+ * @param int sentTime
+ * @param int isAdmin
+ * @param int isDelete
+ * @param bool disablePush
+ * @return: error
+ */
+func (rc *RongCloud) SystemRecall(userId string, targetId string, messageId string, sentTime int,
+	options ...MsgOption) error {
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if targetId == "" {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+
+	if messageId == "" {
+		return RCErrorNew(1002, "Paramer 'messageId' is required")
+	}
+
+	if sentTime == 0 {
+		return RCErrorNew(1002, "Paramer 'sentTime' is required")
+	}
+
+	extraOptins := modifyMsgOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("fromUserId", userId)
+	req.Param("conversationType", strconv.Itoa(6))
+	req.Param("targetId", targetId)
+	req.Param("messageUID", messageId)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	req.Param("isAdmin", strconv.Itoa(extraOptins.isAdmin))
+	req.Param("isDelete", strconv.Itoa(extraOptins.isDelete))
 
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
@@ -659,7 +740,9 @@ func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objec
 *@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-*
+* @param int isAdmin
+* @param int isDelete
+* @param bool disablePush
 *@return error
  */
 func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int,
@@ -682,6 +765,9 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int,
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(1))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	req.Param("isAdmin", strconv.Itoa(extraOptins.isAdmin))
+	req.Param("isDelete", strconv.Itoa(extraOptins.isDelete))
 
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
@@ -885,7 +971,9 @@ func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objec
 *@param  targetID:接收用户 ID。
 *@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
 *@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
-*
+* @param int isAdmin
+* @param int isDelete
+* @param bool disablePush
 *@return error
  */
 func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
@@ -908,6 +996,9 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
 	req.Param("messageUID", uID)
 	req.Param("sentTime", strconv.Itoa(sentTime))
 	req.Param("conversationType", strconv.Itoa(3))
+	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	req.Param("isAdmin", strconv.Itoa(extraOptins.isAdmin))
+	req.Param("isDelete", strconv.Itoa(extraOptins.isDelete))
 
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
