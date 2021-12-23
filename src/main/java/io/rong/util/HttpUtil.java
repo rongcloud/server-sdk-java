@@ -1,5 +1,7 @@
 package io.rong.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import io.rong.RongCloudConfig;
 import io.rong.models.response.ResponseResult;
 
@@ -17,6 +19,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.util.UUID;
 
 /**
  * http 公共服务
@@ -122,6 +125,7 @@ public class HttpUtil {
         conn.setRequestProperty(SIGNATURE, sign);
         conn.setRequestProperty(USERAGENT, "rc-java-sdk/" + CommonUtil.getSDKVersion());
         conn.setRequestProperty("Content-Type", contentType);
+        conn.setRequestProperty("X-Request-ID", UUID.randomUUID().toString().replaceAll("\\-", ""));
 
         return conn;
     }
@@ -159,14 +163,17 @@ public class HttpUtil {
                 input = conn.getErrorStream();
             }
             result = new String(readInputStream(input), "UTF-8");
+            JSONObject object = JSON.parseObject(result);
+            object.put("requestId", conn.getRequestProperty("X-Request-ID"));
+            result = object.toString();
         } catch (UnknownHostException e) {
-            result = getExceptionMessage("request:" + conn.getURL() + " ,UnknownHostException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("x_request_id") + " ,UnknownHostException:" + e.getMessage());
             config.errorCounter.incrementAndGet();
         } catch (SocketTimeoutException e) {
-            result = getExceptionMessage("request:" + conn.getURL() + " ,SocketTimeoutException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("x_request_id") + " ,SocketTimeoutException:" + e.getMessage());
             config.errorCounter.incrementAndGet();
         } catch (IOException e) {
-            result = getExceptionMessage("request:" + conn.getURL() + " ,IOException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("x_request_id") + " ,IOException:" + e.getMessage());
             config.errorCounter.incrementAndGet();
         } catch (Exception e) {
             config.errorCounter.incrementAndGet();

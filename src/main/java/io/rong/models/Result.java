@@ -14,6 +14,8 @@ public abstract class Result {
      */
     public String errorMessage;
 
+    public String requestId;
+
     public Result(Integer code, String errorMessage) {
         this.code = code;
         this.errorMessage = errorMessage;
@@ -53,6 +55,14 @@ public abstract class Result {
      */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     @Override
