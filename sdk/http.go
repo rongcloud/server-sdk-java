@@ -88,6 +88,38 @@ func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err 
 	return body, err
 }
 
+// v2 api
+func (rc *RongCloud) doV2(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
+	// 使用全局 httpClient，解决 http 打开端口过多问题
+	b.SetTransport(rc.globalTransport)
+
+	resp, err := b.DoRequest()
+	if err != nil {
+		if isNetError(err) {
+			rc.ChangeURI()
+		}
+		return nil, err
+	}
+	if resp.Body == nil {
+		return nil, nil
+	}
+	defer resp.Body.Close()
+	rc.checkStatusCode(resp)
+	if resp.Header.Get("Content-Encoding") == "gzip" {
+		reader, err := gzip.NewReader(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		body, err = ioutil.ReadAll(reader)
+	} else {
+		body, err = ioutil.ReadAll(resp.Body)
+	}
+	if err = checkHTTPResponseCodeV2(body); err != nil {
+		return nil, err
+	}
+	return body, err
+}
+
 func checkHTTPResponseCode(rep []byte) error {
 	code := codePool.Get().(CodeResult)
 	defer codePool.Put(code)
@@ -95,6 +127,19 @@ func checkHTTPResponseCode(rep []byte) error {
 		return err
 	}
 	if code.Code != 200 {
+		return code
+	}
+	return nil
+}
+
+// v2 api error
+func checkHTTPResponseCodeV2(rep []byte) error {
+	code := codePoolV2.Get().(CodeResultV2)
+	defer codePoolV2.Put(code)
+	if err := json.Unmarshal(rep, &code); err != nil {
+		return err
+	}
+	if code.Code != 10000 {
 		return code
 	}
 	return nil

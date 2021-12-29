@@ -50,6 +50,7 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/httplib"
+	"github.com/google/uuid"
 )
 
 const (
@@ -132,6 +133,20 @@ func (rc RongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
 	req.Header("Signature", signature)
 	req.Header("Content-Type", "application/x-www-form-urlencoded")
 	req.Header("User-Agent", USERAGENT)
+}
+
+// v2 sdk header
+func (rc RongCloud) fillHeaderV2(req *httplib.BeegoHTTPRequest) string {
+	requestId := uuid.New().String()
+	nonce, timestamp, signature := rc.getSignature()
+	req.Header("RC-App-Key", rc.appKey)
+	req.Header("RC-Timestamp", timestamp)
+	req.Header("RC-Nonce", nonce)
+	req.Header("RC-Signature", signature)
+	req.Header("Content-Type", "application/json")
+	req.Header("User-Agent", USERAGENT)
+	req.Header("RC-Request-Id", requestId)
+	return requestId
 }
 
 // fillJSONHeader 在 Http Header Content-Type 设置为josn格式
