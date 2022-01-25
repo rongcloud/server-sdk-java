@@ -392,6 +392,7 @@ public class CommonUtil {
         try {
             JSONObject object = JSON.parseObject(response);
             String code = String.valueOf(object.get("code"));
+            String requestId = String.valueOf(object.get("requestId"));
             api = JsonUtil.getJsonObject(path, API_JSON_NAME);
             Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response")
                 .getJSONObject("fail").entrySet();
@@ -401,16 +402,19 @@ public class CommonUtil {
                     UserList userList = (UserList) GsonUtil.fromJson(response, UserList.class);
                     UserModel[] members = parseUserList(userList);
                     BlackListResult blacklist = new BlackListResult(userList.getCode(), null, members);
+                    blacklist.requestId = requestId;
                     text = blacklist.toString();
                 } else if (path.contains("user/whitelist") && method.equals("getList")) {
                     UserList userList = (UserList) GsonUtil.fromJson(response, UserList.class);
                     UserModel[] members = parseUserList(userList);
                     PWhiteListResult whitelist = new PWhiteListResult(userList.getCode(), null, members);
+                    whitelist.requestId = requestId;
                     text = whitelist.toString();
                 } else if (path.contains("whitelist/user") && method.equals("getList")) {
                     UserList userList = (UserList) GsonUtil.fromJson(response, UserList.class);
                     UserModel[] members = parseUserList(userList);
                     WhiteListResult whitelist = new WhiteListResult(userList.getCode(), null, members);
+                    whitelist.requestId = requestId;
                     text = whitelist.toString();
                 } else if (path.contains("chatroom") || path.contains("group")) {
                     text = StringUtils.replace(response, "users", "members");
@@ -434,6 +438,7 @@ public class CommonUtil {
                             GroupModel[] groupModels = groupinfos.toArray(new GroupModel[groupinfos.size()]);
                             GroupBanResult groupBanResult = new GroupBanResult(groupBanModel.getCode(), null,
                                 groupModels);
+                            groupBanResult.requestId = requestId;
                             text = groupBanResult.toString();
                         }
                     }
