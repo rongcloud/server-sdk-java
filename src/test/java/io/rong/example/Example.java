@@ -227,6 +227,7 @@ public class Example {
     }
 
 
+
     /**
      * 添加用户到白名单方法（每秒钟限 100 次）
      */
@@ -715,6 +716,7 @@ public class Example {
         assertEquals("200", result.getCode().toString());
     }
 
+
     /**
      * 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
      */
@@ -899,6 +901,7 @@ public class Example {
         assertEquals("200", result.getCode().toString());
 
     }
+
 
     /**
      * 添加全局禁言群方法
@@ -1088,7 +1091,7 @@ public class Example {
                 .setChatroomId("76891");
 
         CheckChatRoomUserResult result = rongCloud.chatroom.isExist(member);
-        System.out.println("checkChatroomUserResult:  " + result.isInChrm);
+        System.out.println("checkChatroomUserResult:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
     }
