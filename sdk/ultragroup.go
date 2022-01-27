@@ -3,9 +3,10 @@ package sdk
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/astaxie/beego/httplib"
 	"strconv"
 	"time"
+
+	"github.com/astaxie/beego/httplib"
 )
 
 // api 返回结果, data 数组
@@ -550,15 +551,25 @@ func (rc *RongCloud) UGChannelCreate(groupId, channelId string) (err error, requ
 		return RCErrorNewV2(1002, "param 'channelId' is required"), ""
 	}
 
-	url := fmt.Sprintf("%s/v2/ultragroups/%s/channels/%s", rc.rongCloudURI, groupId, channelId)
-	req := httplib.Get(url)
+	url := fmt.Sprintf("%s/v2/ultragroups/channels", rc.rongCloudURI)
+	req := httplib.Post(url)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	requestId = rc.fillHeaderV2(req)
 
-	// http
-	_, err = rc.doV2(req)
+	body := map[string]interface{}{
+		"group_id":   groupId,
+		"channel_id": channelId,
+	}
 
-	return err, requestId
+	if _, err = req.JSONBody(body); err != nil {
+		return err, ""
+	}
+
+	if _, err = rc.doV2(req); err != nil {
+		return err, ""
+	}
+
+	return nil, requestId
 }
 
 // 删除群频道
