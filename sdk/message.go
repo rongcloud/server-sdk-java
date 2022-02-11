@@ -10,10 +10,16 @@ package sdk
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
 	"github.com/astaxie/beego/httplib"
+)
+
+const (
+	MessagePrivateType = 1 // MessagePrivateType 二人会话
+	MessageGroupType   = 3 // MessageGroupType 群组会话
 )
 
 // rcMsg rcMsg接口
@@ -186,8 +192,8 @@ type BroadcastRecallContent struct {
 type ChatRoomKVNotiMessage struct {
 	Type  int    `json:"type"`
 	Key   string `json:"string"`
-	Value string `json:"string"`
-	Extra string `json:"string"`
+	Value string `json:"value"`
+	Extra string `json:"extra"`
 }
 
 // ToString ChatRoomKVNotiMessage
@@ -1393,4 +1399,163 @@ func (rc *RongCloud) HistoryRemove(date string) error {
 	}
 	return err
 
+}
+
+// SetMessageExpansion 设置消息扩展
+// 发送消息时，如设置了 expansion 为 true，可对该条消息进行扩展信息设置，每次最多可以设置 100 个扩展属性信息，最多可设置 300 个。
+func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targetId string, extra map[string]string) error {
+	if msgUID == "" {
+		return RCErrorNew(1002, "Paramer 'msgUID' is required")
+	}
+
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if conversationType == "" {
+		return RCErrorNew(1002, "Paramer 'conversationType' is required")
+	}
+
+	if conversationType != strconv.Itoa(MessagePrivateType) && conversationType != strconv.Itoa(MessageGroupType) {
+		return RCErrorNew(1002, "Paramer 'conversationType' must be 1 or 3 to string")
+	}
+
+	if targetId == "" {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+
+	if extra == nil {
+		return RCErrorNew(1002, "Paramer 'extra' is required")
+	}
+
+	encExtra, err := json.Marshal(extra)
+	if err != nil {
+		return err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/expansion/set." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("userId", userId)
+	req.Param("conversationType", conversationType)
+	req.Param("targetId", targetId)
+	req.Param("extraKeyVal", string(encExtra))
+
+	if _, err = rc.do(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// DeleteMessageExpansion 删除消息扩展
+func (rc *RongCloud) DeleteMessageExpansion(msgUID, userId, conversationType, targetId string, keys ...string) error {
+	if msgUID == "" {
+		return RCErrorNew(1002, "Paramer 'msgUID' is required")
+	}
+
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if conversationType == "" {
+		return RCErrorNew(1002, "Paramer 'conversationType' is required")
+	}
+
+	if conversationType != strconv.Itoa(MessagePrivateType) && conversationType != strconv.Itoa(MessageGroupType) {
+		return RCErrorNew(1002, "Paramer 'conversationType' must be 1 or 3 to string")
+	}
+
+	if targetId == "" {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+
+	if len(keys) <= 0 {
+		return RCErrorNew(1002, "Paramer 'keys' is required")
+	}
+
+	encKeys, err := json.Marshal(keys)
+	if err != nil {
+		return err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/expansion/delete." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("userId", userId)
+	req.Param("conversationType", conversationType)
+	req.Param("targetId", targetId)
+	req.Param("extraKey", string(encKeys))
+
+	if _, err = rc.do(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+type MessageExpansionItem struct {
+	Key       string `json:"key"`
+	Value     string `json:"value"`
+	Timestamp int64  `json:"timestamp"`
+}
+
+// QueryMessageExpansion 获取扩展信息
+// 根据消息 ID 获取指定消息扩展信息
+func (rc *RongCloud) QueryMessageExpansion(msgUID string, page int) ([]MessageExpansionItem, error) {
+	if msgUID == "" {
+		return nil, RCErrorNew(1002, "Paramer 'msgUID' is required")
+	}
+
+	if page <= 0 {
+		page = 1
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/expansion/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("pageNo", strconv.Itoa(page))
+
+	body, err := rc.do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	resp := struct {
+		Code         int                               `json:"code"`
+		ExtraContent map[string]map[string]interface{} `json:"extraContent"`
+	}{}
+
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return nil, err
+	}
+
+	if resp.Code != 200 {
+		return nil, fmt.Errorf("response error: %d", resp.Code)
+	}
+
+	var data []MessageExpansionItem
+	for key, val := range resp.ExtraContent {
+		item := MessageExpansionItem{
+			Key: key,
+		}
+
+		if v, ok := val["v"]; ok {
+			item.Value = v.(string)
+		}
+
+		if ts, ok := val["ts"]; ok {
+			item.Timestamp = ts.(int64)
+		}
+
+		data = append(data, item)
+	}
+
+	return data, nil
 }
