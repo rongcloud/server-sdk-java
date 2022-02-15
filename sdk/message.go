@@ -1551,7 +1551,7 @@ func (rc *RongCloud) QueryMessageExpansion(msgUID string, page int) ([]MessageEx
 		}
 
 		if ts, ok := val["ts"]; ok {
-			item.Timestamp = ts.(int64)
+			item.Timestamp = int64(ts.(float64))
 		}
 
 		data = append(data, item)
