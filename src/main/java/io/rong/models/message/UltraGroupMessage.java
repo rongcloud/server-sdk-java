@@ -8,12 +8,6 @@ import io.rong.messages.BaseMessage;
  */
 public class UltraGroupMessage extends MessageModel {
 
-
-    /**
-     * 发送者自己是否接收此条消息, 0: 不接收, 1: 接收, 默认: 0
-     **/
-    public Integer isIncludeSender;
-
     /**
      * 针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。（可选）
      */
@@ -69,16 +63,6 @@ public class UltraGroupMessage extends MessageModel {
                              String pushData, String pushExt, Integer isPersisted,
                              Integer contentAvailable, String busChannel) {
         super(senderId, targetId, objectName, content, pushContent, pushData, pushExt);
-        this.isPersisted = isPersisted;
-        this.contentAvailable = contentAvailable;
-        this.busChannel = busChannel;
-    }
-
-    public UltraGroupMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent,
-                             String pushData, String pushExt, Integer isIncludeSender, Integer isPersisted,
-                             Integer contentAvailable, String busChannel) {
-        super(senderId, targetId, objectName, content, pushContent, pushData, pushExt);
-        this.isIncludeSender = isIncludeSender;
         this.isPersisted = isPersisted;
         this.contentAvailable = contentAvailable;
         this.busChannel = busChannel;
@@ -182,11 +166,4 @@ public class UltraGroupMessage extends MessageModel {
         this.busChannel = busChannel;
     }
 
-    public Integer getIsIncludeSender() {
-        return isIncludeSender;
-    }
-
-    public void setIsIncludeSender(Integer isIncludeSender) {
-        this.isIncludeSender = isIncludeSender;
-    }
 }

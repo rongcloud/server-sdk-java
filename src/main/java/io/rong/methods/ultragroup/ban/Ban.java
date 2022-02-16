@@ -21,7 +21,7 @@ import java.net.URLEncoder;
  * */
 public class Ban {
     private static final String UTF8 = "UTF-8";
-    private static final String PATH = "ultragroup/globalbanned";
+    private static final String PATH = "ultragroup/ban";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -61,7 +61,7 @@ public class Ban {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/globalbanned/set.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.SET,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
@@ -95,7 +95,7 @@ public class Ban {
      **/
     public Result remove(String[] groupIds) throws Exception {
         //参数校验
-        String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.ADD);
+        String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.REMOVE);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }

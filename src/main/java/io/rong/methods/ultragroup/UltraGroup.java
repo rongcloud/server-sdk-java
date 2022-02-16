@@ -1,12 +1,13 @@
 package io.rong.methods.ultragroup;
 
 import io.rong.RongCloud;
+import io.rong.methods.ultragroup.ban.Ban;
+import io.rong.methods.ultragroup.ban.User;
+import io.rong.methods.ultragroup.ban.WhiteList;
+import io.rong.methods.ultragroup.channel.BusChannel;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
-import io.rong.models.group.GroupMember;
-import io.rong.models.group.GroupModel;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.ultragroup.UltraGroupMember;
 import io.rong.models.ultragroup.UltraGroupModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -21,11 +22,19 @@ public class UltraGroup {
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
+    public Ban ban;
+    public User user;
+    public WhiteList whiteList;
+    public BusChannel busChannel;
 
     public UltraGroup(String appKey, String appSecret, RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
         this.rongCloud = rongCloud;
+        this.user = new User(appKey, appSecret, rongCloud);
+        this.whiteList = new WhiteList(appKey, appSecret, rongCloud);
+        this.ban = new Ban(appKey, appSecret, rongCloud);
+        this.busChannel = new BusChannel(appKey, appSecret, rongCloud);
     }
 
     public Result create(UltraGroupModel group) throws Exception {
@@ -67,7 +76,7 @@ public class UltraGroup {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/dis.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.DIS,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
@@ -89,7 +98,7 @@ public class UltraGroup {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/join.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.JOIN,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
@@ -111,7 +120,7 @@ public class UltraGroup {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/quit.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.QUIT,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
@@ -133,6 +142,6 @@ public class UltraGroup {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/refresh.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REFRESH,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 }

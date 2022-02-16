@@ -93,9 +93,6 @@ public class UltraGroup {
         if (message.getContentAvailable() != null) {
             sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
         }
-        if (message.getIsIncludeSender() != null) {
-            sb.append("&includeSenderEnable=").append(URLEncoder.encode(message.getIsIncludeSender().toString(), UTF8));
-        }
 
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
