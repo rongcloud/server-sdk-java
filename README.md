@@ -74,6 +74,8 @@ RongCloud IM Server SDK in Java.
 
 ###### [敏感词模块示例](./src/main/java/io/rong/example/sensitive/SensitiveExample.java)
 
+###### [超级群模块示例](../src/main/java/io/rong/example/ultragroup)
+
 
 # 版本说明
 为方便开发者的接入使用，更好的对融云 Server SDK 进行维护管理，现更新SDK 3.0 版本,老版本的 Server SDK仍可使用

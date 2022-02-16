@@ -4,6 +4,7 @@ public class CheckMethod {
     public static final String ADD = "add";
     public static final String GETLIST = "getList";
     public static final String REMOVE = "remove";
+    public static final String DEL = "del";
     public static final String CLEAN = "clean";
     public static final String CREATE = "create";
     public static final String DESTORY = "destory";
@@ -20,6 +21,7 @@ public class CheckMethod {
     public static final String QUIT = "quit";
     public static final String KICK = "kick";
     public static final String DISMISS = "dismiss";
+    public static final String DIS = "dis";
     public static final String REFRESH = "refresh";
     public static final String UPDATE = "update";
     public static final String GET_MEMBERS_LIST = "getMemberList";
