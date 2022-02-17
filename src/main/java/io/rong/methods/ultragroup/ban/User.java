@@ -23,7 +23,7 @@ import java.net.URLEncoder;
  * */
 public class User {
     private static final String UTF8 = "UTF-8";
-    private static final String PATH = "ultragroup/userbanned";
+    private static final String PATH = "ultragroup/ban/user";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -43,7 +43,7 @@ public class User {
     /**
      * 添加超级群用户禁言方法
      *
-     * @param group:群组信息。id  , memberIds（必传）
+     * @param group:超级群。id  , memberIds（必传）
      *
      * @return Result
      **/
@@ -74,18 +74,14 @@ public class User {
      *
      * @return GroupUserQueryResult
      **/
-    public GroupUserQueryResult get(UltraGroupModel group) throws Exception {
-
-        String errMsg = CommonUtil.checkFiled(group,PATH,CheckMethod.GET);
-        if(null != errMsg){
-            return (GroupUserQueryResult)GsonUtil.fromJson(errMsg,GroupUserQueryResult.class);
+    public Result get(String groupId) throws Exception {
+        String message = CommonUtil.checkParam("id",groupId,PATH,CheckMethod.GET);
+        if(null != message){
+            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+        sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
         String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
-        }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/userbanned/get.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
@@ -122,7 +118,7 @@ public class User {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/userbanned/del.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.DEL,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 }
 

@@ -14,6 +14,7 @@ import io.rong.methods.message.discussion.Discussion;
 import io.rong.methods.message.group.Group;
 import io.rong.methods.message.history.History;
 import io.rong.methods.message.system.MsgSystem;
+import io.rong.methods.message.ultragroup.UltraGroup;
 import io.rong.models.message.*;
 import io.rong.models.response.HistoryMessageResult;
 import io.rong.models.response.ResponseResult;
@@ -51,12 +52,12 @@ public class MessageExample {
     /**
      * 自定义api地址
      */
-//    private static final String api = "http://api-cn.ronghub.com";
+    private static final String api = "http://api-ucqa.rongcloud.net";
     public static void main(String[] args) throws Exception {
 
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+//        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
         //自定义 api 地址方式
-//        RongCloud rongCloud = RongCloud.getInstance("appKey", "appSecret", api);
+        RongCloud rongCloud = RongCloud.getInstance("c9kqb3rdkbb8j", "uTNrkYskbNC", api);
 //        RongCloud rongCloud2 = RongCloud.getInstance("appKey", "appSecret", new RongCloudConfig("api"));
 
         Private Private = rongCloud.message.msgPrivate;
@@ -65,6 +66,7 @@ public class MessageExample {
         Chatroom chatroom = rongCloud.message.chatroom;
         Discussion discussion = rongCloud.message.discussion;
         History history = rongCloud.message.history;
+        UltraGroup ultraGroup = rongCloud.message.ultraGroup;
         PushExt pe = PushExt.build("testTitle", 1,
                 new PushExt.HW("channelId", "NORMAL"), new PushExt.VIVO("1"),
                 new PushExt.APNs("234353efsfwd", "232"),
@@ -477,5 +479,18 @@ public class MessageExample {
          */
         ResponseResult cleanResult = history.clean("1", "jf8yVWgZO", "IotBnm9K4", null);
         System.out.println("clean history  message:  " + cleanResult.toString());
+
+        PushExt pushExt = new PushExt();
+        pushExt.setTitle("aaa");
+        pushExt.setTemplateId("22");
+        UltraGroupMessage ultraGroupMessage = new UltraGroupMessage()
+                .setSenderId("bN6oQi8T5")
+                .setContent(txtMessage)
+                .setTargetId(targetIds)
+                .setPushExt(pushExt)
+                .setObjectName(txtMessage.getType());
+
+        ResponseResult send = ultraGroup.send(ultraGroupMessage);
+        System.out.println("send ultragroup message:  " + send.toString());
     }
 }

@@ -85,7 +85,7 @@
       }
     }
   },
-  "getList": {
+  "get": {
     "docs": "http://rongcloud.cn/docs/server.html#group_user_gag_list",
     "url": "group/user/gag/list",
     "params": {

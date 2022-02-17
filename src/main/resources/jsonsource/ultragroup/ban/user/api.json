@@ -6,8 +6,7 @@
       "group": {
         "members": [{
           "id": "memberId01"
-        }],
-        "minute": 60
+        }]
       }
     },
     "response":{
@@ -47,7 +46,7 @@
       }
     }
   },
-  "remove": {
+  "del": {
     "docs": "http://rongcloud.cn/docs/server.html#group_user_gag_rollback",
     "url": "group/user/gag/rollback",
     "params": {
@@ -90,15 +89,18 @@
       }
     }
   },
-  "getList": {
+  "get": {
     "docs": "http://rongcloud.cn/docs/server.html#group_user_gag_list",
     "url": "group/user/gag/list",
-    "params": {},
+    "params": {
+      "group": {
+        "id": "groupId01"
+      }
+    },
     "response":{
       "success": {
         "code": "200",
         "members": [{
-          "time": "2015-09-25 16:12:38",
           "id": "2582"
         }]
       },

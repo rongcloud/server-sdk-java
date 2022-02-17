@@ -134,15 +134,6 @@ public class UltraGroupMessage extends MessageModel {
         return this;
     }
 
-    /*public Integer getIsCounted() {
-        return this.isCounted;
-    }
-
-    public GroupMessage setIsCounted(Integer isCounted) {
-        this.isCounted = isCounted;
-        return this;
-    }*/
-
     public Integer getContentAvailable() {
         return this.contentAvailable;
     }

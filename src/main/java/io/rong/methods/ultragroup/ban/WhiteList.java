@@ -20,7 +20,7 @@ import java.net.URLEncoder;
  * */
 public class WhiteList {
     private static final String UTF8 = "UTF-8";
-    private static final String PATH = "ultragroup/banned/whitelist";
+    private static final String PATH = "ultragroup/ban/whitelist";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -71,18 +71,15 @@ public class WhiteList {
      *
      * @return GroupUserQueryResult
      **/
-    public GroupUserQueryResult get(UltraGroupModel group) throws Exception {
+    public Result get(String groupId) throws Exception {
 
-        String errMsg = CommonUtil.checkFiled(group,PATH,CheckMethod.GET);
+        String errMsg = CommonUtil.checkParam("id", groupId,PATH,CheckMethod.GET);
         if(null != errMsg){
             return (GroupUserQueryResult)GsonUtil.fromJson(errMsg,GroupUserQueryResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+        sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
         String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
-        }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/banned/whitelist/get.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
@@ -119,7 +116,7 @@ public class WhiteList {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/banned/whitelist/del.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.DEL,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 }
 

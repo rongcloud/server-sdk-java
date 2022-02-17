@@ -47,7 +47,7 @@
       }
     }
   },
-  "remove": {
+  "del": {
     "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_rollback",
     "url": "/group/user/ban/whitelist/rollback",
     "params": {
@@ -91,7 +91,7 @@
       }
     }
   },
-  "getList": {
+  "get": {
     "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_list",
     "url": "/group/user/ban/whitelist/query",
     "params": {

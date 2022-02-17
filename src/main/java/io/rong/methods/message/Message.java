@@ -7,6 +7,7 @@ import io.rong.methods.message.discussion.Discussion;
 import io.rong.methods.message.group.Group;
 import io.rong.methods.message.history.History;
 import io.rong.methods.message.system.MsgSystem;
+import io.rong.methods.message.ultragroup.UltraGroup;
 
 
 public class Message {
@@ -22,6 +23,7 @@ public class Message {
 	public  Group group;
 	public  History history;
 	public  MsgSystem system;
+	public UltraGroup ultraGroup;
 	private RongCloud rongCloud;
 
 	public RongCloud getRongCloud() {
@@ -36,6 +38,7 @@ public class Message {
 		group.setRongCloud(this.getRongCloud());
 		history.setRongCloud(this.getRongCloud());
 		system.setRongCloud(this.getRongCloud());
+		ultraGroup.setRongCloud(this.getRongCloud());
 
 	}
 	public Message(String appKey, String appSecret) {
@@ -47,6 +50,7 @@ public class Message {
 		this.group = new Group(appKey,appSecret);
 		this.history = new History(appKey,appSecret);
 		this.system = new MsgSystem(appKey,appSecret);
+		this.ultraGroup = new UltraGroup(appKey, appSecret);
 
 	}
 	 
