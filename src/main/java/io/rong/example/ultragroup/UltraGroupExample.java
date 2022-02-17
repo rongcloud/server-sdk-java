@@ -17,15 +17,15 @@ public class UltraGroupExample {
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "c9kqb3rdkbb8j";
+    private static final String appKey = "appKey";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "uTNrkYskbNC";
+    private static final String appSecret = "appSecret";
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api-ucqa.rongcloud.net";
+    private static final String api = "http://api-cn.ronghub.com";
 
     /**
      * 本地调用测试
@@ -35,9 +35,9 @@ public class UltraGroupExample {
      */
     public static void main(String[] args) throws Exception {
 
-//        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
         //自定义 api 地址方式
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
+//        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
         UltraGroup ultraGroup = rongCloud.ultraGroup;
 

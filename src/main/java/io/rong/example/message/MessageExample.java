@@ -52,12 +52,12 @@ public class MessageExample {
     /**
      * 自定义api地址
      */
-    private static final String api = "http://api-ucqa.rongcloud.net";
+//    private static final String api = "http://api-bj.ronghub.com";
     public static void main(String[] args) throws Exception {
 
-//        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
         //自定义 api 地址方式
-        RongCloud rongCloud = RongCloud.getInstance("c9kqb3rdkbb8j", "uTNrkYskbNC", api);
+//        RongCloud rongCloud = RongCloud.getInstance("appkey", "appSecret", api);
 //        RongCloud rongCloud2 = RongCloud.getInstance("appKey", "appSecret", new RongCloudConfig("api"));
 
         Private Private = rongCloud.message.msgPrivate;
