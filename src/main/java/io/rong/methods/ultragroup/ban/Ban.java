@@ -85,33 +85,4 @@ public class Ban {
 
         return (CheckStatusResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn, rongCloud.getConfig())), CheckStatusResult.class);
     }
-
-    /**
-     * 移除全局群禁言方法
-     *
-     * @param  groupIds:群组 ID（必传）
-     *
-     * @return ResponseResult
-     **/
-    public Result remove(String[] groupIds) throws Exception {
-        //参数校验
-        String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.REMOVE);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
-        }
-        StringBuilder sb = new StringBuilder();
-        for(String groupId : groupIds){
-            sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
-
-        }
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
-        }
-
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/ban/rollback.json", "application/x-www-form-urlencoded");
-        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
-    }
 }

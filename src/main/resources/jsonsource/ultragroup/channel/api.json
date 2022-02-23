@@ -1,13 +1,11 @@
 {
-	"add": {
+	"create": {
 		"docs": "http://rongcloud.cn/docs/server.html#group_user_gag_add",
 		"url": "group/user/gag/add",
 		"params": {
 			"group": {
 				"id": "10001",
-				"members": [{
-					"id": "memberId01"
-				}]
+				"channel": "channelid"
 			}
 		},
 		"response":{
@@ -47,15 +45,13 @@
 			}
 		}
 	},
-	"remove": {
+	"del": {
 		"docs": "http://rongcloud.cn/docs/server.html#group_user_gag_rollback",
 		"url": "group/user/gag/rollback",
 		"params": {
 			"group": {
 				"id": "10001",
-				"members": [{
-					"id": "memberId01"
-				}]
+				"channel": "channelid"
 			}
 		},
 		"response": {
@@ -91,7 +87,7 @@
 			}
 		}
 	},
-	"getList": {
+	"get": {
 		"docs": "http://rongcloud.cn/docs/server.html#group_user_gag_list",
 		"url": "group/user/gag/list",
 		"params": {

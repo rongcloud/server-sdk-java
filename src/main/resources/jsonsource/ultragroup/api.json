@@ -1,7 +1,7 @@
 {
 	"create": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_create",
-		"url": "group/create",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/ultragroup/basic#create_ultragroup\n",
+		"url": "ultragroup/create",
 		"params": {
 			"group": {
 				"id": "10001",

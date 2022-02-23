@@ -14,6 +14,8 @@ import io.rong.models.message.*;
 import io.rong.models.push.*;
 import io.rong.models.response.*;
 import io.rong.models.sensitiveword.SensitiveWordModel;
+import io.rong.models.ultragroup.UltraGroupMember;
+import io.rong.models.ultragroup.UltraGroupModel;
 import io.rong.models.user.*;
 import io.rong.util.GsonUtil;
 import org.junit.Before;
@@ -45,8 +47,8 @@ public class Example {
 
     @Before
     public void setUp() throws Exception {
-        String appKey = "qd46yzrfqde4f";
-        String appSecret = "Cy5Euhxrcl9b";
+        String appKey = "appKey";
+        String appSecret = "appSecret";
         rongCloud = RongCloud.getInstance(appKey, appSecret);
 
         //rongCloud = RongCloud.getInstance(appKey, appSecret,api);
@@ -1755,6 +1757,220 @@ public class Example {
         System.out.println("getExpansion: " + eResult.toString());
         assertEquals("200", eResult.getCode().toString());
     }
+
+    /**
+     * 创建超级群
+     * @throws Exception
+     */
+    @Test
+    public void testCreaetUltratroup() throws Exception{
+
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setUserId("test1")
+                .setName("test1");
+        Result result = rongCloud.ultraGroup.create(ultraGroupModel);
+        System.out.println("creaet: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 刷新群组信息
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupRefresh() throws Exception{
+
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setName("test1");
+        Result result = rongCloud.ultraGroup.refresh(ultraGroupModel);
+        System.out.println("refresh: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 解散群组
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupDis() throws Exception{
+        Result result = rongCloud.ultraGroup.dis("test");
+        System.out.println("dis: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 加入超级群
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupJoin() throws Exception{
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setUserId("testuser");
+        Result result = rongCloud.ultraGroup.join(ultraGroupModel);
+        System.out.println("join: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 退出超级群
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupQuit() throws Exception{
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setUserId("testuser");
+        Result result = rongCloud.ultraGroup.quit(ultraGroupModel);
+        System.out.println("quit: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 设置超级群禁言状态
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBan() throws Exception{
+        Result result = rongCloud.ultraGroup.ban.set("test1", true);
+        System.out.println("ban set: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 查询超级群禁言状态
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBanCheck() throws Exception{
+        Result result = rongCloud.ultraGroup.ban.check("test1");
+        System.out.println("ban check: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 添加禁言成员
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBanUserAdd() throws Exception{
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setMembers(members);
+        Result result = rongCloud.ultraGroup.user.add(ultraGroupModel);
+        System.out.println("ban add: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 获取禁言成员
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBanUserGet() throws Exception{
+        Result result = rongCloud.ultraGroup.user.get("test1");
+        System.out.println("ban user get: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 移除禁言成员
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBanUserDel() throws Exception{
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setMembers(members);
+        Result result = rongCloud.ultraGroup.user.remove(ultraGroupModel);
+        System.out.println("ban remove: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 添加禁言白名单
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBanWhiteListAdd() throws Exception{
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setMembers(members);
+        Result result = rongCloud.ultraGroup.whiteList.add(ultraGroupModel);
+        System.out.println("ban whitelist add: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 获取禁言白名单
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBanWhiteList() throws Exception{
+        Result result = rongCloud.ultraGroup.whiteList.get("test1");
+        System.out.println("ban whitelist get: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 移除禁言白名单
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupBanWhiteListRemove() throws Exception{
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setMembers(members);
+        Result result = rongCloud.ultraGroup.whiteList.remove(ultraGroupModel);
+        System.out.println("ban whitelist remove: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 创建频道
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupChannelAdd() throws Exception{
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setBusChannel("channel");
+        Result result = rongCloud.ultraGroup.busChannel.add(ultraGroupModel);
+        System.out.println("ban busChannel add: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 查询频道列表
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupChannel() throws Exception{
+        Result result = rongCloud.ultraGroup.busChannel.getList("test1",1, 10);
+        System.out.println("ban busChannel get: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 删除频道
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupChannelRemove() throws Exception{
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setBusChannel("channel");
+        Result result = rongCloud.ultraGroup.busChannel.remove(ultraGroupModel);
+        System.out.println("ban busChannel remove: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
 
 
 }
