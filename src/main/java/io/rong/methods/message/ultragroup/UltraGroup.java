@@ -71,6 +71,10 @@ public class UltraGroup {
             params.put("pushData", message.getPushData());
         }
 
+        if (message.getIsMentioned() != null) {
+            params.put("isMentioned", message.getIsMentioned());
+        }
+
         if (message.getPushExt() != null) {
             params.put("pushExt", message.getPushExt());
         }

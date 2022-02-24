@@ -9,7 +9,7 @@ import io.rong.messages.BaseMessage;
 public class UltraGroupMessage extends MessageModel {
 
     /**
-     * 针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。（可选）
+     * 针对融云服务端历史消息中是否存储此条消息，客户端则根据消息注册的 ISPERSISTED 标识判断是否存储；针对自定义消息，如果旧版客户端上未注册该消息时，根据此属性确定是否存储在本地，但无法解析显示。0 表示为不存储、 1 表示为存储，默认为 1 存储消息，此属性不影响离线消息功能，用户未在线时都会转为离线消息存储。
      */
     public Integer isPersisted;
 
@@ -17,6 +17,11 @@ public class UltraGroupMessage extends MessageModel {
      * ios静默推送 0关闭 1开启
      **/
     public Integer contentAvailable;
+
+    /**
+     * 是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0。当为 1 时 content 参数中必须携带 mentionedInfo @消息的详细内容。为 0 时则不需要携带 mentionedInfo
+     */
+    public Integer isMentioned;
 
     /**
      * 频道ID，发消息时会对群 ID 下的频道 ID 做合法性校验，如果群 ID 下无此频道 ID 则消息发送终止, 参数合法性校验: a-zA-Z0-9, 禁止包含其它字符，下划线也不行，最长 20 个字符。
@@ -41,6 +46,14 @@ public class UltraGroupMessage extends MessageModel {
         this.isPersisted = isPersisted;
         //this.isCounted = isCounted;
         this.contentAvailable = contentAvailable;
+    }
+    public UltraGroupMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent,
+                             String pushData, Integer isPersisted, Integer contentAvailable, Integer isMentioned) {
+        super(senderId, targetId, objectName, content, pushContent, pushData);
+        this.isPersisted = isPersisted;
+        //this.isCounted = isCounted;
+        this.contentAvailable = contentAvailable;
+        this.isMentioned = isMentioned;
     }
 
     public UltraGroupMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent,
@@ -67,6 +80,18 @@ public class UltraGroupMessage extends MessageModel {
         this.contentAvailable = contentAvailable;
         this.busChannel = busChannel;
     }
+
+    public UltraGroupMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent,
+                             String pushData, String pushExt, Integer isPersisted,
+                             Integer contentAvailable, String busChannel, Integer isMentioned) {
+        super(senderId, targetId, objectName, content, pushContent, pushData, pushExt);
+        this.isPersisted = isPersisted;
+        this.contentAvailable = contentAvailable;
+        this.busChannel = busChannel;
+        this.isMentioned = isMentioned;
+    }
+
+
 
     @Override
     public UltraGroupMessage setSenderId(String senderId) {
@@ -157,4 +182,11 @@ public class UltraGroupMessage extends MessageModel {
         this.busChannel = busChannel;
     }
 
+    public Integer getIsMentioned() {
+        return isMentioned;
+    }
+
+    public void setIsMentioned(Integer isMentioned) {
+        this.isMentioned = isMentioned;
+    }
 }
