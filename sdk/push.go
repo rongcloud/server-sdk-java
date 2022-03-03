@@ -153,8 +153,8 @@ func (rc *RongCloud) PushUser(notification *PushNotification, users ...string) e
 		return errors.New("Failed to request")
 	}
 
-	if code != http.StatusOK {
-		return fmt.Errorf("Response error. code: %v", code)
+	if int(code.(float64)) != http.StatusOK {
+		return fmt.Errorf("Response error. code: %d", int(code.(float64)))
 	}
 
 	return nil
