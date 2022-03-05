@@ -103,7 +103,7 @@ type PushNotification struct {
 	Title       string                 `json:"title,omitempty"`   // Title 通知栏显示标题，最长不超过 50 个字符。
 	PushContent string                 `json:"pushContent"`       // PushContent 推送消息内容。
 	IOS         IOSPush                `json:"ios,omitempty"`     // IOS 设置 iOS 平台下的推送及附加信息，详细查看 ios 结构说明。
-	Android     map[string]AndroidPush `json:"android,omitempty"` // Android 设置 Android 平台下的推送及附加信息，详细查看 android 结构说明。
+	Android     map[string]interface{} `json:"android,omitempty"` // Android 设置 Android 平台下的推送及附加信息，详细查看 android 结构说明。
 }
 
 // PushUser 向应用中指定用户发送不落地通知，不落地通知无论用户是否正在使用 App，都会向该用户发送通知，通知只会展示在通知栏，通知中不携带消息内容，登录 App 后不会在聊天页面看到该内容，不会存储到本地数据库。
@@ -117,7 +117,7 @@ func (rc *RongCloud) PushUser(notification *PushNotification, users ...string) e
 	}
 
 	if notification.Android != nil {
-		android := make(map[string]AndroidPush)
+		android := make(map[string]interface{})
 		for key, val := range notification.Android {
 			k := strings.ToLower(key)
 			android[k] = val
