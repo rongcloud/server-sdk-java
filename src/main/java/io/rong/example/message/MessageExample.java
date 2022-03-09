@@ -431,6 +431,18 @@ public class MessageExample {
 
         System.out.println("recall chatroom message:  " + recallChatroomResult.toString());
 
+        /**
+         * 超级群消息撤回
+         */
+        recallMessage = new RecallMessage()
+                .setSenderId("1")
+                .setTargetId("15222258878654823358")
+                .setuId("5GSB-RPM1-KP8H-9JHF")
+                .setSentTime("1522242030641");
+        ResponseResult recallUltraGroupResult = (ResponseResult) ultraGroup.recall(recallMessage);
+
+        System.out.println("recall ultragroup message:  " + recallUltraGroupResult.toString());
+
 
         /**
          *

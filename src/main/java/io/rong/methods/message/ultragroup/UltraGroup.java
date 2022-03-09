@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
+import io.rong.models.Result;
 import io.rong.models.message.*;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
@@ -25,6 +26,7 @@ public class UltraGroup {
 
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "message/ultragroup";
+    private static final String RECAL_PATH = "message/recall";
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -102,6 +104,54 @@ public class UltraGroup {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
+        return result;
+    }
+
+    /**
+     * 撤回超级群消息。
+     *
+     * @param message
+     * @return ResponseResult
+     * @throws Exception
+     **/
+    public Result recall(RecallMessage message) throws Exception {
+        //需要校验的字段
+        String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
+        if (null != errMsg) {
+            return (Result) GsonUtil.fromJson(errMsg, Result.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&conversationType=").append(URLEncoder.encode("10", UTF8));
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.senderId.toString(), UTF8));
+        sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
+        sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
+        sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+        if (message.getIsAdmin() != null) {
+            sb.append("&isAdmin=").append(URLEncoder.encode(message.getIsAdmin().toString(), UTF8));
+        }
+        if (message.getIsDelete() != null) {
+            sb.append("&isDelete=").append(URLEncoder.encode(message.getIsDelete().toString(), UTF8));
+        }
+        if (message.getExtra() != null) {
+            sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
         return result;
     }
 

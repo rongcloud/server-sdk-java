@@ -5,6 +5,7 @@ import io.rong.methods.ultragroup.ban.Ban;
 import io.rong.methods.ultragroup.ban.User;
 import io.rong.methods.ultragroup.ban.WhiteList;
 import io.rong.methods.ultragroup.channel.BusChannel;
+import io.rong.methods.ultragroup.expansion.Expansion;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.response.ResponseResult;
@@ -26,6 +27,7 @@ public class UltraGroup {
     public User user;
     public WhiteList whiteList;
     public BusChannel busChannel;
+    public Expansion expansion;
 
     public UltraGroup(String appKey, String appSecret, RongCloud rongCloud) {
         this.appKey = appKey;
@@ -35,6 +37,7 @@ public class UltraGroup {
         this.whiteList = new WhiteList(appKey, appSecret, rongCloud);
         this.ban = new Ban(appKey, appSecret, rongCloud);
         this.busChannel = new BusChannel(appKey, appSecret, rongCloud);
+        this.expansion = new Expansion(appKey, appSecret, rongCloud);
     }
 
     public Result create(UltraGroupModel group) throws Exception {

@@ -1971,6 +1971,55 @@ public class Example {
         assertEquals("200", result.getCode().toString());
     }
 
+    /**
+     * 设置超级群扩展
+     * @throws Exception
+     */
+    public void testUltragroupExpansionSet() throws Exception {
+        ExpansionModel msg = new ExpansionModel();
+        msg.setMsgUID("BS45-NPH4-HV87-10LM");
+        msg.setUserId("WNYZbMqpH");
+        msg.setTargetId("tjw3zbMrU");
+        HashMap<String, String> kv = new HashMap<String, String>();
+        kv.put("type1", "1");
+        kv.put("type2", "2");
+        kv.put("type3", "3");
+        kv.put("type4", "4");
+        msg.setExtraKeyVal(kv);
+        ResponseResult result = rongCloud.ultraGroup.expansion.set(msg);
+        System.out.println("set expansion:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 删除超级群扩展
+     * @throws Exception
+     */
+    public void testUltragroupExpansionDel() throws Exception {
+        ExpansionModel msg = new ExpansionModel();
+        msg.setMsgUID("BS45-NPH4-HV87-10LM");
+        msg.setUserId("WNYZbMqpH");
+        msg.setTargetId("tjw3zbMrU");
+        Set eKey = new HashSet();
+        eKey.add("type1");
+        eKey.add("type2");
+        msg.setExtraKey(eKey);
+        ResponseResult result = rongCloud.ultraGroup.expansion.remove(msg);
+        System.out.println("remove expansion:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 查询超级群扩展
+     * @throws Exception
+     */
+    public void testUltragroupExpansionQuery() throws Exception {
+        ExpansionResult result = (ExpansionResult) rongCloud.ultraGroup.expansion.getList("BS45-NPH4-HV87-10LM","groupid");
+        System.out.println("getList expansion:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+
+    }
+
 
 
 }

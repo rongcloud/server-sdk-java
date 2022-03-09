@@ -3,8 +3,15 @@ package io.rong.example.ultragroup;
 import io.rong.RongCloud;
 import io.rong.methods.ultragroup.UltraGroup;
 import io.rong.models.Result;
+import io.rong.models.message.ExpansionModel;
+import io.rong.models.response.ExpansionResult;
+import io.rong.models.response.ResponseResult;
 import io.rong.models.ultragroup.UltraGroupMember;
 import io.rong.models.ultragroup.UltraGroupModel;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 超级群组
@@ -14,15 +21,15 @@ public class UltraGroupExample {
     /**
      * 此处替换成您的appKey
      * */
-    private static final String appKey = "appKey";
+    private static final String appKey = "c9kqb3rdkbb8j";
     /**
      * 此处替换成您的appSecret
      * */
-    private static final String appSecret = "appSecret";
+    private static final String appSecret = "uTNrkYskbNC";
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api-cn.ronghub.com";
+    private static final String api = "http://api-ucqa.rongcloud.net";
 
     /**
      * 本地调用测试
@@ -32,7 +39,7 @@ public class UltraGroupExample {
      */
     public static void main(String[] args) throws Exception {
 
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
         //自定义 api 地址方式
 //        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
@@ -168,5 +175,30 @@ public class UltraGroupExample {
          */
         groupCreateResult = ultraGroup.busChannel.remove(ultraGroupModel);
         System.out.println("ultragroup busChannel remove result:  " + groupCreateResult.toString());
+
+
+
+        ExpansionModel msg = new ExpansionModel();
+        msg.setMsgUID("BS45-NPH4-HV87-10LM");
+        msg.setUserId("WNYZbMqpH");
+        msg.setTargetId("tjw3zbMrU");
+        HashMap<String, String> kv = new HashMap<String, String>();
+        kv.put("type1", "1");
+        kv.put("type2", "2");
+        kv.put("type3", "3");
+        kv.put("type4", "4");
+        msg.setExtraKeyVal(kv);
+        ResponseResult result = ultraGroup.expansion.set(msg);
+        System.out.println("set expansion:  " + result.toString());
+
+        Set eKey = new HashSet();
+        eKey.add("type1");
+        eKey.add("type2");
+        msg.setExtraKey(eKey);
+        result = ultraGroup.expansion.remove(msg);
+        System.out.println("remove expansion:  " + result.toString());
+
+        ExpansionResult eResult = (ExpansionResult) ultraGroup.expansion.getList("BS45-NPH4-HV87-10LM","groupid");
+        System.out.println("getList expansion:  " + eResult.toString());
     }
 }

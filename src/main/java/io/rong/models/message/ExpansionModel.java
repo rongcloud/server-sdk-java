@@ -36,6 +36,11 @@ public class ExpansionModel {
      */
     private Set extraKey;
 
+    /**
+     * 消息频道id
+     */
+    private String busChannel;
+
     public ExpansionModel() {
     }
 
@@ -44,6 +49,23 @@ public class ExpansionModel {
         this.conversationType = conversationType;
         this.userId = userId;
         this.targetId = targetId;
+    }
+
+    public ExpansionModel(String msgUID, String userId, String targetId, HashMap<String, String> extraKeyVal, String busChannel) {
+        this.msgUID = msgUID;
+        this.userId = userId;
+        this.targetId = targetId;
+        this.extraKeyVal = extraKeyVal;
+        this.busChannel = busChannel;
+    }
+
+    public ExpansionModel(String msgUID, String userId, Integer conversationType, String targetId, Set extraKey, String busChannel) {
+        this.msgUID = msgUID;
+        this.userId = userId;
+        this.conversationType = conversationType;
+        this.targetId = targetId;
+        this.extraKey = extraKey;
+        this.busChannel = busChannel;
     }
 
     public String getMsgUID() {
@@ -92,6 +114,14 @@ public class ExpansionModel {
 
     public void setExtraKey(Set extraKey) {
         this.extraKey = extraKey;
+    }
+
+    public String getBusChannel() {
+        return busChannel;
+    }
+
+    public void setBusChannel(String busChannel) {
+        this.busChannel = busChannel;
     }
 
     @Override
