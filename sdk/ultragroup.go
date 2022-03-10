@@ -633,3 +633,239 @@ func (rc *RongCloud) UGChannelQuery(groupId string, page, size int) (channels []
 
 	return channels, err, requestId
 }
+
+// UGMessageExpansionSet 设置扩展
+func (rc *RongCloud) UGMessageExpansionSet(groupId, userId, msgUID, busChannel string, extra map[string]string) error {
+	if groupId == "" {
+		return RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if userId == "" {
+		return RCErrorNewV2(1002, "param 'userId' is required")
+	}
+
+	if msgUID == "" {
+		return RCErrorNewV2(1002, "param 'msgUID' is required")
+	}
+
+	if busChannel == "" {
+		return RCErrorNewV2(1002, "param 'busChannel' is required")
+	}
+
+	if extra == nil {
+		return RCErrorNewV2(1002, "param 'extra' is required")
+	}
+
+	if len(extra) > 100 {
+		return RCErrorNewV2(1002, "param 'extra' is too long")
+	}
+
+	encExtra, err := json.Marshal(extra)
+	if err != nil {
+		return err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/message/expansion/set." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("busChannel", busChannel)
+	req.Param("userId", userId)
+	req.Param("groupId", groupId)
+	req.Param("extraKeyVal", string(encExtra))
+
+	if _, err = rc.doV2(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// UGMessageExpansionDelete 删除扩展
+func (rc *RongCloud) UGMessageExpansionDelete(groupId, userId, msgUID, busChannel string, keys ...string) error {
+	if groupId == "" {
+		return RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if userId == "" {
+		return RCErrorNewV2(1002, "param 'userId' is required")
+	}
+
+	if msgUID == "" {
+		return RCErrorNewV2(1002, "param 'msgUID' is required")
+	}
+
+	if busChannel == "" {
+		return RCErrorNewV2(1002, "param 'busChannel' is required")
+	}
+
+	if klens := len(keys); klens <= 0 || klens > 100 {
+		return RCErrorNewV2(1002, "invalid param keys")
+	}
+
+	encKeys, err := json.Marshal(keys)
+	if err != nil {
+		return err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/message/expansion/delete." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("busChannel", busChannel)
+	req.Param("userId", userId)
+	req.Param("groupId", groupId)
+	req.Param("extraKey", string(encKeys))
+
+	if _, err = rc.doV2(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+type UGMessageExpansionItem struct {
+	Key       string `json:"key"`
+	Value     string `json:"value"`
+	Timestamp int64  `json:"timestamp"`
+}
+
+// UGMessageExpansionQuery 获取扩展信息
+func (rc *RongCloud) UGMessageExpansionQuery(groupId, msgUID string) ([]UGMessageExpansionItem, error) {
+	if groupId == "" {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if msgUID == "" {
+		return nil, RCErrorNewV2(1002, "param 'msgUID' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/message/expansion/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("groupId", groupId)
+
+	body, err := rc.doV2(req)
+	if err != nil {
+		return nil, err
+	}
+
+	resp := struct {
+		Code         int                               `json:"code"`
+		ExtraContent map[string]map[string]interface{} `json:"extraContent"`
+	}{}
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return nil, err
+	}
+
+	if resp.Code != 200 {
+		return nil, fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	var data []UGMessageExpansionItem
+	for key, val := range resp.ExtraContent {
+		item := UGMessageExpansionItem{
+			Key: key,
+		}
+
+		if v, ok := val["v"]; ok {
+			item.Value = v.(string)
+		}
+
+		if ts, ok := val["ts"]; ok {
+			item.Timestamp = int64(ts.(float64))
+		}
+
+		data = append(data, item)
+	}
+
+	return data, nil
+}
+
+type PushExt struct {
+	Title                string                         `json:"title"`
+	TemplateId           string                         `json:"templateId"`
+	ForceShowPushContent int                            `json:"forceShowPushContent"`
+	PushConfigs          []map[string]map[string]string `json:"pushConfigs"`
+}
+
+// UGMessagePublish 发送消息时设置扩展
+func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isMentioned, contentAvailable, busChannel, extraContent string, expansion bool, pushExt *PushExt, toGroupIds ...string) error {
+	if fromUserId == "" {
+		return RCErrorNewV2(1002, "param 'fromUserId' is required")
+	}
+
+	if objectName == "" {
+		return RCErrorNewV2(1002, "param 'objectName' is required")
+	}
+
+	if content == "" {
+		return RCErrorNewV2(1002, "param 'content' is required")
+	}
+
+	if groupLen := len(toGroupIds); groupLen <= 0 || groupLen > 3 {
+		return RCErrorNewV2(1002, "invalid 'toGroupIds'")
+	}
+
+	groupIds, err := json.Marshal(toGroupIds)
+	if err != nil {
+		return err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/ultragroup/publish." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("fromUserId", fromUserId)
+	req.Param("toGroupIds", string(groupIds))
+	req.Param("objectName", objectName)
+	req.Param("content", content)
+	req.Param("expansion", fmt.Sprintf("%t", expansion))
+
+	if pushContent != "" {
+		req.Param("pushContent", pushContent)
+	}
+
+	if pushData != "" {
+		req.Param("pushData", pushData)
+	}
+
+	if isPersisted != "" {
+		req.Param("isPersisted", isPersisted)
+	}
+
+	if isMentioned != "" {
+		req.Param("isMentioned", isMentioned)
+	}
+
+	if contentAvailable != "" {
+		req.Param("contentAvailable", contentAvailable)
+	}
+
+	if busChannel != "" {
+		req.Param("buschannel", busChannel)
+	}
+
+	if expansion == true {
+		req.Param("extraContent", extraContent)
+	}
+
+	if pushExt != nil {
+		encPushExt, err := json.Marshal(pushExt)
+		if err != nil {
+			return err
+		}
+
+		req.Param("pushExt", string(encPushExt))
+	}
+
+	if _, err = rc.doV2(req); err != nil {
+		return err
+	}
+
+	return nil
+}
