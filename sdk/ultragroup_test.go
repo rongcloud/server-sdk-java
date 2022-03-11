@@ -72,8 +72,8 @@ func Test_UGGroupSend(t *testing.T) {
 
 func Test_UGMessageExpansionSet(t *testing.T) {
 	rc := NewRongCloud(
-		"c9kqb3rdkbb8j",
-		"uTNrkYskbNC",
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
@@ -146,8 +146,8 @@ func Test_UGMessageExpansionSet(t *testing.T) {
 func Test_UGMessageExpansionDelete(t *testing.T) {
 
 	rc := NewRongCloud(
-		"c9kqb3rdkbb8j",
-		"uTNrkYskbNC",
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
@@ -209,8 +209,8 @@ func Test_UGMessageExpansionDelete(t *testing.T) {
 
 func Test_UGMessageExpansionQuery(t *testing.T) {
 	rc := NewRongCloud(
-		"c9kqb3rdkbb8j",
-		"uTNrkYskbNC",
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
@@ -226,8 +226,8 @@ func Test_UGMessageExpansionQuery(t *testing.T) {
 
 func Test_UGMessagePublish(t *testing.T) {
 	rc := NewRongCloud(
-		"c9kqb3rdkbb8j",
-		"uTNrkYskbNC",
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
 		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
