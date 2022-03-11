@@ -674,7 +674,7 @@ func (rc *RongCloud) UGMessageExpansionSet(groupId, userId, msgUID, busChannel s
 		req.Param("busChannel", busChannel)
 	}
 
-	if _, err = rc.doV2(req); err != nil {
+	if _, err = rc.do(req); err != nil {
 		return err
 	}
 
@@ -717,7 +717,7 @@ func (rc *RongCloud) UGMessageExpansionDelete(groupId, userId, msgUID, busChanne
 		req.Param("busChannel", busChannel)
 	}
 
-	if _, err = rc.doV2(req); err != nil {
+	if _, err = rc.do(req); err != nil {
 		return err
 	}
 
@@ -751,7 +751,8 @@ func (rc *RongCloud) UGMessageExpansionQuery(groupId, msgUID, busChannel string)
 		req.Param("busChannel", busChannel)
 	}
 
-	body, err := rc.doV2(req)
+	body, err := rc.do(req)
+
 	if err != nil {
 		return nil, err
 	}
@@ -813,21 +814,16 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 		return RCErrorNewV2(1002, "invalid 'toGroupIds'")
 	}
 
-	groupIds, err := json.Marshal(toGroupIds)
-	if err != nil {
-		return err
-	}
-
 	req := httplib.Post(rc.rongCloudURI + "/message/ultragroup/publish." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
 	body := map[string]interface{}{
 		"fromUserId": fromUserId,
-		"toGroupIds": string(groupIds),
+		"toGroupIds": toGroupIds,
 		"objectName": objectName,
 		"content":    content,
-		"expansion":  fmt.Sprintf("%t", expansion),
+		"expansion":  expansion,
 	}
 
 	if pushContent != "" {
@@ -854,7 +850,7 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 		body["busChannel"] = busChannel
 	}
 
-	if expansion == true {
+	if extraContent != "" {
 		body["extraContent"] = extraContent
 	}
 
@@ -866,12 +862,13 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 		body["pushExt"] = string(encPushExt)
 	}
 
+	var err error
 	req, err = req.JSONBody(body)
 	if err != nil {
 		return err
 	}
 
-	if _, err = rc.doV2(req); err != nil {
+	if _, err = rc.do(req); err != nil {
 		return err
 	}
 

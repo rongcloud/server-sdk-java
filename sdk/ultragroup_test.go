@@ -69,3 +69,203 @@ func Test_UGGroupSend(t *testing.T) {
 	t.Log(requestId)
 
 }
+
+func Test_UGMessageExpansionSet(t *testing.T) {
+	rc := NewRongCloud(
+		"c9kqb3rdkbb8j",
+		"uTNrkYskbNC",
+		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
+	)
+
+	m := map[string]string{}
+	m["k1"] = "v1"
+	m["k2"] = "v1"
+	m["k3"] = "v1"
+
+	err := rc.UGMessageExpansionSet(
+		"testExp0309",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		m,
+	)
+
+	t.Log(err)
+
+	err = rc.UGMessageExpansionSet(
+		"",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		m,
+	)
+
+	t.Log(err)
+
+	err = rc.UGMessageExpansionSet(
+		"testExp0309",
+		"",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		m,
+	)
+
+	t.Log(err)
+
+	err = rc.UGMessageExpansionSet(
+		"testExp0309",
+		"ltZ1InfrF",
+		"",
+		"cc",
+		m,
+	)
+
+	t.Log(err)
+
+	err = rc.UGMessageExpansionSet(
+		"testExp0309",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		nil,
+	)
+
+	t.Log(err)
+
+	err = rc.UGMessageExpansionSet(
+		"testExp0309",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"",
+		m,
+	)
+
+	t.Log(err)
+}
+
+func Test_UGMessageExpansionDelete(t *testing.T) {
+
+	rc := NewRongCloud(
+		"c9kqb3rdkbb8j",
+		"uTNrkYskbNC",
+		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
+	)
+
+	err := rc.UGMessageExpansionDelete(
+		"testExp0309",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		"k1", "k2",
+	)
+	t.Log(err)
+
+	err = rc.UGMessageExpansionDelete(
+		"",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		"k1", "k2",
+	)
+	t.Log(err)
+
+	err = rc.UGMessageExpansionDelete(
+		"testExp0309",
+		"",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		"k1", "k2",
+	)
+	t.Log(err)
+
+	err = rc.UGMessageExpansionDelete(
+		"testExp0309",
+		"ltZ1InfrF",
+		"",
+		"cc",
+		"k1", "k2",
+	)
+	t.Log(err)
+
+	err = rc.UGMessageExpansionDelete(
+		"testExp0309",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+		"",
+	)
+	t.Log(err)
+
+	err = rc.UGMessageExpansionDelete(
+		"testExp0309",
+		"ltZ1InfrF",
+		"BVET-SJMK-AT5B-ADFN",
+		"",
+		"k1", "k2",
+	)
+	t.Log(err)
+
+}
+
+func Test_UGMessageExpansionQuery(t *testing.T) {
+	rc := NewRongCloud(
+		"c9kqb3rdkbb8j",
+		"uTNrkYskbNC",
+		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
+	)
+
+	data, requestId := rc.UGMessageExpansionQuery(
+		"testExp0309",
+		"BVET-SJMK-AT5B-ADFN",
+		"cc",
+	)
+
+	t.Log(data)
+	t.Log(requestId)
+}
+
+func Test_UGMessagePublish(t *testing.T) {
+	rc := NewRongCloud(
+		"c9kqb3rdkbb8j",
+		"uTNrkYskbNC",
+		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
+	)
+
+	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
+		"", "", "1", "0", "0", "", "{\"key1\":\"key1\"}",
+		false, &PushExt{
+			Title:                "you have a new message.",
+			TemplateId:           "123456",
+			ForceShowPushContent: 0,
+			PushConfigs: []map[string]map[string]string{
+				{
+					"HW": {
+						"channelId": "NotificationKanong",
+					},
+				},
+				{
+					"MI": {
+						"channelId": "rongcloud_kanong",
+					},
+				},
+				{
+					"OPPO": {
+						"channelId": "rc_notification_id",
+					},
+				},
+				{
+					"VIVO": {
+						"classification": "0",
+					},
+				},
+				{
+					"APNs": {
+						"thread-id":        "1",
+						"apns-collapse-id": "1",
+					},
+				},
+			},
+		}, "testExp0309")
+
+	t.Log(err)
+}
