@@ -472,6 +472,49 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 
 	return defaultMsgOptions
 }
+// UGMessageRecall 超级群消息撤回
+func (rc *RongCloud) UGMessageRecall (userId, targetId, messageId string, sentTime int, options ...MsgOption) error {
+	if userId == "" {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if targetId == "" {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+
+	if messageId == "" {
+		return RCErrorNew(1002, "Paramer 'messageId' is required")
+	}
+
+	if sentTime == 0 {
+		return RCErrorNew(1002, "Paramer 'sentTime' is required")
+	}
+
+	extOptions := modifyMsgOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/message/recall." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("fromUserId", userId)
+	req.Param("conversationType", strconv.Itoa(10))
+	req.Param("targetId", targetId)
+	req.Param("messageUID", messageId)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+	req.Param("disablePush", strconv.FormatBool(extOptions.disablePush))
+	req.Param("isAdmin", strconv.Itoa(extOptions.isAdmin))
+	req.Param("isDelete", strconv.Itoa(extOptions.isDelete))
+
+	if extOptions.busChannel != "" {
+		req.Param("busChannel", extOptions.busChannel)
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
 
 /**
  * @name: MessageBroadcastRecall
