@@ -670,10 +670,13 @@ func (rc *RongCloud) UGMessageExpansionSet(groupId, userId, msgUID, busChannel s
 	rc.fillHeader(req)
 
 	req.Param("msgUID", msgUID)
-	req.Param("busChannel", busChannel)
 	req.Param("userId", userId)
 	req.Param("groupId", groupId)
 	req.Param("extraKeyVal", string(encExtra))
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
 
 	if _, err = rc.doV2(req); err != nil {
 		return err
@@ -714,10 +717,14 @@ func (rc *RongCloud) UGMessageExpansionDelete(groupId, userId, msgUID, busChanne
 	rc.fillHeader(req)
 
 	req.Param("msgUID", msgUID)
-	req.Param("busChannel", busChannel)
 	req.Param("userId", userId)
 	req.Param("groupId", groupId)
 	req.Param("extraKey", string(encKeys))
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
 
 	if _, err = rc.doV2(req); err != nil {
 		return err
@@ -787,10 +794,10 @@ func (rc *RongCloud) UGMessageExpansionQuery(groupId, msgUID string) ([]UGMessag
 }
 
 type PushExt struct {
-	Title                string                         `json:"title"`
-	TemplateId           string                         `json:"templateId"`
-	ForceShowPushContent int                            `json:"forceShowPushContent"`
-	PushConfigs          []map[string]map[string]string `json:"pushConfigs"`
+	Title                string                         `json:"title,omitempty"`
+	TemplateId           string                         `json:"templateId,omitempty"`
+	ForceShowPushContent int                            `json:"forceShowPushContent,omitempty"`
+	PushConfigs          []map[string]map[string]string `json:"pushConfigs,omitempty"`
 }
 
 // UGMessagePublish 发送消息时设置扩展
@@ -820,47 +827,53 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
-	req.Param("fromUserId", fromUserId)
-	req.Param("toGroupIds", string(groupIds))
-	req.Param("objectName", objectName)
-	req.Param("content", content)
-	req.Param("expansion", fmt.Sprintf("%t", expansion))
+	body := map[string]interface{}{
+		"fromUserId": fromUserId,
+		"toGroupIds": string(groupIds),
+		"objectName": objectName,
+		"content": content,
+		"expansion": fmt.Sprintf("%t", expansion),
+	}
 
 	if pushContent != "" {
-		req.Param("pushContent", pushContent)
+		body["pushContent"] = pushContent
 	}
 
 	if pushData != "" {
-		req.Param("pushData", pushData)
+		body["pushData"] = pushData
 	}
 
 	if isPersisted != "" {
-		req.Param("isPersisted", isPersisted)
+		body["isPersisted"] = isPersisted
 	}
 
 	if isMentioned != "" {
-		req.Param("isMentioned", isMentioned)
+		body["isMentioned"] = isMentioned
 	}
 
 	if contentAvailable != "" {
-		req.Param("contentAvailable", contentAvailable)
+		body["contentAvailable"] = contentAvailable
 	}
 
 	if busChannel != "" {
-		req.Param("buschannel", busChannel)
+		body["busChannel"] = busChannel
 	}
 
 	if expansion == true {
-		req.Param("extraContent", extraContent)
+		body["extraContent"] = extraContent
 	}
 
 	if pushExt != nil {
-		encPushExt, err := json.Marshal(pushExt)
-		if err != nil {
-			return err
+		encPushExt, e := json.Marshal(pushExt)
+		if e != nil {
+			return e
 		}
+		body["pushExt"] = string(encPushExt)
+	}
 
-		req.Param("pushExt", string(encPushExt))
+	req, err = req.JSONBody(body)
+	if err != nil {
+		return err
 	}
 
 	if _, err = rc.doV2(req); err != nil {
