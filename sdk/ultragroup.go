@@ -648,10 +648,6 @@ func (rc *RongCloud) UGMessageExpansionSet(groupId, userId, msgUID, busChannel s
 		return RCErrorNewV2(1002, "param 'msgUID' is required")
 	}
 
-	if busChannel == "" {
-		return RCErrorNewV2(1002, "param 'busChannel' is required")
-	}
-
 	if extra == nil {
 		return RCErrorNewV2(1002, "param 'extra' is required")
 	}
@@ -699,10 +695,6 @@ func (rc *RongCloud) UGMessageExpansionDelete(groupId, userId, msgUID, busChanne
 		return RCErrorNewV2(1002, "param 'msgUID' is required")
 	}
 
-	if busChannel == "" {
-		return RCErrorNewV2(1002, "param 'busChannel' is required")
-	}
-
 	if klens := len(keys); klens <= 0 || klens > 100 {
 		return RCErrorNewV2(1002, "invalid param keys")
 	}
@@ -725,7 +717,6 @@ func (rc *RongCloud) UGMessageExpansionDelete(groupId, userId, msgUID, busChanne
 		req.Param("busChannel", busChannel)
 	}
 
-
 	if _, err = rc.doV2(req); err != nil {
 		return err
 	}
@@ -740,7 +731,7 @@ type UGMessageExpansionItem struct {
 }
 
 // UGMessageExpansionQuery 获取扩展信息
-func (rc *RongCloud) UGMessageExpansionQuery(groupId, msgUID string) ([]UGMessageExpansionItem, error) {
+func (rc *RongCloud) UGMessageExpansionQuery(groupId, msgUID, busChannel string) ([]UGMessageExpansionItem, error) {
 	if groupId == "" {
 		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
 	}
@@ -755,6 +746,10 @@ func (rc *RongCloud) UGMessageExpansionQuery(groupId, msgUID string) ([]UGMessag
 
 	req.Param("msgUID", msgUID)
 	req.Param("groupId", groupId)
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
 
 	body, err := rc.doV2(req)
 	if err != nil {
@@ -831,8 +826,8 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 		"fromUserId": fromUserId,
 		"toGroupIds": string(groupIds),
 		"objectName": objectName,
-		"content": content,
-		"expansion": fmt.Sprintf("%t", expansion),
+		"content":    content,
+		"expansion":  fmt.Sprintf("%t", expansion),
 	}
 
 	if pushContent != "" {
