@@ -674,7 +674,7 @@ func (rc *RongCloud) UGMessageExpansionSet(groupId, userId, msgUID, busChannel s
 		req.Param("busChannel", busChannel)
 	}
 
-	if _, err = rc.do(req); err != nil {
+	if _, err = rc.doV2(req); err != nil {
 		return err
 	}
 
@@ -717,7 +717,7 @@ func (rc *RongCloud) UGMessageExpansionDelete(groupId, userId, msgUID, busChanne
 		req.Param("busChannel", busChannel)
 	}
 
-	if _, err = rc.do(req); err != nil {
+	if _, err = rc.doV2(req); err != nil {
 		return err
 	}
 
@@ -751,7 +751,7 @@ func (rc *RongCloud) UGMessageExpansionQuery(groupId, msgUID, busChannel string)
 		req.Param("busChannel", busChannel)
 	}
 
-	body, err := rc.do(req)
+	body, err := rc.doV2(req)
 
 	if err != nil {
 		return nil, err
@@ -868,7 +868,7 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 		return err
 	}
 
-	if _, err = rc.do(req); err != nil {
+	if _, err = rc.doV2(req); err != nil {
 		return err
 	}
 

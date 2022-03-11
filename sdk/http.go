@@ -3,12 +3,13 @@ package sdk
 import (
 	"compress/gzip"
 	"encoding/json"
-	"github.com/astaxie/beego/httplib"
 	"io/ioutil"
 	"net"
 	"net/url"
 	"os"
 	"syscall"
+
+	"github.com/astaxie/beego/httplib"
 )
 
 func (rc *RongCloud) do(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
@@ -139,7 +140,7 @@ func checkHTTPResponseCodeV2(rep []byte) error {
 	if err := json.Unmarshal(rep, &code); err != nil {
 		return err
 	}
-	if code.Code != 10000 {
+	if code.Code != 10000 && code.Code != 200 {
 		return code
 	}
 	return nil
