@@ -74,7 +74,6 @@ func Test_UGMessageExpansionSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
-		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
 	m := map[string]string{}
@@ -148,7 +147,6 @@ func Test_UGMessageExpansionDelete(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
-		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
 	err := rc.UGMessageExpansionDelete(
@@ -211,7 +209,6 @@ func Test_UGMessageExpansionQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
-		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
 	data, requestId := rc.UGMessageExpansionQuery(
@@ -228,7 +225,6 @@ func Test_UGMessagePublish(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
-		WithRongCloudURI("http://api-ucqa.rongcloud.net"),
 	)
 
 	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
