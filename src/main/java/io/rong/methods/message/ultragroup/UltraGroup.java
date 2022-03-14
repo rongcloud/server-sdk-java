@@ -92,7 +92,7 @@ public class UltraGroup {
             params.put("contentAvailable", message.getContentAvailable());
         }
 
-        if (message.getExpansion()) {
+        if (message.getExpansion() != null && message.getExpansion()) {
             params.put("expansion", message.getExpansion());
             if (message.getExtraContent() != null) {
                 params.put("extraContent", message.getExtraContent());
@@ -105,7 +105,6 @@ public class UltraGroup {
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            System.out.println(response);
             result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
@@ -125,7 +124,8 @@ public class UltraGroup {
         //需要校验的字段
         String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
         if (null != errMsg) {
-            return (Result) GsonUtil.fromJson(errMsg, Result.class);
+            System.out.println(errMsg);
+            return (ResponseResult) GsonUtil.fromJson(errMsg, Result.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&conversationType=").append(URLEncoder.encode("10", UTF8));

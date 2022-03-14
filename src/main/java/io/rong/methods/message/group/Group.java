@@ -302,11 +302,11 @@ public class Group {
      * @return ResponseResult
      * @throws Exception
      **/
-    public Result recall(RecallMessage message) throws Exception {
+    public ResponseResult recall(RecallMessage message) throws Exception {
         //需要校验的字段
         String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
         if (null != errMsg) {
-            return (Result) GsonUtil.fromJson(errMsg, Result.class);
+            return (ResponseResult) GsonUtil.fromJson(errMsg, Result.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&conversationType=").append(URLEncoder.encode("3", UTF8));
