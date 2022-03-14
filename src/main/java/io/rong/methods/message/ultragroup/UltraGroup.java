@@ -136,6 +136,10 @@ public class UltraGroup {
         if (message.getIsAdmin() != null) {
             sb.append("&isAdmin=").append(URLEncoder.encode(message.getIsAdmin().toString(), UTF8));
         }
+
+        if (message.getDisablePush() != null) {
+            sb.append("&disablePush=").append(message.getDisablePush().toString());
+        }
         if (message.getIsDelete() != null) {
             sb.append("&isDelete=").append(URLEncoder.encode(message.getIsDelete().toString(), UTF8));
         }
