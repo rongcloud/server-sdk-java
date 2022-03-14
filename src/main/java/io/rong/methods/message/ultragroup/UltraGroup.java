@@ -124,7 +124,7 @@ public class UltraGroup {
         //需要校验的字段
         String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, Result.class);
+            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&conversationType=").append(URLEncoder.encode("10", UTF8));
