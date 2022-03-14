@@ -91,6 +91,13 @@ public class UltraGroup {
         if (message.getContentAvailable() != null) {
             params.put("contentAvailable", message.getContentAvailable());
         }
+
+        if (message.getExpansion()) {
+            params.put("expansion", message.getExpansion());
+            if (message.getExtraContent() != null) {
+                params.put("extraContent", message.getExtraContent());
+            }
+        }
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/ultragroup/publish.json", "application/json");
         HttpUtil.setBodyParameter(GsonUtil.toJson(params), conn, rongCloud.getConfig());
 

@@ -2,6 +2,8 @@ package io.rong.models.message;
 
 import io.rong.messages.BaseMessage;
 
+import java.util.HashMap;
+
 /**
  * 超级群消息体
  *
@@ -27,6 +29,16 @@ public class UltraGroupMessage extends MessageModel {
      * 频道ID，发消息时会对群 ID 下的频道 ID 做合法性校验，如果群 ID 下无此频道 ID 则消息发送终止, 参数合法性校验: a-zA-Z0-9, 禁止包含其它字符，下划线也不行，最长 20 个字符。
      */
     public String busChannel;
+
+    /**
+     * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
+     */
+    public Boolean expansion;
+
+    /**
+     * 扩展消息内容，expansion 为true 的时候生效
+     */
+    public HashMap<String, String> extraContent;
 
     public UltraGroupMessage() {
     }
@@ -178,15 +190,35 @@ public class UltraGroupMessage extends MessageModel {
         return busChannel;
     }
 
-    public void setBusChannel(String busChannel) {
+    public UltraGroupMessage setBusChannel(String busChannel) {
         this.busChannel = busChannel;
+        return this;
     }
 
     public Integer getIsMentioned() {
         return isMentioned;
     }
 
-    public void setIsMentioned(Integer isMentioned) {
+    public UltraGroupMessage setIsMentioned(Integer isMentioned) {
         this.isMentioned = isMentioned;
+        return this;
+    }
+
+    public Boolean getExpansion() {
+        return expansion;
+    }
+
+    public UltraGroupMessage setExpansion(Boolean expansion) {
+        this.expansion = expansion;
+        return this;
+    }
+
+    public HashMap<String, String> getExtraContent() {
+        return extraContent;
+    }
+
+    public UltraGroupMessage setExtraContent(HashMap<String, String> extraContent) {
+        this.extraContent = extraContent;
+        return this;
     }
 }
