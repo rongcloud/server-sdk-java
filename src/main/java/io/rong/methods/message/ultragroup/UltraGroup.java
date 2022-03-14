@@ -1,5 +1,6 @@
 package io.rong.methods.message.ultragroup;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
@@ -95,7 +96,7 @@ public class UltraGroup {
         if (message.getExpansion() != null && message.getExpansion()) {
             params.put("expansion", message.getExpansion());
             if (message.getExtraContent() != null) {
-                params.put("extraContent", message.getExtraContent());
+                params.put("extraContent", JSON.toJSONString(message.getExtraContent()));
             }
         }
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/ultragroup/publish.json", "application/json");
