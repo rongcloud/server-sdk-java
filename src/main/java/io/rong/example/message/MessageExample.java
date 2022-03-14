@@ -24,6 +24,7 @@ import io.rong.util.GsonUtil;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
 
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonSyntaxException;
@@ -495,11 +496,15 @@ public class MessageExample {
         PushExt pushExt = new PushExt();
         pushExt.setTitle("aaa");
         pushExt.setTemplateId("22");
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("a","a");
         UltraGroupMessage ultraGroupMessage = new UltraGroupMessage()
                 .setSenderId("bN6oQi8T5")
                 .setContent(txtMessage)
                 .setTargetId(targetIds)
                 .setPushExt(pushExt)
+                .setExpansion(true)
+                .setExtraContent(hashMap)
                 .setObjectName(txtMessage.getType());
 
         ResponseResult send = ultraGroup.send(ultraGroupMessage);
