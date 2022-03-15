@@ -1,5 +1,6 @@
 package io.rong.example;
 
+import com.alibaba.fastjson.JSON;
 import io.rong.RongCloud;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
@@ -24,9 +25,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -1975,6 +1974,7 @@ public class Example {
      * 设置超级群扩展
      * @throws Exception
      */
+    @Test
     public void testUltragroupExpansionSet() throws Exception {
         ExpansionModel msg = new ExpansionModel();
         msg.setMsgUID("BS45-NPH4-HV87-10LM");
@@ -1995,6 +1995,7 @@ public class Example {
      * 删除超级群扩展
      * @throws Exception
      */
+    @Test
     public void testUltragroupExpansionDel() throws Exception {
         ExpansionModel msg = new ExpansionModel();
         msg.setMsgUID("BS45-NPH4-HV87-10LM");
@@ -2013,11 +2014,85 @@ public class Example {
      * 查询超级群扩展
      * @throws Exception
      */
+    @Test
     public void testUltragroupExpansionQuery() throws Exception {
         ExpansionResult result = (ExpansionResult) rongCloud.ultraGroup.expansion.getList("BS45-NPH4-HV87-10LM","groupid");
         System.out.println("getList expansion:  " + result.toString());
         assertEquals("200", result.getCode().toString());
 
+    }
+
+    /**
+     * 用户备注
+     * @throws Exception
+     */
+    @Test
+    public void testUserRemarkSet() throws Exception {
+        List<RemarkModel> remarks = new ArrayList<>();
+        RemarkModel remarkModel = new RemarkModel();
+        remarkModel.setId("user2");
+        remarkModel.setRemark("remark1");
+        remarks.add(remarkModel);
+        ResponseResult result = (ResponseResult) rongCloud.user.remark.set("a1", JSON.toJSONString(remarks));
+        System.out.println("user remark set:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+
+    }
+
+    /**
+     * 用户备注删除
+     * @throws Exception
+     */
+    @Test
+    public void testUserRemarkDel() throws Exception {
+        ResponseResult result = (ResponseResult) rongCloud.user.remark.del("user1",  "user2");
+        System.out.println("user remark del:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 用户备注获取
+     * @throws Exception
+     */
+    @Test
+    public void testUserRemarkGet() throws Exception {
+        GetUserRemarksResult result = (GetUserRemarksResult) rongCloud.user.remark.get("a1");
+        System.out.println("user remark get:  " + result.toString());
+        assertEquals("0", result.getCode().toString());
+    }
+
+    /**
+     * 群组备注
+     * @throws Exception
+     */
+    @Test
+    public void testGroupRemarkSet() throws Exception {
+        ResponseResult result = (ResponseResult) rongCloud.group.remark.set("user1",  "group1","备注");
+        System.out.println("group remark set:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+
+    }
+
+    /**
+     * 群组备注删除
+     * @throws Exception
+     */
+    @Test
+    public void testGroupRemarkDel() throws Exception {
+        ResponseResult result = (ResponseResult) rongCloud.group.remark.del("user1",  "group2");
+        System.out.println("group remark del:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 群组备注获取
+     * @throws Exception
+     */
+    @Test
+    public void testGroupRemarkGet() throws Exception {
+        GroupRemarkModel result = (GroupRemarkModel) rongCloud.group.remark.get("user1", "group1");
+        System.out.println("group remark get:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
     }
 
 

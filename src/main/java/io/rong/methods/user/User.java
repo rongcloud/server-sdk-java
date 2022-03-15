@@ -7,6 +7,7 @@ import io.rong.methods.user.block.Block;
 import io.rong.methods.user.mute.MuteChatrooms;
 import io.rong.methods.user.mute.MuteGroups;
 import io.rong.methods.user.onlinestatus.OnlineStatus;
+import io.rong.methods.user.remark.Remark;
 import io.rong.methods.user.whitelist.Whitelist;
 import io.rong.methods.user.chat.Ban;
 import io.rong.models.*;
@@ -41,6 +42,7 @@ public class User {
     public Whitelist whiteList;
     public OnlineStatus onlineStatus;
     public Tag tag;
+    public Remark remark;
     public MuteChatrooms muteChatrooms;
     public MuteGroups muteGroups;
     public Ban ban;
@@ -66,6 +68,7 @@ public class User {
         this.muteGroups = new MuteGroups(appKey, appSecret, rongCloud);
         this.tag = new Tag(appKey, appSecret, rongCloud);
         this.ban = new Ban(appKey, appSecret, rongCloud);
+        this.remark = new Remark(appKey, appSecret, rongCloud);
     }
 
     /**

@@ -6,6 +6,7 @@ import io.rong.methods.group.gag.Gag;
 import io.rong.methods.group.mute.MuteAllMembers;
 import io.rong.methods.group.mute.MuteMembers;
 import io.rong.methods.group.mute.whitelist.MuteWhiteList;
+import io.rong.methods.group.remark.Remark;
 import io.rong.models.*;
 import io.rong.models.group.*;
 import io.rong.models.response.GroupUserQueryResult;
@@ -32,6 +33,7 @@ public class Group {
 	public MuteAllMembers muteAllMembers;
 	public MuteMembers muteMembers;
 	public MuteWhiteList muteWhiteList;
+	public Remark remark;
 	private RongCloud rongCloud;
 
 	public RongCloud getRongCloud() {
@@ -50,6 +52,8 @@ public class Group {
 		this.muteAllMembers = new MuteAllMembers(appKey,appSecret,rongCloud);
 		this.muteMembers = new MuteMembers(appKey,appSecret,rongCloud);
 		this.muteWhiteList = new MuteWhiteList(appKey,appSecret,rongCloud);
+		this.remark = new Remark(appKey,appSecret,rongCloud);
+
 
 	}
 	/**
