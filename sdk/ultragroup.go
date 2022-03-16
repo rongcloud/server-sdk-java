@@ -797,7 +797,7 @@ type PushExt struct {
 }
 
 // UGMessagePublish 发送消息时设置扩展
-func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isMentioned, contentAvailable, busChannel, extraContent string, expansion bool, pushExt *PushExt, toGroupIds ...string) error {
+func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isMentioned, contentAvailable, busChannel, extraContent string, expansion, unreadCountFlag bool, pushExt *PushExt, toGroupIds ...string) error {
 	if fromUserId == "" {
 		return RCErrorNewV2(1002, "param 'fromUserId' is required")
 	}
@@ -840,6 +840,10 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 
 	if isMentioned != "" {
 		body["isMentioned"] = isMentioned
+	}
+
+	if isMentioned != "1" {
+		body["unreadCountFlag"] = unreadCountFlag
 	}
 
 	if contentAvailable != "" {
