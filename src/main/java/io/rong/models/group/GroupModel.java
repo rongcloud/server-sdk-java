@@ -28,6 +28,27 @@ public class GroupModel {
      * */
     private Integer status;
 
+    //群操作通知消息 仅对 创建 加入 退出 解散 操作有效
+    /**
+     * 当前群ID,最大群成员数量, 默认与APP 统一群成员数量限制一致, 不大于APP 统一群成员数量限制. 本字段仅当次请求有效. IM 服务端不做存储记录.
+     */
+    private int maxMember;
+    /**
+     * 是否绑定通知消息, 不下发对应消息,
+     */
+    private boolean bindNotifyMsg;
+    private String fromUserId;
+    private String objectName;
+    private String content;
+    private String pushContent;
+    private String pushData;
+    private int isIncludeSender = 0;
+    private int isPersisted = 0;
+    private String pushExt = "";
+
+
+
+
     public GroupModel() {
     }
     /**
@@ -90,6 +111,96 @@ public class GroupModel {
 
     public GroupModel setStatus(Integer status) {
         this.status = status;
+        return this;
+    }
+
+    public int getMaxMember() {
+        return maxMember;
+    }
+
+    public GroupModel setMaxMember(int maxMember) {
+        this.maxMember = maxMember;
+        return this;
+    }
+
+    public boolean isBindNotifyMsg() {
+        return bindNotifyMsg;
+    }
+
+    public GroupModel setBindNotifyMsg(boolean bindNotifyMsg) {
+        this.bindNotifyMsg = bindNotifyMsg;
+        return this;
+    }
+
+    public String getFromUserId() {
+        return fromUserId;
+    }
+
+    public GroupModel setFromUserId(String fromUserId) {
+        this.fromUserId = fromUserId;
+        return this;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public GroupModel setObjectName(String objectName) {
+        this.objectName = objectName;
+        return this;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public GroupModel setContent(String content) {
+        this.content = content;
+        return this;
+    }
+
+    public String getPushContent() {
+        return pushContent;
+    }
+
+    public GroupModel setPushContent(String pushContent) {
+        this.pushContent = pushContent;
+        return this;
+    }
+
+    public String getPushData() {
+        return pushData;
+    }
+
+    public GroupModel setPushData(String pushData) {
+        this.pushData = pushData;
+        return this;
+    }
+
+    public int getIsIncludeSender() {
+        return isIncludeSender;
+    }
+
+    public GroupModel setIsIncludeSender(int isIncludeSender) {
+        this.isIncludeSender = isIncludeSender;
+        return this;
+    }
+
+    public int getIsPersisted() {
+        return isPersisted;
+    }
+
+    public GroupModel setIsPersisted(int isPersisted) {
+        this.isPersisted = isPersisted;
+        return this;
+    }
+
+    public String getPushExt() {
+        return pushExt;
+    }
+
+    public GroupModel setPushExt(String pushExt) {
+        this.pushExt = pushExt;
         return this;
     }
 }

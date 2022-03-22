@@ -14,6 +14,7 @@ import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
@@ -81,6 +82,7 @@ public class Group {
 
 	    sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
 	    sb.append("&groupName=").append(URLEncoder.encode(group.getName().toString(), UTF8));
+		sb = operateGroup(sb, group);
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
@@ -207,6 +209,7 @@ public class Group {
 		
 	    sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
 	    sb.append("&groupName=").append(URLEncoder.encode(group.getName().toString(), UTF8));
+		sb = operateGroup(sb, group);
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
@@ -265,6 +268,7 @@ public class Group {
 		}
 
 	    sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+		sb = operateGroup(sb, group);
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
@@ -293,6 +297,7 @@ public class Group {
 		GroupMember member = group.getMembers()[0];
 		sb.append("&userId=").append(URLEncoder.encode(member.getId().toString(), UTF8));
 	    sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+		sb = operateGroup(sb, group);
 		String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
@@ -303,4 +308,26 @@ public class Group {
 	    
 	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.DISMISS,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
+
+	/**
+	 * 群原子操作
+	 * @return
+	 */
+	private StringBuilder operateGroup(StringBuilder sb, GroupModel group){
+		if(group.isBindNotifyMsg()){
+			sb.append("&isBindNotifyMsg=").append(group.isBindNotifyMsg());
+			sb.append("&maxMember=").append(group.getMaxMember());
+			if(StringUtils.isNotBlank(group.getFromUserId())) sb.append("&fromUserId=").append(group.getFromUserId());
+			if(StringUtils.isNotBlank(group.getObjectName())) sb.append("&objectName=").append(group.getObjectName());
+			if(StringUtils.isNotBlank(group.getContent())) sb.append("&content=").append(group.getContent());
+			if(StringUtils.isNotBlank(group.getPushContent())) sb.append("&pushContent=").append(group.getPushContent());
+			if(StringUtils.isNotBlank(group.getPushData())) sb.append("&pushData=").append(group.getPushData());
+			sb.append("&isIncludeSender=").append(group.getIsIncludeSender());
+			sb.append("&isPersisted=").append(group.getIsPersisted());
+			if(StringUtils.isNotBlank(group.getPushExt())) sb.append("&pushExt=").append(group.getPushExt());
+		}
+		return sb;
+	}
+
+
 }
