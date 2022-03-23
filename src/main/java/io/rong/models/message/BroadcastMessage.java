@@ -97,7 +97,13 @@ public class BroadcastMessage extends MessageModel {
         return this;
     }
 
-//    public Boolean getDisablePush() {   return disablePush;  }
+    @Override
+    public BroadcastMessage setMsgRandom(Long msgRandom) {
+        super.setMsgRandom(msgRandom);
+        return this;
+    }
+
+    //    public Boolean getDisablePush() {   return disablePush;  }
 //
 //    public BroadcastMessage setDisablePush(Boolean disablePush) {
 //        this.disablePush = disablePush;

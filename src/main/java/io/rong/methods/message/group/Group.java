@@ -109,6 +109,9 @@ public class Group {
             sb.append("&expansion=").append(URLEncoder.encode(message.getExpansion().toString(), UTF8));
         }
 
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -188,6 +191,9 @@ public class Group {
 
         if (message.getContentAvailable() != null) {
             sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
+        }
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
@@ -273,6 +279,9 @@ public class Group {
         }
         if (message.getContentAvailable() != null) {
             sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
+        }
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
@@ -377,7 +386,9 @@ public class Group {
         sb.append("&isIncludeSender=").append(URLEncoder.encode(String.valueOf(message.getIsIncludeSender()), UTF8));
         sb.append("&isPersisted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
         sb.append("&isCounted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
-
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

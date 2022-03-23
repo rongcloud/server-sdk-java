@@ -71,4 +71,10 @@ public class ChatroomMessage extends MessageModel {
         super.setContent(content);
         return this;
     }
+
+    @Override
+    public ChatroomMessage setMsgRandom(Long msgRandom) {
+        super.setMsgRandom(msgRandom);
+        return this;
+    }
 }

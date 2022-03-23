@@ -119,6 +119,9 @@ public class Private {
         if (message.getExpansion() != null) {
             sb.append("&expansion=").append(URLEncoder.encode(message.getExpansion().toString(), UTF8));
         }
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -172,11 +175,15 @@ public class Private {
         templateMessage.setValues(values);
         templateMessage.setPushContent(push.toArray(new String[push.size()]));
         templateMessage.setPushData(message.getPushData());
-        templateMessage.setPushData(message.getPushExt());
+        templateMessage.setPushExt(message.getPushExt());
         templateMessage.setVerifyBlacklist(message.getVerifyBlacklist());
         templateMessage.setContentAvailable(message.getContentAvailable());
         if (message.getDisablePush() != null) {
             templateMessage.setDisablePush(message.getDisablePush());
+        }
+
+        if (message.getMsgRandom() != null){
+            templateMessage.setMsgRandom(message.getMsgRandom());
         }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish_template.json", "application/json");
@@ -282,6 +289,9 @@ public class Private {
         sb.append("&isIncludeSender=").append(URLEncoder.encode(String.valueOf(message.getIsIncludeSender()), UTF8));
         sb.append("&isPersisted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
         sb.append("&isCounted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
+        if(message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
 
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
@@ -325,6 +335,10 @@ public class Private {
             if (null != child) {
                 sb.append("&toUserId=").append(URLEncoder.encode(child, UTF8));
             }
+        }
+
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
         }
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getObjectName(), UTF8));

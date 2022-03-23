@@ -229,4 +229,10 @@ public class GroupMessage extends MessageModel {
         this.expansion = expansion;
         return this;
     }
+
+    @Override
+    public GroupMessage setMsgRandom(Long msgRandom) {
+        super.setMsgRandom(msgRandom);
+        return this;
+    }
 }

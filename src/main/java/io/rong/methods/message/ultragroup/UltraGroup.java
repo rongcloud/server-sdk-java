@@ -99,6 +99,10 @@ public class UltraGroup {
                 params.put("extraContent", JSON.toJSONString(message.getExtraContent()));
             }
         }
+
+        if (message.getMsgRandom() != null){
+            params.put("msgRandom", message.getMsgRandom());
+        }
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/ultragroup/publish.json", "application/json");
         HttpUtil.setBodyParameter(GsonUtil.toJson(params), conn, rongCloud.getConfig());
 

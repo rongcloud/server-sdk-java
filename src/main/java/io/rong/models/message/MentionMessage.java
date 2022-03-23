@@ -27,6 +27,7 @@ public class MentionMessage {
     public Integer isCounted;
     public Integer isIncludeSender;
     private Integer contentAvailable;
+    private Long msgRandom;
 
     public MentionMessage() {
     }
@@ -173,6 +174,15 @@ public class MentionMessage {
 
     public MentionMessage setContentAvailable(Integer contentAvailable) {
         this.contentAvailable = contentAvailable;
+        return this;
+    }
+
+    public Long getMsgRandom() {
+        return msgRandom;
+    }
+
+    public MentionMessage setMsgRandom(Long msgRandom) {
+        this.msgRandom = msgRandom;
         return this;
     }
 }

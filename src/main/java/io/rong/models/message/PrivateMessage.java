@@ -199,5 +199,9 @@ public class PrivateMessage extends MessageModel {
         return this;
     }
 
-
+    @Override
+    public PrivateMessage setMsgRandom(Long msgRandom) {
+        super.setMsgRandom(msgRandom);
+        return this;
+    }
 }

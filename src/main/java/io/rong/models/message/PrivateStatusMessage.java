@@ -40,6 +40,8 @@ public class PrivateStatusMessage {
 	 */
 	private int isIncludeSender = 0;
 
+	private Long msgRandom;
+
 	public String getSenderId() {
 		return senderId;
 	}
@@ -94,4 +96,12 @@ public class PrivateStatusMessage {
 		return this;
 	}
 
+	public Long getMsgRandom() {
+		return msgRandom;
+	}
+
+	public PrivateStatusMessage setMsgRandom(Long msgRandom) {
+		this.msgRandom = msgRandom;
+		return this;
+	}
 }

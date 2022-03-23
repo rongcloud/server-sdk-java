@@ -221,4 +221,10 @@ public class UltraGroupMessage extends MessageModel {
         this.extraContent = extraContent;
         return this;
     }
+
+    @Override
+    public UltraGroupMessage setMsgRandom(Long msgRandom) {
+        super.setMsgRandom(msgRandom);
+        return this;
+    }
 }

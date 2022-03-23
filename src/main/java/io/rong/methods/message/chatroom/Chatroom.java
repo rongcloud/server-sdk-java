@@ -76,6 +76,9 @@ public class Chatroom {
         if (message.getIsIncludeSender() != null) {
             sb.append("&isIncludeSender=").append(URLEncoder.encode(message.getIsIncludeSender().toString(), UTF8));
         }
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

@@ -42,6 +42,14 @@ public class MessageModel {
      */
     private String pushExt;
 
+    /**
+     * 幂等性功能提示：
+     *
+     * 幂等性功能需要开通后才能使用，如有需要可提交工单申请，默认 1 分钟内设置的
+     * msgRandom 标识重复，则返回错误码提示，超过 1 分钟后，服务端不再进行幂等性处理，但融云 SDK 仍然会做幂等性的保障处理。
+     */
+    private Long msgRandom;
+
     public MessageModel() {
     }
 
@@ -143,6 +151,15 @@ public class MessageModel {
 
     public MessageModel setSenderId(String senderId) {
         this.senderId = senderId;
+        return this;
+    }
+
+    public Long getMsgRandom() {
+        return msgRandom;
+    }
+
+    public MessageModel setMsgRandom(Long msgRandom) {
+        this.msgRandom = msgRandom;
         return this;
     }
 }

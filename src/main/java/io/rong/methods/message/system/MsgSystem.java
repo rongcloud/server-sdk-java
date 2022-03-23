@@ -103,7 +103,9 @@ public class MsgSystem {
         if (systemMessage.getDisablePush() != null) {
             sb.append("&disablePush=").append(URLEncoder.encode(systemMessage.getDisablePush().toString(), UTF8));
         }
-
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -212,7 +214,9 @@ public class MsgSystem {
         templateMessage.setPushData(template.getPushData());
         templateMessage.setPushExt(template.getPushExt());
         templateMessage.setContentAvailable(template.getContentAvailable());
-
+        if (template.getMsgRandom() != null){
+            templateMessage.setMsgRandom(template.getMsgRandom());
+        }
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish_template.json", "application/json");
         HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 
@@ -272,6 +276,9 @@ public class MsgSystem {
 //        if (message.getDisablePush() != null) {
 //            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
 //        }
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
 
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
@@ -314,7 +321,9 @@ public class MsgSystem {
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
-
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

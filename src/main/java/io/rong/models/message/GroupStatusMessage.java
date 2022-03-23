@@ -40,6 +40,8 @@ public class GroupStatusMessage {
 	 */
 	private int isIncludeSender = 0;
 
+	private Long msgRandom;
+
 	
 	public String getSenderId() {
 		return senderId;
@@ -94,5 +96,13 @@ public class GroupStatusMessage {
 		this.isIncludeSender = isIncludeSender;
 		return this;
 	}
-	
+
+	public Long getMsgRandom() {
+		return msgRandom;
+	}
+
+	public GroupStatusMessage setMsgRandom(Long msgRandom) {
+		this.msgRandom = msgRandom;
+		return this;
+	}
 }

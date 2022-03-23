@@ -143,4 +143,10 @@ public class SystemMessage extends MessageModel {
         this.disablePush = disablePush;
         return this;
     }
+
+    @Override
+    public SystemMessage setMsgRandom(Long msgRandom) {
+        super.setMsgRandom(msgRandom);
+        return this;
+    }
 }

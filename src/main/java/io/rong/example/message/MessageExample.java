@@ -90,6 +90,7 @@ public class MessageExample {
                 .setPushExt(pe)
                 .setIsPersisted(0)
                 .setIsCounted(0)
+                .setMsgRandom(System.currentTimeMillis())
                 .setContentAvailable(0);
 
         ResponseResult result = system.send(systemMessage);
