@@ -90,7 +90,7 @@ public class Group {
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/create.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CREATE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+		return (GroupMemberCount) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CREATE,HttpUtil.returnResult(conn, rongCloud.getConfig())), GroupMemberCount.class);
 	}
 
 	/**
@@ -315,7 +315,7 @@ public class Group {
 	 */
 	private StringBuilder operateGroup(StringBuilder sb, GroupModel group){
 		if(group.isBindNotifyMsg()){
-			sb.append("&isBindNotifyMsg=").append(group.isBindNotifyMsg());
+			sb.append("&bindNotifyMsg=").append(group.isBindNotifyMsg());
 			sb.append("&maxMember=").append(group.getMaxMember());
 			if(StringUtils.isNotBlank(group.getFromUserId())) sb.append("&fromUserId=").append(group.getFromUserId());
 			if(StringUtils.isNotBlank(group.getObjectName())) sb.append("&objectName=").append(group.getObjectName());
