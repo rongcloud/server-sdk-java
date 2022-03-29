@@ -11,6 +11,7 @@ import io.rong.models.*;
 import io.rong.models.group.*;
 import io.rong.models.response.GroupUserQueryResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.response.StatusResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -218,7 +219,7 @@ public class Group {
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/join.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
-	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.JOIN,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+	    return (GroupMemberCount) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.JOIN,HttpUtil.returnResult(conn, rongCloud.getConfig())), GroupMemberCount.class);
 	}
 	
 	/**
