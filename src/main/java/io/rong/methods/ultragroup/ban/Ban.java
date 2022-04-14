@@ -49,12 +49,16 @@ public class Ban {
      * @return Result
      **/
     public Result set(String groupId, boolean status) throws Exception {
+        return set(groupId, status, "");
+    }
+    public Result set(String groupId, boolean status, String busChannel) throws Exception {
         String message = CommonUtil.checkParam("id",groupId,PATH,CheckMethod.SET);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
+        sb.append("busChannel=").append(URLEncoder.encode(busChannel, UTF8));
         sb.append("&status=").append(URLEncoder.encode(String.valueOf(status), UTF8));
         String body = sb.toString();
 
@@ -64,6 +68,7 @@ public class Ban {
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.SET,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
+
     /**
      * 查询超级群禁言状态
      *
@@ -71,13 +76,18 @@ public class Ban {
      *
      * @return boolean
      **/
+
     public Result check(String groupId) throws Exception {
+        return check(groupId, "");
+    }
+    public Result check(String groupId, String busChannel) throws Exception {
         String message = CommonUtil.checkParam("id",groupId,PATH,CheckMethod.GET);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
+        sb.append("busChannel=").append(URLEncoder.encode(busChannel, UTF8));
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/globalbanned/get.json", "application/x-www-form-urlencoded");

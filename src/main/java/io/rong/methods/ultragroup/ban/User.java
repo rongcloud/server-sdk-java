@@ -58,6 +58,7 @@ public class User {
             sb.append("&userIds=").append(URLEncoder.encode(member.getId().toString(), UTF8));
         }
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+        sb.append("&busChannel=").append(URLEncoder.encode(group.getBusChannel().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -75,12 +76,16 @@ public class User {
      * @return GroupUserQueryResult
      **/
     public Result get(String groupId) throws Exception {
+        return get(groupId, "");
+    }
+    public Result get(String groupId, String busChannel) throws Exception {
         String message = CommonUtil.checkParam("id",groupId,PATH,CheckMethod.GET);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
+        sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
+        sb.append("busChannel=").append(URLEncoder.encode(busChannel, UTF8));
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/userbanned/get.json", "application/x-www-form-urlencoded");
@@ -110,6 +115,7 @@ public class User {
         }
 
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
+        sb.append("&busChannel=").append(URLEncoder.encode(group.getBusChannel().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

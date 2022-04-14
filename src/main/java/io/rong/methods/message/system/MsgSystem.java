@@ -394,5 +394,74 @@ public class MsgSystem {
         return result;
     }
 
+    public ResponseResult sendUser(MessageModel message) throws Exception {
+        SystemMessage systemMessage = (SystemMessage) message;
+        String code = CommonUtil.checkFiled(systemMessage, PATH, CheckMethod.PUBLISH);
+        if (null != code) {
+            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < systemMessage.getTargetId().length; i++) {
+            String child = systemMessage.getTargetId()[i];
+            if (null != child) {
+                sb.append("&userIds=").append(URLEncoder.encode(child, UTF8));
+            }
+        }
+
+        sb.append("&objectName=").append(URLEncoder.encode(systemMessage.getObjectName(), UTF8));
+        sb.append("&content=").append(URLEncoder.encode(systemMessage.getContent().toString(), UTF8));
+
+        if (systemMessage.getPushContent() != null) {
+            sb.append("&pushContent=").append(URLEncoder.encode(systemMessage.getPushContent().toString(), UTF8));
+        }
+
+        if (systemMessage.getPushData() != null) {
+            sb.append("&pushData=").append(URLEncoder.encode(systemMessage.getPushData().toString(), UTF8));
+        }
+
+        if (message.getPushExt() != null) {
+            sb.append("&pushExt=").append(URLEncoder.encode(message.getPushExt(), UTF8));
+        }
+
+        if (systemMessage.getIsPersisted() != null) {
+            sb.append("&isPersisted=").append(URLEncoder.encode(systemMessage.getIsPersisted().toString(), UTF8));
+        }
+
+        if (systemMessage.getIsCounted() != null) {
+            sb.append("&isCounted=").append(URLEncoder.encode(systemMessage.getIsCounted().toString(), UTF8));
+        }
+
+        if (systemMessage.getContentAvailable() != null) {
+            sb.append("&contentAvailable=").append(URLEncoder.encode(systemMessage.getContentAvailable().toString(), UTF8));
+        }
+
+        if (systemMessage.getDisablePush() != null) {
+            sb.append("&disablePush=").append(URLEncoder.encode(systemMessage.getDisablePush().toString(), UTF8));
+        }
+        if (message.getMsgRandom() != null){
+            sb.append("&msgRandom=").append(message.getMsgRandom());
+        }
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+
+    }
+
 
 }

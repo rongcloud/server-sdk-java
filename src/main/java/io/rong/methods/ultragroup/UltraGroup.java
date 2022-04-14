@@ -8,7 +8,9 @@ import io.rong.methods.ultragroup.channel.BusChannel;
 import io.rong.methods.ultragroup.expansion.Expansion;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
+import io.rong.models.response.CheckStatusResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.response.StatusResult;
 import io.rong.models.ultragroup.UltraGroupModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -124,6 +126,28 @@ public class UltraGroup {
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.QUIT,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+    }
+
+    /**
+     *  用户是否再超级群中
+     * @param group
+     * @return
+     * @throws Exception
+     */
+    public Result inMember(UltraGroupModel group) throws Exception {
+        String message = CommonUtil.checkFiled(group,PATH,CheckMethod.ISEXIST);
+        if(null != message){
+            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("groupId=").append(URLEncoder.encode(group.getId(), UTF8));
+        sb.append("&userId=").append(URLEncoder.encode(group.getUserId(), UTF8));
+        String body = sb.toString();
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/member/exist.json" , "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        return (CheckStatusResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ISEXIST,HttpUtil.returnResult(conn, rongCloud.getConfig())), CheckStatusResult.class);
     }
 
     /**
