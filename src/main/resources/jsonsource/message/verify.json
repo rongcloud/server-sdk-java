@@ -591,5 +591,45 @@
         "invalid": "20005"
       }
     }
+  },
+  "sendUser": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "notification": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "pushContent": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
   }
 }

@@ -5,6 +5,7 @@ import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.message.*;
+import io.rong.models.push.Notification;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Templates;
 import io.rong.util.CommonUtil;
@@ -19,6 +20,9 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonSyntaxException;
+import io.rong.util.JsonUtil;
+
+import javax.xml.ws.Response;
 
 /**
  * 发送系统消息方法
@@ -394,66 +398,26 @@ public class MsgSystem {
         return result;
     }
 
-    public ResponseResult sendUser(MessageModel message) throws Exception {
-        SystemMessage systemMessage = (SystemMessage) message;
-        String code = CommonUtil.checkFiled(systemMessage, PATH, CheckMethod.PUBLISH);
+    /**
+     *  不落地通知
+     *  向应用中指定用户发送不落地通知，不落地通知无论用户是否正在使用 App，都会向该用户发送通知，
+     *  通知只会展示在通知栏，通知中不携带消息内容，登录 App 后不会在聊天页面看到该内容，不会存储到本地数据库。
+     */
+    public ResponseResult sendUser(PushUserMessage pushUser) throws Exception {
+        String code = CommonUtil.checkFiled(pushUser, PATH, CheckMethod.SEND_USER);
         if (null != code) {
             return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < systemMessage.getTargetId().length; i++) {
-            String child = systemMessage.getTargetId()[i];
-            if (null != child) {
-                sb.append("&userIds=").append(URLEncoder.encode(child, UTF8));
-            }
-        }
 
-        sb.append("&objectName=").append(URLEncoder.encode(systemMessage.getObjectName(), UTF8));
-        sb.append("&content=").append(URLEncoder.encode(systemMessage.getContent().toString(), UTF8));
-
-        if (systemMessage.getPushContent() != null) {
-            sb.append("&pushContent=").append(URLEncoder.encode(systemMessage.getPushContent().toString(), UTF8));
-        }
-
-        if (systemMessage.getPushData() != null) {
-            sb.append("&pushData=").append(URLEncoder.encode(systemMessage.getPushData().toString(), UTF8));
-        }
-
-        if (message.getPushExt() != null) {
-            sb.append("&pushExt=").append(URLEncoder.encode(message.getPushExt(), UTF8));
-        }
-
-        if (systemMessage.getIsPersisted() != null) {
-            sb.append("&isPersisted=").append(URLEncoder.encode(systemMessage.getIsPersisted().toString(), UTF8));
-        }
-
-        if (systemMessage.getIsCounted() != null) {
-            sb.append("&isCounted=").append(URLEncoder.encode(systemMessage.getIsCounted().toString(), UTF8));
-        }
-
-        if (systemMessage.getContentAvailable() != null) {
-            sb.append("&contentAvailable=").append(URLEncoder.encode(systemMessage.getContentAvailable().toString(), UTF8));
-        }
-
-        if (systemMessage.getDisablePush() != null) {
-            sb.append("&disablePush=").append(URLEncoder.encode(systemMessage.getDisablePush().toString(), UTF8));
-        }
-        if (message.getMsgRandom() != null){
-            sb.append("&msgRandom=").append(message.getMsgRandom());
-        }
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
-        }
-
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
+        String body = GsonUtil.toJson(pushUser);
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/push/user.json", "application/json");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-
+        System.out.println("bbbbb"+body);
         ResponseResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SEND_USER, response), ResponseResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
@@ -462,6 +426,7 @@ public class MsgSystem {
         return result;
 
     }
+
 
 
 }

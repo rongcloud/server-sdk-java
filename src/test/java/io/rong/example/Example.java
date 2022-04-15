@@ -2095,6 +2095,31 @@ public class Example {
         assertEquals("200", result.getCode().toString());
     }
 
+    /**
+     * 不落地通知
+     * https://doc.rongcloud.cn/imserver/server/v1/system/private#push
+     * @throws Exception
+     */
+    @Test
+    public void testPushUser() throws Exception {
+        List<String> users = new ArrayList<>();
+        users.add("user1");
+        PushUserMessage.Notification notification = new PushUserMessage.Notification()
+                .setTitle("testtitle")
+                .setPushContent("testcontent");
+        PlatformNotification notification1 = new PlatformNotification();
+        notification1.setHw("testhw");
+        notification1.setTitle("hwtitle");
+        notification.setAndroid(notification1);
+        PushUserMessage pushUserMessage = new PushUserMessage()
+                .setUserIds(users)
+                .setNotification(notification);
+        ResponseResult sendUser = rongCloud.message.system.sendUser(pushUserMessage);
+        System.out.println("sendUser:  " + sendUser.toString());
+
+        assertEquals("200", sendUser.getCode().toString());
+    }
+
 
 
 }

@@ -16,6 +16,7 @@ import io.rong.methods.message.history.History;
 import io.rong.methods.message.system.MsgSystem;
 import io.rong.methods.message.ultragroup.UltraGroup;
 import io.rong.models.message.*;
+import io.rong.models.push.PlatformNotification;
 import io.rong.models.response.HistoryMessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CodeUtil;
@@ -24,7 +25,9 @@ import io.rong.util.GsonUtil;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonSyntaxException;
@@ -132,6 +135,27 @@ public class MessageExample {
         ResponseResult broadcastResult = rongCloud.message.system.broadcast(message);
         System.out.println("send broadcast:  " + broadcastResult.toString());
 
+
+        /**
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/system/private#push
+         *
+         * 不落地通知
+         *
+         */
+        List<String> users = new ArrayList<>();
+        users.add("user1");
+        PushUserMessage.Notification notification = new PushUserMessage.Notification()
+                .setTitle("testtitle")
+                .setPushContent("testcontent");
+        PlatformNotification notification1 = new PlatformNotification();
+        notification1.setHw("testhw");
+        notification1.setTitle("hwtitle");
+        notification.setAndroid(notification1);
+        PushUserMessage pushUserMessage = new PushUserMessage()
+                .setUserIds(users)
+                .setNotification(notification);
+        ResponseResult sendUser = rongCloud.message.system.sendUser(pushUserMessage);
+        System.out.println("sendUser:  " + sendUser.toString());
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/private.html#send

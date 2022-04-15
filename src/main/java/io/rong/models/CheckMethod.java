@@ -31,6 +31,7 @@ public class CheckMethod {
     public static final String GET_IMAGE = "getImage";
     public static final String VERIFY = "verify";
     public static final String SEND = "send";
+    public static final String SEND_USER = "sendUser";
     public static final String REGISTER = "register";
     public static final String GET_TOKEN = "getToken";
     public static final String INVITE = "invite";
