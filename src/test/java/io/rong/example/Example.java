@@ -1098,6 +1098,24 @@ public class Example {
     }
 
     /**
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/chatroom/info#users_exist 批量查询聊天室成员是否存在
+     */
+    @Test
+    public void testChatroomIsExists() throws Exception {
+        ChatroomMember[] members = {
+                new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+        };
+
+        ChatroomModel exists = new ChatroomModel()
+                .setId("chrm01")
+                .setMembers(members);
+        CheckChatRoomUsersResult result = rongCloud.chatroom.isExists(exists);
+        System.out.println("checkChatroomUsersResult:  " + result);
+
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
      * 添加聊天室消息白名单
      */
     @Test

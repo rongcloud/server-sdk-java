@@ -141,5 +141,35 @@
 				"invalid": "20005"
 			}
 		}
+	},
+	"members": {
+		"_self": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			}
+		},
+		"id": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"length": {
+				"max": 64,
+				"min": 1,
+				"invalid": "20002"
+			}
+		},
+		"members": {
+			"require": {
+				"must": true,
+				"invalid": "20005"
+			},
+			"length": {
+				"max": 1000,
+				"min": 1,
+				"invalid": "20002"
+			}
+		}
 	}
 }

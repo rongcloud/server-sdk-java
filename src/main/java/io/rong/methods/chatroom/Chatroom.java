@@ -16,6 +16,7 @@ import io.rong.models.*;
 import io.rong.models.chatroom.*;
 import io.rong.models.response.ChatroomUserQueryResult;
 import io.rong.models.response.CheckChatRoomUserResult;
+import io.rong.models.response.CheckChatRoomUsersResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -175,6 +176,36 @@ public class Chatroom {
 	/**
 	 * 查询用户是否存在聊天室
 	 *
+	 * @param  chatroomModel:聊天室成员。（必传）
+	 *
+	 * @return ResponseResult
+	 **/
+	public CheckChatRoomUsersResult isExists(ChatroomModel chatroomModel) throws Exception {
+		String message = CommonUtil.checkFiled(chatroomModel,PATH,CheckMethod.ISEXISTS);
+		if(null != message){
+			return (CheckChatRoomUsersResult)GsonUtil.fromJson(message,CheckChatRoomUsersResult.class);
+		}
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("&chatroomId=").append(URLEncoder.encode(chatroomModel.getId(), UTF8));
+		ChatroomMember[] members = chatroomModel.getMembers();
+		for (ChatroomMember member : members) {
+			sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
+		}
+		String body = sb.toString();
+		if (body.indexOf("&") == 0) {
+			body = body.substring(1, body.length());
+		}
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/users/exist.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+		return (CheckChatRoomUsersResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ISEXISTS,HttpUtil.returnResult(conn, rongCloud.getConfig())), CheckChatRoomUsersResult.class);
+	}
+
+	/**
+	 * 查询用户是否存在聊天室
+	 *
 	 * @param  member:聊天室成员。（必传）
 	 *
 	 * @return ResponseResult
@@ -192,7 +223,6 @@ public class Chatroom {
 		if (body.indexOf("&") == 0) {
 			body = body.substring(1, body.length());
 		}
-
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/exist.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 

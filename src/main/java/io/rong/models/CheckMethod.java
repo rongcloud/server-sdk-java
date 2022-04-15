@@ -10,6 +10,7 @@ public class CheckMethod {
     public static final String DESTORY = "destory";
     public static final String GET_MEMBERS = "getMembers";
     public static final String ISEXIST = "isExist";
+    public static final String ISEXISTS = "isExists";
     public static final String STOP_DISTRIBUTION = "stop";
     public static final String RESUME_DISTRIBUTION= "resume";
     public static final String MUTE = "mute";

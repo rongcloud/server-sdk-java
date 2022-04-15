@@ -6,6 +6,7 @@ import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.*;
 import java.io.Reader;
+import java.util.List;
 
 public class ChatroomExample {
     /**
@@ -85,6 +86,23 @@ public class ChatroomExample {
 
         CheckChatRoomUserResult checkMemberResult = chatroom.isExist(member);
         System.out.println("checkChatroomUserResult:  " + checkMemberResult.isInChrm);
+
+
+        /**
+         *
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/chatroom/info#users_exist
+         * 批量查询聊天室成员是否存在
+         *
+         * */
+        ChatroomMember[] members = {
+                new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+        };
+
+        ChatroomModel exists = new ChatroomModel()
+                .setId("chrm01")
+                .setMembers(members);
+        CheckChatRoomUsersResult result1 = chatroom.isExists(exists);
+        System.out.println("checkChatroomUsersResult:  " + result1);
 
 
     }
