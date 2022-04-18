@@ -229,7 +229,7 @@ func Test_UGMessagePublish(t *testing.T) {
 
 	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
 		"", "", "1", "0", "0", "", "{\"key1\":\"key1\"}",
-		false, &PushExt{
+		false, false, &PushExt{
 			Title:                "you have a new message.",
 			TemplateId:           "123456",
 			ForceShowPushContent: 0,
@@ -264,4 +264,18 @@ func Test_UGMessagePublish(t *testing.T) {
 		}, "testExp0309")
 
 	t.Log(err)
+}
+
+func Test_UGMemberExists(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+	exists, err := rc.UGMemberExists("rongcloud_group01", "u01")
+	if err != nil {
+		t.Errorf("Failed to query member exists. err: %v", err)
+		return
+	}
+
+	t.Logf("Exists: %t", exists)
 }
