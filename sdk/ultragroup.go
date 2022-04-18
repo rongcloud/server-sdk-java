@@ -3,6 +3,7 @@ package sdk
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"strconv"
 	"time"
 
@@ -877,4 +878,42 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 	}
 
 	return nil
+}
+
+// UGMemberExists 查询用户是否在超级群中
+func (rc *RongCloud) UGMemberExists(groupId, userId string) (bool, error) {
+	if groupId == "" {
+		return false, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if userId == "" {
+		return false, RCErrorNewV2(1002, "param 'userId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/member/exist." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userId", userId)
+
+	body, err := rc.doV2(req)
+	if err != nil {
+		return false, err
+	}
+
+	resp := struct {
+		Code   int  `json:"code"`
+		Status bool `json:"status"`
+	}{}
+
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return false, err
+	}
+
+	if resp.Code != http.StatusOK {
+		return false, fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	return resp.Status, nil
 }
