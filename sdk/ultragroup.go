@@ -10,6 +10,15 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
+const (
+	UGUnPushLevelAllMessage        = -1 // UGUnPushLevelAllMessage 全部消息通知
+	UGUnPushLevelNotSet            = 0  // UGUnPushLevelNotSet 未设置
+	UGUnPushLevelAtMessage         = 1  // UGUnPushLevelAtMessage 仅@消息通知
+	UGUnPushLevelAtUser            = 2  // UGUnPushLevelAtUser @指定用户通知
+	UGUnPushLevelAtAllGroupMembers = 4  // UGUnPushLevelAtAllGroupMembers @群全员通知
+	UGUnPushLevelNotRecv           = 5  // UGUnPushLevelNotRecv 不接收通知
+)
+
 // api 返回结果, data 数组
 type RespDataArray struct {
 	Code int                                 `json:"code"`
@@ -917,3 +926,103 @@ func (rc *RongCloud) UGMemberExists(groupId, userId string) (bool, error) {
 
 	return resp.Status, nil
 }
+
+// UGNotDisturbSet 设置群/频道默认免打扰接口
+func (rc *RongCloud) UGNotDisturbSet(groupId string, unPushLevel int, busChannel string) error {
+	if groupId == "" {
+		return RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if unPushLevel != UGUnPushLevelAllMessage && unPushLevel != UGUnPushLevelNotSet && unPushLevel != UGUnPushLevelAtMessage &&
+		unPushLevel != UGUnPushLevelAtUser && unPushLevel != UGUnPushLevelAtAllGroupMembers && unPushLevel != UGUnPushLevelNotRecv {
+		return RCErrorNewV2(1002, "param 'unPushLevel' was wrong")
+	}
+
+	var err error
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/notdisturb/set.json")
+	req, err = req.JSONBody(map[string]interface{}{
+		"groupId":     groupId,
+		"busChannel":  busChannel,
+		"unpushLevel": unPushLevel,
+	})
+	if err != nil {
+		return err
+	}
+
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+
+	rc.fillHeader(req)
+
+	body, err := rc.doV2(req)
+	if err != nil {
+		return err
+	}
+
+	resp := struct {
+		Code int `json:"code"`
+	}{}
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return err
+	}
+
+	if resp.Code != http.StatusOK {
+		return fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	return nil
+}
+
+type UGNotDisturbGetResponses struct {
+	GroupId     string `json:"groupId"`
+	BusChannel  string `json:"busChannel"`
+	UnPushLevel int    `json:"unpushLevel"`
+}
+
+func (rc *RongCloud) UGNotDisturbGet(groupId, busChannel string) (*UGNotDisturbGetResponses, error) {
+	if groupId == "" {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	var err error
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/notdisturb/get.json")
+	req, err = req.JSONBody(map[string]string{
+		"groupId":    groupId,
+		"busChannel": busChannel,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+
+	rc.fillHeader(req)
+
+	body, err := rc.doV2(req)
+	if err != nil {
+		return nil, err
+	}
+
+	resp := struct {
+		Code        int    `json:"code"`
+		GroupId     string `json:"groupId"`
+		BusChannel  string `json:"busChannel"`
+		UnPushLevel int    `json:"unpushLevel"`
+	}{}
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return nil, err
+	}
+
+	if resp.Code != http.StatusOK {
+		return nil, fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	return &UGNotDisturbGetResponses{
+		GroupId:     resp.GroupId,
+		BusChannel:  resp.BusChannel,
+		UnPushLevel: resp.UnPushLevel,
+	}, nil
+}
+
+

@@ -5,6 +5,8 @@ package sdk
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/astaxie/beego/httplib"
@@ -24,6 +26,18 @@ const (
 	SYSTEM
 	// CUSTOMERSERVICE 客服
 	CUSTOMERSERVICE
+
+	ConversationTypePrivate ConversationType = 1  // ConversationTypePrivate 二人会话
+	ConversationTypeGroup   ConversationType = 3  // ConversationTypeGroup 群组会话
+	ConversationTypeSystem  ConversationType = 6  // ConversationTypeSystem 系统
+	ConversationTypeUG      ConversationType = 10 // ConversationTypeUG 超级群
+
+	ConversationUnPushLevelAllMessage        = -1 // ConversationUnPushLevelAllMessage 全部消息通知
+	ConversationUnPushLevelNotSet            = 0  // ConversationUnPushLevelNotSet 未设置
+	ConversationUnPushLevelAtMessage         = 1  // ConversationUnPushLevelAtMessage 仅@消息通知
+	ConversationUnPushLevelAtUser            = 2  // ConversationUnPushLevelAtUser @指定用户通知
+	ConversationUnPushLevelAtAllGroupMembers = 4  // ConversationUnPushLevelAtAllGroupMembers @群全员通知
+	ConversationUnPushLevelNotRecv           = 5  // ConversationUnPushLevelNotRecv 不接收通知
 )
 
 // ConversationMute 设置用户某个会话屏蔽 Push
@@ -173,4 +187,194 @@ func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, 
 		return -1, code
 	}
 	return isMuted, nil
+}
+
+// ConversationTypeNotificationSet 按会话类型设置免打扰, 用户设置指定会话类型（单聊、群聊、超级群、系统消息）的免打扰状态。
+func (rc *RongCloud) ConversationTypeNotificationSet(ct ConversationType, userId string, unPushLevel int) error {
+	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
+		return RCErrorNew(1002, "Paramer 'conversationType' was wrong")
+	}
+
+	if userId != "" {
+		return RCErrorNew(1002, "Paramer 'userId' was wrong")
+	}
+
+	if unPushLevel != ConversationUnPushLevelAllMessage && unPushLevel != ConversationUnPushLevelNotSet && unPushLevel != ConversationUnPushLevelAtMessage &&
+		unPushLevel != ConversationUnPushLevelAtUser && unPushLevel != ConversationUnPushLevelAtAllGroupMembers && unPushLevel != ConversationUnPushLevelNotRecv {
+		return RCErrorNew(1002, "Paramer 'unPushLevel' was wrong")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/conversation/type/notification/set.json")
+
+	req.Param("conversationType", strconv.Itoa(int(ct)))
+	req.Param("userId", userId)
+	req.Param("unpushLevel", strconv.Itoa(unPushLevel))
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+
+	rc.fillHeader(req)
+
+	body, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	resp := struct {
+		Code int `json:"code"`
+	}{}
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return err
+	}
+
+	if resp.Code != http.StatusOK {
+		return fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	return nil
+}
+
+// ConversationTypeNotificationGet 查询用户指定会话类型（单聊、群聊、超级群、系统消息）的免打扰状态。
+func (rc *RongCloud) ConversationTypeNotificationGet(ct ConversationType, requestId string) (int, error) {
+	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
+		return 0, RCErrorNew(1002, "Paramer 'conversationType' was wrong")
+	}
+
+	if requestId != "" {
+		return 0, RCErrorNew(1002, "Paramer 'requestId' was wrong")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/conversation/type/notification/get.json")
+
+	req.Param("conversationType", strconv.Itoa(int(ct)))
+	req.Param("requestId", requestId)
+
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+
+	rc.fillHeader(req)
+
+	body, err := rc.do(req)
+	if err != nil {
+		return 0, err
+	}
+
+	resp := struct {
+		Code    int `json:"code"`
+		IsMuted int `json:"isMuted"`
+	}{}
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return 0, err
+	}
+
+	if resp.Code != http.StatusOK {
+		return 0, fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	return resp.IsMuted, nil
+}
+
+// ConversationNotificationSet 设置指定会话消息免打扰接口, 设置用户指定会话消息提醒状态
+func (rc *RongCloud) ConversationNotificationSet(ct ConversationType, requestId, targetId, busChannel string, isMuted, unPushLevel int) error {
+	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
+		return RCErrorNew(1002, "Paramer 'conversationType' was wrong")
+	}
+
+	if requestId == "" {
+		return RCErrorNew(1002, "Paramer 'requestId' was wrong")
+	}
+
+	if targetId == "" {
+		return RCErrorNew(1002, "Paramer 'targetId' was wrong")
+	}
+
+	if busChannel == "" {
+		return RCErrorNew(1002, "Paramer 'busChannel' was wrong")
+	}
+
+	if isMuted != 0 && isMuted != 1 {
+		return RCErrorNew(1002, "Paramer 'isMuted' was wrong")
+	}
+
+	if unPushLevel != ConversationUnPushLevelAllMessage && unPushLevel != ConversationUnPushLevelNotSet && unPushLevel != ConversationUnPushLevelAtMessage &&
+		unPushLevel != ConversationUnPushLevelAtUser && unPushLevel != ConversationUnPushLevelAtAllGroupMembers && unPushLevel != ConversationUnPushLevelNotRecv {
+		return RCErrorNew(1002, "Paramer 'unPushLevel' was wrong")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/set.json")
+
+	req.Param("conversationType", strconv.Itoa(int(ct)))
+	req.Param("requestId", requestId)
+	req.Param("targetId", targetId)
+	req.Param("buschannel", busChannel)
+	req.Param("isMuted", strconv.Itoa(isMuted))
+	req.Param("unpushLevel", strconv.Itoa(unPushLevel))
+
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+
+	rc.fillHeader(req)
+
+	body, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	resp := struct {
+		Code int `json:"code"`
+	}{}
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return err
+	}
+
+	if resp.Code != http.StatusOK {
+		return fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	return nil
+}
+
+// ConversationNotificationGet 查询指定会话消息免打扰接口
+func (rc *RongCloud) ConversationNotificationGet(ct ConversationType, requestId, targetId, busChannel string) (int, error) {
+	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
+		return 0, RCErrorNew(1002, "Paramer 'conversationType' was wrong")
+	}
+
+	if requestId == "" {
+		return 0, RCErrorNew(1002, "Paramer 'requestId' was wrong")
+	}
+
+	if targetId == "" {
+		return 0, RCErrorNew(1002, "Paramer 'targetId' was wrong")
+	}
+
+	if busChannel == "" {
+		return 0, RCErrorNew(1002, "Paramer 'busChannel' was wrong")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/get.json")
+
+	req.Param("conversationType", strconv.Itoa(int(ct)))
+	req.Param("requestId", requestId)
+	req.Param("targetId", targetId)
+	req.Param("buschannel", busChannel)
+
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+
+	rc.fillHeader(req)
+
+	body, err := rc.do(req)
+	if err != nil {
+		return 0, err
+	}
+
+	resp := struct {
+		Code    int `json:"code"`
+		IsMuted int `json:"isMuted"`
+	}{}
+	if err = json.Unmarshal(body, &resp); err != nil {
+		return 0, err
+	}
+
+	if resp.Code != http.StatusOK {
+		return 0, fmt.Errorf("Response error. code: %d", resp.Code)
+	}
+
+	return resp.IsMuted, nil
 }
