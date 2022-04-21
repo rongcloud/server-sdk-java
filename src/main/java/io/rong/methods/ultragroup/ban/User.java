@@ -58,7 +58,7 @@ public class User {
             sb.append("&userIds=").append(URLEncoder.encode(member.getId().toString(), UTF8));
         }
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
-        sb.append("&busChannel=").append(URLEncoder.encode(group.getBusChannel().toString(), UTF8));
+        if(group.getBusChannel() != null) sb.append("&busChannel=").append(URLEncoder.encode(group.getBusChannel().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -115,7 +115,7 @@ public class User {
         }
 
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
-        sb.append("&busChannel=").append(URLEncoder.encode(group.getBusChannel().toString(), UTF8));
+        if(group.getBusChannel() != null) sb.append("&busChannel=").append(URLEncoder.encode(group.getBusChannel().toString(), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
