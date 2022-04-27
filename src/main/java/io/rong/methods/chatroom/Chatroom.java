@@ -213,7 +213,7 @@ public class Chatroom {
 	public CheckChatRoomUserResult isExist(ChatroomMember member) throws Exception {
 		String message = CommonUtil.checkFiled(member,PATH,CheckMethod.ISEXIST);
 		if(null != message){
-			return (CheckChatRoomUserResult)GsonUtil.fromJson(message,ResponseResult.class);
+			return (CheckChatRoomUserResult)GsonUtil.fromJson(message,CheckChatRoomUserResult.class);
 		}
 
 		StringBuilder sb = new StringBuilder();

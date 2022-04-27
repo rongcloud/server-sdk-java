@@ -58,7 +58,7 @@ public class Ban {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-        sb.append("busChannel=").append(URLEncoder.encode(busChannel, UTF8));
+        sb.append("&busChannel=").append(URLEncoder.encode(busChannel, UTF8));
         sb.append("&status=").append(URLEncoder.encode(String.valueOf(status), UTF8));
         String body = sb.toString();
 
@@ -87,7 +87,7 @@ public class Ban {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
-        sb.append("busChannel=").append(URLEncoder.encode(busChannel, UTF8));
+        sb.append("&busChannel=").append(URLEncoder.encode(busChannel, UTF8));
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/globalbanned/get.json", "application/x-www-form-urlencoded");

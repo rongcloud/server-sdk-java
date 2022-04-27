@@ -82,8 +82,8 @@ public class WhiteList {
             return (GroupUserQueryResult)GsonUtil.fromJson(errMsg,GroupUserQueryResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
-        sb.append("busChannel=").append(URLEncoder.encode(busChannel, UTF8));
+        sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
+        sb.append("&busChannel=").append(URLEncoder.encode(busChannel, UTF8));
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/banned/whitelist/get.json", "application/x-www-form-urlencoded");
