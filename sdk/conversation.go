@@ -195,7 +195,7 @@ func (rc *RongCloud) ConversationTypeNotificationSet(ct ConversationType, userId
 		return RCErrorNew(1002, "Paramer 'conversationType' was wrong")
 	}
 
-	if userId != "" {
+	if userId == "" {
 		return RCErrorNew(1002, "Paramer 'userId' was wrong")
 	}
 
