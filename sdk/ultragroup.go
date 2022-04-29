@@ -942,17 +942,11 @@ func (rc *RongCloud) UGNotDisturbSet(groupId string, unPushLevel int, busChannel
 
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/notdisturb/set.json")
 
-	body := map[string]interface{}{
-		"groupId":     groupId,
-		"unpushLevel": unPushLevel,
-	}
-	if busChannel != "" {
-		body["busChannel"] = busChannel
-	}
+	req.Param("groupId", groupId)
+	req.Param("unpushLevel", strconv.Itoa(unPushLevel))
 
-	req, err = req.JSONBody(body)
-	if err != nil {
-		return err
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
 	}
 
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -993,16 +987,10 @@ func (rc *RongCloud) UGNotDisturbGet(groupId, busChannel string) (*UGNotDisturbG
 
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/notdisturb/get.json")
 
-	body := map[string]string{
-		"groupId":    groupId,
-	}
-	if busChannel != "" {
-		body["busChannel"] = busChannel
-	}
+	req.Param("groupId", groupId)
 
-	req, err = req.JSONBody(body)
-	if err != nil {
-		return nil, err
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
 	}
 
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
