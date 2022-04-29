@@ -941,11 +941,16 @@ func (rc *RongCloud) UGNotDisturbSet(groupId string, unPushLevel int, busChannel
 	var err error
 
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/notdisturb/set.json")
-	req, err = req.JSONBody(map[string]interface{}{
+
+	body := map[string]interface{}{
 		"groupId":     groupId,
-		"busChannel":  busChannel,
 		"unpushLevel": unPushLevel,
-	})
+	}
+	if busChannel != "" {
+		body["busChannel"] = busChannel
+	}
+
+	req, err = req.JSONBody(body)
 	if err != nil {
 		return err
 	}
@@ -954,7 +959,7 @@ func (rc *RongCloud) UGNotDisturbSet(groupId string, unPushLevel int, busChannel
 
 	rc.fillHeader(req)
 
-	body, err := rc.doV2(req)
+	data, err := rc.doV2(req)
 	if err != nil {
 		return err
 	}
@@ -962,7 +967,7 @@ func (rc *RongCloud) UGNotDisturbSet(groupId string, unPushLevel int, busChannel
 	resp := struct {
 		Code int `json:"code"`
 	}{}
-	if err = json.Unmarshal(body, &resp); err != nil {
+	if err = json.Unmarshal(data, &resp); err != nil {
 		return err
 	}
 
@@ -987,10 +992,15 @@ func (rc *RongCloud) UGNotDisturbGet(groupId, busChannel string) (*UGNotDisturbG
 	var err error
 
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/notdisturb/get.json")
-	req, err = req.JSONBody(map[string]string{
+
+	body := map[string]string{
 		"groupId":    groupId,
-		"busChannel": busChannel,
-	})
+	}
+	if busChannel != "" {
+		body["busChannel"] = busChannel
+	}
+
+	req, err = req.JSONBody(body)
 	if err != nil {
 		return nil, err
 	}
@@ -999,7 +1009,7 @@ func (rc *RongCloud) UGNotDisturbGet(groupId, busChannel string) (*UGNotDisturbG
 
 	rc.fillHeader(req)
 
-	body, err := rc.doV2(req)
+	data, err := rc.doV2(req)
 	if err != nil {
 		return nil, err
 	}
@@ -1010,7 +1020,7 @@ func (rc *RongCloud) UGNotDisturbGet(groupId, busChannel string) (*UGNotDisturbG
 		BusChannel  string `json:"busChannel"`
 		UnPushLevel int    `json:"unpushLevel"`
 	}{}
-	if err = json.Unmarshal(body, &resp); err != nil {
+	if err = json.Unmarshal(data, &resp); err != nil {
 		return nil, err
 	}
 
