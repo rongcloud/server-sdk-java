@@ -190,13 +190,13 @@ func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, 
 }
 
 // ConversationTypeNotificationSet 按会话类型设置免打扰, 用户设置指定会话类型（单聊、群聊、超级群、系统消息）的免打扰状态。
-func (rc *RongCloud) ConversationTypeNotificationSet(ct ConversationType, userId string, unPushLevel int) error {
+func (rc *RongCloud) ConversationTypeNotificationSet(ct ConversationType, requestId string, unPushLevel int) error {
 	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
 		return RCErrorNew(1002, "Paramer 'conversationType' was wrong")
 	}
 
-	if userId == "" {
-		return RCErrorNew(1002, "Paramer 'userId' was wrong")
+	if requestId == "" {
+		return RCErrorNew(1002, "Paramer 'requestId' was wrong")
 	}
 
 	if unPushLevel != ConversationUnPushLevelAllMessage && unPushLevel != ConversationUnPushLevelNotSet && unPushLevel != ConversationUnPushLevelAtMessage &&
@@ -207,7 +207,7 @@ func (rc *RongCloud) ConversationTypeNotificationSet(ct ConversationType, userId
 	req := httplib.Post(rc.rongCloudURI + "/conversation/type/notification/set.json")
 
 	req.Param("conversationType", strconv.Itoa(int(ct)))
-	req.Param("userId", userId)
+	req.Param("requestId", requestId)
 	req.Param("unpushLevel", strconv.Itoa(unPushLevel))
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 
