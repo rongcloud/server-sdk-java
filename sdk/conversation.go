@@ -285,10 +285,6 @@ func (rc *RongCloud) ConversationNotificationSet(ct ConversationType, requestId,
 		return RCErrorNew(1002, "Paramer 'targetId' was wrong")
 	}
 
-	if busChannel == "" {
-		return RCErrorNew(1002, "Paramer 'busChannel' was wrong")
-	}
-
 	if isMuted != 0 && isMuted != 1 {
 		return RCErrorNew(1002, "Paramer 'isMuted' was wrong")
 	}
@@ -303,9 +299,12 @@ func (rc *RongCloud) ConversationNotificationSet(ct ConversationType, requestId,
 	req.Param("conversationType", strconv.Itoa(int(ct)))
 	req.Param("requestId", requestId)
 	req.Param("targetId", targetId)
-	req.Param("buschannel", busChannel)
 	req.Param("isMuted", strconv.Itoa(isMuted))
 	req.Param("unpushLevel", strconv.Itoa(unPushLevel))
+
+	if busChannel != "" {
+		req.Param("buschannel", busChannel)
+	}
 
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 
@@ -344,16 +343,15 @@ func (rc *RongCloud) ConversationNotificationGet(ct ConversationType, requestId,
 		return 0, RCErrorNew(1002, "Paramer 'targetId' was wrong")
 	}
 
-	if busChannel == "" {
-		return 0, RCErrorNew(1002, "Paramer 'busChannel' was wrong")
-	}
-
 	req := httplib.Post(rc.rongCloudURI + "/conversation/notification/get.json")
 
 	req.Param("conversationType", strconv.Itoa(int(ct)))
 	req.Param("requestId", requestId)
 	req.Param("targetId", targetId)
-	req.Param("buschannel", busChannel)
+
+	if busChannel != "" {
+		req.Param("buschannel", busChannel)
+	}
 
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 
