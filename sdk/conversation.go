@@ -238,7 +238,7 @@ func (rc *RongCloud) ConversationTypeNotificationGet(ct ConversationType, reques
 		return 0, RCErrorNew(1002, "Paramer 'conversationType' was wrong")
 	}
 
-	if requestId != "" {
+	if requestId == "" {
 		return 0, RCErrorNew(1002, "Paramer 'requestId' was wrong")
 	}
 
