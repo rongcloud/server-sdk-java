@@ -28,6 +28,7 @@ import java.io.Reader;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * 一些api的调用示例和测试
@@ -106,6 +107,46 @@ public class Example {
         System.out.println("refresh:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 用户注销
+     */
+    @Test
+    public void testUserCancel() throws Exception {
+        UserModel user = new UserModel()
+                .setId("userId3");
+
+        Result result = (ResponseResult) rongCloud.user.cancel(user);
+        System.out.println("user cancel set:  " + result.toString());
+
+        assertNotNull( result.getCode().toString());
+    }
+
+
+    /**
+     * 用户注销
+     */
+    @Test
+    public void testUserCancelQuery() throws Exception {
+        UserCancelResult cancelList = rongCloud.user.cancelList(1, 20);
+        System.out.println("user cancel query:  " + cancelList.toString());
+
+        assertEquals("200", cancelList.getCode().toString());
+    }
+
+    /**
+     * 用户激活
+     */
+    @Test
+    public void testUserActive() throws Exception {
+        UserModel user = new UserModel()
+                .setId("userId3");
+
+        Result result = (ResponseResult) rongCloud.user.active(user);
+        System.out.println("user active:  " + result.toString());
+
+        assertNotNull(result.getCode().toString());
     }
 
     /**

@@ -80,6 +80,24 @@ public class UserExample {
         System.out.println("getUserInfo:  " + userResult.toString());
 
         /**
+         * 用户注销
+         */
+        ResponseResult cancel = User.cancel(user);
+        System.out.println("user cancel set:  " + cancel.toString());
+
+        /**
+         * 注销用户列表
+         */
+        UserCancelResult cancelList = User.cancelList(1, 20);
+        System.out.println("user cancel list:  " + cancelList.toString());
+
+        /**
+         * 用户激活
+         */
+        ResponseResult active = User.active(user);
+        System.out.println("user active set:  " + active.toString());
+
+        /**
          *
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#get
          *
