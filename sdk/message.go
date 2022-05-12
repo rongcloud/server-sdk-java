@@ -10,6 +10,7 @@ package sdk
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -1084,7 +1085,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 *
 *@return error
  */
-func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg) error {
+func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg, isPersisted, isIncludeSender int) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -1101,6 +1102,12 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 		req.Param("toChatroomId", v)
 	}
 	req.Param("objectName", objectName)
+	req.Param("isPersisted", fmt.Sprint(isPersisted))
+
+	if isIncludeSender > 0 {
+		req.Param("isIncludeSender", fmt.Sprint(isIncludeSender))
+	}
+
 	msgr, err := msg.ToString()
 	if err != nil {
 		return err
