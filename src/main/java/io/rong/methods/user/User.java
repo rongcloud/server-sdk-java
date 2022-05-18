@@ -183,7 +183,7 @@ public class User {
      * @return
      * @throws Exception
      */
-    public ResponseResult cancel(UserModel user) throws Exception {
+    public ResponseResult abandon(UserModel user) throws Exception {
         //需要校验的字段
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
         if (null != message) {
@@ -194,12 +194,12 @@ public class User {
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
-                "/user/cancel/set.json", "application/x-www-form-urlencoded");
+                "/user/abandon.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
-    public UserCancelResult cancelList() throws Exception {
-        return cancelList(1, 50);
+    public UserAbandonResult abandonList() throws Exception {
+        return abandonList(1, 50);
     }
 
     /**
@@ -208,16 +208,16 @@ public class User {
      * @return
      * @throws Exception
      */
-    public UserCancelResult cancelList(int page, int pageSize) throws Exception {
+    public UserAbandonResult abandonList(int page, int pageSize) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("pageNo=").append(page);
         sb.append("&pageSize=").append(pageSize);
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
-                "/user/cancel/query.json", "application/x-www-form-urlencoded");
+                "/user/abandon/query.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        return (UserCancelResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), UserCancelResult.class);
+        return (UserAbandonResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), UserAbandonResult.class);
     }
 
     /**
@@ -226,7 +226,7 @@ public class User {
      * @return
      * @throws Exception
      */
-    public ResponseResult active(UserModel user) throws Exception {
+    public ResponseResult activate(UserModel user) throws Exception {
         //需要校验的字段
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
         if (null != message) {
@@ -237,7 +237,7 @@ public class User {
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
-                "/user/active.json", "application/x-www-form-urlencoded");
+                "/user/activate.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);

@@ -82,20 +82,20 @@ public class UserExample {
         /**
          * 用户注销
          */
-        ResponseResult cancel = User.cancel(user);
-        System.out.println("user cancel set:  " + cancel.toString());
+        ResponseResult abandon = User.abandon(user);
+        System.out.println("user abandon:  " + abandon.toString());
 
         /**
          * 注销用户列表
          */
-        UserCancelResult cancelList = User.cancelList(1, 20);
-        System.out.println("user cancel list:  " + cancelList.toString());
+        UserAbandonResult abandonList = User.abandonList(1, 20);
+        System.out.println("user abandon list:  " + abandonList.toString());
 
         /**
          * 用户激活
          */
-        ResponseResult active = User.active(user);
-        System.out.println("user active set:  " + active.toString());
+        ResponseResult active = User.activate(user);
+        System.out.println("user activate set:  " + active.toString());
 
         /**
          *

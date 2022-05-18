@@ -117,8 +117,8 @@ public class Example {
         UserModel user = new UserModel()
                 .setId("userId3");
 
-        Result result = (ResponseResult) rongCloud.user.cancel(user);
-        System.out.println("user cancel set:  " + result.toString());
+        Result result = (ResponseResult) rongCloud.user.abandon(user);
+        System.out.println("user abandon:  " + result.toString());
 
         assertNotNull( result.getCode().toString());
     }
@@ -128,23 +128,23 @@ public class Example {
      * 用户注销
      */
     @Test
-    public void testUserCancelQuery() throws Exception {
-        UserCancelResult cancelList = rongCloud.user.cancelList(1, 20);
-        System.out.println("user cancel query:  " + cancelList.toString());
+    public void testUserAbandonQuery() throws Exception {
+        UserAbandonResult abandonList = rongCloud.user.abandonList(1, 20);
+        System.out.println("user abandon query:  " + abandonList.toString());
 
-        assertEquals("200", cancelList.getCode().toString());
+        assertEquals("200", abandonList.getCode().toString());
     }
 
     /**
      * 用户激活
      */
     @Test
-    public void testUserActive() throws Exception {
+    public void testUserActivate() throws Exception {
         UserModel user = new UserModel()
                 .setId("userId3");
 
-        Result result = (ResponseResult) rongCloud.user.active(user);
-        System.out.println("user active:  " + result.toString());
+        Result result = (ResponseResult) rongCloud.user.activate(user);
+        System.out.println("user activate:  " + result.toString());
 
         assertNotNull(result.getCode().toString());
     }

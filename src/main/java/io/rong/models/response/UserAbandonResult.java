@@ -4,7 +4,7 @@ import io.rong.models.Result;
 
 import java.util.List;
 
-public class UserCancelResult extends Result {
+public class UserAbandonResult extends Result {
     private List<String> users;
 
     public List<String> getUsers() {
@@ -17,7 +17,7 @@ public class UserCancelResult extends Result {
 
     @Override
     public String toString() {
-        return "UserCancelResult{" +
+        return "UserAbandonResult{" +
                 "code=" + code +
                 ", errorMessage='" + errorMessage + '\'' +
                 ", requestId='" + requestId + '\'' +
