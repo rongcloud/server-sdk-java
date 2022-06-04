@@ -95,7 +95,7 @@ type RongCloud struct {
 	appSecret string
 	*rongCloudExtra
 	uriLock         sync.Mutex
-	globalTransport *http.Transport
+	globalTransport http.RoundTripper
 }
 
 // rongCloudExtra rongCloud扩展增加自定义融云服务器地址,请求超时时间
@@ -169,18 +169,17 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongClo
 		for _, option := range options {
 			option(rc)
 		}
-		// 全局 httpClient，解决 http 打开端口过多问题
-		dialer := &net.Dialer{
-			Timeout:   rc.timeout * time.Second,
-			KeepAlive: rc.keepAlive * time.Second,
-		}
 
-		rc.globalTransport = &http.Transport{
-			DialContext:         dialer.DialContext,
-			MaxIdleConnsPerHost: rc.maxIdleConnsPerHost,
+		if rc.globalTransport == nil {
+			rc.globalTransport = &http.Transport{
+				DialContext: (&net.Dialer{
+					Timeout:   rc.timeout * time.Second,
+					KeepAlive: rc.keepAlive * time.Second,
+				}).DialContext,
+				MaxIdleConnsPerHost: rc.maxIdleConnsPerHost,
+			}
 		}
-	},
-	)
+	})
 
 	return rc
 }
@@ -191,11 +190,11 @@ func GetRongCloud() *RongCloud {
 }
 
 // 自定义 http 参数
-func (rc *RongCloud) SetHttpTransport(httpTransport *http.Transport) {
+func (rc *RongCloud) SetHttpTransport(httpTransport http.RoundTripper) {
 	rc.globalTransport = httpTransport
 }
 
-func (rc *RongCloud) GetHttpTransport() *http.Transport {
+func (rc *RongCloud) GetHttpTransport() http.RoundTripper {
 	return rc.globalTransport
 }
 

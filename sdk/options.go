@@ -1,6 +1,7 @@
 package sdk
 
 import (
+	"net/http"
 	"time"
 )
 
@@ -38,5 +39,11 @@ func WithKeepAlive(t time.Duration) rongCloudOption {
 func WithMaxIdleConnsPerHost(n int) rongCloudOption {
 	return func(o *RongCloud) {
 		o.maxIdleConnsPerHost = n
+	}
+}
+
+func WithTransport(transport http.RoundTripper) rongCloudOption {
+	return func(o *RongCloud) {
+		o.globalTransport = transport
 	}
 }
