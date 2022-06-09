@@ -303,7 +303,7 @@ func (rc *RongCloud) ConversationNotificationSet(ct ConversationType, requestId,
 	req.Param("unpushLevel", strconv.Itoa(unPushLevel))
 
 	if busChannel != "" {
-		req.Param("buschannel", busChannel)
+		req.Param("busChannel", busChannel)
 	}
 
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -350,7 +350,7 @@ func (rc *RongCloud) ConversationNotificationGet(ct ConversationType, requestId,
 	req.Param("targetId", targetId)
 
 	if busChannel != "" {
-		req.Param("buschannel", busChannel)
+		req.Param("busChannel", busChannel)
 	}
 
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
