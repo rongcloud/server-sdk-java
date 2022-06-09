@@ -70,6 +70,7 @@ public class ExpansionExample {
         kv.put("type3", "3");
         kv.put("type4", "4");
         msg.setExtraKeyVal(kv);
+        msg.setIsSyncSender(1);
         ResponseResult result = expansion.set(msg);
         System.out.println("set expansion:  " + result.toString());
 
@@ -83,6 +84,7 @@ public class ExpansionExample {
         eKey.add("type1");
         eKey.add("type2");
         msg.setExtraKey(eKey);
+        msg.setIsSyncSender(1);
         result = expansion.remove(msg);
         System.out.println("remove expansion:  " + result.toString());
 

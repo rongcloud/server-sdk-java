@@ -60,6 +60,7 @@ public class Expansion {
         sb.append("&userId=").append(URLEncoder.encode(msg.getUserId(), UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(msg.getTargetId(), UTF8));
         sb.append("&extraKeyVal=").append(URLEncoder.encode(GsonUtil.toJson(msg.getExtraKeyVal()), UTF8));
+        sb.append("&isSyncSender=").append(msg.getIsSyncSender());
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -101,6 +102,7 @@ public class Expansion {
         sb.append("&userId=").append(URLEncoder.encode(msg.getUserId(), UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(msg.getTargetId(), UTF8));
         sb.append("&extraKey=").append(URLEncoder.encode(GsonUtil.toJson(msg.getExtraKey()), UTF8));
+        sb.append("&isSyncSender=").append(msg.getIsSyncSender());
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

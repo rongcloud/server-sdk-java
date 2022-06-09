@@ -37,6 +37,11 @@ public class ExpansionModel {
     private Set extraKey;
 
     /**
+     * 终端用户在线状态下，发送者是否接收该设置状态，0 表示为不接收，1 表示为接收，默认为 0 不接收
+     */
+    private int isSyncSender = 0;
+
+    /**
      * 消息频道id
      */
     private String busChannel;
@@ -114,6 +119,14 @@ public class ExpansionModel {
 
     public void setExtraKey(Set extraKey) {
         this.extraKey = extraKey;
+    }
+
+    public int getIsSyncSender() {
+        return isSyncSender;
+    }
+
+    public void setIsSyncSender(int isSyncSender) {
+        this.isSyncSender = isSyncSender;
     }
 
     public String getBusChannel() {
