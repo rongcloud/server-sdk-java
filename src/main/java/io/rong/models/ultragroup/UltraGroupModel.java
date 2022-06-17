@@ -31,6 +31,11 @@ public class UltraGroupModel {
     private String userId;
 
     /**
+     * 频道类型
+     * */
+    private int type;
+
+    /**
      * 群频道列表
      **/
     private String busChannel;
@@ -106,6 +111,15 @@ public class UltraGroupModel {
 
     public UltraGroupModel setUserId(String userId) {
         this.userId = userId;
+        return this;
+    }
+
+    public  int getType() {
+        return type;
+    }
+
+    public UltraGroupModel setType(int type) {
+        this.type = type;
         return this;
     }
 }

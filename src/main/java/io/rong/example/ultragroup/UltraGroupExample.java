@@ -5,6 +5,7 @@ import io.rong.methods.ultragroup.UltraGroup;
 import io.rong.models.Result;
 import io.rong.models.message.ExpansionModel;
 import io.rong.models.response.ExpansionResult;
+import io.rong.models.response.GroupUserQueryResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.ultragroup.UltraGroupMember;
 import io.rong.models.ultragroup.UltraGroupModel;
@@ -206,5 +207,26 @@ public class UltraGroupExample {
 
         ExpansionResult eResult = (ExpansionResult) ultraGroup.expansion.getList("BS45-NPH4-HV87-10LM","groupid");
         System.out.println("getList expansion:  " + eResult.toString());
+
+        Result res = ultraGroup.notdisturb.set("groupid", 1);
+        System.out.println("notdisturb set:  " + res.toString());
+
+        Result result1 = ultraGroup.notdisturb.get("groupid", "");
+        System.out.println("notdisturb get:  " + result1.toString());
+
+        ultraGroupModel.setType(1);
+        Result change = ultraGroup.busChannel.change(ultraGroupModel);
+        System.out.println("busChannel change:  " + change.toString());
+
+        ultraGroupModel.setMembers(members);
+        Result privateUserAdd = ultraGroup.busChannel.privateUserAdd(ultraGroupModel);
+        System.out.println("busChannel privateUserAdd:  " + privateUserAdd.toString());
+
+        GroupUserQueryResult queryResult = ultraGroup.busChannel.privateUserGet("groupId", "buschannel");
+        System.out.println("busChannel privateUserGet:  " + queryResult.toString());
+
+        ultraGroupModel.setMembers(members);
+        Result privateUserRemove = ultraGroup.busChannel.privateUserRemove(ultraGroupModel);
+        System.out.println("busChannel privateUserRemove:  " + privateUserRemove.toString());
     }
 }

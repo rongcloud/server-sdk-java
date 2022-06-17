@@ -2005,6 +2005,68 @@ public class Example {
     }
 
     /**
+     * 超级群频道切换
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupChannelChange() throws Exception{
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setType(1)
+                .setBusChannel("channel");
+        Result result = rongCloud.ultraGroup.busChannel.change(ultraGroupModel);
+        System.out.println(result);
+        System.out.println("busChannel change: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 超级群私有频道用户添加
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupChannelPrivateUserAdd() throws Exception{
+        UltraGroupMember[] members = {new UltraGroupMember().setId("testuser")};
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setMembers(members)
+                .setBusChannel("channel");
+        Result result = rongCloud.ultraGroup.busChannel.privateUserAdd(ultraGroupModel);
+        System.out.println(result);
+        System.out.println("busChannel PrivateUserAdd: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 超级群私有频道用户添加
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupChannelPrivateUserGet() throws Exception{
+        Result result = rongCloud.ultraGroup.busChannel.privateUserGet("test1", "channel");
+        System.out.println(result);
+        System.out.println("busChannel privateUserGet: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 超级群私有频道用户添加
+     * @throws Exception
+     */
+    @Test
+    public void testUltragroupChannelPrivateUserRemove() throws Exception{
+        UltraGroupMember[] members = {new UltraGroupMember().setId("testuser")};
+        UltraGroupModel ultraGroupModel = new UltraGroupModel()
+                .setId("test1")
+                .setMembers(members)
+                .setBusChannel("channel");
+        Result result = rongCloud.ultraGroup.busChannel.privateUserRemove(ultraGroupModel);
+        System.out.println(result);
+        System.out.println("busChannel privateUserRemove: " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
      * 查询频道列表
      * @throws Exception
      */

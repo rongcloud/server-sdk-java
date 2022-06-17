@@ -36,6 +36,7 @@ public class ChannelListResult extends Result {
 
 	class ChannelInfo {
 		String channelId;
+		int type;
 		String createTime;
 
 		public String getChannelId() {
@@ -52,6 +53,14 @@ public class ChannelListResult extends Result {
 
 		public void setCreateTime(String createTime) {
 			this.createTime = createTime;
+		}
+
+		public int getType() {
+			return type;
+		}
+
+		public void setType(int type) {
+			this.type = type;
 		}
 	}
 }

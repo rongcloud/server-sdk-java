@@ -71,7 +71,7 @@ public class RongCloud {
      * @return
      */
     public static RongCloud getInstance(String appKey, String appSecret) {
-        return getInstance(appKey, appSecret, RongCloudConfig.DefaultConfig);
+        return getInstance("e0x9wycfx7flq", "UfmrYyG1lpE", "http://10.40.0.108:2055");
     }
 
     /**
