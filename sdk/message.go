@@ -361,6 +361,7 @@ type msgOptions struct {
 	busChannel       string
 	isAdmin          int
 	isDelete         int
+	extraContent     string
 }
 
 // MsgOption 接口函数
@@ -448,6 +449,13 @@ func WithIsDelete(isDelete int) MsgOption {
 	}
 }
 
+// WithExtraContent 自定义的消息扩展信息，该字段接受 JSON 字符串格式的键值对（key-value pairs）。
+func WithExtraContent(extraContent string) MsgOption {
+	return func(options *msgOptions) {
+		options.extraContent = extraContent
+	}
+}
+
 // 修改默认值
 func modifyMsgOptions(options []MsgOption) msgOptions {
 	// 默认值
@@ -463,6 +471,7 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 		busChannel:       "",
 		isAdmin:          0,
 		isDelete:         0,
+		extraContent:     "",
 	}
 
 	// 修改默认值
@@ -472,8 +481,9 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 
 	return defaultMsgOptions
 }
+
 // UGMessageRecall 超级群消息撤回
-func (rc *RongCloud) UGMessageRecall (userId, targetId, messageId string, sentTime int, options ...MsgOption) error {
+func (rc *RongCloud) UGMessageRecall(userId, targetId, messageId string, sentTime int, options ...MsgOption) error {
 	if userId == "" {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
 	}
@@ -720,11 +730,17 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	req.Param("expansion", strconv.FormatBool(extraOptins.expansion))
 	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+
 	if !extraOptins.disablePush && extraOptins.pushExt != "" {
 		req.Param("pushExt", extraOptins.pushExt)
 	}
+
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
+	}
+
+	if extraOptins.expansion && extraOptins.extraContent != "" {
+		req.Param("extraContent", extraOptins.extraContent)
 	}
 
 	_, err = rc.do(req)
@@ -742,8 +758,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 // verifyBlacklist: 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
 // isIncludeSender: 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
 func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objectName string, msg rcMsg,
-	verifyBlacklist int, isIncludeSender int,
-	options ...MsgOption) error {
+	verifyBlacklist int, isIncludeSender int, options ...MsgOption) error {
 
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -913,8 +928,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  *@return error
  */
 func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
-	pushContent string, pushData string, isPersisted, isIncludeSender int,
-	options ...MsgOption) error {
+	pushContent string, pushData string, isPersisted, isIncludeSender int, options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -947,16 +961,23 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	req.Param("contentAvailable", strconv.Itoa(extraOptins.contentAvailable))
 	req.Param("expansion", strconv.FormatBool(extraOptins.expansion))
 	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+
 	if !extraOptins.disablePush && extraOptins.pushExt != "" {
 		req.Param("pushExt", extraOptins.pushExt)
 	}
+
 	if len(userID) > 0 {
 		for _, v := range userID {
 			req.Param("toUserId", v)
 		}
 	}
+
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
+	}
+
+	if extraOptins.expansion && extraOptins.extraContent != "" {
+		req.Param("extraContent", extraOptins.extraContent)
 	}
 
 	_, err = rc.do(req)
@@ -974,8 +995,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 // verifyBlacklist: 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
 // isIncludeSender: 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
 func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objectName string, msg rcMsg,
-	verifyBlacklist int, isIncludeSender int,
-	options ...MsgOption) error {
+	verifyBlacklist int, isIncludeSender int, options ...MsgOption) error {
 
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -1076,8 +1096,7 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
 *@return error
  */
 func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
-	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int,
-	options ...MsgOption) error {
+	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int, options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -1248,8 +1267,7 @@ func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, conte
 *@return error
  */
 func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg rcMsg,
-	pushContent, pushData string, count, isPersisted int,
-	options ...MsgOption) error {
+	pushContent, pushData string, count, isPersisted int, options ...MsgOption) error {
 
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
@@ -1303,8 +1321,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 *
 *@return error
  */
-func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg,
-	options ...MsgOption) error {
+func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg, options ...MsgOption) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -1452,7 +1469,7 @@ func (rc *RongCloud) HistoryRemove(date string) error {
 
 // SetMessageExpansion 设置消息扩展
 // 发送消息时，如设置了 expansion 为 true，可对该条消息进行扩展信息设置，每次最多可以设置 100 个扩展属性信息，最多可设置 300 个。
-func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targetId string, extra map[string]string) error {
+func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targetId string, extra map[string]string, isSyncSender int) error {
 	if msgUID == "" {
 		return RCErrorNew(1002, "Paramer 'msgUID' is required")
 	}
@@ -1467,6 +1484,10 @@ func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targe
 
 	if conversationType != strconv.Itoa(MessagePrivateType) && conversationType != strconv.Itoa(MessageGroupType) {
 		return RCErrorNew(1002, "Paramer 'conversationType' must be 1 or 3 to string")
+	}
+
+	if isSyncSender != 0 && isSyncSender != 1 {
+		return RCErrorNew(1002, "Paramer 'isSyncSender' is error")
 	}
 
 	if targetId == "" {
@@ -1491,6 +1512,7 @@ func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targe
 	req.Param("conversationType", conversationType)
 	req.Param("targetId", targetId)
 	req.Param("extraKeyVal", string(encExtra))
+	req.Param("isSyncSender", strconv.Itoa(isSyncSender))
 
 	if _, err = rc.do(req); err != nil {
 		return err
@@ -1500,7 +1522,7 @@ func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targe
 }
 
 // DeleteMessageExpansion 删除消息扩展
-func (rc *RongCloud) DeleteMessageExpansion(msgUID, userId, conversationType, targetId string, keys ...string) error {
+func (rc *RongCloud) DeleteMessageExpansion(msgUID, userId, conversationType, targetId string, isSyncSender int, keys ...string) error {
 	if msgUID == "" {
 		return RCErrorNew(1002, "Paramer 'msgUID' is required")
 	}
@@ -1525,6 +1547,10 @@ func (rc *RongCloud) DeleteMessageExpansion(msgUID, userId, conversationType, ta
 		return RCErrorNew(1002, "Paramer 'keys' is required")
 	}
 
+	if isSyncSender != 0 && isSyncSender != 1 {
+		return RCErrorNew(1002, "Paramer 'isSyncSender' is error")
+	}
+
 	encKeys, err := json.Marshal(keys)
 	if err != nil {
 		return err
@@ -1539,6 +1565,7 @@ func (rc *RongCloud) DeleteMessageExpansion(msgUID, userId, conversationType, ta
 	req.Param("conversationType", conversationType)
 	req.Param("targetId", targetId)
 	req.Param("extraKey", string(encKeys))
+	req.Param("isSyncSender", strconv.Itoa(isSyncSender))
 
 	if _, err = rc.do(req); err != nil {
 		return err
