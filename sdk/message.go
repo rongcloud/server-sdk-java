@@ -390,7 +390,7 @@ func WithMsgVerifyBlacklist(verifyBlacklist int) MsgOption {
 	}
 }
 
-// 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息。暂不支持海外数据中心
+// 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息。
 func WithMsgExpansion(isExpansion bool) MsgOption {
 	return func(options *msgOptions) {
 		options.expansion = isExpansion

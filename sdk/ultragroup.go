@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/astaxie/beego/httplib"
@@ -1023,4 +1024,674 @@ func (rc *RongCloud) UGNotDisturbGet(groupId, busChannel string) (*UGNotDisturbG
 	}, nil
 }
 
+// UltraGroupCreate 创建超级群
+func (rc *RongCloud) UltraGroupCreate(userId, groupId, groupName string) error {
+	if userId == "" {
+		return RCErrorNew(1002, "param 'userId' is empty")
+	}
 
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if groupName == "" {
+		return RCErrorNew(1002, "param 'groupName' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/create.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("userId", userId)
+	req.Param("groupId", groupId)
+	req.Param("groupName", groupName)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupDis 解散超级群
+func (rc *RongCloud) UltraGroupDis(groupId string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/dis.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupJoin 加入超级群
+func (rc *RongCloud) UltraGroupJoin(userId, groupId string) error {
+	if userId == "" {
+		return RCErrorNew(1002, "param 'userId' is empty")
+	}
+
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/join.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("userId", userId)
+	req.Param("groupId", groupId)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupQuit 退出超级群
+func (rc *RongCloud) UltraGroupQuit(userId, groupId string) error {
+	if userId == "" {
+		return RCErrorNew(1002, "param 'userId' is empty")
+	}
+
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/quit.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("userId", userId)
+	req.Param("groupId", groupId)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupRefresh 刷新超级群信息
+func (rc *RongCloud) UltraGroupRefresh(groupId, groupName string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if groupName == "" {
+		return RCErrorNew(1002, "param 'groupName' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/refresh.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("groupName", groupName)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupUserBannedAdd 添加禁言成员
+func (rc *RongCloud) UltraGroupUserBannedAdd(groupId, busChannel string, userIds ...string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if userIds == nil || len(userIds) <= 0 {
+		return RCErrorNew(1002, "param 'userIds' is empty")
+	}
+
+	if len(userIds) > 20 {
+		return RCErrorNew(1002, "param 'userIds' is too long")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/userbanned/add.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userIds", strings.Join(userIds, ","))
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupUserBannedDel 移除禁言成员
+func (rc *RongCloud) UltraGroupUserBannedDel(groupId, busChannel string, userIds ...string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if userIds == nil || len(userIds) <= 0 {
+		return RCErrorNew(1002, "param 'userIds' is empty")
+	}
+
+	if len(userIds) > 20 {
+		return RCErrorNew(1002, "param 'userIds' is too long")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/userbanned/del.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userIds", strings.Join(userIds, ","))
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+type UltraGroupUserBannedResponseItem struct {
+	Id string `json:"id"`
+}
+
+// UltraGroupUserBannedGet 获取禁言成员
+func (rc *RongCloud) UltraGroupUserBannedGet(groupId, busChannel string, page, pageSize int) ([]UltraGroupUserBannedResponseItem, error) {
+	if groupId == "" {
+		return nil, RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/userbanned/get.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	if page != 0 {
+		req.Param("page", strconv.Itoa(page))
+	}
+
+	if pageSize != 0 {
+		req.Param("pageSize", strconv.Itoa(pageSize))
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	data := struct {
+		Code  int                                `json:"code"`
+		Users []UltraGroupUserBannedResponseItem `json:"users"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return nil, err
+	}
+
+	if data.Code != 200 {
+		return nil, fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return data.Users, nil
+}
+
+// UltraGroupGlobalBannedSet 设置超级群禁言状态
+func (rc *RongCloud) UltraGroupGlobalBannedSet(groupId, busChannel string, status bool) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/globalbanned/set.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("status", strconv.FormatBool(status))
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupGlobalBannedGet 查询超级群禁言状态
+func (rc *RongCloud) UltraGroupGlobalBannedGet(groupId, busChannel string) (bool, error) {
+	if groupId == "" {
+		return false, RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/globalbanned/get.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return false, err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return false, err
+	}
+
+	if data.Code != 200 {
+		return false, fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return true, nil
+}
+
+// UltraGroupBannedWhiteListAdd 添加禁言白名单
+func (rc *RongCloud) UltraGroupBannedWhiteListAdd(groupId, busChannel string, userIds ...string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if userIds == nil || len(userIds) <= 0 {
+		return RCErrorNew(1002, "param 'userIds' is empty")
+	}
+
+	if len(userIds) > 20 {
+		return RCErrorNew(1002, "param 'userIds' is too long")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/banned/whitelist/add.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userIds", strings.Join(userIds, ","))
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupBannedWhiteListDel 移除禁言白名单
+func (rc *RongCloud) UltraGroupBannedWhiteListDel(groupId, busChannel string, userIds ...string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if userIds == nil || len(userIds) <= 0 {
+		return RCErrorNew(1002, "param 'userIds' is empty")
+	}
+
+	if len(userIds) > 20 {
+		return RCErrorNew(1002, "param 'userIds' is too long")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/banned/whitelist/del.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userIds", strings.Join(userIds, ","))
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+type UltraGroupBannedWhiteListGetResponseItem struct {
+	Id string `json:"id"`
+}
+
+// UltraGroupBannedWhiteListGet 获取禁言白名单
+func (rc *RongCloud) UltraGroupBannedWhiteListGet(groupId, busChannel string, page, pageSize int) ([]UltraGroupBannedWhiteListGetResponseItem, error) {
+	if groupId == "" {
+		return nil, RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/banned/whitelist/get.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+
+	if busChannel != "" {
+		req.Param("busChannel", busChannel)
+	}
+
+	if page != 0 {
+		req.Param("page", strconv.Itoa(page))
+	}
+
+	if pageSize != 0 {
+		req.Param("pageSize", strconv.Itoa(pageSize))
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	data := struct {
+		Code  int                                        `json:"code"`
+		Users []UltraGroupBannedWhiteListGetResponseItem `json:"users"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return nil, err
+	}
+
+	if data.Code != 200 {
+		return nil, fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return data.Users, nil
+}
+
+// UltraGroupChannelCreate 创建频道
+func (rc *RongCloud) UltraGroupChannelCreate(groupId, busChannel string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if busChannel == "" {
+		return RCErrorNew(1002, "param 'busChannel' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/create.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+// UltraGroupChannelDel 删除频道
+func (rc *RongCloud) UltraGroupChannelDel(groupId, busChannel string) error {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	if busChannel == "" {
+		return RCErrorNew(1002, "param 'busChannel' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/del.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+
+	data := struct {
+		Code int `json:"code"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return err
+	}
+
+	if data.Code != 200 {
+		return fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return nil
+}
+
+type UltraGroupChannelGetResponseItem struct {
+	ChannelId  string `json:"channelId"`
+	CreateTime string `json:"createTime"`
+}
+
+// UltraGroupChannelGet 查询频道列表
+func (rc *RongCloud) UltraGroupChannelGet(groupId string, page, limit int) ([]UltraGroupChannelGetResponseItem, error) {
+	if groupId == "" {
+		return nil, RCErrorNew(1002, "param 'groupId' is empty")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/get.json")
+
+	req.SetTimeout(rc.timeout*time.Second, rc.timeout*time.Second)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+
+	if page != 0 {
+		req.Param("page", strconv.Itoa(page))
+	}
+
+	if limit != 0 {
+		req.Param("limit", strconv.Itoa(limit))
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	data := struct {
+		Code     int                                `json:"code"`
+		Channels []UltraGroupChannelGetResponseItem `json:"channelList"`
+	}{}
+
+	if err = json.Unmarshal(resp, &data); err != nil {
+		return nil, err
+	}
+
+	if data.Code != 200 {
+		return nil, fmt.Errorf("response error. code: %d", data.Code)
+	}
+
+	return data.Channels, nil
+}
