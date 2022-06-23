@@ -16,16 +16,15 @@ import (
 type ConversationType int
 
 const (
-	// PRIVATE 单聊
-	PRIVATE ConversationType = iota + 1
-	// DISCUSSION 讨论组
-	DISCUSSION
-	// GROUP 群聊
-	GROUP
-	// SYSTEM 系统
-	SYSTEM
-	// CUSTOMERSERVICE 客服
-	CUSTOMERSERVICE
+	PRIVATE ConversationType = iota + 1	// PRIVATE 二人会话
+	DISCUSSION	// DISCUSSION 讨论组会话
+	GROUP	// GROUP 群组会话
+	CHATROOM	// CHATROOM 聊天室会话
+	CUSTOM	// CUSTOM 客服会话
+	SYSTEM	// SYSTEM 系统通知
+	APP_PUBLIC_SERVICE	// APP_PUBLIC_SERVICE 应用公众服务
+	PUBLIC_SERVICE	// PUBLIC_SERVICE 公众服务
+	ULTRA_GROUP	// ULTRA_GROUP 超级群服务
 
 	ConversationTypePrivate ConversationType = 1  // ConversationTypePrivate 二人会话
 	ConversationTypeGroup   ConversationType = 3  // ConversationTypeGroup 群组会话
