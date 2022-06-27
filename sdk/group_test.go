@@ -34,6 +34,7 @@ func TestRongCloud_GroupGet(t *testing.T) {
 }
 
 func TestRongCloud_GroupJoin(t *testing.T) {
+	t.Log(os.Getenv("AppKey"))
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
@@ -42,7 +43,13 @@ func TestRongCloud_GroupJoin(t *testing.T) {
 	err := rc.GroupJoin(
 		"u01",
 		"rongcloud_group01",
-		"u03",
+		"u03", "u04", "u05",
+	)
+	t.Log(err)
+	err = rc.GroupJoin(
+		"u01",
+		"",
+		"u03", "u04", "u05",
 	)
 	t.Log(err)
 }
@@ -61,14 +68,13 @@ func TestRongCloud_GroupUpdate(t *testing.T) {
 }
 
 func TestRongCloud_GroupQuit(t *testing.T) {
-
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
 	)
 
 	err := rc.GroupQuit(
-		"u03",
+		[]string{"u03", "u04"},
 		"u01",
 	)
 	t.Log(err)

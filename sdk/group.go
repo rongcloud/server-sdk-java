@@ -128,35 +128,34 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 	return err
 }
 
-// GroupJoin 将用户加入指定群组，用户将可以收到该群的消息。
+// GroupJoin 批量将用户加入指定群组，用户将可以收到该群的消息。
 /*
- *@param  id:加入的群组 Id。
- *@param  name:群组名称，最大长度 60 个字符。
- *@param  member:要加入群组的用户。
+ *@param  groupId:加入的群组 Id。
+ *@param  groupName:群组名称，最大长度 60 个字符。
+ *@param  memberId:要加入群组的用户，最大不超过1000人。
  *
  *@return error
  */
-func (rc *RongCloud) GroupJoin(id, name, member string) error {
-	if member == "" {
-		return RCErrorNew(1002, "Paramer 'member' is required")
-	}
-
-	if id == "" {
+func (rc *RongCloud) GroupJoin(groupId, groupName string, memberId ...string) error {
+	if len(groupId) == 0 {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
-
-	if name == "" {
-		return RCErrorNew(1002, "Paramer 'name' is required")
+	if len(memberId) == 0 {
+		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
-
+	if len(memberId) > 1000 {
+		return RCErrorNew(1002, "Paramer 'member' More than 1000")
+	}
 	req := httplib.Post(rc.rongCloudURI + "/group/join." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-
-	req.Param("userId", member)
-	req.Param("groupId", id)
-	req.Param("groupName", name)
-
+	for k := range memberId {
+		req.Param("userId", memberId[k])
+	}
+	req.Param("groupId", groupId)
+	if len(groupName) > 0 {
+		req.Param("groupName", groupName)
+	}
 	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
@@ -193,18 +192,20 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
 
 }
 
-// GroupQuit 退出群组方法（将用户从群中移除，不再接收该群组的消息.）
+// GroupQuit 批量退出群组方法（将用户从群中移除，不再接收该群组的消息.）
 /*
  *@param  id:要退出的群组 Id。
- *@param  member:要退出群组的群成员。
+ *@param  member:要退出群组的群成员，最多不能超过1000人。
  *
  *@return error
  */
-func (rc *RongCloud) GroupQuit(member, id string) error {
-	if member == "" {
+func (rc *RongCloud) GroupQuit(member []string, id string) error {
+	if len(member) == 0 {
 		return RCErrorNew(1002, "Paramer 'member' is required")
 	}
-
+	if len(member) > 1000 {
+		return RCErrorNew(1002, "Paramer 'member' More than 1000")
+	}
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -212,10 +213,10 @@ func (rc *RongCloud) GroupQuit(member, id string) error {
 	req := httplib.Post(rc.rongCloudURI + "/group/quit." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-
-	req.Param("userId", member)
+	for k := range member {
+		req.Param("userId", member[k])
+	}
 	req.Param("groupId", id)
-
 	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
