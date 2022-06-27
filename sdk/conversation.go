@@ -39,6 +39,40 @@ const (
 	ConversationUnPushLevelNotRecv           = 5  // ConversationUnPushLevelNotRecv 不接收通知
 )
 
+// ConversationTop :会话置顶
+//*
+//@param userId	：必传	            用户ID，会话所属的用户
+//@param conversationType：不必传	会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）、6（系统会话）。
+//@param targetId:	必传	            需要设置的目标 ID，根据会话类型不同为单聊用户 ID、群聊 ID、系统目标 ID
+//@param setTop	:	必传		            true 表示置顶，false 表示取消置顶。
+//
+//@return error
+//*/
+func (rc *RongCloud) ConversationTop(conversationType ConversationType, userId, targetId, setTop string) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if len(targetId) == 0 {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+	if len(setTop) == 0 {
+		return RCErrorNew(1002, "Paramer 'setTop' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/conversation/top/set.json." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("conversationType", fmt.Sprintf("%v", conversationType))
+	req.Param("targetId", targetId)
+	req.Param("setTop", setTop)
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
 // ConversationMute 设置用户某个会话屏蔽 Push
 /*
 *@param  conversationType:会话类型 PRIVATE、GROUP、DISCUSSION、SYSTEM。
