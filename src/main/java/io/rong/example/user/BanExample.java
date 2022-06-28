@@ -23,11 +23,11 @@ public class BanExample {
     /**
      * 此处替换成您的appKey
      */
-    private static final String appKey = "qd46yzrfqde4f";
+    private static final String appKey = "";
     /**
      * 此处替换成您的appSecret
      */
-    private static final String appSecret = "Cy5Euhxrcl9b";
+    private static final String appSecret = "";
     /**
      * 自定义api地址
      */
