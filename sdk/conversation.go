@@ -59,7 +59,7 @@ func (rc *RongCloud) ConversationTop(conversationType ConversationType, userId, 
 		return RCErrorNew(1002, "Paramer 'setTop' is required")
 	}
 
-	req := httplib.Post(rc.rongCloudURI + "/conversation/top/set.json." + ReqType)
+	req := httplib.Post(rc.rongCloudURI + "/conversation/top/set." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("userId", userId)
