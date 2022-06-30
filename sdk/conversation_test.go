@@ -5,6 +5,20 @@ import (
 	"testing"
 )
 
+func TestRongCloud_ConversationTop(t *testing.T) {
+	conversation := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := conversation.ConversationTop(
+		PRIVATE,
+		"u01",
+		"u02",
+		"true",
+	)
+	t.Log(err)
+}
+
 func TestRongCloud_ConversationMute(t *testing.T) {
 	conversation := NewRongCloud(
 		os.Getenv("APP_KEY"),
