@@ -55,7 +55,10 @@ func TestAddWhiteList(t *testing.T) {
 
 func TestRongCloud_UserRegister(t *testing.T) {
 
-	rc := NewRongCloud("uwd1c0sxu19c1","QJZ4Qbc0DWJ", WithRongCloudURI("https://api-us.ronghub.com"))
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
 
 	rep, err := rc.UserRegister(
 		"1000014",
