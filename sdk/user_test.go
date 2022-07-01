@@ -61,9 +61,9 @@ func TestRongCloud_UserRegister(t *testing.T) {
 	)
 
 	rep, err := rc.UserRegister(
-		"u01",
-		"name01",
-		"http://rongcloud.cn/portrait.jpg",
+		"1000014",
+		"1000014",
+		"https://img.theplace.cool/MTY1NjMxNDExNjQxMCMzMjAjcG5n.png&apiId=1",
 	)
 	t.Log(err)
 	t.Log(rep)
