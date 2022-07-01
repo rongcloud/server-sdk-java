@@ -269,6 +269,8 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
 		&msg,
+		1,
+		1,
 	)
 	t.Log(err)
 

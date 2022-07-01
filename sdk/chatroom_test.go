@@ -29,7 +29,6 @@ func TestRongCloud_ChatRoomGet(t *testing.T) {
 	)
 	t.Log(err)
 	t.Log(rep)
-
 }
 
 func TestRongCloud_ChatRoomIsExist(t *testing.T) {
@@ -404,4 +403,3 @@ func TestRongCloud_ChatRoomQuery(t *testing.T) {
 		t.Logf("data: %v", data)
 	}
 }
-
