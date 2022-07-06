@@ -13,6 +13,8 @@ import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BusChannel {
     private static final String UTF8 = "UTF-8";
@@ -191,8 +193,9 @@ public class BusChannel {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/channel/private/users/get.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-
-        return (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn, rongCloud.getConfig())), GroupUserQueryResult.class);
+        GroupUserQueryResult queryResult = (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), GroupUserQueryResult.class);
+        queryResult.setMembers(queryResult.getMembers() == null ? new ArrayList() : queryResult.getMembers());
+        return queryResult;
     }
 
     /**
