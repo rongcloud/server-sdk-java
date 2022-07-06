@@ -165,10 +165,6 @@
           "code": "1005",
           "errorMessage": "{{name}} 长度不正确，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
         },
-        "1002": {
-          "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
-        },
         "1501": {
           "code": "1501",
           "errorMessage": "参数类型不正确，请检查参数类型，应该为 {{type}} 当前为 {{currentType}}"
