@@ -190,12 +190,14 @@ public class BusChannel {
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
         sb.append("&busChannel=").append(URLEncoder.encode(busChannel, UTF8));
+        sb.append("&page=").append(page);
+        sb.append("&pageSize=").append(pageSize);
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/channel/private/users/get.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
         UserIdListModel queryResult = (UserIdListModel) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), UserIdListModel.class);
-        queryResult.setUsers(queryResult.getUsers() == null ? new ArrayList() : queryResult.getUsers());
+        queryResult.setMembers(queryResult.getMembers() == null ? new ArrayList() : queryResult.getMembers());
         return queryResult;
     }
 

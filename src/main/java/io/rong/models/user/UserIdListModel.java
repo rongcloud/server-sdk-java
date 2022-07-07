@@ -1,20 +1,28 @@
 package io.rong.models.user;
 
 import io.rong.models.Result;
-import io.rong.models.ultragroup.UltraGroupBanModel;
 import io.rong.util.GsonUtil;
 
 import java.util.List;
 
 public class UserIdListModel extends Result {
-    private List<String> users;
+    private List<String> members;
 
-    public List<String> getUsers() {
-        return users;
+    public UserIdListModel(Integer code, String errorMessage, List<String> members) {
+        super(code, errorMessage);
+        this.members = members;
     }
 
-    public void setUsers(List<String> users) {
-        this.users = users;
+    public UserIdListModel(List<String> members) {
+        this.members = members;
+    }
+
+    public List<String> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<String> members) {
+        this.members = members;
     }
 
     @Override
