@@ -9,6 +9,7 @@ import io.rong.models.response.GroupUserQueryResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.ultragroup.UltraGroupMember;
 import io.rong.models.ultragroup.UltraGroupModel;
+import io.rong.models.user.UserIdListModel;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -222,8 +223,8 @@ public class UltraGroupExample {
         Result privateUserAdd = ultraGroup.busChannel.privateUserAdd(ultraGroupModel);
         System.out.println("busChannel privateUserAdd:  " + privateUserAdd.toString());
 
-        GroupUserQueryResult queryResult = ultraGroup.busChannel.privateUserGet("groupId", "buschannel");
-        System.out.println("busChannel privateUserGet:  " + queryResult.toString());
+        UserIdListModel listModel = ultraGroup.busChannel.privateUserGet("groupId", "buschannel");
+        System.out.println("busChannel privateUserGet:  " + listModel.toString());
 
         ultraGroupModel.setMembers(members);
         Result privateUserRemove = ultraGroup.busChannel.privateUserRemove(ultraGroupModel);

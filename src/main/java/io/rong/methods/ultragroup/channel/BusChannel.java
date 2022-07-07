@@ -7,6 +7,7 @@ import io.rong.models.Result;
 import io.rong.models.response.*;
 import io.rong.models.ultragroup.UltraGroupMember;
 import io.rong.models.ultragroup.UltraGroupModel;
+import io.rong.models.user.UserIdListModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -177,14 +178,14 @@ public class BusChannel {
      *
      * @return GroupUserQueryResult
      **/
-    public GroupUserQueryResult privateUserGet(String groupId, String busChannel) throws Exception {
+    public UserIdListModel privateUserGet(String groupId, String busChannel) throws Exception {
         return privateUserGet(groupId, busChannel, 1, 200);
     }
-    public GroupUserQueryResult privateUserGet(String groupId, String busChannel, int page, int pageSize) throws Exception {
+    public UserIdListModel privateUserGet(String groupId, String busChannel, int page, int pageSize) throws Exception {
 
         String errMsg = CommonUtil.checkParam("id", groupId,PATH,CheckMethod.GET);
         if(null != errMsg){
-            return (GroupUserQueryResult)GsonUtil.fromJson(errMsg,GroupUserQueryResult.class);
+            return (UserIdListModel)GsonUtil.fromJson(errMsg,UserIdListModel.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(groupId, UTF8));
@@ -193,8 +194,8 @@ public class BusChannel {
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/channel/private/users/get.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        GroupUserQueryResult queryResult = (GroupUserQueryResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), GroupUserQueryResult.class);
-        queryResult.setMembers(queryResult.getMembers() == null ? new ArrayList() : queryResult.getMembers());
+        UserIdListModel queryResult = (UserIdListModel) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), UserIdListModel.class);
+        queryResult.setUsers(queryResult.getUsers() == null ? new ArrayList() : queryResult.getUsers());
         return queryResult;
     }
 
