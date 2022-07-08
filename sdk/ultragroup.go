@@ -1417,7 +1417,8 @@ func (rc *RongCloud) UltraGroupGlobalBannedGet(groupId, busChannel string) (bool
 	}
 
 	data := struct {
-		Code int `json:"code"`
+		Code   int  `json:"code"`
+		Status bool `json:"status"`
 	}{}
 
 	if err = json.Unmarshal(resp, &data); err != nil {
@@ -1428,7 +1429,7 @@ func (rc *RongCloud) UltraGroupGlobalBannedGet(groupId, busChannel string) (bool
 		return false, fmt.Errorf("response error. code: %d", data.Code)
 	}
 
-	return true, nil
+	return data.Status, nil
 }
 
 // UltraGroupBannedWhiteListAdd 添加禁言白名单
