@@ -13,6 +13,57 @@ import (
 	"testing"
 )
 
+func TestRongCloud_UserRemarksGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UserRemarksGet("u01", 1, 1); err != nil {
+		t.Errorf("user remark get err:%v", err)
+		return
+	}
+	t.Log("user remark get suc")
+}
+
+func TestRongCloud_UserRemarksDel(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UserRemarksDel("u01", "qq"); err != nil {
+		t.Errorf("user remark del err:%v", err)
+		return
+	}
+	t.Log("user remark del suc")
+}
+
+func TestRongCloud_UserRemarksSet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UserRemarksSet("u01", []UserRemark{{
+		Id:     "u01",
+		Remark: "remark1",
+	}}); err != nil {
+		t.Errorf("user remark  set err:%v", err)
+		return
+	}
+	t.Log("user remark set suc")
+}
+
+func TestRongCloud_UserChatFbSet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UserChatFbSet("u01", 0, "PERSON"); err != nil {
+		t.Errorf("user chat fb set err:%v", err)
+		return
+	}
+	t.Log("user chat fb set suc")
+}
+
 func TestQueryWhiteList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

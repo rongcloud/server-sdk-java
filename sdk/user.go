@@ -10,6 +10,7 @@ package sdk
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -55,6 +56,118 @@ type TagResult struct {
 // WhiteList QueryWhiteList 返回数据
 type WhiteList struct {
 	Users []string `json:"users"`
+}
+
+// UserRemarksGet /user/remarks/get.json  查询用户级送备注名
+//*
+//  @param: userId :用户ID。
+//  @param: page :页数，默认为第一页。
+//  @param: size :每页条数，默认每页 50 条
+//*/
+func (rc *RongCloud) UserRemarksGet(userId string, page, size int) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/remarks/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("size", strconv.Itoa(size))
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// UserRemarksDel /user/remarks/del.json  删除用户级送备注名
+//*
+//  @param: userId :操作者用户ID。
+//  @param: targetId:需要删除推送备注名的用户 ID
+//*/
+func (rc *RongCloud) UserRemarksDel(userId, targetId string) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if len(targetId) == 0 {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/remarks/del.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("targetId", targetId)
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// UserRemark :UserRemarksSet方法接收的参数
+type UserRemark struct {
+	// 目标用户 ID。单次最多设置 100 个
+	Id string
+
+	// 收到目标用户推送时显示的备注名。
+	Remark string
+}
+
+// UserRemarksSet /user/remarks/set.json
+//*
+// @param: userId:用户 ID。
+// @param: remarks:设置的目标用户推送备注名 JSON 字符串
+//
+//*/
+func (rc *RongCloud) UserRemarksSet(userId string, remarks []UserRemark) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if len(remarks) == 0 {
+		return RCErrorNew(1002, "Paramer 'remarks' is required")
+	}
+	remarkList, err := json.Marshal(remarks)
+	if err != nil {
+		return RCErrorNew(1002, "Marshal 'remarks' err")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/remarks/set.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("remarks", string(remarkList))
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// UserChatFbSet *
+// 用户单聊禁言
+// @param: userId :被禁言用户 ID，支持批量设置，最多不超过 1000 个
+// @param: state :禁言状态，0 解除禁言、1 添加禁言
+// @param: type  :会话类型，目前支持单聊会话 PERSON
+//*/
+func (rc *RongCloud) UserChatFbSet(userId string, state int, t string) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if len(t) == 0 {
+		return RCErrorNew(1002, "Paramer 'type' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/chat/fb/set.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("state", fmt.Sprintf("%v", state))
+	req.Param("type", t)
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }
 
 /**

@@ -482,6 +482,203 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 	return defaultMsgOptions
 }
 
+// UgMessageExtension :根据消息 ID 批量获取超级群消息的扩展消息，可选填
+type UgMessageExtension struct {
+	// 频道 Id，支持英文字母、数字组合，最长为 20 个字符
+	BusChannel string
+
+	// 请求唯一标识,，保证一分钟之内的请求幂等
+	MsgRandom int64
+}
+
+// MessageExpansionSet : 设置消息扩展  /message/expansion/set.json
+//*
+// @param  msgUID:消息唯一标识 ID，可通过全量消息路由功能获取。详见全量消息路由。
+// @param  userId:操作者用户 ID，即需要为指定消息（msgUID）设置扩展信息的用户 ID。
+// @param  conversationType:会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）。
+// @param  targetId:目标 ID，根据不同的 conversationType，可能是用户 ID 或群组 ID。
+// @param  extraKeyVal:消息自定义扩展内容，JSON 结构，以 Key、Value 的方式进行设置，如：{"type":"3"}，单条消息可设置 300 个扩展信息，一次最多可以设置 100 个。
+// @param  isSyncSender:设置操作会生成“扩展操作消息”。该字段指定“扩展操作消息”的发送者是否可在客户端接收该消息。https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set
+//*/
+func (rc *RongCloud) MessageExpansionSet(msgUID, userId, conversationType, targetId, extraKeyVal string, isSyncSender int) error {
+	if len(msgUID) == 0 {
+		return RCErrorNew(1002, "Paramer 'msgUID' is required")
+	}
+
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if len(conversationType) == 0 {
+		return RCErrorNew(1002, "Paramer 'conversationType' is required")
+	}
+
+	if len(targetId) == 0 {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+
+	if len(extraKeyVal) == 0 {
+		return RCErrorNew(1002, "Paramer 'extraKeyVal' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/expansion/set.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("userId", userId)
+	req.Param("conversationType", conversationType)
+	req.Param("targetId", targetId)
+	req.Param("extraKeyVal", extraKeyVal)
+	req.Param("isSyncSender", strconv.Itoa(isSyncSender))
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// MessageExpansionDel : 删除消息扩展  /message/expansion/delete.json
+//*
+// @param  msgUID:消息唯一标识 ID，可通过全量消息路由功能获取。详见全量消息路由。
+// @param  userId:操作者用户 ID，即需要为指定消息（msgUID）删除扩展信息的用户 ID。
+// @param  conversationType:会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）。
+// @param  targetId:目标 ID，根据不同的 conversationType，可能是用户 ID 或群组 ID。
+// @param  extraKeyVal:消息自定义扩展内容，JSON 结构，以 Key、Value 的方式进行设置，如：{"type":"3"}，单条消息可设置 300 个扩展信息，一次最多可以设置 100 个。
+// @param  isSyncSender:设置操作会生成“扩展操作消息”。该字段指定“扩展操作消息”的发送者是否可在客户端接收该消息。具体请看。https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete
+//*/
+func (rc *RongCloud) MessageExpansionDel(msgUID, userId, conversationType, targetId, extraKey string, isSyncSender int) error {
+	if len(msgUID) == 0 {
+		return RCErrorNew(1002, "Paramer 'msgUID' is required")
+	}
+
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	if len(conversationType) == 0 {
+		return RCErrorNew(1002, "Paramer 'conversationType' is required")
+	}
+
+	if len(targetId) == 0 {
+		return RCErrorNew(1002, "Paramer 'targetId' is required")
+	}
+
+	if len(extraKey) == 0 {
+		return RCErrorNew(1002, "Paramer 'extraKey' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/message/expansion/delete.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("msgUID", msgUID)
+	req.Param("userId", userId)
+	req.Param("conversationType", conversationType)
+	req.Param("targetId", targetId)
+	req.Param("extraKey", extraKey)
+	req.Param("isSyncSender", strconv.Itoa(isSyncSender))
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 超级群消息修改
+
+// UGMessageModify : 根据消息 ID 批量获取超级群消息 /ultragroup/msg/modify.json
+//*
+// @param  groupId:超级群 ID
+// @param  fromUserId:消息发送者
+// @param  msgUID:消息唯一标识
+// @param  content:消息所发送内容 最大128k
+// @param  busChannel:频道 Id，支持英文字母、数字组合，最长为 20 个字符
+// @param  msgRandom:请求唯一标识,，保证一分钟之内的请求幂等
+//*/
+func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string, options ...UgMessageExtension) error {
+	if len(groupId) == 0 {
+		return RCErrorNew(1002, "Paramer 'groupId' is required")
+	}
+
+	if len(fromUserId) == 0 {
+		return RCErrorNew(1002, "Paramer 'fromUserId' is required")
+	}
+
+	if len(msgUID) == 0 {
+		return RCErrorNew(1002, "Paramer 'fromUserId' is required")
+	}
+
+	if len(content) == 0 {
+		return RCErrorNew(1002, "Paramer 'fromUserId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/msg/modify.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("fromUserId", fromUserId)
+	req.Param("msgUID", msgUID)
+	req.Param("content", content)
+
+	if len(options) == 1 {
+		req.Param("busChannel", options[0].BusChannel)
+		req.Param("msgRandom", fmt.Sprintf("%v", options[0].MsgRandom))
+	}
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// UGMessageData ：UGMessageGet方法中的消息参数数组
+type UGMessageData struct {
+	// 消息唯一标识 ID
+	MsgUid string `json:"msgUID"`
+
+	// 频道 Id，支持英文字母、数字组合，最长为 20 个字符
+	BusChannel string `json:"busChannel,omitempty"`
+}
+
+// UGMessageGet : 根据消息 ID 批量获取超级群消息 /ultragroup/msg/get
+//*
+// @param  groupId:超级群 ID
+// @param  msgList:消息参数数组   每个元素是UGMessageData
+//*/
+func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, options ...MsgOption) error {
+	if len(groupId) == 0 {
+		return RCErrorNew(1002, "Paramer 'groupId' is required")
+	}
+
+	if len(msgList) == 0 {
+		return RCErrorNew(1002, "Paramer 'msgList' is required")
+	}
+
+	msg, err := json.Marshal(msgList)
+	if err != nil {
+		return err
+	}
+	extOptions := modifyMsgOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/msg/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("msgs", string(msg))
+
+	if extOptions.busChannel != "" {
+		req.Param("busChannel", extOptions.busChannel)
+	}
+	_, err = rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
 // UGMessageRecall 超级群消息撤回
 func (rc *RongCloud) UGMessageRecall(userId, targetId, messageId string, sentTime int, options ...MsgOption) error {
 	if userId == "" {

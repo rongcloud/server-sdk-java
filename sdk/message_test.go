@@ -9,9 +9,126 @@
 package sdk
 
 import (
+	"encoding/json"
 	"os"
 	"testing"
+	"time"
 )
+
+func TestRongCloud_MessageExpansionDel(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.MessageExpansionDel("C16R-VBGG-1IE5-SD0C",
+		"u01",
+		"3",
+		"testExp0309",
+		"[\"key1\",\"key2\"]",
+		1,
+	); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log("do UGMessageGet suc")
+}
+
+func TestRongCloud_MessageExpansionSet(t *testing.T) {
+	data, err := json.Marshal(map[string]string{"type": "3"})
+	if err != nil {
+		t.Log("marshal err", err)
+		return
+	}
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.MessageExpansionSet("C16R-VBGG-1IE5-SD0C",
+		"u01",
+		"3",
+		"testExp0309",
+		string(data),
+		1,
+	); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log("do UGMessageGet suc")
+}
+
+func TestRongCloud_UGMessageGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UGMessageGet("target_001", []UGMessageData{
+		{
+			MsgUid:     "C16R-VBGG-1IE5-SD0C",
+			BusChannel: "001",
+		},
+	}); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log("do UGMessageGet suc")
+}
+
+func TestRongCloud_UGMessageModify(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
+		"", "", "1", "0", "0", "", "{\"key1\":\"key1\"}",
+		false, false, &PushExt{
+			Title:                "you have a new message.",
+			TemplateId:           "123456",
+			ForceShowPushContent: 0,
+			PushConfigs: []map[string]map[string]string{
+				{
+					"HW": {
+						"channelId": "NotificationKanong",
+					},
+				},
+				{
+					"MI": {
+						"channelId": "rongcloud_kanong",
+					},
+				},
+				{
+					"OPPO": {
+						"channelId": "rc_notification_id",
+					},
+				},
+				{
+					"VIVO": {
+						"classification": "0",
+					},
+				},
+				{
+					"APNs": {
+						"thread-id":        "1",
+						"apns-collapse-id": "1",
+					},
+				},
+			},
+		}, "testExp0309")
+	if err != nil {
+		t.Errorf("ug message send err:%v", err)
+		return
+	}
+	t.Log("ug message send suc")
+	time.Sleep(1 * time.Second)
+	// note : msgUID是通过全量消息路由获取， 详情：https://doc.rongcloud.cn/imserver/server/v1/message/sync
+	if err := rc.UGMessageModify("testExp0309", "aa", "C1PL-LJQR-0U1B-ADFN", "哈喽", UgMessageExtension{
+		BusChannel: "",
+		MsgRandom:  0,
+	}); err != nil {
+		t.Errorf("UGMessageModify request err:%v", err)
+		return
+	}
+	t.Log("UGMessageModify suc")
+}
 
 func TestMessageBroadcastRecall(t *testing.T) {
 	rc := NewRongCloud(

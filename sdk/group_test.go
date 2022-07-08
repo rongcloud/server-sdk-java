@@ -5,6 +5,84 @@ import (
 	"testing"
 )
 
+func TestRongCloud_GroupRemarksGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.GroupRemarksGet(
+		"u02",
+		"1",
+	); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log(" suc")
+}
+
+func TestRongCloud_GroupRemarksDel(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.GroupRemarksDel(
+		"u02",
+		"1",
+	); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log(" suc")
+}
+
+func TestRongCloud_GroupRemarksSet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.GroupRemarksSet(
+		"u02",
+		"1",
+		"1",
+	); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log(" suc")
+}
+
+func TestRongCloud_GroupUserGagAdd(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.GroupUserGagAdd(
+		"u02",
+		"",
+		"1",
+	); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log(" suc")
+
+}
+
+func TestRongCloud_GroupUserQuery(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	if err := rc.GroupUserQuery(
+		"u02",
+	); err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log("group user query suc")
+}
+
 func TestRongCloud_GroupCreate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

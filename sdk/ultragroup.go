@@ -807,7 +807,7 @@ type PushExt struct {
 	PushConfigs          []map[string]map[string]string `json:"pushConfigs,omitempty"`
 }
 
-// UGMessagePublish 发送消息时设置扩展
+// UGMessagePublish 超级群消息发送
 func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isMentioned, contentAvailable, busChannel, extraContent string, expansion, unreadCountFlag bool, pushExt *PushExt, toGroupIds ...string) error {
 	if fromUserId == "" {
 		return RCErrorNewV2(1002, "param 'fromUserId' is required")
