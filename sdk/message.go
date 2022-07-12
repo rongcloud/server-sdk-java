@@ -606,11 +606,11 @@ func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string
 	}
 
 	if len(msgUID) == 0 {
-		return nil, RCErrorNew(1002, "Paramer 'fromUserId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'msgUID' is required")
 	}
 
 	if len(content) == 0 {
-		return nil, RCErrorNew(1002, "Paramer 'fromUserId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'content' is required")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/msg/modify.json")
