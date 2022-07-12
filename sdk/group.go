@@ -35,23 +35,23 @@ type GroupInfo struct {
 //
 //
 //*/
-func (rc *RongCloud) GroupRemarksGet(userId string, groupId string) error {
+func (rc *RongCloud) GroupRemarksGet(userId string, groupId string) ([]byte, error) {
 	if len(userId) == 0 {
-		return RCErrorNew(1002, "Paramer 'userId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 	if len(groupId) == 0 {
-		return RCErrorNew(1002, "Paramer 'groupId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 	req := httplib.Post(rc.rongCloudURI + "/group/remarks/get.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("groupId", groupId)
 	req.Param("userId", userId)
-	_, err := rc.do(req)
+	res, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 	}
-	return err
+	return res, err
 }
 
 // GroupRemarksDel :/group/remarks/del.json 删除群成员推送备注名
@@ -142,20 +142,20 @@ func (rc *RongCloud) GroupUserGagAdd(userId string, groupId string, minute strin
 //*
 // @param  userId:用户 ID
 //*/
-func (rc *RongCloud) GroupUserQuery(userId string) error {
+func (rc *RongCloud) GroupUserQuery(userId string) ([]byte, error) {
 	if len(userId) == 0 {
-		return RCErrorNew(1002, "Paramer 'userId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 	req := httplib.Post(rc.rongCloudURI + "/user/group/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("userId", userId)
 
-	_, err := rc.do(req)
+	res, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 	}
-	return err
+	return res, err
 }
 
 // GroupCreate 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join 的别名。）

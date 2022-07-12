@@ -10,14 +10,15 @@ func TestRongCloud_GroupRemarksGet(t *testing.T) {
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
 	)
-	if err := rc.GroupRemarksGet(
+	if res, err := rc.GroupRemarksGet(
 		"u02",
 		"1",
 	); err != nil {
 		t.Error(err)
 		return
+	} else {
+		t.Log(" suc", string(res))
 	}
-	t.Log(" suc")
 }
 
 func TestRongCloud_GroupRemarksDel(t *testing.T) {
@@ -74,13 +75,15 @@ func TestRongCloud_GroupUserQuery(t *testing.T) {
 		os.Getenv("APP_SECRET"),
 	)
 
-	if err := rc.GroupUserQuery(
+	if res, err := rc.GroupUserQuery(
 		"u02",
 	); err != nil {
 		t.Error(err)
 		return
+	} else {
+		t.Log("group user query suc,res is:", string(res))
 	}
-	t.Log("group user query suc")
+
 }
 
 func TestRongCloud_GroupCreate(t *testing.T) {

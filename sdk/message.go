@@ -647,18 +647,18 @@ type UGMessageData struct {
 // @param  groupId:超级群 ID
 // @param  msgList:消息参数数组   每个元素是UGMessageData
 //*/
-func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, options ...MsgOption) error {
+func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, options ...MsgOption) ([]byte, error) {
 	if len(groupId) == 0 {
-		return RCErrorNew(1002, "Paramer 'groupId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 
 	if len(msgList) == 0 {
-		return RCErrorNew(1002, "Paramer 'msgList' is required")
+		return nil, RCErrorNew(1002, "Paramer 'msgList' is required")
 	}
 
 	msg, err := json.Marshal(msgList)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	extOptions := modifyMsgOptions(options)
 
@@ -672,11 +672,11 @@ func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, optio
 	if extOptions.busChannel != "" {
 		req.Param("busChannel", extOptions.busChannel)
 	}
-	_, err = rc.do(req)
+	res, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 	}
-	return err
+	return res, err
 }
 
 // UGMessageRecall 超级群消息撤回

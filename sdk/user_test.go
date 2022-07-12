@@ -18,11 +18,12 @@ func TestRongCloud_UserRemarksGet(t *testing.T) {
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
 	)
-	if err := rc.UserRemarksGet("u01", 1, 1); err != nil {
+	if res, err := rc.UserRemarksGet("u01", 1, 1); err != nil {
 		t.Errorf("user remark get err:%v", err)
 		return
+	} else {
+		t.Log("user remark get suc", string(res))
 	}
-	t.Log("user remark get suc")
 }
 
 func TestRongCloud_UserRemarksDel(t *testing.T) {
@@ -50,6 +51,19 @@ func TestRongCloud_UserRemarksSet(t *testing.T) {
 		return
 	}
 	t.Log("user remark set suc")
+}
+
+func TestRongCloud_UserChatFbQueryList(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.UserChatFbQueryList(0, 0, "PERSON"); err != nil {
+		t.Errorf("user chat fb set err:%v", err)
+		return
+	} else {
+		t.Log("user chat fb set suc", string(res))
+	}
 }
 
 func TestRongCloud_UserChatFbSet(t *testing.T) {

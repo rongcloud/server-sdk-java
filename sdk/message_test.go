@@ -61,7 +61,7 @@ func TestRongCloud_UGMessageGet(t *testing.T) {
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
 	)
-	if err := rc.UGMessageGet("target_001", []UGMessageData{
+	if res, err := rc.UGMessageGet("target_001", []UGMessageData{
 		{
 			MsgUid:     "C16R-VBGG-1IE5-SD0C",
 			BusChannel: "001",
@@ -69,8 +69,10 @@ func TestRongCloud_UGMessageGet(t *testing.T) {
 	}); err != nil {
 		t.Error(err)
 		return
+	} else {
+		t.Log("do UGMessageGet suc", string(res))
 	}
-	t.Log("do UGMessageGet suc")
+
 }
 
 func TestRongCloud_UGMessageModify(t *testing.T) {

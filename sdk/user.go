@@ -64,9 +64,9 @@ type WhiteList struct {
 //  @param: page :页数，默认为第一页。
 //  @param: size :每页条数，默认每页 50 条
 //*/
-func (rc *RongCloud) UserRemarksGet(userId string, page, size int) error {
+func (rc *RongCloud) UserRemarksGet(userId string, page, size int) ([]byte, error) {
 	if len(userId) == 0 {
-		return RCErrorNew(1002, "Paramer 'userId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 	req := httplib.Post(rc.rongCloudURI + "/user/remarks/get.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -74,11 +74,11 @@ func (rc *RongCloud) UserRemarksGet(userId string, page, size int) error {
 	req.Param("userId", userId)
 	req.Param("page", strconv.Itoa(page))
 	req.Param("size", strconv.Itoa(size))
-	_, err := rc.do(req)
+	res, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 	}
-	return err
+	return res, err
 }
 
 // UserRemarksDel /user/remarks/del.json  删除用户级送备注名
@@ -141,6 +141,33 @@ func (rc *RongCloud) UserRemarksSet(userId string, remarks []UserRemark) error {
 		rc.urlError(err)
 	}
 	return err
+}
+
+// UserChatFbQueryList * /user/chat/fb/querylist
+// 查询禁言用户列表
+// @param: num :获取行数，默认为 100，最大支持 200 个
+// @param: offset :查询开始位置，默认为 0。
+// @param: t  :会话类型，目前支持单聊会话 PERSON。
+//*/
+func (rc *RongCloud) UserChatFbQueryList(num, offset int, t string) ([]byte, error) {
+	if num == 0 {
+		num = 100
+	}
+	if len(t) == 0 {
+		return nil, RCErrorNew(1002, "Paramer 'type' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/chat/fb/querylist.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("num", strconv.Itoa(num))
+	req.Param("offset", strconv.Itoa(offset))
+	req.Param("type", t)
+	res, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return res, err
 }
 
 // UserChatFbSet *
