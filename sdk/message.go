@@ -596,21 +596,21 @@ func (rc *RongCloud) MessageExpansionDel(msgUID, userId, conversationType, targe
 // @param  busChannel:频道 Id，支持英文字母、数字组合，最长为 20 个字符
 // @param  msgRandom:请求唯一标识,，保证一分钟之内的请求幂等
 //*/
-func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string, options ...UgMessageExtension) error {
+func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string, options ...UgMessageExtension) ([]byte, error) {
 	if len(groupId) == 0 {
-		return RCErrorNew(1002, "Paramer 'groupId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'groupId' is required")
 	}
 
 	if len(fromUserId) == 0 {
-		return RCErrorNew(1002, "Paramer 'fromUserId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'fromUserId' is required")
 	}
 
 	if len(msgUID) == 0 {
-		return RCErrorNew(1002, "Paramer 'fromUserId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'fromUserId' is required")
 	}
 
 	if len(content) == 0 {
-		return RCErrorNew(1002, "Paramer 'fromUserId' is required")
+		return nil, RCErrorNew(1002, "Paramer 'fromUserId' is required")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/msg/modify.json")
@@ -626,11 +626,11 @@ func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string
 		req.Param("busChannel", options[0].BusChannel)
 		req.Param("msgRandom", fmt.Sprintf("%v", options[0].MsgRandom))
 	}
-	_, err := rc.do(req)
+	res, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 	}
-	return err
+	return res, err
 }
 
 // UGMessageData ：UGMessageGet方法中的消息参数数组

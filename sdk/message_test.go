@@ -122,14 +122,15 @@ func TestRongCloud_UGMessageModify(t *testing.T) {
 	t.Log("ug message send suc")
 	time.Sleep(1 * time.Second)
 	// note : msgUID是通过全量消息路由获取， 详情：https://doc.rongcloud.cn/imserver/server/v1/message/sync
-	if err := rc.UGMessageModify("testExp0309", "aa", "C1PL-LJQR-0U1B-ADFN", "哈喽", UgMessageExtension{
+	if res, err := rc.UGMessageModify("testExp0309", "aa", "C1PL-LJQR-0U1B-ADFN", "哈喽", UgMessageExtension{
 		BusChannel: "",
 		MsgRandom:  0,
 	}); err != nil {
 		t.Errorf("UGMessageModify request err:%v", err)
 		return
+	} else {
+		t.Log("UGMessageModify suc", string(res))
 	}
-	t.Log("UGMessageModify suc")
 }
 
 func TestMessageBroadcastRecall(t *testing.T) {
