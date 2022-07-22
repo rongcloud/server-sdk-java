@@ -4,6 +4,7 @@ import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.methods.user.blacklist.Blacklist;
 import io.rong.methods.user.block.Block;
+import io.rong.methods.user.blockpushperiod.BlockPushPeriod;
 import io.rong.methods.user.mute.MuteChatrooms;
 import io.rong.methods.user.mute.MuteGroups;
 import io.rong.methods.user.onlinestatus.OnlineStatus;
@@ -19,10 +20,8 @@ import io.rong.util.*;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
-import java.util.List;
 
 import com.alibaba.fastjson.JSONException;
-import com.google.gson.JsonSyntaxException;
 
 
 /**
@@ -44,6 +43,7 @@ public class User {
     public MuteChatrooms muteChatrooms;
     public MuteGroups muteGroups;
     public Ban ban;
+    public BlockPushPeriod blockPushPeriod;
     private RongCloud rongCloud;
 
     public RongCloud getRongCloud() {
@@ -67,6 +67,7 @@ public class User {
         this.tag = new Tag(appKey, appSecret, rongCloud);
         this.ban = new Ban(appKey, appSecret, rongCloud);
         this.remark = new Remark(appKey, appSecret, rongCloud);
+        this.blockPushPeriod = new BlockPushPeriod(appKey, appSecret, rongCloud);
     }
 
     /**

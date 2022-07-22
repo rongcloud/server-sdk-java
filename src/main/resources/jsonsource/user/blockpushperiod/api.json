@@ -1,0 +1,109 @@
+{
+	"add": {
+		"docs": "http://rongcloud.cn/docs/server.html#user_blacklist_add",
+		"url": "user/blockPushPeriod/add",
+		"params": {
+			"unpush": {
+				"id": "kkfh091",
+				"startTime": "23:59:59",
+				"period": 100
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"errorMessage": "成功返回"
+			},
+			"fail": {
+				"20002": {
+					"code": "1002",
+					"errorMessage": "{{name}} 数量超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20003": {
+					"code": "1002",
+					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
+				},
+				"20001": {
+					"code": "1002",
+					"errorMessage": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+				}
+			}
+		}
+	},
+	"remove": {
+		"docs": "http://rongcloud.cn/docs/server.html#user_blacklist_remove",
+		"url": "user/blockPushPeriod/del",
+		"params": {
+			"user": {
+				"id": "kkfh091"
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"errorMessage": "成功返回"
+			},
+			"fail": {
+				"20002": {
+					"code": "1002",
+					"errorMessage": "{{name}} 数量超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20003": {
+					"code": "1002",
+					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
+				},
+				"20001": {
+					"code": "1002",
+					"errorMessage": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				}
+			}
+		}
+	},
+	"getList": {
+		"docs": "http://rongcloud.cn/docs/server.html#user_blacklist_query",
+		"url": "user/blockPushPeriod/get",
+		"params": {
+			"user": {
+				"id": "kkfh091"
+			}
+		},
+		"success": {
+			"code": "200",
+			"users": [{
+				"id": "kkfh091"
+			}]
+		},
+		"response": {
+			"fail": {
+				"20003": {
+					"code": "1002",
+					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} 参数为必传项"
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+				}
+			}
+		}
+	}
+}

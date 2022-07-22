@@ -5,6 +5,7 @@ import io.rong.RongCloud;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
 import io.rong.messages.RcCmdMessage;
+import io.rong.methods.user.blockpushperiod.BlockPushPeriod;
 import io.rong.models.Result;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
@@ -2239,6 +2240,63 @@ public class Example {
         System.out.println("sendUser:  " + sendUser.toString());
 
         assertEquals("200", sendUser.getCode().toString());
+    }
+
+    /**
+     * 添加用户免打扰时间段（每秒钟限 100 次）
+     */
+    @Test
+    public void testAddBlockPushPeriod() throws Exception {
+        BlockPushPeriodModel periodModel = new BlockPushPeriodModel();
+//        periodModel.setId("test");
+
+        Result result = rongCloud.user.blockPushPeriod.add(periodModel);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("AddBlockPushPeriod: [t1] " + result.toString());
+
+        periodModel.setId("wlt01");
+        periodModel.setPeriod(333);
+        result = rongCloud.user.blockPushPeriod.add(periodModel);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("AddBlockPushPeriod: [t2] " + result.toString());
+
+        periodModel.setStartTime("23:59:59");
+        result = rongCloud.user.blockPushPeriod.add(periodModel);
+        System.out.println(result);
+        assertEquals("200", result.getCode().toString());
+        System.out.println("AddBlockPushPeriod: [t3] " + result.toString());
+    }
+
+    /**
+     * 获取某用户的免打扰时间段（每秒钟限 100 次）
+     */
+    @Test
+    public void testGetBlockPushPeriod() throws Exception {
+        UserModel user = new UserModel().setId("wlt01");
+        BlockPushPeriodResult result = rongCloud.user.blockPushPeriod.getList(new UserModel().setId(""));
+        System.out.println("getBlockPushPeriod: [t1] " + result.toString());
+        assertEquals("1002", result.getCode().toString());
+
+        result = rongCloud.user.blockPushPeriod.getList(user);
+        System.out.println("getBlockPushPeriod: [t2] " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 移除免打扰时间段（每秒钟限 100 次）
+     */
+    @Test
+    public void testRemoveBlockPushPeriod() throws Exception {
+        UserModel user = new UserModel();
+        Result result = rongCloud.user.blockPushPeriod.remove(user);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("delBlockPushPeriod: [t1] " + result.toString());
+
+        user.setId("wlt01");
+        result = rongCloud.user.blockPushPeriod.remove(user);
+        assertEquals("200", result.getCode().toString());
+        System.out.println("delBlockPushPeriod: [t2] " + result.toString());
+
     }
 
 

@@ -203,6 +203,36 @@
       }
     }
   },
+  "unpush":{
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "1501"
+      }
+    },
+    "id": {
+      "require": {
+        "must": true,
+        "invalid": "1002"
+      }
+    },
+    "startTime": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "period": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
   "set": {
     "_self": {
       "require": {
