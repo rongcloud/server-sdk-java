@@ -67,6 +67,160 @@ type UGMessage struct {
 	BusChannel          string   `json:"bus_channel,omitempty"`
 }
 
+// UGGroupChannelGet :频道查询-返回结果带频道类型 /ultragroup/channel/get.json
+//  groupId=ug_m_gid_lw_1&page=1&limit=20
+//
+func (rc *RongCloud) UGGroupChannelGet(groupId, page, limit string) ([]byte, error) {
+	if len(groupId) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("page", page)
+	req.Param("limit", limit)
+	// http
+	return rc.do(req)
+}
+
+// UGChannelPrivateUserGet :私有频道白名单用户-查询   /ultragroup/channel/private/users/get.json
+//  groupId=ug_m_gid_lw_1&busChannel=channel001&page=1&pageSize=1000
+//
+func (rc *RongCloud) UGChannelPrivateUserGet(groupId, busChannel, page, pageSize string) ([]byte, error) {
+	if len(groupId) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if len(busChannel) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'busChannel' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/private/users/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("page", page)
+	req.Param("pageSize", pageSize)
+	// http
+	return rc.do(req)
+}
+
+// UGChannelPrivateUserDel :私有频道白名单用户-删除   /ultragroup/channel/private/users/del.json
+//  groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
+//
+func (rc *RongCloud) UGChannelPrivateUserDel(groupId, busChannel, userIds string) ([]byte, error) {
+	if len(groupId) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if len(busChannel) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'busChannel' is required")
+	}
+
+	if len(userIds) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'userIds' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/private/users/del.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("userIds", userIds)
+	// http
+	return rc.do(req)
+}
+
+// UGChannelPrivateUserAdd :私有频道白名单用户-添加   /ultragroup/channel/private/users/add.json
+//  groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
+//
+func (rc *RongCloud) UGChannelPrivateUserAdd(groupId, busChannel, userIds string) ([]byte, error) {
+	if len(groupId) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if len(busChannel) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'busChannel' is required")
+	}
+
+	if len(userIds) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'userIds' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/private/users/add.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("userIds", userIds)
+	// http
+	return rc.do(req)
+}
+
+// UGGroupChannelCreate : 频道创建-支持设置频道类型/ultragroup/channel/create.json
+//*
+// groupId=ug_m_gid_lw_1&busChannel=channel001&type=0
+//
+//
+//*//
+func (rc *RongCloud) UGGroupChannelCreate(groupId, busChannel, t string) ([]byte, error) {
+	if len(groupId) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if len(busChannel) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'busChannel' is required")
+	}
+
+	if len(t) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'type' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/create.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("type", t)
+	// http
+	return rc.do(req)
+}
+
+// UGGroupChannelChange : /ultragroup/channel/type/change  公私频道类型设置(切换)
+//*
+//  @param: groupId
+//  @param: busChannel
+//  @param: type
+//
+//*//
+func (rc *RongCloud) UGGroupChannelChange(groupId, busChannel, t string) ([]byte, error) {
+	if len(groupId) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
+	}
+
+	if len(busChannel) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'busChannel' is required")
+	}
+
+	if len(t) == 0 {
+		return nil, RCErrorNewV2(1002, "param 'type' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/channel/type/change.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("type", t)
+	// http
+	return rc.do(req)
+}
+
 // 创建群组
 func (rc *RongCloud) UGGroupCreate(userId, groupId, groupName string) (err error, requestId string) {
 	if userId == "" {

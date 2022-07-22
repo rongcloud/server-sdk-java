@@ -58,6 +58,32 @@ type WhiteList struct {
 	Users []string `json:"users"`
 }
 
+// UserTokenExpire /user/token/expire.json Token 失效
+//*
+//  @param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
+//  @param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
+//
+//*//
+func (rc *RongCloud) UserTokenExpire(userId string, t int64) ([]byte, error) {
+	if len(userId) == 0 {
+		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if t <= 0 {
+		return nil, RCErrorNew(1002, "Paramer 'time' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/token/expire.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("time", fmt.Sprintf("%v", t))
+	res, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return res, err
+}
+
 // UserRemarksGet /user/remarks/get.json  查询用户级送备注名
 //*
 //  @param: userId :用户ID。

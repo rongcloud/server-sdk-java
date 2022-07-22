@@ -13,6 +13,19 @@ import (
 	"testing"
 )
 
+func TestRongCloud_UserTokenExpire(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.UserTokenExpire("u01", 1619469955344); err != nil {
+		t.Errorf("UserTokenExpire err:%v", err)
+		return
+	} else {
+		t.Log("user remark get suc", string(res))
+	}
+}
+
 func TestRongCloud_UserRemarksGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

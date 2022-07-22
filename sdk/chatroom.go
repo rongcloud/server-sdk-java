@@ -61,6 +61,33 @@ type ChatRoomAttrResult struct {
 	Keys []ChatRoomAttr `json:"keys"`
 }
 
+// ChatUserExist :/chatroom/user/exist.json 查询用户是否加入聊天室
+//*
+//  @param: chatroomId，要查询的聊天室 ID
+//  @param: userId, 要查询的用户 ID
+//*//
+func (rc *RongCloud) ChatUserExist(chatroomId, userId string) ([]byte, error) {
+	if len(chatroomId) == 0 {
+		return nil, RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+	if len(userId) == 0 {
+		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/exist.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatroomId)
+	req.Param("userId", userId)
+
+	res, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return res, err
+
+}
+
 // ChatRoomCreate 创建聊天室方法
 /*
  *@param  id:要创建的聊天室的ID；

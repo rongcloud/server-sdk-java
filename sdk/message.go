@@ -587,7 +587,7 @@ func (rc *RongCloud) MessageExpansionDel(msgUID, userId, conversationType, targe
 
 // 超级群消息修改
 
-// UGMessageModify : 根据消息 ID 批量获取超级群消息 /ultragroup/msg/modify.json
+// UGMessageModify : 超级群消息修改 /ultragroup/msg/modify.json
 //*
 // @param  groupId:超级群 ID
 // @param  fromUserId:消息发送者

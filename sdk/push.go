@@ -106,6 +106,106 @@ type PushNotification struct {
 	Android     map[string]interface{} `json:"android,omitempty"` // Android 设置 Android 平台下的推送及附加信息，详细查看 android 结构说明。
 }
 
+type PushCustomData struct {
+	Platform []string `json:"platform"`
+	Audience struct {
+		Tag     []string `json:"tag,omitempty"`
+		TagOr   []string `json:"tag_or,omitempty"`
+		IsToAll bool     `json:"is_to_all"`
+		Package string   `json:"packageName,omitempty"`
+	} `json:"audience"`
+	Notification struct {
+		Title string `json:"title,omitempty"`
+		Alert string `json:"alert"`
+		Ios   struct {
+			ThreadId       string `json:"thread-id"`
+			ApnsCollapseId string `json:"apns-collapse-id"`
+			Extras         struct {
+				Id   string `json:"id"`
+				Name string `json:"name"`
+			} `json:"extras"`
+		} `json:"ios,omitempty"`
+		Android struct {
+			Hw struct {
+				ChannelId  string `json:"channelId"`
+				Importance string `json:"importance"`
+				Image      string `json:"image"`
+			} `json:"hw"`
+			Mi struct {
+				ChannelId    string `json:"channelId"`
+				LargeIconUri string `json:"large_icon_uri"`
+			} `json:"mi"`
+			Oppo struct {
+				ChannelId string `json:"channelId"`
+			} `json:"oppo"`
+			Vivo struct {
+				Classification string `json:"classification"`
+			} `json:"vivo"`
+			Extras struct {
+				Id   string `json:"id"`
+				Name string `json:"name"`
+			} `json:"extras"`
+		} `json:"android,omitempty"`
+	} `json:"notification"`
+}
+
+// PushCustom : 全量用户不落地通知  /push/custom.json
+//*
+//  @param: p：参考这个TestRongCloud_PushCustom 单元测试传递的参数
+//  @param: platform []string 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。
+//  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
+//  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
+// {
+//  "platform":["ios","android"],
+//  "audience":{
+//    "tag":["女","年轻"],
+//    "tag_or":["北京","上海"],
+//    "is_to_all":false
+//  },
+//  "notification":{
+//    "title":"标题",
+//    "alert":"this is a push",
+//    "ios":
+//      {
+//        "thread-id":"223",
+//        "apns-collapse-id":"111",
+//        "extras": {"id": "1","name": "2"}
+//      },
+//    "android": {
+//        "hw":{
+//            "channelId":"NotificationKanong",
+//            "importance": "NORMAL",
+//            "image":"https://example.com/image.png"
+//        },
+//        "mi":{
+//            "channelId":"rongcloud_kanong",
+//            "large_icon_uri":"https://example.com/image.png"
+//        },
+//        "oppo":{
+//            "channelId":"rc_notification_id"
+//        },
+//        "vivo":{
+//            "classification":"0"
+//        },
+//        "extras": {"id": "1","name": "2"}
+//      }
+//  }
+//}
+// 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
+//*//
+func (rc *RongCloud) PushCustom(p []byte) ([]byte, error) {
+	var err error
+	req := httplib.Post(rc.rongCloudURI + "/push/custom.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Body(p)
+	code, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return code, err
+}
+
 // PushUser 向应用中指定用户发送不落地通知，不落地通知无论用户是否正在使用 App，都会向该用户发送通知，通知只会展示在通知栏，通知中不携带消息内容，登录 App 后不会在聊天页面看到该内容，不会存储到本地数据库。
 func (rc *RongCloud) PushUser(notification *PushNotification, users ...string) error {
 	if notification == nil {

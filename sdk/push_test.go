@@ -13,7 +13,55 @@ type selfExtras struct {
 // ToJSON 实现 Extras Interface
 func (s selfExtras) ToJSON() ([]byte, error) {
 	return json.Marshal(s)
+}
 
+func TestRongCloud_PushCustom(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	str := `{
+  "platform":["ios","android"],
+  "audience":{
+    "tag":["女","年轻"],
+    "tag_or":["北京","上海"],
+    "is_to_all":false
+  },
+  "notification":{
+    "title":"标题",
+    "alert":"this is a push",
+    "ios":
+      {
+        "thread-id":"223",
+        "apns-collapse-id":"111",
+        "extras": {"id": "1","name": "2"}
+      },
+    "android": {
+        "hw":{
+            "channelId":"NotificationKanong",
+            "importance": "NORMAL",
+            "image":"https://example.com/image.png"
+        },
+        "mi":{
+            "channelId":"rongcloud_kanong",
+            "large_icon_uri":"https://example.com/image.png"
+        },
+        "oppo":{
+            "channelId":"rc_notification_id"
+        },
+        "vivo":{
+            "classification":"0"
+        },
+        "extras": {"id": "1","name": "2"}
+      }
+  }
+}`
+	res, err := rc.PushCustom([]byte(str))
+	if err != nil {
+		t.Errorf("push custom err:%v", err)
+		return
+	}
+	t.Log("push suc res is:", res)
 }
 
 func TestRongCloud_PushSend(t *testing.T) {

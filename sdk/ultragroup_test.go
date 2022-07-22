@@ -5,6 +5,118 @@ import (
 	"testing"
 )
 
+func TestRongCloud_UGGroupChannelGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGGroupChannelGet(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"1",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGChannelPrivateUserGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGChannelPrivateUserGet(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"1",
+		"1",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGChannelPrivateUserDel(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGChannelPrivateUserDel(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"0",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGChannelPrivateUserAdd(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGChannelPrivateUserAdd(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"0",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGGroupChannelCreate(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UltraGroupCreate("1", "ug_m_gid_lw_1", "ug_m_gid_lw_1"); err != nil {
+		t.Errorf("UltraGroupCreate err:%v", err)
+		return
+	}
+
+	res, err := rc.UGGroupChannelCreate(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"0",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGGroupChannelChange(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	res, err := rc.UGGroupChannelChange(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"1",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%v", string(res))
+}
+
 func Test_UGGroupUpdate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
