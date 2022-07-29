@@ -5,6 +5,22 @@ import (
 	"testing"
 )
 
+func TestRongCloud_ChatUserExistResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	res, err := rc.ChatUserExistResObj(
+		"chrm01",
+		"rcchrm01",
+	)
+	if err != nil {
+		t.Errorf("chat user exist err:%v", err)
+		return
+	}
+	t.Logf("suc :%v", res)
+}
+
 func TestRongCloud_ChatUserExist(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

@@ -13,6 +13,19 @@ import (
 	"testing"
 )
 
+func TestRongCloud_UserTokenExpireResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.UserTokenExpireResObj("u01", 1619469955344); err != nil {
+		t.Errorf("UserTokenExpire err:%v", err)
+		return
+	} else {
+		t.Logf("user remark get suc:%+v", res)
+	}
+}
+
 func TestRongCloud_UserTokenExpire(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
@@ -23,6 +36,19 @@ func TestRongCloud_UserTokenExpire(t *testing.T) {
 		return
 	} else {
 		t.Log("user remark get suc", string(res))
+	}
+}
+
+func TestRongCloud_UserRemarksGetResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.UserRemarksGetResObj("u01", 1, 1); err != nil {
+		t.Errorf("user remark get err:%v", err)
+		return
+	} else {
+		t.Logf("user remark get suc :%+v", res)
 	}
 }
 
@@ -64,6 +90,19 @@ func TestRongCloud_UserRemarksSet(t *testing.T) {
 		return
 	}
 	t.Log("user remark set suc")
+}
+
+func TestRongCloud_UserChatFbQueryListResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.UserChatFbQueryListResObj(0, 0, "PERSON"); err != nil {
+		t.Errorf("user chat fb set err:%v", err)
+		return
+	} else {
+		t.Logf("user chat fb set suc:%+v", res)
+	}
 }
 
 func TestRongCloud_UserChatFbQueryList(t *testing.T) {

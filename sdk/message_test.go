@@ -56,6 +56,24 @@ func TestRongCloud_MessageExpansionSet(t *testing.T) {
 	t.Log("do UGMessageGet suc")
 }
 
+func TestRongCloud_UGMessageGetObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.UGMessageGetObj("target_001", []UGMessageData{
+		{
+			MsgUid:     "C16R-VBGG-1IE5-SD0C",
+			BusChannel: "001",
+		},
+	}); err != nil {
+		t.Error(err)
+		return
+	} else {
+		t.Logf("do UGMessageGet suc :%+v", res)
+	}
+}
+
 func TestRongCloud_UGMessageGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

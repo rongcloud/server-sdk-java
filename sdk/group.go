@@ -28,12 +28,52 @@ type GroupInfo struct {
 	GroupInfo []Group `json:"groupinfo"`
 }
 
+type GroupRemarksGetObj struct {
+	// 返回码，200 为正常。
+	Code int `json:"code"`
+
+	// 备注名称
+	Remark string `json:"remark"`
+}
+
+// GroupRemarksGetResObj :/group/remarks/get.json 查询群成员推送备注名
+//*
+// @param : userId : 群成员用户 ID
+// @param : groupId : 群ID
+// response : byte数组
+// 文档： https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
+//*/
+func (rc *RongCloud) GroupRemarksGetResObj(userId string, groupId string) (GroupRemarksGetObj, error) {
+	var (
+		result = GroupRemarksGetObj{}
+	)
+	if len(userId) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if len(groupId) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'groupId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/group/remarks/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("groupId", groupId)
+	req.Param("userId", userId)
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
 // GroupRemarksGet :/group/remarks/get.json 查询群成员推送备注名
 //*
 // @param : userId : 群成员用户 ID
 // @param : groupId : 群ID
-//
-//
+// response : byte数组
+// 文档： https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
 //*/
 func (rc *RongCloud) GroupRemarksGet(userId string, groupId string) ([]byte, error) {
 	if len(userId) == 0 {
@@ -138,9 +178,55 @@ func (rc *RongCloud) GroupUserGagAdd(userId string, groupId string, minute strin
 	return err
 }
 
+// GroupUserQueryObj : GroupUserQueryResObj 的返回值
+type GroupUserQueryObj struct {
+	// 返回码，200 为正常
+	Code int `json:"code"`
+
+	// 用户加入的群信息数组。
+	Groups []GroupUserQueryGroup `json:"groups"`
+}
+
+type GroupUserQueryGroup struct {
+	// 群名称。
+	Name string `json:"name"`
+
+	// 群组 ID。
+	Id string `json:"id"`
+}
+
+// GroupUserQueryResObj : 根据用户 ID 查询该用户加入的所有群组，返回群组 ID 及群组名称。
+//*
+// @param  userId:用户 ID
+// response: GroupUserQueryObj
+// 文档： https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
+//*/
+func (rc *RongCloud) GroupUserQueryResObj(userId string) (GroupUserQueryObj, error) {
+	var (
+		result = GroupUserQueryObj{}
+	)
+	if len(userId) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/group/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
 // GroupUserQuery : 根据用户 ID 查询该用户加入的所有群组，返回群组 ID 及群组名称。
 //*
 // @param  userId:用户 ID
+// 文档 ： https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
 //*/
 func (rc *RongCloud) GroupUserQuery(userId string) ([]byte, error) {
 	if len(userId) == 0 {

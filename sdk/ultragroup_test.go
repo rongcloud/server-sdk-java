@@ -5,6 +5,24 @@ import (
 	"testing"
 )
 
+func TestRongCloud_UltraGroupChannelGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UltraGroupChannelGet(
+		"ug_m_gid_lw_1",
+		1,
+		1,
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%+v", res)
+}
+
 func TestRongCloud_UGGroupChannelGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
@@ -13,14 +31,33 @@ func TestRongCloud_UGGroupChannelGet(t *testing.T) {
 
 	res, err := rc.UGGroupChannelGet(
 		"ug_m_gid_lw_1",
-		"channel001",
-		"1",
+		001,
+		1,
 	)
 	if err != nil {
 		t.Errorf("err:%v", err)
 		return
 	}
 	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGChannelPrivateUserGetResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGChannelPrivateUserGetResObj(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"1",
+		"1",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%+v", res)
 }
 
 func TestRongCloud_UGChannelPrivateUserGet(t *testing.T) {
@@ -42,6 +79,24 @@ func TestRongCloud_UGChannelPrivateUserGet(t *testing.T) {
 	t.Logf("res is:%v", string(res))
 }
 
+func TestRongCloud_UGChannelPrivateUserDelResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGChannelPrivateUserDelResObj(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"0",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%+v", res)
+}
+
 func TestRongCloud_UGChannelPrivateUserDel(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
@@ -58,6 +113,24 @@ func TestRongCloud_UGChannelPrivateUserDel(t *testing.T) {
 		return
 	}
 	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGChannelPrivateUserAddResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGChannelPrivateUserAddResObj(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"0",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%+v", res)
 }
 
 func TestRongCloud_UGChannelPrivateUserAdd(t *testing.T) {
@@ -98,6 +171,23 @@ func TestRongCloud_UGGroupChannelCreate(t *testing.T) {
 		return
 	}
 	t.Logf("res is:%v", string(res))
+}
+
+func TestRongCloud_UGGroupChannelChangeResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	res, err := rc.UGGroupChannelChangeResObj(
+		"ug_m_gid_lw_1",
+		"channel001",
+		"1",
+	)
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%+v", res)
 }
 
 func TestRongCloud_UGGroupChannelChange(t *testing.T) {

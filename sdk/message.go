@@ -642,10 +642,70 @@ type UGMessageData struct {
 	BusChannel string `json:"busChannel,omitempty"`
 }
 
+type UGMessageGetData struct {
+	Code int                    `json:"code"`
+	Data []UGMessageGetDataList `json:"data"`
+}
+
+type UGMessageGetDataList struct {
+	FromUserId   string `json:"fromUserId"`
+	GroupId      string `json:"groupId"`
+	SentTime     uint64 `json:"sentTime"`
+	BusChannel   string `json:"busChannel"`
+	MsgUid       string `json:"msgUID"`
+	ObjectName   string `json:"objectName"`
+	Content      string `json:"content"`
+	Expansion    bool   `json:"expansion"`
+	ExtraContent string `json:"extraContent"`
+}
+
+// UGMessageGetObj  : 根据消息 ID 批量获取超级群消息 /ultragroup/msg/get
+//*
+// @param  groupId:超级群 ID
+// @param  msgList:消息参数数组   每个元素是UGMessageData
+// response： 返回结构体
+//*/
+func (rc *RongCloud) UGMessageGetObj(groupId string, msgList []UGMessageData, options ...MsgOption) (UGMessageGetData, error) {
+	respData := UGMessageGetData{}
+	if len(groupId) == 0 {
+		return respData, RCErrorNew(1002, "Paramer 'groupId' is required")
+	}
+
+	if len(msgList) == 0 {
+		return respData, RCErrorNew(1002, "Paramer 'msgList' is required")
+	}
+
+	msg, err := json.Marshal(msgList)
+	if err != nil {
+		return respData, err
+	}
+	extOptions := modifyMsgOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/msg/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("msgs", string(msg))
+
+	if extOptions.busChannel != "" {
+		req.Param("busChannel", extOptions.busChannel)
+	}
+	res, err := rc.do(req)
+	if err != nil {
+		return respData, err
+	}
+	if err := json.Unmarshal(res, &respData); err != nil {
+		return respData, err
+	}
+	return respData, err
+}
+
 // UGMessageGet : 根据消息 ID 批量获取超级群消息 /ultragroup/msg/get
 //*
 // @param  groupId:超级群 ID
 // @param  msgList:消息参数数组   每个元素是UGMessageData
+// response： 返回byte数组
 //*/
 func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, options ...MsgOption) ([]byte, error) {
 	if len(groupId) == 0 {

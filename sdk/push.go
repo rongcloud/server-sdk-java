@@ -149,12 +149,22 @@ type PushCustomData struct {
 	} `json:"notification"`
 }
 
-// PushCustom : 全量用户不落地通知  /push/custom.json
+// PushCustomObj :PushCustomResObj方法的返回值
+type PushCustomObj struct {
+	// 返回码，200 为正常。
+	Code int `json:"code"`
+
+	// 推送唯一标识。
+	Id string `json:"id"`
+}
+
+// PushCustomResObj : 全量用户不落地通知  /push/custom.json
 //*
 //  @param: p：参考这个TestRongCloud_PushCustom 单元测试传递的参数
 //  @param: platform []string 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。
 //  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
 //  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
+// 请求按照下面的方式请求：
 // {
 //  "platform":["ios","android"],
 //  "audience":{
@@ -192,6 +202,75 @@ type PushCustomData struct {
 //  }
 //}
 // 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
+// response: 返回结构体
+// 文档： https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
+//*//
+func (rc *RongCloud) PushCustomResObj(p []byte) (PushCustomObj, error) {
+	var (
+		err    error
+		result = PushCustomObj{}
+	)
+	req := httplib.Post(rc.rongCloudURI + "/push/custom.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Body(p)
+	req.Header("Content-Type", "application/json")
+	code, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(code, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
+// PushCustom : 全量用户不落地通知  /push/custom.json
+//*
+//  @param: p：参考这个TestRongCloud_PushCustom 单元测试传递的参数
+//  @param: platform []string 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。
+//  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
+//  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
+// 请求按照下面的方式请求：
+// {
+//  "platform":["ios","android"],
+//  "audience":{
+//    "tag":["女","年轻"],
+//    "tag_or":["北京","上海"],
+//    "is_to_all":false
+//  },
+//  "notification":{
+//    "title":"标题",
+//    "alert":"this is a push",
+//    "ios":
+//      {
+//        "thread-id":"223",
+//        "apns-collapse-id":"111",
+//        "extras": {"id": "1","name": "2"}
+//      },
+//    "android": {
+//        "hw":{
+//            "channelId":"NotificationKanong",
+//            "importance": "NORMAL",
+//            "image":"https://example.com/image.png"
+//        },
+//        "mi":{
+//            "channelId":"rongcloud_kanong",
+//            "large_icon_uri":"https://example.com/image.png"
+//        },
+//        "oppo":{
+//            "channelId":"rc_notification_id"
+//        },
+//        "vivo":{
+//            "classification":"0"
+//        },
+//        "extras": {"id": "1","name": "2"}
+//      }
+//  }
+//}
+// 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
+// response: 返回byte数组
+// 文档 ： https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
 //*//
 func (rc *RongCloud) PushCustom(p []byte) ([]byte, error) {
 	var err error
@@ -199,6 +278,7 @@ func (rc *RongCloud) PushCustom(p []byte) ([]byte, error) {
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Body(p)
+	req.Header("Content-Type", "application/json")
 	code, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)

@@ -58,11 +58,49 @@ type WhiteList struct {
 	Users []string `json:"users"`
 }
 
+// UserTokenExpireObj ：的返回值定义
+type UserTokenExpireObj struct {
+	// 返回码，200 为正常
+	Code int `json:"code"`
+}
+
+// UserTokenExpireResObj /user/token/expire.json Token 失效
+//*
+//  @param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
+//  @param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
+//  response: UserTokenExpireObj
+//  文档： https://doc.rongcloud.cn/imserver/server/v1/user/expire
+//*//
+func (rc *RongCloud) UserTokenExpireResObj(userId string, t int64) (UserTokenExpireObj, error) {
+	var result = UserTokenExpireObj{}
+	if len(userId) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if t <= 0 {
+		return result, RCErrorNew(1002, "Paramer 'time' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/token/expire.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("time", fmt.Sprintf("%v", t))
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
 // UserTokenExpire /user/token/expire.json Token 失效
 //*
 //  @param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
 //  @param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
-//
+//  response: byte数组
+//  文档 ：https://doc.rongcloud.cn/imserver/server/v1/user/expire
 //*//
 func (rc *RongCloud) UserTokenExpire(userId string, t int64) ([]byte, error) {
 	if len(userId) == 0 {
@@ -84,11 +122,64 @@ func (rc *RongCloud) UserTokenExpire(userId string, t int64) ([]byte, error) {
 	return res, err
 }
 
+// UserRemarksGetObj :UserRemarksGetResObj 的返回值
+type UserRemarksGetObj struct {
+	// 返回码，200 为正常。
+	Code int `json:"code"`
+
+	// 用户的备注名总数。
+	Total int `json:"total"`
+
+	// JSON 对象数组，包含用户 ID（id）和对应的备注名（remark）。单次最多返回 50 个用户备注名。
+	Users []UserRemarksUsers `json:"users"`
+}
+
+type UserRemarksUsers struct {
+	// 用户id
+	Id string `json:"id"`
+
+	// 备注名字
+	Remark string `json:"remark"`
+}
+
+// UserRemarksGetResObj /user/remarks/get.json  查询用户级送备注名
+//*
+//  @param: userId :用户ID。
+//  @param: page :页数，默认为第一页。
+//  @param: size :每页条数，默认每页 50 条
+//  response： UserRemarksGetObj
+//  文档：https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
+//*/
+func (rc *RongCloud) UserRemarksGetResObj(userId string, page, size int) (UserRemarksGetObj, error) {
+	var (
+		result = UserRemarksGetObj{}
+	)
+	if len(userId) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/remarks/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("size", strconv.Itoa(size))
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
 // UserRemarksGet /user/remarks/get.json  查询用户级送备注名
 //*
 //  @param: userId :用户ID。
 //  @param: page :页数，默认为第一页。
 //  @param: size :每页条数，默认每页 50 条
+// response ：byte数组
+// 文档：https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
 //*/
 func (rc *RongCloud) UserRemarksGet(userId string, page, size int) ([]byte, error) {
 	if len(userId) == 0 {
@@ -169,11 +260,60 @@ func (rc *RongCloud) UserRemarksSet(userId string, remarks []UserRemark) error {
 	return err
 }
 
+// UserChatFbQueryListObj ： 的返回结果
+type UserChatFbQueryListObj struct {
+	// 返回码，200 为正常。
+	Code int `json:"code"`
+
+	// 被禁言用户总数。
+	Total int `json:"total"`
+
+	// 被禁言用户数组。
+	Users []string `json:"users"`
+}
+
+// UserChatFbQueryListResObj * /user/chat/fb/querylist
+// 查询禁言用户列表
+// @param: num :获取行数，默认为 100，最大支持 200 个
+// @param: offset :查询开始位置，默认为 0。
+// @param: t  :会话类型，目前支持单聊会话 PERSON。
+// response: UserChatFbQueryListObj
+// 文档： https://doc.rongcloud.cn/imserver/server/v1/user/ban
+//*/
+func (rc *RongCloud) UserChatFbQueryListResObj(num, offset int, t string) (UserChatFbQueryListObj, error) {
+	var (
+		result = UserChatFbQueryListObj{}
+	)
+	if num == 0 {
+		num = 100
+	}
+	if len(t) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'type' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/chat/fb/querylist.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("num", strconv.Itoa(num))
+	req.Param("offset", strconv.Itoa(offset))
+	req.Param("type", t)
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
 // UserChatFbQueryList * /user/chat/fb/querylist
 // 查询禁言用户列表
 // @param: num :获取行数，默认为 100，最大支持 200 个
 // @param: offset :查询开始位置，默认为 0。
 // @param: t  :会话类型，目前支持单聊会话 PERSON。
+// response： 返回byte数组
+// https://doc.rongcloud.cn/imserver/server/v1/user/ban
 //*/
 func (rc *RongCloud) UserChatFbQueryList(num, offset int, t string) ([]byte, error) {
 	if num == 0 {

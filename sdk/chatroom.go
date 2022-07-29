@@ -61,10 +61,53 @@ type ChatRoomAttrResult struct {
 	Keys []ChatRoomAttr `json:"keys"`
 }
 
+// ChatUserExistObj ： ChatUserExistResObj的返回值
+type ChatUserExistObj struct {
+	// 200：成功。
+	Code int `json:"code"`
+
+	// 用户是否在聊天室中，true 表示在聊天室中，false 表示不在聊天室中。
+	IsInChrm bool `json:"isInChrm"`
+}
+
+// ChatUserExistResObj :/chatroom/user/exist.json 查询用户是否加入聊天室
+//*
+//  @param: chatroomId，要查询的聊天室 ID
+//  @param: userId, 要查询的用户 ID
+//  response: ChatUserExistObj
+//*//
+func (rc *RongCloud) ChatUserExistResObj(chatroomId, userId string) (ChatUserExistObj, error) {
+	var (
+		result = ChatUserExistObj{}
+	)
+	if len(chatroomId) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+	if len(userId) == 0 {
+		return result, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/exist.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatroomId)
+	req.Param("userId", userId)
+
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
 // ChatUserExist :/chatroom/user/exist.json 查询用户是否加入聊天室
 //*
 //  @param: chatroomId，要查询的聊天室 ID
 //  @param: userId, 要查询的用户 ID
+//  response: byte数组
 //*//
 func (rc *RongCloud) ChatUserExist(chatroomId, userId string) ([]byte, error) {
 	if len(chatroomId) == 0 {
@@ -85,7 +128,6 @@ func (rc *RongCloud) ChatUserExist(chatroomId, userId string) ([]byte, error) {
 		rc.urlError(err)
 	}
 	return res, err
-
 }
 
 // ChatRoomCreate 创建聊天室方法

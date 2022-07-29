@@ -5,6 +5,22 @@ import (
 	"testing"
 )
 
+func TestRongCloud_GroupRemarksGetResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.GroupRemarksGetResObj(
+		"u02",
+		"1",
+	); err != nil {
+		t.Error(err)
+		return
+	} else {
+		t.Logf(" suc :%+v", res)
+	}
+}
+
 func TestRongCloud_GroupRemarksGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
@@ -69,6 +85,22 @@ func TestRongCloud_GroupUserGagAdd(t *testing.T) {
 
 }
 
+func TestRongCloud_GroupUserQueryResObj(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	if res, err := rc.GroupUserQueryResObj(
+		"u02",
+	); err != nil {
+		t.Error(err)
+		return
+	} else {
+		t.Logf("group user query suc,res is: %+v", res)
+	}
+}
+
 func TestRongCloud_GroupUserQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
@@ -83,7 +115,6 @@ func TestRongCloud_GroupUserQuery(t *testing.T) {
 	} else {
 		t.Log("group user query suc,res is:", string(res))
 	}
-
 }
 
 func TestRongCloud_GroupCreate(t *testing.T) {
