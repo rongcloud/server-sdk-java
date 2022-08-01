@@ -1450,10 +1450,10 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 *@param  senderID:发送人用户 ID 。
 *@param  objectName:消息类型
 *@param  msg:发送消息内容
-*
+* @param isIncludeSender:0或者1
 *@return error
  */
-func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) error {
+func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg, isIncludeSender ...string) error {
 	if senderID == "" {
 		return RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
@@ -1463,6 +1463,9 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg) e
 	rc.fillHeader(req)
 	req.Param("fromUserId", senderID)
 	req.Param("objectName", objectName)
+	if len(isIncludeSender) > 0 {
+		req.Param("isIncludeSender", isIncludeSender[0])
+	}
 	msgr, err := msg.ToString()
 	if err != nil {
 		return err
