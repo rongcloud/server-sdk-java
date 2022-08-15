@@ -48,6 +48,7 @@ public class CheckMethod {
     public static final String SENDGROUPSTATUS = "sendGroupStatus";
     public static final String PUBLISHTEMPLATE = "sendTemplate";
     public static final String BROADCAST = "broadcast";
+    public static final String PUSHCUSTOM = "pushcustom";
     public static final String SET_USER_TAG = "setUserTag";
     public static final String RECALL = "recall";
     public static final String ONLINE = "online";

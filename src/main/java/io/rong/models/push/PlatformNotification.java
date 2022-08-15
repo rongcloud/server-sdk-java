@@ -67,6 +67,24 @@ public class PlatformNotification {
     private Platform oppo;
     private Platform vivo;
 
+    //=====common setters=====//
+    public void setHw(Platform hw) {
+        this.hw = hw;
+    }
+
+    public void setMi(Platform mi) {
+        this.mi = mi;
+    }
+
+    public void setOppo(Platform oppo) {
+        this.oppo = oppo;
+    }
+
+    public void setVivo(Platform vivo) {
+        this.vivo = vivo;
+    }
+    //=====common setters=====//
+
     public String getAlert() {
         return alert;
     }
@@ -171,9 +189,58 @@ public class PlatformNotification {
         this.vivo = new Platform(null, classification);
     }
 
-    public class Platform {
+    public static class Platform {
+        //hw mi oppo
         private String channelId;
+
+        //vivo
         private String classification;
+        //hw
+        private String importance;
+        //hw
+        private String image;
+        //mi
+        private String large_icon_uri;
+
+        public String getChannelId() {
+            return channelId;
+        }
+
+        public void setChannelId(String channelId) {
+            this.channelId = channelId;
+        }
+
+        public String getClassification() {
+            return classification;
+        }
+
+        public void setClassification(String classification) {
+            this.classification = classification;
+        }
+
+        public String getImportance() {
+            return importance;
+        }
+
+        public void setImportance(String importance) {
+            this.importance = importance;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getLarge_icon_uri() {
+            return large_icon_uri;
+        }
+
+        public void setLarge_icon_uri(String large_icon_uri) {
+            this.large_icon_uri = large_icon_uri;
+        }
 
         public Platform(String channelId) {
             this.channelId = channelId;

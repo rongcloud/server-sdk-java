@@ -16,14 +16,14 @@ import io.rong.util.HttpUtil;
 
 /**
  * 推送服务
- * <p>
- * docs https://www.rongcloud.cn/docs/push_service.html#broadcast
- * https://www.rongcloud.cn/docs/push_service.html#push
+ *
+ * @author lang
  */
 public class Push {
 
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "push";
+
     private String appKey;
     private String appSecret;
     private RongCloud rongCloud;
@@ -43,6 +43,7 @@ public class Push {
 
     /**
      * 广播
+     * https://doc.rongcloud.cn/imserver/server/v1/system/send-push-to-all
      *
      * @param broadcast 广播数据
      * @return PushResult
@@ -65,6 +66,8 @@ public class Push {
 
     /**
      * 推送
+     * https://doc.rongcloud.cn/imserver/server/v1/system/tag
+     * https://doc.rongcloud.cn/imserver/server/v1/system/package
      *
      * @param push 推送数据
      * @return PushResult

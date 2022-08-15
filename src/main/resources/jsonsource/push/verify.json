@@ -113,5 +113,52 @@
         "invalid": "20001"
       }
     }
+  },
+  "pushcustom": {
+    "_self": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "platform": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "size": {
+        "max": 2,
+        "min": 1,
+        "invalid": "20002"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    },
+    "audience": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    },
+    "notification": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "object",
+        "invalid": "20001"
+      }
+    }
   }
 }
