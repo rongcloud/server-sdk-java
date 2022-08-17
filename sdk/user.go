@@ -58,6 +58,96 @@ type WhiteList struct {
 	Users []string `json:"users"`
 }
 
+// UserBlockPushPeriodDelete 删除用户免打扰时段 /user/blockPushPeriod/delete.json
+//*
+// @param: userId  用户id，必传
+//
+//*//
+func (rc *RongCloud) UserBlockPushPeriodDelete(userId string) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/blockPushPeriod/delete.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	_, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type PushPeriodGet struct {
+	Code int `json:"code"`
+	Data struct {
+		StartTime string `json:"startTime"`
+		Period    int    `json:"period"`
+		Level     int    `json:"level"`
+	}
+}
+
+// UserBlockPushPeriodGet UserBlockPushPeriodGet:  查用户免打扰时段 /user/blockPushPeriod/get.json
+//*
+// @param: userId  用户id，必传
+//  response : PushPeriodGet
+//*//
+func (rc *RongCloud) UserBlockPushPeriodGet(userId string) (PushPeriodGet, error) {
+	data := PushPeriodGet{}
+	if len(userId) == 0 {
+		return data, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/blockPushPeriod/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	res, err := rc.do(req)
+	if err != nil {
+		return data, err
+	}
+	if err := json.Unmarshal(res, &data); err != nil {
+		return data, err
+	}
+	return data, nil
+}
+
+// UserBlockPushPeriodSet :添加户免打扰时段 /user/blockPushPeriod/set.json
+//*
+//  @param :userId 用户ID  必传
+//  @param :startTime 开始时间（秒） 必传
+//  @param :period  时段 (分钟)     必传
+//  @param :level   免打扰级别  默认 1  不是必传
+//  form表单
+//*//
+func (rc *RongCloud) UserBlockPushPeriodSet(userId, startTime, period, level string) error {
+	if len(userId) <= 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+	if len(startTime) <= 0 {
+		return RCErrorNew(1002, "Paramer 'startTime' is required")
+	}
+	if len(period) <= 0 {
+		return RCErrorNew(1002, "Paramer 'period' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/blockPushPeriod/set.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("startTime", startTime)
+	req.Param("period", period)
+	if len(level) > 0 {
+		req.Param("level", level)
+	} else {
+		req.Param("level", strconv.Itoa(1))
+	}
+	_, err := rc.do(req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // UserTokenExpireObj ：的返回值定义
 type UserTokenExpireObj struct {
 	// 返回码，200 为正常

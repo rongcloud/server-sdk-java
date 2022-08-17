@@ -9,9 +9,47 @@
 package sdk
 
 import (
+	"fmt"
 	"os"
 	"testing"
 )
+
+func TestRongCloud_UserBlockPushPeriodDelete(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UserBlockPushPeriodDelete("u01"); err != nil {
+		t.Errorf("UserTokenExpire err:%v", err)
+		return
+	}
+	t.Log("suc")
+}
+
+func TestRongCloud_UserBlockPushPeriodGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if res, err := rc.UserBlockPushPeriodGet("u01"); err != nil {
+		t.Errorf("UserTokenExpire err:%v", err)
+		return
+	} else {
+		t.Log(fmt.Sprintf("suc %+v", res))
+	}
+}
+
+func TestRongCloud_UserBlockPushPeriodSet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	if err := rc.UserBlockPushPeriodSet("u01", "23:59:59", "120", ""); err != nil {
+		t.Errorf("UserTokenExpire err:%v", err)
+		return
+	}
+	t.Log("suc")
+}
 
 func TestRongCloud_UserTokenExpireResObj(t *testing.T) {
 	rc := NewRongCloud(
