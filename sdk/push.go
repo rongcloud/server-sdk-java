@@ -186,7 +186,6 @@ func (rc *RongCloud) PushCustomObj(data PushCustomData) (PushCustomObj, error) {
 	req := httplib.Post(rc.rongCloudURI + "/push/custom.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-	fmt.Println("body is:", string(body))
 	req.Body(body)
 	req.Header("Content-Type", "application/json")
 	code, err := rc.do(req)
