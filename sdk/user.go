@@ -83,7 +83,7 @@ type PushPeriodGet struct {
 	Data struct {
 		StartTime string `json:"startTime"`
 		Period    int    `json:"period"`
-		Level     int    `json:"level"`
+		Level     int    `json:"unPushLevel"`
 	}
 }
 

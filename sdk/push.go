@@ -385,7 +385,7 @@ func (rc *RongCloud) PushCustomResObj(p []byte) (PushCustomObj, error) {
 //*//
 func (rc *RongCloud) PushCustom(p []byte) ([]byte, error) {
 	var err error
-	req := httplib.Post(rc.rongCloudURI + "push/custom.json")
+	req := httplib.Post(rc.rongCloudURI + "/push/custom.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Body(p)
