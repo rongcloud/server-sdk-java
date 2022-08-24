@@ -516,10 +516,6 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 *@return error
  */
 func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int) error {
-	if id == "" {
-		return RCErrorNew(1002, "Paramer 'id' is required")
-	}
-
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
