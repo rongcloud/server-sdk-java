@@ -25,14 +25,14 @@ func TestRongCloud_PushCustomObj(t *testing.T) {
 		Audience: struct {
 			Tag      []string `json:"tag"`
 			TagOr    []string `json:"tag_or"`
+			Packages string   `json:"packageName"`
 			TagItems []struct {
 				Tags          []string `json:"tags"`
 				IsNot         bool     `json:"isNot"`
 				TagsOperator  string   `json:"tagsOperator"`
 				ItemsOperator string   `json:"itemsOperator"`
 			} `json:"tagItems,omitempty"`
-			Userid  []string `json:"userid,omitempty"`
-			IsToAll bool     `json:"is_to_all"`
+			IsToAll bool `json:"is_to_all"`
 		}{
 			Tag:   []string{"女", "年轻"},
 			TagOr: []string{"北京", "上海"},
@@ -61,19 +61,20 @@ func TestRongCloud_PushCustomObj(t *testing.T) {
 					ItemsOperator: "AND",
 				},
 			},
-			Userid:  []string{"123", "456"},
 			IsToAll: false,
 		},
 		Notification: struct {
 			Title string `json:"title"`
 			Alert string `json:"alert"`
 			Ios   struct {
-				ThreadId       string `json:"thread-id"`
-				ApnsCollapseId string `json:"apns-collapse-id"`
-				Extras         struct {
-					Id   string `json:"id"`
-					Name string `json:"name"`
-				} `json:"extras"`
+				Title            string      `json:"title,omitempty"`
+				ContentAvailable int         `json:"contentAvailable"`
+				Badge            int         `json:"badge,omitempty"`
+				ThreadId         string      `json:"thread-id"`
+				ApnsCollapseId   string      `json:"apns-collapse-id"`
+				Category         string      `json:"category,omitempty"`
+				RichMediaUri     string      `json:"richMediaUri,omitempty"`
+				Extras           interface{} `json:"extras"`
 			} `json:"ios"`
 			Android struct {
 				Hw struct {
@@ -100,12 +101,14 @@ func TestRongCloud_PushCustomObj(t *testing.T) {
 			Title: "标题",
 			Alert: "this is a push",
 			Ios: struct {
-				ThreadId       string `json:"thread-id"`
-				ApnsCollapseId string `json:"apns-collapse-id"`
-				Extras         struct {
-					Id   string `json:"id"`
-					Name string `json:"name"`
-				} `json:"extras"`
+				Title            string      `json:"title,omitempty"`
+				ContentAvailable int         `json:"contentAvailable"`
+				Badge            int         `json:"badge,omitempty"`
+				ThreadId         string      `json:"thread-id"`
+				ApnsCollapseId   string      `json:"apns-collapse-id"`
+				Category         string      `json:"category,omitempty"`
+				RichMediaUri     string      `json:"richMediaUri,omitempty"`
+				Extras           interface{} `json:"extras"`
 			}{
 				ThreadId:       "223",
 				ApnsCollapseId: "111",

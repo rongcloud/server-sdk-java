@@ -118,19 +118,20 @@ type PushCustomData struct {
 			TagsOperator  string   `json:"tagsOperator"`
 			ItemsOperator string   `json:"itemsOperator"`
 		} `json:"tagItems,omitempty"`
-		Userid  []string `json:"userid,omitempty"`
-		IsToAll bool     `json:"is_to_all"`
+		IsToAll bool `json:"is_to_all"`
 	} `json:"audience"`
 	Notification struct {
 		Title string `json:"title"`
 		Alert string `json:"alert"`
 		Ios   struct {
-			ThreadId       string `json:"thread-id"`
-			ApnsCollapseId string `json:"apns-collapse-id"`
-			Extras         struct {
-				Id   string `json:"id"`
-				Name string `json:"name"`
-			} `json:"extras"`
+			Title            string      `json:"title,omitempty"`
+			ContentAvailable int         `json:"contentAvailable"`
+			Badge            int         `json:"badge,omitempty"`
+			ThreadId         string      `json:"thread-id"`
+			ApnsCollapseId   string      `json:"apns-collapse-id"`
+			Category         string      `json:"category,omitempty"`
+			RichMediaUri     string      `json:"richMediaUri,omitempty"`
+			Extras           interface{} `json:"extras"`
 		} `json:"ios"`
 		Android struct {
 			Hw struct {
@@ -208,76 +209,7 @@ func (rc *RongCloud) PushCustomObj(data PushCustomData) (PushCustomObj, error) {
 //  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
 //  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
 // 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
-// 请求按照下面的方式请求：
-//{
-// "platform":["ios","android"],
-// "audience":{
-//   "tag":["女","年轻"],
-//   "tag_or":["北京","上海"],
-// // note
-//   "tagItems":[
-//               {
-//                   "tags":[
-//                       "guangdong",
-//                       "hunan"
-//                   ],
-//                   "isNot":false,
-//                   "tagsOperator":"OR",
-//                   "itemsOperator":"OR"
-//               },
-//               {
-//                   "tags":[
-//                       "20200408"
-//                   ],
-//                   "isNot":true,
-//                   "tagsOperator":"OR",
-//                   "itemsOperator":"AND"
-//               },
-//               {
-//                   "tags":[
-//                       "male",
-//                       "female"
-//                   ],
-//                   "isNot":false,
-//                   "tagsOperator":"OR",
-//                   "itemsOperator":"OR"
-//               }
-//           ],
-//       "userid":[
-//           "123",
-//           "456"
-//      ],
-//   "is_to_all":false
-// },
-// "notification":{
-//   "title":"标题",
-//   "alert":"this is a push",
-//   "ios":
-//     {
-//       "thread-id":"223",
-//       "apns-collapse-id":"111",
-//       "extras": {"id": "1","name": "2"}
-//     },
-//   "android": {
-//       "hw":{
-//           "channelId":"NotificationKanong",
-//           "importance": "NORMAL",
-//           "image":"https://example.com/image.png"
-//       },
-//       "mi":{
-//           "channelId":"rongcloud_kanong",
-//           "large_icon_uri":"https://example.com/image.png"
-//       },
-//       "oppo":{
-//           "channelId":"rc_notification_id"
-//       },
-//       "vivo":{
-//           "classification":"0"
-//       },
-//       "extras": {"id": "1","name": "2"}
-//     }
-// }
-//}
+// 请求按照PushCustomData结构体请求：
 // response: 返回结构体
 // 文档： https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
 //*//
@@ -309,77 +241,7 @@ func (rc *RongCloud) PushCustomResObj(p []byte) (PushCustomObj, error) {
 //  @param: platform []string 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。
 //  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
 //  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
-// 请求按照下面的方式请求：
-//{
-// "platform":["ios","android"],
-// "audience":{
-//   "tag":["女","年轻"],
-//   "tag_or":["北京","上海"],
-// // note
-//   "tagItems":[
-//               {
-//                   "tags":[
-//                       "guangdong",
-//                       "hunan"
-//                   ],
-//                   "isNot":false,
-//                   "tagsOperator":"OR",
-//                   "itemsOperator":"OR"
-//               },
-//               {
-//                   "tags":[
-//                       "20200408"
-//                   ],
-//                   "isNot":true,
-//                   "tagsOperator":"OR",
-//                   "itemsOperator":"AND"
-//               },
-//               {
-//                   "tags":[
-//                       "male",
-//                       "female"
-//                   ],
-//                   "isNot":false,
-//                   "tagsOperator":"OR",
-//                   "itemsOperator":"OR"
-//               }
-//           ],
-//       "userid":[
-//           "123",
-//           "456"
-//      ],
-//   "packageName":"",
-//   "is_to_all":false
-// },
-// "notification":{
-//   "title":"标题",
-//   "alert":"this is a push",
-//   "ios":
-//     {
-//       "thread-id":"223",
-//       "apns-collapse-id":"111",
-//       "extras": {"id": "1","name": "2"}
-//     },
-//   "android": {
-//       "hw":{
-//           "channelId":"NotificationKanong",
-//           "importance": "NORMAL",
-//           "image":"https://example.com/image.png"
-//       },
-//       "mi":{
-//           "channelId":"rongcloud_kanong",
-//           "large_icon_uri":"https://example.com/image.png"
-//       },
-//       "oppo":{
-//           "channelId":"rc_notification_id"
-//       },
-//       "vivo":{
-//           "classification":"0"
-//       },
-//       "extras": {"id": "1","name": "2"}
-//     }
-// }
-//}
+//请求按照PushCustomData结构体请求：
 // 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
 // response: 返回byte数组
 // 文档 ： https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
