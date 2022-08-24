@@ -111,6 +111,7 @@ type PushCustomData struct {
 	Audience struct {
 		Tag      []string `json:"tag"`
 		TagOr    []string `json:"tag_or"`
+		Packages string   `json:"packageName"`
 		TagItems []struct {
 			Tags          []string `json:"tags"`
 			IsNot         bool     `json:"isNot"`
@@ -347,6 +348,7 @@ func (rc *RongCloud) PushCustomResObj(p []byte) (PushCustomObj, error) {
 //           "123",
 //           "456"
 //      ],
+//   "packageName":"",
 //   "is_to_all":false
 // },
 // "notification":{
