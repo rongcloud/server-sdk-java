@@ -7,20 +7,21 @@
  */
 package io.rong;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-
-import io.rong.methods.chatroom.*;
+import io.rong.methods.chatroom.Chatroom;
 import io.rong.methods.conversation.Conversation;
 import io.rong.methods.group.Group;
 import io.rong.methods.message.Message;
 import io.rong.methods.message.expansion.Expansion;
+import io.rong.methods.push.Push;
+import io.rong.methods.push.PushCustom;
 import io.rong.methods.sensitive.SensitiveWord;
 import io.rong.methods.sensitive.Wordfilter;
 import io.rong.methods.ultragroup.UltraGroup;
 import io.rong.methods.user.User;
-import io.rong.methods.push.Push;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RongCloud {
 
@@ -36,6 +37,7 @@ public class RongCloud {
     public Chatroom chatroom;
     public Conversation conversation;
     public Push push;
+    public PushCustom pushCustom;
     public final RongCloudConfig config;
 
     public RongCloudConfig getConfig() {
@@ -60,6 +62,7 @@ public class RongCloud {
         conversation.setRongCloud(this);
         push = new Push(appKey, appSecret);
         push.setRongCloud(this);
+        pushCustom = new PushCustom(appKey,appSecret,this);
         this.config = config;
     }
 
