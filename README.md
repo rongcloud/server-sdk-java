@@ -11,7 +11,7 @@ RongCloud IM Server SDK in Java.
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>3.2.27</version>
+        <version>3.2.28</version>
     </dependency>
 ```
    * Gradle
