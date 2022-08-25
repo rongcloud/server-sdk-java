@@ -74,7 +74,7 @@ RongCloud IM Server SDK in Java.
 
 ###### [敏感词模块示例](./src/main/java/io/rong/example/sensitive/SensitiveExample.java)
 
-###### [超级群模块示例](../src/main/java/io/rong/example/ultragroup)
+###### [超级群模块示例](./src/main/java/io/rong/example/ultragroup)
 
 
 # 版本说明
