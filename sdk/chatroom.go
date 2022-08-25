@@ -1094,29 +1094,31 @@ func (rc *RongCloud) ChatRoomEntryRemove(chatRoomID, userID, key string) error {
  * @return []ChatRoomAttr	属性列表
  * @return error 			错误
  */
-func (rc *RongCloud) ChatRoomEntryQuery(chatRoomID, keys string) ([]ChatRoomAttr, error) {
+func (rc *RongCloud) ChatRoomEntryQuery(chatRoomID string, keys ...string) ([]ChatRoomAttr, error) {
 	if chatRoomID == "" {
 		return nil, RCErrorNew(1002, "Paramer 'chatRoomID' is required")
 	}
-
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 
 	req.Param("chatroomId", chatRoomID)
-	req.Param("keys", keys)
-
+	if len(keys) == 0 {
+		req.Param("keys", "")
+	} else {
+		for k := range keys {
+			req.Param("keys", keys[k])
+		}
+	}
 	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
 		return nil, err
 	}
-
 	var data ChatRoomAttrResult
 	if err := json.Unmarshal(resp, &data); err != nil {
 		return nil, err
 	}
-
 	return data.Keys, nil
 }
 
