@@ -1098,6 +1098,10 @@ func (rc *RongCloud) ChatRoomEntryQuery(chatRoomID string, keys ...string) ([]Ch
 	if chatRoomID == "" {
 		return nil, RCErrorNew(1002, "Paramer 'chatRoomID' is required")
 	}
+	if len(keys) > 100 {
+		return nil, RCErrorNew(1002, "Paramer 'keys' more than 100")
+	}
+
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
