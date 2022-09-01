@@ -6,15 +6,15 @@ package io.rong.messages;
 public class UserInfo {
     private String id;
     private String name;
-    private String icon;
+    private String portrait;
     private String extra;
 
     public UserInfo() {
     }
-    public UserInfo(String id, String name,String icon,String extra) {
+    public UserInfo(String id, String name,String portrait,String extra) {
         this.id = id;
         this.name = name;
-        this.icon = icon;
+        this.portrait = portrait;
         this.extra = extra;
     }
     /**
@@ -53,17 +53,18 @@ public class UserInfo {
      * 获取 发送用户显示头象
      * @return
      */
-    public String getIcon() {
-        return icon;
+    public String getPortrait() {
+        return portrait;
     }
 
     /**
      * 设置 发送用户显示头象
-     * @param icon
+     * @param portrait
      */
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
+
 
     /**
      * 获取 扩展信息
