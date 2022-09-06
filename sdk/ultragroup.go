@@ -1130,16 +1130,18 @@ type PushExt struct {
 }
 
 // UGMessagePublish 超级群消息发送
-func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isMentioned, contentAvailable, busChannel, extraContent string, expansion, unreadCountFlag bool, pushExt *PushExt, toGroupIds ...string) error {
-	if fromUserId == "" {
+// 文档：https://doc.rongcloud.cn/imserver/server/v1/message/msgsend/ultragroup
+//
+func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isCounted, isMentioned, contentAvailable, busChannel, extraContent string, expansion, unreadCountFlag bool, pushExt *PushExt, toGroupIds ...string) error {
+	if len(fromUserId) == 0 {
 		return RCErrorNewV2(1002, "param 'fromUserId' is required")
 	}
 
-	if objectName == "" {
+	if len(objectName) == 0 {
 		return RCErrorNewV2(1002, "param 'objectName' is required")
 	}
 
-	if content == "" {
+	if len(content) == 0 {
 		return RCErrorNewV2(1002, "param 'content' is required")
 	}
 
@@ -1189,6 +1191,11 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 
 	if extraContent != "" {
 		body["extraContent"] = extraContent
+	}
+
+	body["isCounted"] = isCounted
+	if len(isCounted) == 0 || isCounted != "1" && isCounted != "0" {
+		body["isCounted"] = "1"
 	}
 
 	if pushExt != nil {

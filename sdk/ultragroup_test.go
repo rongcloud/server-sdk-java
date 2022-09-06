@@ -430,7 +430,7 @@ func Test_UGMessagePublish(t *testing.T) {
 	)
 
 	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
-		"", "", "1", "0", "0", "", "{\"key1\":\"key1\"}",
+		"", "", "1", "", "0", "0", "", "{\"key1\":\"key1\"}",
 		false, false, &PushExt{
 			Title:                "you have a new message.",
 			TemplateId:           "123456",
@@ -465,7 +465,11 @@ func Test_UGMessagePublish(t *testing.T) {
 			},
 		}, "testExp0309")
 
-	t.Log(err)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log("success")
 }
 
 func Test_UGMemberExists(t *testing.T) {

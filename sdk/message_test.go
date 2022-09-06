@@ -99,7 +99,7 @@ func TestRongCloud_UGMessageModify(t *testing.T) {
 		os.Getenv("APP_SECRET"),
 	)
 	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
-		"", "", "1", "0", "0", "", "{\"key1\":\"key1\"}",
+		"", "", "1", "", "0", "0", "", "{\"key1\":\"key1\"}",
 		false, false, &PushExt{
 			Title:                "you have a new message.",
 			TemplateId:           "123456",
