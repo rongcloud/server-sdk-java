@@ -66,6 +66,7 @@ public class PlatformNotification {
     private Platform mi;
     private Platform oppo;
     private Platform vivo;
+    private Platform fcm;
 
     //=====common setters=====//
     public void setHw(Platform hw) {
@@ -83,6 +84,11 @@ public class PlatformNotification {
     public void setVivo(Platform vivo) {
         this.vivo = vivo;
     }
+
+    public void setFcm(Platform fcm) {
+        this.fcm = fcm;
+    }
+
     //=====common setters=====//
 
     public String getAlert() {
@@ -172,6 +178,9 @@ public class PlatformNotification {
     public void setMi(String channelId) {
         this.mi = new Platform(channelId);
     }
+    public void setFcm(String channelId) {
+        this.fcm = new Platform(channelId);
+    }
 
     public Platform getOppo() {
         return oppo;
@@ -190,7 +199,7 @@ public class PlatformNotification {
     }
 
     public static class Platform {
-        //hw mi oppo
+        //hw mi oppo fcm
         private String channelId;
 
         //vivo
@@ -201,6 +210,11 @@ public class PlatformNotification {
         private String image;
         //mi
         private String large_icon_uri;
+        //fcm
+        private String imageUrl;
+        private String collapse_key;
+
+
 
         public String getChannelId() {
             return channelId;
@@ -240,6 +254,22 @@ public class PlatformNotification {
 
         public void setLarge_icon_uri(String large_icon_uri) {
             this.large_icon_uri = large_icon_uri;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+
+        public String getCollapse_key() {
+            return collapse_key;
+        }
+
+        public void setCollapse_key(String collapse_key) {
+            this.collapse_key = collapse_key;
         }
 
         public Platform(String channelId) {
