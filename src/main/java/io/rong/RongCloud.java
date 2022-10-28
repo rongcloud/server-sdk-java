@@ -97,11 +97,13 @@ public class RongCloud {
      * @return
      */
     public static RongCloud getInstance(String appKey, String appSecret, RongCloudConfig config) {
-        if (null == rongCloud.get(appKey)) {
+        if (null == rongCloud.get(appKey + "_" + appSecret)) {
             RongCloud rc = new RongCloud(appKey, appSecret, config);
-            rongCloud.putIfAbsent(appKey, rc);
+            rongCloud.putIfAbsent(appKey + "_" + appSecret, rc);
+            return rc;
+        } else {
+            return rongCloud.get(appKey + "_" + appSecret);
         }
-        return rongCloud.get(appKey);
     }
 
     /**
