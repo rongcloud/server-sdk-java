@@ -41,6 +41,20 @@ func TestRongCloud_UGGroupChannelGet(t *testing.T) {
 	t.Logf("res is:%v", string(res))
 }
 
+// go test -v -run TestRongCloud_UGHistoryQuery
+func TestRongCloud_UGHistoryQuery(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	result, err := rc.UGHistoryQuery("wxlGroup", "wxlBusChannel", 1666251303434, 166625, "", 0)
+	if err != nil {
+		t.Errorf("UGHistoryQuery err:%v", err)
+		return
+	}
+	t.Log("result is", result)
+}
+
 func TestRongCloud_UGChannelPrivateUserGetResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

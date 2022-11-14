@@ -68,9 +68,9 @@ type UGMessage struct {
 }
 
 // UGGroupChannelGet :频道查询-返回结果带频道类型 /ultragroup/channel/get.json
-//  groupId=ug_m_gid_lw_1&page=1&limit=20
-//  response:返回byte数组
 //
+//	groupId=ug_m_gid_lw_1&page=1&limit=20
+//	response:返回byte数组
 func (rc *RongCloud) UGGroupChannelGet(groupId string, page, limit int) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
@@ -87,6 +87,70 @@ func (rc *RongCloud) UGGroupChannelGet(groupId string, page, limit int) ([]byte,
 	return rc.do(req)
 }
 
+type UGHisMsgQueryResp struct {
+	Code int                 `json:"code"`
+	Data []UGHisMsgQueryData `json:"data"`
+}
+
+type UGHisMsgQueryData struct {
+	GroupId        string `json:"groupId"`
+	BusChannel     string `json:"busChannel"`
+	FromUserId     string `json:"fromUserId"`
+	MsgUID         string `json:"msgUID"`
+	MsgTime        int64  `json:"msgTime"`
+	ObjectName     string `json:"objectName"`
+	ConversionType int    `json:"conversionType"`
+	Content        string `json:"content"`
+	Expansion      bool   `json:"expansion"`
+	ExtraContent   string `json:"extraContent"`
+}
+
+// UGHistoryQuery
+// •接口: /ultragroup/hismsg/query.json
+// •作用: 查询超级群历史消息
+// •限频: appKey 级别的 100 次/分钟
+// param: groupId 必填 String 超级群Id
+// param: busChannel 必填 String 频道Id
+// param: startTime 必填 int64 查询开始时间戳
+// param: endTime 必填 int64 查询结束时间戳,开始时间和结束时间最⻓跨度 14 天
+// param: fromUserId 不是必填 String 消息的发送者 Id , 有该参数只查该用戶发的群消息，否则查群全部历史消息
+// param: pageSize 不是必填 int 默认 20 条，最大100条
+// UGHisMsgQueryResp:返回数据结果集 startTime<resultList<=endTime,且resultList数据按消息时间戳升序排列
+func (rc *RongCloud) UGHistoryQuery(groupId, busChannel string, startTime, endTime int64, fromUserId string, pageSize int) (UGHisMsgQueryResp, error) {
+	var (
+		size   int
+		result = UGHisMsgQueryResp{}
+	)
+	if pageSize <= 0 {
+		size = 20
+	}
+	if pageSize > 100 {
+		size = 100
+	}
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/hismsg/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("startTime", fmt.Sprintf("%v", startTime))
+	req.Param("endTime", fmt.Sprintf("%v", endTime))
+	if len(fromUserId) > 0 {
+		req.Param("fromUserId", fromUserId)
+	}
+	req.Param("pageSize", fmt.Sprintf("%v", size))
+	// http
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+
+}
+
 // UGChannelPrivateUserGetObj : UGChannelPrivateUserGetResObj的返回值
 type UGChannelPrivateUserGetObj struct {
 	Code  int      `json:"code"`
@@ -94,9 +158,9 @@ type UGChannelPrivateUserGetObj struct {
 }
 
 // UGChannelPrivateUserGetResObj :私有频道白名单用户-查询   /ultragroup/channel/private/users/get.json
-//  groupId=ug_m_gid_lw_1&busChannel=channel001&page=1&pageSize=1000
-//  response: UGChannelPrivateUserGetObj
 //
+//	groupId=ug_m_gid_lw_1&busChannel=channel001&page=1&pageSize=1000
+//	response: UGChannelPrivateUserGetObj
 func (rc *RongCloud) UGChannelPrivateUserGetResObj(groupId, busChannel, page, pageSize string) (UGChannelPrivateUserGetObj, error) {
 	var (
 		result = UGChannelPrivateUserGetObj{}
@@ -129,9 +193,9 @@ func (rc *RongCloud) UGChannelPrivateUserGetResObj(groupId, busChannel, page, pa
 }
 
 // UGChannelPrivateUserGet :私有频道白名单用户-查询   /ultragroup/channel/private/users/get.json
-//  groupId=ug_m_gid_lw_1&busChannel=channel001&page=1&pageSize=1000
-//  response: byte数组
 //
+//	groupId=ug_m_gid_lw_1&busChannel=channel001&page=1&pageSize=1000
+//	response: byte数组
 func (rc *RongCloud) UGChannelPrivateUserGet(groupId, busChannel, page, pageSize string) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
@@ -158,9 +222,9 @@ type UGChannelPrivateUserDelObj struct {
 }
 
 // UGChannelPrivateUserDelResObj :私有频道白名单用户-删除   /ultragroup/channel/private/users/del.json
-//  groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
-//  response:UGChannelPrivateUserDelObj
 //
+//	groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
+//	response:UGChannelPrivateUserDelObj
 func (rc *RongCloud) UGChannelPrivateUserDelResObj(groupId, busChannel, userIds string) (UGChannelPrivateUserDelObj, error) {
 	var (
 		result = UGChannelPrivateUserDelObj{}
@@ -195,8 +259,9 @@ func (rc *RongCloud) UGChannelPrivateUserDelResObj(groupId, busChannel, userIds 
 }
 
 // UGChannelPrivateUserDel :私有频道白名单用户-删除   /ultragroup/channel/private/users/del.json
-//  groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
-//  response : byte数组
+//
+//	groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
+//	response : byte数组
 func (rc *RongCloud) UGChannelPrivateUserDel(groupId, busChannel, userIds string) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
@@ -224,9 +289,10 @@ type UGChannelPrivateUserAddObj struct {
 }
 
 // UGChannelPrivateUserAddResObj :私有频道白名单用户-添加   /ultragroup/channel/private/users/add.json
-//  groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
-// response ：UGChannelPrivateUserAddObj
 //
+//	groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
+//
+// response ：UGChannelPrivateUserAddObj
 func (rc *RongCloud) UGChannelPrivateUserAddResObj(groupId, busChannel, userIds string) (UGChannelPrivateUserAddObj, error) {
 	var (
 		result = UGChannelPrivateUserAddObj{}
@@ -261,8 +327,8 @@ func (rc *RongCloud) UGChannelPrivateUserAddResObj(groupId, busChannel, userIds 
 }
 
 // UGChannelPrivateUserAdd :私有频道白名单用户-添加   /ultragroup/channel/private/users/add.json
-//  groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
 //
+//	groupId=ug_m_gid_lw_1&busChannel=channel001&userIds=a%2Cb%2Cc
 func (rc *RongCloud) UGChannelPrivateUserAdd(groupId, busChannel, userIds string) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
@@ -287,11 +353,11 @@ func (rc *RongCloud) UGChannelPrivateUserAdd(groupId, busChannel, userIds string
 }
 
 // UGGroupChannelCreate : 频道创建-支持设置频道类型/ultragroup/channel/create.json
-//*
+// *
 // groupId=ug_m_gid_lw_1&busChannel=channel001&type=0
 //
 // response：byte数组
-//*//
+// *//
 func (rc *RongCloud) UGGroupChannelCreate(groupId, busChannel, t string) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
@@ -320,12 +386,13 @@ type UGGroupChannelChangeObj struct {
 }
 
 // UGGroupChannelChangeResObj : /ultragroup/channel/type/change  公私频道类型设置(切换)
-//*
-//  @param: groupId
-//  @param: busChannel
-//  @param: type
+// *
 //
-//*//
+//	@param: groupId
+//	@param: busChannel
+//	@param: type
+//
+// *//
 func (rc *RongCloud) UGGroupChannelChangeResObj(groupId, busChannel, t string) (UGGroupChannelChangeObj, error) {
 	var (
 		result = UGGroupChannelChangeObj{}
@@ -360,12 +427,13 @@ func (rc *RongCloud) UGGroupChannelChangeResObj(groupId, busChannel, t string) (
 }
 
 // UGGroupChannelChange : /ultragroup/channel/type/change  公私频道类型设置(切换)
-//*
-//  @param: groupId
-//  @param: busChannel
-//  @param: type
+// *
 //
-//*//
+//	@param: groupId
+//	@param: busChannel
+//	@param: type
+//
+// *//
 func (rc *RongCloud) UGGroupChannelChange(groupId, busChannel, t string) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNewV2(1002, "param 'groupId' is required")
@@ -1131,7 +1199,6 @@ type PushExt struct {
 
 // UGMessagePublish 超级群消息发送
 // 文档：https://doc.rongcloud.cn/imserver/server/v1/message/msgsend/ultragroup
-//
 func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isCounted, isMentioned, contentAvailable, busChannel, extraContent string, expansion, unreadCountFlag bool, pushExt *PushExt, toGroupIds ...string) error {
 	if len(fromUserId) == 0 {
 		return RCErrorNewV2(1002, "param 'fromUserId' is required")
@@ -1987,7 +2054,6 @@ type UltraGroupChannelGetResponseItem struct {
 
 // UltraGroupChannelGet 查询频道列表
 // response：[]UltraGroupChannelGetResponseItem
-//
 func (rc *RongCloud) UltraGroupChannelGet(groupId string, page, limit int) ([]UltraGroupChannelGetResponseItem, error) {
 	if groupId == "" {
 		return nil, RCErrorNew(1002, "param 'groupId' is empty")
