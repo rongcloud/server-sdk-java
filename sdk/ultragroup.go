@@ -121,13 +121,13 @@ func (rc *RongCloud) UGHistoryQuery(groupId, busChannel string, startTime, endTi
 		size   int
 		result = UGHisMsgQueryResp{}
 	)
+	size = pageSize
 	if pageSize <= 0 {
 		size = 20
 	}
 	if pageSize > 100 {
 		size = 100
 	}
-	size = pageSize
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/hismsg/query.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
