@@ -3,7 +3,9 @@ package sdk
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -127,6 +129,7 @@ func (rc *RongCloud) UGHistoryQuery(groupId, busChannel string, startTime, endTi
 	if pageSize > 100 {
 		size = 100
 	}
+	size = pageSize
 	req := httplib.Post(rc.rongCloudURI + "/ultragroup/hismsg/query.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
@@ -149,6 +152,19 @@ func (rc *RongCloud) UGHistoryQuery(groupId, busChannel string, startTime, endTi
 	}
 	return result, err
 
+}
+
+func PostForm(url string, data url.Values) ([]byte, error) {
+	resp, err := http.PostForm(url, data)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return content, nil
 }
 
 // UGChannelPrivateUserGetObj : UGChannelPrivateUserGetResObj的返回值

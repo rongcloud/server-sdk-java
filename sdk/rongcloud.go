@@ -228,7 +228,8 @@ func (rc *RongCloud) urlError(err error) {
 	// 方法已废弃
 }
 
-/**
+/*
+*
 判断 http status code, 如果大于 500 就切换一次域名
 */
 func (rc *RongCloud) checkStatusCode(resp *http.Response) {
