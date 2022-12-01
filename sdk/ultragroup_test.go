@@ -5,6 +5,25 @@ import (
 	"testing"
 )
 
+func TestRongCloud_UGHisMsgIdQuery(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	res, err := rc.UGHisMsgIdQuery(
+		"wxlGroup",
+		"wxlBusChannel",
+		"AAAA-BBBB-CCCC-DDDD",
+		"10",
+		"10")
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+	t.Logf("res is:%+v", res)
+}
+
 func TestRongCloud_UltraGroupChannelGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

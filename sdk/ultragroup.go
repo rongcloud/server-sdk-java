@@ -105,6 +105,59 @@ type UGHisMsgQueryData struct {
 	ExtraContent   string `json:"extraContent"`
 }
 
+type UGHisMsgIdQueryResp struct {
+	Code int                   `json:"code"`
+	Data []UGHisMsgIdQueryData `json:"data"`
+}
+
+type UGHisMsgIdQueryData struct {
+	GroupId        string `json:"groupId"`
+	BusChannel     string `json:"busChannel"`
+	FromUserId     string `json:"fromUserId"`
+	MsgUID         string `json:"msgUID"`
+	MsgTime        int64  `json:"msgTime"`
+	ObjectName     string `json:"objectName"`
+	ConversionType int    `json:"conversionType"`
+	Content        string `json:"content"`
+	Expansion      bool   `json:"expansion"`
+	ExtraContent   string `json:"extraContent"`
+}
+
+// UGHisMsgIdQuery
+// API 获取消息ID上下文历史消息
+// /ultragroup/hismsg/msgid/query.json
+// param: groupId 必填 String 超级群Id
+// param: busChannel 必填 String 频道Id
+// param: msgUID 必填 string 查询指定的消息Id 上下 10 条消息时使用
+// param: prevNum 不是必填 string 默认 10 条（最大 50 条）即查询消息ID前面的 10 条消息， 当用户传 0 时，不查消息ID前面的数据了
+// param: lastNum 不是必填 string 默认 10 条（最大 50 条）即查询消息ID 后面的 10 条消息， 当用户传 0 时，不查消息ID后面的数据了
+func (rc *RongCloud) UGHisMsgIdQuery(groupId, busChannel, msgUID, prevNum, lastNum string) (UGHisMsgIdQueryResp, error) {
+	var (
+		result = UGHisMsgIdQueryResp{}
+	)
+	req := httplib.Post(rc.rongCloudURI + "/ultragroup/hismsg/msgid/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("msgUID", msgUID)
+	if len(prevNum) > 0 {
+		req.Param("prevNum", prevNum)
+	}
+	if len(lastNum) > 0 {
+		req.Param("lastNum", lastNum)
+	}
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, err
+}
+
 // UGHistoryQuery
 // •接口: /ultragroup/hismsg/query.json
 // •作用: 查询超级群历史消息

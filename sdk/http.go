@@ -3,6 +3,7 @@ package sdk
 import (
 	"compress/gzip"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net"
 	"net/url"
@@ -61,9 +62,9 @@ func isNetError(err error) bool {
 func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
 	// 使用全局 httpClient，解决 http 打开端口过多问题
 	b.SetTransport(rc.globalTransport)
-
 	resp, err := b.DoRequest()
 	if err != nil {
+		fmt.Println("do request err:", err)
 		if isNetError(err) {
 			rc.ChangeURI()
 		}
