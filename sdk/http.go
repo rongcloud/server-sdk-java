@@ -3,7 +3,6 @@ package sdk
 import (
 	"compress/gzip"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net"
 	"net/url"
@@ -64,7 +63,6 @@ func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err 
 	b.SetTransport(rc.globalTransport)
 	resp, err := b.DoRequest()
 	if err != nil {
-		fmt.Println("do request err:", err)
 		if isNetError(err) {
 			rc.ChangeURI()
 		}
