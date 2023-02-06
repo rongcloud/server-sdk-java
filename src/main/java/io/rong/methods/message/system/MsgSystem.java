@@ -22,7 +22,6 @@ import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonSyntaxException;
 import io.rong.util.JsonUtil;
 
-import javax.xml.ws.Response;
 
 /**
  * 发送系统消息方法
