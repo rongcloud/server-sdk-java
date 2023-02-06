@@ -6,7 +6,7 @@
 
     <groupId>cn.rongcloud.im</groupId>
     <artifactId>server-sdk-java</artifactId>
-    <version>3.2.29</version>
+    <version>3.2.30</version>
     <packaging>jar</packaging>
 
     <name>RongCloud IM Server SDK</name>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.18</version>
+            <version>1.4.20</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
