@@ -519,3 +519,48 @@ func Test_UGMemberExists(t *testing.T) {
 
 	t.Logf("Exists: %t", exists)
 }
+
+func Test_UGUserGroupAdd(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "groupId1"
+	userGroups := []UGUserGroupInfo{
+		{UserGroupId: "id1"},
+		{UserGroupId: "id2"},
+	}
+	err := rc.UGUserGroupAdd(groupId, userGroups)
+
+	t.Log(err)
+}
+
+func Test_UGUserGroupDelete(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	userGroups := []string{
+		"roleId1",
+		"roleId2",
+	}
+	err := rc.UGUserGroupDelete(groupId, userGroups)
+
+	t.Log(err)
+}
+
+func Test_UGUserGroupQuery(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	userGroups, err := rc.UGUserGroupQuery(groupId, 1, 10)
+
+	t.Log(err)
+	t.Log(userGroups)
+}
