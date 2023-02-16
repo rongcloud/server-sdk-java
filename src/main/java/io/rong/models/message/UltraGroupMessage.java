@@ -40,6 +40,11 @@ public class UltraGroupMessage extends MessageModel {
      */
     public HashMap<String, String> extraContent;
 
+    /**
+     * 用户未在线时是否计入未读消息数。0 表示为不计数、1 表示为计数，默认为 1。
+     */
+    public Integer isCounted;
+
     public UltraGroupMessage() {
     }
 
@@ -219,6 +224,15 @@ public class UltraGroupMessage extends MessageModel {
 
     public UltraGroupMessage setExtraContent(HashMap<String, String> extraContent) {
         this.extraContent = extraContent;
+        return this;
+    }
+
+    public Integer getIsCounted() {
+        return isCounted;
+    }
+
+    public UltraGroupMessage setIsCounted(Integer isCounted) {
+        this.isCounted = isCounted;
         return this;
     }
 

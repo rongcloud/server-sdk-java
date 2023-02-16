@@ -89,8 +89,13 @@ public class UltraGroup {
         if (message.getBusChannel() != null) {
             params.put("busChannel", message.getBusChannel());
         }
+
         if (message.getContentAvailable() != null) {
             params.put("contentAvailable", message.getContentAvailable());
+        }
+
+        if (message.getIsCounted() != null) {
+            params.put("isCounted", message.getIsCounted());
         }
 
         if (message.getExpansion() != null && message.getExpansion()) {
@@ -115,6 +120,7 @@ public class UltraGroup {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
+        result.setReqBody(GsonUtil.toJson(params));
         return result;
     }
 

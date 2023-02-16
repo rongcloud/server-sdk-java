@@ -518,6 +518,7 @@ public class MessageExample {
         ResponseResult cleanResult = history.clean("1", "jf8yVWgZO", "IotBnm9K4", null);
         System.out.println("clean history  message:  " + cleanResult.toString());
 
+
         PushExt pushExt = new PushExt();
         pushExt.setTitle("aaa");
         pushExt.setTemplateId("22");
@@ -530,8 +531,12 @@ public class MessageExample {
                 .setPushExt(pushExt)
                 .setExpansion(true)
                 .setExtraContent(hashMap)
-                .setObjectName(txtMessage.getType());
+                .setObjectName(txtMessage.getType())
+                .setIsCounted(1);
 
+        /**
+         * 发送超级群消息
+         * */
         ResponseResult send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup message:  " + send.toString());
     }
