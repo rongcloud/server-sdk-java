@@ -2242,3 +2242,101 @@ func (rc *RongCloud) UGUserGroupQuery(groupId string, page, pageSize int) (userG
 
 	return data.UserGroups, nil
 }
+
+// UGUserGroupUserAdd 用户组批量增加用户
+func (rc *RongCloud) UGUserGroupUserAdd(groupId, userGroupId string, userIds []string) (err error) {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if userGroupId == "" {
+		return RCErrorNew(1002, "param 'userGroupId' is required")
+	}
+
+	if userIds == nil || len(userIds) < 1 {
+		return RCErrorNew(1002, "param 'userIds' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/usergroup/user/add.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userGroupId", groupId)
+	req.Param("userIds", strings.Join(userIds, ","))
+
+	if _, err = rc.do(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// UGUserGroupUserDelete 用户组批量移除用户
+func (rc *RongCloud) UGUserGroupUserDelete(groupId, userGroupId string, userIds []string) (err error) {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if userGroupId == "" {
+		return RCErrorNew(1002, "param 'userGroupId' is required")
+	}
+
+	if userIds == nil || len(userIds) < 1 {
+		return RCErrorNew(1002, "param 'userIds' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/usergroup/user/del.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userGroupId", groupId)
+	req.Param("userIds", strings.Join(userIds, ","))
+
+	if _, err = rc.do(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// UGUserUserGroupQuery 查询用户在超级群下所属的用户组列表
+func (rc *RongCloud) UGUserUserGroupQuery(groupId, userId string, page, pageSize int) (userGroupIds []string, err error) {
+	if groupId == "" {
+		return nil, RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if userId == "" {
+		return nil, RCErrorNew(1002, "param 'userId' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/user/usergroup/query.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userId", userId)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("pageSize", strconv.Itoa(pageSize))
+
+	respBody, err := rc.do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	data := struct {
+		Code         int      `json:"code"`
+		UserGroupIds []string `json:"data"`
+	}{}
+
+	if err := json.Unmarshal(respBody, &data); err != nil {
+		return nil, err
+	}
+
+	return data.UserGroupIds, nil
+}

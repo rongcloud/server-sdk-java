@@ -564,3 +564,53 @@ func Test_UGUserGroupQuery(t *testing.T) {
 	t.Log(err)
 	t.Log(userGroups)
 }
+
+func Test_UGUserGroupUserAdd(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	userGroupId := "id"
+	userIds := []string{
+		"user1",
+		"user2",
+		"user3",
+	}
+	err := rc.UGUserGroupUserAdd(groupId, userGroupId, userIds)
+
+	t.Log(err)
+}
+
+func Test_UGUserGroupUserDelete(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	userGroupId := "id"
+	userIds := []string{
+		"user1",
+		"user2",
+		"user3",
+	}
+	err := rc.UGUserGroupUserDelete(groupId, userGroupId, userIds)
+
+	t.Log(err)
+}
+
+func Test_UGUserUserGroupQuery(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	userId := "userId"
+	userGroupIds, err := rc.UGUserUserGroupQuery(groupId, userId, 1, 10)
+
+	t.Log(err)
+	t.Log(userGroupIds)
+}
