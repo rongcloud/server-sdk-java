@@ -614,3 +614,81 @@ func Test_UGUserUserGroupQuery(t *testing.T) {
 	t.Log(err)
 	t.Log(userGroupIds)
 }
+
+func Test_UGChannelUserGroupBind(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	busChannel := "channelid"
+	userGroupIds := []string{
+		"user1",
+		"user2",
+		"user3",
+	}
+	err := rc.UGChannelUserGroupBind(groupId, busChannel, userGroupIds)
+
+	t.Log(err)
+}
+
+func Test_UGChannelUserGroupUnbind(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	busChannel := "channelid"
+	userGroupIds := []string{
+		"user1",
+		"user2",
+		"user3",
+	}
+	err := rc.UGChannelUserGroupUnbind(groupId, busChannel, userGroupIds)
+
+	t.Log(err)
+}
+
+func Test_UGChannelUserGroupQuery(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	busChannel := "buschannel1"
+	userGroupIds, err := rc.UGChannelUserGroupQuery(groupId, busChannel, 1, 10)
+
+	t.Log(err)
+	t.Log(userGroupIds)
+}
+
+func Test_UGUserGroupChannelQuery(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	userGroupId := "userGroupId"
+	busChannelIds, err := rc.UGUserGroupChannelQuery(groupId, userGroupId, 1, 10)
+
+	t.Log(err)
+	t.Log(busChannelIds)
+}
+
+func Test_UGUserChannelQuery(t *testing.T) {
+	key := os.Getenv("APP_KEY")
+	secret := os.Getenv("APP_SECRET")
+
+	rc := NewRongCloud(key, secret)
+
+	groupId := "abc"
+	userId := "userId"
+	busChannelIds, err := rc.UGUserChannelQuery(groupId, userId, 1, 10)
+
+	t.Log(err)
+	t.Log(busChannelIds)
+}

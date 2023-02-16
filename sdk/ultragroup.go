@@ -2340,3 +2340,177 @@ func (rc *RongCloud) UGUserUserGroupQuery(groupId, userId string, page, pageSize
 
 	return data.UserGroupIds, nil
 }
+
+// UGChannelUserGroupBind 频道批量绑定用户组
+func (rc *RongCloud) UGChannelUserGroupBind(groupId, busChannel string, userGroupIds []string) (err error) {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if busChannel == "" {
+		return RCErrorNew(1002, "param 'busChannel' is required")
+	}
+
+	if userGroupIds == nil || len(userGroupIds) < 1 {
+		return RCErrorNew(1002, "param 'userGroupIds' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/channel/usergroup/bind.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("userGroupIds", strings.Join(userGroupIds, ","))
+
+	if _, err = rc.do(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// UGChannelUserGroupUnbind 频道批量解绑用户组
+func (rc *RongCloud) UGChannelUserGroupUnbind(groupId, busChannel string, userGroupIds []string) (err error) {
+	if groupId == "" {
+		return RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if busChannel == "" {
+		return RCErrorNew(1002, "param 'busChannel' is required")
+	}
+
+	if userGroupIds == nil || len(userGroupIds) < 1 {
+		return RCErrorNew(1002, "param 'userGroupIds' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/channel/usergroup/unbind.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("userGroupIds", strings.Join(userGroupIds, ","))
+
+	if _, err = rc.do(req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// UGChannelUserGroupQuery 查询频道绑定的用户组列表
+func (rc *RongCloud) UGChannelUserGroupQuery(groupId, busChannel string, page, pageSize int) (userGroupIds []string, err error) {
+	if groupId == "" {
+		return nil, RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if busChannel == "" {
+		return nil, RCErrorNew(1002, "param 'busChannel' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/channel/usergroup/query.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("busChannel", busChannel)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("pageSize", strconv.Itoa(pageSize))
+
+	respBody, err := rc.do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	data := struct {
+		Code         int      `json:"code"`
+		UserGroupIds []string `json:"data"`
+	}{}
+
+	if err := json.Unmarshal(respBody, &data); err != nil {
+		return nil, err
+	}
+
+	return data.UserGroupIds, nil
+}
+
+// UGUserGroupChannelQuery 查询用户组绑定的频道列表
+func (rc *RongCloud) UGUserGroupChannelQuery(groupId, userGroupId string, page, pageSize int) (busChannelIds []string, err error) {
+	if groupId == "" {
+		return nil, RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if userGroupId == "" {
+		return nil, RCErrorNew(1002, "param 'userGroupId' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/usergroup/channel/query.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userGroupId", userGroupId)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("pageSize", strconv.Itoa(pageSize))
+
+	respBody, err := rc.do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	data := struct {
+		Code          int      `json:"code"`
+		BusChannelIds []string `json:"data"`
+	}{}
+
+	if err := json.Unmarshal(respBody, &data); err != nil {
+		return nil, err
+	}
+
+	return data.BusChannelIds, nil
+}
+
+// UGUserChannelQuery 查询用户所属的频道白名单列表
+func (rc *RongCloud) UGUserChannelQuery(groupId, userId string, page, pageSize int) (busChannelIds []string, err error) {
+	if groupId == "" {
+		return nil, RCErrorNew(1002, "param 'groupId' is required")
+	}
+
+	if userId == "" {
+		return nil, RCErrorNew(1002, "param 'userId' is required")
+	}
+
+	url := fmt.Sprintf("%s/ultragroup/user/channel/query.%s", rc.rongCloudURI, ReqType)
+	req := httplib.Post(url)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("groupId", groupId)
+	req.Param("userId", userId)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("pageSize", strconv.Itoa(pageSize))
+
+	respBody, err := rc.do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	data := struct {
+		Code          int      `json:"code"`
+		BusChannelIds []string `json:"data"`
+	}{}
+
+	if err := json.Unmarshal(respBody, &data); err != nil {
+		return nil, err
+	}
+
+	return data.BusChannelIds, nil
+}
