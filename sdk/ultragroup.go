@@ -2263,7 +2263,7 @@ func (rc *RongCloud) UGUserGroupUserAdd(groupId, userGroupId string, userIds []s
 	rc.fillHeader(req)
 
 	req.Param("groupId", groupId)
-	req.Param("userGroupId", groupId)
+	req.Param("userGroupId", userGroupId)
 	req.Param("userIds", strings.Join(userIds, ","))
 
 	if _, err = rc.do(req); err != nil {
@@ -2293,7 +2293,7 @@ func (rc *RongCloud) UGUserGroupUserDelete(groupId, userGroupId string, userIds 
 	rc.fillHeader(req)
 
 	req.Param("groupId", groupId)
-	req.Param("userGroupId", groupId)
+	req.Param("userGroupId", userGroupId)
 	req.Param("userIds", strings.Join(userIds, ","))
 
 	if _, err = rc.do(req); err != nil {
