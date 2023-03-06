@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
-import io.rong.models.Result;
 import io.rong.models.message.*;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
@@ -155,6 +154,9 @@ public class UltraGroup {
         }
         if (message.getExtra() != null) {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
+        if (message.getBusChannel() != null) {
+            sb.append("&busChannel=").append(URLEncoder.encode(message.getBusChannel().toString(), UTF8));
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {

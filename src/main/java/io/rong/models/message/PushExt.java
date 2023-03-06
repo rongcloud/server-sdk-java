@@ -86,7 +86,7 @@ public class PushExt {
         }
 
         public void setHW(HashMap<String, String> hW) {
-            HW = hW;
+            this.HW = hW;
         }
 
     }
@@ -104,7 +104,7 @@ public class PushExt {
         }
 
         public void setAPNs(HashMap<String, String> aPNs) {
-            APNs = aPNs;
+            this.APNs = aPNs;
         }
     }
 
@@ -120,7 +120,7 @@ public class PushExt {
         }
 
         public void setVIVO(HashMap<String, String> VIVO) {
-            VIVO = VIVO;
+            this.VIVO = VIVO;
         }
 
     }
@@ -137,7 +137,24 @@ public class PushExt {
         }
 
         public void setOPPO(HashMap<String, String> OPPO) {
-            OPPO = OPPO;
+            this.OPPO = OPPO;
+        }
+
+    }
+
+    public static class FCM implements Platform {
+        private HashMap<String, String> FCM = new HashMap<String, String>();
+
+        public FCM(String channelId) {
+            FCM.put("channelId", channelId);
+        }
+
+        public HashMap<String, String> getFCM() {
+            return FCM;
+        }
+
+        public void setFCM(HashMap<String, String> FCM) {
+            this.FCM = FCM;
         }
 
     }

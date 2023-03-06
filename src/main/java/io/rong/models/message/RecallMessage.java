@@ -39,6 +39,14 @@ public class RecallMessage {
      */
     public Boolean disablePush;
 
+    /**
+     * 超级群频道 ID，仅适用于撤回超级群消息。使用要求如下：
+     * 如果发送消息时指定了频道 ID，则撤回时必须指定频道 ID，否则无法撤回。
+     * 如果发送消息时未指定频道 ID，则撤回时不可指定频道 ID，否则无法撤回。
+     * 客户端发送超级群消息时，频道 ID 对应字段名称为 channelId。
+     */
+    private  String busChannel;
+
     public RecallMessage() {
     }
 
@@ -126,6 +134,15 @@ public class RecallMessage {
 
     public RecallMessage setExtra(String extra) {
         this.extra = extra;
+        return this;
+    }
+
+    public String getBusChannel() {
+        return busChannel;
+    }
+
+    public RecallMessage setBusChannel(String busChannel) {
+        this.busChannel = busChannel;
         return this;
     }
 }

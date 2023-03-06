@@ -56,6 +56,10 @@ public class Conversation {
         sb.append("&requestId=").append(URLEncoder.encode(conversation.userId .toString(), UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(conversation.targetId.toString(), UTF8));
         sb.append("&isMuted=").append(URLEncoder.encode("1", UTF8));
+        if(conversation.busChannel != null){
+            sb.append("&busChannel=").append(URLEncoder.encode(conversation.getBusChannel(), UTF8));
+        }
+        sb.append("&unpushLevel=").append(URLEncoder.encode(String.valueOf(conversation.getUnpushLevel()), UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -84,6 +88,10 @@ public class Conversation {
         sb.append("&requestId=").append(URLEncoder.encode(conversation.userId .toString(), UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(conversation.targetId.toString(), UTF8));
         sb.append("&isMuted=").append(URLEncoder.encode("0", UTF8));
+        if(conversation.busChannel != null){
+            sb.append("&busChannel=").append(URLEncoder.encode(conversation.getBusChannel(), UTF8));
+        }
+        sb.append("&unpushLevel=").append(URLEncoder.encode("0", UTF8));
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -109,6 +117,9 @@ public class Conversation {
         sb.append("&conversationType=").append(URLEncoder.encode(conversation.type, UTF8));
         sb.append("&requestId=").append(URLEncoder.encode(conversation.userId, UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(conversation.targetId, UTF8));
+        if(conversation.busChannel != null){
+            sb.append("&busChannel=").append(URLEncoder.encode(conversation.getBusChannel(), UTF8));
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

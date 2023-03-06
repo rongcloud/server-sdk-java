@@ -74,7 +74,9 @@ public class MessageExample {
         PushExt pe = PushExt.build("testTitle", 1,
                 new PushExt.HW("channelId", "NORMAL"), new PushExt.VIVO("1"),
                 new PushExt.APNs("234353efsfwd", "232"),
-                new PushExt.OPPO("134324"));
+                new PushExt.OPPO("134324"),
+                new PushExt.FCM("134324")
+        );
 
         /**
          * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/system.html#send
