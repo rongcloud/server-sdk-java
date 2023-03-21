@@ -99,7 +99,7 @@
 		}
 	},
 	"sendUser": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/system/private#push",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "push/user",
 		"params": {
 			"sendUser": {
@@ -186,7 +186,7 @@
 
 	},
 	"online": {
-		"docs": "https://docs.rongcloud.cn/v4/5X/views/im/server/system/online.html",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "message/online/broadcast",
 		"params": {
 			"online": {
