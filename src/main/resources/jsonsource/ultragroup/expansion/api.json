@@ -1,6 +1,6 @@
 {
 	"set": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "ultragroup/message/expansion/set",
 		"params": {
 			"expansion": {
@@ -28,7 +28,7 @@
 		}
 	},
 	"remove": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "ultragroup/message/expansion/delete",
 		"params": {
 			"expansion": {
@@ -60,7 +60,7 @@
 		}
 	},
 	"getList": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/message/expansion#query",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "ultragroup/message/expansion/query",
 		"params": {
 			"expansion": {

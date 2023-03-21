@@ -18,7 +18,6 @@ import java.net.URLEncoder;
 
 /**
  * 消息扩展
- * docs: "https://doc.rongcloud.cn/imserver/server/v1/message/expansion"
  */
 public class Expansion {
     private static final String UTF8 = "UTF-8";

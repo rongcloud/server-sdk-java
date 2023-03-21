@@ -54,7 +54,6 @@ public class ExpansionExample {
         Expansion expansion = rongCloud.expansion;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set
          *
          * 设置消息扩展
          *
@@ -75,7 +74,6 @@ public class ExpansionExample {
         System.out.println("set expansion:  " + result.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete
          *
          * 删除消息扩展
          *
@@ -89,7 +87,6 @@ public class ExpansionExample {
         System.out.println("remove expansion:  " + result.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#query
          *
          * 获取扩展信息
          *

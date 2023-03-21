@@ -1758,8 +1758,6 @@ public class Example {
 
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set
-     * <p>
      * 设置消息扩展
      **/
     @Test
@@ -1783,8 +1781,6 @@ public class Example {
 
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete
-     * <p>
      * 删除消息扩展
      **/
     @Test
@@ -1806,8 +1802,6 @@ public class Example {
 
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/message/expansion#query
-     * <p>
      * 获取扩展信息
      **/
     @Test
