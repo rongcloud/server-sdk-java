@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 超级群服务
- * https://doc.rongcloud.cn/imserver/server/v1/ultragroup/basic
+ * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class UltraGroupModel {
     /**

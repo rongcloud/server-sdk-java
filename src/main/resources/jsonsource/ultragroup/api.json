@@ -1,6 +1,6 @@
 {
 	"create": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/ultragroup/basic#create_ultragroup\n",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "ultragroup/create",
 		"params": {
 			"group": {
