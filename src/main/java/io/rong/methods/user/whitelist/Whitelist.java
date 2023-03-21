@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 
 /**
  * 用户白名单服务
- * docs: "http://www.rongcloud.cn/docs/server.html#whitelist"
+ * docs: "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1"
  *
  * @author RongCloud
  */
@@ -43,7 +43,7 @@ public class Whitelist {
     }
 
     /**
-     * 添加用户到白名单方法（每秒钟限 100 次）
+     * 添加用户到白名单方法
      *
      * @param user:用户 Id,whitelist（必传）
      * @return ResponseResult
@@ -62,7 +62,7 @@ public class Whitelist {
     }
 
     /**
-     * 获取某用户的白名单列表方法（每秒钟限 100 次）
+     * 获取某用户的白名单列表方法
      *
      * @param user:用户 Id。（必传）
      * @return QueryBlacklistUserResult
@@ -87,7 +87,7 @@ public class Whitelist {
     }
 
     /**
-     * 从白名单中移除用户方法（每秒钟限 100 次）
+     * 从白名单中移除用户方法
      *
      * @param user:用户 Id,whitelist（必传）
      * @return ResponseResult

@@ -66,13 +66,13 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
+					"errorMessage": "调用频率超限。"
 				}
 			}
 		}
 	},
 	"batchDelete": {
-		"docs": "http://www.rongcloud.cn/docs/server.html#sensitiveword_batch_delete",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "/sensitiveword/batch/delete",
 		"params": {
 			"sensitive": {
@@ -107,7 +107,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
+					"errorMessage": "调用频率超限。"
 				}
 			}
 		}
@@ -144,7 +144,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
+					"errorMessage": "调用频率超限。"
 				}
 			}
 		}

@@ -13,7 +13,7 @@ import java.net.URLEncoder;
 /**
  *
  * 聊天室优先级服务
- * docs: "http://www.rongcloud.cn/docs/server.html#chatroom_message_priority"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Demotion {

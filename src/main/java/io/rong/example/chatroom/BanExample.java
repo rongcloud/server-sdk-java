@@ -33,7 +33,7 @@ public class BanExample {
         Ban ban = rongCloud.chatroom.ban;
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/ban.html#add
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 添加聊天室全局禁言
          * */
         ChatroomMember[] members = {
@@ -47,7 +47,7 @@ public class BanExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/ban.html#getList
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 获取聊天时全局禁言列表
          */
 
@@ -56,7 +56,7 @@ public class BanExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/ban.html#remove
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 删除聊天时全局禁言
          */
         chatroom = new ChatroomModel()

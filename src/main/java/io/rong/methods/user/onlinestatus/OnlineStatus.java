@@ -13,7 +13,7 @@ import java.net.URLEncoder;
 /**
  *
  *  在线状态
- * docs: "http://www.rongcloud.cn/docs/server.html#sensitiveword"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @version
  * */
@@ -37,11 +37,11 @@ public class OnlineStatus {
 
     }
     /**
-     * 检查用户在线状态 方法（每秒钟限100次）
+     * 检查用户在线状态方法
      * 请不要频繁循环调用此接口，而是选择合适的频率和时机调用，此接口设置了一定的频率限制。
      *
      * url /user/checkOnline
-     * docs http://www.rongcloud.cn/docs/server.html#user_check_online
+     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param  user:用户 id(必传)
      *

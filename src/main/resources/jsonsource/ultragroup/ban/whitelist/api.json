@@ -1,6 +1,6 @@
 {
   "add": {
-    "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_add",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "/group/user/ban/whitelist/add",
     "params": {
       "group": {
@@ -38,7 +38,7 @@
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限，每秒钟限制 100 次。"
+          "errorMessage": "调用频率超限。"
         },
         "20004": {
           "code": "1002",
@@ -48,7 +48,7 @@
     }
   },
   "del": {
-    "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_rollback",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "/group/user/ban/whitelist/rollback",
     "params": {
       "group": {
@@ -74,7 +74,7 @@
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限，每秒钟限制 100 次。"
+          "errorMessage": "调用频率超限。"
         },
         "20004": {
           "code": "1002",
@@ -92,7 +92,7 @@
     }
   },
   "get": {
-    "docs": "https://www.rongcloud.cn/docs/server.html#group_ban_whitelist_list",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "/group/user/ban/whitelist/query",
     "params": {
       "group": {
@@ -123,7 +123,7 @@
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限，每秒钟限制 100 次。"
+          "errorMessage": "调用频率超限。"
         }
       }
     }

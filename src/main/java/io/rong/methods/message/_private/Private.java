@@ -26,7 +26,7 @@ import com.google.gson.JsonSyntaxException;
 
 /**
  * 发送单聊消息方法
- * docs : http://www.rongcloud.cn/docs/server.html#message_private_publish
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */

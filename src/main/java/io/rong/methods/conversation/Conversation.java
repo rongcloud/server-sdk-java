@@ -14,7 +14,7 @@ import java.net.URLEncoder;
 /**
  *
  * 会话消息免打扰服务
- * docs: "http://www.rongcloud.cn/docs/server.html#conversation_notification"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @version
  * */

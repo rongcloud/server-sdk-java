@@ -40,7 +40,7 @@ public class GagExample {
 
         Gag Gag = rongCloud.group.gag;
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#add
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 添加禁言群成员方法
          */
 
@@ -54,14 +54,14 @@ public class GagExample {
         System.out.println("group.gag.add:  " + result.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#getList
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 查询被禁言群成员
          */
         ListGagGroupUserResult groupLisGagUserResult = Gag.getList("groupId");
         System.out.println("group.gag.getList:  " + groupLisGagUserResult.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#remove
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 移除禁言群成员
          */
         group = new GroupModel()

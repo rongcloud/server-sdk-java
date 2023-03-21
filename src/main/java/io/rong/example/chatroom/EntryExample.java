@@ -38,7 +38,7 @@ public class EntryExample {
 
         Reader reader = null;
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#create
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 创建聊天室
          *

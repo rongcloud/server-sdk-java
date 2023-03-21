@@ -30,7 +30,7 @@ public class DemotionExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/demotion.html#add
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 添加应用内聊天室降级消息
          *
          * */
@@ -40,7 +40,7 @@ public class DemotionExample {
 
         /**
          *
-         *API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/demotion.html#remove
+         *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 移除应用内聊天室降级消息
          *
          * */
@@ -50,7 +50,7 @@ public class DemotionExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/demotion.html#getList
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 添加聊天室消息优先级demo
          *
          * */

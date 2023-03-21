@@ -33,7 +33,7 @@ public class ChatroomExample {
 
         Reader reader = null;
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#create
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 创建聊天室
          *
@@ -48,7 +48,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#destory
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 销毁聊天室
          *
          * */
@@ -61,7 +61,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#getMembers
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 查询聊天室成员demo
          *
          * */
@@ -76,7 +76,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#isExist
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 查询聊天室成员是否存在
          *
          * */

@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 /**
  *
  * 用户免打扰时间段
- * docs: "http://www.rongcloud.cn/docs/server.html#black"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  * @version
@@ -45,7 +45,7 @@ public class BlockPushPeriod {
     }
 
     /**
-     * 添加用户免打扰时间段（每秒钟限 100 次）
+     * 添加用户免打扰时间段
      *
      * @param  user:用户 Id,startTime, period（必传）
      *
@@ -73,7 +73,7 @@ public class BlockPushPeriod {
     }
 
     /**
-     * 获取某用户的免打扰时间段（每秒钟限 100 次）
+     * 获取某用户的免打扰时间段
      *
      * @param  user:用户 Id。（必传）
      *
@@ -95,7 +95,7 @@ public class BlockPushPeriod {
     }
 
     /**
-     * 移除某用户的免打扰时间段（每秒钟限 100 次）
+     * 移除某用户的免打扰时间段
      *
      * @param  user:用户 Id（必传）
      *

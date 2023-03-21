@@ -79,7 +79,7 @@ public class MessageExample {
         );
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/system.html#send
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 发送系统消息
          *
@@ -102,7 +102,7 @@ public class MessageExample {
         System.out.println("send system message:  " + result.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/system.html#sendTemplate
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 发送系统模板消息方法
          *
@@ -122,7 +122,7 @@ public class MessageExample {
         }
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/system.html#sendTemplate
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 发送系统模板消息方法
          *
@@ -160,7 +160,7 @@ public class MessageExample {
         System.out.println("sendUser:  " + sendUser.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/private.html#send
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 发送单聊消息<文本, 语音, 文件类型 等消息类型>
          */
@@ -182,7 +182,7 @@ public class MessageExample {
         System.out.println("send private message:  " + privateResult.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/private.html#sendTemplate
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 发送单聊模板消息方法
          */
@@ -201,7 +201,7 @@ public class MessageExample {
             }
         }
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/private.html#recall
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 撤回单聊消息
          * */
@@ -229,7 +229,7 @@ public class MessageExample {
 
 
         /**
-         * API 文档: https://www.rongcloud.cn/docs/message_architecture.html#typing_status_message
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 单聊-发送正在输入状态消息
          *
@@ -270,7 +270,7 @@ public class MessageExample {
         System.out.println("send private ReceiptResult message:  " + privateReceiptResult.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#send
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 群组消息
          * */
@@ -289,7 +289,7 @@ public class MessageExample {
 
         System.out.println("send Group message:  " + groupResult.toString());
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#send
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 群组定向消息
          * */
@@ -311,7 +311,7 @@ public class MessageExample {
 
         System.out.println("send group direction message:  " + groupDirectionResult.toString());
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#recall
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 群组撤回消息
          * */
@@ -325,7 +325,7 @@ public class MessageExample {
         System.out.println("recall group message:  " + recallMessageResult.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/group.html#sendMention
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 群组@消息
          * */
@@ -391,7 +391,7 @@ public class MessageExample {
         group.sendDirection(groupMessage3);
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/discussion.html#send
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 发送讨论组消息
          * */
@@ -413,7 +413,7 @@ public class MessageExample {
         System.out.println("send discussion message:  " + discussionResult.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/discussion.html#recall
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 撤回讨论组消息
          * */
@@ -428,7 +428,7 @@ public class MessageExample {
 
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/chatroom.html#send
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 聊天室消息
          * */
@@ -446,7 +446,7 @@ public class MessageExample {
         ResponseResult chatroomResult = chatroom.send(chatroomMessage);
         System.out.println("send chatroom message:  " + chatroomResult.toString());
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/chatroom.html#recall
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 聊天室撤回消息
          * */
@@ -474,7 +474,7 @@ public class MessageExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/chatroom.html#broadcast
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 聊天室广播消息
          *
@@ -492,7 +492,7 @@ public class MessageExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/history.html#get
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 获取历史消息日志文件
          *
@@ -503,7 +503,7 @@ public class MessageExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/message/history.html#get
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 删除历史消息日志文件
          *

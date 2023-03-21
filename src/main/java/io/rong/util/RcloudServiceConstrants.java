@@ -14,7 +14,7 @@ public class RcloudServiceConstrants {
     public static final int RCLOUD_APP_NO_MATCH=1001;//1001=App Key与App Secret 不匹配
     public static final int RCLOUD_PARAM_ERROR = 1002;//1002=参数错误	参数错误，详细的描述信息会说明
     public static final int RCLOUD_NOT_POSTBODY = 1003;//1003=没有POST任何数据，请增加post请求参数
-    public static final int RCLOUD_SINNATURE_ERROR = 1004;//1004=验证签名错误，查看签名验证http://www.rongcloud.cn/docs/server.html#signature
+    public static final int RCLOUD_SINNATURE_ERROR = 1004;//1004=验证签名错误
     public static final int RCLOUD_PARAM_LEN_OUT = 1005;//参数长度超限，参数长度超限，详细的描述信息会说明
     public static final int RCLOUD_APP_LOCKED = 1006;//App被锁定或删除，联系工作人员排查。
     public static final int RCLOUD_METHOD_LIMITED= 1007;//被限制调用	该方法被限制调用，详细的描述信息会说明

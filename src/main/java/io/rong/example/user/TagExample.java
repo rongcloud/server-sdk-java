@@ -34,7 +34,7 @@ public class TagExample {
         /**
          *
          * API 文档:
-         * https://www.rongcloud.cn/docs/push_service.html#user_tag_set
+         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 添加标签
          *
@@ -49,7 +49,7 @@ public class TagExample {
         /**
          *
          * API 文档:
-         * https://www.rongcloud.cn/docs/push_service.html#user_tag_batch_set
+         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 批量添加标签
          *
@@ -65,7 +65,7 @@ public class TagExample {
         /**
          *
          * API 文档:
-         * https://www.rongcloud.cn/docs/push_service.html#user_tags_get
+         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 查询用户标签
          *

@@ -19,7 +19,7 @@ import com.google.gson.JsonSyntaxException;
 
 /**
  * 发送聊天室消息方法
- * docs : http://www.rongcloud.cn/docs/server.html#message_chatroom_publish
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */
@@ -46,7 +46,7 @@ public class Chatroom {
     }
 
     /**
-     * 发送聊天室消息方法（一个用户向聊天室发送消息，单条消息最大 128k。每秒钟限 100 次。）
+     * 发送聊天室消息方法（一个用户向聊天室发送消息，单条消息最大 128k。）
      *
      * @param message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
      * @return ResponseResult

@@ -16,7 +16,7 @@ import java.net.URLEncoder;
 /**
  * 群组禁言服务
  * 群成员禁言 groupId 不加即为全局禁言
- * docs : https://www.rongcloud.cn/docs/server.html#group_user_gag
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class User {

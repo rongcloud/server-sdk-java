@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 
 /**
  * 用户封禁服务
- * docs: "http://www.rongcloud.cn/docs/server.html#user_block"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Block {
     private static final String UTF8 = "UTF-8";
@@ -40,7 +40,7 @@ public class Block {
     }
 
     /**
-     * 封禁用户方法（每秒钟限 100 次）
+     * 封禁用户方法
      *
      * @param user :用户信息 Id，minute（必传）
      * @return Result
@@ -68,7 +68,7 @@ public class Block {
     }
 
     /**
-     * 解除用户封禁方法（每秒钟限 100 次）
+     * 解除用户封禁方法
      *
      * @param userId:用户 Id。（必传）
      * @return ResponseResult
@@ -95,7 +95,7 @@ public class Block {
     }
 
     /**
-     * 获取被封禁用户方法（每秒钟限 100 次）
+     * 获取被封禁用户方法
      *
      * @return QueryBlockUserResult
      **/
@@ -104,7 +104,7 @@ public class Block {
     }
 
     /**
-     * 获取被封禁用户方法（每秒钟限 100 次）
+     * 获取被封禁用户方法
      *
      * @param size:分页获取封禁用户列表时每页行数，不传时默认为 50 条。（非必传）
      * @param page:分页获取封禁用户列表时当前页数。（非必传）

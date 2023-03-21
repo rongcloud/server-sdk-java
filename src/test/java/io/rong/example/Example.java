@@ -180,7 +180,7 @@ public class Example {
 
 
     /**
-     * 测试用户封禁方法（每秒钟限 100 次）
+     * 测试用户封禁方法
      */
     @Test
     public void testUserAddBlock() throws Exception {
@@ -195,7 +195,7 @@ public class Example {
     }
 
     /**
-     * 测试解除用户封禁方法（每秒钟限 100 次）
+     * 测试解除用户封禁方法
      */
     @Test
     public void testUserUnBlock() throws Exception {
@@ -207,7 +207,7 @@ public class Example {
     }
 
     /**
-     * 获取被封禁用户方法（每秒钟限 100 次）
+     * 获取被封禁用户方法
      */
     @Test
     public void testUserQueryBlock() throws Exception {
@@ -221,7 +221,7 @@ public class Example {
     }
 
     /**
-     * 添加用户到黑名单方法（每秒钟限 100 次）
+     * 添加用户到黑名单方法
      */
     @Test
     public void testAddBlacklist() throws Exception {
@@ -240,7 +240,7 @@ public class Example {
     }
 
     /**
-     * 获取某用户的黑名单列表方法（每秒钟限 100 次）
+     * 获取某用户的黑名单列表方法
      */
     @Test
     public void testGetBlacklist() throws Exception {
@@ -254,7 +254,7 @@ public class Example {
     }
 
     /**
-     * 从黑名单中移除用户方法（每秒钟限 100 次）
+     * 从黑名单中移除用户方法
      */
     @Test
     public void testRemoveBlacklist() throws Exception {
@@ -272,7 +272,7 @@ public class Example {
 
 
     /**
-     * 添加用户到白名单方法（每秒钟限 100 次）
+     * 添加用户到白名单方法
      */
     @Test
     public void testAddWhitelist() throws Exception {
@@ -297,7 +297,7 @@ public class Example {
     }
 
     /**
-     * 获取某用户的白名单列表方法（每秒钟限 100 次）
+     * 获取某用户的白名单列表方法
      */
     @Test
     public void testGetWhitelist() throws Exception {
@@ -312,7 +312,7 @@ public class Example {
     }
 
     /**
-     * 从白名单中移除用户方法（每秒钟限 100 次）
+     * 从白名单中移除用户方法
      */
     @Test
     public void testRemoveWhitelist() throws Exception {
@@ -1106,7 +1106,8 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#getMembers 查询聊天室成员demo
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 查询聊天室成员demo
      */
     @Test
     public void testGetChatroom() throws Exception {
@@ -1125,7 +1126,8 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/chatroom.html#isExist 查询聊天室成员是否存在
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 查询聊天室成员是否存在
      */
     @Test
     public void testChatroomIsExist() throws Exception {
@@ -1501,9 +1503,9 @@ public class Example {
 
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/distribute.html#resume
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 聊天室消息恢复分发方法（每秒钟限 100 次）
+     * 聊天室消息恢复分发方法
      */
     @Test
     public void testResumeChatroomDistributio() throws Exception {
@@ -1516,7 +1518,7 @@ public class Example {
     }
 
     /**
-     * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言， 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法（每秒钟限 100 次）
+     * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言， 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法
      */
     @Test
     public void testAddChatroomGag() throws Exception {
@@ -1533,7 +1535,7 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/gag.html#remove 查询被禁言聊天室成员方法
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1 查询被禁言聊天室成员方法
      */
     @Test
     public void testGetChatroomGag() throws Exception {
@@ -1545,7 +1547,7 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/gag.html#getList
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 移除禁言聊天室成员
      */
@@ -1563,7 +1565,7 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/keepalive.html#add
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 添加保活聊天室
      **/
@@ -1577,7 +1579,7 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/keepalive.html#remove
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 删除保活聊天室
      **/
@@ -1592,7 +1594,7 @@ public class Example {
     }
 
     /**
-     * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/keepalive.html#getList
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 获取保活聊天室
      **/
@@ -1654,7 +1656,7 @@ public class Example {
     }
 
     /**
-     * API 文档: https://www.rongcloud.cn/docs/push_service.html#broadcast
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 广播消息
      **/
@@ -1680,7 +1682,7 @@ public class Example {
     }
 
     /**
-     * API 文档: https://www.rongcloud.cn/docs/push_service.html#push
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 推送消息
      **/
@@ -1709,7 +1711,7 @@ public class Example {
     }
 
     /**
-     * API 文档: https://www.rongcloud.cn/docs/push_service.html#user_tag_set
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 添加标签
      **/
@@ -1725,7 +1727,7 @@ public class Example {
     }
 
     /**
-     * API 文档: https://www.rongcloud.cn/docs/push_service.html#user_tag_batch_set
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 批量添加标签
      **/
@@ -1741,7 +1743,7 @@ public class Example {
     }
 
     /**
-     * API 文档: https://www.rongcloud.cn/docs/push_service.html#user_tags_get
+     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
      * 查询用户标签
      **/
@@ -2243,7 +2245,7 @@ public class Example {
     }
 
     /**
-     * 添加用户免打扰时间段（每秒钟限 100 次）
+     * 添加用户免打扰时间段
      */
     @Test
     public void testAddBlockPushPeriod() throws Exception {
@@ -2268,7 +2270,7 @@ public class Example {
     }
 
     /**
-     * 获取某用户的免打扰时间段（每秒钟限 100 次）
+     * 获取某用户的免打扰时间段
      */
     @Test
     public void testGetBlockPushPeriod() throws Exception {
@@ -2283,7 +2285,7 @@ public class Example {
     }
 
     /**
-     * 移除免打扰时间段（每秒钟限 100 次）
+     * 移除免打扰时间段
      */
     @Test
     public void testRemoveBlockPushPeriod() throws Exception {

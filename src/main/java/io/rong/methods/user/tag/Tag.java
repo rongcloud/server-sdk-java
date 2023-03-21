@@ -16,7 +16,7 @@ import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
 
 /**
- * 用户标签服务 docs: "https://www.rongcloud.cn/docs/push_service.html#user_tag"
+ * 用户标签服务 docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Tag {
 

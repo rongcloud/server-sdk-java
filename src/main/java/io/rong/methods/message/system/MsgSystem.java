@@ -26,7 +26,7 @@ import io.rong.util.JsonUtil;
 /**
  * 发送系统消息方法
  * <p>
- * docs : http://www.rongcloud.cn/docs/server.html#message_system_publish
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */

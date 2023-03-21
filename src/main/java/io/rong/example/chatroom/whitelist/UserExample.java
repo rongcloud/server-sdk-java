@@ -29,7 +29,7 @@ public class UserExample {
         Whitelist whitelist = rongCloud.chatroom.whiteList;
 
         /**
-         * API: 文档http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/user.html#add
+         * API: 文档 https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 添加聊天室用户白名单
          * */
         ChatroomMember[] members = {
@@ -42,7 +42,7 @@ public class UserExample {
         System.out.println("add whitelist:  " + addResult.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/user.html#getList
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 获取聊天室用户白名单
          * */
 
@@ -51,7 +51,7 @@ public class UserExample {
 
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/chatroom/whitelist/user.html#remove
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 删除聊天室用户白名单
          * */
 

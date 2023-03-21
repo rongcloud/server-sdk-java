@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 /**
  *
  *  敏感词服务
- * docs: "http://www.rongcloud.cn/docs/server.html#sensitiveword"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @version
  * */

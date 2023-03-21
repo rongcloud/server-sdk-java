@@ -17,7 +17,7 @@ import java.net.URLEncoder;
 /**
  * 群组禁言用户白名单服务
  * 在群组被禁言状态下，如果需要某些用户可以发言时，可将此用户加入到群组禁言用户白名单中。群禁言用户白名单，只有群组被设置为全部禁言时才会生效
- * docs : https://www.rongcloud.cn/docs/server.html#group_ban_whitelist
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author rc
  *
  * */

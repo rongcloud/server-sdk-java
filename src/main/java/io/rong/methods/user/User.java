@@ -26,7 +26,7 @@ import com.alibaba.fastjson.JSONException;
 
 /**
  * 用户服务
- * docs : http://www.rongcloud.cn/docs/server.html#user
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  **/
 public class User {
 
@@ -118,7 +118,7 @@ public class User {
     /**
      * 刷新用户信息方法
      * url  "/user/refresh"
-     * docs "http://www.rongcloud.cn/docs/server.html#user_refresh"
+     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user 用户信息 id name portrait(必传)
      * @return ResponseResult
@@ -155,7 +155,7 @@ public class User {
     /**
      * 查询用户信息方法
      * url  "/user/info"
-     * docs "http://www.rongcloud.cn/docs/server.html#user_info"
+     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user 用户信息 id (必传)
      * @return UserResult

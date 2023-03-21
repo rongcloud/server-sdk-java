@@ -139,7 +139,7 @@
 
 	},
 	"broadcast": {
-		"docs": "http://www.rongcloud.cn/docs/server.html#message_broadcast",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "message/broadcast",
 		"params": {
 			"message": {

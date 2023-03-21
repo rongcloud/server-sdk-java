@@ -31,7 +31,7 @@ public class SensitiveExample {
         SensitiveWord SensitiveWord = rongCloud.sensitiveword;
 
         /**
-         *API 文档: http://www.rongcloud.cn/docs/server_sdk_api/sensitive/sensitive.html#add
+         *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 添加替换敏感词方法
          *
@@ -44,7 +44,7 @@ public class SensitiveExample {
         System.out.println("sentiveWord add:  " + addesult.toString());
 
         /**
-         *API 文档: http://www.rongcloud.cn/docs/server_sdk_api/sensitive/sensitive.html#add
+         *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 添加替换敏感词方法
          *
@@ -57,7 +57,7 @@ public class SensitiveExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/sensitive/sensitive.html#getList
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 查询敏感词列表方法
          *
          * */
@@ -66,7 +66,7 @@ public class SensitiveExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/sensitive/sensitive.html#remove
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
          *
          * */
@@ -77,7 +77,7 @@ public class SensitiveExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/sensitive/sensitive.html#remove
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 批量移除敏感词方法（从敏感词列表中，批量移除某一敏感词。）
          *
          * */

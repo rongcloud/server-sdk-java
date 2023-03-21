@@ -37,7 +37,7 @@ public class PushExample {
         /**
          *
          * API 文档:
-         * https://www.rongcloud.cn/docs/push_service.html#broadcast
+         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 广播消息
          *
@@ -79,7 +79,7 @@ public class PushExample {
         /**
          *
          * API 文档:
-         * https://www.rongcloud.cn/docs/server.html#message_broadcast_recall
+         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 广播消息撤回
          *
          */
@@ -95,7 +95,7 @@ public class PushExample {
         /**
          *
          * API 文档:
-         * https://www.rongcloud.cn/docs/push_service.html#push
+         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 推送消息
          *

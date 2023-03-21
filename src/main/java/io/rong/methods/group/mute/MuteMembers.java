@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  * 群组成员禁言服务
- * docs : http://www.rongcloud.cn/docs/server.html#group_user_gag
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class MuteMembers {

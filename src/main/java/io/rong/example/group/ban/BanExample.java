@@ -48,21 +48,21 @@ public class BanExample {
             System.out.println("group.ban.add:  " + result.toString());
 
             /**
-             * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#getList
+             * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
              * 查询所有设置禁言群方法
              */
             GroupBanResult GroupBanResult = (GroupBanResult)ban.getList();
             System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
             /**
-             * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#getList
+             * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
              * 检查禁言群方法
              */
             GroupBanResult GroupBanCheckResult = (GroupBanResult)ban.check(groupIds);
             System.out.println("group.ban.check:  " + GroupBanCheckResult.toString());
 
             /**
-             * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#remove
+             * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
              * 移除禁言群方法
              */
             Result groupRollBackGagUserResult = ban.remove(groupIds);

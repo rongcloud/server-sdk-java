@@ -14,7 +14,7 @@ import java.net.URLEncoder;
 /**
  *
  * 聊天室用户白名单服务
- * docs: "http://www.rongcloud.cn/docs/server.html#chatroom_user_whitelist"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  * */

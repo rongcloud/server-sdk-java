@@ -16,7 +16,7 @@ import java.net.URLEncoder;
 /**
  * 超级群禁言状态
  * 超级群全局禁言
- * docs : https://www.rongcloud.cn/docs/server.html#group_ban
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Ban {

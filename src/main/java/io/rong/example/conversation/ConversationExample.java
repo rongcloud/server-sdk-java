@@ -43,7 +43,7 @@ public class ConversationExample {
                 .setTargetId("2iXiqVWUAWwaKA55FuZvY31");
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/conversation/conversation.html#mute
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 设置消息免打扰
          *
          */
@@ -53,7 +53,7 @@ public class ConversationExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/conversation/conversation.html#unmute
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 解除消息免打扰
          *
          * */
@@ -62,7 +62,7 @@ public class ConversationExample {
         System.out.println("unMuteConversationResult:  " + unMuteConversationResult.toString());
         /**
          *
-         * API 文档: https://www.rongcloud.cn/docs/server.html#conversation_notification_get
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 获取消息免打扰
          *
          * */

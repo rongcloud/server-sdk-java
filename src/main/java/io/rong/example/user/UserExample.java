@@ -50,7 +50,7 @@ public class UserExample {
         User User = rongCloud.user;
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#register
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 注册用户，生成用户在融云的唯一身份标识 Token
          */
@@ -63,7 +63,7 @@ public class UserExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#refresh
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 刷新用户信息方法
          */
@@ -72,7 +72,7 @@ public class UserExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#get
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 查询用户信息方法
          */
@@ -99,7 +99,7 @@ public class UserExample {
 
         /**
          *
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#get
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 查询用户所在群组
          */

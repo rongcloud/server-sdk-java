@@ -21,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  * 群组服务
- * http://www.rongcloud.cn/docs/server.html#group
+ * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Group {

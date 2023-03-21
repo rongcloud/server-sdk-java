@@ -1,6 +1,6 @@
 {
   "set": {
-    "docs": "https://www.rongcloud.cn/docs/push_service.html#user_tag_set",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "user/remarks/set",
     "params": {
         "set": {
@@ -32,13 +32,13 @@
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限，每秒钟限制 100 次。"
+          "errorMessage": "调用频率超限。"
         }
       }
     }
   },
   "del": {
-    "docs": "https://www.rongcloud.cn/docs/push_service.html#user_tag_set",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "user/remarks/set",
     "params": {
         "del": {
@@ -70,13 +70,13 @@
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限，每秒钟限制 100 次。"
+          "errorMessage": "调用频率超限。"
         }
       }
     }
   },
   "get": {
-    "docs": "https://www.rongcloud.cn/docs/push_service.html#user_tags_get",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "/user/remarks/get",
     "params": {
       "get": {
@@ -106,7 +106,7 @@
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限，每秒钟限制 100 次。"
+          "errorMessage": "调用频率超限。"
         }
       }
     }

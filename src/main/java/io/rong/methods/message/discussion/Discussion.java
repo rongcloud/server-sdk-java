@@ -17,7 +17,7 @@ import java.util.Arrays;
 /**
  * 发送讨论组消息方法
  *
- * docs : http://www.rongcloud.cn/docs/server.html#message_discussion_publish
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author RongCloud
  *
  */
@@ -42,7 +42,7 @@ public class Discussion {
 
     }
     /**
-     * 发送讨论组消息方法（以一个用户身份向讨论组发送消息，单条消息最大 128k，每秒钟最多发送 20 条消息.）
+     * 发送讨论组消息方法（以一个用户身份向讨论组发送消息，单条消息最大 128k.）
      *
      *
      * @param  message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）

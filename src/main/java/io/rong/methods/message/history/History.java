@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 消息历史记录服务
  *
- * docs : http://www.rongcloud.cn/docs/server.html#history_message
+ * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author RongCloud
  *
  */

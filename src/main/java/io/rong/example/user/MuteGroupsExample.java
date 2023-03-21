@@ -40,7 +40,7 @@ public class MuteGroupsExample {
 
         MuteGroups muteGroups = rongCloud.user.muteGroups;
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#add
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 设置用户在加入的所有群组中都不能发送消息
          */
 
@@ -53,7 +53,7 @@ public class MuteGroupsExample {
         System.out.println("group.ban.add:  " + result.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#getList
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 获取所有群组禁言用户列表
          */
         groupModel = new GroupModel()
@@ -62,7 +62,7 @@ public class MuteGroupsExample {
         System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
         /**
-         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/group/gag.html#remove
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 移除用户在所有群组中的禁言设置
          */
         groupModel = new GroupModel()

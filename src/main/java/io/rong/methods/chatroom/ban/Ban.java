@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 
 /**
  * 聊天室全局禁言服务
- * docs:http://www.rongcloud.cn/docs/server.html#chatroom_user_ban
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Ban {
