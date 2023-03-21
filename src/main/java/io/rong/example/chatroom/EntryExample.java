@@ -13,7 +13,7 @@ import io.rong.models.response.ResponseResult;
 /**
  * 聊天室设置属性，删除属性，查询属性 Demo
  * 
- * 应答码: https://docs.rongcloud.cn/v3/views/im/noui/code/server.html
+ * 应答码: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  */
 public class EntryExample {
@@ -52,7 +52,7 @@ public class EntryExample {
 		/**
 		 * 聊天室属性设置，参考文档
 		 * 
-		 * https://docs.rongcloud.cn/v3/views/im/noui/guide/chatroom/manage/key/set/serverapi.html
+		 * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
 		 */
 		ChatroomEntryModel model = new ChatroomEntryModel();
 		model.setChatroomId("chatroomId1");
@@ -69,7 +69,7 @@ public class EntryExample {
 		/**
 		 * 聊天室属性删除，参考文档
 		 * 
-		 * https://docs.rongcloud.cn/v3/views/im/noui/guide/chatroom/manage/key/remove/serverapi.html
+		 * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
 		 */
 		ChatroomEntryModel modelRemove = new ChatroomEntryModel();
 		modelRemove.setChatroomId("chatroomId1");
@@ -85,7 +85,7 @@ public class EntryExample {
 		/**
 		 * 聊天室属性查询，参考文档
 		 * 
-		 * https://docs.rongcloud.cn/v3/views/im/noui/guide/chatroom/manage/key/query/serverapi.html
+		 * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
 		 */
 		ChatroomEntryModel modelQuery = new ChatroomEntryModel();
 		modelQuery.setChatroomId("chatroomId1");

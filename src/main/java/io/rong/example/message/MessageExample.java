@@ -139,7 +139,7 @@ public class MessageExample {
 
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/system/private#push
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 不落地通知
          *
@@ -215,7 +215,7 @@ public class MessageExample {
 
 
         /**
-         * API 文档: https://docs.rongcloud.cn/im/server/message/#statusmessage_private
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 发送单聊状态消息
          */
@@ -245,7 +245,7 @@ public class MessageExample {
         System.out.println("send private message:  " + statusResult.toString());
 
         /**
-         * API 文档: https://docs.rongcloud.cn/im/introduction/message_structure/#InfoNtf
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 发送单聊小灰条消息
          */
         InfoNtfMessage infoNotify = new InfoNtfMessage("小灰条消息内容", "helloExtra");
@@ -355,7 +355,7 @@ public class MessageExample {
         /**
          * 发送群组状态消息
          *
-         * API 文档: https://docs.rongcloud.cn/im/server/message/#_6
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          */
         GroupStatusMessage groupStatusMessage = new GroupStatusMessage();
         groupStatusMessage.setSenderId("BzUPcKM2B")

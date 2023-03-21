@@ -56,7 +56,7 @@ public class BanExample {
         Ban ban = rongCloud.user.ban;
 
         /**
-         * API 文档: https://docs.rongcloud.cn/v4/5X/views/im/server/user/ban.html#ban-set
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 设置用户禁言
          */
@@ -73,7 +73,7 @@ public class BanExample {
                 .setType("PERSON");
         /**
          *
-         * API 文档: https://docs.rongcloud.cn/v4/5X/views/im/server/user/ban.html#ban-querylist
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 查询禁言用户列表
          */

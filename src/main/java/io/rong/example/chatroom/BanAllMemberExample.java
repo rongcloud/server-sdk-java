@@ -33,7 +33,7 @@ public class BanAllMemberExample {
         BanAllMember banAllMember = rongCloud.chatroom.banAllMember;
 
         /**
-         * API 文档: https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-add
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 添加聊天室全体成员禁言
          * */
         ChatroomModel chatroom = new ChatroomModel();

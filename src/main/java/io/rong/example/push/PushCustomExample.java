@@ -9,7 +9,7 @@ import io.rong.models.response.PushResult;
 
 /**
  * 推送plus Demo class
- * https://doc.rongcloud.cn/imserver/server/v1/push-plus
+ * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author Lang
  */

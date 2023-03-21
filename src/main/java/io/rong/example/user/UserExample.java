@@ -112,7 +112,7 @@ public class UserExample {
                 .setTime(1623123911000L);
         /**
          *
-         * API 文档: https://docs.rongcloud.cn/v4/5X/views/im/server/user/expire.html
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * Token 失效
          */

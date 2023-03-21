@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 
 /**
  * 用户单聊禁言
- * docs: "https://docs.rongcloud.cn/v4/5X/views/im/server/user/ban.html"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */
@@ -47,7 +47,7 @@ public class Ban {
     /**
      * 设置用户禁言
      * url  "/user/chat/fb/set"
-     * docs "https://docs.rongcloud.cn/v4/5X/views/im/server/user/ban.html#ban-set"
+     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param model userId(必传) state(必传) type(必传)
      * @return ResponseResult

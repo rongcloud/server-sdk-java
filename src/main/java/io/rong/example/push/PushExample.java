@@ -62,7 +62,7 @@ public class PushExample {
         /**
          *
          * API 文档:
-         * https://docs.rongcloud.cn/v4/5X/views/im/server/system/online.html
+         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * 在线用户广播
          *

@@ -247,7 +247,7 @@ public class User {
     /**
      * 查询用户所在群组
      * url  "/user/group/query"
-     * docs "https://docs.rongcloud.cn/v4/views/im/server/group/basic.html#query"
+     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user 用户信息 id (必传)
      * @return UserGroupQueryResult
@@ -284,7 +284,7 @@ public class User {
     /**
      * Token 失效
      * url  "/user/refresh"
-     * docs "https://docs.rongcloud.cn/v4/5X/views/im/server/user/expire.html"
+     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user userId(必传) time(必传)
      * @return ResponseResult

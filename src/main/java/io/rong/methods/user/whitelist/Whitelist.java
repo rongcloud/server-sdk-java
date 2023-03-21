@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 
 /**
  * 用户白名单服务
- * docs: "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1"
+ * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */

@@ -33,7 +33,7 @@ public class BanAllMemberWhitelistExample {
         BanAllMemberWhitelist banAllMemberWhitelist = rongCloud.chatroom.banAllMemberWhitelist;
 
         /**
-         * API 文档: https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#whitelist-add
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 添加聊天室全体禁言白名单
          * */
         ChatroomMember[] members = {
@@ -49,7 +49,7 @@ public class BanAllMemberWhitelistExample {
 
         /**
          *
-         * API 文档: https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#whitelist-query
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 获取聊天室全体禁言白名单列表
          */
         GroupBanWhitelistResult groupBanWhitelistResult = banAllMemberWhitelist.getList(chatroom.getId());
@@ -57,7 +57,7 @@ public class BanAllMemberWhitelistExample {
 
         /**
          *
-         * API 文档: https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#whitelist-rollback
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 删除聊天室全体禁言白名单
          */
         ResponseResult removeResult = banAllMemberWhitelist.remove(chatroom);
