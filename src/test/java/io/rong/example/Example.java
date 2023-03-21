@@ -412,8 +412,7 @@ public class Example {
     }
 
     /**
-     * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k， 会话类型为 SYSTEM.每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如： 一次发送 100 人时，示为 100
-     * 条消息。）
+     * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k， 会话类型为 SYSTEM。）
      */
     @Test
     public void testSendSystemTemplate() throws Exception {
@@ -508,7 +507,7 @@ public class Example {
     @Test
     public void testSendPrivateTemplate() throws Exception {
         Reader reader = null;
-        // 发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人。）
+        // 发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k）
         try {
             reader = new BufferedReader(new InputStreamReader(
                     Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
