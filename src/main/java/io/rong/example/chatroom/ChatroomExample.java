@@ -90,7 +90,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/chatroom/info#users_exist
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 批量查询聊天室成员是否存在
          *
          * */

@@ -43,7 +43,7 @@ public class Push {
 
     /**
      * 广播
-     * https://doc.rongcloud.cn/imserver/server/v1/system/send-push-to-all
+     * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param broadcast 广播数据
      * @return PushResult
@@ -66,8 +66,7 @@ public class Push {
 
     /**
      * 推送
-     * https://doc.rongcloud.cn/imserver/server/v1/system/tag
-     * https://doc.rongcloud.cn/imserver/server/v1/system/package
+     * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param push 推送数据
      * @return PushResult
