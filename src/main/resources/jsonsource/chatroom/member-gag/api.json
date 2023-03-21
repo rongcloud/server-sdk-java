@@ -1,6 +1,6 @@
 {
 	"add": {
-		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_gag_add",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/gag/add",
 		"params": {
 			"chatroom": {
@@ -43,7 +43,7 @@
 		}
 	},
 	"remove": {
-		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_gag_remove",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/gag/remove",
 		"params": {
 			"chatroom": {
@@ -81,7 +81,7 @@
 		}
 	},
 	"getList": {
-		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_gag_query",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/gag/query",
 		"params": {
 			"chatroom": {

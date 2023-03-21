@@ -1,6 +1,6 @@
 {
 	"mute": {
-		"docs": "http://rongcloud.cn/docs/server.html#conversation_notification_set",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "conversation/notification/set",
 		"params": {
 			"conversation": {
@@ -35,7 +35,7 @@
 		}
 	},
 	"unmute": {
-		"docs": "http://rongcloud.cn/docs/server.html#conversation_notification_set",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "conversation/notification/set",
 		"params": {
 			"conversation": {
@@ -70,7 +70,7 @@
 		}
 	},
 	"get": {
-		"docs": "http://rongcloud.cn/docs/server.html#conversation_notification_get",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "conversation/notification/get",
 		"params": {
 			"conversation": {
@@ -97,7 +97,7 @@
 		}
 	},
 	"get": {
-		"docs": "http://rongcloud.cn/docs/server.html#conversation_notification_get",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "conversation/notification/get",
 		"params": {
 			"conversation": {

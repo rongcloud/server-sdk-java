@@ -1,6 +1,6 @@
 {
 	"add": {
-		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_whitelist_add",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/whitelist/add",
 		"params": {
 			"message": {
@@ -37,7 +37,7 @@
 		}
 	},
 	"remove": {
-		"docs": "http://rongcloud.cn/docs/server.html#chatroom_message_priority_remove",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/message/priority/remove",
 		"params": {
 			"message": {
@@ -74,7 +74,7 @@
 		}
 	},
 	"getList": {
-		"docs": "http://rongcloud.cn/docs/server.html#chatroom_user_whitelist_query",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/whitelist/query",
 		"params": {},
 		"response": {

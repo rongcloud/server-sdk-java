@@ -1,6 +1,6 @@
 {
   "register": {
-    "docs": "http://rongcloud.cn/docs/server.html#user_get_token",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "user/getToken",
     "params": {
       "user": {
@@ -48,7 +48,7 @@
     }
   },
   "update": {
-    "docs": "http://rongcloud.cn/docs/server.html#user_refresh",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "user/refresh",
     "params": {
       "user": {
@@ -86,7 +86,7 @@
     }
   },
   "get": {
-    "docs": "http://rongcloud.cn/docs/server.html#user_get",
+    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
     "url": "user/info",
     "params": {
       "user": {

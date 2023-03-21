@@ -1,6 +1,6 @@
 {
 	"get": {
-		"docs": "http://rongcloud.cn/docs/server.html#history_message_download",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "message/history",
 		"params": {
 			"message": {
@@ -33,7 +33,7 @@
 		}
 	},
 	"remove": {
-		"docs": "http://rongcloud.cn/docs/server.html#history_message_delete",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "message/history/delete",
 		"params": {
 			"message": {

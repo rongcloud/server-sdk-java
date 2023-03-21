@@ -1,7 +1,7 @@
 {
 	"sync": {
 		"//":"注解",
-		"docs": "http://rongcloud.cn/docs/server.html#group_sync",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/sync",
 		"params": {
 			"user": {
@@ -46,7 +46,7 @@
 		}
 	},
 	"create": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_create",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/create",
 		"params": {
 			"group": {
@@ -91,7 +91,7 @@
 		}
 	},
 	"invite": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_join",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/join",
 		"params": {
 			"group": {
@@ -140,7 +140,7 @@
 		}
 	},
 	"join": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_join",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/join",
 		"params": {
 			"group": {
@@ -185,7 +185,7 @@
 		}
 	},
 	"quit": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_quit",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/quit",
 		"params": {
 			"group": {
@@ -229,7 +229,7 @@
 		}
 	},
 	"dismiss": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_dismiss",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/dismiss",
 		"params": {
 			"group":{
@@ -268,7 +268,7 @@
 		}
 	},
 	"update": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_refresh",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/refresh",
 		"params": {
 			"group": {
@@ -306,7 +306,7 @@
 		}
 	},
 	"get": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_user_query",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/user/query",
 		"params": {
 			"group": {

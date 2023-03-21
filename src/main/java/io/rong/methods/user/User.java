@@ -73,7 +73,7 @@ public class User {
     /**
      * 获取 Token 方法
      * url  "/user/getToken"
-     * docs "http://rongcloud.cn/docs/server.html#getToken"
+     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user 用户信息 id,name,portrait(必传)
      * @return TokenResult

@@ -1,6 +1,6 @@
 {
 	"set": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_user_gag_add",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/user/gag/add",
 		"params": {
 			"group": {
@@ -45,7 +45,7 @@
 		}
 	},
 	"remove": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_user_gag_rollback",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/user/gag/rollback",
 		"params": {
 			"group": {
@@ -89,7 +89,7 @@
 		}
 	},
 	"getList": {
-		"docs": "http://rongcloud.cn/docs/server.html#group_user_gag_list",
+		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "group/user/gag/list",
 		"params": {
 			"group": {
