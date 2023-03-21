@@ -40,7 +40,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
@@ -85,7 +85,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
@@ -134,7 +134,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
@@ -179,7 +179,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
@@ -223,7 +223,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
@@ -262,7 +262,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
@@ -300,7 +300,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
@@ -345,7 +345,7 @@
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限，每秒钟限制 100 次，调整频率上限请移步至专有云 http://www.rongcloud.cn/pricing#pay"
+					"errorMessage": "调用频率超限，每秒钟限制 100 次。"
 				}
 			}
 		}
