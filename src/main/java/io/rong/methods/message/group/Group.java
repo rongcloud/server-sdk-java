@@ -1,5 +1,6 @@
 package io.rong.methods.message.group;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
@@ -107,6 +108,9 @@ public class Group {
         }
         if (message.getExpansion() != null) {
             sb.append("&expansion=").append(URLEncoder.encode(message.getExpansion().toString(), UTF8));
+            if (message.getExtraContent() != null) {
+                sb.append("&extraContent=").append(URLEncoder.encode(JSON.toJSONString(message.getExtraContent()), UTF8));
+            }
         }
 
         if (message.getMsgRandom() != null){

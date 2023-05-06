@@ -11,12 +11,12 @@ RongCloud IM Server SDK in Java.
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>3.2.34</version>
+        <version>3.2.35</version>
     </dependency>
 ```
    * Gradle
 ```
-    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.2.34'
+    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.2.35'
    
 ```
    * 基于源码 Meavn 打包构建

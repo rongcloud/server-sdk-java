@@ -1,6 +1,7 @@
 package io.rong.models.message;
 
 import io.rong.messages.BaseMessage;
+import java.util.HashMap;
 
 /**
  * 群组消息体
@@ -41,6 +42,11 @@ public class GroupMessage extends MessageModel {
      * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
      */
     public Boolean expansion;
+
+    /**
+     * 扩展消息内容，expansion 为true 的时候生效
+     */
+    public HashMap<String, String> extraContent;
 
     public GroupMessage() {
     }
@@ -233,6 +239,15 @@ public class GroupMessage extends MessageModel {
     @Override
     public GroupMessage setMsgRandom(Long msgRandom) {
         super.setMsgRandom(msgRandom);
+        return this;
+    }
+
+    public HashMap<String, String> getExtraContent() {
+        return extraContent;
+    }
+
+    public GroupMessage setExtraContent(HashMap<String, String> extraContent) {
+        this.extraContent = extraContent;
         return this;
     }
 }

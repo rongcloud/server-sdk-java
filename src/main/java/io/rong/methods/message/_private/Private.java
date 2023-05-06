@@ -1,5 +1,6 @@
 package io.rong.methods.message._private;
 
+import com.alibaba.fastjson.JSON;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -118,7 +119,11 @@ public class Private {
         }
         if (message.getExpansion() != null) {
             sb.append("&expansion=").append(URLEncoder.encode(message.getExpansion().toString(), UTF8));
+            if (message.getExtraContent() != null) {
+                sb.append("&extraContent=").append(URLEncoder.encode(JSON.toJSONString(message.getExtraContent()), UTF8));
+            }
         }
+
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
