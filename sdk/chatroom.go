@@ -70,6 +70,45 @@ type ChatUserExistObj struct {
 	IsInChrm bool `json:"isInChrm"`
 }
 
+// chatroomOptions is extra options for chatroom
+type chatroomOptions struct {
+	needNotify bool
+	extra      string
+}
+
+// ChatroomOption 接口函数
+type ChatroomOption func(*chatroomOptions)
+
+// 是否通知成员。默认 false 不通知
+func WithChatroomNeedNotify(isNeedNotify bool) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.needNotify = isNeedNotify
+	}
+}
+
+// 通知携带的 JSON 格式的扩展信息，仅在 needNotify 为 true 时有效。
+func WithChatroomExtra(extra string) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.extra = extra
+	}
+}
+
+// 修改默认值
+func modifyChatroomOptions(options []ChatroomOption) chatroomOptions {
+	// 默认值
+	defaultOptions := chatroomOptions{
+		needNotify: false,
+		extra:      "",
+	}
+
+	// 修改默认值
+	for _, ext := range options {
+		ext(&defaultOptions)
+	}
+
+	return defaultOptions
+}
+
 // ChatUserExistResObj :/chatroom/user/exist.json 查询用户是否加入聊天室
 //*
 //  @param: chatroomId，要查询的聊天室 ID
@@ -268,7 +307,7 @@ func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint, options ...ChatroomOption) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -280,6 +319,7 @@ func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
 	if minute == 0 {
 		return RCErrorNew(1002, "Paramer 'minute' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/block/add." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -289,6 +329,11 @@ func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
 		req.Param("userId", v)
 	}
 	req.Param("minute", strconv.Itoa(int(minute)))
+
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -305,7 +350,7 @@ func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint) 
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
+func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string, options ...ChatroomOption) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -313,6 +358,7 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/block/rollback." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -321,6 +367,10 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string) error {
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -364,7 +414,7 @@ func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint, options ...ChatroomOption) error {
 
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
@@ -372,6 +422,7 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 	if minute == 0 {
 		return RCErrorNew(1002, "Paramer 'minute' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/add." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -380,6 +431,10 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
 		req.Param("userId", v)
 	}
 	req.Param("minute", strconv.Itoa(int(minute)))
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -394,17 +449,22 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint) error {
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomBanRemove(members []string) error {
+func (rc *RongCloud) ChatRoomBanRemove(members []string, options ...ChatroomOption) error {
 
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/remove." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	for _, v := range members {
 		req.Param("userId", v)
+	}
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
 	}
 
 	_, err := rc.do(req)
@@ -444,7 +504,7 @@ func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint, options ...ChatroomOption) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -456,6 +516,7 @@ func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
 	if minute == 0 {
 		return RCErrorNew(1002, "Paramer 'minute' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/gag/add." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -465,6 +526,10 @@ func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
 	}
 	req.Param("chatroomId", id)
 	req.Param("minute", strconv.Itoa(int(minute)))
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -480,7 +545,7 @@ func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint) er
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
+func (rc *RongCloud) ChatRoomGagRemove(id string, members []string, options ...ChatroomOption) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -488,6 +553,7 @@ func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/gag/rollback." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -496,6 +562,11 @@ func (rc *RongCloud) ChatRoomGagRemove(id string, members []string) error {
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
+
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -902,7 +973,7 @@ func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute uint) error {
+func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute uint, options ...ChatroomOption) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -914,6 +985,7 @@ func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
 	if minute == 0 {
 		return RCErrorNew(1002, "Paramer 'minute' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/gag/add." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -924,6 +996,10 @@ func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
 
 	req.Param("chatroomId", id)
 	req.Param("minute", strconv.Itoa(int(minute)))
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -980,7 +1056,7 @@ func (rc *RongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, erro
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string) error {
+func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string, options ...ChatroomOption) error {
 	if id == "" {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
@@ -988,6 +1064,7 @@ func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string) erro
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
 	}
+	extOptions := modifyChatroomOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/gag/rollback." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -996,6 +1073,11 @@ func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string) erro
 		req.Param("userId", v)
 	}
 	req.Param("chatroomId", id)
+
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
 
 	_, err := rc.do(req)
 	if err != nil {
@@ -1160,4 +1242,114 @@ func (rc *RongCloud) ChatRoomQuery(chatRoomID []string) ([]ChatRoom, error) {
 	}
 
 	return data.ChatRooms, nil
+}
+
+// 设置聊天室全体禁言
+func (rc *RongCloud) ChatRoomBan(chatroomId string, options ...ChatroomOption) error {
+	if chatroomId == "" {
+		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	extOptions := modifyChatroomOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/ban/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("chatroomId", chatroomId)
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 取消聊天室全体禁言
+func (rc *RongCloud) ChatRoomBanRollback(chatroomId string, options ...ChatroomOption) error {
+	if chatroomId == "" {
+		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	extOptions := modifyChatroomOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/ban/rollback." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("chatroomId", chatroomId)
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 加入聊天室全体禁言白名单
+func (rc *RongCloud) ChatRoomUserBanWhitelistAdd(chatroomId string, members []string, options ...ChatroomOption) error {
+	if chatroomId == "" {
+		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	if len(members) == 0 {
+		return RCErrorNew(1002, "Paramer 'members' is required")
+	}
+
+	extOptions := modifyChatroomOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/whitelist/add." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	for _, v := range members {
+		req.Param("userId", v)
+	}
+	req.Param("chatroomId", chatroomId)
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 移出聊天室全体禁言白名单
+func (rc *RongCloud) ChatRoomUserBanWhitelistRollback(chatroomId string, members []string, options ...ChatroomOption) error {
+	if chatroomId == "" {
+		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	if len(members) == 0 {
+		return RCErrorNew(1002, "Paramer 'members' is required")
+	}
+
+	extOptions := modifyChatroomOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/whitelist/rollback." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	for _, v := range members {
+		req.Param("userId", v)
+	}
+	req.Param("chatroomId", chatroomId)
+	if extOptions.needNotify {
+		req.Param("needNotify", strconv.FormatBool(extOptions.needNotify))
+		req.Param("extra", extOptions.extra)
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
 }

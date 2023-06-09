@@ -132,6 +132,21 @@ func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
 	t.Log(err)
 }
 
+func TestRongCloud_ChatRoomBlockAddOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.ChatRoomBlockAdd(
+		"chrm01",
+		[]string{"u01"},
+		30,
+		WithChatroomNeedNotify(true),
+		WithChatroomExtra("block u01"),
+	)
+	t.Log(err)
+}
+
 func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
@@ -434,4 +449,58 @@ func TestRongCloud_ChatRoomQuery(t *testing.T) {
 	} else {
 		t.Logf("data: %v", data)
 	}
+}
+
+func TestRongCloud_ChatRoomBanOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.ChatRoomBan(
+		"chrm01",
+		WithChatroomNeedNotify(true),
+		WithChatroomExtra("block all"),
+	)
+	t.Log(err)
+}
+
+func TestRongCloud_ChatRoomBanRollbackOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.ChatRoomBanRollback(
+		"chrm01",
+		WithChatroomNeedNotify(true),
+		WithChatroomExtra("block all"),
+	)
+	t.Log(err)
+}
+
+func TestRongCloud_ChatRoomUserBanWhitelistAddOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.ChatRoomUserBanWhitelistAdd(
+		"chrm01",
+		[]string{"uu1", "uu2"},
+		WithChatroomNeedNotify(true),
+		WithChatroomExtra("uu1,uu2"),
+	)
+	t.Log(err)
+}
+
+func TestRongCloud_ChatRoomUserBanWhitelistRollbackOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.ChatRoomUserBanWhitelistRollback(
+		"chrm01",
+		[]string{"uu1", "uu2"},
+		WithChatroomNeedNotify(true),
+		WithChatroomExtra("uu1,uu2"),
+	)
+	t.Log(err)
 }
