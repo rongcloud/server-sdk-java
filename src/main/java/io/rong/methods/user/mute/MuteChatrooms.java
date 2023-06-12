@@ -50,15 +50,19 @@ public class MuteChatrooms {
         }
 
         StringBuilder sb = new StringBuilder();
+        sb.append("minute=").append(URLEncoder.encode(chatroom.getMinute().toString(), UTF8));
         ChatroomMember[] members = chatroom.getMembers();
         for(ChatroomMember member : members){
             sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
         }
-        sb.append("&minute=").append(URLEncoder.encode(chatroom.getMinute().toString(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
         }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
+
+        String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/ban/add.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
@@ -95,9 +99,15 @@ public class MuteChatrooms {
         for(ChatroomMember member : members){
             sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
         }
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
+        }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+            body = body.substring(1);
         }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/ban/remove.json", "application/x-www-form-urlencoded");

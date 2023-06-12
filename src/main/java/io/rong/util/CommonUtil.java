@@ -353,9 +353,8 @@ public class CommonUtil {
      * @return Map
      **/
     public static Map<String, String[]> getCheckInfo(String path, String method) {
-        JSONObject api = null;
         try {
-            api = JsonUtil.getJsonObject(path, API_JSON_NAME);
+            JSONObject api = JsonUtil.getJsonObject(path, API_JSON_NAME);
             Set<String> keys = api.getJSONObject(method).getJSONObject("params").keySet();
             String key = keys.iterator().next();
             Set<String> subkeys;
@@ -388,7 +387,7 @@ public class CommonUtil {
      * @return String
      **/
     public static String getResponseByCode(String path, String method, String response) {
-        JSONObject api = null;
+        JSONObject api;
         try {
             JSONObject object = JSON.parseObject(response);
             String code = String.valueOf(object.get("code"));

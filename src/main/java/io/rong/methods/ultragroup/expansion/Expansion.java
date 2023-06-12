@@ -61,7 +61,7 @@ public class Expansion {
 
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+            body = body.substring(1);
         }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,

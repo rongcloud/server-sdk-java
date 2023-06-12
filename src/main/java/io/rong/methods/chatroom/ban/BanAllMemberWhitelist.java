@@ -56,14 +56,17 @@ public class BanAllMemberWhitelist {
         }
         StringBuilder sb = new StringBuilder();
         ChatroomMember[] members = chatroom.getMembers();
+        sb.append("chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
         for (ChatroomMember member : members) {
             sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
         }
-        sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
         }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
+        String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/chatroom/user/ban/whitelist/add.json", "application/x-www-form-urlencoded");
@@ -93,13 +96,7 @@ public class BanAllMemberWhitelist {
         if (null != message) {
             return (GroupBanWhitelistResult) GsonUtil.fromJson(message, GroupBanWhitelistResult.class);
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("&chatroomId=").append(URLEncoder.encode(chatroomId, UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
-        }
-
+        String body = "chatroomId="+URLEncoder.encode(chatroomId, UTF8);
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/chatroom/user/ban/whitelist/query.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
@@ -132,14 +129,17 @@ public class BanAllMemberWhitelist {
 
         StringBuilder sb = new StringBuilder();
         ChatroomMember[] members = chatroom.getMembers();
+        sb.append("chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
         for (ChatroomMember member : members) {
             sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
         }
-        sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
         }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
+        String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/chatroom/user/ban/whitelist/rollback.json", "application/x-www-form-urlencoded");
