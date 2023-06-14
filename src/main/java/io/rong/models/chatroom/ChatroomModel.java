@@ -37,6 +37,10 @@ public class ChatroomModel {
 	 * */
 	Integer minute;
 
+	String extra;
+
+	Boolean needNotify;
+
 	public ChatroomModel() {
 		super();
 	}
@@ -44,7 +48,7 @@ public class ChatroomModel {
 	 * 聊天室构造函数 全量
 	 * */
 	public ChatroomModel(String id, String name, String time, ChatroomMember[] members,
-						 Integer count, Integer order, Integer minute) {
+						 Integer count, Integer order, Integer minute,String extra,Boolean needNotify) {
 		this.id = id;
 		this.name = name;
 		this.time = time;
@@ -52,6 +56,8 @@ public class ChatroomModel {
 		this.count = count;
 		this.order = order;
 		this.minute = minute;
+		this.extra = extra;
+		this.needNotify = needNotify;
 	}
 
 	/**
@@ -175,6 +181,24 @@ public class ChatroomModel {
 	 */
 	public ChatroomModel setMinute(Integer minute) {
 		this.minute = minute;
+		return this;
+	}
+
+	public String getExtra() {
+		return extra;
+	}
+
+	public ChatroomModel setExtra(String extra) {
+		this.extra = extra;
+		return this;
+	}
+
+	public Boolean getNeedNotify() {
+		return needNotify;
+	}
+
+	public ChatroomModel setNeedNotify(Boolean needNotify) {
+		this.needNotify = needNotify;
 		return this;
 	}
 

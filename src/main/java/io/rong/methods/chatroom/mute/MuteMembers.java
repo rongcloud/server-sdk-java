@@ -48,22 +48,20 @@ public class MuteMembers {
         if(null != message){
             return (ResponseResult) GsonUtil.fromJson(message,ResponseResult.class);
         }
-       /* message = CommonUtil.checkParam("minute",minute,PATH,CheckMethod.ADD);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
-        }*/
-
         StringBuilder sb = new StringBuilder();
+        sb.append("chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
         ChatroomMember[] members = chatroom.getMembers();
         for(ChatroomMember member : members){
             sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
         }
-        sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId().toString(), UTF8));
         sb.append("&minute=").append(URLEncoder.encode(chatroom.getMinute().toString(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
         }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
+        String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/gag/add.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
@@ -83,16 +81,9 @@ public class MuteMembers {
         if(null != message){
             return (ListGagChatroomUserResult)GsonUtil.fromJson(message,ListGagChatroomUserResult.class);
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId().toString(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
-        }
-
+        String body = "chatroomId="+URLEncoder.encode(chatroom.getId(), UTF8);
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/gag/list.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-
         return (ListGagChatroomUserResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn, rongCloud.getConfig())), ListGagChatroomUserResult.class);
     }
 
@@ -108,15 +99,18 @@ public class MuteMembers {
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
+        sb.append("chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
         ChatroomMember[] members = chatroom.getMembers();
         for(ChatroomMember member : members){
             sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
         }
-        sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId().toString(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
         }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
+        String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/gag/rollback.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());

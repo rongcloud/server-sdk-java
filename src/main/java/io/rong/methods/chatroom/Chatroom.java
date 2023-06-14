@@ -110,7 +110,7 @@ public class Chatroom {
 		
 	   	String body = sb.toString();
 	   	if (body.indexOf("&") == 0) {
-	   		body = body.substring(1, body.length());
+	   		body = body.substring(1);
 	   	}
 	   	
 	   	HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/create.json", "application/x-www-form-urlencoded");
@@ -131,18 +131,10 @@ public class Chatroom {
 		if(null != message){
 			return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
 		}
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
-
-		String body = sb.toString();
-		if (body.indexOf("&") == 0) {
-			body = body.substring(1, body.length());
-		}
+		String body = "chatroomId="+URLEncoder.encode(chatroom.getId(), UTF8);
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/destroy.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-
 
 		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.DESTORY,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
@@ -160,12 +152,12 @@ public class Chatroom {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId().toString(), UTF8));
+		sb.append("&chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
 		sb.append("&count=").append(URLEncoder.encode(chatroom.getCount().toString(), UTF8));
 		sb.append("&order=").append(URLEncoder.encode(chatroom.getOrder().toString(), UTF8));
 		String body = sb.toString();
 		if (body.indexOf("&") == 0) {
-			body = body.substring(1, body.length());
+			body = body.substring(1);
 		}
 
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/query.json", "application/x-www-form-urlencoded");
@@ -217,15 +209,25 @@ public class Chatroom {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("&chatroomId=").append(URLEncoder.encode(member.chatroomId.toString(), UTF8));
-		sb.append("&userId=").append(URLEncoder.encode(member.id.toString(), UTF8));
+		sb.append("chatroomId=").append(URLEncoder.encode(member.chatroomId, UTF8));
+		sb.append("&userId=").append(URLEncoder.encode(member.id, UTF8));
 		String body = sb.toString();
-		if (body.indexOf("&") == 0) {
-			body = body.substring(1, body.length());
-		}
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/user/exist.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
 		return (CheckChatRoomUserResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ISEXIST,HttpUtil.returnResult(conn, rongCloud.getConfig())), CheckChatRoomUserResult.class);
+	}
+
+
+	public ResponseResult query(ChatroomModel chatroomModel) throws Exception {
+		String message = CommonUtil.checkFiled(chatroomModel,PATH,CheckMethod.QUERY);
+		if(null != message){
+			return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+		}
+		String body = "chatroomId="+URLEncoder.encode(chatroomModel.getId(), UTF8);
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/chatroom/query.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.CREATE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 }

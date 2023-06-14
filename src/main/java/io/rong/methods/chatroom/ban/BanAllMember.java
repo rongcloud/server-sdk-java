@@ -52,10 +52,15 @@ public class BanAllMember {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
         }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
+
+        String body = sb.toString();
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/chatroom/ban/add.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
@@ -85,10 +90,13 @@ public class BanAllMember {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+        if(null != chatroom.getExtra() && chatroom.getExtra().length() != 0){
+            sb.append("&extra=").append(URLEncoder.encode(chatroom.getExtra(), UTF8));
         }
+        if(null != chatroom.getNeedNotify()){
+            sb.append("&needNotify=").append(chatroom.getNeedNotify());
+        }
+        String body = sb.toString();
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/chatroom/ban/rollback.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
@@ -116,16 +124,11 @@ public class BanAllMember {
         if (null != message) {
             return (StatusResult) GsonUtil.fromJson(message, StatusResult.class);
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("chatroomId=").append(URLEncoder.encode(chatroom.getId(), UTF8));
-        String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
-        }
+        String body = "chatroomId="+URLEncoder.encode(chatroom.getId(), UTF8);
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/chatroom/ban/check.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        StatusResult result = null;
+        StatusResult result;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
@@ -153,14 +156,14 @@ public class BanAllMember {
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
-            body = body.substring(1, body.length());
+            body = body.substring(1);
         }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
                 "/chatroom/ban/query.json", "application/x-www-form-urlencoded");
 
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        ChatroomBanListResult result = null;
+        ChatroomBanListResult result;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());

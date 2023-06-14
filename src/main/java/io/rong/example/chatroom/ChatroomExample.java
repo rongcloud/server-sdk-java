@@ -31,7 +31,6 @@ public class ChatroomExample {
 
         Chatroom chatroom = rongCloud.chatroom;
 
-        Reader reader = null;
         /**
          * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
@@ -45,6 +44,9 @@ public class ChatroomExample {
         ResponseResult result = chatroom.create(chatrooms);
 
         System.out.println("create:  " + result.toString());
+        ResponseResult queryResult = chatroom.query(new ChatroomModel().setId("chatroomId1"));
+
+        System.out.println("query:  " + queryResult.toString());
 
         /**
          *
