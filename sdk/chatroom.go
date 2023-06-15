@@ -1292,6 +1292,57 @@ func (rc *RongCloud) ChatRoomBanRollback(chatroomId string, options ...ChatroomO
 	return err
 }
 
+// 查询聊天室全体禁言列表
+func (rc *RongCloud) ChatRoomBanQuery(size, page int) ([]string, error) {
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/ban/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("size", strconv.Itoa(size))
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return []string{}, err
+	}
+	var dat ChatRoomResult
+	if err := json.Unmarshal(resp, &dat); err != nil {
+		return []string{}, err
+	}
+
+	return dat.ChatRoomIDs, nil
+}
+
+// 查询聊天室全体禁言状态
+func (rc *RongCloud) ChatRoomBanCheck(chatroomId string) (bool, error) {
+	if chatroomId == "" {
+		return false, RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/ban/check." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("chatroomId", chatroomId)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return false, err
+	}
+	data := struct {
+		Code   int    `json:"code"`
+		Status string `json:"status"`
+	}{}
+
+	if err := json.Unmarshal(resp, &data); err != nil {
+		return false, err
+	}
+
+	if data.Status == "1" {
+		return true, nil
+	} else {
+		return false, nil
+	}
+}
+
 // 加入聊天室全体禁言白名单
 func (rc *RongCloud) ChatRoomUserBanWhitelistAdd(chatroomId string, members []string, options ...ChatroomOption) error {
 	if chatroomId == "" {
@@ -1352,4 +1403,31 @@ func (rc *RongCloud) ChatRoomUserBanWhitelistRollback(chatroomId string, members
 		rc.urlError(err)
 	}
 	return err
+}
+
+// 查询聊天室全体禁言白名单
+func (rc *RongCloud) ChatRoomUserBanWhitelistQuery(chatroomId string) ([]string, error) {
+	if chatroomId == "" {
+		return []string{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/ban/whitelist/query." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("chatroomId", chatroomId)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		return []string{}, err
+	}
+	data := struct {
+		Code    int      `json:"code"`
+		UserIds []string `json:"userIds"`
+	}{}
+
+	if err := json.Unmarshal(resp, &data); err != nil {
+		return []string{}, err
+	}
+
+	return data.UserIds, nil
 }
