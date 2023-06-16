@@ -1327,16 +1327,17 @@ func (rc *RongCloud) ChatRoomBanCheck(chatroomId string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
+
 	data := struct {
-		Code   int    `json:"code"`
-		Status string `json:"status"`
+		Code   int `json:"code"`
+		Status int `json:"status"`
 	}{}
 
 	if err := json.Unmarshal(resp, &data); err != nil {
 		return false, err
 	}
 
-	if data.Status == "1" {
+	if data.Status == 1 {
 		return true, nil
 	} else {
 		return false, nil
