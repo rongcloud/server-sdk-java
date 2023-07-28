@@ -31,7 +31,7 @@ public class RemarkExample {
     /**
      * 自定义api地址
      * */
-    private static final String api = "http://api-cn.ronghub.com";
+    private static final String api = "http://api.rong-api.com";
 
 
     public static void main(String[] args) throws Exception {

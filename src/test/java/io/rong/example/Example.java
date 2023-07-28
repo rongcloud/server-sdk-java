@@ -56,7 +56,7 @@ public class Example {
         /**
          * 自定义备用 API 地址用法
          * List apiList = new ArrayList<>();
-         * apiList.add("http://api2-cn.ronghub.com");
+         * apiList.add("http://api-b.rong-api.com");
          * apiList.add("http://api-na02.ronghub.com");
          * rongCloud = RongCloud.getInstance(appKey, appSecret,api,apiList);
          * */

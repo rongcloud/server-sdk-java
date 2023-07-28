@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RongCloudConfig {
 	
 	public static RongCloudConfig DefaultConfig = new RongCloudConfig();
-	public static RongCloudConfig SingaporeConfig = new RongCloudConfig("http://api-sg01.ronghub.com");
+	public static RongCloudConfig SingaporeConfig = new RongCloudConfig("http://api.sg-light-api.com");
 	
 	public RongCloudConfig() {}
 	public RongCloudConfig(String apiDomain) {
@@ -27,7 +27,7 @@ public class RongCloudConfig {
 	/**
 	 * Api 的域名列表
 	 */
-	public String[] apiDomains = new String[] {"http://api-cn.ronghub.com", "http://api2-cn.ronghub.com"};
+	public String[] apiDomains = new String[] {"http://api.rong-api.com", "http://api-b.rong-api.com"};
 	
 	/**
 	 * 访问失败满多少次后进行切换
