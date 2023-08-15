@@ -4,7 +4,7 @@ import io.rong.models.Result;
 
 import java.util.List;
 
-public class UserAbandonResult extends Result {
+public class UserDeactivateResult extends Result {
     private List<String> users;
 
     public List<String> getUsers() {

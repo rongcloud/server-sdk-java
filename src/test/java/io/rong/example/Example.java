@@ -118,7 +118,7 @@ public class Example {
         UserModel user = new UserModel()
                 .setId("userId3");
 
-        Result result = (ResponseResult) rongCloud.user.abandon(user);
+        Result result = (ResponseResult) rongCloud.user.deactivate(user);
         System.out.println("user abandon:  " + result.toString());
 
         assertNotNull( result.getCode().toString());
@@ -126,11 +126,11 @@ public class Example {
 
 
     /**
-     * 用户注销
+     * 查询已注销用户
      */
     @Test
     public void testUserAbandonQuery() throws Exception {
-        UserAbandonResult abandonList = rongCloud.user.abandonList(1, 20);
+        UserDeactivateResult abandonList = rongCloud.user.deactivateList(1, 20);
         System.out.println("user abandon query:  " + abandonList.toString());
 
         assertEquals("200", abandonList.getCode().toString());

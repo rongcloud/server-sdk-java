@@ -82,13 +82,13 @@ public class UserExample {
         /**
          * 用户注销
          */
-        ResponseResult abandon = User.abandon(user);
+        ResponseResult abandon = User.deactivate(user);
         System.out.println("user abandon:  " + abandon.toString());
 
         /**
-         * 注销用户列表
+         * 查询已注销用户
          */
-        UserAbandonResult abandonList = User.abandonList(1, 20);
+        UserDeactivateResult abandonList = User.deactivateList(1, 20);
         System.out.println("user abandon list:  " + abandonList.toString());
 
         /**

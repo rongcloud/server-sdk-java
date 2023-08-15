@@ -184,7 +184,7 @@ public class User {
      * @return
      * @throws Exception
      */
-    public ResponseResult abandon(UserModel user) throws Exception {
+    public ResponseResult deactivate(UserModel user) throws Exception {
         //需要校验的字段
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
         if (null != message) {
@@ -195,30 +195,30 @@ public class User {
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
-                "/user/abandon.json", "application/x-www-form-urlencoded");
+                "/user/deactivate.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
-    public UserAbandonResult abandonList() throws Exception {
-        return abandonList(1, 50);
+    public UserDeactivateResult deactivateList() throws Exception {
+        return deactivateList(1, 50);
     }
 
     /**
-     * 注销用户列表
+     * 查询已注销用户
      * @param page
      * @return
      * @throws Exception
      */
-    public UserAbandonResult abandonList(int page, int pageSize) throws Exception {
+    public UserDeactivateResult deactivateList(int page, int pageSize) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("pageNo=").append(page);
         sb.append("&pageSize=").append(pageSize);
         String body = sb.toString();
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
-                "/user/abandon/query.json", "application/x-www-form-urlencoded");
+                "/user/deactivate/query.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        return (UserAbandonResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), UserAbandonResult.class);
+        return (UserDeactivateResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), UserDeactivateResult.class);
     }
 
     /**
