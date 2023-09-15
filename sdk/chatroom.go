@@ -39,6 +39,17 @@ type ChatRoomResult struct {
 	WhitelistMsgType []string       `json:"whitlistMsgType"`
 }
 
+// 查询聊天室信息返回结果
+type ChatRoomGetResult struct {
+	Code        int    `json:"code"`
+	ChatroomId  string `json:"chatroomId"`
+	CreateTime  int64  `json:"createTime"`
+	MemberCount int    `json:"memberCount"`
+	DestroyType int    `json:"destroyType"`
+	DestroyTime int    `json:"destroyTime"`
+	IsBan       bool   `json:"ban"`
+}
+
 // ChatRoomUser 聊天室用户信息
 type ChatRoomUser struct {
 	ID       string `json:"id"`
@@ -72,8 +83,14 @@ type ChatUserExistObj struct {
 
 // chatroomOptions is extra options for chatroom
 type chatroomOptions struct {
-	needNotify bool
-	extra      string
+	needNotify   bool
+	extra        string
+	destroyType  int
+	destroyTime  int
+	isBan        bool
+	whiteUserIds []string
+	entryOwnerId string
+	entryInfo    map[string]interface{}
 }
 
 // ChatroomOption 接口函数
@@ -93,12 +110,60 @@ func WithChatroomExtra(extra string) ChatroomOption {
 	}
 }
 
+// 指定聊天室的销毁类型: 0：默认值，表示不活跃时销毁, 1：固定时间销毁
+func WithChatroomDestroyType(destroyType int) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.destroyType = destroyType
+	}
+}
+
+// 设置聊天室销毁时间, destroyType=1时生效，单位为分钟，最小值 60 分钟，最大 10080 分钟（7 天）。如果未设置，默认 60 分钟。
+func WithChatroomDestroyTime(destroyTime int) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.destroyTime = destroyTime
+	}
+}
+
+// 是否禁言聊天室全体成员，默认 false
+func WithChatroomIsBan(isBan bool) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.isBan = isBan
+	}
+}
+
+// 禁言白名单用户列表，支持批量设置，最多不超过 20 个
+func WithChatroomWhiteUserIds(whiteUserIds []string) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.whiteUserIds = whiteUserIds
+	}
+}
+
+// 聊天室自定义属性的所属用户 ID
+func WithChatroomEntryOwnerId(entryOwnerId string) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.entryOwnerId = entryOwnerId
+	}
+}
+
+// 聊天室自定义属性 KV 对，JSON 结构
+func WithChatroomEntryInfo(entryInfo map[string]interface{}) ChatroomOption {
+	return func(options *chatroomOptions) {
+		options.entryInfo = entryInfo
+	}
+}
+
 // 修改默认值
 func modifyChatroomOptions(options []ChatroomOption) chatroomOptions {
 	// 默认值
 	defaultOptions := chatroomOptions{
-		needNotify: false,
-		extra:      "",
+		needNotify:   false,
+		extra:        "",
+		destroyType:  0,
+		destroyTime:  60,
+		isBan:        false,
+		whiteUserIds: []string{},
+		entryOwnerId: "",
+		entryInfo:    map[string]interface{}{},
 	}
 
 	// 修改默认值
@@ -189,6 +254,129 @@ func (rc *RongCloud) ChatRoomCreate(id, name string) error {
 	rc.fillHeader(req)
 
 	req.Param("chatroom["+id+"]", name)
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 创建聊天室
+func (rc *RongCloud) ChatRoomCreateNew(chatroomId string, options ...ChatroomOption) error {
+	if chatroomId == "" {
+		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	extOptions := modifyChatroomOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/create_new." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatroomId)
+	req.Param("destroyType", strconv.Itoa(extOptions.destroyType))
+	req.Param("destroyTime", strconv.Itoa(extOptions.destroyTime))
+	req.Param("isBan", strconv.FormatBool(extOptions.isBan))
+
+	fmt.Println(strconv.FormatBool(extOptions.isBan))
+
+	for _, v := range extOptions.whiteUserIds {
+		req.Param("whiteUserIds", v)
+	}
+
+	if "" != extOptions.entryOwnerId {
+		req.Param("entryOwnerId", extOptions.entryOwnerId)
+	}
+
+	if len(extOptions.entryInfo) > 0 {
+		entryInfo, err := json.Marshal(extOptions.entryInfo)
+		if err != nil {
+			return err
+		}
+		req.Param("entryInfo", string(entryInfo))
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 设置聊天室销毁类型
+func (rc *RongCloud) ChatRoomDestroySet(chatroomId string, destroyType, destroyTime int) error {
+	if chatroomId == "" {
+		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/destroy/set." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatroomId)
+	req.Param("destroyType", strconv.Itoa(destroyType))
+	req.Param("destroyTime", strconv.Itoa(destroyTime))
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// 查询聊天室信息
+func (rc *RongCloud) ChatRoomGetNew(chatroomId string) (ChatRoomGetResult, error) {
+	if chatroomId == "" {
+		return ChatRoomGetResult{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/get." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("chatroomId", chatroomId)
+
+	resp, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+		return ChatRoomGetResult{}, err
+	}
+	fmt.Println(string(resp))
+	var dat ChatRoomGetResult
+	if err := json.Unmarshal(resp, &dat); err != nil {
+		return ChatRoomGetResult{}, err
+	}
+	return dat, nil
+}
+
+// 批量设置聊天室属性（KV）
+func (rc *RongCloud) ChatRoomEntryBatchSet(chatroomId string, autoDelete int, entryOwnerId string, entryInfo map[string]interface{}) error {
+	if chatroomId == "" {
+		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
+	}
+
+	if entryOwnerId == "" {
+		return RCErrorNew(1002, "Paramer 'entryOwnerId' is required")
+	}
+
+	if len(entryInfo) < 1 {
+		return RCErrorNew(1002, "Paramer 'entryInfo' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/batch/set." + ReqType)
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("chatroomId", chatroomId)
+	req.Param("autoDelete", strconv.Itoa(autoDelete))
+
+	req.Param("entryOwnerId", entryOwnerId)
+
+	entryInfoJson, e := json.Marshal(entryInfo)
+	if e != nil {
+		return e
+	}
+	req.Param("entryInfo", string(entryInfoJson))
 
 	_, err := rc.do(req)
 	if err != nil {

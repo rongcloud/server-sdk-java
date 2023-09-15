@@ -543,3 +543,73 @@ func TestRongCloud_ChatRoomUserBanWhitelistQuery(t *testing.T) {
 		t.Log(userIds)
 	}
 }
+
+func TestRongCloud_ChatRoomCreateNew(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	// 销毁聊天室
+	_ = rc.ChatRoomDestroy("chatroom001")
+
+	// 创建聊天室
+	whiteUserIds := []string{"111", "222", "333"}
+	err := rc.ChatRoomCreateNew(
+		"chatroom001",
+		WithChatroomDestroyType(1),
+		WithChatroomDestroyTime(120),
+		WithChatroomIsBan(true),
+		WithChatroomWhiteUserIds(whiteUserIds),
+	)
+	t.Log(err)
+
+	// 查询聊天室用户禁言白名单
+	userIds, err := rc.ChatRoomUserBanWhitelistQuery("chatroom001")
+	t.Log(err)
+	t.Log(userIds)
+}
+
+func TestRongCloud_ChatRoomDestroySet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.ChatRoomDestroySet(
+		"chatroom001",
+		1,
+		140,
+	)
+	t.Log(err)
+}
+
+func TestRongCloud_ChatRoomGetNew(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	chatRoom, err := rc.ChatRoomGetNew(
+		"chatroom001",
+	)
+	t.Log(err)
+	t.Log(chatRoom)
+}
+
+func TestRongCloud_ChatRoomEntryBatchSet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+
+	entryInfo := make(map[string]interface{})
+	entryInfo["key1"] = "value1"
+	entryInfo["key2"] = "value2"
+
+	err := rc.ChatRoomEntryBatchSet(
+		"chatroom001",
+		0,
+		"user1",
+		entryInfo,
+	)
+	t.Log(err)
+}
