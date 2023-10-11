@@ -7,6 +7,7 @@ public class CheckMethod {
     public static final String DEL = "del";
     public static final String CLEAN = "clean";
     public static final String CREATE = "create";
+    public static final String CREATEV2 = "createv2";
     public static final String DESTORY = "destory";
     public static final String GET_MEMBERS = "getMembers";
     public static final String ISEXIST = "isExist";
@@ -41,6 +42,7 @@ public class CheckMethod {
 
     public static final String CHECK = "check";
     public static final String QUERY = "query";
+
     public static final String PUBLISH = "send";
     public static final String SEND_MENTION = "sendMention";
     public static final String SENDTEMPLATE = "sendTemplate";
@@ -58,4 +60,5 @@ public class CheckMethod {
     public static final String SET_REMARK = "setRemark";
 
     public static final String SET = "set";
+    public static final String BATCHSET = "batchset";
 }

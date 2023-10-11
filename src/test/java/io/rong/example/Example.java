@@ -7,6 +7,8 @@ import io.rong.messages.VoiceMessage;
 import io.rong.messages.RcCmdMessage;
 import io.rong.methods.user.blockpushperiod.BlockPushPeriod;
 import io.rong.models.Result;
+import io.rong.models.chatroom.ChatroomDataModel;
+import io.rong.models.chatroom.ChatroomDestroyTypeModel;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.group.GroupMember;
@@ -1105,6 +1107,22 @@ public class Example {
     }
 
     /**
+     * 创建聊天室
+     */
+    @Test
+    public void testChatroomCreateV2() throws Exception {
+        ChatroomDataModel chatrooms = new ChatroomDataModel()
+          .setId("chatroomId1")
+          .setIsBan(true)
+          .setDestroyType(0)
+          .setDestroyTime(60)
+          .setEntryOwnerId("CHIQ1") ;
+        ResponseResult result = rongCloud.chatroom.createV2(chatrooms);
+        System.out.println("createV2:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
      * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * 查询聊天室成员demo
      */
@@ -1441,13 +1459,29 @@ public class Example {
         assertEquals("200", result.getCode().toString());
     }
 
+
+
+    /**
+     * 设置聊天室销毁类型
+     */
+    @Test
+    public void testChatroomSetDestroyType() throws Exception {
+        ChatroomDestroyTypeModel chatroomModel = new ChatroomDestroyTypeModel()
+          .setId("d7ec7a8b8d8546c98b0973417209a548")
+          .setDestroyType(0)
+          .setDestroyTime(60);
+        ResponseResult result = rongCloud.chatroom.setDestroyType(chatroomModel);
+        System.out.println("ChatroomSetDestroyType:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
     /**
      * 销毁聊天室
      */
     @Test
     public void testDestroyChatroom() throws Exception {
         ChatroomModel chatroomModel = new ChatroomModel()
-                .setId("d7ec7a8b8d8546c98b0973417209a548");
+          .setId("d7ec7a8b8d8546c98b0973417209a548");
 
         ResponseResult result = rongCloud.chatroom.destroy(chatroomModel);
         System.out.println("destroy:  " + result.toString());
@@ -1463,6 +1497,18 @@ public class Example {
         String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
         ResponseResult result = rongCloud.chatroom.demotion.add(messageType);
         System.out.println("add demotion:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 查询聊天室信息
+     */
+    @Test
+    public void testChatroomQuery() throws Exception {
+        ChatroomModel chatroomModel = new ChatroomModel()
+          .setId("OIBbeKlkx");
+        ChatroomQueryResult result = rongCloud.chatroom.query(chatroomModel);
+        System.out.println("ChatroomQuery:  " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
 

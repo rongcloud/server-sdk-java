@@ -101,6 +101,45 @@ public class ChatroomEntry {
 				ResponseResult.class);
 	}
 
+
+	/**
+	 * 批量设置聊天室属性（KV）
+	 *
+	 * @param model 必填项: chatroomId, entryOwnerId, entryInfo
+	 * @return
+	 * @throws IOException
+	 * @throws ProtocolException
+	 * @throws MalformedURLException
+	 */
+	public ResponseResult batchSet(ChatroomEntryModel model) throws Exception {
+		String message = CommonUtil.checkFiled(model, PATH, CheckMethod.BATCHSET);
+		if (null != message) {
+			return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+		}
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("&chatroomId=").append(URLEncoder.encode(model.getChatroomId(), UTF8));
+		sb.append("&autoDelete=").append(URLEncoder.encode(model.isAutoDelete().toString(), UTF8));
+		sb.append("&entryOwnerId=").append(URLEncoder.encode(model.getEntryOwnerId(), UTF8));
+		sb.append("&entryInfo=").append(URLEncoder.encode(GsonUtil.toJson(model.getEntryInfo()), UTF8));
+
+		String body = sb.toString();
+		if (body.indexOf("&") == 0) {
+			body = body.substring(1, body.length());
+		}
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
+		"/chatroom/entry/batch/set.json", "application/x-www-form-urlencoded");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+		ResponseResult result = (ResponseResult) GsonUtil.fromJson(
+		CommonUtil.getResponseByCode(PATH, CheckMethod.BATCHSET, HttpUtil.returnResult(conn, rongCloud.getConfig())),
+		ResponseResult.class);
+		result.setReqBody(body);
+		return result;
+	}
+
+
 	/**
 	 * 删除聊天室属性
 	 * 

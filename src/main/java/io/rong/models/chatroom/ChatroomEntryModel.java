@@ -1,6 +1,7 @@
 package io.rong.models.chatroom;
 
 import io.rong.util.GsonUtil;
+import java.util.HashMap;
 
 /**
  * 聊天室属性设置的请求 Request Model
@@ -58,6 +59,16 @@ public class ChatroomEntryModel {
      * 属性，详细查看 RC:chrmKVNotiMsg 结构说明。
      */
     public String content;
+
+    /**
+     * 批量设置 - 聊天室自定义属性的所属用户 ID
+     */
+    public String entryOwnerId;
+
+    /**
+     * 批量设置 - 聊天室自定义属性 KV
+     */
+    public HashMap<String, String> entryInfo;
 
     public String getChatroomId() {
         return chatroomId;
@@ -133,6 +144,24 @@ public class ChatroomEntryModel {
 
     public ChatroomEntryModel setKeys(String[] keys) {
         this.keys = keys;
+        return this;
+    }
+
+    public String getEntryOwnerId() {
+        return entryOwnerId;
+    }
+
+    public ChatroomEntryModel setEntryOwnerId(String entryOwnerId) {
+        this.entryOwnerId = entryOwnerId;
+        return this;
+    }
+
+    public HashMap<String, String> getEntryInfo() {
+        return entryInfo;
+    }
+
+    public ChatroomEntryModel setEntryInfo(HashMap<String, String> entryInfo) {
+        this.entryInfo = entryInfo;
         return this;
     }
 

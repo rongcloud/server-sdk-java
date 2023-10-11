@@ -2,6 +2,7 @@ package io.rong.example.chatroom;
 
 import io.rong.RongCloud;
 import io.rong.methods.chatroom.Chatroom;
+import io.rong.models.chatroom.ChatroomDataModel;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.*;
@@ -42,10 +43,13 @@ public class ChatroomExample {
                 new ChatroomModel().setId("chatroomId2").setName("chatroomName2")
         };
         ResponseResult result = chatroom.create(chatrooms);
-
         System.out.println("create:  " + result.toString());
-        ResponseResult queryResult = chatroom.query(new ChatroomModel().setId("chatroomId1"));
 
+        ChatroomDataModel chatroomDataModel = new ChatroomDataModel().setId("chatroomId3");
+        ResponseResult result2 = chatroom.createV2(chatroomDataModel);
+        System.out.println("createV2:  " + result2.toString());
+
+        ChatroomQueryResult queryResult = chatroom.query(new ChatroomModel().setId("chatroomId3"));
         System.out.println("query:  " + queryResult.toString());
 
         /**

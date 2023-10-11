@@ -9,6 +9,7 @@ import io.rong.models.chatroom.ChatroomEntryModel;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.ChatroomEntryListResult;
 import io.rong.models.response.ResponseResult;
+import java.util.HashMap;
 
 /**
  * 聊天室设置属性，删除属性，查询属性 Demo
@@ -65,6 +66,20 @@ public class EntryExample {
 
 		ResponseResult result = entry.set(model);
 		System.out.println("chatroomEntrySet Result:  " + result.toString());
+
+		model = new ChatroomEntryModel();
+		model.setChatroomId("chatroomId1");
+		model.setAutoDelete(0);// 可选
+		model.setEntryOwnerId("userId1");
+		HashMap<String, String> kv = new HashMap<String, String>();
+		kv.put("key1", "1");
+		kv.put("key2", "2");
+		kv.put("key3", "3");
+		kv.put("key4", "4");
+		model.setEntryInfo(kv);
+		result = entry.batchSet(model);
+		System.out.println("chatroomEntryBatchSet Result:  " + result.toString());
+
 
 		/**
 		 * 聊天室属性删除，参考文档
