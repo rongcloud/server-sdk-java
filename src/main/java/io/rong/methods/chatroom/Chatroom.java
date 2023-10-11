@@ -194,7 +194,7 @@ public class Chatroom {
             sb.append("&destroyType=").append(URLEncoder.encode(destroyType.getDestroyType().toString(), UTF8));
         }
         if (null != destroyType.getDestroyTime()) {
-            sb.append("&destroyType=").append(URLEncoder.encode(destroyType.getDestroyTime().toString(), UTF8));
+            sb.append("&destroyTime=").append(URLEncoder.encode(destroyType.getDestroyTime().toString(), UTF8));
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
