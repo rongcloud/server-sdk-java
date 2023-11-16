@@ -63,6 +63,7 @@ public class PlatformNotification {
     private String apns_collapse_id;
 
     private Platform hw;
+    private Platform honor;
     private Platform mi;
     private Platform oppo;
     private Platform vivo;
@@ -71,6 +72,10 @@ public class PlatformNotification {
     //=====common setters=====//
     public void setHw(Platform hw) {
         this.hw = hw;
+    }
+
+    public void setHonor(Platform honor) {
+        this.honor = honor;
     }
 
     public void setMi(Platform mi) {
@@ -171,6 +176,16 @@ public class PlatformNotification {
         this.hw = new Platform(channelId);
     }
 
+    public Platform getHonor() {
+        return honor;
+    }
+
+    public void setHonor(String importance, String image) {
+        this.honor = new Platform();
+        this.honor.setImportance(importance);
+        this.honor.setImage(image);
+    }
+
     public Platform getMi() {
         return mi;
     }
@@ -178,6 +193,7 @@ public class PlatformNotification {
     public void setMi(String channelId) {
         this.mi = new Platform(channelId);
     }
+
     public void setFcm(String channelId) {
         this.fcm = new Platform(channelId);
     }
@@ -199,21 +215,21 @@ public class PlatformNotification {
     }
 
     public static class Platform {
+
         //hw mi oppo fcm
         private String channelId;
 
         //vivo
         private String classification;
-        //hw
+        //hw honor
         private String importance;
-        //hw
+        //hw honor
         private String image;
         //mi
         private String large_icon_uri;
         //fcm
         private String imageUrl;
         private String collapse_key;
-
 
 
         public String getChannelId() {
@@ -270,6 +286,9 @@ public class PlatformNotification {
 
         public void setCollapse_key(String collapse_key) {
             this.collapse_key = collapse_key;
+        }
+
+        public Platform() {
         }
 
         public Platform(String channelId) {

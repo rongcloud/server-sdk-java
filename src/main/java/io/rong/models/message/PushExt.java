@@ -91,6 +91,29 @@ public class PushExt {
 
     }
 
+    public static class HONOR implements Platform {
+        private HashMap<String, String> HONOR = new HashMap<String, String>();
+
+        public HONOR(String importance) {
+            HONOR.put("importance", importance);
+        }
+
+        public HONOR(String importance, String image) {
+            HONOR.put("importance", importance);
+            HONOR.put("image", image);
+        }
+
+        public HashMap<String, String> getHONOR() {
+            return HONOR;
+        }
+
+        public void setHONOR(HashMap<String, String> honor) {
+            this.HONOR = honor;
+        }
+
+    }
+
+
     public static class APNs implements Platform {
         private HashMap<String, String> APNs = new HashMap<String, String>();
 

@@ -62,6 +62,11 @@ public class PushCustomExample {
         PlatformNotification.Platform ppHw = new PlatformNotification.Platform(hwChannelId);
         ppHw.setImage("http://erjijl.jpg");
         platformNotification.setHw(ppHw);
+        PlatformNotification.Platform ppHonor = new PlatformNotification.Platform();
+        ppHonor.setImportance("importance");
+        ppHonor.setImage("http://erjijl.jpg");
+//        platformNotification.setHonor(ppHonor);
+        platformNotification.setHonor("importance","http://erjijl.jpg");
 
         platformNotification.setOppo("oppochannelid");
 

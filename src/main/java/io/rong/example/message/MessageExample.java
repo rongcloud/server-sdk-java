@@ -73,6 +73,7 @@ public class MessageExample {
         UltraGroup ultraGroup = rongCloud.message.ultraGroup;
         PushExt pe = PushExt.build("testTitle", 1,
                 new PushExt.HW("channelId", "NORMAL"), new PushExt.VIVO("1"),
+                new PushExt.HONOR("importance","image"),
                 new PushExt.APNs("234353efsfwd", "232"),
                 new PushExt.OPPO("134324"),
                 new PushExt.FCM("134324")
