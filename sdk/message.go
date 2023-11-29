@@ -397,7 +397,7 @@ func WithMsgExpansion(isExpansion bool) MsgOption {
 	}
 }
 
-// disablePush Boolean 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒。暂不支持海外数据中心
+// disablePush Boolean 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒。
 func WithMsgDisablePush(isDisablePush bool) MsgOption {
 	return func(options *msgOptions) {
 		options.disablePush = isDisablePush
@@ -405,7 +405,7 @@ func WithMsgDisablePush(isDisablePush bool) MsgOption {
 }
 
 // pushExt String 推送通知属性设置，详细查看 pushExt 结构说明，pushExt 为 JSON 结构请求时需要做转义处理。
-// disablePush 为 true 时此属性无效。暂不支持海外数据中心
+// disablePush 为 true 时此属性无效。
 func WithMsgPushExt(pushExt string) MsgOption {
 	return func(options *msgOptions) {
 		options.pushExt = pushExt
