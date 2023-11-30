@@ -362,6 +362,7 @@ type msgOptions struct {
 	isAdmin          int
 	isDelete         int
 	extraContent     string
+	isCounted        int
 }
 
 // MsgOption 接口函数
@@ -456,6 +457,13 @@ func WithExtraContent(extraContent string) MsgOption {
 	}
 }
 
+// WithMsgIsCounted 用户未在线时是否计入未读消息数。0 表示为不计数、1 表示为计数，默认为 1
+func WithMsgIsCounted(isCounted int) MsgOption {
+	return func(options *msgOptions) {
+		options.isCounted = isCounted
+	}
+}
+
 // 修改默认值
 func modifyMsgOptions(options []MsgOption) msgOptions {
 	// 默认值
@@ -472,6 +480,7 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 		isAdmin:          0,
 		isDelete:         0,
 		extraContent:     "",
+		isCounted:        1,
 	}
 
 	// 修改默认值
@@ -987,6 +996,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
 	req.Param("expansion", strconv.FormatBool(extraOptins.expansion))
 	req.Param("disablePush", strconv.FormatBool(extraOptins.disablePush))
+	req.Param("isCounted", strconv.Itoa(extraOptins.isCounted))
 
 	if !extraOptins.disablePush && extraOptins.pushExt != "" {
 		req.Param("pushExt", extraOptins.pushExt)
@@ -1043,6 +1053,8 @@ func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objec
 	req.Param("content", msgr)
 	req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
 	req.Param("isIncludeSender", strconv.Itoa(isIncludeSender))
+	req.Param("isCounted", strconv.Itoa(extraOptins.isCounted))
+
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
 	}
@@ -1152,6 +1164,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 	param["verifyBlacklist"] = extraOptins.verifyBlacklist
 	param["contentAvailable"] = extraOptins.contentAvailable
 	param["disablePush"] = extraOptins.disablePush
+	param["isCounted"] = extraOptins.isCounted
 
 	if extraOptins.busChannel != "" {
 		param["busChannel"] = extraOptins.busChannel
