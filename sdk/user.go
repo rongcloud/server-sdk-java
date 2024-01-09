@@ -909,6 +909,7 @@ type UserDeactivateResponse struct {
 // @param userIds []string 被注销用户 ID，最多一次 100 个
 // @return string, error
 // official doc https://doc.rongcloud.cn/imserver/server/v1/user/deactivate
+// 发起注销后，服务端会在 15 分钟内通过回调通知注销结果。 https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation
 func (rc *RongCloud) UserDeactivate(userIds []string) (*UserDeactivateResponse, error) {
 	req := httplib.Post(fmt.Sprintf("%s%s", rc.rongCloudURI, "/user/deactivate.json"))
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -963,6 +964,7 @@ type UserReactivateResponse struct {
 // @param userIds []string 激活用户 ID，单次请求最多传入 100 个用户 ID。
 // @return string, error
 // official doc https://doc.rongcloud.cn/imserver/server/v1/user/reactivate
+// 重新激活用户请通过(https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation)接口获取重新激活结果。重复调用此接口不会报错。
 func (rc *RongCloud) UserReactivate(userIds []string) (*UserReactivateResponse, error) {
 	req := httplib.Post(fmt.Sprintf("%s%s", rc.rongCloudURI, "/user/reactivate.json"))
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
