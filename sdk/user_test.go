@@ -376,3 +376,48 @@ func TestRongCloud_TagGet(t *testing.T) {
 	}
 	t.Log(err)
 }
+
+func TestRongCloud_UserDeactivate(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	// 注册用户测试
+	result, err := rc.UserDeactivate(
+		[]string{
+			"u01",
+			"u02",
+		})
+	if err != nil {
+		t.Fatalf("UserDeactivate fail: %s", err)
+	}
+	t.Logf("res: %+v", result)
+}
+
+func TestRongCloud_UserDeactivateQuery(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	result, err := rc.UserDeactivateQuery(1, 50)
+	if err != nil {
+		t.Fatalf("UserDeactivateQuery fail: %s", err)
+	}
+	t.Logf("res: %+v", result)
+}
+
+func TestRongCloud_UserReactivate(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	result, err := rc.UserReactivate(
+		[]string{
+			"u01",
+			"u02",
+		})
+	if err != nil {
+		t.Fatalf("UserReactivate fail: %s", err)
+	}
+	t.Logf("res: %+v", result)
+}

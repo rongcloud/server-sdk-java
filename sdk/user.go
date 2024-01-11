@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/astaxie/beego/httplib"
@@ -59,10 +60,10 @@ type WhiteList struct {
 }
 
 // UserBlockPushPeriodDelete 删除用户免打扰时段 /user/blockPushPeriod/delete.json
-//*
+// *
 // @param: userId  用户id，必传
 //
-//*//
+// *//
 func (rc *RongCloud) UserBlockPushPeriodDelete(userId string) error {
 	if len(userId) == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -88,10 +89,12 @@ type PushPeriodGet struct {
 }
 
 // UserBlockPushPeriodGet UserBlockPushPeriodGet:  查用户免打扰时段 /user/blockPushPeriod/get.json
-//*
+// *
 // @param: userId  用户id，必传
-//  response : PushPeriodGet
-//*//
+//
+//	response : PushPeriodGet
+//
+// *//
 func (rc *RongCloud) UserBlockPushPeriodGet(userId string) (PushPeriodGet, error) {
 	data := PushPeriodGet{}
 	if len(userId) == 0 {
@@ -112,13 +115,15 @@ func (rc *RongCloud) UserBlockPushPeriodGet(userId string) (PushPeriodGet, error
 }
 
 // UserBlockPushPeriodSet :添加户免打扰时段 /user/blockPushPeriod/set.json
-//*
-//  @param :userId 用户ID  必传
-//  @param :startTime 开始时间（秒） 必传
-//  @param :period  时段 (分钟)     必传
-//  @param :level   免打扰级别  默认 1  不是必传
-//  form表单
-//*//
+// *
+//
+//	@param :userId 用户ID  必传
+//	@param :startTime 开始时间（秒） 必传
+//	@param :period  时段 (分钟)     必传
+//	@param :level   免打扰级别  默认 1  不是必传
+//	form表单
+//
+// *//
 func (rc *RongCloud) UserBlockPushPeriodSet(userId, startTime, period, level string) error {
 	if len(userId) <= 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -155,12 +160,14 @@ type UserTokenExpireObj struct {
 }
 
 // UserTokenExpireResObj /user/token/expire.json Token 失效
-//*
-//  @param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
-//  @param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
-//  response: UserTokenExpireObj
-//  文档： https://doc.rongcloud.cn/imserver/server/v1/user/expire
-//*//
+// *
+//
+//	@param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
+//	@param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
+//	response: UserTokenExpireObj
+//	文档： https://doc.rongcloud.cn/imserver/server/v1/user/expire
+//
+// *//
 func (rc *RongCloud) UserTokenExpireResObj(userId string, t int64) (UserTokenExpireObj, error) {
 	var result = UserTokenExpireObj{}
 	if len(userId) == 0 {
@@ -186,12 +193,14 @@ func (rc *RongCloud) UserTokenExpireResObj(userId string, t int64) (UserTokenExp
 }
 
 // UserTokenExpire /user/token/expire.json Token 失效
-//*
-//  @param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
-//  @param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
-//  response: byte数组
-//  文档 ：https://doc.rongcloud.cn/imserver/server/v1/user/expire
-//*//
+// *
+//
+//	@param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
+//	@param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
+//	response: byte数组
+//	文档 ：https://doc.rongcloud.cn/imserver/server/v1/user/expire
+//
+// *//
 func (rc *RongCloud) UserTokenExpire(userId string, t int64) ([]byte, error) {
 	if len(userId) == 0 {
 		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
@@ -233,13 +242,15 @@ type UserRemarksUsers struct {
 }
 
 // UserRemarksGetResObj /user/remarks/get.json  查询用户级送备注名
-//*
-//  @param: userId :用户ID。
-//  @param: page :页数，默认为第一页。
-//  @param: size :每页条数，默认每页 50 条
-//  response： UserRemarksGetObj
-//  文档：https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
-//*/
+// *
+//
+//	@param: userId :用户ID。
+//	@param: page :页数，默认为第一页。
+//	@param: size :每页条数，默认每页 50 条
+//	response： UserRemarksGetObj
+//	文档：https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
+//
+// */
 func (rc *RongCloud) UserRemarksGetResObj(userId string, page, size int) (UserRemarksGetObj, error) {
 	var (
 		result = UserRemarksGetObj{}
@@ -264,13 +275,15 @@ func (rc *RongCloud) UserRemarksGetResObj(userId string, page, size int) (UserRe
 }
 
 // UserRemarksGet /user/remarks/get.json  查询用户级送备注名
-//*
-//  @param: userId :用户ID。
-//  @param: page :页数，默认为第一页。
-//  @param: size :每页条数，默认每页 50 条
+// *
+//
+//	@param: userId :用户ID。
+//	@param: page :页数，默认为第一页。
+//	@param: size :每页条数，默认每页 50 条
+//
 // response ：byte数组
 // 文档：https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
-//*/
+// */
 func (rc *RongCloud) UserRemarksGet(userId string, page, size int) ([]byte, error) {
 	if len(userId) == 0 {
 		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
@@ -289,10 +302,12 @@ func (rc *RongCloud) UserRemarksGet(userId string, page, size int) ([]byte, erro
 }
 
 // UserRemarksDel /user/remarks/del.json  删除用户级送备注名
-//*
-//  @param: userId :操作者用户ID。
-//  @param: targetId:需要删除推送备注名的用户 ID
-//*/
+// *
+//
+//	@param: userId :操作者用户ID。
+//	@param: targetId:需要删除推送备注名的用户 ID
+//
+// */
 func (rc *RongCloud) UserRemarksDel(userId, targetId string) error {
 	if len(userId) == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -322,11 +337,11 @@ type UserRemark struct {
 }
 
 // UserRemarksSet /user/remarks/set.json
-//*
+// *
 // @param: userId:用户 ID。
 // @param: remarks:设置的目标用户推送备注名 JSON 字符串
 //
-//*/
+// */
 func (rc *RongCloud) UserRemarksSet(userId string, remarks []UserRemark) error {
 	if len(userId) == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -369,7 +384,7 @@ type UserChatFbQueryListObj struct {
 // @param: t  :会话类型，目前支持单聊会话 PERSON。
 // response: UserChatFbQueryListObj
 // 文档： https://doc.rongcloud.cn/imserver/server/v1/user/ban
-//*/
+// */
 func (rc *RongCloud) UserChatFbQueryListResObj(num, offset int, t string) (UserChatFbQueryListObj, error) {
 	var (
 		result = UserChatFbQueryListObj{}
@@ -404,7 +419,7 @@ func (rc *RongCloud) UserChatFbQueryListResObj(num, offset int, t string) (UserC
 // @param: t  :会话类型，目前支持单聊会话 PERSON。
 // response： 返回byte数组
 // https://doc.rongcloud.cn/imserver/server/v1/user/ban
-//*/
+// */
 func (rc *RongCloud) UserChatFbQueryList(num, offset int, t string) ([]byte, error) {
 	if num == 0 {
 		num = 100
@@ -431,7 +446,7 @@ func (rc *RongCloud) UserChatFbQueryList(num, offset int, t string) ([]byte, err
 // @param: userId :被禁言用户 ID，支持批量设置，最多不超过 1000 个
 // @param: state :禁言状态，0 解除禁言、1 添加禁言
 // @param: type  :会话类型，目前支持单聊会话 PERSON
-//*/
+// */
 func (rc *RongCloud) UserChatFbSet(userId string, state int, t string) error {
 	if len(userId) == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -883,4 +898,86 @@ func (rc *RongCloud) TagGet(userIds []string) (TagResult, error) {
 	}
 	return tag, nil
 
+}
+
+type UserDeactivateResponse struct {
+	Code      int    `json:"code"`
+	OperateId string `json:"operateId"` // 操作 ID，为当前操作的唯一标识。开通用户注销与激活状态回调后，回调请求正文中会携带此参数。
+}
+
+// UserDeactivate 注销用户
+// @param userIds []string 被注销用户 ID，最多一次 100 个
+// @return string, error
+// official doc https://doc.rongcloud.cn/imserver/server/v1/user/deactivate
+// 发起注销后，服务端会在 15 分钟内通过回调通知注销结果。 https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation
+func (rc *RongCloud) UserDeactivate(userIds []string) (*UserDeactivateResponse, error) {
+	req := httplib.Post(fmt.Sprintf("%s%s", rc.rongCloudURI, "/user/deactivate.json"))
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", strings.Join(userIds, ","))
+	body, err := rc.doV2(req)
+	if err != nil {
+		return nil, err
+	}
+	var userDeactivateResp UserDeactivateResponse
+	err = json.Unmarshal(body, &userDeactivateResp)
+	if err != nil {
+		return nil, err
+	}
+	return &userDeactivateResp, nil
+}
+
+type UserDeactivateQueryResponse struct {
+	Code  int      `json:"code"`  // 返回码，200 为正常
+	Users []string `json:"users"` // 已注销的用户 ID 列表
+}
+
+// UserDeactivateQuery 查询已注销用户
+// @param pageNo 分页获取注销用户列表时的当前页数，默认 1，最小 1。
+// @param pageSize 分页获取注销用户列表时的每页行数，默认 50，最小 1，最大 50。
+// @return string, error
+// official doc https://doc.rongcloud.cn/imserver/server/v1/user/query-deactivated-list
+func (rc *RongCloud) UserDeactivateQuery(pageNo, pageSize int) (*UserDeactivateQueryResponse, error) {
+	req := httplib.Post(fmt.Sprintf("%s/%s", rc.rongCloudURI, "/user/deactivate/query.json"))
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("pageNo", strconv.Itoa(pageNo))
+	req.Param("pageSize", strconv.Itoa(pageSize))
+	body, err := rc.doV2(req)
+	if err != nil {
+		return nil, err
+	}
+	var userDeactivateQueryResp UserDeactivateQueryResponse
+	err = json.Unmarshal(body, &userDeactivateQueryResp)
+	if err != nil {
+		return nil, err
+	}
+	return &userDeactivateQueryResp, nil
+}
+
+type UserReactivateResponse struct {
+	Code      int    `json:"code"`      // 返回码，200 为正常。每个用户 ID 操作结果通过用户注销与激活状态回调传递。
+	OperateId string `json:"operateId"` // 操作 ID，为当前操作的唯一标识。开通用户注销与激活状态回调后，回调请求正文中会携带此参数。
+}
+
+// UserReactivate 重新激活注销用户
+// @param userIds []string 激活用户 ID，单次请求最多传入 100 个用户 ID。
+// @return string, error
+// official doc https://doc.rongcloud.cn/imserver/server/v1/user/reactivate
+// 重新激活用户请通过(https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation)接口获取重新激活结果。重复调用此接口不会报错。
+func (rc *RongCloud) UserReactivate(userIds []string) (*UserReactivateResponse, error) {
+	req := httplib.Post(fmt.Sprintf("%s%s", rc.rongCloudURI, "/user/reactivate.json"))
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", strings.Join(userIds, ","))
+	body, err := rc.doV2(req)
+	if err != nil {
+		return nil, err
+	}
+	var userReactivateResp UserReactivateResponse
+	err = json.Unmarshal(body, &userReactivateResp)
+	if err != nil {
+		return nil, err
+	}
+	return &userReactivateResp, nil
 }
