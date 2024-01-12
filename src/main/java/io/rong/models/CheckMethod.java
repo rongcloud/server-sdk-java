@@ -38,7 +38,7 @@ public class CheckMethod {
     public static final String GET_TOKEN = "getToken";
     public static final String INVITE = "invite";
     public static final String EXPIRE = "expire";
-
+    public static final String REACTIVATE = "reactivate";
 
     public static final String CHECK = "check";
     public static final String QUERY = "query";

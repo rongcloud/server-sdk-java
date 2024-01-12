@@ -159,8 +159,7 @@ public class Example {
     @Test
     public void testUserReactivate() throws Exception {
         UserModel user = new UserModel()
-          .setId("userId3");
-
+          .setIds(new String[]{"CHIQ1", "CHIQ2"});
         Result result = (ResponseResult) rongCloud.user.reactivate(user);
         System.out.println("user reactivate:  " + result.toString());
 

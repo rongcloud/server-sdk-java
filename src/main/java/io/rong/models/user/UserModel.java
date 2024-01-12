@@ -14,6 +14,8 @@ public class UserModel {
      * 必须保证在同一个 App 内不重复，重复的用户 Id 将被当作是同一用户。（必传）
      */
     public String id;
+
+    public String[] ids;
     /**
      * 用户名称，最大长度 128 字节。用来在 Push 推送时，显示用户的名称，
      * 刷新用户名称后 5 分钟内生效。（可选，提供即刷新，不提供忽略）
@@ -44,6 +46,9 @@ public class UserModel {
         this.name = name;
         this.portrait = portrait;
     }
+    public UserModel(String[] ids) {
+        this.ids = ids;
+    }
 
     public String getId() {
         return this.id;
@@ -51,6 +56,15 @@ public class UserModel {
 
     public UserModel setId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public String[] getIds() {
+        return ids;
+    }
+
+    public UserModel setIds(String[] ids) {
+        this.ids = ids;
         return this;
     }
 

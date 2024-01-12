@@ -100,7 +100,8 @@ public class UserExample {
         /**
          * 重新激活用户 ID
          */
-        ResponseResult reactivate = User.reactivate(user);
+        UserModel user1 = new UserModel().setIds(new String[]{"CHIQ1", "CHIQ2"});
+        ResponseResult reactivate = User.reactivate(user1);
         System.out.println("user reactivate set:  " + reactivate.toString());
 
         /**

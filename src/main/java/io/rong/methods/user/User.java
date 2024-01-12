@@ -253,13 +253,18 @@ public class User {
      */
     public ResponseResult reactivate(UserModel user) throws Exception {
         //需要校验的字段
-        String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
+        String message = CommonUtil.checkFiled(user, PATH, CheckMethod.REACTIVATE);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("userId=").append(URLEncoder.encode(user.id, UTF8));
+        for (String userId : user.getIds()) {
+            sb.append("&userId=").append(URLEncoder.encode(userId, UTF8));
+        }
         String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1);
+        }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
           "/user/reactivate.json", "application/x-www-form-urlencoded");
