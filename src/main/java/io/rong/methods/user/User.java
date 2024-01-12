@@ -244,6 +244,30 @@ public class User {
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
+
+    /**
+     * 重新激活用户 ID
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public ResponseResult reactivate(UserModel user) throws Exception {
+        //需要校验的字段
+        String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("userId=").append(URLEncoder.encode(user.id, UTF8));
+        String body = sb.toString();
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
+          "/user/reactivate.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.GET, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+    }
+
     /**
      * 查询用户所在群组
      * url  "/user/group/query"

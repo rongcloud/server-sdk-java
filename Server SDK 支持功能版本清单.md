@@ -7,6 +7,9 @@ Server SDK 功能支持的版本清单
 |  | get | 查询用户信息 | 3.0.8      |
 |  | getGroups | 查询用户所在群组 | 3.2.3      |
 |  | expire | Token 失效 | 3.2.11     |
+|  | deactivate | 用户注销 | 3.3.2      |
+|  | reactivate | 重新激活用户 ID | 3.3.5      |
+|  | deactivateList | 查询已注销用户 | 3.3.2      |
 | [检查用户在线状态](./src/main/java/io/rong/methods/user/onlinestatus/OnlineStatus.java) | onlinestatus.check | 检查用户在线状态| 3.0.1      |
 | [黑名单](./src/main/java/io/rong/methods/user/blacklist/Blacklist.java) | blacklist.add | 添加黑名单 | 3.0.1      |
 |  | blacklist.getList | 获取黑名单列表| 3.0.1      |

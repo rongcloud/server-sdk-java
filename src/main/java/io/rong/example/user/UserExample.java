@@ -98,6 +98,12 @@ public class UserExample {
         System.out.println("user activate set:  " + active.toString());
 
         /**
+         * 重新激活用户 ID
+         */
+        ResponseResult reactivate = User.reactivate(user);
+        System.out.println("user reactivate set:  " + reactivate.toString());
+
+        /**
          *
          * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
