@@ -43,8 +43,12 @@ public class RongCloudConfig {
 	 * http获取响应的超时时间设置，单位ms
 	 */
 	public int httpReadTimeout = 30000;
-	
-	
+
+
+	/**
+	 * 是否维持长连接
+	 */
+	public boolean connectionKeepAlive = false;
 	
 	
 	

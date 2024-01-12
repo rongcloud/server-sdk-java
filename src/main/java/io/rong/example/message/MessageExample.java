@@ -1,6 +1,7 @@
 package io.rong.example.message;
 
 import io.rong.RongCloud;
+import io.rong.RongCloudConfig;
 import io.rong.messages.CustomTxtMessage;
 import io.rong.messages.InfoNtfMessage;
 import io.rong.messages.ReadReceiptMessage;
@@ -60,6 +61,10 @@ public class MessageExample {
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+//        RongCloudConfig config = RongCloudConfig.DefaultConfig;
+//        config.connectionKeepAlive = false;
+//        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, config);
+
         //自定义 api 地址方式
 //        RongCloud rongCloud = RongCloud.getInstance("appkey", "appSecret", api);
 //        RongCloud rongCloud2 = RongCloud.getInstance("appKey", "appSecret", new RongCloudConfig("api"));

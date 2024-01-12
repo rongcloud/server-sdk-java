@@ -125,7 +125,7 @@ public class HttpUtil {
         conn.setRequestProperty(SIGNATURE, sign);
         conn.setRequestProperty(USERAGENT, "rc-java-sdk/" + CommonUtil.getSDKVersion());
         conn.setRequestProperty("Content-Type", contentType);
-        conn.setRequestProperty("Connection", "close");
+        conn.setRequestProperty("Connection", config.connectionKeepAlive ? "keep-alive" : "close");
         conn.setRequestProperty("X-Request-ID", UUID.randomUUID().toString().replaceAll("\\-", ""));
 
         return conn;
