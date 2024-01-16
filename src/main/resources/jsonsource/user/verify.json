@@ -78,6 +78,7 @@
     "ids": {
       "require": {
         "must": true,
+        "type": "array",
         "invalid": "1002"
       },
       "typeof": {
