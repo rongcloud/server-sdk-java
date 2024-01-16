@@ -59,6 +59,13 @@ RongCloud IM Server SDK in Java.
   System.out.println("getToken:  " + result.toString());
 
 ```
+```
+# 打印结果
+# getToken:  {"reqBody":"userId=userxxd2&name=username&portraitUri=http%3A%2F%2Fwww.rongcloud.cn%2Fimages%2Flogo.png","code":1002,"errorMessage":"Invalidate App-Key.","requestId":"0c1f127e9bc1401bb05eaad61b4502f7"}
+```
+
+特别说明: 接口每次调用都会返回唯一的 ***requestId*** ，此 Id 为请求融云的唯一标识。
+
 
 ## 示例
 
