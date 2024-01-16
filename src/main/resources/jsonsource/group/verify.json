@@ -42,7 +42,7 @@
         "invalid": "20005"
       },
       "length": {
-        "max": 64,
+        "max": 255,
         "min": 1,
         "invalid": "20003"
       }
