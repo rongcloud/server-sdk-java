@@ -259,13 +259,12 @@ public class User {
         }
         StringBuilder sb = new StringBuilder();
         for (String userId : user.getIds()) {
-            sb.append("&userId=").append(URLEncoder.encode(userId, UTF8));
+            sb.append(",").append(URLEncoder.encode(userId, UTF8));
         }
         String body = sb.toString();
-        if (body.indexOf("&") == 0) {
-            body = body.substring(1);
+        if (body.indexOf(",") == 0) {
+            body = "userId=" + body.substring(1);
         }
-
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
           "/user/reactivate.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());

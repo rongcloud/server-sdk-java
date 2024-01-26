@@ -185,7 +185,7 @@
     "url": "user/reactivate",
     "params": {
       "user": {
-        "id": "aFo990k"
+        "ids": "aFo990k"
       }
     },
     "response": {
