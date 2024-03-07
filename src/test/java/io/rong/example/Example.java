@@ -11,6 +11,8 @@ import io.rong.models.chatroom.ChatroomDataModel;
 import io.rong.models.chatroom.ChatroomDestroyTypeModel;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
+import io.rong.models.group.AliasModel;
+import io.rong.models.group.AttentionModel;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.group.UserGroup;
@@ -2354,6 +2356,91 @@ public class Example {
         System.out.println("delBlockPushPeriod: [t2] " + result.toString());
 
     }
+
+
+    /**
+     * 设置用户指定群特别关注用户
+     */
+    @Test
+    public void testGroupAttentionSet() throws Exception {
+        AttentionModel model = new AttentionModel();
+        model.setUserId("user1");
+        model.setGroupId("group1");
+        model.setAttentionUserId(new String[]{"user2"});
+        Result result = rongCloud.group.attention.set(model);
+        System.out.println("testGroupAttentionSet:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+
+    /**
+     * 删除用户指定群组中的特别关注用户
+     */
+    @Test
+    public void testGroupAttentionDel() throws Exception {
+        AttentionModel model = new AttentionModel();
+        model.setUserId("user1");
+        model.setGroupId("group1");
+        model.setAttentionUserId(new String[]{"user2"});
+        Result result = rongCloud.group.attention.del(model);
+        System.out.println("testGroupAttentionDel:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 查询用户指定群组特别关注成员列表
+     */
+    @Test
+    public void testGroupAttentionQuery() throws Exception {
+        AttentionModel model = new AttentionModel();
+        model.setUserId("user1");
+        model.setGroupId("group1");
+        Result result = rongCloud.group.attention.query(model);
+        System.out.println("testGroupAttentionQuery:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 设置用户指定群组名称备注名
+     */
+    @Test
+    public void testGroupAliasSet() throws Exception {
+        AliasModel model = new AliasModel();
+        model.setUserId("user1");
+        model.setGroupId("group1");
+        model.setRemarkName("name1");
+        Result result = rongCloud.group.alias.set(model);
+        System.out.println("testGroupAliasSet:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+
+    /**
+     * 删除用户指定群组名称备注名
+     */
+    @Test
+    public void testGroupAliasDel() throws Exception {
+        AliasModel model = new AliasModel();
+        model.setUserId("user1");
+        model.setGroupId("group1");
+        Result result = rongCloud.group.alias.del(model);
+        System.out.println("testGroupAliasDel:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 查询用户指定群组名称备注名
+     */
+    @Test
+    public void testGroupAliasQuery() throws Exception {
+        AliasModel model = new AliasModel();
+        model.setUserId("user1");
+        model.setGroupId("group1");
+        Result result = rongCloud.group.alias.query(model);
+        System.out.println("testGroupAliasQuery:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
 
 
 
