@@ -75,6 +75,12 @@ Server SDK 功能支持的版本清单
 | [群全部禁言白名单](./src/main/java/io/rong/methods/group/mute/whitelist/User.java) | muteWhiteList.user.add |添加群组禁言白名单用户，群组被禁言后，该群白名单中用户可以在群组中发送消息 | 3.0.2      |
 |  | muteWhiteList.user.remove | 移除群组禁言白名单用户 | 3.0.2      |
 |  | muteWhiteList.user.getList | 获取群组禁言白名单用户列表 | 3.0.2      |
+| [特别关注群成员设置](./src/main/java/io/rong/methods/group/mute/Attention.java) | group.attention.set | 设置用户指定群特别关注用户 |       |
+|  | group.attention.del | 删除用户指定群组中的特别关注用户 |       |
+|  | group.attention.query | 查询用户指定群组特别关注成员列表 |       |
+| [特别关注群成员设置](./src/main/java/io/rong/methods/group/remark/Alias.java) | group.alias.set | 设置用户指定群组名称备注名 |       |
+|  | group.alias.del | 删除用户指定群组名称备注名 |       |
+|  | group.alias.query | 查询用户指定群组名称备注名 |       |
 | [会话免打扰(Conversation)](./src/main/java/io/rong/methods/conversation/Conversation.java) | mute | 添加免打扰会话 | 3.0.1      |
 |  | unMute | 移除免打扰会话 | 3.0.1      |
 |  | get | 免打扰会话状态获取 | 3.0.1      |

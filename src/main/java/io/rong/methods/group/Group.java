@@ -3,9 +3,11 @@ package io.rong.methods.group;
 import io.rong.RongCloud;
 import io.rong.methods.group.ban.Ban;
 import io.rong.methods.group.gag.Gag;
+import io.rong.methods.group.mute.Attention;
 import io.rong.methods.group.mute.MuteAllMembers;
 import io.rong.methods.group.mute.MuteMembers;
 import io.rong.methods.group.mute.whitelist.MuteWhiteList;
+import io.rong.methods.group.remark.Alias;
 import io.rong.methods.group.remark.Remark;
 import io.rong.models.*;
 import io.rong.models.group.*;
@@ -36,6 +38,8 @@ public class Group {
 	public MuteMembers muteMembers;
 	public MuteWhiteList muteWhiteList;
 	public Remark remark;
+	public Attention attention;
+	public Alias alias;
 	private RongCloud rongCloud;
 
 	public RongCloud getRongCloud() {
@@ -55,8 +59,8 @@ public class Group {
 		this.muteMembers = new MuteMembers(appKey,appSecret,rongCloud);
 		this.muteWhiteList = new MuteWhiteList(appKey,appSecret,rongCloud);
 		this.remark = new Remark(appKey,appSecret,rongCloud);
-
-
+		this.attention = new Attention(appKey,appSecret,rongCloud);
+		this.alias = new Alias(appKey,appSecret,rongCloud);
 	}
 	/**
 	 * 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join 的别名。） 

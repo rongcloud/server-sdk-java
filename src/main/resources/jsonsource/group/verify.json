@@ -149,6 +149,96 @@
       "type": "number|int",
       "invalid": "20001"
     }
+  },
+  "attention":{
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "attentionUserId":{
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "attentionQuery":{
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "aliasAdd": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "remarkName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "aliasDel": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "aliasQuery": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
   }
-
 }
