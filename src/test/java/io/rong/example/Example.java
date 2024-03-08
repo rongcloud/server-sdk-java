@@ -83,17 +83,15 @@ public class Example {
      */
     @Test
     public void testRegister() throws Exception {
-
         UserModel user = new UserModel()
                 .setId("userId1")
                 .setName("username")
-                .setPortrait("http://www.rongcloud.cn/images/logo.png");
-
+                .setPortrait("http://www.rongcloud.cn/images/logo.png")
+                .setDeviceId("V1962A|29|WIFI|-0.0.0")
+                .setPlatform("Android");
         TokenResult result = rongCloud.user.register(user);
-
         System.out.println("getToken:  " + result.toString());
         assertEquals("200", result.getCode().toString());
-
     }
 
     /**

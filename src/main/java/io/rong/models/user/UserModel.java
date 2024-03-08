@@ -27,7 +27,20 @@ public class UserModel {
      */
     public String portrait;
 
+    /**
+     * 获取 Token 时: token的有效分钟数
+     */
     private Integer minute;
+
+    /**
+     * 设备Id
+     */
+    private String deviceId;
+
+    /**
+     * 平台: Android，iOS，websocket，PC等
+     */
+    private String platform;
     /**
      * 黑名单列表。
      */
@@ -110,6 +123,24 @@ public class UserModel {
 
     public UserModel setWhitelist(UserModel[] whitelist) {
         this.whitelist = whitelist;
+        return this;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public UserModel setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+        return this;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public UserModel setPlatform(String platform) {
+        this.platform = platform;
         return this;
     }
 

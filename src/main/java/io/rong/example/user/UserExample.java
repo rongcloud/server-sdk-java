@@ -57,7 +57,10 @@ public class UserExample {
         UserModel user = new UserModel()
             .setId("userxxd2")
             .setName("username")
-            .setPortrait("http://www.rongcloud.cn/images/logo.png");
+            .setPortrait("http://www.rongcloud.cn/images/logo.png")
+            .setMinute(100)
+            .setDeviceId("V1962A|29|WIFI|-0.0.0")
+            .setPlatform("Android");
         TokenResult result = User.register(user);
         System.out.println("getToken:  " + result.toString());
 

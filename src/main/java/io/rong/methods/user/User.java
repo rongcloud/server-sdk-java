@@ -91,8 +91,15 @@ public class User {
         if (user.getPortrait() != null) {
             sb.append("&portraitUri=").append(URLEncoder.encode(user.portrait, UTF8));
         }
-
-
+        if (user.getMinute() != null) {
+            sb.append("&minute=").append(URLEncoder.encode(user.getMinute().toString(), UTF8));
+        }
+        if (user.getDeviceId() != null) {
+            sb.append("&deviceId=").append(URLEncoder.encode(user.getDeviceId(), UTF8));
+        }
+        if (user.getPlatform() != null) {
+            sb.append("&platform=").append(URLEncoder.encode(user.getPlatform(), UTF8));
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
