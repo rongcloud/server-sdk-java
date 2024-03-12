@@ -129,4 +129,33 @@ public class Conversation {
 
         return (ConversationNotificationResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn, rongCloud.getConfig())), ConversationNotificationResult.class);
     }
+
+
+    /**
+     * 会话置顶
+     *
+     * @param conversation 会话信息 其中 type、userId、targetId、top(必传)
+     * @return ResponseResult
+     **/
+    public ResponseResult setTop(ConversationModel conversation) throws Exception {
+        String message = CommonUtil.checkFiled(conversation,PATH,CheckMethod.SET_TOP);
+        if(null != message){
+            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&userId=").append(URLEncoder.encode(conversation.userId, UTF8));
+        sb.append("&conversationType=").append(URLEncoder.encode(conversation.type, UTF8));
+        sb.append("&targetId=").append(URLEncoder.encode(conversation.targetId, UTF8));
+        sb.append("&setTop=").append(URLEncoder.encode(conversation.top.toString(), UTF8));
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/conversation/top/set.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SET_TOP,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+    }
+
+
 }

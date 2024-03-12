@@ -61,4 +61,6 @@ public class CheckMethod {
 
     public static final String SET = "set";
     public static final String BATCHSET = "batchset";
+    public static final String SET_TOP = "setTop";
+
 }

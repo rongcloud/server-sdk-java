@@ -81,9 +81,10 @@ Server SDK 功能支持的版本清单
 | [特别关注群成员设置](./src/main/java/io/rong/methods/group/remark/Alias.java) | group.alias.set | 设置用户指定群组名称备注名 |       |
 |  | group.alias.del | 删除用户指定群组名称备注名 |       |
 |  | group.alias.query | 查询用户指定群组名称备注名 |       |
-| [会话免打扰(Conversation)](./src/main/java/io/rong/methods/conversation/Conversation.java) | mute | 添加免打扰会话 | 3.0.1      |
+| [会话管理(Conversation)](./src/main/java/io/rong/methods/conversation/Conversation.java) | mute | 添加免打扰会话 | 3.0.1      |
 |  | unMute | 移除免打扰会话 | 3.0.1      |
 |  | get | 免打扰会话状态获取 | 3.0.1      |
+|  | setTop | 会话置顶 |       |
 | [聊天室](./src/main/java/io/rong/methods/chatroom/Chatroom.java) | create | 创建聊天室 | 3.0.1      |
 |  | destroy | 销毁聊天室 | 3.0.1      |
 |  | get | 查询聊天室信息 | 3.0.1      |

@@ -6,6 +6,7 @@ package io.rong.models.conversation;
 public class ConversationModel {
     /**
      * 会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）、6（系统会话）、10（超级群会话）。
+     * 设置会话置顶时支持 1（二人会话）、3（群组会话）、6（系统会话）
      */
     public String type;
 
@@ -36,6 +37,13 @@ public class ConversationModel {
      * 注意：IMKit 5.2.1 及之前版本不支持 -1、2、4、5，具体表现为 -1、2、4 无法弹出本地通知，5 不生效。推荐 IMKit 用户升级到 5.2.2 及之后版本。
      */
     public int unpushLevel;
+
+
+    /**
+     * 会话置顶 方法相关参数
+     * true 表示置顶，false 表示取消置顶。
+     */
+    public Boolean top;
 
     public ConversationModel() {
     }
@@ -96,6 +104,16 @@ public class ConversationModel {
 
     public ConversationModel setUnpushLevel(int unpushLevel) {
         this.unpushLevel = unpushLevel;
+        return this;
+    }
+
+
+    public Boolean getTop() {
+        return top;
+    }
+
+    public ConversationModel setTop(Boolean top) {
+        this.top = top;
         return this;
     }
 }

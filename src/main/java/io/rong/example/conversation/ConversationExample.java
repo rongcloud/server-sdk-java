@@ -69,5 +69,13 @@ public class ConversationExample {
         ConversationNotificationResult getMuteConversationResult = (ConversationNotificationResult)Conversation.get(conversation);
 
         System.out.println("getMuteConversationResult:  " + getMuteConversationResult.toString());
+
+        conversation.top = true;
+        /**
+         *  API 文档: https://doc.rongcloud.cn/imserver/server/v1/conversation/top
+         *  会话置顶
+         */
+        ResponseResult topSetResult = Conversation.setTop(conversation);
+        System.out.println("topSetResult:  " + topSetResult.toString());
     }
 }
