@@ -75,9 +75,10 @@ Server SDK 功能支持的版本清单
 | [群全部禁言白名单](./src/main/java/io/rong/methods/group/mute/whitelist/User.java) | muteWhiteList.user.add |添加群组禁言白名单用户，群组被禁言后，该群白名单中用户可以在群组中发送消息 | 3.0.2      |
 |  | muteWhiteList.user.remove | 移除群组禁言白名单用户 | 3.0.2      |
 |  | muteWhiteList.user.getList | 获取群组禁言白名单用户列表 | 3.0.2      |
-| [会话免打扰(Conversation)](./src/main/java/io/rong/methods/conversation/Conversation.java) | mute | 添加免打扰会话 | 3.0.1      |
+| [会话管理(Conversation)](./src/main/java/io/rong/methods/conversation/Conversation.java) | mute | 添加免打扰会话 | 3.0.1      |
 |  | unMute | 移除免打扰会话 | 3.0.1      |
 |  | get | 免打扰会话状态获取 | 3.0.1      |
+|  | setTop | 会话置顶 |       |
 | [聊天室](./src/main/java/io/rong/methods/chatroom/Chatroom.java) | create | 创建聊天室 | 3.0.1      |
 |  | destroy | 销毁聊天室 | 3.0.1      |
 |  | get | 查询聊天室信息 | 3.0.1      |

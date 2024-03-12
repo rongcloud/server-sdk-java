@@ -11,6 +11,7 @@ import io.rong.models.chatroom.ChatroomDataModel;
 import io.rong.models.chatroom.ChatroomDestroyTypeModel;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
+import io.rong.models.conversation.ConversationModel;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.group.UserGroup;
@@ -21,6 +22,7 @@ import io.rong.models.sensitiveword.SensitiveWordModel;
 import io.rong.models.ultragroup.UltraGroupMember;
 import io.rong.models.ultragroup.UltraGroupModel;
 import io.rong.models.user.*;
+import io.rong.util.CodeUtil.ConversationType;
 import io.rong.util.GsonUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -2355,6 +2357,21 @@ public class Example {
 
     }
 
+
+    /**
+     * 会话置顶
+     */
+    @Test
+    public void testConversationSetTop() throws Exception {
+        ConversationModel conversation = new ConversationModel()
+          .setType(ConversationType.PRIVATE.getName())
+          .setUserId("UgYzcDZSisNyYaZ83WXcEk11")
+          .setTargetId("2iXiqVWUAWwaKA55FuZvY31")
+          .setTop(false);
+        Result result = rongCloud.conversation.setTop(conversation);
+        assertEquals("1002", result.getCode().toString());
+        System.out.println("testConversationSetTop: " + result.toString());
+    }
 
 
 }

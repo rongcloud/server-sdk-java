@@ -38,5 +38,41 @@
         "invalid": "20003"
       }
     }
+  },
+  "setTop":{
+    "type": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "targetId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "top": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
   }
 }
