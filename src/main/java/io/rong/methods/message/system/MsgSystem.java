@@ -5,7 +5,7 @@ import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.message.*;
-import io.rong.models.push.Notification;
+import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Templates;
 import io.rong.util.CommonUtil;
@@ -19,9 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONException;
-import com.google.gson.JsonSyntaxException;
-import io.rong.util.JsonUtil;
-
 
 /**
  * 发送系统消息方法
@@ -31,6 +28,7 @@ import io.rong.util.JsonUtil;
  * @author RongCloud
  */
 public class MsgSystem {
+
     private static final String UTF8 = "UTF-8";
     private String appKey;
     private String appSecret;
@@ -59,11 +57,11 @@ public class MsgSystem {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult send(MessageModel message) throws Exception {
+    public MessageResult send(MessageModel message) throws Exception {
         SystemMessage systemMessage = (SystemMessage) message;
         String code = CommonUtil.checkFiled(systemMessage, PATH, CheckMethod.PUBLISH);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(systemMessage.getSenderId().toString(), UTF8));
@@ -105,7 +103,7 @@ public class MsgSystem {
         if (systemMessage.getDisablePush() != null) {
             sb.append("&disablePush=").append(URLEncoder.encode(systemMessage.getDisablePush().toString(), UTF8));
         }
-        if (message.getMsgRandom() != null){
+        if (message.getMsgRandom() != null) {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
         String body = sb.toString();
@@ -113,17 +111,18 @@ public class MsgSystem {
             body = body.substring(1, body.length());
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish.json",
+          "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -166,7 +165,8 @@ public class MsgSystem {
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
         }
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json", "application/x-www-form-urlencoded");
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/recall.json",
+          "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         ResponseResult result = null;
@@ -182,6 +182,29 @@ public class MsgSystem {
         return result;
     }
 
+    /**
+     * 系统消息批量撤回
+     *
+     * @param messages
+     * @return ResponseResult
+     * @throws Exception
+     */
+    public Result batchRecall(List<RecallMessage> messages) throws Exception {
+        String body = GsonUtil.toJson(messages);
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/batch/recall.json", "application/json");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.RECALL, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
 
     /**
      * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。）
@@ -190,11 +213,11 @@ public class MsgSystem {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult sendTemplate(TemplateMessage template) throws Exception {
+    public MessageResult sendTemplate(TemplateMessage template) throws Exception {
 
         String code = CommonUtil.checkFiled(template, PATH, CheckMethod.PUBLISHTEMPLATE);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         Templates templateMessage = new Templates();
 
@@ -216,20 +239,22 @@ public class MsgSystem {
         templateMessage.setPushData(template.getPushData());
         templateMessage.setPushExt(template.getPushExt());
         templateMessage.setContentAvailable(template.getContentAvailable());
-        if (template.getMsgRandom() != null){
+        if (template.getMsgRandom() != null) {
             templateMessage.setMsgRandom(template.getMsgRandom());
         }
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish_template.json", "application/json");
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish_template.json",
+          "application/json");
         HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, response),
+              MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(templateMessage.toString());
         return result;
@@ -278,7 +303,7 @@ public class MsgSystem {
 //        if (message.getDisablePush() != null) {
 //            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
 //        }
-        if (message.getMsgRandom() != null){
+        if (message.getMsgRandom() != null) {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
 
@@ -287,7 +312,8 @@ public class MsgSystem {
             body = body.substring(1, body.length());
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast.json", "application/x-www-form-urlencoded");
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast.json",
+          "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         ResponseResult result = null;
@@ -323,7 +349,7 @@ public class MsgSystem {
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getType(), UTF8));
         sb.append("&content=").append(URLEncoder.encode(message.getContent().toString(), UTF8));
-        if (message.getMsgRandom() != null){
+        if (message.getMsgRandom() != null) {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
         String body = sb.toString();
@@ -331,7 +357,8 @@ public class MsgSystem {
             body = body.substring(1, body.length());
         }
 
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/online/broadcast.json", "application/x-www-form-urlencoded");
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/online/broadcast.json",
+          "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         ResponseResult result = null;
@@ -379,7 +406,8 @@ public class MsgSystem {
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
         }
-        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast/recall.json", "application/x-www-form-urlencoded");
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast/recall.json",
+          "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         ResponseResult result = null;
@@ -387,7 +415,7 @@ public class MsgSystem {
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
             result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, response),
-                    ResponseResult.class);
+              ResponseResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
@@ -397,9 +425,9 @@ public class MsgSystem {
     }
 
     /**
-     *  不落地通知
-     *  向应用中指定用户发送不落地通知，不落地通知无论用户是否正在使用 App，都会向该用户发送通知，
-     *  通知只会展示在通知栏，通知中不携带消息内容，登录 App 后不会在聊天页面看到该内容，不会存储到本地数据库。
+     * 不落地通知
+     * 向应用中指定用户发送不落地通知，不落地通知无论用户是否正在使用 App，都会向该用户发送通知，
+     * 通知只会展示在通知栏，通知中不携带消息内容，登录 App 后不会在聊天页面看到该内容，不会存储到本地数据库。
      */
     public ResponseResult sendUser(PushUserMessage pushUser) throws Exception {
         String code = CommonUtil.checkFiled(pushUser, PATH, CheckMethod.SEND_USER);
@@ -410,7 +438,7 @@ public class MsgSystem {
         String body = GsonUtil.toJson(pushUser);
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/push/user.json", "application/json");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        System.out.println("bbbbb"+body);
+        System.out.println("bbbbb" + body);
         ResponseResult result = null;
         String response = "";
         try {
@@ -424,7 +452,6 @@ public class MsgSystem {
         return result;
 
     }
-
 
 
 }

@@ -423,10 +423,54 @@ public class Example {
                 .setIsPersisted(0)
                 .setIsCounted(0)
                 .setContentAvailable(0);
-        ResponseResult result = rongCloud.message.system.send(systemMessage);
+        MessageResult result = rongCloud.message.system.send(systemMessage);
         System.out.println("publishSystem:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 系统消息撤回
+     */
+    @Test
+    public void testSendSystemRecall() throws Exception {
+        RecallMessage systemRecallMessage = new RecallMessage()
+            .setSenderId("fromUserId1")
+            .setTargetId("targetId2")
+            .setuId("5H6P-CGC6-44QR-VB3R")
+            .setSentTime("1519444243981")
+            .setDisablePush(true)
+            .setIsAdmin(1)
+            .setIsDelete(0)
+            .setExtra("extra1");
+        ResponseResult recallResult = (ResponseResult)rongCloud.message.system.recall(systemRecallMessage);
+        System.out.println("testSendSystemRecall:  " + recallResult.toString());
+        assertEquals("200", recallResult.getCode().toString());
+    }
+
+    /**
+     * 系统消息批量撤回
+     */
+    @Test
+    public void testSendSystemBatchRecall() throws Exception {
+        List<RecallMessage> recallMessageList = new ArrayList<>();
+        RecallMessage rMessage;
+        for (int i = 0; i < 3; i++) {
+            rMessage = new RecallMessage()
+              .setSenderId("fromUserId"+ i)
+              .setConversationType(6)
+              .setTargetId("targetId"+ i)
+              .setuId("5H6P-CGC6-44QR-VB3R")
+              .setSentTime("151944424398"+i)
+              .setDisablePush(true)
+              .setIsAdmin(1)
+              .setIsDelete(0)
+              .setExtra("extra"+i);
+            recallMessageList.add(rMessage);
+        }
+        ResponseResult batchRecallResult = (ResponseResult)rongCloud.message.system.batchRecall(recallMessageList);
+        System.out.println("testSendSystemBatchRecall:  " + batchRecallResult.toString());
+        assertEquals("200", batchRecallResult.getCode().toString());
     }
 
     /**
@@ -442,7 +486,7 @@ public class Example {
 
             TemplateMessage template = (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
 
-            ResponseResult result = rongCloud.message.system.sendTemplate(template);
+            MessageResult result = rongCloud.message.system.sendTemplate(template);
             System.out.println("sendSystemTemplate:  " + result.toString());
 
             assertEquals("200", result.getCode().toString());

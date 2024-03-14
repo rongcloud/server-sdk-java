@@ -16,9 +16,11 @@ import io.rong.methods.message.group.Group;
 import io.rong.methods.message.history.History;
 import io.rong.methods.message.system.MsgSystem;
 import io.rong.methods.message.ultragroup.UltraGroup;
+import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.message.*;
 import io.rong.models.push.PlatformNotification;
 import io.rong.models.response.HistoryMessageResult;
+import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CodeUtil;
 import io.rong.util.GsonUtil;
@@ -26,6 +28,7 @@ import io.rong.util.GsonUtil;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,8 +107,44 @@ public class MessageExample {
                 .setMsgRandom(System.currentTimeMillis())
                 .setContentAvailable(0);
 
-        ResponseResult result = system.send(systemMessage);
+        MessageResult result = system.send(systemMessage);
         System.out.println("send system message:  " + result.toString());
+
+        /**
+         * 系统消息撤回
+         */
+        RecallMessage systemRecallMessage = new RecallMessage()
+          .setSenderId("fromUserId1")
+          .setTargetId("targetId2")
+          .setuId("5H6P-CGC6-44QR-VB3R")
+          .setSentTime("1519444243981")
+          .setDisablePush(true)
+          .setIsAdmin(1)
+          .setIsDelete(0)
+          .setExtra("extra1");
+        ResponseResult recallResult = (ResponseResult)system.recall(systemRecallMessage);
+        System.out.println("system recall:  " + recallResult.toString());
+
+        /**
+         * 系统消息批量撤回
+         */
+        List<RecallMessage> recallMessageList = new ArrayList<>();
+        RecallMessage rMessage;
+        for (int i = 0; i < 3; i++) {
+            rMessage = new RecallMessage()
+              .setSenderId("fromUserId"+ i)
+              .setConversationType(6)
+              .setTargetId("targetId"+ i)
+              .setuId("5H6P-CGC6-44QR-VB3R")
+              .setSentTime("151944424398"+i)
+              .setDisablePush(true)
+              .setIsAdmin(1)
+              .setIsDelete(0)
+              .setExtra("extra"+i);
+            recallMessageList.add(rMessage);
+        }
+        ResponseResult batchRecallResult = (ResponseResult)system.batchRecall(recallMessageList);
+        System.out.println("system batchRecall:  " + batchRecallResult.toString());
 
         /**
          * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
@@ -117,7 +156,7 @@ public class MessageExample {
         try {
             reader = new BufferedReader(new InputStreamReader(MessageExample.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
             TemplateMessage template = (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
-            ResponseResult systemTemplateResult = system.sendTemplate(template);
+            MessageResult systemTemplateResult = system.sendTemplate(template);
             System.out.println("send system template message:  " + systemTemplateResult.toString());
         } catch (Exception e) {
             e.printStackTrace();

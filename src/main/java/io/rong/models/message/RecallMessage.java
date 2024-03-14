@@ -1,11 +1,20 @@
 package io.rong.models.message;
+import com.google.gson.annotations.SerializedName;
 
+/**
+ * 撤回消息体
+ */
 public class RecallMessage {
     /**
-     * 撤回消息体
      * 发送人id
      */
+    @SerializedName("fromUserId")
     public String senderId;
+
+    /**
+     * 会话类型。支持的会话类型包括：6（系统会话）， 其他会话类型暂不支持
+     */
+    public Integer conversationType;
     /**
      * 接收人id
      */
@@ -13,6 +22,7 @@ public class RecallMessage {
     /**
      * 消息唯一标识 各端 SDK 发送消息成功后会返回 uId
      */
+    @SerializedName("messageUID")
     public String uId;
     /**
      * 消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime
@@ -143,6 +153,15 @@ public class RecallMessage {
 
     public RecallMessage setBusChannel(String busChannel) {
         this.busChannel = busChannel;
+        return this;
+    }
+
+    public Integer getConversationType() {
+        return conversationType;
+    }
+
+    public RecallMessage setConversationType(Integer conversationType) {
+        this.conversationType = conversationType;
         return this;
     }
 }
