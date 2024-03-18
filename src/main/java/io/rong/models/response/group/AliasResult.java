@@ -26,6 +26,6 @@ public class AliasResult extends ResponseResult {
 
     @Override
     public String toString() {
-        return GsonUtil.toJson(this, AttentionResult.class);
+        return GsonUtil.toJson(this, AliasResult.class);
     }
 }
