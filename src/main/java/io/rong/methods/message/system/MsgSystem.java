@@ -189,7 +189,7 @@ public class MsgSystem {
      * @return ResponseResult
      * @throws Exception
      */
-    public Result batchRecall(List<RecallMessage> messages) throws Exception {
+    public Result batchRecall(BatchRecallMessage messages) throws Exception {
         String body = GsonUtil.toJson(messages);
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/batch/recall.json", "application/json");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());

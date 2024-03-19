@@ -468,7 +468,8 @@ public class Example {
               .setExtra("extra"+i);
             recallMessageList.add(rMessage);
         }
-        ResponseResult batchRecallResult = (ResponseResult)rongCloud.message.system.batchRecall(recallMessageList);
+        BatchRecallMessage batchRecallMessage = new BatchRecallMessage(recallMessageList);
+        ResponseResult batchRecallResult = (ResponseResult)rongCloud.message.system.batchRecall(batchRecallMessage);
         System.out.println("testSendSystemBatchRecall:  " + batchRecallResult.toString());
         assertEquals("200", batchRecallResult.getCode().toString());
     }

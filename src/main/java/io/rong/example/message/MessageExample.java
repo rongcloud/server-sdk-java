@@ -143,7 +143,8 @@ public class MessageExample {
               .setExtra("extra"+i);
             recallMessageList.add(rMessage);
         }
-        ResponseResult batchRecallResult = (ResponseResult)system.batchRecall(recallMessageList);
+        BatchRecallMessage batchRecallMessage = new BatchRecallMessage(recallMessageList);
+        ResponseResult batchRecallResult = (ResponseResult)system.batchRecall(batchRecallMessage);
         System.out.println("system batchRecall:  " + batchRecallResult.toString());
 
         /**
