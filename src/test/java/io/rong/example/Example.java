@@ -55,9 +55,9 @@ public class Example {
 
     @Before
     public void setUp() throws Exception {
-        String appKey = "pgyu6aty8i3xu";
-        String appSecret = "htxCZhHhiE";
-        rongCloud = RongCloud.getInstance(appKey, appSecret,new RongCloudConfig("https://10.211.2.200:8444/fcs-im-api"));
+        String appKey = "appKey";
+        String appSecret = "appSecret";
+        rongCloud = RongCloud.getInstance(appKey, appSecret);
 
         //rongCloud = RongCloud.getInstance(appKey, appSecret,api);
         /**
