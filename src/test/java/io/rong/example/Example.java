@@ -1115,7 +1115,9 @@ public class Example {
     public void testGroupBanAddResult() throws Exception {
         String[] groupIds = {"ghJiu7H1", "ghJiu7H2", "ghJiu7H3", "ghJiu7H4", "ghJiu7H5", "ghJiu7H6", "ghJiu7H7",
                 "ghJiu7H8", "ghJiu7H9", "ghJiu7H10"};
-        Result result = rongCloud.group.ban.add(groupIds);
+        String[] whiteUserIds = {"u111","u2222"};
+        io.rong.models.group.BanModel groupBanModel = new io.rong.models.group.BanModel().setGroupIds(groupIds).setWhiteUserIds(whiteUserIds).setIsClearBanUser(1);
+        Result result = rongCloud.group.ban.add(groupBanModel);
 
         System.out.println("group.ban.remove:  " + result.toString());
 
@@ -1144,8 +1146,8 @@ public class Example {
     @Test
     public void testGroupBanRemoveResult() throws Exception {
         String[] groupIds = {"ghJiu7H1", "ghJiu7H2", "ghJiu7H3", "ghJiu7H4", "ghJiu7H5", "ghJiu7H6", "ghJiu7H7"};
-
-        Result result = rongCloud.group.ban.remove(groupIds);
+        io.rong.models.group.BanModel groupBanModel = new io.rong.models.group.BanModel().setGroupIds(groupIds).setIsClearWhiteUser(1);
+        Result result = rongCloud.group.ban.remove(groupBanModel);
         System.out.println("group.ban.remove:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());

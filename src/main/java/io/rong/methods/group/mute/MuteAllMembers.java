@@ -5,6 +5,7 @@ import io.rong.methods.group.ban.user.User;
 import io.rong.methods.group.ban.whitelist.Whitelist;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
+import io.rong.models.group.BanModel;
 import io.rong.models.response.GroupMuteAllMembersCheckResult;
 import io.rong.models.response.GroupMuteAllMembersListResult;
 import io.rong.models.response.ResponseResult;
@@ -46,11 +47,10 @@ public class MuteAllMembers {
     /**
      * 添加群禁言方法
      *
-     * @param groupIds:群组 ID
-     *
      * @return Result
      **/
-    public Result add(String[] groupIds) throws Exception {
+    public Result add(BanModel group) throws Exception {
+        String[] groupIds = group.getGroupIds();
         String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.ADD);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
@@ -58,7 +58,14 @@ public class MuteAllMembers {
         StringBuilder sb = new StringBuilder();
         for(String groupId : groupIds){
             sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
-
+        }
+        if (group.getWhiteUserIds() != null) {
+            for (String whiteUserId : group.getWhiteUserIds()) {
+                sb.append("&whiteUserId=").append(URLEncoder.encode(whiteUserId, UTF8));
+            }
+        }
+        if (group.getIsClearBanUser() != null) {
+            sb.append("&isClearBanUser=").append(URLEncoder.encode(group.getIsClearBanUser().toString(), UTF8));
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
@@ -119,11 +126,10 @@ public class MuteAllMembers {
     /**
      * 移除全局群禁言方法
      *
-     * @param  groupIds:群组 ID（必传）
-     *
      * @return ResponseResult
      **/
-    public Result remove(String[] groupIds) throws Exception {
+    public Result remove(BanModel group) throws Exception {
+        String[] groupIds = group.getGroupIds();
         //参数校验
         String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.ADD);
         if(null != message){
@@ -132,7 +138,9 @@ public class MuteAllMembers {
         StringBuilder sb = new StringBuilder();
         for(String groupId : groupIds){
             sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
-
+        }
+        if (group.getIsClearWhiteUser() != null) {
+            sb.append("&isClearWhiteUser=").append(URLEncoder.encode(group.getIsClearWhiteUser().toString(), UTF8));
         }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {

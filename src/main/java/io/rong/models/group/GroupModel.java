@@ -42,11 +42,23 @@ public class GroupModel {
     private String content;
     private String pushContent;
     private String pushData;
-    private int isIncludeSender = 0;
-    private int isPersisted = 0;
+    private Integer isIncludeSender = 0;
+    private Integer isPersisted = 0;
     private String pushExt = "";
 
 
+    /**
+     * 是否同时移除群成员禁言状态(退出群组功能时使用)：
+     * 默认为 0 不移除；
+     * 为 1 时从该群的禁言成员单列表中删除
+     */
+    private int isQuitBan = 0;
+    /**
+     * 是否同时移除群禁言白名单(退出群组功能时使用)：
+     * 默认为 0 不移除；
+     * 为 1 时从该群的禁言白
+     */
+    private int isQuitWhite = 0;
 
 
     public GroupModel() {
@@ -201,6 +213,24 @@ public class GroupModel {
 
     public GroupModel setPushExt(String pushExt) {
         this.pushExt = pushExt;
+        return this;
+    }
+
+    public Integer getIsQuitBan() {
+        return isQuitBan;
+    }
+
+    public GroupModel setIsQuitBan(int isQuitBan) {
+        this.isQuitBan = isQuitBan;
+        return this;
+    }
+
+    public Integer getIsQuitWhite() {
+        return isQuitWhite;
+    }
+
+    public GroupModel setIsQuitWhite(int isQuitWhite) {
+        this.isQuitWhite = isQuitWhite;
         return this;
     }
 }

@@ -3,6 +3,7 @@ package io.rong.example.group.mute;
 import io.rong.RongCloud;
 import io.rong.methods.group.mute.MuteAllMembers;
 import io.rong.models.Result;
+import io.rong.models.group.BanModel;
 import io.rong.models.response.GroupMuteAllMembersCheckResult;
 import io.rong.models.response.GroupMuteAllMembersListResult;
 
@@ -44,7 +45,9 @@ public class MuteAllMembersExample {
          * 添加禁言群方法
          */
         String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H712","ghJiu7H6","ghJiu7H7","ghJiu7H8","ghJiu7H9","ghJiu7H10","ghJiu7H11","ghJiu7H12","ghJiu7H13","ghJiu7H14","ghJiu7H15","ghJiu7H16","ghJiu7H12","ghJiu7H18"};
-        Result result = muteAllMembers.add(groupIds);
+        String[] whiteUserIds = {"u111","u2222"};
+        BanModel groupBanModel = new BanModel().setGroupIds(groupIds).setWhiteUserIds(whiteUserIds).setIsClearBanUser(1);
+        Result result = muteAllMembers.add(groupBanModel);
         System.out.println("group.muteAllMembers.add:  " + result.toString());
 
         /**
@@ -65,7 +68,8 @@ public class MuteAllMembersExample {
          * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 移除禁言群方法
          */
-        Result groupMuteAllMembersResult = muteAllMembers.remove(groupIds);
+        groupBanModel = new BanModel().setGroupIds(groupIds).setIsClearWhiteUser(1);
+        Result groupMuteAllMembersResult = muteAllMembers.remove(groupBanModel);
         System.out.println("group.muteAllMembers.remove:  " + groupMuteAllMembersResult.toString());
 
 
