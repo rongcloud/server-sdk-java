@@ -2,6 +2,8 @@ package io.rong.util;
 
 import java.security.MessageDigest;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.codec.binary.Hex;
 
 public class CodeUtil {
@@ -86,5 +88,68 @@ public class CodeUtil {
 			return this.resultCode;
 		}
 	}
+
+
+    /**
+     * 用户在线平台
+     */
+    public static enum OnlinePlatform {
+        // ios 终端
+        IOS("iOS", 1),
+
+        // 安卓终端
+        ANDROID("Android", 2),
+
+        // pc 终端
+        PC("PC", 4),
+
+        // 微信小程序模拟器
+        MINI("MiniProgram", 5),
+
+        // websocket 模拟器
+        WS("Websocket", 3),
+
+        // 没有归属的平台类型
+        DEFAULT("error", 0);
+        private final String platform;
+        private final int value;
+
+        private OnlinePlatform(String platform, int value) {
+            this.platform = platform;
+            this.value = value;
+        }
+
+        public String getPlatform() {
+            return platform;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+
+        public static OnlinePlatform byValue(Integer value) {
+            if (value == null) {
+                return null;
+            }
+            OnlinePlatform onlinePlatform = null;
+            for (OnlinePlatform platform : OnlinePlatform.values()) {
+                if (platform.getValue() == value) {
+                    onlinePlatform = platform;
+                    break;
+                }
+            }
+            return onlinePlatform;
+        }
+
+        public static List<OnlinePlatform> byValues(List<Integer> values) {
+            List<OnlinePlatform> platformList = new ArrayList<>();
+            for (Integer integer : values) {
+                // 根据值从枚举中获取对应的实例，并添加到列表中
+                platformList.add(byValue(integer));
+            }
+            return platformList;
+        }
+    }
 
 }

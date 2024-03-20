@@ -3,6 +3,7 @@ package io.rong.methods.user.onlinestatus;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.response.CheckOnlineResult;
+import io.rong.models.response.OnlinePlatformsResult;
 import io.rong.models.user.UserModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -66,4 +67,32 @@ public class OnlineStatus {
 
         return (CheckOnlineResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CHECK,HttpUtil.returnResult(conn, rongCloud.getConfig())), CheckOnlineResult.class);
     }
+
+    /**
+     * 查询指定用户所有在线平台方法
+     *
+     * url /user/online/platforms.json
+     *
+     * @param  user:用户 id(必传)
+     *
+     * @return GetOnlinePlatformsResult
+     **/
+    public OnlinePlatformsResult get(UserModel user) throws Exception {
+        //参数校验
+        String message = CommonUtil.checkFiled(user,PATH, CheckMethod.CHECK);
+        if(null != message){
+            return (OnlinePlatformsResult)GsonUtil.fromJson(message,CheckOnlineResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&userId=").append(URLEncoder.encode(user.id.toString(), UTF8));
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret,
+          "/user/online/platforms.json", "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+        return (OnlinePlatformsResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CHECK,HttpUtil.returnResult(conn, rongCloud.getConfig())), OnlinePlatformsResult.class);
+    }
+
 }

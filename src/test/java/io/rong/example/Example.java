@@ -26,6 +26,7 @@ import io.rong.models.ultragroup.UltraGroupMember;
 import io.rong.models.ultragroup.UltraGroupModel;
 import io.rong.models.user.*;
 import io.rong.util.CodeUtil.ConversationType;
+import io.rong.util.CodeUtil.OnlinePlatform;
 import io.rong.util.GsonUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,6 +81,19 @@ public class Example {
         CheckOnlineResult result = rongCloud.user.onlineStatus.check(user);
         System.out.println("checkOnline:  " + result.toString());
 
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 查询指定用户所有在线平台方法
+     */
+    @Test
+    public void testGetOnlinePlatforms() throws Exception {
+        UserModel user = new UserModel();
+        user.setId("userId");
+        OnlinePlatformsResult result = rongCloud.user.onlineStatus.get(user);
+        List<OnlinePlatform> list = result.getList();
+        System.out.println("checkOnline:  " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
 
