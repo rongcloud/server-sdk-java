@@ -148,12 +148,12 @@ public class Ban {
         for (String groupId : groupIds) {
             sb.append("&groupId=").append(URLEncoder.encode(groupId, UTF8));
         }
+        if (group.getIsClearWhiteUser() != null) {
+            sb.append("&isClearWhiteUser=").append(URLEncoder.encode(group.getIsClearWhiteUser().toString(), UTF8));
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
-        }
-        if (group.getIsClearWhiteUser() != null) {
-            sb.append("&isClearWhiteUser=").append(URLEncoder.encode(group.getIsClearWhiteUser().toString(), UTF8));
         }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/ban/rollback.json",
