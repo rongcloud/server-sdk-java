@@ -2434,7 +2434,6 @@ public class Example {
         assertEquals("200", result.getCode().toString());
     }
 
-
     /**
      * 删除用户指定群组中的特别关注用户
      */
@@ -2446,6 +2445,20 @@ public class Example {
         model.setAttentionUserId(new String[]{"user2"});
         Result result = rongCloud.group.attention.del(model);
         System.out.println("testGroupAttentionDel:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * 同步群特别关注信息
+     */
+    @Test
+    public void testGroupAttentionSync() throws Exception {
+        AttentionModel model = new AttentionModel();
+        model.setUserId("user1");
+        model.setGroupId("group1");
+        model.setAttentionUserId(new String[]{"user2"});
+        Result result = rongCloud.group.attention.sync(model);
+        System.out.println("testGroupAttentionSync:" + result.toString());
         assertEquals("200", result.getCode().toString());
     }
 

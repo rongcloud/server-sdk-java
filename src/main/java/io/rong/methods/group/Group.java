@@ -275,6 +275,7 @@ public class Group {
 		sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
 		sb.append("&isQuitBan=").append(URLEncoder.encode(group.getIsQuitBan().toString(), UTF8));
 		sb.append("&isQuitWhite=").append(URLEncoder.encode(group.getIsQuitWhite().toString(), UTF8));
+		sb.append("&isDelAttention=").append(URLEncoder.encode(group.getIsDelAttention().toString(), UTF8));
 
 		sb = operateGroup(sb, group);
 		String body = sb.toString();

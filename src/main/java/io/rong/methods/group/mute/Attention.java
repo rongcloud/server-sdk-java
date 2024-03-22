@@ -118,6 +118,45 @@ public class Attention {
         return result;
     }
 
+    /**
+     * 同步群特别关注信息
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    public Result sync(AttentionModel model) throws Exception {
+        String message = CommonUtil.checkFiled(model, PATH, CheckMethod.SYNC);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("&userId=").append(URLEncoder.encode(model.getUserId(), UTF8));
+        sb.append("&groupId=").append(URLEncoder.encode(model.getGroupId(), UTF8));
+        if (model.getAttentionUserId() != null) {
+            String[] attentionUserIds = model.getAttentionUserId();
+            for (String attentionUserId : attentionUserIds) {
+                sb.append("&attentionUserId=").append(URLEncoder.encode(attentionUserId, UTF8));
+            }
+        }
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/attention/sync.json",
+          "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SYNC, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
 
     /**
      * 查询用户指定群组特别关注成员列表

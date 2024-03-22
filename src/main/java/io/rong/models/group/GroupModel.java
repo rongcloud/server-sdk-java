@@ -46,7 +46,6 @@ public class GroupModel {
     private Integer isPersisted = 0;
     private String pushExt = "";
 
-
     /**
      * 是否同时移除群成员禁言状态(退出群组功能时使用)：
      * 默认为 0 不移除；
@@ -60,6 +59,12 @@ public class GroupModel {
      */
     private int isQuitWhite = 0;
 
+    /**
+     * 退出群组时是否清理特别关注群成员
+     * 0: 不清理特别关注
+     * 1: 清理特别关注（默认）
+     */
+    private Integer isDelAttention = 1;
 
     public GroupModel() {
     }
@@ -231,6 +236,15 @@ public class GroupModel {
 
     public GroupModel setIsQuitWhite(int isQuitWhite) {
         this.isQuitWhite = isQuitWhite;
+        return this;
+    }
+
+    public Integer getIsDelAttention() {
+        return isDelAttention;
+    }
+
+    public GroupModel setIsDelAttention(Integer isDelAttention) {
+        this.isDelAttention = isDelAttention;
         return this;
     }
 }

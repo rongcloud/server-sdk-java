@@ -1,9 +1,12 @@
 package io.rong.example.group;
 
+import static org.junit.Assert.assertEquals;
+
 import io.rong.RongCloud;
 import io.rong.models.Result;
 import io.rong.models.group.AttentionModel;
 import io.rong.models.response.group.AttentionResult;
+import org.junit.Test;
 
 /**
  * 特别关注群成员设置示例
@@ -41,6 +44,9 @@ public class AttentionExample {
 
         result = rongCloud.group.attention.del(model);
         System.out.println("attention del: " + result.toString());
+
+        result = rongCloud.group.attention.sync(model);
+        System.out.println("attention sync: " + result.toString());
 
         result2 = (AttentionResult) rongCloud.group.attention.query(model);
         System.out.println("attention query: " + result2.toString());

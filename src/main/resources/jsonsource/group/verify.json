@@ -183,6 +183,20 @@
       }
     }
   },
+  "attentionSync":{
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
   "aliasAdd": {
     "userId": {
       "require": {
