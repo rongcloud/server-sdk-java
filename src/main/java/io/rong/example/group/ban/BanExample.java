@@ -59,13 +59,6 @@ public class BanExample {
 
             /**
              * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-             * 检查禁言群方法
-             */
-            GroupBanResult GroupBanCheckResult = (GroupBanResult)ban.check(groupIds);
-            System.out.println("group.ban.check:  " + GroupBanCheckResult.toString());
-
-            /**
-             * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
              * 移除禁言群方法
              */
             groupBanModel = new BanModel().setGroupIds(groupIds).setIsClearWhiteUser(1);

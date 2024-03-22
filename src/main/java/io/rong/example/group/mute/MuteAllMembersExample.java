@@ -57,13 +57,6 @@ public class MuteAllMembersExample {
         GroupMuteAllMembersListResult GroupMuteAllMembersResult = (GroupMuteAllMembersListResult)muteAllMembers.getList();
         System.out.println("group.muteAllMembers.getList:  " + GroupMuteAllMembersResult.toString());
 
-        /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 检查禁言群方法
-         */
-        GroupMuteAllMembersCheckResult GroupBanCheckResult = (GroupMuteAllMembersCheckResult)muteAllMembers.check(groupIds);
-        System.out.println("group.muteAllMembers.check:  " + GroupBanCheckResult.toString());
-
         /**s
          * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 移除禁言群方法
