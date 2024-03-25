@@ -81,7 +81,7 @@ public class OnlineStatus {
         //参数校验
         String message = CommonUtil.checkFiled(user,PATH, CheckMethod.CHECK);
         if(null != message){
-            return (OnlinePlatformsResult)GsonUtil.fromJson(message,CheckOnlineResult.class);
+            return (OnlinePlatformsResult)GsonUtil.fromJson(message,OnlinePlatformsResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&userId=").append(URLEncoder.encode(user.id.toString(), UTF8));
