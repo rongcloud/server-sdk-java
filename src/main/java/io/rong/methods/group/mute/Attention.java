@@ -54,7 +54,7 @@ public class Attention {
         StringBuilder sb = new StringBuilder();
         sb.append("&userId=").append(URLEncoder.encode(model.getUserId(), UTF8));
         sb.append("&groupId=").append(URLEncoder.encode(model.getGroupId(), UTF8));
-        String[] attentionUserIds = model.getAttentionUserId();
+        String[] attentionUserIds = model.getAttentionUserIds();
         for (String attentionUserId : attentionUserIds) {
             sb.append("&attentionUserId=").append(URLEncoder.encode(attentionUserId, UTF8));
         }
@@ -94,7 +94,7 @@ public class Attention {
         StringBuilder sb = new StringBuilder();
         sb.append("&userId=").append(URLEncoder.encode(model.getUserId(), UTF8));
         sb.append("&groupId=").append(URLEncoder.encode(model.getGroupId(), UTF8));
-        String[] attentionUserIds = model.getAttentionUserId();
+        String[] attentionUserIds = model.getAttentionUserIds();
         for (String attentionUserId : attentionUserIds) {
             sb.append("&attentionUserId=").append(URLEncoder.encode(attentionUserId, UTF8));
         }
@@ -119,6 +119,44 @@ public class Attention {
     }
 
     /**
+     * 清理多个群成员特别关注的同一个人
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    public Result reverseDel(AttentionModel model) throws Exception {
+        String message = CommonUtil.checkFiled(model, PATH, CheckMethod.REVERSE_DEL);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+        }
+        StringBuilder sb = new StringBuilder();
+        String[] userIds = model.getUserIds();
+        for (String userId : userIds) {
+            sb.append("&userId=").append(URLEncoder.encode(userId, UTF8));
+        }
+        sb.append("&groupId=").append(URLEncoder.encode(model.getGroupId(), UTF8));
+        sb.append("&attentionUserId=").append(URLEncoder.encode(model.getAttentionUserId(), UTF8));
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/attention/users/del.json",
+          "application/x-www-form-urlencoded");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.REVERSE_DEL, response), ResponseResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
+    /**
      * 同步群特别关注信息
      * @param model
      * @return
@@ -133,7 +171,7 @@ public class Attention {
         sb.append("&userId=").append(URLEncoder.encode(model.getUserId(), UTF8));
         sb.append("&groupId=").append(URLEncoder.encode(model.getGroupId(), UTF8));
         if (model.getAttentionUserId() != null) {
-            String[] attentionUserIds = model.getAttentionUserId();
+            String[] attentionUserIds = model.getAttentionUserIds();
             for (String attentionUserId : attentionUserIds) {
                 sb.append("&attentionUserId=").append(URLEncoder.encode(attentionUserId, UTF8));
             }

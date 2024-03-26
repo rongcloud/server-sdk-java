@@ -2428,7 +2428,7 @@ public class Example {
         AttentionModel model = new AttentionModel();
         model.setUserId("user1");
         model.setGroupId("group1");
-        model.setAttentionUserId(new String[]{"user2"});
+        model.setAttentionUserIds(new String[]{"user2"});
         Result result = rongCloud.group.attention.set(model);
         System.out.println("testGroupAttentionSet:" + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -2442,9 +2442,24 @@ public class Example {
         AttentionModel model = new AttentionModel();
         model.setUserId("user1");
         model.setGroupId("group1");
-        model.setAttentionUserId(new String[]{"user2"});
+        model.setAttentionUserIds(new String[]{"user2"});
         Result result = rongCloud.group.attention.del(model);
         System.out.println("testGroupAttentionDel:" + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+
+    /**
+     * 清理多个群成员特别关注的同一个人
+     */
+    @Test
+    public void testGroupAttentionReverseDel() throws Exception {
+        AttentionModel model = new AttentionModel();
+        model.setUserIds(new String[]{"user2","user3","user4","user5","user6","user7"});
+        model.setGroupId("group1");
+        model.setAttentionUserId("user1");
+        Result result = rongCloud.group.attention.reverseDel(model);
+        System.out.println("testGroupAttentionReverseDel:" + result.toString());
         assertEquals("200", result.getCode().toString());
     }
 
@@ -2456,7 +2471,7 @@ public class Example {
         AttentionModel model = new AttentionModel();
         model.setUserId("user1");
         model.setGroupId("group1");
-        model.setAttentionUserId(new String[]{"user2"});
+        model.setAttentionUserIds(new String[]{"user2"});
         Result result = rongCloud.group.attention.sync(model);
         System.out.println("testGroupAttentionSync:" + result.toString());
         assertEquals("200", result.getCode().toString());

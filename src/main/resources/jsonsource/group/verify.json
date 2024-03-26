@@ -169,6 +169,35 @@
       }
     }
   },
+  "reverseDel":{
+    "attentionUserId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    },
+    "userIds":{
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "size": {
+        "max": 5000,
+        "min": 1,
+        "invalid": "20003"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
   "attentionQuery":{
     "userId": {
       "require": {

@@ -35,7 +35,7 @@ public class AttentionExample {
         AttentionModel model = new AttentionModel();
         model.setUserId("user1");
         model.setGroupId("group1");
-        model.setAttentionUserId(new String[]{"user2"});
+        model.setAttentionUserIds(new String[]{"user2"});
         Result result = rongCloud.group.attention.set(model);
         System.out.println("attention set: " + result.toString());
 
@@ -44,6 +44,14 @@ public class AttentionExample {
 
         result = rongCloud.group.attention.del(model);
         System.out.println("attention del: " + result.toString());
+
+        AttentionModel model2 = new AttentionModel();
+        model2.setUserIds(new String[]{"user2","user3","user4","user5","user6","user7"});
+        model2.setGroupId("group1");
+        model2.setAttentionUserId("user1");
+        result = rongCloud.group.attention.reverseDel(model2);
+        System.out.println("attention reverseDel: " + result.toString());
+
 
         result = rongCloud.group.attention.sync(model);
         System.out.println("attention sync: " + result.toString());

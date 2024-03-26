@@ -5,6 +5,7 @@ public class CheckMethod {
     public static final String GETLIST = "getList";
     public static final String REMOVE = "remove";
     public static final String DEL = "del";
+    public static final String REVERSE_DEL = "reverseDel";
     public static final String CLEAN = "clean";
     public static final String CREATE = "create";
     public static final String CREATEV2 = "createv2";
