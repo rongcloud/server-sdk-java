@@ -170,7 +170,7 @@ public class Attention {
         StringBuilder sb = new StringBuilder();
         sb.append("&userId=").append(URLEncoder.encode(model.getUserId(), UTF8));
         sb.append("&groupId=").append(URLEncoder.encode(model.getGroupId(), UTF8));
-        if (model.getAttentionUserId() != null) {
+        if (model.getAttentionUserIds() != null) {
             String[] attentionUserIds = model.getAttentionUserIds();
             for (String attentionUserId : attentionUserIds) {
                 sb.append("&attentionUserId=").append(URLEncoder.encode(attentionUserId, UTF8));
