@@ -158,7 +158,7 @@
         "invalid": "20005"
       }
     },
-    "attentionUserId":{
+    "attentionUserIds":{
       "require": {
         "must": true,
         "invalid": "20005"
