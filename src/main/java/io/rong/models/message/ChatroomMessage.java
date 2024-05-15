@@ -10,6 +10,7 @@ public class ChatroomMessage extends MessageModel {
 
     public Integer isIncludeSender;
     public Integer isPersisted;
+    public Integer priority = null; //1:白名单消息（消息高保障）,2:低优先级消息（消息优先抛弃）
     public ChatroomMessage() {
 
     }
@@ -63,6 +64,15 @@ public class ChatroomMessage extends MessageModel {
 
     public ChatroomMessage setIsIncludeSender(Integer isIncludeSender) {
         this.isIncludeSender = isIncludeSender;
+        return this;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public ChatroomMessage setPriority(Integer priority) {
+        this.priority = priority;
         return this;
     }
 

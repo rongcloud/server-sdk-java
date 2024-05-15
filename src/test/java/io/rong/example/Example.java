@@ -702,6 +702,7 @@ public class Example {
                 .setSenderId("fromUserId")
                 .setTargetId(targetIds)
                 .setContent(txtMessage)
+                .setPriority(2)
                 .setObjectName(txtMessage.getType());
         ResponseResult result = rongCloud.message.chatroom.send(message);
         System.out.println("publishChatroomPrivate:  " + result.toString());

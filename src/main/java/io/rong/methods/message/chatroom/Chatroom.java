@@ -79,6 +79,9 @@ public class Chatroom {
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
+        if (message.getPriority() != null){
+            sb.append("&priority=").append(message.getPriority());
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
