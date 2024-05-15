@@ -10,7 +10,13 @@ public class ChatroomMessage extends MessageModel {
 
     public Integer isIncludeSender;
     public Integer isPersisted;
-    public Integer priority = null; //1:白名单消息（消息高保障）,2:低优先级消息（消息优先抛弃）
+    /**
+     * 0:默认状态,保持原消息的消息级别进行发送。
+     * 1:高保障消息,该设置需要开启“聊天室用户&消息白名单”功能后才能使用，否则返回状态码，触发消息上行上限时，不会被优先抛弃
+     * 2:高级别消息,正常聊天室发送的消息都为高级别消息，如消息类型为高保障消息时，在发送此类消息时，可针对此类消息中的某一条消息进行降级设置为高级别消息。
+     * 3:低级别消息,该设置需要开启“聊天室消息级别设置”功能后才能使用，否则返回状态码，触发消息上行上限时，会被优先抛弃
+     */
+    public Integer priority = null;
     public ChatroomMessage() {
 
     }
