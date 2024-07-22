@@ -4,9 +4,12 @@ import io.rong.RongCloud;
 import io.rong.methods.sensitive.SensitiveWord;
 import io.rong.models.response.ListWordfilterResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.sensitiveword.AddSensitiveWordsModel;
 import io.rong.models.sensitiveword.SensitiveWordModel;
 
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SensitiveExample {
     /**
@@ -28,7 +31,7 @@ public class SensitiveExample {
         //自定义 api 地址方式
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
-        SensitiveWord SensitiveWord = rongCloud.sensitiveword;
+        SensitiveWord sensitiveWord = rongCloud.sensitiveword;
 
         /**
          *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
@@ -40,7 +43,7 @@ public class SensitiveExample {
                 .setType(0)
                 .setKeyword("黄赌毒")
                 .setReplace("***");
-        ResponseResult addesult = SensitiveWord.add(sentiveWord);
+        ResponseResult addesult = sensitiveWord.add(sentiveWord);
         System.out.println("sentiveWord add:  " + addesult.toString());
 
         /**
@@ -52,7 +55,7 @@ public class SensitiveExample {
         sentiveWord = new SensitiveWordModel()
                 .setType(1)
                 .setKeyword("黄赌毒");
-        ResponseResult addersult = SensitiveWord.add(sentiveWord);
+        ResponseResult addersult = sensitiveWord.add(sentiveWord);
         System.out.println("sentiveWord  add replace :  " + addersult.toString());
 
         /**
@@ -61,7 +64,7 @@ public class SensitiveExample {
          * 查询敏感词列表方法
          *
          * */
-        ListWordfilterResult result = SensitiveWord.getList(1);
+        ListWordfilterResult result = sensitiveWord.getList(1);
         System.out.println("getList:  " + result.toString());
 
         /**
@@ -71,7 +74,7 @@ public class SensitiveExample {
          *
          * */
 
-        ResponseResult removeesult = SensitiveWord.remove("money");
+        ResponseResult removeesult = sensitiveWord.remove("money");
         System.out.println("SensitivewordDelete:  " + removeesult.toString());
 
 
@@ -82,8 +85,27 @@ public class SensitiveExample {
          *
          * */
         String[] words = {"黄赌毒"};
-        ResponseResult batchDeleteResult = SensitiveWord.batchDelete(words);
+        ResponseResult batchDeleteResult = sensitiveWord.batchDelete(words);
         System.out.println("SensitivewordbatchDelete:  " + batchDeleteResult.toString());
 
+        /**
+         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 批量添加敏感词方法
+         */
+
+        AddSensitiveWordsModel.SensitiveWord word1 = new AddSensitiveWordsModel.SensitiveWord().setWord("黄赌毒").setReplaceWord("***");
+        AddSensitiveWordsModel.SensitiveWord word2 = new AddSensitiveWordsModel.SensitiveWord().setWord("黄赌").setReplaceWord("**");
+        AddSensitiveWordsModel.SensitiveWord word3 = new AddSensitiveWordsModel.SensitiveWord().setWord("黄");
+
+        List<AddSensitiveWordsModel.SensitiveWord> wordList = new ArrayList<>();
+        wordList.add(word1);
+        wordList.add(word2);
+        wordList.add(word3);
+
+        AddSensitiveWordsModel addSensitiveWordsModel = new AddSensitiveWordsModel()
+                .setWords(wordList);
+        ResponseResult responseResult = sensitiveWord.batchAdd(addSensitiveWordsModel);
+        System.out.println("SensitiveWordBatchAdd:  " + responseResult.toString());
     }
+
 }

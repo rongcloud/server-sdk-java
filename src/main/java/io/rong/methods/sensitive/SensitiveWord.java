@@ -4,10 +4,12 @@ import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.response.ListWordfilterResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.sensitiveword.AddSensitiveWordsModel;
 import io.rong.models.sensitiveword.SensitiveWordModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
@@ -72,6 +74,42 @@ public class SensitiveWord {
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 	    
 	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+	}
+
+
+	/**
+	 * 添加敏感词方法（设置敏感词后，App 中用户不会收到含有敏感词的消息内容，默认最多设置 50 个敏感词。）
+	 *
+	 * @param  sensitiveWords:敏感词
+	 * @return ResponseResult
+	 **/
+	public ResponseResult batchAdd(AddSensitiveWordsModel sensitiveWords) throws Exception {
+		if(sensitiveWords == null || sensitiveWords.getWords() == null || sensitiveWords.getWords().isEmpty()) {
+			return new ResponseResult(20005,"sensitiveWords参数为必传项");
+		}
+
+		if(sensitiveWords.getWords().size() > 50 ) {
+			return new ResponseResult(20005,"sensitiveWord 个数超过 50");
+		}
+
+        for (AddSensitiveWordsModel.SensitiveWord word : sensitiveWords.getWords()) {
+            if (StringUtils.isEmpty(word.getWord())) {
+               return new ResponseResult(20005,"word参数为必传项");
+            }
+			if (word.getWord().length() > 32) {
+				return new ResponseResult(20005,"word参数长度超过 32");
+			}
+	        if (word.getReplaceWord()!=null && word.getReplaceWord().length() > 32) {
+		        return new ResponseResult(20005,"replaceWord参数长度超过 32");
+	        }
+        }
+
+        String body = GsonUtil.toJson(sensitiveWords);
+
+		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/batch/add.json", "application/json");
+		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	
 	/**
