@@ -2,6 +2,7 @@ package io.rong.models;
 
 public class CheckMethod {
     public static final String ADD = "add";
+    public static final String BATCH_ADD = "batchAdd";
     public static final String GETLIST = "getList";
     public static final String REMOVE = "remove";
     public static final String DEL = "del";

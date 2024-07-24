@@ -2,6 +2,7 @@ package io.rong.example.sensitive;
 
 import io.rong.RongCloud;
 import io.rong.methods.sensitive.SensitiveWord;
+import io.rong.models.response.BatchAddSensitiveWordResult;
 import io.rong.models.response.ListWordfilterResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.sensitiveword.AddSensitiveWordsModel;
@@ -104,8 +105,8 @@ public class SensitiveExample {
 
         AddSensitiveWordsModel addSensitiveWordsModel = new AddSensitiveWordsModel()
                 .setWords(wordList);
-        ResponseResult responseResult = sensitiveWord.batchAdd(addSensitiveWordsModel);
-        System.out.println("SensitiveWordBatchAdd:  " + responseResult.toString());
+        BatchAddSensitiveWordResult batchAddSensitiveWordResult = sensitiveWord.batchAdd(addSensitiveWordsModel);
+        System.out.println("SensitiveWordBatchAdd:  " + batchAddSensitiveWordResult.toString());
     }
 
 }
