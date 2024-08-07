@@ -139,6 +139,6 @@ public class ExpansionModel {
 
     @Override
     public String toString() {
-        return GsonUtil.toJson(this, UserModel.class);
+        return GsonUtil.toJson(this, ExpansionModel.class);
     }
 }
