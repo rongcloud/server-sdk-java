@@ -6,6 +6,7 @@ import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.message.*;
+import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -52,11 +53,11 @@ public class UltraGroup {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult send(UltraGroupMessage message) throws Exception {
+    public MessageResult send(UltraGroupMessage message) throws Exception {
 
         String code = CommonUtil.checkFiled(message, PATH, CheckMethod.PUBLISH);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         ConcurrentHashMap<String, Object> params = new ConcurrentHashMap<String, Object>();
         params.put("fromUserId", message.getSenderId());
@@ -110,14 +111,14 @@ public class UltraGroup {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/ultragroup/publish.json", "application/json");
         HttpUtil.setBodyParameter(GsonUtil.toJson(params), conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(GsonUtil.toJson(params));
         return result;
