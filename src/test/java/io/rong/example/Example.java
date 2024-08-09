@@ -5,7 +5,6 @@ import io.rong.RongCloud;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
 import io.rong.messages.RcCmdMessage;
-import io.rong.methods.user.blockpushperiod.BlockPushPeriod;
 import io.rong.models.Result;
 import io.rong.models.chatroom.ChatroomDataModel;
 import io.rong.models.chatroom.ChatroomDestroyTypeModel;
@@ -1758,8 +1757,8 @@ public class Example {
         Notification notification = new Notification();
         PlatformNotification pn = new PlatformNotification();
         pn.setAlert("this is push");
-        pn.setThread_id("001");
-        pn.setApns_collapse_id("002");
+        pn.setThreadId("001");
+        pn.setApnsCollapseId("002");
         pn.setHw("003");
         pn.setMi("004");
         notification.setAndroid(pn);

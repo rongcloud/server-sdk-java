@@ -1,14 +1,7 @@
 package io.rong.example.message;
 
 import io.rong.RongCloud;
-import io.rong.RongCloudConfig;
-import io.rong.messages.CustomTxtMessage;
-import io.rong.messages.InfoNtfMessage;
-import io.rong.messages.ReadReceiptMessage;
-import io.rong.messages.TxtMessage;
-import io.rong.messages.TypingStatusMessage;
-import io.rong.messages.UserInfo;
-import io.rong.messages.VoiceMessage;
+import io.rong.messages.*;
 import io.rong.methods.message._private.Private;
 import io.rong.methods.message.chatroom.Chatroom;
 import io.rong.methods.message.discussion.Discussion;
@@ -29,9 +22,6 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.alibaba.fastjson.JSONException;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * 消息发送示例
@@ -76,12 +66,18 @@ public class MessageExample {
         Discussion discussion = rongCloud.message.discussion;
         History history = rongCloud.message.history;
         UltraGroup ultraGroup = rongCloud.message.ultraGroup;
+        PushExt.HW hw = new PushExt.HW("channelId", "NORMAL");
+        // 扩展参数
+        hw.addParamIfNotBlank("image", "xxx");
         PushExt pe = PushExt.build("testTitle", 1,
-                new PushExt.HW("channelId", "NORMAL"), new PushExt.VIVO("1"),
-                new PushExt.HONOR("importance","image"),
+                hw,
+                new PushExt.VIVO("1"),
+                new PushExt.HONOR("importance", "image"),
                 new PushExt.APNs("234353efsfwd", "232"),
                 new PushExt.OPPO("134324"),
-                new PushExt.FCM("134324")
+                new PushExt.FCM("134324"),
+                new PushExt.OHOS("category", "image"),
+                new PushExt.MI("12345", "icon_test")
         );
 
         /**
@@ -532,7 +528,7 @@ public class MessageExample {
         pushExt.setTitle("aaa");
         pushExt.setTemplateId("22");
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("a","a");
+        hashMap.put("a", "a");
         UltraGroupMessage ultraGroupMessage = new UltraGroupMessage()
                 .setSenderId("bN6oQi8T5")
                 .setContent(txtMessage)
