@@ -5,6 +5,8 @@ import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.message.*;
+import io.rong.models.response.BroadcastResult;
+import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Templates;
 import io.rong.util.CommonUtil;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONException;
+
 
 
 /**
@@ -56,11 +59,11 @@ public class MsgSystem {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult send(MessageModel message) throws Exception {
+    public MessageResult send(MessageModel message) throws Exception {
         SystemMessage systemMessage = (SystemMessage) message;
         String code = CommonUtil.checkFiled(systemMessage, PATH, CheckMethod.PUBLISH);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(systemMessage.getSenderId().toString(), UTF8));
@@ -113,14 +116,14 @@ public class MsgSystem {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -187,11 +190,11 @@ public class MsgSystem {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult sendTemplate(TemplateMessage template) throws Exception {
+    public MessageResult sendTemplate(TemplateMessage template) throws Exception {
 
         String code = CommonUtil.checkFiled(template, PATH, CheckMethod.PUBLISHTEMPLATE);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         Templates templateMessage = new Templates();
 
@@ -219,14 +222,14 @@ public class MsgSystem {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/system/publish_template.json", "application/json");
         HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(templateMessage.toString());
         return result;
@@ -241,11 +244,11 @@ public class MsgSystem {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult broadcast(BroadcastMessage message) throws Exception {
+    public BroadcastResult broadcast(BroadcastMessage message) throws Exception {
 
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.BROADCAST);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+            return (BroadcastResult) GsonUtil.fromJson(errMsg, BroadcastResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -287,14 +290,14 @@ public class MsgSystem {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/broadcast.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        BroadcastResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, response), ResponseResult.class);
+            result = (BroadcastResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.BROADCAST, response), BroadcastResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new BroadcastResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -310,11 +313,11 @@ public class MsgSystem {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult onlineBroadcast(BroadcastMessage message) throws Exception {
+    public BroadcastResult onlineBroadcast(BroadcastMessage message) throws Exception {
 
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.ONLINE);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+            return (BroadcastResult) GsonUtil.fromJson(errMsg, BroadcastResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -331,14 +334,14 @@ public class MsgSystem {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/online/broadcast.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        BroadcastResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.ONLINE, response), ResponseResult.class);
+            result = (BroadcastResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.ONLINE, response), BroadcastResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new BroadcastResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

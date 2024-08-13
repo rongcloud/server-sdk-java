@@ -5,6 +5,7 @@ import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.message.RecallMessage;
+import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.message.ChatroomMessage;
 import io.rong.util.CommonUtil;
@@ -15,7 +16,6 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 import com.alibaba.fastjson.JSONException;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * 发送聊天室消息方法
@@ -52,11 +52,11 @@ public class Chatroom {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult send(ChatroomMessage message) throws Exception {
+    public MessageResult send(ChatroomMessage message) throws Exception {
 
         String code = CommonUtil.checkFiled(message, PATH, CheckMethod.SEND);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId(), UTF8));
@@ -90,14 +90,14 @@ public class Chatroom {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/chatroom/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

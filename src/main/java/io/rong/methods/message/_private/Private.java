@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonParseException;
+import io.rong.models.response.MessageResult;
 import org.apache.commons.lang3.StringUtils;
 
 import io.rong.RongCloud;
@@ -23,7 +24,6 @@ import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
 import com.alibaba.fastjson.JSONException;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * 发送单聊消息方法
@@ -61,10 +61,10 @@ public class Private {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult send(PrivateMessage message) throws Exception {
+    public MessageResult send(PrivateMessage message) throws Exception {
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.SEND);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(errMsg, MessageResult.class);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -135,14 +135,14 @@ public class Private {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -155,11 +155,11 @@ public class Private {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult sendTemplate(TemplateMessage message) throws Exception {
+    public MessageResult sendTemplate(TemplateMessage message) throws Exception {
 
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.SENDTEMPLATE);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(errMsg, MessageResult.class);
         }
 
         Templates templateMessage = new Templates();
@@ -194,14 +194,14 @@ public class Private {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish_template.json", "application/json");
         HttpUtil.setBodyParameter(templateMessage.toString(), conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISHTEMPLATE, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(templateMessage.toString());
         return result;
@@ -267,10 +267,10 @@ public class Private {
      * @return
      * @throws Exception
      */
-    public ResponseResult sendStatusMessage(PrivateStatusMessage message) throws Exception {
+    public MessageResult sendStatusMessage(PrivateStatusMessage message) throws Exception {
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.SENDSTATUS);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(errMsg, MessageResult.class);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -306,14 +306,14 @@ public class Private {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/statusmessage/private/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDSTATUS, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDSTATUS, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -326,10 +326,10 @@ public class Private {
      * @return
      * @throws Exception
      */
-    public ResponseResult sendTypingStatusMessage(PrivateMessage message) throws Exception {
+    public MessageResult sendTypingStatusMessage(PrivateMessage message) throws Exception {
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.SEND);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(errMsg, MessageResult.class);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -356,14 +356,14 @@ public class Private {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/private/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

@@ -13,6 +13,11 @@ public class PushResult extends Result {
      */
     private String id;
 
+    /**
+     * 推送消息ID
+     */
+    private String messageUID;
+
     private String reqBody;
 
     public String getId() {
@@ -36,6 +41,15 @@ public class PushResult extends Result {
         super(code, id);
         this.code = code;
         this.id = id;
+    }
+
+    public String getMessageUID() {
+        return messageUID;
+    }
+
+    public PushResult setMessageUID(String messageUID) {
+        this.messageUID = messageUID;
+        return this;
     }
 
     @Override

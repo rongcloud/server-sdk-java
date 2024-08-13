@@ -528,11 +528,12 @@ public class Example {
                     Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
             TemplateMessage template = (TemplateMessage) GsonUtil.fromJson(reader, TemplateMessage.class);
             System.out.println(template.toString());
-            ResponseResult messagePublishTemplateResult = rongCloud.message.msgPrivate.sendTemplate(template);
+            MessageResult messagePublishTemplateResult = rongCloud.message.msgPrivate.sendTemplate(template);
             System.out.println("sendPrivateTemplate:  " + messagePublishTemplateResult.toString());
-
             assertEquals("200", messagePublishTemplateResult.getCode().toString());
-
+            for (MessageUIDEntry entry : messagePublishTemplateResult.getMessageUIDs()) {
+                System.out.println(entry.getUserId() + ":" + entry.getMessageUID());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -564,10 +565,14 @@ public class Example {
                 .setIsIncludeSender(0);
 
         //发送单聊方法
-        ResponseResult publishPrivateResult = rongCloud.message.msgPrivate.send(privateMessage);
+        MessageResult publishPrivateResult = rongCloud.message.msgPrivate.send(privateMessage);
         System.out.println("sendPrivate:  " + publishPrivateResult.toString());
-
         assertEquals("200", publishPrivateResult.getCode().toString());
+
+        // 获取返回消息ID
+        for (MessageUIDEntry entry : publishPrivateResult.getMessageUIDs()) {
+            System.out.println("sendPrivate:  " + entry.getMessageUID());
+        }
     }
 
     /**

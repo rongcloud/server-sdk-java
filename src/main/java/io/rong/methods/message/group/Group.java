@@ -7,6 +7,7 @@ import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.message.MentionMessage;
 import io.rong.models.message.RecallMessage;
+import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.message.GroupMessage;
 import io.rong.models.message.GroupStatusMessage;
@@ -19,7 +20,6 @@ import java.net.URLEncoder;
 
 import org.apache.commons.lang3.StringUtils;
 import com.alibaba.fastjson.JSONException;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * 发送群组消息方法
@@ -58,11 +58,11 @@ public class Group {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult send(GroupMessage message) throws Exception {
+    public MessageResult send(GroupMessage message) throws Exception {
 
         String code = CommonUtil.checkFiled(message, PATH, CheckMethod.PUBLISH);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -93,9 +93,6 @@ public class Group {
             sb.append("&isPersisted=").append(URLEncoder.encode(message.getIsPersisted().toString(), UTF8));
         }
 
-        /*if (message.getIsCounted() != null) {
-            sb.append("&isCounted=").append(URLEncoder.encode(message.getIsCounted().toString(), UTF8));
-        }*/
 
         if (message.getIsIncludeSender() != null) {
             sb.append("&isIncludeSender=").append(URLEncoder.encode(message.getIsIncludeSender().toString(), UTF8));
@@ -124,14 +121,14 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -144,17 +141,17 @@ public class Group {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult sendMention(MentionMessage message) throws Exception {
+    public MessageResult sendMention(MentionMessage message) throws Exception {
 
         String code = CommonUtil.checkFiled(message, PATH, CheckMethod.SEND_MENTION);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         if (null == message.getContent().getMentionedInfo()) {
-            return new ResponseResult(1002, "mentionedInfo 参数为必传项");
+            return new MessageResult(1002, "mentionedInfo 参数为必传项");
         }
         if (null == message.getContent().getContent()) {
-            return new ResponseResult(1002, "MentionMessageContent.content 参数为必传项");
+            return new MessageResult(1002, "MentionMessageContent.content 参数为必传项");
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -207,14 +204,14 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -227,17 +224,17 @@ public class Group {
      * @return ResponseResult
      * @throws Exception
      **/
-    public ResponseResult sendDirection(GroupMessage message) throws Exception {
+    public MessageResult sendDirection(GroupMessage message) throws Exception {
 
         String code = CommonUtil.checkFiled(message, PATH, CheckMethod.PUBLISH);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         if (message.getTargetId().length > 1) {
-            return new ResponseResult(20005, "群定向消息当群组 Id 为一个时有效 ");
+            return new MessageResult(20005, "群定向消息当群组 Id 为一个时有效 ");
         }
         if (null == message.getToUserId() && message.getToUserId().length < 1) {
-            return new ResponseResult(20005, "toUserId 必传 ");
+            return new MessageResult(20005, "toUserId 必传 ");
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -295,14 +292,14 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.PUBLISH, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
@@ -363,10 +360,10 @@ public class Group {
      * @return
      * @throws Exception
      */
-    public ResponseResult sendStatusMessage(GroupStatusMessage message) throws Exception {
+    public MessageResult sendStatusMessage(GroupStatusMessage message) throws Exception {
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.SENDGROUPSTATUS);
         if (null != errMsg) {
-            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+            return (MessageResult) GsonUtil.fromJson(errMsg, MessageResult.class);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -401,14 +398,14 @@ public class Group {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/statusmessage/group/publish.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        ResponseResult result = null;
+        MessageResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDGROUPSTATUS, response), ResponseResult.class);
+            result = (MessageResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SENDGROUPSTATUS, response), MessageResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

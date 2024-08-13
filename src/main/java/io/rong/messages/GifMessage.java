@@ -34,7 +34,9 @@ public class GifMessage extends BaseMessage {
 	 */
 	private Integer width = 0;
 	private UserInfo user = null;
-	private transient static final String TYPE = "RC:GIFMsg";
+
+	private String extra;
+	private static final String TYPE = "RC:GIFMsg";
 
 	public GifMessage(String localPath, String remoteUrl, Integer gifDataSize, Integer height, Integer width) {
 		this.localPath = localPath;
@@ -107,6 +109,14 @@ public class GifMessage extends BaseMessage {
 	 */
 	public void setUser(UserInfo user) {
 		this.user = user;
+	}
+
+	public String getExtra() {
+		return extra;
+	}
+
+	public void setExtra(String extra) {
+		this.extra = extra;
 	}
 
 	@Override
