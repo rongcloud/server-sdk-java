@@ -33,6 +33,10 @@ public class Notification {
      * 设置 Android 平台下的推送及附加信息。
      */
     private PlatformNotification android;
+    /**
+     * 设置鸿蒙平台下的推送及附加信息。
+     */
+    private HarmonyOSPlatformNotification harmonyOS;
 
     public String getAlert() {
         return alert;
@@ -56,6 +60,14 @@ public class Notification {
 
     public void setAndroid(PlatformNotification android) {
         this.android = android;
+    }
+
+    public HarmonyOSPlatformNotification getHarmonyOS() {
+        return harmonyOS;
+    }
+
+    public void setHarmonyOS(HarmonyOSPlatformNotification harmonyOS) {
+        this.harmonyOS = harmonyOS;
     }
 
     public String getTitle() {

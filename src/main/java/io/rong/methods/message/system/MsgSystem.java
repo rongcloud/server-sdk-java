@@ -5,7 +5,6 @@ import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.message.*;
-import io.rong.models.push.Notification;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Templates;
 import io.rong.util.CommonUtil;
@@ -19,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONException;
-import com.google.gson.JsonSyntaxException;
-import io.rong.util.JsonUtil;
 
 
 /**

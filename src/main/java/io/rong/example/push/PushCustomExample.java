@@ -1,11 +1,11 @@
 package io.rong.example.push;
 
 import io.rong.RongCloud;
-import io.rong.models.push.AudienceCustom;
-import io.rong.models.push.Notification;
-import io.rong.models.push.PlatformNotification;
-import io.rong.models.push.PushModel;
+import io.rong.models.push.*;
 import io.rong.models.response.PushResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 推送plus Demo class
@@ -66,12 +66,23 @@ public class PushCustomExample {
         ppHonor.setImportance("importance");
         ppHonor.setImage("http://erjijl.jpg");
 //        platformNotification.setHonor(ppHonor);
-        platformNotification.setHonor("importance","http://erjijl.jpg");
+        platformNotification.setHonor("importance", "http://erjijl.jpg");
 
         platformNotification.setOppo("oppochannelid");
 
         notification.setAndroid(platformNotification);
         pushmodel.setNotification(notification);
+
+        HarmonyOSPlatformNotification harmonyOSPlatformNotification = new HarmonyOSPlatformNotification();
+        harmonyOSPlatformNotification.setAlert("alert");
+        Map<String, String> extras = new HashMap<>();
+        extras.put("key", "value");
+        harmonyOSPlatformNotification.setExtras(extras);
+        HarmonyOSPlatformNotification.HarmonyOSSettings harmonyOSSettings = new HarmonyOSPlatformNotification.HarmonyOSSettings();
+        harmonyOSSettings.setCategory("category");
+        harmonyOSSettings.setImage("http://erjijl.jpg");
+        harmonyOSPlatformNotification.setOhos(harmonyOSSettings);
+        notification.setHarmonyOS(harmonyOSPlatformNotification);
 
         System.out.println("req: " + pushmodel.toString());
         PushResult result = rongCloud.pushCustom.pushcustom(pushmodel);

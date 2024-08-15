@@ -1,5 +1,6 @@
 package io.rong.models.message;
 
+import io.rong.models.push.HarmonyOSPlatformNotification;
 import io.rong.models.push.PlatformNotification;
 import io.rong.util.GsonUtil;
 
@@ -49,6 +50,11 @@ public class PushUserMessage {
          */
         private PlatformNotification android;
 
+        /**
+         * 设置鸿蒙平台下的推送及附加信息。
+         */
+        private HarmonyOSPlatformNotification harmonyOS;
+
         public String getTitle() {
             return title;
         }
@@ -85,9 +91,22 @@ public class PushUserMessage {
             return this;
         }
 
+        public HarmonyOSPlatformNotification getHarmonyOS() {
+            return harmonyOS;
+        }
+
+        public void setHarmonyOS(HarmonyOSPlatformNotification harmonyOS) {
+            this.harmonyOS = harmonyOS;
+        }
+
         @Override
         public String toString() {
             return GsonUtil.toJson(this, Notification.class);
         }
+    }
+
+    @Override
+    public String toString() {
+        return GsonUtil.toJson(this, PushUserMessage.class);
     }
 }

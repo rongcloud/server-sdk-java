@@ -3,7 +3,6 @@ package io.rong.models.push;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
-import io.rong.models.message.Platform;
 import io.rong.util.GsonUtil;
 
 /**
@@ -54,13 +53,19 @@ public class PlatformNotification {
      * iOS 平台通知栏分组 ID，相同的 thread-id 推送分一组，单组超过 5 条推送会折叠展示
      */
     @SerializedName("thread-id")
-    private String thread_id;
+    private String threadId;
 
     /**
      * iOS 平台，从 iOS10 开始支持，设置后设备收到有相同 ID 的消息，会合并成一条
      */
     @SerializedName("apns-collapse-id")
-    private String apns_collapse_id;
+    private String apnsCollapseId;
+
+    /**
+     * 适用于 iOS 15 及之后的系统。取值为 passive，active（默认），time-sensitive，或 critical，取值说明详见对应的 APNs 的 interruption-level 字段。在 iOS 15 及以上版本中，系统的 “定时推送摘要”、“专注模式” 都可能导致重要的推送通知（例如余额变化）无法及时被用户感知的情况，可考虑设置该字段。
+     */
+    @SerializedName("interruption-level")
+    private String interruptionLevel;
 
     private Platform hw;
     private Platform honor;
@@ -152,20 +157,20 @@ public class PlatformNotification {
         this.richMediaUri = richMediaUri;
     }
 
-    public String getThread_id() {
-        return thread_id;
+    public String getThreadId() {
+        return threadId;
     }
 
-    public void setThread_id(String thread_id) {
-        this.thread_id = thread_id;
+    public void setThreadId(String threadId) {
+        this.threadId = threadId;
     }
 
-    public String getApns_collapse_id() {
-        return apns_collapse_id;
+    public String getApnsCollapseId() {
+        return apnsCollapseId;
     }
 
-    public void setApns_collapse_id(String apns_collapse_id) {
-        this.apns_collapse_id = apns_collapse_id;
+    public void setApnsCollapseId(String apnsCollapseId) {
+        this.apnsCollapseId = apnsCollapseId;
     }
 
     public Platform getHw() {
@@ -226,11 +231,15 @@ public class PlatformNotification {
         //hw honor
         private String image;
         //mi
-        private String large_icon_uri;
+        @SerializedName("large_icon_uri")
+        private String largeIconUri;
         //fcm
         private String imageUrl;
-        private String collapse_key;
 
+        @SerializedName("collapse_key")
+        private String collapseKey;
+        // hw vivo
+        private String  category;
 
         public String getChannelId() {
             return channelId;
@@ -264,12 +273,12 @@ public class PlatformNotification {
             this.image = image;
         }
 
-        public String getLarge_icon_uri() {
-            return large_icon_uri;
+        public String getLargeIconUri() {
+            return largeIconUri;
         }
 
-        public void setLarge_icon_uri(String large_icon_uri) {
-            this.large_icon_uri = large_icon_uri;
+        public void setLargeIconUri(String largeIconUri) {
+            this.largeIconUri = largeIconUri;
         }
 
         public String getImageUrl() {
@@ -280,12 +289,12 @@ public class PlatformNotification {
             this.imageUrl = imageUrl;
         }
 
-        public String getCollapse_key() {
-            return collapse_key;
+        public String getCollapseKey() {
+            return collapseKey;
         }
 
-        public void setCollapse_key(String collapse_key) {
-            this.collapse_key = collapse_key;
+        public void setCollapseKey(String collapseKey) {
+            this.collapseKey = collapseKey;
         }
 
         public Platform() {
@@ -299,6 +308,26 @@ public class PlatformNotification {
             this.channelId = channelId;
             this.classification = classification;
         }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+    }
+
+    public String getInterruptionLevel() {
+        return interruptionLevel;
+    }
+
+    public void setInterruptionLevel(String interruptionLevel) {
+        this.interruptionLevel = interruptionLevel;
+    }
+
+    public Platform getFcm() {
+        return fcm;
     }
 
     @Override
