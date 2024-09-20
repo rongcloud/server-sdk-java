@@ -21,8 +21,13 @@ public class GsonUtil {
     public static Object fromJson(String str, Type type) {
         return gson.fromJson(str, type);
     }
+    public static <T> T fromJson(Class<T> clazz,String json) {
+        return new Gson().fromJson(json, clazz);
+    }
 
     public static Object fromJson(Reader reader, Type type) {
         return gson.fromJson(reader, type);
     }
+
+    private GsonUtil() {}
 }

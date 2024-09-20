@@ -53,18 +53,23 @@ public class CommonUtil {
         return false;
     }
 
+    public static String checkFiled(Object model, String path, String method) {
+        return checkFiled(model, path, method, false);
+    }
+
     /**
      * 参数校验方法
      *
-     * @param model 校验对象
-     * @param path 路径
+     * @param model  校验对象
+     * @param path   路径
      * @param method 需要校验方法
      * @return String
      **/
-    public static String checkFiled(Object model, String path, String method) {
+    public static String checkFiled(Object model, String path, String method, boolean checkMin) {
         try {
             String code = "200";
             Integer max = 64;
+            Integer min = 1;
             //api.json 的路径
             String apiPath = path;
             String type = "";
@@ -80,9 +85,8 @@ public class CommonUtil {
                 checkObjectKey = entry.getKey();
             }
             if (null == model) {
-                String message = (String) CommonUtil
-                    .getErrorMessage(apiPath, method, "20005", "object", String.valueOf(max), "1", type, 0);
-                return message;
+                return (String) CommonUtil
+                        .getErrorMessage(apiPath, method, "20005", "object", String.valueOf(max), "1", type, 0);
             }
             //获取校验文件
             JSONObject verify = JsonUtil.getJsonObject(path, VERIFY_JSON_NAME);
@@ -94,31 +98,27 @@ public class CommonUtil {
             for (String name : fileds) {
                 for (String key : keys) {
                     if (name.equals(key)) {
-                        String nameTemp = name;
-                        //将属性的首字符大写，方便构造get，set方法
-                        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+                        String nameTemp = name.substring(0, 1).toUpperCase() + name.substring(1);
                         //获取属性的类型
-                        //String type = field.getGenericType().toString();
-                        Method m = model.getClass().getMethod("get" + name);
+                        Method m = model.getClass().getMethod("get" + nameTemp);
                         //获取字段的具体校验规则
-                        JSONObject object = entity.getJSONObject(nameTemp);
+                        JSONObject object = entity.getJSONObject(name);
                         if (object.containsKey("require")) {
-                            Boolean must = (Boolean) object.getJSONObject("require").get("must");
                             if (m.invoke(model) instanceof String) {
                                 String value = (String) m.invoke(model);
                                 if (StringUtils.isBlank(value)) {
                                     code = (String) object.getJSONObject("require").get("invalid");
                                 }
                             } else {
-                                Object value = (Object) m.invoke(model);
+                                Object value = m.invoke(model);
                                 if (null == value) {
                                     code = (String) object.getJSONObject("require").get("invalid");
                                 }
                             }
                         }
                         if (object.containsKey("length")) {
+                            min = (Integer) object.getJSONObject("length").get("min");
                             max = (Integer) object.getJSONObject("length").get("max");
-                            //String value = (String) m.invoke(model);
                             if (m.invoke(model) instanceof String) {
                                 String value = (String) m.invoke(model);
                                 if ("200".equals(code) && StringUtils.isBlank(value)) {
@@ -130,20 +130,19 @@ public class CommonUtil {
                                 }
                             } else if (m.invoke(model) instanceof String[]) {
                                 String[] value = (String[]) m.invoke(model);
+                                if (checkMin && "200".equals(code) && value.length < min) {
+                                    size = value.length;
+                                    code = (String) object.getJSONObject("length").get("invalid");
+                                }
                                 if ("200".equals(code) && value.length > max) {
                                     size = value.length;
                                     code = (String) object.getJSONObject("length").get("invalid");
                                 }
-                            }/*else{
-                                Object value = (Object) m.invoke(model);
-                                if(!"200".equals(code)){
-                                    code = (String)object.getJSONObject("length").get("invalid");
-                                }
-
-                            }*/
+                            }
 
                         }
                         if (object.containsKey("size")) {
+                            min = (Integer) object.getJSONObject("size").get("min");
                             max = (Integer) object.getJSONObject("size").get("max");
                             type = (String) object.getJSONObject("typeof").get("type");
                             if (type.contains("array")) {
@@ -164,23 +163,22 @@ public class CommonUtil {
                                     code = (String) object.getJSONObject("typeof").get("invalid");
                                 }
 
-                                if ("200".equals(code) && null == value) {
-                                    code = (String) object.getJSONObject("size").get("invalid");
+                                if ("200".equals(code) && value != null) {
+                                    if (checkMin && value < min) {
+                                        size = value;
+                                        code = (String) object.getJSONObject("size").get("invalid");
+                                    }
+                                    if (value > max) {
+                                        size = value;
+                                        code = (String) object.getJSONObject("size").get("invalid");
+                                    }
                                 }
-                                if ("200".equals(code) && value > max) {
-                                    size = value;
-                                    code = (String) object.getJSONObject("size").get("invalid");
-                                }
-
                             }
                         }
                         if (!"200".equals(code)) {
                             //根据错误吗获取错误信息
-                            String message = (String) CommonUtil
-                                .getErrorMessage(apiPath, method, code, name, String.valueOf(max), "1", type, size);
-                            // 对 errorMessage  替换 目前不需要替换
-                            // message = StringUtils.replace(message,"errorMessage","msg");
-                            return message;
+                            return (String) CommonUtil
+                                    .getErrorMessage(apiPath, method, code, name, String.valueOf(max), String.valueOf(min), type, size);
                         }
                     }
                 }
@@ -192,31 +190,33 @@ public class CommonUtil {
         return null;
     }
 
+    public static String checkParam(String checkFiled, Object value, String path, String method) {
+        return checkParam(checkFiled, value, path, method, false);
+    }
+
     /**
      * 参数校验
      *
      * @param checkFiled 需要校验的字段
-     * @param value 传入参数值
-     * @param path 路径 （获取校验文件路径）
-     * @param method 需要校验方法
+     * @param value      传入参数值
+     * @param path       路径 （获取校验文件路径）
+     * @param method     需要校验方法
      * @return String
      **/
-    public static String checkParam(String checkFiled, Object value, String path, String method) {
+    public static String checkParam(String checkFiled, Object value, String path, String method, boolean checkMin) {
         try {
             String code = "200";
-            boolean flag = false;
             Integer max = 64;
+            Integer min = 1;
             String type = "";
             String apiPath = path;
             if (path.contains("/")) {
                 path = path.substring(0, path.indexOf("/"));
             }
-            //String[] fileds = {};
             String checkObject = "";
             //获取需要校验的key
             Map<String, String[]> checkInfo = getCheckInfo(apiPath, method);
             for (Map.Entry<String, String[]> entry : checkInfo.entrySet()) {
-                //fileds = entry.getValue();
                 checkObject = entry.getKey();
             }
             JSONObject verify = JsonUtil.getJsonObject(path, VERIFY_JSON_NAME);
@@ -227,7 +227,6 @@ public class CommonUtil {
                 if (checkFiled.equals(key)) {
                     JSONObject object = entity.getJSONObject(checkFiled);
                     if (object.containsKey("require")) {
-                        Boolean must = (Boolean) object.getJSONObject("require").get("must");
                         if (value instanceof String) {
                             if (StringUtils.isBlank(String.valueOf(value))) {
                                 code = (String) object.getJSONObject("require").get("invalid");
@@ -241,11 +240,12 @@ public class CommonUtil {
                     }
                     if (object.containsKey("length")) {
                         max = (Integer) object.getJSONObject("length").get("max");
+                        min = (Integer) object.getJSONObject("length").get("min");
                         if (value instanceof String) {
                             if ("200".equals(code) && StringUtils.isBlank(String.valueOf(value))) {
                                 code = (String) object.getJSONObject("length").get("invalid");
                             }
-                            if ("200".equals(code) && String.valueOf(value).length() > max) {
+                            if ("200".equals(code) && (String.valueOf(value).length() > max || String.valueOf(value).length() < min)) {
                                 size = String.valueOf(value).length();
                                 code = (String) object.getJSONObject("length").get("invalid");
                             }
@@ -263,6 +263,7 @@ public class CommonUtil {
 
                     }
                     if (object.containsKey("size")) {
+                        min = (Integer) object.getJSONObject("size").get("min");
                         max = (Integer) object.getJSONObject("size").get("max");
                         type = (String) object.getJSONObject("typeof").get("type");
                         if (type.contains("array")) {
@@ -274,6 +275,11 @@ public class CommonUtil {
                                 valueTemp = (String[]) value;
                             } catch (Exception e) {
                                 code = (String) object.getJSONObject("typeof").get("invalid");
+                            }
+
+                            if (checkMin && "200".equals(code) && valueTemp.length < min) {
+                                size = valueTemp.length;
+                                code = (String) object.getJSONObject("size").get("invalid");
                             }
 
                             if ("200".equals(code) && valueTemp.length > max) {
@@ -288,21 +294,22 @@ public class CommonUtil {
                             } catch (Exception e) {
                                 code = (String) object.getJSONObject("typeof").get("invalid");
                             }
-                            if ("200".equals(code) && null == value) {
-                                code = (String) object.getJSONObject("size").get("invalid");
-                            }
-                            if ("200".equals(code) && valueTemp > max) {
-                                size = valueTemp;
-                                code = (String) object.getJSONObject("size").get("invalid");
+                            if("200".equals(code) && value != null) {
+                                if (checkMin && valueTemp < min) {
+                                    size = valueTemp;
+                                    code = (String) object.getJSONObject("size").get("invalid");
+                                }
+
+                                if (valueTemp > max) {
+                                    size = valueTemp;
+                                    code = (String) object.getJSONObject("size").get("invalid");
+                                }
                             }
 
                         }
                     }
-                    String message = (String) CommonUtil
-                        .getErrorMessage(apiPath, method, code, checkFiled, String.valueOf(max), "1", type, size);
-                    //message = StringUtils.replace(message,"errorMessage","msg");
-                    return message;
-
+                    return (String) CommonUtil
+                            .getErrorMessage(apiPath, method, code, checkFiled, String.valueOf(max), String.valueOf(min), type, size);
                 }
             }
         } catch (Exception e) {
@@ -314,28 +321,27 @@ public class CommonUtil {
     /**
      * 获取错误信息
      *
-     * @param path 路径 （获取校验文件路径）
-     * @param method 校验方法（需要校验的方法）
+     * @param path      路径 （获取校验文件路径）
+     * @param method    校验方法（需要校验的方法）
      * @param errorCode 错误码
-     * @param name 具体字段名
-     * @param max 字段需要的最大值
-     * @param min 字段的最小值
-     * @param type 类型
+     * @param name      具体字段名
+     * @param max       字段需要的最大值
+     * @param min       字段的最小值
+     * @param type      类型
      * @return Map
      **/
     public static Object getErrorMessage(String path, String method, String errorCode, String name, String max,
-        String min, String type, int size) {
+                                         String min, String type, int size) {
         JSONObject api = null;
         try {
             api = JsonUtil.getJsonObject(path, API_JSON_NAME);
             Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response")
-                .getJSONObject("fail").entrySet();
+                    .getJSONObject("fail").entrySet();
             String[] serchList = {"{{name}}", "{{max}}", "{{name}}", "{{min}}", "{{currentType}}", "{{size}}"};
             String[] replaceList = {name, max, name, min, type, String.valueOf(size)};
             for (Map.Entry<String, Object> entry : keys) {
                 if (errorCode.equals(entry.getKey())) {
                     String text = entry.getValue().toString();
-                    //StringUtils.replaceEach(text,serchList,replaceList);
                     return StringUtils.replaceEach(text, serchList, replaceList);
                 }
             }
@@ -348,7 +354,7 @@ public class CommonUtil {
     /**
      * 获取校验信息
      *
-     * @param path 路径 （获取校验文件路径）
+     * @param path   路径 （获取校验文件路径）
      * @param method 校验方法（需要校验的方法）
      * @return Map
      **/
@@ -375,14 +381,14 @@ public class CommonUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return new HashMap<>();
     }
 
     /**
      * 获取response信息
      *
-     * @param path 路径 （获取校验文件路径）
-     * @param method 校验方法（需要校验的方法）
+     * @param path     路径 （获取校验文件路径）
+     * @param method   校验方法（需要校验的方法）
      * @param response 返回信息
      * @return String
      **/
@@ -394,7 +400,7 @@ public class CommonUtil {
             String requestId = String.valueOf(object.get("requestId"));
             api = JsonUtil.getJsonObject(path, API_JSON_NAME);
             Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response")
-                .getJSONObject("fail").entrySet();
+                    .getJSONObject("fail").entrySet();
             String text = response;
             if (code.equals("200")) {
                 if (path.contains("blacklist") && method.equals("getList")) {
@@ -436,7 +442,7 @@ public class CommonUtil {
                             }
                             GroupModel[] groupModels = groupinfos.toArray(new GroupModel[groupinfos.size()]);
                             GroupBanResult groupBanResult = new GroupBanResult(groupBanModel.getCode(), null,
-                                groupModels);
+                                    groupModels);
                             groupBanResult.requestId = requestId;
                             text = groupBanResult.toString();
                         }
@@ -464,11 +470,9 @@ public class CommonUtil {
                 for (Map.Entry<String, Object> entry : keys) {
                     if (code.equals(entry.getKey())) {
                         text = entry.getValue().toString();
-                        //text = StringUtils.replace(text,"msg","errorMessage");
                         return text;
                     }
                 }
-                //text = StringUtils.replace(response,"errorMessage","msg");
                 if (path.contains("chatroom")) {
                     text = StringUtils.replace(text, "users", "members");
                     //对于 聊天室保活成功返回的code是0 更改统一返回200
@@ -491,8 +495,7 @@ public class CommonUtil {
         for (String id : userList.getUsers()) {
             users.add(new UserModel().setId(id));
         }
-        UserModel[] members = users.toArray(new UserModel[users.size()]);
-        return members;
+        return users.toArray(new UserModel[users.size()]);
     }
 
     public static String getSDKVersion() {
