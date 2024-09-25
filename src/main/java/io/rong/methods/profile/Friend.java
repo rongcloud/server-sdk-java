@@ -142,14 +142,10 @@ public class Friend extends BaseMethod {
     /**
      * 检查好友关系
      **/
-    public CheckFriendsResult checkFriends(String userId, Integer directionType, String... targetIds) throws Exception {
+    public CheckFriendsResult checkFriends(String userId, String... targetIds) throws Exception {
         String method = CheckMethod.CHECK_FRIENDS;
 
         CheckFriendsResult result = checkParam("userId", userId, method, CheckFriendsResult.class);
-        if (result != null) {
-            return result;
-        }
-        result = checkParam("directionType", directionType, method, CheckFriendsResult.class);
         if (result != null) {
             return result;
         }
@@ -160,7 +156,6 @@ public class Friend extends BaseMethod {
 
         StringBuilder sb = new StringBuilder();
         addFormParam(sb, "userId=", userId);
-        addFormParam(sb, "&directionType=", directionType);
         addFormParam(sb, "&targetIds=", StringUtils.join(removeDuplicates(targetIds), ","));
         String body = sb.toString();
 

@@ -93,7 +93,7 @@ public class FriendExample {
      * 检查好友关系
      */
     private static void checkFriendsExample() throws Exception {
-        CheckFriendsResult responseResult = friend.checkFriends("uid", 1, "targetId", "targetId2");
+        CheckFriendsResult responseResult = friend.checkFriends("uid", "targetId", "targetId2");
         System.out.println(responseResult);
     }
 
