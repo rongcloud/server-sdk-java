@@ -981,3 +981,123 @@ func (rc *RongCloud) UserReactivate(userIds []string) (*UserReactivateResponse, 
 	}
 	return &userReactivateResp, nil
 }
+
+// UserProfileSet /user/profile/set.json 用户资料设置
+// *
+//
+//	@param: userId: 必传 需要设置的用户 ID
+//	@param: userProfile: 非必传 用户基本信息
+//	@param: userExtProfile: 非必传 用户扩展信息
+//	response: err
+//
+// *//
+func (rc *RongCloud) UserProfileSet(userId string, userProfile string, userExtProfile string) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/profile/set.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	req.Param("userProfile", userProfile)
+	req.Param("userExtProfile", userExtProfile)
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+// UserProfileClean /user/profile/clean.json 用户托管信息清除
+// *
+//
+//	@param: userId: 必传 需要设置的用户 ID
+//	response: err
+//
+// *//
+func (rc *RongCloud) UserProfileClean(userId string) error {
+	if len(userId) == 0 {
+		return RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/profile/clean.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
+
+type UserProfileResponse struct {
+	UserId         string `json:"userId"`
+	Version        int    `json:"version"`
+	UserProfile    string `json:"userProfile"`
+	UserExtProfile string `json:"userExtProfile"`
+}
+
+type UserProfileQueryResponse struct {
+	Code         int                   `json:"code"` // 返回码，200 为正常
+	UserProfiles []UserProfileResponse `json:"userList"`
+}
+
+// UserProfilQuery /user/profile/query.json 分页获取应用全部用户资料
+// *
+//
+//	@param: page: 非必传 页号
+//	@param: size: 非必传 每页数量
+//	@param: order: 非必传 根据注册时间的排序机制，默认正序，0为正序，1为倒序
+//	response: UserProfileQueryResponse,err
+//
+// *//
+func (rc *RongCloud) UserProfilQuery(page int, size int, order int) (*UserProfileQueryResponse, error) {
+	req := httplib.Post(rc.rongCloudURI + "/user/profile/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("page", strconv.Itoa(page))
+	req.Param("size", strconv.Itoa(size))
+	req.Param("order", strconv.Itoa(order))
+	body, err := rc.doV2(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var userProfileQueryResponse UserProfileQueryResponse
+	err = json.Unmarshal(body, &userProfileQueryResponse)
+	if err != nil {
+		return nil, err
+	}
+	return &userProfileQueryResponse, nil
+}
+
+// UserProfilBatchQuery /user/profile/batch/query.json 批量查询用户资料
+// *
+//
+//	@param: userId: 必传 需要设置的用户 ID
+//	response: UserProfileQueryResponse,err
+//
+// *//
+func (rc *RongCloud) UserProfilBatchQuery(userId string) (*UserProfileQueryResponse, error) {
+	if len(userId) == 0 {
+		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/profile/batch/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	body, err := rc.doV2(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var userProfileQueryResponse UserProfileQueryResponse
+	err = json.Unmarshal(body, &userProfileQueryResponse)
+	if err != nil {
+		return nil, err
+	}
+	return &userProfileQueryResponse, nil
+}
