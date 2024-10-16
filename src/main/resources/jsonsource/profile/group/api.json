@@ -441,11 +441,7 @@
       "import": {
         "groupId": "10001",
         "name": "TestGroup",
-        "owner": "TestGroup",
-        "userIds": [
-          "memberId01",
-          "memberId02"
-        ]
+        "owner": "TestGroup"
       }
     },
     "response": {

@@ -262,12 +262,6 @@
         "min": 1,
         "invalid": "20003"
       }
-    },
-    "userIds": {
-      "typeof": {
-        "type": "array",
-        "invalid": "20001"
-      }
     }
   },
   "groupManager": {
@@ -762,6 +756,58 @@
       },
       "typeof": {
         "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "setUserProfile": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "batchQueryUserProfiles": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "cleanProfile": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "pagingQueryUserProfiles": {
+    "page": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "size": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "order": {
+      "typeof": {
+        "type": "int",
         "invalid": "20001"
       }
     }

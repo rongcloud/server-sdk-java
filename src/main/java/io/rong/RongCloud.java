@@ -13,6 +13,7 @@ import io.rong.methods.group.Group;
 import io.rong.methods.message.Message;
 import io.rong.methods.message.expansion.Expansion;
 import io.rong.methods.profile.EntrustGroup;
+import io.rong.methods.profile.EntrustUser;
 import io.rong.methods.profile.Friend;
 import io.rong.methods.push.Push;
 import io.rong.methods.push.PushCustom;
@@ -42,6 +43,7 @@ public class RongCloud {
     public PushCustom pushCustom;
     public EntrustGroup entrustGroup;
     public Friend friend;
+    public EntrustUser entrustUser;
     public final RongCloudConfig config;
 
     public RongCloudConfig getConfig() {
@@ -69,6 +71,7 @@ public class RongCloud {
         pushCustom = new PushCustom(appKey,appSecret,this);
         entrustGroup = new EntrustGroup(appKey, appSecret, this);
         friend = new Friend(appKey, appSecret, this);
+        entrustUser = new EntrustUser(appKey, appSecret, this);
         this.config = config;
     }
 
