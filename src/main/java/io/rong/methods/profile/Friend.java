@@ -129,7 +129,6 @@ public class Friend extends BaseMethod {
 
         StringBuilder sb = new StringBuilder();
         addFormParam(sb, "userId=", getFriendsModel.getUserId());
-        addFormParam(sb, "&directionType=", getFriendsModel.getDirectionType());
         addFormParam(sb, "&pageToken=", getFriendsModel.getPageToken());
         addFormParam(sb, "&size=", getFriendsModel.getSize());
         addFormParam(sb, "&order=", getFriendsModel.getOrder());
@@ -188,7 +187,7 @@ public class Friend extends BaseMethod {
 
 
     /**
-     * 设置添加好友权限
+     * 获取加好友权限
      **/
     public GetPermissionResult getPermission(String... userIds) throws Exception {
         String method = CheckMethod.GET_PERM;

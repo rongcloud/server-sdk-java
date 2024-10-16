@@ -104,7 +104,6 @@ public class FriendExample {
     private static void pagingGetFriendsExample() throws Exception {
         PagingGetFriendsModel getFriendsModel = new PagingGetFriendsModel();
         getFriendsModel.setUserId("userId");
-        getFriendsModel.setDirectionType(1);
         getFriendsModel.setOrder(1);
         getFriendsModel.setPageToken("");
         getFriendsModel.setSize(1);

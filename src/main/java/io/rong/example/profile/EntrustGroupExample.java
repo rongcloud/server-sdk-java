@@ -281,7 +281,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 解散群组
+     * 转让群组
      */
     private static void transferOwnerExample() throws Exception {
         ResponseResult result = entrustGroup.transferOwner(new TransferOwnerModel()
@@ -297,7 +297,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 解散群组
+     * 加入群组
      */
     private static void joinExample() throws Exception {
         JoinGroupResult result = entrustGroup.join("gid1", "uid1", "uid2");

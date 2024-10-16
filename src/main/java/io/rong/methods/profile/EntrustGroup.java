@@ -65,7 +65,6 @@ public class EntrustGroup extends BaseMethod {
         StringBuilder sb = new StringBuilder();
         addFormParam(sb, "groupId=", group.getGroupId());
         addFormParam(sb, "&name=", group.getName());
-        addFormParam(sb, "&owner=", group.getOwner());
         addFormParam(sb, "&groupProfile=", group.getGroupProfile());
         addFormParam(sb, "&groupExtProfile=", group.getGroupExtProfile());
         addFormParam(sb, "&permissions=", group.getPermissions());
@@ -173,7 +172,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 解散群组
+     * 加入群组
      */
     public JoinGroupResult join(String groupId, String... userIds) throws Exception {
         String method = CheckMethod.JOIN;
@@ -198,7 +197,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 解散群组
+     * 转让群组
      */
     public ResponseResult transferOwner(TransferOwnerModel params) throws Exception {
         String method = CheckMethod.TRANS_OWNER;
@@ -223,7 +222,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 导入群组，原群组托管设置
+     * 群组托管导入
      */
     public ResponseResult importGroup(ImportEntrustGroupModel group) throws Exception {
         String method = CheckMethod.IMPORT;
@@ -515,7 +514,9 @@ public class EntrustGroup extends BaseMethod {
         return doRequest("/entrust/group/member/followed/get.json", body, method, FollowedMemberResult.class);
     }
 
-
+    /**
+     * 分页查询应用下群组信息
+     */
     public PagingQueryGroupsResult pagingQueryGroups(PageModel pageModel) throws Exception {
         String method = CheckMethod.PAGING_QUERY_GROUPS;
 
@@ -534,6 +535,9 @@ public class EntrustGroup extends BaseMethod {
 
     }
 
+    /**
+     * 分页查询用户加入的群组
+     */
     public PagingQueryJoinedGroupsResult pagingQueryJoinedGroups(QueryJoinedGroupsModel pageModel) throws Exception {
         String method = CheckMethod.PAGING_QUERY_JOINED_GROUPS;
 
