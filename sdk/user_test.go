@@ -421,3 +421,63 @@ func TestRongCloud_UserReactivate(t *testing.T) {
 	}
 	t.Logf("res: %+v", result)
 }
+
+func TestRongCloud_UserProfileSet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.UserProfileSet(
+		"u01",
+		"{\"birthday\":\"20011221\",\"level\":2}",
+		"{\"ext_1\":\"testext\"}",
+	)
+	if err != nil {
+		t.Fatalf("UserProfileSet fail: %s", err)
+	}
+	t.Logf("UserProfileSet: end")
+}
+
+func TestRongCloud_UserProfileClean(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	err := rc.UserProfileClean(
+		"u01",
+	)
+	if err != nil {
+		t.Fatalf("UserProfileClean fail: %s", err)
+	}
+	t.Logf("UserProfileClean: end")
+}
+
+func TestRongCloud_UserProfilQuery(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	result, err := rc.UserProfilQuery(
+		1,
+		20,
+		0,
+	)
+	if err != nil {
+		t.Fatalf("UserProfilQuery fail: %s", err)
+	}
+	t.Logf("res: %+v", result)
+}
+
+func TestRongCloud_UserProfilBatchQuery(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+	)
+	result, err := rc.UserProfilBatchQuery(
+		"rong_health_check.u58",
+	)
+	if err != nil {
+		t.Fatalf("UserProfilBatchQuery fail: %s", err)
+	}
+	t.Logf("res: %+v", result)
+}
