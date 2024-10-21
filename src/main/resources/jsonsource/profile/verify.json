@@ -1,0 +1,815 @@
+{
+  "create": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "name": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "owner": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "update": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "name": {
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "owner": {
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "queryProfile": {
+    "groupIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "quit": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    },
+    "isDelBan": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "isDelWhite": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "isDelFollowed": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "kick": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    },
+    "isDelBan": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "isDelWhite": {
+
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "isDelFollowed": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "kickAll": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "dismiss": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "join": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "tansOwner": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "newOwner": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "import": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "name": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "owner": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "groupManager": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "pagingQueryMembers": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "type": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "size": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "order": {
+      "size": {
+        "max": 1,
+        "min": 0,
+        "invalid": "20004"
+      },
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "queryMembers": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "setMember": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "nickname": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "extra": {
+      "length": {
+        "max": 128,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "setRemarkName": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "remarkName": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "delRemarkName": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "queryRemarkName": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "follow": {
+    "groupId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "followUserIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "pagingQueryGroups": {
+    "size": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "order": {
+      "size": {
+        "max": 1,
+        "min": 0,
+        "invalid": "20004"
+      },
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "pagingQueryJoinedGroups": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "role": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "size": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "order": {
+      "size": {
+        "max": 1,
+        "min": 0,
+        "invalid": "20004"
+      },
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "addFriend": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "targetId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "optType": {
+      "size": {
+        "max": 2,
+        "min": 1,
+        "invalid": "20004"
+      },
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "extra": {
+      "length": {
+        "max": 128,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "delFriend": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "targetIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    },
+    "optType": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "cleanFriend": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "setFriendProfile": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "targetId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "remarkName": {
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    }
+  },
+  "pagingGetFriends": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "directionType": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "size": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "order": {
+      "size": {
+        "max": 1,
+        "min": 0,
+        "invalid": "20004"
+      },
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "checkFriends": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "length": {
+        "max": 64,
+        "min": 1,
+        "invalid": "20003"
+      }
+    },
+    "directionType": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "setPerm": {
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    },
+    "permissionType": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  },
+  "getPerm": {
+    "userIds": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "setUserProfile": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "batchQueryUserProfiles": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "cleanProfile": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      },
+      "typeof": {
+        "type": "array",
+        "invalid": "20001"
+      }
+    }
+  },
+  "pagingQueryUserProfiles": {
+    "page": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "size": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    },
+    "order": {
+      "typeof": {
+        "type": "int",
+        "invalid": "20001"
+      }
+    }
+  }
+}

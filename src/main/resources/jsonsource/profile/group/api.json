@@ -1,0 +1,1055 @@
+{
+  "create": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/create",
+    "params": {
+      "create": {
+        "groupId": "10001",
+        "name": "TestGroup",
+        "owner": "TestGroup",
+        "userIds": [
+          "memberId01",
+          "memberId02"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "update": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/profile/update",
+    "params": {
+      "update": {
+        "groupId": "10001",
+        "name": "TestGroup",
+        "owner": "TestGroup"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "queryProfile": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/profile/query",
+    "params": {
+      "queryProfile": {
+        "groupIds": [
+          "10001",
+          "10002"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "quit": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/quit",
+    "params": {
+      "quit": {
+        "groupId": "10001",
+        "userIds": [
+          "10001",
+          "10002"
+        ],
+        "isDelBan": 1,
+        "isDelWhite": 1,
+        "isDelFollowed": 1
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "kick": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/member/kick",
+    "params": {
+      "kick": {
+        "groupId": "10001",
+        "userIds": [
+          "10001",
+          "10002"
+        ],
+        "isDelBan": 1,
+        "isDelWhite": 1,
+        "isDelFollowed": 1
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "kickAll": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/member/kick/all",
+    "params": {
+      "kickAll": {
+        "userId": "10001"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "dismiss": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/dismiss",
+    "params": {
+      "dismiss": {
+        "groupId": "10001"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "join": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/join",
+    "params": {
+      "join": {
+        "groupId": "10001",
+        "uerIds": [
+          "10001",
+          "10002"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "tansOwner": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/transfer/owner",
+    "params": {
+      "tansOwner": {
+        "groupId": "10001",
+        "newOwner": "uid"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "import": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/import",
+    "params": {
+      "import": {
+        "groupId": "10001",
+        "name": "TestGroup",
+        "owner": "TestGroup"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "groupManager": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/manager/remove",
+    "params": {
+      "groupManager": {
+        "groupId": "10001",
+        "uerIds": [
+          "10001",
+          "10002"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "pagingQueryMembers": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/user/query",
+    "params": {
+      "pagingQueryMembers": {
+        "groupId": "10001",
+        "type": 1,
+        "size": 10,
+        "order": 1
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "queryMembers": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/member/specific/query",
+    "params": {
+      "queryMembers": {
+        "groupId": "10001",
+        "userIds": [
+          "uid1",
+          "uid2"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "setMember": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/member/set",
+    "params": {
+      "setMember": {
+        "groupId": "10001",
+        "userId": "10001",
+        "nickname": "10001",
+        "extra": "10001"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "setRemarkName": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/remarkname/set",
+    "params": {
+      "setRemarkName": {
+        "groupId": "10001",
+        "userId": "10001",
+        "remarkName": "10001"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "delRemarkName": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/remarkname/delete",
+    "params": {
+      "delRemarkName": {
+        "groupId": "10001",
+        "userId": "10001"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "queryRemarkName": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/remarkname/query",
+    "params": {
+      "queryRemarkName": {
+        "groupId": "10001",
+        "userId": "10001"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "follow": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/member/follow",
+    "params": {
+      "follow": {
+        "groupId": "10001",
+        "userId": "10001",
+        "followUserIds": [
+          "10001"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "unfollow": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/member/unfollow",
+    "params": {
+      "follow": {
+        "groupId": "10001",
+        "userId": "10001",
+        "followUserIds": [
+          "10001"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "getFollowed": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/member/followed/get",
+    "params": {
+      "follow": {
+        "groupId": "10001",
+        "userId": "10001"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "pagingQueryGroups": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/group/query",
+    "params": {
+      "pagingQueryGroups": {
+        "order": 1,
+        "size": 10
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  },
+  "pagingQueryJoinedGroups": {
+    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
+    "url": "entrust/joined/group/query",
+    "params": {
+      "pagingQueryJoinedGroups": {
+        "userId": "10001",
+        "role": 1,
+        "order": 1,
+        "size": 10
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "成功返回"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "调用频率超限。"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} 参数为必传项"
+        }
+      }
+    }
+  }
+}

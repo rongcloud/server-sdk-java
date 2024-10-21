@@ -62,4 +62,37 @@ public class CheckMethod {
 
     public static final String SET = "set";
     public static final String BATCHSET = "batchset";
+
+    public static final String KICK_ALL = "kickAll";
+    public static final String TRANS_OWNER = "tansOwner";
+    public static final String IMPORT = "import";
+    public static final String QUERY_PROFILE= "queryProfile";
+    public static final String GROUP_MANAGER = "groupManager";
+    public static final String QUERY_GROUP_MANAGER = "queryGroupManager";
+    public static final String PAGING_QUERY_MEMBERS = "pagingQueryMembers";
+    public static final String QUERY_MEMBERS = "queryMembers";
+    public static final String SET_MEMBER = "setMember";
+    public static final String SET_REMARK_NAME = "setRemarkName";
+    public static final String DEL_REMARK_NAME = "delRemarkName";
+    public static final String QUERY_REMARK_NAME = "queryRemarkName";
+    public static final String FOLLOW = "follow";
+    public static final String UNFOLLOW = "unfollow";
+    public static final String GET_FOLLOWED = "getFollowed";
+    public static final String PAGING_QUERY_GROUPS = "pagingQueryGroups";
+    public static final String PAGING_QUERY_JOINED_GROUPS = "pagingQueryJoinedGroups";
+
+
+    public static final String ADD_FRIEND = "addFriend";
+    public static final String DEL_FRIEND = "delFriend";
+    public static final String CLEAN_FRIEND = "cleanFriend";
+    public static final String SET_FRIEND_PROFILE = "setFriendProfile";
+    public static final String PAGING_GET_FRIENDS = "pagingGetFriends";
+    public static final String CHECK_FRIENDS = "checkFriends";
+    public static final String SET_PERM = "setPerm";
+    public static final String GET_PERM = "getPerm";
+
+    public static final String SET_USER_PROFILE = "setUserProfile";
+    public static final String BATCH_QUERY_USER_PROFILES = "batchQueryUserProfiles";
+    public static final String CLEAN_PROFILE = "cleanProfile";
+    public static final String PAGING_QUERY_USER_PROFILES = "pagingQueryUserProfiles";
 }
