@@ -287,7 +287,7 @@ func TestRongCloud_GroupMuteAllMembersList(t *testing.T) {
 		[]string{
 			"group01",
 			"group02",
-		})
+		}, 0, 0)
 	t.Log(err)
 	t.Log(group)
 }

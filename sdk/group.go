@@ -720,18 +720,27 @@ func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 
 // GroupMuteAllMembersGetList 查询全部群组禁言列表
 /*
-*@param  id:群组ID。
+*@param  groupIds:群组 ID。单次可查询指定单个或多个群组，单次查询最多不超过 20 个群组。
+*@param  page:页数。此参数传递后，groupId 参数无效。 groupId 参数不传递时，默认为 1
+*@param  size:每页数量。此参数传递后，groupId 参数无效。 groupId 参数不传递时，默认为 50，最大为 200。
 *
 *@return Group error
  */
-func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, error) {
+func (rc *RongCloud) GroupMuteAllMembersGetList(groupIds []string, page int, size int) (GroupInfo, error) {
 	req := httplib.Post(rc.rongCloudURI + "/group/ban/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-	if len(members) > 0 {
-		for _, item := range members {
+	if len(groupIds) > 0 {
+		for _, item := range groupIds {
 			req.Param("groupId", item)
 		}
+	}
+
+	if page > 0 {
+		req.Param("page", strconv.Itoa(page))
+	}
+	if size > 0 {
+		req.Param("size", strconv.Itoa(size))
 	}
 
 	resp, err := rc.do(req)
