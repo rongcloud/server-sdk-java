@@ -16,6 +16,11 @@ type Group struct {
 	Stat  string      `json:"stat"`
 }
 
+type GroupForQuery struct {
+	ID   string `json:"groupId"`
+	Stat int    `json:"stat"`
+}
+
 // GroupUser 群组用户信息
 type GroupUser struct {
 	ID     string `json:"id"`
@@ -25,7 +30,7 @@ type GroupUser struct {
 
 // GroupInfo 群组信息
 type GroupInfo struct {
-	GroupInfo []Group `json:"groupinfo"`
+	GroupInfo []GroupForQuery `json:"groupinfo"`
 }
 
 type GroupRemarksGetObj struct {
@@ -37,12 +42,12 @@ type GroupRemarksGetObj struct {
 }
 
 // GroupRemarksGetResObj :/group/remarks/get.json 查询群成员推送备注名
-//*
+// *
 // @param : userId : 群成员用户 ID
 // @param : groupId : 群ID
 // response : byte数组
 // 文档： https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
-//*/
+// */
 func (rc *RongCloud) GroupRemarksGetResObj(userId string, groupId string) (GroupRemarksGetObj, error) {
 	var (
 		result = GroupRemarksGetObj{}
@@ -69,12 +74,12 @@ func (rc *RongCloud) GroupRemarksGetResObj(userId string, groupId string) (Group
 }
 
 // GroupRemarksGet :/group/remarks/get.json 查询群成员推送备注名
-//*
+// *
 // @param : userId : 群成员用户 ID
 // @param : groupId : 群ID
 // response : byte数组
 // 文档： https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
-//*/
+// */
 func (rc *RongCloud) GroupRemarksGet(userId string, groupId string) ([]byte, error) {
 	if len(userId) == 0 {
 		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
@@ -95,12 +100,11 @@ func (rc *RongCloud) GroupRemarksGet(userId string, groupId string) ([]byte, err
 }
 
 // GroupRemarksDel :/group/remarks/del.json 删除群成员推送备注名
-//*
+// *
 // @param : userId : 群成员用户 ID
 // @param : groupId : 群ID
 //
-//
-//*/
+// */
 func (rc *RongCloud) GroupRemarksDel(userId string, groupId string) error {
 	if len(userId) == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -121,12 +125,12 @@ func (rc *RongCloud) GroupRemarksDel(userId string, groupId string) error {
 }
 
 // GroupRemarksSet :/group/remarks/set.json 设置指定群成员推送备注
-//*
+// *
 // @param : userId : 群成员用户ID
 // @param : groupId : 群ID
 // @param : remark : 群成员推送备注
 //
-//*/
+// */
 func (rc *RongCloud) GroupRemarksSet(userId string, groupId string, remark string) error {
 	if len(userId) == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -151,11 +155,11 @@ func (rc *RongCloud) GroupRemarksSet(userId string, groupId string, remark strin
 }
 
 // GroupUserGagAdd : 添加禁言成员 /group/user/gag/add.json
-//*
+// *
 // @param userId:用户 ID，每次添加最多不超过 20 个用户。
 // @param groupId: 群组 ID，为空时则设置用户在加入的所有群组中都不能发送消息。
 // @param minute : // 禁言时长，以分钟为单位，最大值为 43200 分钟，为 0 表示永久禁言。
-//*/
+// */
 func (rc *RongCloud) GroupUserGagAdd(userId string, groupId string, minute string) error {
 	if len(userId) == 0 {
 		return RCErrorNew(1002, "Paramer 'userId' is required")
@@ -196,11 +200,11 @@ type GroupUserQueryGroup struct {
 }
 
 // GroupUserQueryResObj : 根据用户 ID 查询该用户加入的所有群组，返回群组 ID 及群组名称。
-//*
+// *
 // @param  userId:用户 ID
 // response: GroupUserQueryObj
 // 文档： https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
-//*/
+// */
 func (rc *RongCloud) GroupUserQueryResObj(userId string) (GroupUserQueryObj, error) {
 	var (
 		result = GroupUserQueryObj{}
@@ -224,10 +228,10 @@ func (rc *RongCloud) GroupUserQueryResObj(userId string) (GroupUserQueryObj, err
 }
 
 // GroupUserQuery : 根据用户 ID 查询该用户加入的所有群组，返回群组 ID 及群组名称。
-//*
+// *
 // @param  userId:用户 ID
 // 文档 ： https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
-//*/
+// */
 func (rc *RongCloud) GroupUserQuery(userId string) ([]byte, error) {
 	if len(userId) == 0 {
 		return nil, RCErrorNew(1002, "Paramer 'userId' is required")
@@ -716,19 +720,27 @@ func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 
 // GroupMuteAllMembersGetList 查询全部群组禁言列表
 /*
-*@param  id:群组ID。
+*@param  groupIds:群组 ID。单次可查询指定单个或多个群组，单次查询最多不超过 20 个群组。
+*@param  page:页数。此参数传递后，groupId 参数无效。 groupId 参数不传递时，默认为 1
+*@param  size:每页数量。此参数传递后，groupId 参数无效。 groupId 参数不传递时，默认为 50，最大为 200。
 *
 *@return Group error
  */
-func (rc *RongCloud) GroupMuteAllMembersGetList(members []string) (GroupInfo, error) {
-
+func (rc *RongCloud) GroupMuteAllMembersGetList(groupIds []string, page int, size int) (GroupInfo, error) {
 	req := httplib.Post(rc.rongCloudURI + "/group/ban/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
-	if len(members) > 0 {
-		for _, item := range members {
+	if len(groupIds) > 0 {
+		for _, item := range groupIds {
 			req.Param("groupId", item)
 		}
+	}
+
+	if page > 0 {
+		req.Param("page", strconv.Itoa(page))
+	}
+	if size > 0 {
+		req.Param("size", strconv.Itoa(size))
 	}
 
 	resp, err := rc.do(req)
