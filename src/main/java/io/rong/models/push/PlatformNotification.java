@@ -1,9 +1,9 @@
 package io.rong.models.push;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import io.rong.util.GsonUtil;
+
+import java.util.Map;
 
 /**
  * 设备中的推送内容。（非必传）
@@ -239,7 +239,19 @@ public class PlatformNotification {
         @SerializedName("collapse_key")
         private String collapseKey;
         // hw vivo
-        private String  category;
+        private String category;
+
+        /**
+         * version >= 3.6.1
+         * OPPO 通知栏消息提醒等级取值定义
+         * 1-通知栏
+         * 2-通知栏+锁屏
+         * 16-通知栏+锁屏+横幅+震动+铃声
+         * <p>
+         * 使用notify_level参数时，category参数必传
+         */
+        @SerializedName("notify_level")
+        private Integer notifyLevel;
 
         public String getChannelId() {
             return channelId;
@@ -315,6 +327,14 @@ public class PlatformNotification {
 
         public void setCategory(String category) {
             this.category = category;
+        }
+
+        public Integer getNotifyLevel() {
+            return notifyLevel;
+        }
+
+        public void setNotifyLevel(Integer notifyLevel) {
+            this.notifyLevel = notifyLevel;
         }
     }
 

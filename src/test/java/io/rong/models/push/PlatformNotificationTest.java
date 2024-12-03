@@ -21,5 +21,7 @@ public class PlatformNotificationTest {
         platform.setLargeIconUri("large_icon_uri");
         platformNotification.setHw(platform);
         Assert.assertEquals("{\"thread-id\":\"thread-id\",\"interruption-level\":\"passive\",\"hw\":{\"large_icon_uri\":\"large_icon_uri\",\"collapse_key\":\"collapse_key\",\"category\":\"test\"}}", GsonUtil.toJson(platformNotification));
+        platform.setNotifyLevel(1);
+        Assert.assertTrue( GsonUtil.toJson(platformNotification).contains("\"notify_level\":1"));
     }
 }
