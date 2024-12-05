@@ -349,7 +349,9 @@ public class MessageExample {
                 .setIsPersisted(0)
                 .setIsCounted(0)
                 .setIsIncludeSender(0)
-                .setContentAvailable(0);
+                .setContentAvailable(0)
+                .setExpansion(true)
+                .setExtraContent(new HashMap<String, String>());
         ResponseResult mentionResult = rongCloud.message.group.sendMention(mentionMessage);
 
         System.out.println("group mention result:  " + mentionResult.toString());

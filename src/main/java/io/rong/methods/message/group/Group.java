@@ -193,6 +193,12 @@ public class Group {
         if (message.getContentAvailable() != null) {
             sb.append("&contentAvailable=").append(URLEncoder.encode(message.getContentAvailable().toString(), UTF8));
         }
+        if (message.getExpansion() != null) {
+            sb.append("&expansion=").append(URLEncoder.encode(message.getExpansion().toString(), UTF8));
+            if (message.getExtraContent() != null) {
+                sb.append("&extraContent=").append(URLEncoder.encode(JSON.toJSONString(message.getExtraContent()), UTF8));
+            }
+        }
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }

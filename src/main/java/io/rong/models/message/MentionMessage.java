@@ -3,7 +3,9 @@ package io.rong.models.message;
 import io.rong.util.GsonUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author rongcloud
@@ -28,6 +30,15 @@ public class MentionMessage {
     public Integer isIncludeSender;
     private Integer contentAvailable;
     private Long msgRandom;
+    /**
+     * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
+     */
+    public Boolean expansion;
+
+    /**
+     * 扩展消息内容，expansion 为true 的时候生效
+     */
+    public Map<String, String> extraContent;
 
     public MentionMessage() {
     }
@@ -183,6 +194,24 @@ public class MentionMessage {
 
     public MentionMessage setMsgRandom(Long msgRandom) {
         this.msgRandom = msgRandom;
+        return this;
+    }
+
+    public Boolean getExpansion() {
+        return expansion;
+    }
+
+    public MentionMessage setExpansion(Boolean expansion) {
+        this.expansion = expansion;
+        return this;
+    }
+
+    public Map<String, String> getExtraContent() {
+        return extraContent;
+    }
+
+    public MentionMessage setExtraContent(Map<String, String> extraContent) {
+        this.extraContent = extraContent;
         return this;
     }
 }
