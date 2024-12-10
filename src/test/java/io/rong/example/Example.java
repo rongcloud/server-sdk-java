@@ -63,6 +63,16 @@ public class Example {
          * */
     }
 
+
+    /**
+     * 分页查询用户白名单
+     */
+    @Test
+    public void testPagingQueryWhitelist() throws Exception {
+        PagingQueryWhitelistResult result = rongCloud.user.whiteList.pagingQueryWhitelist("WW_0", "CBc=", 10);
+        System.out.println("testPagingQueryWhitelist:  " + result.toString());
+    }
+
     /**
      * 检查用户在线状态 方法
      */

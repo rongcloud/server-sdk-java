@@ -4,6 +4,7 @@ import io.rong.RongCloud;
 import io.rong.methods.user.blacklist.Blacklist;
 import io.rong.models.Result;
 import io.rong.models.response.BlackListResult;
+import io.rong.models.response.PagingQueryBlacklistResult;
 import io.rong.models.user.UserModel;
 
 /**
@@ -29,7 +30,7 @@ public class BlackListExample {
         //自定义 api 地址方式
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
-        Blacklist BlackList = rongCloud.user.blackList;
+        Blacklist balackList = rongCloud.user.blackList;
 
         /**
          *
@@ -43,7 +44,7 @@ public class BlackListExample {
                 .setBlacklist(blacklist);
 
 
-        Result userAddBlacklistResult = (Result)BlackList.add(user);
+        Result userAddBlacklistResult = balackList.add(user);
         System.out.println("addBlacklist:  " + userAddBlacklistResult.toString());
 
         /**
@@ -53,15 +54,22 @@ public class BlackListExample {
          */
         UserModel user2 = new UserModel().setId("hdsjGB89");
 
-        BlackListResult result = BlackList.getList(user2);
+        BlackListResult result = balackList.getList(user2);
         System.out.println("query blacklist:  " + result.toString());
+
+
+        /**
+         *  分页查询用户黑名单
+         */
+        PagingQueryBlacklistResult pagingQueryBlacklistResult = balackList.pagingQueryBlacklist("BB_0", "", 20);
+        System.out.println("pagingQueryBlacklist:  " + pagingQueryBlacklistResult.toString());
 
         /**
          *
          * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * 从黑名单中移除用户方法
          */
-        Result removeResult = BlackList.remove(user);
+        Result removeResult = balackList.remove(user);
         System.out.println("remove blacklist:  " + removeResult.toString());
 
     }

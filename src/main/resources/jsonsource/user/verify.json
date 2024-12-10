@@ -64,7 +64,7 @@
       }
     }
   },
-  "reactivate":{
+  "reactivate": {
     "_self": {
       "require": {
         "must": true,
@@ -194,7 +194,7 @@
       }
     }
   },
-  "expire":{
+  "expire": {
     "_self": {
       "require": {
         "must": true,
@@ -226,7 +226,7 @@
       }
     }
   },
-  "unpush":{
+  "unpush": {
     "_self": {
       "require": {
         "must": true,
@@ -267,7 +267,6 @@
         "invalid": "1501"
       }
     },
-
     "userId": {
       "require": {
         "must": true,
@@ -301,7 +300,7 @@
       }
     }
   },
-  "getList":{
+  "getList": {
     "_self": {
       "require": {
         "must": true,
@@ -321,6 +320,22 @@
         "max": 64,
         "min": 1,
         "invalid": "1005"
+      }
+    }
+  },
+  "pagingQueryBlacklist": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
+      }
+    }
+  },
+  "pagingQueryWhitelist": {
+    "userId": {
+      "require": {
+        "must": true,
+        "invalid": "20005"
       }
     }
   }

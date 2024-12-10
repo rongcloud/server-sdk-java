@@ -1,7 +1,9 @@
 package io.rong.methods.user.blacklist;
 
 import io.rong.RongCloud;
+import io.rong.methods.BaseMethod;
 import io.rong.models.response.BlackListResult;
+import io.rong.models.response.PagingQueryBlacklistResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Result;
 import io.rong.models.CheckMethod;
@@ -20,13 +22,10 @@ import java.net.URLEncoder;
  * @author RongCloud
  * @version
  * */
-public class Blacklist {
+public class Blacklist extends BaseMethod {
 
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "user/blacklist";
-    private String appKey;
-    private String appSecret;
-    private RongCloud rongCloud;
 
     public RongCloud getRongCloud() {
         return rongCloud;
@@ -34,11 +33,17 @@ public class Blacklist {
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
+
+    @Override
+    protected void initPath() {
+        super.path = PATH;
+    }
+
     public Blacklist(String appKey, String appSecret,RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
         this.rongCloud = rongCloud;
-
+        initPath();
     }
 
     /**
@@ -96,6 +101,20 @@ public class Blacklist {
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
         return (BlackListResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn, rongCloud.getConfig())), BlackListResult.class);
+    }
+
+    public PagingQueryBlacklistResult pagingQueryBlacklist(String userId, String pageToken, Integer size) throws Exception {
+        String method = CheckMethod.PAGING_QUERY_BLACKLIST;
+        PagingQueryBlacklistResult result = checkParam("userId", userId, method, PagingQueryBlacklistResult.class);
+        if (result != null) {
+            return result;
+        }
+        StringBuilder sb = new StringBuilder();
+        addFormParam(sb, "userId=", userId);
+        addFormParam(sb, "&pageToken=", pageToken);
+        addFormParam(sb, "&size=", size);
+        String body = sb.toString();
+        return doRequest("/user/blacklist/query.json", body, method, PagingQueryBlacklistResult.class);
     }
 
     /**

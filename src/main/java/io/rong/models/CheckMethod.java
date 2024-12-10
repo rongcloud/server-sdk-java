@@ -95,4 +95,6 @@ public class CheckMethod {
     public static final String BATCH_QUERY_USER_PROFILES = "batchQueryUserProfiles";
     public static final String CLEAN_PROFILE = "cleanProfile";
     public static final String PAGING_QUERY_USER_PROFILES = "pagingQueryUserProfiles";
+    public static final String PAGING_QUERY_BLACKLIST = "pagingQueryBlacklist";
+    public static final String PAGING_QUERY_WHITELIST = "pagingQueryWhitelist";
 }
