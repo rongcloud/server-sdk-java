@@ -47,8 +47,8 @@ public class MentionMessageContent {
 			if (mentionedInfo != null) {
 				JSONObject mention = new JSONObject();
 				mention.put("type", mentionedInfo.getType());
-				mention.put("userIdList", mentionedInfo.getUserIds());
-				mention.put("mentionedContent", mentionedInfo.getPushContent());
+				mention.put("userIdList", mentionedInfo.getUserIdList());
+				mention.put("mentionedContent", mentionedInfo.getMentionedContent());
 				
 				atMessage.put("mentionedInfo", mention);
 			}

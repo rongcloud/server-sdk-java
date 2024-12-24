@@ -6,13 +6,13 @@ package io.rong.models.message;
  */
 public class MentionedInfo {
     private int type;
-    private String[] userIds;
-    private String pushContent;
+    private String[] userIdList;
+    private String mentionedContent;
 
-    public MentionedInfo(int type, String[] userIds, String pushContent) {
+    public MentionedInfo(int type, String[] userIds, String mentionedContent) {
         this.type = type;
-        this.userIds = userIds;
-        this.pushContent = pushContent;
+        this.userIdList = userIds;
+        this.mentionedContent = mentionedContent;
     }
 
     public int getType() {
@@ -23,19 +23,19 @@ public class MentionedInfo {
         this.type = type;
     }
 
-    public String[] getUserIds() {
-        return this.userIds;
+    public String[] getUserIdList() {
+        return this.userIdList;
     }
 
-    public void setUserIds(String[] userIds) {
-        this.userIds = userIds;
+    public void setUserIdList(String[] userIdList) {
+        this.userIdList = userIdList;
     }
 
-    public String getPushContent() {
-        return this.pushContent;
+    public String getMentionedContent() {
+        return this.mentionedContent;
     }
 
-    public void setPushContent(String pushContent) {
-        this.pushContent = pushContent;
+    public void setMentionedContent(String mentionedContent) {
+        this.mentionedContent = mentionedContent;
     }
 }

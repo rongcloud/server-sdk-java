@@ -546,5 +546,14 @@ public class MessageExample {
          * */
         ResponseResult send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup message:  " + send.toString());
+
+
+        /**
+         * 发送超级群 @ 消息
+         * */
+        ultraGroupMessage.setIsMentioned(1);
+        txtMessage.setMentionedInfo(new MentionedInfo(2, new String[]{"user1"}, "有人 @ 你"));
+        send = ultraGroup.send(ultraGroupMessage);
+        System.out.println("send ultragroup mentioned message:  " + send.toString());
     }
 }
