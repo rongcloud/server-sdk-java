@@ -99,7 +99,7 @@ public class MessageExample {
                 .setIsCounted(0)
                 .setMsgRandom(System.currentTimeMillis())
                 .setContentAvailable(0);
-
+        systemMessage.setDisableUpdateLastMsg(true);
         ResponseResult result = system.send(systemMessage);
         System.out.println("send system message:  " + result.toString());
 
@@ -179,6 +179,7 @@ public class MessageExample {
                 .setIsPersisted(0)
                 .setIsCounted(0)
                 .setIsIncludeSender(0);
+        privateMessage.setDisableUpdateLastMsg(true);
         ResponseResult privateResult = Private.send(privateMessage);
         System.out.println("send private getReqBody:  " + privateResult.getReqBody());
         System.out.println("send private message:  " + privateResult.toString());
@@ -287,6 +288,7 @@ public class MessageExample {
                 .setIsPersisted(0)
                 .setIsIncludeSender(0)
                 .setContentAvailable(0);
+        groupMessage.setDisableUpdateLastMsg(true);
         ResponseResult groupResult = group.send(groupMessage);
 
         System.out.println("send Group message:  " + groupResult.toString());
@@ -459,7 +461,8 @@ public class MessageExample {
                 .setSenderId("1")
                 .setTargetId("15222258878654823358")
                 .setuId("5GSB-RPM1-KP8H-9JHF")
-                .setSentTime("1522242030641");
+                .setSentTime("1522242030641")
+                .setDisableUpdateLastMsg(true);
         ResponseResult recallChatroomResult = (ResponseResult) chatroom.recall(recallMessage);
 
         System.out.println("recall chatroom message:  " + recallChatroomResult.toString());

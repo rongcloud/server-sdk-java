@@ -159,6 +159,11 @@ public class UltraGroup {
         if (message.getBusChannel() != null) {
             sb.append("&busChannel=").append(URLEncoder.encode(message.getBusChannel().toString(), UTF8));
         }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

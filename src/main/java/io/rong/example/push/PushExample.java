@@ -51,6 +51,7 @@ public class PushExample {
         Message message = new Message();
         message.setContent("this is message");
         message.setObjectName("RC:TxtMsg");
+        message.setDisableUpdateLastMsg(true);
         broadcast.setMessage(message);
         Notification notification = new Notification();
         notification.setAlert("this is broadcast");

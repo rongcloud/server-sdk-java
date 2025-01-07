@@ -108,6 +108,11 @@ public class MsgSystem {
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -160,6 +165,10 @@ public class MsgSystem {
         }
         if (message.getExtra() != null) {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
 
         String body = sb.toString();
@@ -216,6 +225,7 @@ public class MsgSystem {
         templateMessage.setPushData(template.getPushData());
         templateMessage.setPushExt(template.getPushExt());
         templateMessage.setContentAvailable(template.getContentAvailable());
+        templateMessage.setDisableUpdateLastMsg(template.getDisableUpdateLastMsg());
         if (template.getMsgRandom() != null){
             templateMessage.setMsgRandom(template.getMsgRandom());
         }
@@ -282,6 +292,10 @@ public class MsgSystem {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
 
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -326,6 +340,11 @@ public class MsgSystem {
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -373,6 +392,10 @@ public class MsgSystem {
         }
         if (message.getExtra() != null) {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
 
         String body = sb.toString();

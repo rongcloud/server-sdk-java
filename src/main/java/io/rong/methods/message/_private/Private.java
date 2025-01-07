@@ -127,6 +127,11 @@ public class Private {
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
+
+        if(message.getDisableUpdateLastMsg() != null){
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -183,6 +188,7 @@ public class Private {
         templateMessage.setPushExt(message.getPushExt());
         templateMessage.setVerifyBlacklist(message.getVerifyBlacklist());
         templateMessage.setContentAvailable(message.getContentAvailable());
+        templateMessage.setDisableUpdateLastMsg(message.getDisableUpdateLastMsg());
         if (message.getDisablePush() != null) {
             templateMessage.setDisablePush(message.getDisablePush());
         }
@@ -237,6 +243,10 @@ public class Private {
         }
         if (message.getExtra() != null) {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
+        }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
 
         String body = sb.toString();

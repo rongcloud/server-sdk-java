@@ -110,6 +110,10 @@ public class Group {
             }
         }
 
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
@@ -202,6 +206,11 @@ public class Group {
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -290,6 +299,11 @@ public class Group {
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -339,6 +353,11 @@ public class Group {
         if (message.getExtra() != null) {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
         }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());

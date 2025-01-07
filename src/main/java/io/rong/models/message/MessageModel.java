@@ -1,11 +1,8 @@
 package io.rong.models.message;
 
-import com.google.gson.Gson;
 import io.rong.util.GsonUtil;
 import io.rong.messages.BaseMessage;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 发送消息的消息体
@@ -49,6 +46,13 @@ public class MessageModel {
      * msgRandom 标识重复，则返回错误码提示，超过 1 分钟后，服务端不再进行幂等性处理，但融云 SDK 仍然会做幂等性的保障处理。
      */
     private Long msgRandom;
+
+    /**
+     * 禁止更新会话最后一条消息。 当该参数为 false 时，发送的该条消息都会进入会话列表; 为 true 时，不会更新到会话列表的消息内容。
+     * 注：此参数仅对存储在客户端的消息有效。
+     */
+    private Boolean disableUpdateLastMsg;
+
 
     public MessageModel() {
     }
@@ -160,6 +164,15 @@ public class MessageModel {
 
     public MessageModel setMsgRandom(Long msgRandom) {
         this.msgRandom = msgRandom;
+        return this;
+    }
+
+    public Boolean getDisableUpdateLastMsg() {
+        return disableUpdateLastMsg;
+    }
+
+    public MessageModel setDisableUpdateLastMsg(Boolean disableUpdateLastMsg) {
+        this.disableUpdateLastMsg = disableUpdateLastMsg;
         return this;
     }
 }

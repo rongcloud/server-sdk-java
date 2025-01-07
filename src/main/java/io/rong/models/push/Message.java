@@ -17,6 +17,13 @@ public class Message {
      */
     private String objectName;
 
+    /**
+     * 禁止更新会话最后一条消息。 当该参数为 false 时，发送的该条消息都会进入会话列表; 为 true 时，不会更新到会话列表的消息内容。
+     * 注：此参数仅对存储在客户端的消息有效。
+     */
+    private Boolean disableUpdateLastMsg;
+
+
     public String getContent() {
         return content;
     }
@@ -31,6 +38,16 @@ public class Message {
 
     public void setObjectName(String objectName) {
         this.objectName = objectName;
+    }
+
+
+    public Boolean getDisableUpdateLastMsg() {
+        return disableUpdateLastMsg;
+    }
+
+    public Message setDisableUpdateLastMsg(Boolean disableUpdateLastMsg) {
+        this.disableUpdateLastMsg = disableUpdateLastMsg;
+        return this;
     }
 
     @Override

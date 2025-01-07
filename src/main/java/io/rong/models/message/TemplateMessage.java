@@ -40,6 +40,14 @@ public class TemplateMessage {
      * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
      */
     public Boolean disablePush;
+
+
+    /**
+     * 禁止更新会话最后一条消息。 当该参数为 false 时，发送的该条消息都会进入会话列表; 为 true 时，不会更新到会话列表的消息内容。
+     * 注：此参数仅对存储在客户端的消息有效。
+     */
+    private Boolean disableUpdateLastMsg;
+
     /**
      * 获取senderId
      * @return String
@@ -185,5 +193,14 @@ public class TemplateMessage {
 
     public void setMsgRandom(Long msgRandom) {
         this.msgRandom = msgRandom;
+    }
+
+    public Boolean getDisableUpdateLastMsg() {
+        return disableUpdateLastMsg;
+    }
+
+    public TemplateMessage setDisableUpdateLastMsg(Boolean disableUpdateLastMsg) {
+        this.disableUpdateLastMsg = disableUpdateLastMsg;
+        return this;
     }
 }
