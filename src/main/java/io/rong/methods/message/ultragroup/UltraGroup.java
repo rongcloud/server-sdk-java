@@ -108,6 +108,11 @@ public class UltraGroup {
         if (message.getMsgRandom() != null){
             params.put("msgRandom", message.getMsgRandom());
         }
+
+        if(message.getDisableUpdateLastMsg() != null) {
+            params.put("disableUpdateLastMsg", message.getDisableUpdateLastMsg());
+        }
+
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/message/ultragroup/publish.json", "application/json");
         HttpUtil.setBodyParameter(GsonUtil.toJson(params), conn, rongCloud.getConfig());
 
@@ -158,10 +163,6 @@ public class UltraGroup {
         }
         if (message.getBusChannel() != null) {
             sb.append("&busChannel=").append(URLEncoder.encode(message.getBusChannel().toString(), UTF8));
-        }
-
-        if(message.getDisableUpdateLastMsg() != null) {
-            sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
 
         String body = sb.toString();
