@@ -231,7 +231,9 @@ public class Private {
         sb.append("&fromUserId=").append(URLEncoder.encode(message.senderId.toString(), UTF8));
         sb.append("&targetId=").append(URLEncoder.encode(message.targetId.toString(), UTF8));
         sb.append("&messageUID=").append(URLEncoder.encode(message.uId.toString(), UTF8));
-        sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+        if(message.sentTime  != null){
+            sb.append("&sentTime=").append(URLEncoder.encode(message.sentTime.toString(), UTF8));
+        }
 		if (message.getDisablePush() != null) {
 			sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
 		}

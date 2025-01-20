@@ -6,9 +6,8 @@
 
     <groupId>cn.rongcloud.im</groupId>
     <artifactId>server-sdk-java</artifactId>
-    <version>3.6.4</version>
+    <version>3.6.5</version>
     <packaging>jar</packaging>
-
     <name>RongCloud IM Server SDK</name>
     <description>
         For improving the efficiency of developers,RongCloud provides an open source IM Server SDK officially.

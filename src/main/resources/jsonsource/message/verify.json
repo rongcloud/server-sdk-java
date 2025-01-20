@@ -341,12 +341,6 @@
         "must": true,
         "invalid": "20005"
       }
-    },
-    "sentTime": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      }
     }
   },
   "recallBroadcastMessage": {
@@ -372,12 +366,6 @@
       }
     },
     "uId": {
-      "require": {
-        "must": true,
-        "invalid": "20005"
-      }
-    },
-    "sentTime": {
       "require": {
         "must": true,
         "invalid": "20005"

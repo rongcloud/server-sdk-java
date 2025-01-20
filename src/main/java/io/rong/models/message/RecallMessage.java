@@ -15,7 +15,7 @@ public class RecallMessage {
      */
     public String uId;
     /**
-     * 消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime
+     * 消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime（可选）。
      */
     public String sentTime;
 
