@@ -17,6 +17,7 @@ public class MentionMessage {
      * 接收群 Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
      */
     public String[] targetId;
+    public String[] toUserId;
     public String objectName;
     /**
      * 消息 内容
@@ -34,6 +35,11 @@ public class MentionMessage {
      * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
      */
     public Boolean expansion;
+
+    /**
+     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒。仅当 toGroupId 传入单个群组 ID 时有效
+     */
+    public Boolean disablePush;
 
     /**
      * 扩展消息内容，expansion 为true 的时候生效
@@ -228,6 +234,24 @@ public class MentionMessage {
 
     public MentionMessage setDisableUpdateLastMsg(Boolean disableUpdateLastMsg) {
         this.disableUpdateLastMsg = disableUpdateLastMsg;
+        return this;
+    }
+
+    public String[] getToUserId() {
+        return toUserId;
+    }
+
+    public MentionMessage setToUserId(String[] toUserId) {
+        this.toUserId = toUserId;
+        return this;
+    }
+
+    public Boolean getDisablePush() {
+        return disablePush;
+    }
+
+    public MentionMessage setDisablePush(Boolean disablePush) {
+        this.disablePush = disablePush;
         return this;
     }
 }

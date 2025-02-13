@@ -310,6 +310,7 @@ public class MessageExample {
                 .setPushExt(pe)
                 .setIsPersisted(0)
                 .setIsIncludeSender(0)
+                .setIsMentioned(0)
                 .setContentAvailable(0);
         ResponseResult groupDirectionResult = group.sendDirection(groupDirectionMessage);
 
@@ -353,7 +354,9 @@ public class MessageExample {
                 .setIsIncludeSender(0)
                 .setContentAvailable(0)
                 .setExpansion(true)
-                .setExtraContent(new HashMap<String, String>());
+                .setExtraContent(new HashMap<String, String>())
+                .setToUserId(new String[]{"jf8yVWgZO"})
+                ;
         ResponseResult mentionResult = rongCloud.message.group.sendMention(mentionMessage);
 
         System.out.println("group mention result:  " + mentionResult.toString());
