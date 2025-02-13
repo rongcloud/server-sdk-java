@@ -117,6 +117,20 @@ public class Group {
         if (message.getMsgRandom() != null){
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
+
+        if(message.getIsMentioned() != null){
+            sb.append("&isMentioned=").append(message.getIsMentioned());
+        }
+
+        if(message.getToUserId() != null && message.getToUserId().length > 0){
+            for (int i = 0; i < message.getToUserId().length; i++) {
+                String toId = message.getToUserId()[i];
+                if (null != toId) {
+                    sb.append("&toUserId=").append(URLEncoder.encode(toId, UTF8));
+                }
+            }
+        }
+
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -151,11 +165,11 @@ public class Group {
         if (null != code) {
             return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
-        if (null == message.getContent().getMentionedInfo()) {
-            return new MessageResult(1002, "mentionedInfo 参数为必传项");
-        }
         if (null == message.getContent().getContent()) {
             return new MessageResult(1002, "MentionMessageContent.content 参数为必传项");
+        }
+        if (null == message.getContent().getContent().getMentionedInfo()) {
+            return new MessageResult(1002, "mentionedInfo 参数为必传项");
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -163,6 +177,15 @@ public class Group {
         for (int i = 0; i < groupIds.length; i++) {
             String child = groupIds[i];
             sb.append("&toGroupId=").append(URLEncoder.encode(child, UTF8));
+        }
+
+        if(message.getToUserId() != null && message.getToUserId().length > 0){
+            for (int i = 0; i < message.getToUserId().length; i++) {
+                String toId = message.getToUserId()[i];
+                if (null != toId) {
+                    sb.append("&toUserId=").append(URLEncoder.encode(toId, UTF8));
+                }
+            }
         }
 
         sb.append("&objectName=").append(URLEncoder.encode(message.getContent().getContent().getType(), UTF8));
@@ -302,6 +325,10 @@ public class Group {
 
         if(message.getDisableUpdateLastMsg() != null) {
             sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
+        if(message.getIsMentioned() != null){
+            sb.append("&isMentioned=").append(message.getIsMentioned());
         }
 
         String body = sb.toString();

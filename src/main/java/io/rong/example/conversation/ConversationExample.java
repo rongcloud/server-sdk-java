@@ -2,6 +2,7 @@ package io.rong.example.conversation;
 
 import io.rong.RongCloud;
 import io.rong.methods.conversation.Conversation;
+import io.rong.models.conversation.ConversationSetTopModel;
 import io.rong.models.response.ConversationNotificationResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.conversation.ConversationModel;
@@ -69,5 +70,19 @@ public class ConversationExample {
         ConversationNotificationResult getMuteConversationResult = (ConversationNotificationResult)Conversation.get(conversation);
 
         System.out.println("getMuteConversationResult:  " + getMuteConversationResult.toString());
+
+
+
+        /**
+         * API Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Set conversation top.
+         */
+        ConversationSetTopModel setTopModel = new ConversationSetTopModel()
+                .setSetTop(true)
+                .setConversationType(1)
+                .setTargetId("tid")
+                .setUserId("uid");
+        ResponseResult result = Conversation.setTop(setTopModel);
+        System.out.println("setTop:  " + result.toString());
     }
 }

@@ -1,8 +1,9 @@
 package io.rong.methods.conversation;
 
-import io.rong.RongCloud;
+import io.rong.methods.BaseMethod;
 import io.rong.models.*;
 import io.rong.models.conversation.ConversationModel;
+import io.rong.models.conversation.ConversationSetTopModel;
 import io.rong.models.response.ConversationNotificationResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
@@ -18,26 +19,20 @@ import java.net.URLEncoder;
  *
  * @version
  * */
-public class Conversation {
+public class Conversation  extends BaseMethod {
 
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "conversation";
-    private static String method = "";
-    private String appKey;
-    private String appSecret;
-    private RongCloud rongCloud;
 
-    public RongCloud getRongCloud() {
-        return rongCloud;
+    @Override
+    protected void initPath() {
+        super.path = PATH;
     }
 
-    public void setRongCloud(RongCloud rongCloud) {
-        this.rongCloud = rongCloud;
-    }
     public Conversation(String appKey, String appSecret) {
         this.appKey = appKey;
         this.appSecret = appSecret;
-
+        initPath();
     }
     /**
      * 设置用户某会话接收新消息时是否进行消息提醒。
@@ -129,4 +124,26 @@ public class Conversation {
 
         return (ConversationNotificationResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GET,HttpUtil.returnResult(conn, rongCloud.getConfig())), ConversationNotificationResult.class);
     }
+
+
+    /**
+     * Set conversation top
+     */
+    public ResponseResult setTop(ConversationSetTopModel model) throws Exception {
+        String method = CheckMethod.SET_TOP;
+        ResponseResult result = checkFiled(model, method, ResponseResult.class);
+        if (result != null) {
+            return result;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        addFormParam(sb, "userId=", model.getUserId());
+        addFormParam(sb, "&conversationType=", model.getConversationType());
+        addFormParam(sb, "&targetId=", model.getTargetId());
+        addFormParam(sb, "&setTop=", model.getSetTop());
+        String body = sb.toString();
+
+        return doRequest("/conversation/top/set.json", body, method, ResponseResult.class);
+    }
+
 }

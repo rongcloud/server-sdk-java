@@ -48,6 +48,14 @@ public class GroupMessage extends MessageModel {
      */
     public HashMap<String, String> extraContent;
 
+    /**
+     * 是否为 @ 消息，不传时默认为非 @ 消息（效果等于传 0）。
+     * 如果需要发送 @ 消息，必须指定为 1，且必须在消息内容字段（content）内部携带 @ 相关信息（mentionedInfo，可参考下方请求示例）。
+     * 关于 mentionedInfo 结构的详细说明，参见如何发送 @ 消息。
+     */
+    public Integer isMentioned;
+
+
     public GroupMessage() {
     }
 
@@ -239,6 +247,15 @@ public class GroupMessage extends MessageModel {
     @Override
     public GroupMessage setMsgRandom(Long msgRandom) {
         super.setMsgRandom(msgRandom);
+        return this;
+    }
+
+    public Integer getIsMentioned() {
+        return isMentioned;
+    }
+
+    public GroupMessage setIsMentioned(Integer isMentioned) {
+        this.isMentioned = isMentioned;
         return this;
     }
 

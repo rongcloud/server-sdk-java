@@ -76,6 +76,7 @@ public class CheckMethod {
     public static final String DEL_REMARK_NAME = "delRemarkName";
     public static final String QUERY_REMARK_NAME = "queryRemarkName";
     public static final String FOLLOW = "follow";
+    public static final String SET_TOP = "setTop";
     public static final String UNFOLLOW = "unfollow";
     public static final String GET_FOLLOWED = "getFollowed";
     public static final String PAGING_QUERY_GROUPS = "pagingQueryGroups";
