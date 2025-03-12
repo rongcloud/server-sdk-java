@@ -9,6 +9,7 @@ func TestRongCloud_ChatUserExistResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	res, err := rc.ChatUserExistResObj(
 		"chrm01",
@@ -25,6 +26,7 @@ func TestRongCloud_ChatUserExist(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	res, err := rc.ChatUserExist(
 		"chrm01",
@@ -41,6 +43,7 @@ func TestRongCloud_ChatRoomCreate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomCreate(
 		"chrm01",
@@ -53,6 +56,7 @@ func TestRongCloud_ChatRoomGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomGet(
 		"chrm01",
@@ -67,6 +71,7 @@ func TestRongCloud_ChatRoomIsExist(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomIsExist(
 		"chrm01",
@@ -80,6 +85,7 @@ func TestRongCloud_ChatRoomDestroy(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomDestroy(
 		"chrm01",
@@ -91,6 +97,7 @@ func TestRongCloud_ChatRoomBanAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomBanAdd(
 		[]string{"u01"},
@@ -102,6 +109,7 @@ func TestRongCloud_ChatRoomBanGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomBanGetList()
 	t.Log(err)
@@ -112,6 +120,7 @@ func TestRongCloud_ChatRoomBanRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomBanRemove(
 		[]string{"u01"},
@@ -123,6 +132,7 @@ func TestRongCloud_ChatRoomBlockAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomBlockAdd(
 		"chrm01",
@@ -136,6 +146,7 @@ func TestRongCloud_ChatRoomBlockAddOptions(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomBlockAdd(
 		"chrm01",
@@ -151,6 +162,7 @@ func TestRongCloud_ChatRoomBlockGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomBlockGetList(
 		"chrm01",
@@ -163,6 +175,7 @@ func TestRongCloud_ChatRoomBlockRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomBlockRemove(
 		"chrm01",
@@ -175,6 +188,7 @@ func TestRongCloud_ChatRoomDemotionAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	txtmsg := "RC:TxtMsg"
 	err := rc.ChatRoomDemotionAdd(
@@ -189,6 +203,7 @@ func TestRongCloud_ChatRoomDemotionGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomDemotionGetList()
 	t.Log(err)
@@ -199,6 +214,7 @@ func TestRongCloud_ChatRoomDemotionRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	txtmsg := "RC:TxtMsg"
 	err := rc.ChatRoomDemotionRemove(
@@ -213,6 +229,7 @@ func TestRongCloud_ChatRoomDistributionStop(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomDistributionStop(
 		"chrm01",
@@ -224,6 +241,7 @@ func TestRongCloud_ChatRoomDistributionResume(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomDistributionResume(
 		"chrm01",
@@ -235,6 +253,7 @@ func TestRongCloud_ChatRoomGagAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomGagAdd(
 		"chrm01",
@@ -248,6 +267,7 @@ func TestRongCloud_ChatRoomGagGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomGagGetList(
 		"chrm01",
@@ -260,6 +280,7 @@ func TestRongCloud_ChatRoomGagRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomGagRemove(
 		"chrm01",
@@ -272,6 +293,7 @@ func TestRongCloud_ChatRoomKeepAliveAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomKeepAliveAdd(
 		"chrm01",
@@ -283,6 +305,7 @@ func TestRongCloud_ChatRoomKeepAliveGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomKeepAliveGetList()
 	t.Log(err)
@@ -293,6 +316,7 @@ func TestRongCloud_ChatRoomKeepAliveRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomKeepAliveRemove(
 		"chrm01",
@@ -304,6 +328,7 @@ func TestRongCloud_ChatRoomUserWhitelistAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.ChatRoomUserWhitelistAdd(
@@ -317,6 +342,7 @@ func TestRongCloud_ChatRoomUserWhitelistGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomUserWhitelistGetList(
 		"chrm01",
@@ -329,6 +355,7 @@ func TestRongCloud_ChatRoomUserWhitelistRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomUserWhitelistRemove(
 		"chrm01",
@@ -341,6 +368,7 @@ func TestRongCloud_ChatRoomWhitelistAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	txtmsg := "RC:TxtMsg"
 
@@ -354,6 +382,7 @@ func TestRongCloud_ChatRoomWhitelistGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomWhitelistGetList()
 	t.Log(err)
@@ -364,6 +393,7 @@ func TestRongCloud_ChatRoomWhitelistRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	txtmsg := "RC:TxtMsg"
 	err := rc.ChatRoomWhitelistRemove(
@@ -376,6 +406,7 @@ func TestRongCloud_ChatRoomMuteMembersAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomMuteMembersAdd(
 		"chrm01",
@@ -389,6 +420,7 @@ func TestRongCloud_ChatRoomMuteMembersGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.ChatRoomMuteMembersGetList(
 		"chrm01",
@@ -401,6 +433,7 @@ func TestRongCloud_ChatRoomMuteMembersRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomGagRemove(
 		"chrm01",
@@ -410,7 +443,7 @@ func TestRongCloud_ChatRoomMuteMembersRemove(t *testing.T) {
 }
 
 func TestRongCloud_ChatRoomEntrySet(t *testing.T) {
-	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"), REGION_BJ)
 
 	t.Logf("app key: %s; app secret: %s", os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
 
@@ -422,7 +455,7 @@ func TestRongCloud_ChatRoomEntrySet(t *testing.T) {
 }
 
 func TestRongCloud_ChatRoomEntryQuery(t *testing.T) {
-	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"), REGION_BJ)
 
 	if data, err := rc.ChatRoomEntryQuery("chrm01", "aaa"); err != nil {
 		t.Errorf("err: %v", err)
@@ -432,7 +465,7 @@ func TestRongCloud_ChatRoomEntryQuery(t *testing.T) {
 }
 
 func TestRongCloud_ChatRoomEntryRemove(t *testing.T) {
-	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"), REGION_BJ)
 
 	if err := rc.ChatRoomEntryRemove("chrm01", "abc", "aaa"); err != nil {
 		t.Errorf("failed to remove chatroom entry. err: %v", err)
@@ -442,7 +475,7 @@ func TestRongCloud_ChatRoomEntryRemove(t *testing.T) {
 }
 
 func TestRongCloud_ChatRoomQuery(t *testing.T) {
-	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
+	rc := NewRongCloud(os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"), REGION_BJ)
 
 	if data, err := rc.ChatRoomQuery([]string{"chrm01"}); err != nil {
 		t.Errorf("err: %v", err)
@@ -455,6 +488,7 @@ func TestRongCloud_ChatRoomBanOptions(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomBan(
 		"chrm01",
@@ -468,6 +502,7 @@ func TestRongCloud_ChatRoomBanRollbackOptions(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomBanRollback(
 		"chrm01",
@@ -481,6 +516,7 @@ func TestRongCloud_ChatRoomBanQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	chatroomIds, err := rc.ChatRoomBanQuery(50, 1)
 	if err != nil {
@@ -494,6 +530,7 @@ func TestRongCloud_ChatRoomBanCheck(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	isBan, err := rc.ChatRoomBanCheck("chrm01")
 	if err != nil {
@@ -507,6 +544,7 @@ func TestRongCloud_ChatRoomUserBanWhitelistAddOptions(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomUserBanWhitelistAdd(
 		"chrm01",
@@ -521,6 +559,7 @@ func TestRongCloud_ChatRoomUserBanWhitelistRollbackOptions(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomUserBanWhitelistRollback(
 		"chrm01",
@@ -535,6 +574,7 @@ func TestRongCloud_ChatRoomUserBanWhitelistQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	userIds, err := rc.ChatRoomUserBanWhitelistQuery("chrm01")
 	if err != nil {
@@ -548,6 +588,7 @@ func TestRongCloud_ChatRoomCreateNew(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	// Destroy a chatroom
@@ -574,6 +615,7 @@ func TestRongCloud_ChatRoomDestroySet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.ChatRoomDestroySet(
 		"chatroom001",
@@ -587,6 +629,7 @@ func TestRongCloud_ChatRoomGetNew(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	chatRoom, err := rc.ChatRoomGetNew(
 		"chatroom001",
@@ -599,6 +642,7 @@ func TestRongCloud_ChatRoomEntryBatchSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	entryInfo := make(map[string]interface{})

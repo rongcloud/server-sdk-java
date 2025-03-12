@@ -54,12 +54,6 @@ import (
 )
 
 const (
-	// RONGCLOUDSMSURI Default SMS API URL for RongCloud
-	RONGCLOUDSMSURI = "http://api.sms.ronghub.com"
-	// RONGCLOUDURI Default API URL for RongCloud
-	RONGCLOUDURI = "http://api.rong-api.com"
-	// RONGCLOUDURI2 Backup API URL for RongCloud
-	RONGCLOUDURI2 = "http://api-b.rong-api.com"
 	// ReqType Body type
 	ReqType = "json"
 	// USERAGENT SDK name
@@ -76,8 +70,6 @@ const (
 
 var (
 	defaultExtra = rongCloudExtra{
-		rongCloudURI:        RONGCLOUDURI,
-		rongCloudSMSURI:     RONGCLOUDSMSURI,
 		timeout:             DEFAULTTIMEOUT,
 		keepAlive:           DEFAULT_KEEPALIVE,
 		maxIdleConnsPerHost: DEFAULT_MAXIDLECONNSPERHOST,
@@ -87,12 +79,26 @@ var (
 	}
 	rc   *RongCloud
 	once sync.Once
+
+	REGION_BJ   = Region{"https://api.rong-api.com", "https://api-b.rong-api.com"}
+	REGION_SG   = Region{"https://api.sg-light-api.com", "https://api-b.sg-light-api.com"}
+	REGION_SG_B = Region{"https://api.sg-b-light-api.com", "https://api-b.sg-b-light-api.com"}
+	REGION_NA   = Region{"https://api.us-light-api.com", "https://api-b.us-light-api.com"}
+	REGION_SAU  = Region{"https://api.sau-light-api.com", "https://api-b.sau-light-api.com"}
 )
+
+type Region struct {
+	primaryDomain string
+	backupDomain  string
+}
 
 // RongCloud appKey appSecret extra
 type RongCloud struct {
-	appKey    string
-	appSecret string
+	appKey        string
+	appSecret     string
+	primaryDomain string
+	backupDomain  string
+	rongCloudURI  string
 	*rongCloudExtra
 	uriLock         sync.Mutex
 	globalTransport http.RoundTripper
@@ -100,8 +106,6 @@ type RongCloud struct {
 
 // rongCloudExtra extends RongCloud with custom RongCloud server address and request timeout
 type rongCloudExtra struct {
-	rongCloudURI        string
-	rongCloudSMSURI     string
 	timeout             time.Duration
 	keepAlive           time.Duration
 	maxIdleConnsPerHost int
@@ -155,7 +159,7 @@ func fillJSONHeader(req *httplib.BeegoHTTPRequest) {
 }
 
 // NewRongCloud creates a RongCloud object
-func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongCloud {
+func NewRongCloud(appKey, appSecret string, region Region, options ...rongCloudOption) *RongCloud {
 	once.Do(func() {
 		// Default extended configuration
 		defaultRongCloud := defaultExtra
@@ -163,6 +167,9 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongClo
 		rc = &RongCloud{
 			appKey:         appKey,
 			appSecret:      appSecret,
+			rongCloudURI:   region.primaryDomain,
+			primaryDomain:  region.primaryDomain,
+			backupDomain:   region.backupDomain,
 			rongCloudExtra: &defaultRongCloud,
 		}
 
@@ -199,17 +206,16 @@ func (rc *RongCloud) GetHttpTransport() http.RoundTripper {
 }
 
 // changeURI automatically switches the API server address
-// It toggles between api and api2. Cannot switch to other domains. Use PrivateURI for other domain settings.
 func (rc *RongCloud) ChangeURI() {
 	nowUnix := time.Now().Unix()
 	// Check the time interval since the last URI change
 	rc.uriLock.Lock()
 	if (nowUnix - rc.lastChageUriTime) >= rc.changeUriDuration {
 		switch rc.rongCloudURI {
-		case RONGCLOUDURI:
-			rc.rongCloudURI = RONGCLOUDURI2
-		case RONGCLOUDURI2:
-			rc.rongCloudURI = RONGCLOUDURI
+		case rc.primaryDomain:
+			rc.rongCloudURI = rc.backupDomain
+		case rc.backupDomain:
+			rc.rongCloudURI = rc.primaryDomain
 		default:
 		}
 		rc.lastChageUriTime = nowUnix
@@ -218,9 +224,8 @@ func (rc *RongCloud) ChangeURI() {
 }
 
 // PrivateURI sets the API address for private cloud
-func (rc *RongCloud) PrivateURI(uri, sms string) {
+func (rc *RongCloud) PrivateURI(uri string) {
 	rc.rongCloudURI = uri
-	rc.rongCloudSMSURI = sms
 }
 
 // urlError checks if the error is a url.Error

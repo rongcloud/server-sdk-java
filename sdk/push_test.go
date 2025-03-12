@@ -19,6 +19,7 @@ func TestRongCloud_PushCustomObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	res, err := rc.PushCustomObj(PushCustomData{
 		Platform: []string{"ios", "android"},
@@ -188,6 +189,7 @@ func TestRongCloud_PushCustomResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	str := `{
 	"platform": ["ios", "android"],
@@ -276,6 +278,7 @@ func TestRongCloud_PushCustom(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	str := `{
   "platform":["ios","android"],
@@ -357,6 +360,7 @@ func TestRongCloud_PushSend(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	push := Push{
 		PlatForm: []PlatForm{

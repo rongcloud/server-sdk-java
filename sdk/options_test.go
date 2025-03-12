@@ -5,20 +5,10 @@ import (
 	"testing"
 )
 
-func TestWithRongCloudSMSURI(t *testing.T) {
-	rc := NewRongCloud("abc", "abc123", WithRongCloudSMSURI("sms.test.com"))
-
-	if rc.rongCloudSMSURI != "sms.test.com" {
-		t.Error("invalid RongCloud SMS URI")
-	}
-
-	t.Log("success")
-}
-
 func TestWithRongCloudURI(t *testing.T) {
-	rc := NewRongCloud("abc", "abc123", WithRongCloudURI("api.test.com"))
+	rc := NewRongCloud("abc", "abc123", REGION_BJ)
 
-	if rc.rongCloudURI != "api.test.com" {
+	if rc.rongCloudURI != "https://api.rong-api.com" {
 		t.Error("invalid RongCloud URI")
 	}
 
@@ -29,6 +19,7 @@ func TestWithTimeout(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 		// Set timeout to 20 seconds
 		WithTimeout(20),
 	)

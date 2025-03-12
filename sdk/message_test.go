@@ -19,6 +19,7 @@ func TestRongCloud_MessageExpansionDel(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.MessageExpansionDel("C16R-VBGG-1IE5-SD0C",
 		"u01",
@@ -42,6 +43,7 @@ func TestRongCloud_MessageExpansionSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.MessageExpansionSet("C16R-VBGG-1IE5-SD0C",
 		"u01",
@@ -60,6 +62,7 @@ func TestRongCloud_UGMessageGetObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UGMessageGetObj("target_001", []UGMessageData{
 		{
@@ -78,6 +81,7 @@ func TestRongCloud_UGMessageGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UGMessageGet("target_001", []UGMessageData{
 		{
@@ -97,6 +101,7 @@ func TestRongCloud_UGMessageModify(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
 		"", "", "1", "", "0", "0", "", "{\"key1\":\"key1\"}",
@@ -155,6 +160,7 @@ func TestMessageBroadcastRecall(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	content := BroadcastRecallContent{
@@ -175,6 +181,7 @@ func TestChatRoomRecall(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	if err := rc.ChatRoomRecall("fDR2cVpxxR5zSMUNh3yAwh", "MersNRhaKwJkRV9mJR5JXY", "5FGT-7VA9-G4DD-4V5P", 1507778882124); err != nil {
@@ -188,6 +195,7 @@ func TestSystemRecall(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.SystemRecall("fDR2cVpxxR5zSMUNh3yAwh",
@@ -210,6 +218,7 @@ func TestMessage_PrivateSend(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -238,6 +247,7 @@ func TestMessage_PrivateSendOptions(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -269,6 +279,7 @@ func TestMessage_PrivateRecall(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.PrivateRecall(
@@ -285,6 +296,7 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	tpl1 := TemplateMsgContent{
@@ -326,6 +338,7 @@ func TestRongCloud_GroupSend(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -352,6 +365,7 @@ func TestRongCloud_PrivateRecall(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.GroupRecall(
@@ -369,6 +383,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := MentionMsgContent{
@@ -395,6 +410,7 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -417,6 +433,7 @@ func TestRongCloud_ChatroomBroadcast(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -437,6 +454,7 @@ func TestRongCloud_OnlineBroadcast(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	code, err := rc.OnlineBroadcast(
@@ -453,6 +471,7 @@ func TestRongCloud_SystemSend(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -478,6 +497,7 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -498,6 +518,7 @@ func TestRongCloud_SystemBroadcastOption(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	msg := TXTMsg{
@@ -519,6 +540,7 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	tpl1 := TemplateMsgContent{
@@ -560,6 +582,7 @@ func TestRongCloud_HistoryGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	history, err := rc.HistoryGet(
@@ -574,6 +597,7 @@ func TestRongCloud_HistoryRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.HistoryRemove(

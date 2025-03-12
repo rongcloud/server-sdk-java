@@ -9,6 +9,7 @@ func TestRongCloud_UGHisMsgIdQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGHisMsgIdQuery(
@@ -28,6 +29,7 @@ func TestRongCloud_UltraGroupChannelGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UltraGroupChannelGet(
@@ -46,6 +48,7 @@ func TestRongCloud_UGGroupChannelGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGGroupChannelGet(
@@ -65,6 +68,7 @@ func TestRongCloud_UGHistoryQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	result, err := rc.UGHistoryQuery("474", "2360", 1667491234000, 1668428009000, "275105", 0)
 	if err != nil {
@@ -79,6 +83,7 @@ func TestRongCloud_UGChannelPrivateUserGetResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGChannelPrivateUserGetResObj(
@@ -98,6 +103,7 @@ func TestRongCloud_UGChannelPrivateUserGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGChannelPrivateUserGet(
@@ -117,6 +123,7 @@ func TestRongCloud_UGChannelPrivateUserDelResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGChannelPrivateUserDelResObj(
@@ -135,6 +142,7 @@ func TestRongCloud_UGChannelPrivateUserDel(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGChannelPrivateUserDel(
@@ -153,6 +161,7 @@ func TestRongCloud_UGChannelPrivateUserAddResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGChannelPrivateUserAddResObj(
@@ -171,6 +180,7 @@ func TestRongCloud_UGChannelPrivateUserAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	res, err := rc.UGChannelPrivateUserAdd(
@@ -189,6 +199,7 @@ func TestRongCloud_UGGroupChannelCreate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.UltraGroupCreate("1", "ug_m_gid_lw_1", "ug_m_gid_lw_1"); err != nil {
 		t.Errorf("UltraGroupCreate err:%v", err)
@@ -211,6 +222,7 @@ func TestRongCloud_UGGroupChannelChangeResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	res, err := rc.UGGroupChannelChangeResObj(
 		"ug_m_gid_lw_1",
@@ -228,6 +240,7 @@ func TestRongCloud_UGGroupChannelChange(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	res, err := rc.UGGroupChannelChange(
 		"ug_m_gid_lw_1",
@@ -245,6 +258,7 @@ func Test_UGGroupUpdate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err, requestId := rc.UGGroupCreate(
@@ -261,6 +275,7 @@ func Test_UGQueryUserGroups(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	groups, err, requestId := rc.UGQueryUserGroups("user001", 1, 20)
@@ -279,6 +294,7 @@ func Test_UGGroupSend(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	rcmsg := TXTMsg{
@@ -310,6 +326,7 @@ func Test_UGMessageExpansionSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	m := map[string]string{}
@@ -383,6 +400,7 @@ func Test_UGMessageExpansionDelete(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.UGMessageExpansionDelete(
@@ -445,6 +463,7 @@ func Test_UGMessageExpansionQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	data, requestId := rc.UGMessageExpansionQuery(
@@ -461,6 +480,7 @@ func Test_UGMessagePublish(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
@@ -510,7 +530,7 @@ func Test_UGMemberExists(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 	exists, err := rc.UGMemberExists("rongcloud_group01", "u01")
 	if err != nil {
 		t.Errorf("Failed to query member exists. err: %v", err)
@@ -524,7 +544,7 @@ func Test_UGUserGroupAdd(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "groupId1"
 	userGroups := []UGUserGroupInfo{
@@ -540,7 +560,7 @@ func Test_UGUserGroupDelete(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	userGroups := []string{
@@ -556,7 +576,7 @@ func Test_UGUserGroupQuery(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	userGroups, err := rc.UGUserGroupQuery(groupId, 1, 10)
@@ -569,7 +589,7 @@ func Test_UGUserGroupUserAdd(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	userGroupId := "id"
@@ -587,7 +607,7 @@ func Test_UGUserGroupUserDelete(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	userGroupId := "id"
@@ -605,7 +625,7 @@ func Test_UGUserUserGroupQuery(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	userId := "userId"
@@ -619,7 +639,7 @@ func Test_UGChannelUserGroupBind(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	busChannel := "channelid"
@@ -637,7 +657,7 @@ func Test_UGChannelUserGroupUnbind(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	busChannel := "channelid"
@@ -655,7 +675,7 @@ func Test_UGChannelUserGroupQuery(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	busChannel := "buschannel1"
@@ -669,7 +689,7 @@ func Test_UGUserGroupChannelQuery(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	userGroupId := "userGroupId"
@@ -683,7 +703,7 @@ func Test_UGUserChannelQuery(t *testing.T) {
 	key := os.Getenv("APP_KEY")
 	secret := os.Getenv("APP_SECRET")
 
-	rc := NewRongCloud(key, secret)
+	rc := NewRongCloud(key, secret, REGION_BJ)
 
 	groupId := "abc"
 	userId := "userId"

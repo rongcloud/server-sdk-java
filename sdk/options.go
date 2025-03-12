@@ -7,13 +7,6 @@ import (
 
 type rongCloudOption func(*RongCloud)
 
-// WithRongCloudSMSURI sets the RongCloud SMS URI
-func WithRongCloudSMSURI(rongCloudSMSURI string) rongCloudOption {
-	return func(o *RongCloud) {
-		o.rongCloudSMSURI = rongCloudSMSURI
-	}
-}
-
 // WithRongCloudURI sets the RongCloud URI
 func WithRongCloudURI(rongCloudURI string) rongCloudOption {
 	return func(o *RongCloud) {

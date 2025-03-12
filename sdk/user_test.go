@@ -18,6 +18,7 @@ func TestRongCloud_UserBlockPushPeriodDelete(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.UserBlockPushPeriodDelete("u01"); err != nil {
 		t.Errorf("UserTokenExpire err:%v", err)
@@ -30,6 +31,7 @@ func TestRongCloud_UserBlockPushPeriodGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UserBlockPushPeriodGet("u01"); err != nil {
 		t.Errorf("UserTokenExpire err:%v", err)
@@ -43,6 +45,7 @@ func TestRongCloud_UserBlockPushPeriodSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.UserBlockPushPeriodSet("u01", "23:59:59", "120", ""); err != nil {
 		t.Errorf("UserTokenExpire err:%v", err)
@@ -55,6 +58,7 @@ func TestRongCloud_UserTokenExpireResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UserTokenExpireResObj("u01", 1619469955344); err != nil {
 		t.Errorf("UserTokenExpire err:%v", err)
@@ -68,6 +72,7 @@ func TestRongCloud_UserTokenExpire(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UserTokenExpire("u01", 1619469955344); err != nil {
 		t.Errorf("UserTokenExpire err:%v", err)
@@ -81,6 +86,7 @@ func TestRongCloud_UserRemarksGetResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UserRemarksGetResObj("u01", 1, 1); err != nil {
 		t.Errorf("user remark get err:%v", err)
@@ -94,6 +100,7 @@ func TestRongCloud_UserRemarksGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UserRemarksGet("u01", 1, 1); err != nil {
 		t.Errorf("user remark get err:%v", err)
@@ -107,6 +114,7 @@ func TestRongCloud_UserRemarksDel(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.UserRemarksDel("u01", "qq"); err != nil {
 		t.Errorf("user remark del err:%v", err)
@@ -119,6 +127,7 @@ func TestRongCloud_UserRemarksSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.UserRemarksSet("u01", []UserRemark{{
 		Id:     "u01",
@@ -134,6 +143,7 @@ func TestRongCloud_UserChatFbQueryListResObj(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UserChatFbQueryListResObj(0, 0, "PERSON"); err != nil {
 		t.Errorf("user chat fb set err:%v", err)
@@ -147,6 +157,7 @@ func TestRongCloud_UserChatFbQueryList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if res, err := rc.UserChatFbQueryList(0, 0, "PERSON"); err != nil {
 		t.Errorf("user chat fb set err:%v", err)
@@ -160,6 +171,7 @@ func TestRongCloud_UserChatFbSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	if err := rc.UserChatFbSet("u01", 0, "PERSON"); err != nil {
 		t.Errorf("user chat fb set err:%v", err)
@@ -172,6 +184,7 @@ func TestQueryWhiteList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	_, err := rc.QueryWhiteList("123")
@@ -186,6 +199,7 @@ func TestRemoveWhiteList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	if err := rc.RemoveWhiteList("123", []string{"234", "456"}); err != nil {
@@ -199,6 +213,7 @@ func TestAddWhiteList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	if err := rc.AddWhiteList("123", []string{"234", "345"}); err != nil {
@@ -213,6 +228,7 @@ func TestRongCloud_UserRegister(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	rep, err := rc.UserRegister(
@@ -228,6 +244,7 @@ func TestRongCloud_UserUpdate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	rep := rc.UserUpdate("7Szq13MKRVortoknTAk7W8", "7Szq13MKRVortoknTAk7W8", "http://rongcloud.cn/portrait.jpg")
@@ -239,6 +256,7 @@ func TestRongCloud_BlockAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.BlockAdd(
@@ -252,6 +270,7 @@ func TestRongCloud_BlockGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	rep, err := rc.BlockGetList()
 	t.Log(err)
@@ -263,6 +282,7 @@ func TestRongCloud_BlockRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.BlockRemove(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -274,6 +294,7 @@ func TestRongCloud_BlacklistAdd(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.BlacklistAdd(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -287,6 +308,7 @@ func TestRongCloud_BlacklistGetList(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	req, err := rc.BlacklistGet(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -299,6 +321,7 @@ func TestRongCloud_BlacklistRemove(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.BlacklistRemove(
 		"4kIvGJmETlYqDoVFgWdYdM",
@@ -311,6 +334,7 @@ func TestRongCloud_OnlineStatusCheck(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	status, err := rc.OnlineStatusCheck("4kIvGJmETlYqDoVFgWdYdM")
 	t.Log(err)
@@ -321,6 +345,7 @@ func TestRongCloud_TagSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.TagSet(
@@ -337,6 +362,7 @@ func TestRongCloud_TagBatchSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	err := rc.TagBatchSet(
@@ -357,6 +383,7 @@ func TestRongCloud_TagGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 
 	result, err := rc.TagGet(
@@ -381,6 +408,7 @@ func TestRongCloud_UserDeactivate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	// Register user test
 	result, err := rc.UserDeactivate(
@@ -398,6 +426,7 @@ func TestRongCloud_UserDeactivateQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	result, err := rc.UserDeactivateQuery(1, 50)
 	if err != nil {
@@ -410,6 +439,7 @@ func TestRongCloud_UserReactivate(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	result, err := rc.UserReactivate(
 		[]string{
@@ -426,6 +456,7 @@ func TestRongCloud_UserProfileSet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.UserProfileSet(
 		"u01",
@@ -442,6 +473,7 @@ func TestRongCloud_UserProfileClean(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	err := rc.UserProfileClean(
 		"u01",
@@ -456,6 +488,7 @@ func TestRongCloud_UserProfilQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	result, err := rc.UserProfilQuery(
 		1,
@@ -472,6 +505,7 @@ func TestRongCloud_UserProfilBatchQuery(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
+		REGION_BJ,
 	)
 	result, err := rc.UserProfilBatchQuery(
 		"rong_health_check.u58",
