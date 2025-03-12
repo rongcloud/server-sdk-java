@@ -1,10 +1,11 @@
 package io.rong.example;
 
 import com.alibaba.fastjson.JSON;
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
+import io.rong.messages.RcCmdMessage;
 import io.rong.messages.TxtMessage;
 import io.rong.messages.VoiceMessage;
-import io.rong.messages.RcCmdMessage;
 import io.rong.models.Result;
 import io.rong.models.chatroom.ChatroomDataModel;
 import io.rong.models.chatroom.ChatroomDestroyTypeModel;
@@ -51,16 +52,7 @@ public class Example {
     public void setUp() throws Exception {
         String appKey = "appKey";
         String appSecret = "appSecret";
-        rongCloud = RongCloud.getInstance(appKey, appSecret);
-
-        //rongCloud = RongCloud.getInstance(appKey, appSecret,api);
-        /**
-         * 自定义备用 API 地址用法
-         * List apiList = new ArrayList<>();
-         * apiList.add("http://api-b.rong-api.com");
-         * apiList.add("http://api-na02.ronghub.com");
-         * rongCloud = RongCloud.getInstance(appKey, appSecret,api,apiList);
-         * */
+        rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
     }
 
 
@@ -132,7 +124,7 @@ public class Example {
         Result result = (ResponseResult) rongCloud.user.deactivate(user);
         System.out.println("user abandon:  " + result.toString());
 
-        assertNotNull( result.getCode().toString());
+        assertNotNull(result.getCode().toString());
     }
 
 
@@ -168,7 +160,7 @@ public class Example {
     @Test
     public void testUserReactivate() throws Exception {
         UserModel user = new UserModel()
-          .setIds(new String[]{"CHIQ1", "CHIQ2"});
+                .setIds(new String[]{"CHIQ1", "CHIQ2"});
         Result result = (ResponseResult) rongCloud.user.reactivate(user);
         System.out.println("user reactivate:  " + result.toString());
 
@@ -293,7 +285,6 @@ public class Example {
 
         assertEquals("200", result.getCode().toString());
     }
-
 
 
     /**
@@ -1141,11 +1132,11 @@ public class Example {
     @Test
     public void testChatroomCreateV2() throws Exception {
         ChatroomDataModel chatrooms = new ChatroomDataModel()
-          .setId("chatroomId1")
-          .setIsBan(true)
-          .setDestroyType(0)
-          .setDestroyTime(60)
-          .setEntryOwnerId("CHIQ1") ;
+                .setId("chatroomId1")
+                .setIsBan(true)
+                .setDestroyType(0)
+                .setDestroyTime(60)
+                .setEntryOwnerId("CHIQ1");
         ResponseResult result = rongCloud.chatroom.createV2(chatrooms);
         System.out.println("createV2:  " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1194,7 +1185,7 @@ public class Example {
     @Test
     public void testChatroomIsExists() throws Exception {
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
 
         ChatroomModel exists = new ChatroomModel()
@@ -1489,16 +1480,15 @@ public class Example {
     }
 
 
-
     /**
      * 设置聊天室销毁类型
      */
     @Test
     public void testChatroomSetDestroyType() throws Exception {
         ChatroomDestroyTypeModel chatroomModel = new ChatroomDestroyTypeModel()
-          .setId("d7ec7a8b8d8546c98b0973417209a548")
-          .setDestroyType(0)
-          .setDestroyTime(60);
+                .setId("d7ec7a8b8d8546c98b0973417209a548")
+                .setDestroyType(0)
+                .setDestroyTime(60);
         ResponseResult result = rongCloud.chatroom.setDestroyType(chatroomModel);
         System.out.println("ChatroomSetDestroyType:  " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1510,7 +1500,7 @@ public class Example {
     @Test
     public void testDestroyChatroom() throws Exception {
         ChatroomModel chatroomModel = new ChatroomModel()
-          .setId("d7ec7a8b8d8546c98b0973417209a548");
+                .setId("d7ec7a8b8d8546c98b0973417209a548");
 
         ResponseResult result = rongCloud.chatroom.destroy(chatroomModel);
         System.out.println("destroy:  " + result.toString());
@@ -1535,7 +1525,7 @@ public class Example {
     @Test
     public void testChatroomQuery() throws Exception {
         ChatroomModel chatroomModel = new ChatroomModel()
-          .setId("OIBbeKlkx");
+                .setId("OIBbeKlkx");
         ChatroomQueryResult result = rongCloud.chatroom.query(chatroomModel);
         System.out.println("ChatroomQuery:  " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1882,7 +1872,7 @@ public class Example {
      **/
     @Test
     public void testGetExpansion() throws Exception {
-        ExpansionResult eResult = (ExpansionResult)rongCloud.expansion.getList("BS45-NPH4-HV87-10LM");
+        ExpansionResult eResult = (ExpansionResult) rongCloud.expansion.getList("BS45-NPH4-HV87-10LM");
 
         System.out.println("getExpansion: " + eResult.toString());
         assertEquals("200", eResult.getCode().toString());
@@ -1893,7 +1883,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testCreaetUltratroup() throws Exception{
+    public void testCreaetUltratroup() throws Exception {
 
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
@@ -1909,7 +1899,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupRefresh() throws Exception{
+    public void testUltragroupRefresh() throws Exception {
 
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
@@ -1924,7 +1914,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupDis() throws Exception{
+    public void testUltragroupDis() throws Exception {
         Result result = rongCloud.ultraGroup.dis("test");
         System.out.println("dis: " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1935,7 +1925,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupJoin() throws Exception{
+    public void testUltragroupJoin() throws Exception {
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setUserId("testuser");
@@ -1949,7 +1939,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupQuit() throws Exception{
+    public void testUltragroupQuit() throws Exception {
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setUserId("testuser");
@@ -1963,7 +1953,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBan() throws Exception{
+    public void testUltragroupBan() throws Exception {
         Result result = rongCloud.ultraGroup.ban.set("test1", true);
         System.out.println("ban set: " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1974,7 +1964,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBanCheck() throws Exception{
+    public void testUltragroupBanCheck() throws Exception {
         Result result = rongCloud.ultraGroup.ban.check("test1");
         System.out.println("ban check: " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -1985,8 +1975,8 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBanUserAdd() throws Exception{
-        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+    public void testUltragroupBanUserAdd() throws Exception {
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"), new UltraGroupMember().setId("test2")};
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setMembers(members);
@@ -2000,7 +1990,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBanUserGet() throws Exception{
+    public void testUltragroupBanUserGet() throws Exception {
         Result result = rongCloud.ultraGroup.user.get("test1");
         System.out.println("ban user get: " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -2011,8 +2001,8 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBanUserDel() throws Exception{
-        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+    public void testUltragroupBanUserDel() throws Exception {
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"), new UltraGroupMember().setId("test2")};
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setMembers(members);
@@ -2026,8 +2016,8 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBanWhiteListAdd() throws Exception{
-        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+    public void testUltragroupBanWhiteListAdd() throws Exception {
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"), new UltraGroupMember().setId("test2")};
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setMembers(members);
@@ -2041,7 +2031,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBanWhiteList() throws Exception{
+    public void testUltragroupBanWhiteList() throws Exception {
         Result result = rongCloud.ultraGroup.whiteList.get("test1");
         System.out.println("ban whitelist get: " + result.toString());
         assertEquals("200", result.getCode().toString());
@@ -2052,8 +2042,8 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupBanWhiteListRemove() throws Exception{
-        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"),new UltraGroupMember().setId("test2")};
+    public void testUltragroupBanWhiteListRemove() throws Exception {
+        UltraGroupMember[] members = {new UltraGroupMember().setId("test1"), new UltraGroupMember().setId("test2")};
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setMembers(members);
@@ -2067,7 +2057,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupChannelAdd() throws Exception{
+    public void testUltragroupChannelAdd() throws Exception {
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setBusChannel("channel");
@@ -2081,7 +2071,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupChannelChange() throws Exception{
+    public void testUltragroupChannelChange() throws Exception {
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setType(1)
@@ -2097,7 +2087,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupChannelPrivateUserAdd() throws Exception{
+    public void testUltragroupChannelPrivateUserAdd() throws Exception {
         UltraGroupMember[] members = {new UltraGroupMember().setId("testuser")};
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
@@ -2114,7 +2104,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupChannelPrivateUserGet() throws Exception{
+    public void testUltragroupChannelPrivateUserGet() throws Exception {
         Result result = rongCloud.ultraGroup.busChannel.privateUserGet("test1", "channel");
         System.out.println(result);
         System.out.println("busChannel privateUserGet: " + result.toString());
@@ -2126,7 +2116,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupChannelPrivateUserRemove() throws Exception{
+    public void testUltragroupChannelPrivateUserRemove() throws Exception {
         UltraGroupMember[] members = {new UltraGroupMember().setId("testuser")};
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
@@ -2143,8 +2133,8 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupChannel() throws Exception{
-        Result result = rongCloud.ultraGroup.busChannel.getList("test1",1, 10);
+    public void testUltragroupChannel() throws Exception {
+        Result result = rongCloud.ultraGroup.busChannel.getList("test1", 1, 10);
         System.out.println("ban busChannel get: " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
@@ -2154,7 +2144,7 @@ public class Example {
      * @throws Exception
      */
     @Test
-    public void testUltragroupChannelRemove() throws Exception{
+    public void testUltragroupChannelRemove() throws Exception {
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setBusChannel("channel");
@@ -2209,7 +2199,7 @@ public class Example {
      */
     @Test
     public void testUltragroupExpansionQuery() throws Exception {
-        ExpansionResult result = (ExpansionResult) rongCloud.ultraGroup.expansion.getList("BS45-NPH4-HV87-10LM","groupid");
+        ExpansionResult result = (ExpansionResult) rongCloud.ultraGroup.expansion.getList("BS45-NPH4-HV87-10LM", "groupid");
         System.out.println("getList expansion:  " + result.toString());
         assertEquals("200", result.getCode().toString());
 
@@ -2238,7 +2228,7 @@ public class Example {
      */
     @Test
     public void testUserRemarkDel() throws Exception {
-        ResponseResult result = (ResponseResult) rongCloud.user.remark.del("user1",  "user2");
+        ResponseResult result = (ResponseResult) rongCloud.user.remark.del("user1", "user2");
         System.out.println("user remark del:  " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
@@ -2260,7 +2250,7 @@ public class Example {
      */
     @Test
     public void testGroupRemarkSet() throws Exception {
-        ResponseResult result = (ResponseResult) rongCloud.group.remark.set("user1",  "group1","备注");
+        ResponseResult result = (ResponseResult) rongCloud.group.remark.set("user1", "group1", "备注");
         System.out.println("group remark set:  " + result.toString());
         assertEquals("200", result.getCode().toString());
 
@@ -2272,7 +2262,7 @@ public class Example {
      */
     @Test
     public void testGroupRemarkDel() throws Exception {
-        ResponseResult result = (ResponseResult) rongCloud.group.remark.del("user1",  "group2");
+        ResponseResult result = (ResponseResult) rongCloud.group.remark.del("user1", "group2");
         System.out.println("group remark del:  " + result.toString());
         assertEquals("200", result.getCode().toString());
     }
@@ -2369,7 +2359,6 @@ public class Example {
         System.out.println("delBlockPushPeriod: [t2] " + result.toString());
 
     }
-
 
 
 }

@@ -1,11 +1,9 @@
 package io.rong.example.group;
 
-import com.alibaba.fastjson.JSON;
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.models.Result;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Demo class
@@ -22,14 +20,10 @@ public class RemarkExample {
      * 此处替换成您的appSecret
      * */
     private static final String appSecret = "appSecret";
-    /**
-     * 自定义api地址
-     * */
-    private static final String api = "http://api.rong-api.com";
 
 
     public static void main(String[] args) throws Exception {
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 
 
         Result result = rongCloud.group.remark.set("userId", "groupId","remark");

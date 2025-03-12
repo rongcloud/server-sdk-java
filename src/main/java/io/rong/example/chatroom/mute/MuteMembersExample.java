@@ -1,5 +1,6 @@
 package io.rong.example.chatroom.mute;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.methods.chatroom.mute.MuteMembers;
 import io.rong.models.chatroom.ChatroomMember;
@@ -16,16 +17,9 @@ public class MuteMembersExample {
      * 此处替换成您的appSecret
      * */
     private static final String appSecret = "appSecret";
-    /**
-     * 自定义api地址
-     * */
-    private static final String api = "http://api.rong-api.com";
-
 
     public static void main(String[] args) throws Exception {
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
-        //自定义 api地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 
         MuteMembers muteMembers = rongCloud.chatroom.muteMembers;
 

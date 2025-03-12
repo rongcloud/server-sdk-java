@@ -1,5 +1,6 @@
 package io.rong.example.push;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.models.push.*;
 import io.rong.models.response.PushResult;
@@ -30,7 +31,7 @@ public class PushCustomExample {
 
     public static void main(String[] args) throws Exception {
 
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
         PushModel pushmodel = new PushModel();
         pushmodel.setPlatform(new String[]{"ios", "android"});
         AudienceCustom audience = new AudienceCustom();

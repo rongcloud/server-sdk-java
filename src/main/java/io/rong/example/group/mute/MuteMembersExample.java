@@ -1,5 +1,6 @@
 package io.rong.example.group.mute;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.methods.group.mute.MuteMembers;
 import io.rong.models.Result;
@@ -23,20 +24,14 @@ public class MuteMembersExample {
      * */
     private static final String appSecret = "appSecret";
     /**
-     * 自定义api地址
-     * */
-    private static final String api = "http://api.rong-api.com";
-
-    /**
      * 本地调用测试
      *
      *
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
         //自定义 api 地址方式
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 
         MuteMembers muteMembers = rongCloud.group.muteMembers;
         /**

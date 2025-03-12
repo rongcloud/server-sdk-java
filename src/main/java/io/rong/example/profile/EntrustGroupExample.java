@@ -1,7 +1,7 @@
 package io.rong.example.profile;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
-import io.rong.RongCloudConfig;
 import io.rong.methods.profile.EntrustGroup;
 import io.rong.models.profile.*;
 import io.rong.models.response.*;
@@ -31,7 +31,7 @@ public class EntrustGroupExample {
     /**
      * 初始化
      */
-    private static EntrustGroup entrustGroup = RongCloud.getInstance(APP_KEY, APP_SECRET, RongCloudConfig.DefaultConfig).entrustGroup;
+    private static EntrustGroup entrustGroup = RongCloud.getInstance(APP_KEY, APP_SECRET, CenterEnum.BJ).entrustGroup;
 
 
     /**

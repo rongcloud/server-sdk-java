@@ -68,33 +68,17 @@ public class RongCloud {
         conversation.setRongCloud(this);
         push = new Push(appKey, appSecret);
         push.setRongCloud(this);
-        pushCustom = new PushCustom(appKey,appSecret,this);
+        pushCustom = new PushCustom(appKey, appSecret, this);
         entrustGroup = new EntrustGroup(appKey, appSecret, this);
         friend = new Friend(appKey, appSecret, this);
         entrustUser = new EntrustUser(appKey, appSecret, this);
         this.config = config;
     }
 
-    /**
-     * 获取访问北京数据中心的实例
-     *
-     * @param appKey
-     * @param appSecret
-     * @return
-     */
-    public static RongCloud getInstance(String appKey, String appSecret) {
-        return getInstance(appKey, appSecret, RongCloudConfig.DefaultConfig);
-    }
 
-    /**
-     * 获取访问新加坡数据中心的实例
-     *
-     * @param appKey
-     * @param appSecret
-     * @return
-     */
-    public static RongCloud getSingaporeInstance(String appKey, String appSecret) {
-        return getInstance(appKey, appSecret, RongCloudConfig.SingaporeConfig);
+    public static RongCloud getInstance(String appKey, String appSecret, CenterEnum centerEnum) {
+        return getInstance(appKey, appSecret,
+                new RongCloudConfig(centerEnum.getPrimaryUrl(), centerEnum.getBackupUrl()));
     }
 
     /**
@@ -118,9 +102,8 @@ public class RongCloud {
     /**
      * 自定义 API 地址
      */
-    @Deprecated
-    public static RongCloud getInstance(String appKey, String appSecret, String api) {
-        return getInstance(appKey, appSecret, new RongCloudConfig(api));
+    public static RongCloud getInstance(String appKey, String appSecret, String... apiHosts) {
+        return getInstance(appKey, appSecret, new RongCloudConfig(apiHosts));
     }
 
     /**
@@ -133,7 +116,7 @@ public class RongCloud {
      */
     @Deprecated
     public static RongCloud getInstance(String appKey, String appSecret, String api, List<String> apiBackUp) {
-        List<String> apiList = new ArrayList<String>();
+        List<String> apiList = new ArrayList<>();
         if (api != null) {
             apiList.add(api);
         }

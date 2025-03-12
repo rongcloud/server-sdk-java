@@ -1,5 +1,6 @@
 package io.rong.example.message;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.messages.*;
 import io.rong.methods.message._private.Private;
@@ -50,7 +51,7 @@ public class MessageExample {
 //    private static final String api = "http://api-bj.ronghub.com";
     public static void main(String[] args) throws Exception {
 
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 //        RongCloudConfig config = RongCloudConfig.DefaultConfig;
 //        config.connectionKeepAlive = false;
 //        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, config);

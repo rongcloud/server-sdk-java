@@ -5,20 +5,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RongCloudConfig {
 	
-	public static RongCloudConfig DefaultConfig = new RongCloudConfig();
-	public static RongCloudConfig SingaporeConfig = new RongCloudConfig("http://api.sg-light-api.com");
-	
-	public RongCloudConfig() {}
-	public RongCloudConfig(String apiDomain) {
-		if(apiDomain!=null) {
-			this.apiDomains = new String[] {apiDomain};
-		}
-	}
-	public RongCloudConfig(String[] apiDomains) {
+	public RongCloudConfig(String... apiDomains) {
 		this.apiDomains = apiDomains;
 	}
 	public RongCloudConfig(List<String> apiDomainList) {
-		if(apiDomainList!=null&&apiDomainList.size()>0) {
+		if(apiDomainList!=null && apiDomainList.size()>0) {
 			this.apiDomains = apiDomainList.toArray(new String[] {});
 		}
 	}
@@ -27,7 +18,7 @@ public class RongCloudConfig {
 	/**
 	 * Api 的域名列表
 	 */
-	public String[] apiDomains = new String[] {"http://api.rong-api.com", "http://api-b.rong-api.com"};
+	public String[] apiDomains = new String[] {};
 	
 	/**
 	 * 访问失败满多少次后进行切换
