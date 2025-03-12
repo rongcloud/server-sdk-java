@@ -16,13 +16,13 @@ func (rc *RongCloud) do(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
 	return rc.httpRequest(b)
 }
 
-// 需要切换域名的网络错误
+// Network errors that require domain switching
 func isNetError(err error) bool {
 	netErr, ok := err.(net.Error)
 	if !ok {
 		return false
 	}
-	// 超时
+	// Timeout
 	if netErr.Timeout() {
 		return true
 	}
@@ -30,7 +30,7 @@ func isNetError(err error) bool {
 	var opErr *net.OpError
 	opErr, ok = netErr.(*net.OpError)
 	if !ok {
-		//  url 错误
+		// URL error
 		urlErr, ok := netErr.(*url.Error)
 		if !ok {
 			return false
@@ -59,7 +59,7 @@ func isNetError(err error) bool {
 }
 
 func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
-	// 使用全局 httpClient，解决 http 打开端口过多问题
+	// Use the global httpClient to avoid opening too many ports
 	b.SetTransport(rc.globalTransport)
 	resp, err := b.DoRequest()
 	if err != nil {
@@ -90,7 +90,7 @@ func (rc *RongCloud) httpRequest(b *httplib.BeegoHTTPRequest) (body []byte, err 
 
 // v2 api
 func (rc *RongCloud) doV2(b *httplib.BeegoHTTPRequest) (body []byte, err error) {
-	// 使用全局 httpClient，解决 http 打开端口过多问题
+	// Use the global httpClient to avoid opening too many ports
 	b.SetTransport(rc.globalTransport)
 
 	resp, err := b.DoRequest()

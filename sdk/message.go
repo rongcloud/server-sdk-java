@@ -18,16 +18,16 @@ import (
 )
 
 const (
-	MessagePrivateType = 1 // MessagePrivateType 二人会话
-	MessageGroupType   = 3 // MessageGroupType 群组会话
+	MessagePrivateType = 1 // MessagePrivateType one-to-one chat
+	MessageGroupType   = 3 // MessageGroupType group chat
 )
 
-// rcMsg rcMsg接口
+// rcMsg rcMsg interface
 type rcMsg interface {
 	ToString() (string, error)
 }
 
-// MsgUserInfo 融云内置消息用户信息
+// MsgUserInfo RongCloud built-in message user information
 type MsgUserInfo struct {
 	ID       string `json:"id"`
 	Name     string `json:"name"`
@@ -36,14 +36,14 @@ type MsgUserInfo struct {
 	Extra    string `json:"extra"`
 }
 
-// TXTMsg 消息
+// TXTMsg message
 type TXTMsg struct {
 	Content string      `json:"content"`
 	User    MsgUserInfo `json:"user"`
 	Extra   string      `json:"extra"`
 }
 
-// ImgMsg 消息
+// ImgMsg message
 type ImgMsg struct {
 	Content  string      `json:"content"`
 	User     MsgUserInfo `json:"user"`
@@ -51,14 +51,14 @@ type ImgMsg struct {
 	Extra    string      `json:"extra"`
 }
 
-// InfoNtf 消息
+// InfoNtf Message
 type InfoNtf struct {
 	Message string      `json:"message"`
 	User    MsgUserInfo `json:"user"`
 	Extra   string      `json:"extra"`
 }
 
-// VCMsg 消息
+// VCMsg Message
 type VCMsg struct {
 	Content  string      `json:"content"`
 	User     MsgUserInfo `json:"user"`
@@ -66,7 +66,7 @@ type VCMsg struct {
 	Duration interface{} `json:"duration"`
 }
 
-// 高清语音消息 RC:HQVCMsg
+// HQVCMsg High-Quality Voice Message RC:HQVCMsg
 type HQVCMsg struct {
 	LocalPath string      `json:"localPath"`
 	RemoteUrl string      `json:"remoteUrl"`
@@ -75,7 +75,7 @@ type HQVCMsg struct {
 	Extra     string      `json:"extra"`
 }
 
-// IMGTextMsg 消息
+// IMGTextMsg Message
 type IMGTextMsg struct {
 	Title    string      `json:"title"`
 	Content  string      `json:"content"`
@@ -85,7 +85,7 @@ type IMGTextMsg struct {
 	URL      string      `json:"url"`
 }
 
-// FileMsg 消息
+// FileMsg Message
 type FileMsg struct {
 	Name    string      `json:"name"`
 	Size    string      `json:"size"`
@@ -94,7 +94,7 @@ type FileMsg struct {
 	User    MsgUserInfo `json:"user"`
 }
 
-// LBSMsg 消息
+// LBSMsg Message
 type LBSMsg struct {
 	Content   string      `json:"content"`
 	Extra     string      `json:"extra"`
@@ -104,7 +104,7 @@ type LBSMsg struct {
 	User      MsgUserInfo `json:"user"`
 }
 
-// ProfileNtf 消息
+// ProfileNtf message
 type ProfileNtf struct {
 	Operation string      `json:"operation"`
 	Data      string      `json:"data"`
@@ -112,21 +112,21 @@ type ProfileNtf struct {
 	Extra     string      `json:"extra"`
 }
 
-// CMDNtf 消息
+// CMDNtf message
 type CMDNtf struct {
 	Name string      `json:"operation"`
 	Data string      `json:"data"`
 	User MsgUserInfo `json:"user"`
 }
 
-// CMDMsg 消息
+// CMDMsg message
 type CMDMsg struct {
 	Name string      `json:"name"`
 	Data string      `json:"data"`
 	User MsgUserInfo `json:"user"`
 }
 
-// ContactNtf 消息
+// ContactNtf message
 type ContactNtf struct {
 	Operation    string      `json:"operation"`
 	SourceUserID string      `json:"sourceUserId"`
@@ -136,7 +136,7 @@ type ContactNtf struct {
 	User         MsgUserInfo `json:"user"`
 }
 
-// GrpNtf 消息
+// GrpNtf message
 type GrpNtf struct {
 	OperatorUserID string      `json:"operatorUserId"`
 	Operation      string      `json:"operation"`
@@ -146,7 +146,7 @@ type GrpNtf struct {
 	User           MsgUserInfo `json:"user"`
 }
 
-// DizNtf 消息
+// DizNtf message
 type DizNtf struct {
 	Type      int         `json:"type"`
 	Extension string      `json:"extension"`
@@ -154,7 +154,7 @@ type DizNtf struct {
 	User      MsgUserInfo `json:"user"`
 }
 
-// TemplateMsgContent 消息模版
+// TemplateMsgContent Message template
 type TemplateMsgContent struct {
 	TargetID    string
 	Data        map[string]string
@@ -180,7 +180,7 @@ type History struct {
 	URL string `json:"url"`
 }
 
-// BroadcastRecallContent content of message broadcast recall
+// BroadcastRecallContent Content of message broadcast recall
 type BroadcastRecallContent struct {
 	MessageId        string `json:"messageUId"`
 	ConversationType int    `json:"conversationType"`
@@ -188,7 +188,7 @@ type BroadcastRecallContent struct {
 	IsDelete         int    `json:"isDelete"`
 }
 
-// ChatRoomKVNotiMessage 聊天室属性通知消息
+// ChatRoomKVNotiMessage Chatroom custom attributes notification message
 type ChatRoomKVNotiMessage struct {
 	Type  int    `json:"type"`
 	Key   string `json:"string"`
@@ -209,7 +209,7 @@ func (msg *ChatRoomKVNotiMessage) ToString() (string, error) {
 /**
  * @name: ToString
  * @test:
- * @msg: 将广播消息撤回接口需要的 content 结构体参数转换为 json
+ * @msg: Converts the content structure parameter required for the broadcast message recall API to JSON
  * @param {type}
  * @return: string error
  */
@@ -365,108 +365,108 @@ type msgOptions struct {
 	isCounted        int
 }
 
-// MsgOption 接口函数
+// MsgOption interface functions
 type MsgOption func(*msgOptions)
 
-// 是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0
+// Indicates whether the message is a mention message. 0 represents a normal message, 1 represents a mention message. Default is 0.
 func WithMsgMentioned(isMentioned int) MsgOption {
 	return func(options *msgOptions) {
 		options.isMentioned = isMentioned
 	}
 }
 
-// 针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送
-// iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行
-// 1 表示为开启，0 表示为关闭，默认为 0
+// For iOS platform, enables silent push when the SDK is in the background.
+// A push method introduced after iOS7. Allows the app to run a piece of code in the background upon receiving a notification and execute it immediately.
+// 1 represents enabled, 0 represents disabled. Default is 0.
 func WithMsgContentAvailable(contentAvailable int) MsgOption {
 	return func(options *msgOptions) {
 		options.contentAvailable = contentAvailable
 	}
 }
 
-// 是否过滤发送人黑名单列表，0 为不过滤、 1 为过滤，默认为 0 不过滤。
+// Specifies whether to filter the sender's blocklist. 0 represents no filtering, 1 represents filtering. Default is 0 (no filtering).
 func WithMsgVerifyBlacklist(verifyBlacklist int) MsgOption {
 	return func(options *msgOptions) {
 		options.verifyBlacklist = verifyBlacklist
 	}
 }
 
-// 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息。
+// Indicates whether the message is extensible. Default is false. When set to true, the client can set extended information upon receiving the message.
 func WithMsgExpansion(isExpansion bool) MsgOption {
 	return func(options *msgOptions) {
 		options.expansion = isExpansion
 	}
 }
 
-// disablePush Boolean 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒。
+// disablePush Boolean Indicates whether it is a silent message. Default is false. When set to true, the end user will not receive a notification reminder when offline.
 func WithMsgDisablePush(isDisablePush bool) MsgOption {
 	return func(options *msgOptions) {
 		options.disablePush = isDisablePush
 	}
 }
 
-// pushExt String 推送通知属性设置，详细查看 pushExt 结构说明，pushExt 为 JSON 结构请求时需要做转义处理。
-// disablePush 为 true 时此属性无效。
+// pushExt String Specifies the push notification attributes. For detailed information, refer to the pushExt structure description. pushExt is in JSON format and requires escaping when making requests.
+// This attribute is invalid when disablePush is true.
 func WithMsgPushExt(pushExt string) MsgOption {
 	return func(options *msgOptions) {
 		options.pushExt = pushExt
 	}
 }
 
-// pushContent String 定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。
-// 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
+// pushContent String Defines the displayed push content. If objectName is a built-in message type of RongCloud, the user will definitely receive push information after sending.
+// For custom messages, pushContent is the displayed push content of the custom message. If not provided, the user will not receive a push notification.
 func WithMsgPushContent(pushContent string) MsgOption {
 	return func(options *msgOptions) {
 		options.pushContent = pushContent
 	}
 }
 
-// pushData String 针对 iOS 平台为 Push 通知时附加到 payload 中，客户端获取远程推送内容时为 appData，
-// 同时融云默认携带了消息基本信息，客户端可通过 'rc' 属性获取，Android 客户端收到推送消息时对应字段名为 pushData。
+// pushData String For iOS platform, it is appended to the payload when sending a push notification. The client retrieves the remote push content as appData.
+// RongCloud by default carries the basic message information, which the client can obtain through the 'rc' attribute. For Android clients, the corresponding field name is pushData when receiving push messages.
 func WithMsgPushData(pushData string) MsgOption {
 	return func(options *msgOptions) {
 		options.pushData = pushData
 	}
 }
 
-// busChannel 创建子会话
+// busChannel Creates a sub-conversation
 func WithMsgBusChannel(busChannel string) MsgOption {
 	return func(options *msgOptions) {
 		options.busChannel = busChannel
 	}
 }
 
-// 是否为管理员，默认为 0，设为 1 时，IMKit 收到此条消息后，小灰条默认显示为“管理员 撤回了一条消息”。
+// Indicates whether the user is an administrator. Default is 0. When set to 1, IMKit will display a gray bar message as "Admin recalled a message" upon receiving this message.
 func WithIsAdmin(isAdmin int) MsgOption {
 	return func(options *msgOptions) {
 		options.isAdmin = isAdmin
 	}
 }
 
-// 默认为 0 撤回该条消息同时，用户端将该条消息删除并替换为一条小灰条撤回提示消息；为 1 时，该条消息删除后，不替换为小灰条提示消息。
+// Default is 0. When recalling the message, the client will delete the message and replace it with a gray bar recall prompt. When set to 1, the message will be deleted without being replaced by a gray bar prompt.
 func WithIsDelete(isDelete int) MsgOption {
 	return func(options *msgOptions) {
 		options.isDelete = isDelete
 	}
 }
 
-// WithExtraContent 自定义的消息扩展信息，该字段接受 JSON 字符串格式的键值对（key-value pairs）。
+// WithExtraContent Custom message extension information, which accepts key-value pairs in JSON string format.
 func WithExtraContent(extraContent string) MsgOption {
 	return func(options *msgOptions) {
 		options.extraContent = extraContent
 	}
 }
 
-// WithMsgIsCounted 用户未在线时是否计入未读消息数。0 表示为不计数、1 表示为计数，默认为 1
+// WithMsgIsCounted Specifies whether to count the message as unread when the user is offline. 0 means not counted, 1 means counted. Default is 1.
 func WithMsgIsCounted(isCounted int) MsgOption {
 	return func(options *msgOptions) {
 		options.isCounted = isCounted
 	}
 }
 
-// 修改默认值
+// Modify default values
 func modifyMsgOptions(options []MsgOption) msgOptions {
-	// 默认值
+	// Default values
 	defaultMsgOptions := msgOptions{
 		isMentioned:      0,
 		contentAvailable: 0,
@@ -483,7 +483,7 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 		isCounted:        1,
 	}
 
-	// 修改默认值
+	// Modify default values
 	for _, ext := range options {
 		ext(&defaultMsgOptions)
 	}
@@ -491,23 +491,23 @@ func modifyMsgOptions(options []MsgOption) msgOptions {
 	return defaultMsgOptions
 }
 
-// UgMessageExtension :根据消息 ID 批量获取超级群消息的扩展消息，可选填
+// UgMessageExtension : Batch retrieves extended messages for ultra group messages based on message ID, optional.
 type UgMessageExtension struct {
-	// 频道 Id，支持英文字母、数字组合，最长为 20 个字符
+	// Channel ID, supports a combination of letters and numbers, up to 20 characters.
 	BusChannel string
 
-	// 请求唯一标识,，保证一分钟之内的请求幂等
+	// Unique request identifier, ensures idempotency within one minute.
 	MsgRandom int64
 }
 
-// MessageExpansionSet : 设置消息扩展  /message/expansion/set.json
+// MessageExpansionSet : Set message expansion /message/expansion/set.json
 //*
-// @param  msgUID:消息唯一标识 ID，可通过全量消息路由功能获取。详见全量消息路由。
-// @param  userId:操作者用户 ID，即需要为指定消息（msgUID）设置扩展信息的用户 ID。
-// @param  conversationType:会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）。
-// @param  targetId:目标 ID，根据不同的 conversationType，可能是用户 ID 或群组 ID。
-// @param  extraKeyVal:消息自定义扩展内容，JSON 结构，以 Key、Value 的方式进行设置，如：{"type":"3"}，单条消息可设置 300 个扩展信息，一次最多可以设置 100 个。
-// @param  isSyncSender:设置操作会生成“扩展操作消息”。该字段指定“扩展操作消息”的发送者是否可在客户端接收该消息。https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set
+// @param  msgUID: The unique identifier of the message, which can be obtained through the full message routing feature. See full message routing for details.
+// @param  userId: The user ID of the operator, i.e., the user ID that needs to set the extended information for the specified message (msgUID).
+// @param  conversationType: The conversation type. Supported conversation types include: 1 (one-to-one chat), 3 (group chat).
+// @param  targetId: The target ID, which can be a user ID or group ID depending on the conversationType.
+// @param  extraKeyVal: The custom extended content of the message, in JSON format, set in Key-Value pairs, e.g., {"type":"3"}. A single message can have up to 300 extended information items, and a maximum of 100 can be set at once.
+// @param  isSyncSender: Specifies whether the sender of the "expansion operation message" can receive this message on the client. https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set
 //*/
 func (rc *RongCloud) MessageExpansionSet(msgUID, userId, conversationType, targetId, extraKeyVal string, isSyncSender int) error {
 	if len(msgUID) == 0 {
@@ -547,14 +547,14 @@ func (rc *RongCloud) MessageExpansionSet(msgUID, userId, conversationType, targe
 	return err
 }
 
-// MessageExpansionDel : 删除消息扩展  /message/expansion/delete.json
+// MessageExpansionDel : Delete message expansion /message/expansion/delete.json
 //*
-// @param  msgUID:消息唯一标识 ID，可通过全量消息路由功能获取。详见全量消息路由。
-// @param  userId:操作者用户 ID，即需要为指定消息（msgUID）删除扩展信息的用户 ID。
-// @param  conversationType:会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）。
-// @param  targetId:目标 ID，根据不同的 conversationType，可能是用户 ID 或群组 ID。
-// @param  extraKeyVal:消息自定义扩展内容，JSON 结构，以 Key、Value 的方式进行设置，如：{"type":"3"}，单条消息可设置 300 个扩展信息，一次最多可以设置 100 个。
-// @param  isSyncSender:设置操作会生成“扩展操作消息”。该字段指定“扩展操作消息”的发送者是否可在客户端接收该消息。具体请看。https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete
+// @param  msgUID: The unique identifier of the message, which can be obtained through the full message routing feature. For details, see Post-messaging Callback.
+// @param  userId: The user ID of the operator, i.e., the user ID that needs to delete the extended information for the specified message (msgUID).
+// @param  conversationType: The type of conversation. Supported conversation types include: 1 (one-to-one chat), 3 (group chat).
+// @param  targetId: The target ID, which could be a user ID or group ID depending on the conversationType.
+// @param  extraKeyVal: The custom extended content of the message, in JSON format, set as Key-Value pairs, e.g., {"type":"3"}. A single message can have up to 300 extended information items, and a maximum of 100 can be set at once.
+// @param  isSyncSender: The operation will generate an "extension operation message". This field specifies whether the sender of the "extension operation message" can receive this message on the client. For details, see https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete
 //*/
 func (rc *RongCloud) MessageExpansionDel(msgUID, userId, conversationType, targetId, extraKey string, isSyncSender int) error {
 	if len(msgUID) == 0 {
@@ -594,16 +594,16 @@ func (rc *RongCloud) MessageExpansionDel(msgUID, userId, conversationType, targe
 	return err
 }
 
-// 超级群消息修改
+// Ultra Group Message Modification
 
-// UGMessageModify : 超级群消息修改 /ultragroup/msg/modify.json
+// UGMessageModify : Ultra Group Message Modification /ultragroup/msg/modify.json
 //*
-// @param  groupId:超级群 ID
-// @param  fromUserId:消息发送者
-// @param  msgUID:消息唯一标识
-// @param  content:消息所发送内容 最大128k
-// @param  busChannel:频道 Id，支持英文字母、数字组合，最长为 20 个字符
-// @param  msgRandom:请求唯一标识,，保证一分钟之内的请求幂等
+// @param  groupId: Ultra group ID
+// @param  fromUserId: Message sender
+// @param  msgUID: Unique identifier of the message
+// @param  content: Message content, up to 128k
+// @param  busChannel: Channel ID, supports alphanumeric combinations, up to 20 characters
+// @param  msgRandom: Unique request identifier, ensures idempotency within one minute
 //*/
 func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string, options ...UgMessageExtension) ([]byte, error) {
 	if len(groupId) == 0 {
@@ -642,12 +642,12 @@ func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string
 	return res, err
 }
 
-// UGMessageData ：UGMessageGet方法中的消息参数数组
+// UGMessageData: Message parameter array in the UGMessageGet method
 type UGMessageData struct {
-	// 消息唯一标识 ID
+	// Unique identifier of the message
 	MsgUid string `json:"msgUID"`
 
-	// 频道 Id，支持英文字母、数字组合，最长为 20 个字符
+	// Channel ID, supports alphanumeric combinations, up to 20 characters
 	BusChannel string `json:"busChannel,omitempty"`
 }
 
@@ -668,20 +668,20 @@ type UGMessageGetDataList struct {
 	ExtraContent string `json:"extraContent"`
 }
 
-// UGMessageGetObj  : 根据消息 ID 批量获取超级群消息 /ultragroup/msg/get
+// UGMessageGetObj : Batch retrieve ultra group messages by message ID /ultragroup/msg/get
 //*
-// @param  groupId:超级群 ID
-// @param  msgList:消息参数数组   每个元素是UGMessageData
-// response： 返回结构体
+// @param  groupId: Ultra group ID
+// @param  msgList: Message parameter array, each element is UGMessageData
+// response: Response structure
 //*/
 func (rc *RongCloud) UGMessageGetObj(groupId string, msgList []UGMessageData, options ...MsgOption) (UGMessageGetData, error) {
 	respData := UGMessageGetData{}
 	if len(groupId) == 0 {
-		return respData, RCErrorNew(1002, "Paramer 'groupId' is required")
+		return respData, RCErrorNew(1002, "Parameter 'groupId' is required")
 	}
 
 	if len(msgList) == 0 {
-		return respData, RCErrorNew(1002, "Paramer 'msgList' is required")
+		return respData, RCErrorNew(1002, "Parameter 'msgList' is required")
 	}
 
 	msg, err := json.Marshal(msgList)
@@ -710,19 +710,19 @@ func (rc *RongCloud) UGMessageGetObj(groupId string, msgList []UGMessageData, op
 	return respData, err
 }
 
-// UGMessageGet : 根据消息 ID 批量获取超级群消息 /ultragroup/msg/get
+// UGMessageGet : Retrieve Ultra Group Messages by Message ID /ultragroup/msg/get
 //*
-// @param  groupId:超级群 ID
-// @param  msgList:消息参数数组   每个元素是UGMessageData
-// response： 返回byte数组
+// @param  groupId: Ultra Group ID
+// @param  msgList: Message parameter array, each element is UGMessageData
+// response： Returns byte array
 //*/
 func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, options ...MsgOption) ([]byte, error) {
 	if len(groupId) == 0 {
-		return nil, RCErrorNew(1002, "Paramer 'groupId' is required")
+		return nil, RCErrorNew(1002, "Parameter 'groupId' is required")
 	}
 
 	if len(msgList) == 0 {
-		return nil, RCErrorNew(1002, "Paramer 'msgList' is required")
+		return nil, RCErrorNew(1002, "Parameter 'msgList' is required")
 	}
 
 	msg, err := json.Marshal(msgList)
@@ -748,22 +748,22 @@ func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, optio
 	return res, err
 }
 
-// UGMessageRecall 超级群消息撤回
+// UGMessageRecall Ultra group message recall
 func (rc *RongCloud) UGMessageRecall(userId, targetId, messageId string, sentTime int, options ...MsgOption) error {
 	if userId == "" {
-		return RCErrorNew(1002, "Paramer 'userId' is required")
+		return RCErrorNew(1002, "Parameter 'userId' is required")
 	}
 
 	if targetId == "" {
-		return RCErrorNew(1002, "Paramer 'targetId' is required")
+		return RCErrorNew(1002, "Parameter 'targetId' is required")
 	}
 
 	if messageId == "" {
-		return RCErrorNew(1002, "Paramer 'messageId' is required")
+		return RCErrorNew(1002, "Parameter 'messageId' is required")
 	}
 
 	if sentTime == 0 {
-		return RCErrorNew(1002, "Paramer 'sentTime' is required")
+		return RCErrorNew(1002, "Parameter 'sentTime' is required")
 	}
 
 	extOptions := modifyMsgOptions(options)
@@ -795,7 +795,7 @@ func (rc *RongCloud) UGMessageRecall(userId, targetId, messageId string, sentTim
 /**
  * @name: MessageBroadcastRecall
  * @test:
- * @msg:广播消息撤回
+ * @msg: Broadcast message recall
  * @param string userId
  * @param string objectName
  * @param BroadcastRecallContent content
@@ -832,7 +832,7 @@ func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, co
 /**
  * @name: ChatRoomRecall
  * @test:
- * @msg: 消息撤回 - 聊天室
+ * @msg: Message Recall - Chatroom
  * @param string userId
  * @param string targetId
  * @param string messageId
@@ -889,7 +889,7 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
 /**
  * @name: SystemRecall
  * @test:
- * @msg: 消息撤回 - 系统会话
+ * @msg: Recall a message - System Conversation
  * @param string userId
  * @param string targetId
  * @param string messageId
@@ -943,23 +943,24 @@ func (rc *RongCloud) SystemRecall(userId string, targetId string, messageId stri
 	return err
 }
 
-// PrivateSend 发送单聊消息方法（一个用户向多个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
+// PrivateSend Sends a one-to-one chat message (a single user can send a message to multiple users, with a maximum message size of 128k. The maximum number of messages that can be sent per minute is 6000, and the maximum number of users that can be sent to in a single request is 1000. For example, sending to 1000 users counts as 1000 messages.)
 /*
- *@param  senderID:发送人用户 ID。
- *@param  targetID:接收用户 ID。可以实现向多人发送消息，每次上限为 1000 人。
- *@param  objectName:发送的消息类型。
- *@param  msg:消息内容。
- *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
- *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
- *@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
- *@param  verifyBlacklist:是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
- *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
- *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
- *@param  contentAvailable:针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0。
- *@param  options 发送消息需要用的其他扩展参数
- *
- *@return error
- */
+*@param  senderID: The sender's user ID.
+*@param  targetID: The recipient user ID. This allows sending messages to multiple users, with a maximum of 1000 users per request.
+*@param  objectName: The type of message being sent.
+*@param  msg: Message content.
+*@param  pushContent: Defines the displayed push notification content.If the objectName is a built-in message
+type of RongCloud, the user will definitely receive a push notification after sending.For custom messages, pushContent is the displayed push notification content of the custom message.If not provided, the user will not receive a push notification.
+*@param  pushData: For iOS platforms, this is the additional payload attached to the push notification. For Android clients, the corresponding field name is pushData.
+*@param  count: For iOS platforms, this controls the display count of unread messages in push notifications.It is only effective when toUserId is a single user ID.
+*@param  verifyBlacklist: Whether to filter the sender's blocklist. 0 means no filtering, 1 means filtering. Default is 0 (no filtering).
+*@param  isPersisted: When the current version has a new custom message and the older version does not, whether the older version client should store the message after receiving it. 0 means no storage, 1 means storage.Default is 1 (store the message).
+*@param  isIncludeSender: Whether the sending user should receive the message.0 means no reception, 1 means reception.Default is 0 (no reception).
+*@param  contentAvailable: For iOS platforms, this enables silent push notifications when the SDK is in the background suspended state.This is a push notification method introduced after iOS7.It allows the app to run a piece of code in the background immediately after receiving the notification.1 means enabled, 0 means disabled.Default is 0.
+*@param  options: Other extended parameters needed for sending messages.
+*
+*@return error
+*/
 func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg rcMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isIncludeSender, contentAvailable int,
 	options ...MsgOption) error {
@@ -1017,13 +1018,13 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 	return err
 }
 
-// 私聊状态消息发送
-// senderID: 发送人用户 ID。
-// targetID: 接收用户 ID，支持向多人发送消息，每次上限为 1000 人。
-// objectName: 消息类型
-// msg: 所发送消息的内容
-// verifyBlacklist: 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
-// isIncludeSender: 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+// Send private status message
+// senderID: The sender's user ID.
+// targetID: The recipient user ID. Supports sending messages to multiple users, with a maximum of 1000 users per request.
+// objectName: The message type.
+// msg: The content of the message to be sent.
+// verifyBlacklist: Whether to filter the sender's blocklist. 0 means no filtering, 1 means filtering. Default is 0 (no filtering).
+// isIncludeSender: Whether the sender should receive the message. 0 means no, 1 means yes. Default is 0 (no).
 func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objectName string, msg rcMsg,
 	verifyBlacklist int, isIncludeSender int, options ...MsgOption) error {
 
@@ -1066,13 +1067,13 @@ func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objec
 	return err
 }
 
-// PrivateRecall 撤回单聊消息方法
+// PrivateRecall is used to recall a one-to-one chat message.
 /*
 *
-*@param  senderID:发送人用户 ID。
-*@param  targetID:接收用户 ID。
-*@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
-*@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
+*@param  senderID: The sender's user ID.
+*@param  targetID: The receiver's user ID.
+*@param  uID: The unique identifier of the message, returned by the SDK after a successful message send.
+*@param  sentTime: The timestamp when the message was sent, returned by the SDK after a successful message send.
 * @param int isAdmin
 * @param int isDelete
 * @param bool disablePush
@@ -1113,15 +1114,15 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int,
 	return err
 }
 
-// PrivateSendTemplate 向多个用户发送不同内容消息
+// PrivateSendTemplate Sends different content messages to multiple users
 /*
- *@param  senderID:发送人用户 ID。
- *@param  objectName:发送的消息类型。
- *@param  template:消息模版。
- *@param  content:数据内容，包含消息内容和接收者。
- *@param  options 发送消息需要用的其他扩展参数
+ * @param senderID: The sender's user ID.
+ * @param objectName: The type of message to be sent.
+ * @param template: The message template.
+ * @param content: The data content, including the message content and recipients.
+ * @param options: Additional extended parameters required for sending the message.
  *
- *@return error
+ * @return error
  */
 func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent,
 	options ...MsgOption) error {
@@ -1182,20 +1183,20 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 	return err
 }
 
-// GroupSend 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+// GroupSend Sends a group message (sends a message to a group as a user. The maximum size of a single message is 128k. The maximum number of messages that can be sent per second is 20. The maximum number of groups that can be sent to at a time is 3. For example, sending a message to 3 groups counts as 3 messages.)
 /*
- *@param  senderID:发送人用户 ID 。
- *@param  targetID:接收群ID.
- *@param  objectName:消息类型。
- *@param  userID:群定向消群定向消息功能，向群中指定的一个或多个用户发送消息，群中其他用户无法收到该消息，当 targetID 为一个群组时此参数有效。注：如果开通了“单群聊消息云存储”功能，群定向消息不会存储到云端，向群中部分用户发送消息阅读状态回执时可使用此功能。（可选）
- *@param  msg:发送消息内容
- *@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
- *@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
- *@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
- *@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
- *@param  options 发送消息需要用的其他扩展参数
+ * @param  senderID: The sender's user ID.
+ * @param  targetID: The target group ID.
+ * @param  objectName: The message type.
+ * @param  userID: The targeted message feature allows sending messages to one or more specified users in the group, while other users in the group will not receive the message. This parameter is valid when targetID is a group. Note: If the "Cloud Storage for One-to-One and Group Messages" feature is enabled, targeted messages will not be stored in the cloud. This feature can be used when sending read receipts to some users in the group. (Optional)
+ * @param  msg: The message content to be sent.
+ * @param  pushContent: Defines the displayed Push content. If the objectName is a built-in RongCloud message type, the user will definitely receive a Push notification after sending. If it is a custom message, pushContent is the displayed Push content of the custom message. If this parameter is not provided, the user will not receive a Push notification.
+ * @param  pushData: For iOS platforms, this is the additional data attached to the Push notification payload. For Android clients, the corresponding field name is pushData.
+ * @param  isPersisted: When the current version has a new custom message and the old version does not have this custom message, this parameter determines whether the old version client will store the message after receiving it. 0 means not to store, 1 means to store. The default is 1 (store the message).
+ * @param  isIncludeSender: Whether the sender will receive the message. 0 means not to receive, 1 means to receive. The default is 0 (not to receive).
+ * @param  options: Other extended parameters needed for sending the message.
  *
- *@return error
+ * @return error
  */
 func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
 	pushContent string, pushData string, isPersisted, isIncludeSender int, options ...MsgOption) error {
@@ -1257,13 +1258,13 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	return err
 }
 
-// 群聊状态消息发送
-// senderID: 发送人用户 ID。
-// toGroupIds: 接收群ID，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。
-// objectName: 消息类型
-// msg: 所发送消息的内容
-// verifyBlacklist: 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。
-// isIncludeSender: 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
+// Send group status message
+// senderID: The sender's user ID.
+// toGroupIds: The recipient group IDs. Providing multiple parameters allows sending messages to multiple groups, with a maximum of 3 groups.
+// objectName: The message type.
+// msg: The content of the message to be sent.
+// verifyBlacklist: Whether to filter the sender's blocklist. 0 indicates no filtering, 1 indicates filtering. Default is 0 (no filtering).
+// isIncludeSender: Whether the sender should receive the message. 0 indicates not receiving, 1 indicates receiving. Default is 0 (not receiving).
 func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objectName string, msg rcMsg,
 	verifyBlacklist int, isIncludeSender int, options ...MsgOption) error {
 
@@ -1304,16 +1305,16 @@ func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objec
 	return err
 }
 
-// GroupRecall 撤回群聊消息
+// GroupRecall Recall a group chat message
 /*
-*@param  senderID:发送人用户 ID。
-*@param  targetID:接收用户 ID。
-*@param  uID:消息的唯一标识，各端 SDK 发送消息成功后会返回 uID。
-*@param  sentTime:消息的发送时间，各端 SDK 发送消息成功后会返回 sentTime。
+* @param senderID: The sender's user ID.
+* @param targetID: The recipient's user ID.
+* @param uID: The unique identifier of the message, returned by the SDK after the message is sent successfully.
+* @param sentTime: The timestamp when the message was sent, returned by the SDK after the message is sent successfully.
 * @param int isAdmin
 * @param int isDelete
 * @param bool disablePush
-*@return error
+* @return error
  */
 func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
 	options ...MsgOption) error {
@@ -1350,20 +1351,20 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
 	return err
 }
 
-// GroupSendMention 发送群组 @ 消息
+// GroupSendMention Sends a group @ message
 /*
-*@param  senderID:发送人用户 ID 。
-*@param  targetID:接收群ID,最多不超过 3 个群组。
-*@param  objectName:消息类型。
-*@param  msg:发送消息内容。
-*@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
-*@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
-*@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
-*@param  isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。
-*@param  isMentioned:是否为 @消息，0 表示为普通消息，1 表示为 @消息，默认为 0。当为 1 时 content 参数中必须携带 mentionedInfo @消息的详细内容。为 0 时则不需要携带 mentionedInfo。当指定了 toUserId 时，则 @ 的用户必须为 toUserId 中的用户。
-*@param  contentAvailable:针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0
-*
-*@return error
+ * @param senderID: The sender's user ID.
+ * @param targetID: The recipient group ID, with a maximum of 3 groups.
+ * @param objectName: The message type.
+ * @param msg: The message content to be sent.
+ * @param pushContent: Defines the push notification content to be displayed. If the objectName is a built-in RongCloud message type, the user will always receive a push notification. For custom messages, pushContent defines the push notification content. If not provided, the user will not receive a push notification.
+ * @param pushData: For iOS platforms, this is additional data attached to the push notification payload. For Android clients, the corresponding field name is pushData.
+ * @param isPersisted: Determines whether older versions of the client store the message when a new custom message type is introduced. 0 means do not store, 1 means store. Default is 1.
+ * @param isIncludeSender: Determines whether the sender also receives the message. 0 means do not receive, 1 means receive. Default is 0.
+ * @param isMentioned: Indicates whether this is an @ message. 0 means a regular message, 1 means an @ message. Default is 0. When set to 1, the content parameter must include mentionedInfo with the detailed content of the @ message. When set to 0, mentionedInfo is not required. If toUserId is specified, the @ user must be included in toUserId.
+ * @param contentAvailable: For iOS platforms, this enables silent push notifications when the SDK is in the background. This is a push method introduced in iOS7 that allows the app to execute code in the background upon receiving the notification. 1 means enabled, 0 means disabled. Default is 0.
+ *
+ * @return error
  */
 func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
 	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int, options ...MsgOption) error {
@@ -1413,14 +1414,14 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	return err
 }
 
-// ChatRoomSend 发送聊天室消息方法。（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+// ChatRoomSend sends a message to a chatroom. (A user can send a message to a group. The maximum size of a single message is 128k. A user can send up to 20 messages per second and up to 3 groups at a time. For example, sending a message to 3 groups counts as 3 messages.)
 /*
-*@param  senderID:发送人用户 ID 。
-*@param  targetID:接收聊天室ID, 建议最多不超过 10 个聊天室。
-*@param  objectName:消息类型
-*@param  msg:发送消息内容
-*
-*@return error
+ *@param  senderID: The sender's user ID.
+ *@param  targetID: The target chatroom IDs. It is recommended not to exceed 10 chatrooms.
+ *@param  objectName: The message type.
+ *@param  msg: The message content.
+ *
+ *@return error
  */
 func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg, isPersisted, isIncludeSender int) error {
 	if senderID == "" {
@@ -1458,12 +1459,12 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 	return err
 }
 
-// ChatRoomBroadcast 向应用内所有聊天室广播消息方法，此功能需开通 专属服务（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
+// ChatRoomBroadcast Broadcasts a message to all chatrooms in the application. This feature requires the Dedicated Cloud service. (Sends a message as a user to a group, with a maximum message size of 128k. The maximum sending rate is 20 messages per second.)
 /*
-*@param  senderID:发送人用户 ID 。
-*@param  objectName:消息类型
-*@param  msg:发送消息内容
-* @param isIncludeSender:0或者1
+*@param  senderID: The sender's user ID.
+*@param  objectName: The message type.
+*@param  msg: The message content.
+* @param isIncludeSender: 0 or 1.
 *@return error
  */
 func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg, isIncludeSender ...string) error {
@@ -1492,11 +1493,10 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg, i
 	return err
 }
 
-// 在线广播消息
-// 是指系统向 App 中所有在线用户发送消息的行为。当用户正在使用 App 时，消息会展示在聊天界面和会话列表界面，会话类型为 SYSTEM。
-// @param fromUserId  发送人用户 Id
-// @param objectName  消息类型，
-// @param content  发送消息内容
+// OnlineBroadcast Sends a message to all online users in the application. When users are actively using the app, the message will be displayed in the chat UI and conversation list, with the conversation type set to SYSTEM.
+// @param fromUserId The sender's user ID.
+// @param objectName The message type.
+// @param content The message content.
 func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, content string) ([]byte, error) {
 
 	if fromUserId == "" {
@@ -1524,17 +1524,17 @@ func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, conte
 	return code, err
 }
 
-// SystemSend 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
+// SystemSend sends a system message from one user to one or multiple users. The maximum size of a single message is 128k, and the conversation type is SYSTEM.
 /*
-*@param  senderID:发送人用户 ID。
-*@param  targetID:接收用户 ID, 上限为 100 人。
-*@param  objectName:发送的消息类型。
-*@param  msg:消息。
-*@param  pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，则 pushContent 为自定义消息显示的 Push 内容，如果不传则用户不会收到 Push 通知。
-*@param  pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。
-*@param  count:针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。
-*@param  isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。
-*@param  options 发送消息需要用的其他扩展参数
+*@param  senderID: The sender's user ID.
+*@param  targetID: The recipient user ID(s), with a maximum of 100 users.
+*@param  objectName: The type of message being sent.
+*@param  msg: The message content.
+*@param  pushContent: Defines the displayed push notification content. If the objectName is a RongCloud built-in message type, the user will always receive a push notification. If it's a custom message, pushContent defines the push notification content to be displayed. If not provided, the user will not receive a push notification.
+*@param  pushData: For iOS platforms, this is the additional data attached to the push notification payload. For Android clients, the corresponding field name is pushData.
+*@param  count: For iOS platforms, this controls the number of unread messages displayed in the push notification. It is only effective when toUserId is a single user ID.
+*@param  isPersisted: When a new version introduces a custom message that older versions do not support, this parameter determines whether the older client will store the message. 0 means not stored, 1 means stored. Default is 1 (store the message).
+*@param  options: Additional extended parameters required for sending the message.
 
 *
 *@return error
@@ -1586,11 +1586,11 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	return err
 }
 
-// SystemBroadcast 给应用内所有用户发送消息方法，每小时最多发 2 次，每天最多发送 3 次（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息。）
+// SystemBroadcast Sends a message to all users in the application. It can be sent up to 2 times per hour and 3 times per day. (Sends a message to a group as a user, with a maximum message size of 128k. A maximum of 20 messages can be sent per second.)
 /*
-*@param  senderID:发送人用户 ID 。
-*@param  objectName:消息类型
-*@param  msg:发送消息内容
+*@param  senderID: The sender's user ID.
+*@param  objectName: The message type.
+*@param  msg: The message content to be sent.
 *
 *@return error
  */
@@ -1630,12 +1630,12 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg, opt
 	return err
 }
 
-// SystemSendTemplate 一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM
+// SystemSendTemplate Sends a system message from one user to one or more users. The maximum size of a single message is 128k, and the conversation type is SYSTEM.
 /*
-*@param  senderID:发送人用户 ID。
-*@param  objectName:发送的消息类型。
-*@param  template:消息模版。
-*@param  content:数据内容，包含消息内容和接收者。
+*@param  senderID: The sender's user ID.
+*@param  objectName: The type of message to be sent.
+*@param  template: The message template.
+*@param  content: The data content, including the message content and recipients.
 *
 *@return error
  */
@@ -1693,11 +1693,11 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 	return err
 }
 
-// HistoryGet 按小时获取历史消息日志文件 URL，包含小时内应用产生的所有消息，消息日志文件无论是否已下载，3 天后将从融云服务器删除
+// HistoryGet retrieves the URL of the historical message log file by hour, which includes all messages generated by the application within that hour. The message log file will be deleted from RongCloud servers after 3 days, regardless of whether it has been downloaded.
 /*
-*@param date:精确到小时，例如: 2018030210 表示获取 2018 年 3 月 2 日 10 点至 11 点产生的数据
+* @param date: Specifies the hour, e.g., 2018030210 represents the data generated from 10:00 to 11:00 on March 2, 2018.
 *
-*@return History error
+* @return History error
  */
 func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	req := httplib.Post(rc.rongCloudURI + "/message/history." + ReqType)
@@ -1717,9 +1717,9 @@ func (rc *RongCloud) HistoryGet(date string) (History, error) {
 	return history, nil
 }
 
-// HistoryRemove 删除历史消息日志文件
+// HistoryRemove Deletes historical message log files
 /*
-*@param date:精确到小时，例如: 2018030210 表示获取 2018 年 3 月 2 日 10 点至 11 点产生的数据
+*@param date: Specifies the hour, e.g., 2018030210 represents the data generated from 10:00 to 11:00 on March 2, 2018
 *
 *@return error
  */
@@ -1740,8 +1740,8 @@ func (rc *RongCloud) HistoryRemove(date string) error {
 
 }
 
-// SetMessageExpansion 设置消息扩展
-// 发送消息时，如设置了 expansion 为 true，可对该条消息进行扩展信息设置，每次最多可以设置 100 个扩展属性信息，最多可设置 300 个。
+// SetMessageExpansion Sets message extension
+// When sending a message, if expansion is set to true, you can set extended information for this message. Up to 100 custom attributes can be set at a time, with a maximum of 300 in total.
 func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targetId string, extra map[string]string, isSyncSender int) error {
 	if msgUID == "" {
 		return RCErrorNew(1002, "Paramer 'msgUID' is required")
@@ -1794,7 +1794,7 @@ func (rc *RongCloud) SetMessageExpansion(msgUID, userId, conversationType, targe
 	return nil
 }
 
-// DeleteMessageExpansion 删除消息扩展
+// DeleteMessageExpansion Deletes message expansion
 func (rc *RongCloud) DeleteMessageExpansion(msgUID, userId, conversationType, targetId string, isSyncSender int, keys ...string) error {
 	if msgUID == "" {
 		return RCErrorNew(1002, "Paramer 'msgUID' is required")
@@ -1853,8 +1853,8 @@ type MessageExpansionItem struct {
 	Timestamp int64  `json:"timestamp"`
 }
 
-// QueryMessageExpansion 获取扩展信息
-// 根据消息 ID 获取指定消息扩展信息
+// QueryMessageExpansion Retrieves message extension information
+// Retrieves the specified message extension information based on the Message UID
 func (rc *RongCloud) QueryMessageExpansion(msgUID string, page int) ([]MessageExpansionItem, error) {
 	if msgUID == "" {
 		return nil, RCErrorNew(1002, "Paramer 'msgUID' is required")

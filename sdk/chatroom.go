@@ -1,4 +1,4 @@
-// ChatRoom 聊天室
+// ChatRoom chatroom
 
 package sdk
 
@@ -11,25 +11,25 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// ChatRoomInfo 聊天室信息
+// ChatRoomInfo chatroom information
 type ChatRoomInfo struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
-// ChatRoom 聊天室信息
+// ChatRoom chatroom information
 type ChatRoom struct {
 	ChatRoomID string `json:"chrmId"`
 	Name       string `json:"name"`
 	Time       string `json:"time"`
 }
 
-// ChatRoomQueryResult 聊天室查询接口返回数据
+// ChatRoomQueryResult chatroom query interface return data
 type ChatRoomQueryResult struct {
 	ChatRooms []ChatRoom `json:"chatRooms"`
 }
 
-// ChatRoomResult ChatRoom 返回结果
+// ChatRoomResult ChatRoom return result
 type ChatRoomResult struct {
 	Total            int            `json:"total"`
 	Users            []ChatRoomUser `json:"users"`
@@ -39,7 +39,7 @@ type ChatRoomResult struct {
 	WhitelistMsgType []string       `json:"whitlistMsgType"`
 }
 
-// 查询聊天室信息返回结果
+// Query chatroom information return result
 type ChatRoomGetResult struct {
 	Code        int    `json:"code"`
 	ChatroomId  string `json:"chatroomId"`
@@ -50,7 +50,7 @@ type ChatRoomGetResult struct {
 	IsBan       bool   `json:"ban"`
 }
 
-// ChatRoomUser 聊天室用户信息
+// ChatRoomUser Chatroom user information
 type ChatRoomUser struct {
 	ID       string `json:"id"`
 	UserID   string `json:"userId"`
@@ -58,7 +58,7 @@ type ChatRoomUser struct {
 	IsInChrm int    `json:"isInChrm"`
 }
 
-// ChatRoomAttr 聊天室属性自定义结构
+// ChatRoomAttr Chatroom custom attributes structure
 type ChatRoomAttr struct {
 	Key         string `json:"key"`
 	Value       string `json:"value"`
@@ -67,17 +67,17 @@ type ChatRoomAttr struct {
 	LastSetTime string `json:"lastSetTime"`
 }
 
-// ChatRoomAttrResult 聊天室属性自定义返回结果
+// ChatRoomAttrResult Chatroom custom attributes return result
 type ChatRoomAttrResult struct {
 	Keys []ChatRoomAttr `json:"keys"`
 }
 
-// ChatUserExistObj ： ChatUserExistResObj的返回值
+// ChatUserExistObj : Return value of ChatUserExistResObj
 type ChatUserExistObj struct {
-	// 200：成功。
+	// 200: Success.
 	Code int `json:"code"`
 
-	// 用户是否在聊天室中，true 表示在聊天室中，false 表示不在聊天室中。
+	// Indicates whether the user is in the chatroom, true means in the chatroom, false means not in the chatroom.
 	IsInChrm bool `json:"isInChrm"`
 }
 
@@ -93,68 +93,68 @@ type chatroomOptions struct {
 	entryInfo    map[string]interface{}
 }
 
-// ChatroomOption 接口函数
+// ChatroomOption Interface function
 type ChatroomOption func(*chatroomOptions)
 
-// 是否通知成员。默认 false 不通知
+// Whether to notify members. Default is false (no notification)
 func WithChatroomNeedNotify(isNeedNotify bool) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.needNotify = isNeedNotify
 	}
 }
 
-// 通知携带的 JSON 格式的扩展信息，仅在 needNotify 为 true 时有效。
+// The extra information in JSON format carried by the notification, valid only when needNotify is true.
 func WithChatroomExtra(extra string) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.extra = extra
 	}
 }
 
-// 指定聊天室的销毁类型: 0：默认值，表示不活跃时销毁, 1：固定时间销毁
+// Specifies the chatroom destruction type: 0: Default value, means destruction when inactive, 1: Fixed time destruction
 func WithChatroomDestroyType(destroyType int) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.destroyType = destroyType
 	}
 }
 
-// 设置聊天室销毁时间, destroyType=1时生效，单位为分钟，最小值 60 分钟，最大 10080 分钟（7 天）。如果未设置，默认 60 分钟。
+// Sets the chatroom destruction time, effective when destroyType=1, unit is minutes, minimum 60 minutes, maximum 10080 minutes (7 days). If not set, defaults to 60 minutes.
 func WithChatroomDestroyTime(destroyTime int) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.destroyTime = destroyTime
 	}
 }
 
-// 是否禁言聊天室全体成员，默认 false
+// Whether to mute all members of the chatroom, default is false
 func WithChatroomIsBan(isBan bool) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.isBan = isBan
 	}
 }
 
-// 禁言白名单用户列表，支持批量设置，最多不超过 20 个
+// The allowlist of user IDs for muting, supports batch setting, maximum of 20 users
 func WithChatroomWhiteUserIds(whiteUserIds []string) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.whiteUserIds = whiteUserIds
 	}
 }
 
-// 聊天室自定义属性的所属用户 ID
+// The user ID to whom the chatroom custom attributes belong
 func WithChatroomEntryOwnerId(entryOwnerId string) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.entryOwnerId = entryOwnerId
 	}
 }
 
-// 聊天室自定义属性 KV 对，JSON 结构
+// The KV pairs of chatroom custom attributes, in JSON structure
 func WithChatroomEntryInfo(entryInfo map[string]interface{}) ChatroomOption {
 	return func(options *chatroomOptions) {
 		options.entryInfo = entryInfo
 	}
 }
 
-// 修改默认值
+// Modify default values
 func modifyChatroomOptions(options []ChatroomOption) chatroomOptions {
-	// 默认值
+	// Default values
 	defaultOptions := chatroomOptions{
 		needNotify:   false,
 		extra:        "",
@@ -166,7 +166,7 @@ func modifyChatroomOptions(options []ChatroomOption) chatroomOptions {
 		entryInfo:    map[string]interface{}{},
 	}
 
-	// 修改默认值
+	// Modify default values
 	for _, ext := range options {
 		ext(&defaultOptions)
 	}
@@ -174,10 +174,10 @@ func modifyChatroomOptions(options []ChatroomOption) chatroomOptions {
 	return defaultOptions
 }
 
-// ChatUserExistResObj :/chatroom/user/exist.json 查询用户是否加入聊天室
+// ChatUserExistResObj :/chatroom/user/exist.json Check if a user has joined a chatroom
 //*
-//  @param: chatroomId，要查询的聊天室 ID
-//  @param: userId, 要查询的用户 ID
+//  @param: chatroomId, the ID of the chatroom to query
+//  @param: userId, the ID of the user to query
 //  response: ChatUserExistObj
 //*//
 func (rc *RongCloud) ChatUserExistResObj(chatroomId, userId string) (ChatUserExistObj, error) {
@@ -185,10 +185,10 @@ func (rc *RongCloud) ChatUserExistResObj(chatroomId, userId string) (ChatUserExi
 		result = ChatUserExistObj{}
 	)
 	if len(chatroomId) == 0 {
-		return result, RCErrorNew(1002, "Paramer 'chatroomId' is required")
+		return result, RCErrorNew(1002, "Parameter 'chatroomId' is required")
 	}
 	if len(userId) == 0 {
-		return result, RCErrorNew(1002, "Paramer 'userId' is required")
+		return result, RCErrorNew(1002, "Parameter 'userId' is required")
 	}
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/exist.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -207,11 +207,11 @@ func (rc *RongCloud) ChatUserExistResObj(chatroomId, userId string) (ChatUserExi
 	return result, err
 }
 
-// ChatUserExist :/chatroom/user/exist.json 查询用户是否加入聊天室
+// ChatUserExist :/chatroom/user/exist.json Check if a user has joined a chatroom
 //*
-//  @param: chatroomId，要查询的聊天室 ID
-//  @param: userId, 要查询的用户 ID
-//  response: byte数组
+//  @param: chatroomId, the ID of the chatroom to query
+//  @param: userId, the ID of the user to query
+//  response: byte array
 //*//
 func (rc *RongCloud) ChatUserExist(chatroomId, userId string) ([]byte, error) {
 	if len(chatroomId) == 0 {
@@ -234,10 +234,10 @@ func (rc *RongCloud) ChatUserExist(chatroomId, userId string) ([]byte, error) {
 	return res, err
 }
 
-// ChatRoomCreate 创建聊天室方法
+// ChatRoomCreate Create a chatroom
 /*
- *@param  id:要创建的聊天室的ID；
- *@param  name:要创建的聊天室的name。
+ *@param  id: the ID of the chatroom to create;
+ *@param  name: the name of the chatroom to create.
  *
  *@return error
  */
@@ -262,7 +262,7 @@ func (rc *RongCloud) ChatRoomCreate(id, name string) error {
 	return err
 }
 
-// 创建聊天室
+// Create a chatroom
 func (rc *RongCloud) ChatRoomCreateNew(chatroomId string, options ...ChatroomOption) error {
 	if chatroomId == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -298,13 +298,14 @@ func (rc *RongCloud) ChatRoomCreateNew(chatroomId string, options ...ChatroomOpt
 	}
 
 	_, err := rc.do(req)
+
 	if err != nil {
 		rc.urlError(err)
 	}
 	return err
 }
 
-// 设置聊天室销毁类型
+// Set the chatroom destruction type
 func (rc *RongCloud) ChatRoomDestroySet(chatroomId string, destroyType, destroyTime int) error {
 	if chatroomId == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -325,7 +326,7 @@ func (rc *RongCloud) ChatRoomDestroySet(chatroomId string, destroyType, destroyT
 	return err
 }
 
-// 查询聊天室信息
+// Query chatroom information
 func (rc *RongCloud) ChatRoomGetNew(chatroomId string) (ChatRoomGetResult, error) {
 	if chatroomId == "" {
 		return ChatRoomGetResult{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -349,7 +350,7 @@ func (rc *RongCloud) ChatRoomGetNew(chatroomId string) (ChatRoomGetResult, error
 	return dat, nil
 }
 
-// 批量设置聊天室属性（KV）
+// Batch set chatroom custom attributes (KV)
 func (rc *RongCloud) ChatRoomEntryBatchSet(chatroomId string, autoDelete int, entryOwnerId string, entryInfo map[string]interface{}) error {
 	if chatroomId == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -385,10 +386,10 @@ func (rc *RongCloud) ChatRoomEntryBatchSet(chatroomId string, autoDelete int, en
 	return err
 }
 
-// ChatRoomDestroy 销毁聊天室方法
+// ChatRoomDestroy Destroys a chatroom
 /**
  *
- *@param  id:要销毁的聊天室 ID。
+ *@param  id: The ID of the chatroom to be destroyed.
  *
  *@return error
  */
@@ -410,25 +411,25 @@ func (rc *RongCloud) ChatRoomDestroy(id string) error {
 	return err
 }
 
-// ChatRoomGet 查询聊天室内用户方法
+// ChatRoomGet Query chatroom members
 /*
- *@param  id:要查询的聊天室 ID。
- *@param  count:要获取的聊天室成员数，上限为 500 ，超过 500 时最多返回 500 个成员。
- *@param  order:加入聊天室的先后顺序， 1 为加入时间正序， 2 为加入时间倒序。
+ *@param  id: The ID of the chatroom to query.
+ *@param  count: The number of chatroom members to retrieve, with a maximum limit of 500. If exceeded, only 500 members will be returned.
+ *@param  order: The order in which members joined the chatroom. 1 for ascending order by join time, 2 for descending order by join time.
  *
  *@return ChatRoomResult error
  */
 func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, error) {
 	if id == "" {
-		return ChatRoomResult{}, RCErrorNew(1002, "Paramer 'id' is required")
+		return ChatRoomResult{}, RCErrorNew(1002, "Parameter 'id' is required")
 	}
 
 	if count <= 0 {
-		return ChatRoomResult{}, RCErrorNew(1002, "Paramer 'count' is required")
+		return ChatRoomResult{}, RCErrorNew(1002, "Parameter 'count' is required")
 	}
 
 	if order <= 0 {
-		return ChatRoomResult{}, RCErrorNew(1002, "Paramer 'order' is required")
+		return ChatRoomResult{}, RCErrorNew(1002, "Parameter 'order' is required")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/user/query." + ReqType)
@@ -450,12 +451,12 @@ func (rc *RongCloud) ChatRoomGet(id string, count, order int) (ChatRoomResult, e
 	return dat, nil
 }
 
-// ChatRoomIsExist 检查用户是否在聊天室
+// ChatRoomIsExist checks if users exist in a chatroom
 /*
- *@param  id:要查询的聊天室 ID。
- *@param  members:每次最多 1000 个成员。
+ * @param id: The ID of the chatroom to query.
+ * @param members: A list of members to check, with a maximum of 1000 members per request.
  *
- *@return ChatRoomResult error
+ * @return ChatRoomResult error
  */
 func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUser, error) {
 	if id == "" {
@@ -486,14 +487,14 @@ func (rc *RongCloud) ChatRoomIsExist(id string, members []string) ([]ChatRoomUse
 	return dat.Result, nil
 }
 
-// ChatRoomBlockAdd 添加封禁聊天室成员方法
+// ChatRoomBlockAdd adds members to the chatroom blocklist
 /**
  *
- *@param  id:聊天室 Id。
- *@param  members:封禁列表。
- *@param  minute:封禁时长，以分钟为单位，最大值为43200分钟。
+ * @param id: The ID of the chatroom.
+ * @param members: A list of members to be blocked.
+ * @param minute: The duration of the block in minutes, with a maximum value of 43200 minutes.
  *
- *@return error
+ * @return error
  */
 func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint, options ...ChatroomOption) error {
 	if id == "" {
@@ -530,11 +531,11 @@ func (rc *RongCloud) ChatRoomBlockAdd(id string, members []string, minute uint, 
 	return err
 }
 
-// ChatRoomBlockRemove 移除封禁聊天室成员方法
+// ChatRoomBlockRemove Remove banned users from the chatroom
 /*
  *
- *@param  id:聊天室 ID。
- *@param  members: 用户列表。
+ *@param  id: Chatroom ID.
+ *@param  members: List of users.
  *
  *@return error
  */
@@ -567,9 +568,9 @@ func (rc *RongCloud) ChatRoomBlockRemove(id string, members []string, options ..
 	return err
 }
 
-// ChatRoomBlockGetList 查询被封禁聊天室成员方法
+// ChatRoomBlockGetList Query the list of banned chatroom members
 /*
- *@param  id:聊天室 ID。
+ *@param  id: The ID of the chatroom.
  *
  *@return ChatRoomResult error
  */
@@ -595,10 +596,11 @@ func (rc *RongCloud) ChatRoomBlockGetList(id string) (ChatRoomResult, error) {
 	return dat, nil
 }
 
-// ChatRoomBanAdd 添加聊天室全局禁言
+// ChatRoomBanAdd Add a global mute for the chatroom
 /*
- *@param  members:成员列表，最多不超过 20 个。
- *@param  minute:禁言时长，范围: 1 - 1 * 30 * 24 * 60 分钟。
+ *@param  members: The list of members, with a maximum of 20.
+
+ *@param  minute: Mute duration, range: 1 - 1 * 30 * 24 * 60 minutes.
  *
  *@return error
  */
@@ -631,9 +633,9 @@ func (rc *RongCloud) ChatRoomBanAdd(members []string, minute uint, options ...Ch
 	return err
 }
 
-// ChatRoomBanRemove 解除聊天室全局禁言
+// ChatRoomBanRemove Unmute all chatrooms
 /*
- *@param  members:成员列表，最多不超过 20 个。
+ *@param  members: Member list, up to 20 members.
  *
  *@return error
  */
@@ -662,7 +664,7 @@ func (rc *RongCloud) ChatRoomBanRemove(members []string, options ...ChatroomOpti
 	return err
 }
 
-// ChatRoomBanGetList 获取聊天室全局禁言列表
+// ChatRoomBanGetList Get the list of globally muted users in the chatroom
 /*
  *@return []ChatRoomUser error
  */
@@ -683,12 +685,12 @@ func (rc *RongCloud) ChatRoomBanGetList() ([]ChatRoomUser, error) {
 	return dat.Users, nil
 }
 
-// ChatRoomGagAdd 添加禁言聊天室成员方法（在 App 中如果不想让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）
+// ChatRoomGagAdd Mute a user in the chatroom (In the App, if you do not want a specific user to send messages in the chatroom, you can mute the user. The muted user can still receive and view messages in the chatroom but cannot send messages.)
 /*
  *
- *@param  id:聊天室 ID。
- *@param  members:禁言列表。
- *@param  minute:禁言时长，以分钟为单位，最大值为43200分钟。（必传）
+ *@param  id: Chatroom ID.
+ *@param  members: List of users to be muted.
+ *@param  minute: Duration of the mute in minutes, with a maximum value of 43200 minutes. (Required)
  *
  *@return error
  */
@@ -726,12 +728,12 @@ func (rc *RongCloud) ChatRoomGagAdd(id string, members []string, minute uint, op
 	return err
 }
 
-// ChatRoomGagRemove 移除禁言聊天室成员方法
+// ChatRoomGagRemove Remove the gag from chatroom members
 /*
- *@param  id:聊天室Id。
- *@param  members:解除禁言列表
+ * @param id: The ID of the chatroom.
+ * @param members: The list of members to remove the gag from.
  *
- *@return error
+ * @return error
  */
 func (rc *RongCloud) ChatRoomGagRemove(id string, members []string, options ...ChatroomOption) error {
 	if id == "" {
@@ -763,11 +765,11 @@ func (rc *RongCloud) ChatRoomGagRemove(id string, members []string, options ...C
 	return err
 }
 
-// ChatRoomGagGetList 查询被禁言聊天室成员方法
+// ChatRoomGagGetList Query the list of muted chatroom members
 /*
- *@param  id:聊天室 ID。（必传）
+ * @param  id: Chatroom ID. (Required)
  *
- *@return []ChatRoomUser error
+ * @return []ChatRoomUser error
  */
 func (rc *RongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 	var dat ChatRoomResult
@@ -790,10 +792,10 @@ func (rc *RongCloud) ChatRoomGagGetList(id string) ([]ChatRoomUser, error) {
 	return dat.Users, nil
 }
 
-// ChatRoomDemotionAdd 添加聊天室消息优先级方法
+// ChatRoomDemotionAdd Add chatroom message priority
 /*
- *@param  objectName:消息类型列表，最多 20 个。
- *@return err
+ * @param  objectName: List of message types, up to 20.
+ * @return err
  */
 func (rc *RongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 	if len(objectNames) == 0 {
@@ -814,10 +816,10 @@ func (rc *RongCloud) ChatRoomDemotionAdd(objectNames []string) error {
 	return err
 }
 
-// ChatRoomDemotionRemove 移除应用内聊天室降级消息
+// ChatRoomDemotionRemove Remove the downgraded messages in the chatroom
 /*
- *@param  objectName:消息类型列表。
- *@return err
+ * @param objectName: List of message types.
+ * @return err
  */
 func (rc *RongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 	if len(objectNames) == 0 {
@@ -838,9 +840,9 @@ func (rc *RongCloud) ChatRoomDemotionRemove(objectNames []string) error {
 	return err
 }
 
-// ChatRoomDemotionGetList 获取应用内聊天室降级消息
+// ChatRoomDemotionGetList Get the list of downgraded messages in the chatroom
 /*
- *@return []string error
+ * @return []string error
  */
 func (rc *RongCloud) ChatRoomDemotionGetList() ([]string, error) {
 	var dat ChatRoomResult
@@ -860,10 +862,10 @@ func (rc *RongCloud) ChatRoomDemotionGetList() ([]string, error) {
 	return dat.ObjectNames, nil
 }
 
-// ChatRoomDistributionStop 聊天室消息停止分发方法（可实现控制对聊天室中消息是否进行分发，停止分发后聊天室中用户发送的消息，融云服务端不会再将消息发送给聊天室中其他用户。）
+// ChatRoomDistributionStop Stops message distribution in a chatroom (This method allows you to control whether messages in a chatroom are distributed. Once distribution is stopped, messages sent by users in the chatroom will not be forwarded to other users by the RongCloud server.)
 /*
- *@param  id:聊天室 ID。
- *@return error
+ * @param  id: The chatroom ID.
+ * @return error
  */
 func (rc *RongCloud) ChatRoomDistributionStop(id string) error {
 	if id == "" {
@@ -882,10 +884,10 @@ func (rc *RongCloud) ChatRoomDistributionStop(id string) error {
 	return err
 }
 
-// ChatRoomDistributionResume 聊天室消息恢复分发方法
+// ChatRoomDistributionResume Resumes message distribution in a chatroom
 /*
- *@param  id:聊天室 ID。
- *@return error
+ * @param  id: The chatroom ID.
+ * @return error
  */
 func (rc *RongCloud) ChatRoomDistributionResume(id string) error {
 	if id == "" {
@@ -903,9 +905,9 @@ func (rc *RongCloud) ChatRoomDistributionResume(id string) error {
 	return err
 }
 
-// ChatRoomKeepAliveAdd 添加保活聊天室
+// ChatRoomKeepAliveAdd Add a chatroom to keepalive list
 /*
- *@param  id:聊天室 ID。
+ *@param  id: Chatroom ID.
  *@return error
  */
 func (rc *RongCloud) ChatRoomKeepAliveAdd(id string) error {
@@ -924,9 +926,9 @@ func (rc *RongCloud) ChatRoomKeepAliveAdd(id string) error {
 	return err
 }
 
-// ChatRoomKeepAliveRemove 删除保活聊天室
+// ChatRoomKeepAliveRemove Remove a chatroom from keepalive list
 /*
- *@param  id:聊天室 ID。
+ *@param  id: Chatroom ID.
  *@return error
  */
 func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
@@ -945,9 +947,10 @@ func (rc *RongCloud) ChatRoomKeepAliveRemove(id string) error {
 	return err
 }
 
-// ChatRoomKeepAliveGetList 获取保活聊天室
+// ChatRoomKeepAliveGetList Get the list of keepalive chatrooms
 /*
- *@param  id:聊天室 ID。
+ *@param  id: Chatroom ID.
+
  *@return []string error
  */
 func (rc *RongCloud) ChatRoomKeepAliveGetList() ([]string, error) {
@@ -971,9 +974,9 @@ func (rc *RongCloud) ChatRoomKeepAliveGetList() ([]string, error) {
 	return dat.ChatRoomIDs, nil
 }
 
-// ChatRoomWhitelistAdd 添加聊天室消息白名单
+// ChatRoomWhitelistAdd Add a message to the chatroom allowlist
 /*
- *@param  objectNames:消息类型列表。
+ *@param  objectNames: List of message types.
  *@return error
  */
 func (rc *RongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
@@ -996,9 +999,9 @@ func (rc *RongCloud) ChatRoomWhitelistAdd(objectNames []string) error {
 	return err
 }
 
-// ChatRoomWhitelistRemove 删除聊天室消息白名单
+// ChatRoomWhitelistRemove Remove a message from the chatroom allowlist
 /*
- *@param  objectNames:消息类型列表。
+ *@param  objectNames: List of message types.
  *@return error
  */
 func (rc *RongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
@@ -1022,7 +1025,7 @@ func (rc *RongCloud) ChatRoomWhitelistRemove(objectNames []string) error {
 	return err
 }
 
-// ChatRoomWhitelistGetList 获取聊天室消息白名单
+// ChatRoomWhitelistGetList Get the chatroom message allowlist
 /*
  *@return []string error
  */
@@ -1045,10 +1048,10 @@ func (rc *RongCloud) ChatRoomWhitelistGetList() ([]string, error) {
 	return dat.WhitelistMsgType, nil
 }
 
-// ChatRoomUserWhitelistAdd 添加聊天室白名单成员方法
+// ChatRoomUserWhitelistAdd Add a user to the chatroom allowlist
 /*
- *@param  id:聊天室 ID。
- *@param  members:白名单列表，最多不超过 5 个。
+ *@param  id: Chatroom ID.
+ *@param  members: The allowlist, with a maximum of 5 members.
  *@return error
  */
 func (rc *RongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error {
@@ -1075,10 +1078,10 @@ func (rc *RongCloud) ChatRoomUserWhitelistAdd(id string, members []string) error
 	return err
 }
 
-// ChatRoomUserWhitelistRemove 将用户从白名单中移除
+// ChatRoomUserWhitelistRemove Removes users from the allowlist
 /*
- *@param  id:聊天室 ID。
- *@param  members:白名单列表，最多不超过 5 个。
+ *@param  id: The chatroom ID.
+ *@param  members: The allowlist, with a maximum of 5 members.
  *@return error
  */
 func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) error {
@@ -1105,10 +1108,10 @@ func (rc *RongCloud) ChatRoomUserWhitelistRemove(id string, members []string) er
 	return err
 }
 
-// ChatRoomUserWhitelistGetList 获取聊天室用户白名单
+// ChatRoomUserWhitelistGetList Get the allowlist of users in a chatroom
 /*
- *@param  id:聊天室 ID。
- *@return []string error
+ * @param id: The ID of the chatroom.
+ * @return []string error
  */
 func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
 	var dat map[string]interface{}
@@ -1152,12 +1155,12 @@ func (rc *RongCloud) ChatRoomUserWhitelistGetList(id string) ([]string, error) {
 	return users, nil
 }
 
-// ChatRoomMuteMembersAdd 添加禁言聊天室成员方法（在 App 中如果不想让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）
+// ChatRoomMuteMembersAdd Adds muted members to a chatroom (In the app, if you want to prevent a user from sending messages in a chatroom, you can mute the user. Muted users can still receive and view messages in the chatroom but cannot send messages.)
 /*
  *
- *@param  id:聊天室 ID。
- *@param  members:禁言列表。
- *@param  minute:禁言时长，以分钟为单位，最大值为43200分钟。（必传）
+ *@param  id: The chatroom ID.
+ *@param  members: The list of users to be muted.
+ *@param  minute: The duration of the mute in minutes, with a maximum value of 43200 minutes. (Required)
  *
  *@return error
  */
@@ -1196,11 +1199,11 @@ func (rc *RongCloud) ChatRoomMuteMembersAdd(id string, members []string, minute 
 	return err
 }
 
-// ChatRoomMuteMembersGetList 查询被禁言聊天室成员方法
+// ChatRoomMuteMembersGetList Retrieves the list of muted members in a chatroom.
 /*
- *@param  id:聊天室 ID。（必传）
- *
- *@return []ChatRoomUser error
+*@param  id: The ID of the chatroom. (Required)
+*
+*@return []ChatRoomUser error
  */
 func (rc *RongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, error) {
 	var dat ChatRoomResult
@@ -1237,10 +1240,10 @@ func (rc *RongCloud) ChatRoomMuteMembersGetList(id string) ([]ChatRoomUser, erro
 	return dat.Users, nil
 }
 
-// ChatRoomMuteMembersRemove 移除禁言聊天室成员方法
+// ChatRoomMuteMembersRemove Removes muted members from the chatroom
 /*
- *@param  id:聊天室Id。
- *@param  members:解除禁言列表
+ *@param  id: The ID of the chatroom.
+ *@param  members: List of members to unmute
  *
  *@return error
  */
@@ -1274,13 +1277,13 @@ func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string, opti
 	return err
 }
 
-// ChatRoomEntrySet 设置聊天室自定义属性
+// ChatRoomEntrySet Sets custom attributes for a chatroom
 /**
- * @param	chatRoomID	聊天室 Id
- * @param	userID		操作用户 Id。通过 Server API 非聊天室中用户可以进行设置。
- * @param	key			聊天室属性名称，Key 支持大小写英文字母、数字、部分特殊符号 + = - _ 的组合方式，大小写敏感。最大长度 128 字符
- * @param	value		聊天室属性对应的值，最大长度 4096 个字符
- * @param	autoDelete	用户退出聊天室后，是否删除此 Key 值。为 true 时删除此 Key 值，为 false 时用户退出后不删除此 Key
+ * @param	chatRoomID	The ID of the chatroom
+ * @param	userID		The ID of the user performing the operation. Can be set via Server API by non-chatroom users.
+ * @param	key			The name of the chatroom attribute. Supports uppercase and lowercase letters, numbers, and special characters + = - _. Case sensitive. Maximum length: 128 characters
+ * @param	value		The value of the chatroom attribute. Maximum length: 4096 characters
+ * @param	autoDelete	Whether to delete this key after the user exits the chatroom. true: delete this key; false: do not delete this key after the user exits
  *
  * @retrun error
  */
@@ -1319,11 +1322,11 @@ func (rc *RongCloud) ChatRoomEntrySet(chatRoomID, userID, key, value string, aut
 	return err
 }
 
-// ChatRoomEntryRemove 删除聊天室自定义属性
+// ChatRoomEntryRemove Remove custom attributes of a chatroom
 /**
- * @param	chatRoomID	聊天室 Id
- * @param	userID		操作用户 Id。通过 Server API 非聊天室中用户可以进行设置。
- * @param	key			聊天室属性名称，Key 支持大小写英文字母、数字、部分特殊符号 + = - _ 的组合方式，大小写敏感。最大长度 128 字
+ * @param	chatRoomID	The ID of the chatroom
+ * @param	userID		The ID of the user performing the operation. It can be set by a non-chatroom user via Server API.
+ * @param	key			The name of the chatroom attribute. The key supports a combination of uppercase and lowercase letters, numbers, and special characters + = - _. It is case-sensitive with a maximum length of 128 characters.
  *
  * @return error
  */
@@ -1356,13 +1359,13 @@ func (rc *RongCloud) ChatRoomEntryRemove(chatRoomID, userID, key string) error {
 	return err
 }
 
-// ChatRoomEntryQuery 获取聊天室属性自定义
+// ChatRoomEntryQuery Query custom attributes of a chatroom
 /**
- * @param ChatRoomID	聊天室 Id
- * @param keys			批量获取指定聊天室中的 Key 值，最多上限为 100 个，为空时获取全部 key 值。
+ * @param ChatRoomID	The ID of the chatroom
+ * @param keys			Specify the keys to retrieve from the chatroom. Up to 100 keys can be specified. If empty, all keys will be retrieved.
  *
- * @return []ChatRoomAttr	属性列表
- * @return error 			错误
+ * @return []ChatRoomAttr	List of attributes
+ * @return error 			Error
  */
 func (rc *RongCloud) ChatRoomEntryQuery(chatRoomID string, keys ...string) ([]ChatRoomAttr, error) {
 	if chatRoomID == "" {
@@ -1394,12 +1397,12 @@ func (rc *RongCloud) ChatRoomEntryQuery(chatRoomID string, keys ...string) ([]Ch
 	return data.Keys, nil
 }
 
-// ChatRoomQuery 查询聊天室基础信息
+// ChatRoomQuery Query basic information of a chatroom
 /**
- * @param chatRoomID	要查询的聊天室id
- *
- * @return []ChatRoom	聊天室信息数组
- * @return error 		错误信息
+ * @param chatRoomID	The ID of the chatroom to query
+
+ * @return []ChatRoom	Array of chatroom information
+ * @return error 		Error message
  *
  */
 func (rc *RongCloud) ChatRoomQuery(chatRoomID []string) ([]ChatRoom, error) {
@@ -1430,7 +1433,7 @@ func (rc *RongCloud) ChatRoomQuery(chatRoomID []string) ([]ChatRoom, error) {
 	return data.ChatRooms, nil
 }
 
-// 设置聊天室全体禁言
+// Mute all users in the chatroom
 func (rc *RongCloud) ChatRoomBan(chatroomId string, options ...ChatroomOption) error {
 	if chatroomId == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -1454,7 +1457,7 @@ func (rc *RongCloud) ChatRoomBan(chatroomId string, options ...ChatroomOption) e
 	return err
 }
 
-// 取消聊天室全体禁言
+// Rollback mute all chatrooms
 func (rc *RongCloud) ChatRoomBanRollback(chatroomId string, options ...ChatroomOption) error {
 	if chatroomId == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -1478,7 +1481,7 @@ func (rc *RongCloud) ChatRoomBanRollback(chatroomId string, options ...ChatroomO
 	return err
 }
 
-// 查询聊天室全体禁言列表
+// Query the list of muted chatrooms
 func (rc *RongCloud) ChatRoomBanQuery(size, page int) ([]string, error) {
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/ban/query." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -1498,7 +1501,7 @@ func (rc *RongCloud) ChatRoomBanQuery(size, page int) ([]string, error) {
 	return dat.ChatRoomIDs, nil
 }
 
-// 查询聊天室全体禁言状态
+// Check the mute all status of a chatroom
 func (rc *RongCloud) ChatRoomBanCheck(chatroomId string) (bool, error) {
 	if chatroomId == "" {
 		return false, RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -1530,7 +1533,7 @@ func (rc *RongCloud) ChatRoomBanCheck(chatroomId string) (bool, error) {
 	}
 }
 
-// 加入聊天室全体禁言白名单
+// Add users to the chatroom mute exceptions list
 func (rc *RongCloud) ChatRoomUserBanWhitelistAdd(chatroomId string, members []string, options ...ChatroomOption) error {
 	if chatroomId == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -1561,7 +1564,7 @@ func (rc *RongCloud) ChatRoomUserBanWhitelistAdd(chatroomId string, members []st
 	return err
 }
 
-// 移出聊天室全体禁言白名单
+// Remove users from the chatroom mute exceptions list
 func (rc *RongCloud) ChatRoomUserBanWhitelistRollback(chatroomId string, members []string, options ...ChatroomOption) error {
 	if chatroomId == "" {
 		return RCErrorNew(1002, "Paramer 'chatroomId' is required")
@@ -1592,7 +1595,7 @@ func (rc *RongCloud) ChatRoomUserBanWhitelistRollback(chatroomId string, members
 	return err
 }
 
-// 查询聊天室全体禁言白名单
+// Query the chatroom mute exceptions list
 func (rc *RongCloud) ChatRoomUserBanWhitelistQuery(chatroomId string) ([]string, error) {
 	if chatroomId == "" {
 		return []string{}, RCErrorNew(1002, "Paramer 'chatroomId' is required")

@@ -11,23 +11,23 @@ var codePool = sync.Pool{
 	},
 }
 
-// CodeResult 融云返回状态码和错误码
+// CodeResult represents the status code and error code returned by RongCloud.
 type CodeResult struct {
-	Code         int    `json:"code"`         // 返回码，200 为正常。
-	ErrorMessage string `json:"errorMessage"` // 错误信息
+	Code         int    `json:"code"`         // The return code, 200 indicates success.
+	ErrorMessage string `json:"errorMessage"` // The error message.
 }
 
-// RCErrorNew 创建新的err信息
+// RCErrorNew creates a new error message.
 func RCErrorNew(code int, text string) error {
 	return CodeResult{code, text}
 }
 
-// Error 获取错误信息
+// Error retrieves the error message.
 func (e CodeResult) Error() string {
 	return strconv.Itoa(e.Code) + ": " + e.ErrorMessage
 }
 
-// ErrorCode 获取错误码
+// ErrorCode retrieves the error code.
 func (e CodeResult) ErrorCode() int {
 	return e.Code
 }
@@ -40,21 +40,21 @@ var codePoolV2 = sync.Pool{
 }
 
 type CodeResultV2 struct {
-	Code    int    `json:"code"` // 返回码，10000 为正常。
-	Message string `json:"msg"`  // 错误信息
+	Code    int    `json:"code"` // The return code, 10000 indicates success.
+	Message string `json:"msg"`  // The error message.
 }
 
-// RCErrorNew 创建新的err信息
+// RCErrorNewV2 creates a new error message for API v2.
 func RCErrorNewV2(code int, text string) error {
 	return CodeResultV2{code, text}
 }
 
-// Error 获取错误信息
+// Error retrieves the error message
 func (e CodeResultV2) Error() string {
 	return strconv.Itoa(e.Code) + ": " + e.Message
 }
 
-// ErrorCode 获取错误码
+// ErrorCode retrieves the error code
 func (e CodeResultV2) ErrorCode() int {
 	return e.Code
 }

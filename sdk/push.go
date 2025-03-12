@@ -11,99 +11,99 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// PlatForm 广播类型
+// PlatForm Broadcast type
 type PlatForm string
 
 const (
-	// IOSPlatForm 广播
+	// IOSPlatForm Broadcast
 	IOSPlatForm PlatForm = "ios"
-	// AndroidPlatForm 广播
+	// AndroidPlatForm Broadcast
 	AndroidPlatForm PlatForm = "android"
 )
 
-// Extras 请自行实现 IOSBroadcast AndroidBroadcast 中 Extras 接口
+// Extras Implement the Extras interface in IOSBroadcast and AndroidBroadcast
 type Extras interface {
 	ToJSON() ([]byte, error)
 }
 
-// Sender 广播推送接口
+// Sender Broadcast push interface
 type Sender interface {
 	sender()
 }
 
-// PushResult Send 函数返回
+// PushResult Return value of the Send function
 type PushResult struct {
 	*CodeResult
 	ID string `json:"id"`
 }
 
-// Broadcast 广播消息
+// Broadcast Broadcast message
 type Broadcast struct {
-	PlatForm     []PlatForm   `json:"platform"`               // 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。（必传）
-	FromUserID   string       `json:"fromuserid"`             // 发送人用户 Id。 （必传）
-	Message      Message      `json:"message"`                // 广播消息。（必传）
-	Audience     Audience     `json:"audience"`               // 推送条件，包括：tag 、userid 、packageName 、 is_to_all。（必传）
-	Notification Notification `json:"notification,omitempty"` // 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（非必传）
+	PlatForm     []PlatForm   `json:"platform"`               // Target operating system, at least one of iOS or Android must be specified. If you need to push messages to both systems, both must be filled in. (Required)
+	FromUserID   string       `json:"fromuserid"`             // Sender's user ID. (Required)
+	Message      Message      `json:"message"`                // Broadcast message. (Required)
+	Audience     Audience     `json:"audience"`               // Push conditions, including: tag, userid, packageName, is_to_all. (Required)
+	Notification Notification `json:"notification,omitempty"` // Push content by operating system type. If both iOS and Android are set in platform, but only iOS content is set in notification, Android will use the initial alert content. (Optional)
 }
 
-// Push 广播推送
+// Push Broadcast push
 type Push struct {
-	PlatForm     []PlatForm   `json:"platform"`     // 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。（必传）
-	Audience     Audience     `json:"audience"`     // 推送条件，包括：tag 、userid 、packageName 、 is_to_all。（必传）
-	Notification Notification `json:"notification"` // 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（必传）
+	PlatForm     []PlatForm   `json:"platform"`     // Target operating systems. At least one of iOS or Android must be specified. If you need to push messages to both systems, both must be filled. (Required)
+	Audience     Audience     `json:"audience"`     // Push conditions, including: tag, userid, packageName, is_to_all. (Required)
+	Notification Notification `json:"notification"` // Push message content by operating system type. If platform is set to push messages to both iOS and Android, but notification only sets iOS push content, the Android push content will default to the initial alert setting. (Required)
 }
 
-// Message 广播消息内容
+// Message Broadcast message content
 type Message struct {
-	Content    string `json:"content"`    // 融云的内置消息，请务必参考 RCMsg Interface 。自定义消息请，自行实现 RCMsg Interface 转换成 String 传入
-	ObjectName string `json:"objectName"` // 融云的内置消息，自定义消息
+	Content    string `json:"content"`    // RongCloud's built-in messages. Please refer to the RCMsg Interface. For custom messages, implement the RCMsg Interface and convert it to a String for passing.
+	ObjectName string `json:"objectName"` // RongCloud's built-in messages or custom messages.
 }
 
-// IOSPush 设置 iOS 平台下的推送及附加信息。
+// IOSPush Settings for iOS platform push and additional information.
 type IOSPush struct {
-	Title            string `json:"title,omitempty"`            // 通知栏显示的推送标题，仅针对 iOS 平台，支持 iOS 8.2 及以上版本，参数在 ios 节点下设置，详细可参考“设置 iOS 推送标题请求示例”。（非必传）
-	ContentAvailable int    `json:"contentAvailable,omitempty"` // 针对 iOS 平台，静默推送是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行。1 表示为开启，0 表示为关闭，默认为 0（非必传）
-	Alert            string `json:"alert,omitempty"`            // iOS 或 Android 不同平台下的推送消息内容，传入后默认的推送消息内容失效，不能为空。（非必传）
-	Extras           Extras `json:"extras,omitempty"`           // Extras 请自行实现 Extras Interface，iOS 或 Android 不同平台下的附加信息，如果开发者自己需要，可以自己在 App 端进行解析。（非必传）
-	Badge            int    `json:"badge,omitempty"`            // 应用角标，仅针对 iOS 平台；不填时，表示不改变角标数；为 0 或负数时，表示 App 角标上的数字清零；否则传相应数字表示把角标数改为指定的数字，最大不超过 9999，参数在 ios 节点下设置，详细可参考“设置 iOS 角标数 HTTP 请求示例”。（非必传）
-	Category         string `json:"category,omitempty"`         // iOS 富文本推送的类型开发者自已定义，自已在 App 端进行解析判断，与 richMediaUri 一起使用。（非必传）
-	RichMediaURI     string `json:"richMediaUri,omitempty"`     // iOS 富文本推送内容的 URL，与 category 一起使用。（非必传）
-	ThreadId         string `json:"threadId,omitempty"`         // ThreadId iOS 平台通知栏分组 ID，相同的 thread-id 推送分一组，单组超过 5 条推送会折叠展示
-	ApnsCollapseId   string `json:"apns-collapse-id,omitempty"` // ApnsCollapseId iOS 平台，从 iOS10 开始支持，设置后设备收到有相同 ID 的消息，会合并成一条
+	Title            string `json:"title,omitempty"`            // The push title displayed in the notification bar, specific to the iOS platform, supported on iOS 8.2 and above. Parameters are set under the ios node. Refer to the "Set iOS Push Title Request Example" for details. (Optional)
+	ContentAvailable int    `json:"contentAvailable,omitempty"` // For the iOS platform, silent push is a push method introduced after iOS7. It allows the app to run a piece of code in the background upon receiving the notification and execute it immediately. 1 indicates enabled, 0 indicates disabled, default is 0. (Optional)
+	Alert            string `json:"alert,omitempty"`            // Push message content for iOS or Android platforms. If specified, the default push message content is overridden and cannot be empty. (Optional)
+	Extras           Extras `json:"extras,omitempty"`           // Extras should implement the Extras Interface. Additional information for iOS or Android platforms. Developers can parse this in the App as needed. (Optional)
+	Badge            int    `json:"badge,omitempty"`            // App badge number, specific to the iOS platform. If not specified, the badge number remains unchanged. If 0 or negative, the badge number is cleared. Otherwise, the specified number sets the badge number, with a maximum of 9999. Parameters are set under the ios node. Refer to the "Set iOS Badge Number HTTP Request Example" for details. (Optional)
+	Category         string `json:"category,omitempty"`         // iOS rich push type defined by the developer, parsed in the App, used with richMediaUri. (Optional)
+	RichMediaURI     string `json:"richMediaUri,omitempty"`     // URL for iOS rich push content, used with category. (Optional)
+	ThreadId         string `json:"threadId,omitempty"`         // ThreadId for iOS platform notification grouping. Notifications with the same thread-id are grouped together, and groups with more than 5 notifications are collapsed. (Optional)
+	ApnsCollapseId   string `json:"apns-collapse-id,omitempty"` // ApnsCollapseId for the iOS platform, supported from iOS10. Messages with the same ID are merged into one. (Optional)
 }
 
-// AndroidPush 设置 Android 平台下的推送及附加信息。
+// AndroidPush Settings for Android platform push and additional information.
 type AndroidPush struct {
-	Alert          string `json:"alert,omitempty"`          // iOS 或 Android 不同平台下的推送消息内容，传入后默认的推送消息内容失效，不能为空。（非必传）
-	Extras         Extras `json:"extras,omitempty"`         // Extras 请自行实现 Extras Interface，iOS 或 Android 不同平台下的附加信息，如果开发者自己需要，可以自己在 App 端进行解析, PushNotification 没有该字段（非必传）
-	ChannelId      string `json:"channelId,omitempty"`      // ChannelId 渠道 ID，该条消息针对各厂商使用的推送渠道，目前支持的厂商包括：”MI” 小米、”HW” 华为、”OPPO”
-	Importance     string `json:"importance,omitempty"`     // Importance 华为通知栏消息优先级，取值 NORMAL、LOW，默认为 NORMAL 重要消息
-	Image          string `json:"image,omitempty"`          // Image 华为推送自定义的通知栏消息右侧大图标 URL，如果不设置，则不展示通知栏右侧图标。URL 使用的协议必须是 HTTPS 协议，取值样例：https://example.com/image.png。图标文件须小于 512KB，图标建议规格大小：40dp x 40dp，弧角大小为 8dp，超出建议规格大小的图标会存在图片压缩或显示不全的情况。
-	LargeIconUri   string `json:"large_icon_uri,omitempty"` // LargeIconUri 小米推送自定义的通知栏消息右侧图标 URL，如果不设置，则不展示通知栏右侧图标。国内版仅 MIUI12 以上版本支持，以下版本均不支持；国际版支持。图片要求：大小120 * 120px，格式为 png 或者 jpg 格式。
-	Classification string `json:"classification,omitempty"` // Classification vivo 推送通道类型。0 为运营消息、1 为系统消息，默认为你在开发者后台应用标识 vivo 推送中设置的推送通道类型。
+	Alert          string `json:"alert,omitempty"`          // Push message content for iOS or Android platforms. If specified, the default push message content is overridden and cannot be empty. (Optional)
+	Extras         Extras `json:"extras,omitempty"`         // Extras should implement the Extras Interface. Additional information for iOS or Android platforms. Developers can parse this in the App as needed. PushNotification does not have this field. (Optional)
+	ChannelId      string `json:"channelId,omitempty"`      // ChannelId for vendor-specific push channels. Currently supported vendors include: "MI" for Xiaomi, "HW" for Huawei, "OPPO". (Optional)
+	Importance     string `json:"importance,omitempty"`     // Importance for Huawei notification priority, values: NORMAL, LOW, default is NORMAL for important messages. (Optional)
+	Image          string `json:"image,omitempty"`          // Image URL for custom notification bar icon on the right for Huawei push. If not set, the icon is not displayed. URL must use HTTPS protocol, e.g., https://example.com/image.png. Icon file must be less than 512KB, recommended size: 40dp x 40dp, corner radius: 8dp. Icons larger than the recommended size may be compressed or not fully displayed. (Optional)
+	LargeIconUri   string `json:"large_icon_uri,omitempty"` // LargeIconUri for custom notification bar icon on the right for Xiaomi push. If not set, the icon is not displayed. Domestic version only supports MIUI12 and above; international version supports. Image requirements: 120 * 120px, png or jpg format. (Optional)
+	Classification string `json:"classification,omitempty"` // Classification for vivo push channel type. 0 for operational messages, 1 for system messages, default is the push channel type set in the developer backend for vivo push. (Optional)
 }
 
-// Notification 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（必传）
+// Notification Push message content by operating system type. If platform is set to push messages to both iOS and Android, but notification only sets iOS push content, the Android push content will default to the initial alert setting. (Required)
 type Notification struct {
-	Alert   string      `json:"alert"`             // 默认推送消息内容，如填写了 iOS 或 Android 下的 alert 时，则推送内容以对应平台系统的 alert 为准。（必传）
-	IOS     IOSPush     `json:"ios,omitempty"`     // 设置 iOS 平台下的推送及附加信息。
-	Android AndroidPush `json:"android,omitempty"` // 设置 Android 平台下的推送及附加信息。
+	Alert   string      `json:"alert"`             // Default push message content. If alert is specified for iOS or Android, the push content will follow the alert for the respective platform. (Required)
+	IOS     IOSPush     `json:"ios,omitempty"`     // Settings for iOS platform push and additional information.
+	Android AndroidPush `json:"android,omitempty"` // Settings for Android platform push and additional information.
 }
 
-// Audience 推送条件。
+// Audience Push conditions.
 type Audience struct {
-	Tag         []string `json:"tag,omitempty"`    // 用户标签，每次发送时最多发送 20 个标签，标签之间为 AND 的关系，is_to_all 为 true 时参数无效。（非必传）
-	TagOr       []string `json:"tag_or,omitempty"` // 用户标签，每次发送时最多发送 20 个标签，标签之间为 OR 的关系，is_to_all 为 true 时参数无效，tag_or 同 tag 参数可以同时存在。（非必传）
-	UserID      []string `json:"userid,omitempty"` // 用户 Id，每次发送时最多发送 1000 个用户，如果 tag 和 userid 两个条件同时存在时，则以 userid 为准，如果 userid 有值时，则 platform 参数无效，is_to_all 为 true 时参数无效。（非必传）
-	IsToAll     bool     `json:"is_to_all"`        // 是否全部推送，false 表示按 tag 、tag_or 或 userid 条件推送，true 表示向所有用户推送，tag、tag_or 和 userid 条件无效。（必传）
-	PackageName string   `json:"packageName"`      // 应用包名，is_to_all 为 true 时，此参数无效。与 tag、tag_or 同时存在时为 And 的关系，向同时满足条件的用户推送。与 userid 条件同时存在时，以 userid 为准进行推送。（非必传）
+	Tag         []string `json:"tag,omitempty"`    // User tags. Up to 20 tags can be sent at a time, with an AND relationship between tags. Invalid if is_to_all is true. (Optional)
+	TagOr       []string `json:"tag_or,omitempty"` // User tags. Up to 20 tags can be sent at a time, with an OR relationship between tags. Invalid if is_to_all is true. tag_or can coexist with tag. (Optional)
+	UserID      []string `json:"userid,omitempty"` // User IDs. Up to 1000 users can be sent at a time. If both tag and userid conditions exist, userid takes precedence. If userid is specified, the platform parameter is invalid. Invalid if is_to_all is true. (Optional)
+	IsToAll     bool     `json:"is_to_all"`        // Whether to push to all users. false means push based on tag, tag_or, or userid conditions. true means push to all users, and tag, tag_or, and userid conditions are invalid. (Required)
+	PackageName string   `json:"packageName"`      // Application package name. Invalid if is_to_all is true. If coexisting with tag or tag_or, it has an AND relationship, pushing to users who meet all conditions. If coexisting with userid, userid takes precedence. (Optional)
 }
 
 type PushNotification struct {
-	Title       string                 `json:"title,omitempty"`   // Title 通知栏显示标题，最长不超过 50 个字符。
-	PushContent string                 `json:"pushContent"`       // PushContent 推送消息内容。
-	IOS         IOSPush                `json:"ios,omitempty"`     // IOS 设置 iOS 平台下的推送及附加信息，详细查看 ios 结构说明。
-	Android     map[string]interface{} `json:"android,omitempty"` // Android 设置 Android 平台下的推送及附加信息，详细查看 android 结构说明。
+	Title       string                 `json:"title,omitempty"`   // Title The title displayed in the notification bar, with a maximum of 50 characters.
+	PushContent string                 `json:"pushContent"`       // PushContent The content of the push notification.
+	IOS         IOSPush                `json:"ios,omitempty"`     // IOS Settings for push notifications and additional information on the iOS platform. For details, refer to the ios structure description.
+	Android     map[string]interface{} `json:"android,omitempty"` // Android Settings for push notifications and additional information on the Android platform. For details, refer to the android structure description.
 }
 
 type PushCustomData struct {
@@ -157,24 +157,24 @@ type PushCustomData struct {
 	} `json:"notification"`
 }
 
-// PushCustomObj :PushCustomResObj方法的返回值
+// PushCustomObj : The return value of the PushCustomResObj method
 type PushCustomObj struct {
-	// 返回码，200 为正常。
+	// Return code, 200 indicates success.
 	Code int `json:"code"`
 
-	// 推送唯一标识。
+	// Unique identifier for the push notification.
 	Id string `json:"id"`
 }
 
-// PushCustomObj : 全量用户不落地通知  /push/custom.json
+// PushCustomObj : Push-only Notification for all users /push/custom.json
 //*
-//  @param: p：参考这个TestRongCloud_PushCustom 单元测试传递的参数
-//  @param: platform []string 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。
-//  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
-//  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
-// 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
-// response: 返回结构体
-// 文档： https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
+//  @param: p：Refer to the parameters passed in the TestRongCloud_PushCustom unit test
+//  @param: platform []string Target operating systems, at least one of iOS or Android must be specified. If you need to send push notifications to both systems, all must be filled in.
+//  @param: audience  string Push conditions, including: tag, tag_or, packageName, is_to_all.
+//  @param: notification string Push notification content by operating system type. If both iOS and Android are set in the platform, but only iOS push content is set in the notification, the Android push content will be the initial alert setting. For details, refer to the notification structure description.
+// Can be constructed as the above map or struct and serialized into JSON before calling PushCustom
+// response: Return structure
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
 //*//
 func (rc *RongCloud) PushCustomObj(data PushCustomData) (PushCustomObj, error) {
 	var (
@@ -199,20 +199,20 @@ func (rc *RongCloud) PushCustomObj(data PushCustomData) (PushCustomObj, error) {
 		fmt.Println("unmarshal err", err)
 		return result, err
 	}
-	return result, err
+	return result, nil
 }
 
-// PushCustomResObj : 全量用户不落地通知  /push/custom.json
-//*
-//  @param: p：参考这个TestRongCloud_PushCustom 单元测试传递的参数
-//  @param: platform []string 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。
-//  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
-//  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
-// 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
-// 请求按照PushCustomData结构体请求：
-// response: 返回结构体
-// 文档： https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
-//*//
+// PushCustomResObj: Broadcast to Users with Push-only Notification /push/custom.json
+/*
+  @param: p: Refer to the parameters passed in the TestRongCloud_PushCustom unit test
+  @param: platform []string Target operating systems, at least one of iOS or Android must be specified. If messages need to be pushed to both systems, both must be filled.
+  @param: audience string Push conditions, including: tag, tag_or, packageName, is_to_all.
+  @param: notification string Push notification content by operating system type. If both iOS and Android are set in platform but only iOS content is set in notification, the Android push content will default to the initial alert setting. Refer to the notification structure for details.
+  You can construct the above as a map or struct for JSON serialization before calling PushCustom.
+  Request follows the PushCustomData struct:
+  Response: Returns the struct
+  Documentation: https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
+*/
 func (rc *RongCloud) PushCustomResObj(p []byte) (PushCustomObj, error) {
 	var (
 		err    error
@@ -235,17 +235,17 @@ func (rc *RongCloud) PushCustomResObj(p []byte) (PushCustomObj, error) {
 	return result, err
 }
 
-// PushCustom : 全量用户不落地通知  /push/custom.json
-//*
-//  @param: p：参考这个TestRongCloud_PushCustom 单元测试传递的参数
-//  @param: platform []string 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。
-//  @param: audience  string 推送条件，包括：tag 、tag_or 、packageName 、 is_to_all。
-//  @param: notification string 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS 的推送内容，则 Android 的推送内容为最初 alert 设置的内容，详细查看 notification 结构说明。
-//请求按照PushCustomData结构体请求：
-// 可以构建为上面的map或者struct 进行json序列化之后调用PushCustom
-// response: 返回byte数组
-// 文档 ： https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
-//*//
+// PushCustom: Broadcast to Users with Push-only Notification /push/custom.json
+/*
+  @param: p: Refer to the parameters passed in the TestRongCloud_PushCustom unit test
+  @param: platform []string Target operating systems, at least one of iOS or Android must be specified. If messages need to be pushed to both systems, both must be filled.
+  @param: audience string Push conditions, including: tag, tag_or, packageName, is_to_all.
+  @param: notification string Push notification content by operating system type. If both iOS and Android are set in platform but only iOS content is set in notification, the Android push content will default to the initial alert setting. Refer to the notification structure for details.
+  Request follows the PushCustomData struct:
+  You can construct the above as a map or struct for JSON serialization before calling PushCustom.
+  Response: Returns a byte array
+  Documentation: https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
+*/
 func (rc *RongCloud) PushCustom(p []byte) ([]byte, error) {
 	var err error
 	req := httplib.Post(rc.rongCloudURI + "/push/custom.json")
@@ -260,7 +260,7 @@ func (rc *RongCloud) PushCustom(p []byte) ([]byte, error) {
 	return code, err
 }
 
-// PushUser 向应用中指定用户发送不落地通知，不落地通知无论用户是否正在使用 App，都会向该用户发送通知，通知只会展示在通知栏，通知中不携带消息内容，登录 App 后不会在聊天页面看到该内容，不会存储到本地数据库。
+// PushUser Sends a Push-only Notification to specified users in the app. A Push-only Notification will be delivered to the user regardless of whether they are using the app. The notification will only appear in the notification bar and will not carry message content. After logging into the app, the user will not see this content in the chat UI, and it will not be stored in the local database.
 func (rc *RongCloud) PushUser(notification *PushNotification, users ...string) error {
 	if notification == nil {
 		return errors.New("Invalid notification")
@@ -314,10 +314,10 @@ func (rc *RongCloud) PushUser(notification *PushNotification, users ...string) e
 	return nil
 }
 
-// PushSend 此方法与 /message/broadcast 广播消息方法发送机制一样，可选择更多发送条件。 该功能开发环境下可免费使用。生产环境下，您需要在开发者后台高级功能设置中开通 IM 商用版后，在“广播消息和推送”中，开启后才能使用。
-// 推送和广播消息合计每小时只能发送 2 次，每天最多发送 3 次。如需要调整发送频率.
+// PushSend This method has the same sending mechanism as the /message/broadcast broadcast message method, but allows for more sending conditions. This feature is free to use in the development environment. In the production environment, you need to enable the IM Enterprise Plan in the advanced feature settings of the developer console and then enable it in the "Broadcast Messages and Push Notifications" section before you can use it.
+// The combined frequency of push notifications and broadcast messages is limited to 2 times per hour and 3 times per day. If you need to adjust the sending frequency, please contact us.
 /*
-*@param  Push: 广播消息体 push。
+*@param  Push: The push notification body.
 *
 *@return PushResult, error
  */

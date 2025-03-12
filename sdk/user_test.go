@@ -327,7 +327,7 @@ func TestRongCloud_TagSet(t *testing.T) {
 		Tag{
 			UserID: "u01",
 			Tags: []string{
-				"男",
+				"Male",
 			},
 		})
 	t.Log(err)
@@ -346,7 +346,7 @@ func TestRongCloud_TagBatchSet(t *testing.T) {
 				"u03",
 			},
 			Tags: []string{
-				"男",
+				"Male",
 				"bj",
 			},
 		})
@@ -382,7 +382,7 @@ func TestRongCloud_UserDeactivate(t *testing.T) {
 		os.Getenv("APP_KEY"),
 		os.Getenv("APP_SECRET"),
 	)
-	// 注册用户测试
+	// Register user test
 	result, err := rc.UserDeactivate(
 		[]string{
 			"u01",

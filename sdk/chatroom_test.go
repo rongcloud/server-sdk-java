@@ -550,10 +550,10 @@ func TestRongCloud_ChatRoomCreateNew(t *testing.T) {
 		os.Getenv("APP_SECRET"),
 	)
 
-	// 销毁聊天室
+	// Destroy a chatroom
 	_ = rc.ChatRoomDestroy("chatroom001")
 
-	// 创建聊天室
+	// Create a chatroom
 	whiteUserIds := []string{"111", "222", "333"}
 	err := rc.ChatRoomCreateNew(
 		"chatroom001",
@@ -564,7 +564,7 @@ func TestRongCloud_ChatRoomCreateNew(t *testing.T) {
 	)
 	t.Log(err)
 
-	// 查询聊天室用户禁言白名单
+	// Query the chatroom user mute allowlist
 	userIds, err := rc.ChatRoomUserBanWhitelistQuery("chatroom001")
 	t.Log(err)
 	t.Log(userIds)

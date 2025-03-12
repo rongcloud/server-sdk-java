@@ -10,7 +10,7 @@ type selfExtras struct {
 	ID int `json:"id"`
 }
 
-// ToJSON 实现 Extras Interface
+// ToJSON implements the Extras Interface
 func (s selfExtras) ToJSON() ([]byte, error) {
 	return json.Marshal(s)
 }
@@ -34,8 +34,8 @@ func TestRongCloud_PushCustomObj(t *testing.T) {
 			} `json:"tagItems,omitempty"`
 			IsToAll bool `json:"is_to_all"`
 		}{
-			Tag:   []string{"女", "年轻"},
-			TagOr: []string{"北京", "上海"},
+			Tag:   []string{"female", "young"},
+			TagOr: []string{"Beijing", "Shanghai"},
 			TagItems: []struct {
 				Tags          []string `json:"tags"`
 				IsNot         bool     `json:"isNot"`
@@ -193,12 +193,12 @@ func TestRongCloud_PushCustomResObj(t *testing.T) {
 	"platform": ["ios", "android"],
 	"audience": {
 		"tag": [
-			"女",
-			"年轻"
+			"Female",
+			"Young"
 		],
 		"tag_or": [
-			"北京",
-			"上海"
+			"Beijing",
+			"Shanghai"
 		],
 		"tagItems": [{
 				"tags": [
@@ -231,7 +231,7 @@ func TestRongCloud_PushCustomResObj(t *testing.T) {
 		"is_to_all": false
 	},
 	"notification": {
-		"title": "标题",
+		"title": "Title",
 		"alert": "this is a push",
 		"ios": {
 			"thread-id": "223",
@@ -280,8 +280,8 @@ func TestRongCloud_PushCustom(t *testing.T) {
 	str := `{
   "platform":["ios","android"],
   "audience":{
-    "tag":["女","年轻"],
-    "tag_or":["北京","上海"],
+    "tag":["Female","Young"],
+    "tag_or":["Beijing","Shanghai"],
 	 "tagItems":[
 				  {
 					  "tags":[
@@ -369,14 +369,14 @@ func TestRongCloud_PushSend(t *testing.T) {
 		Notification: Notification{
 			Alert: "this is a push",
 			IOS: IOSPush{
-				Title: "iOS 平台显示标题",
-				Alert: "iOS 平台显示内容",
+				Title: "iOS platform display title",
+				Alert: "iOS platform display content",
 				Extras: selfExtras{
 					ID: 1,
 				},
 			},
 			Android: AndroidPush{
-				Alert: "Android 平台显示内容",
+				Alert: "Android platform display content",
 				Extras: selfExtras{
 					ID: 1,
 				},

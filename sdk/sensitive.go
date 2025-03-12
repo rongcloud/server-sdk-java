@@ -6,23 +6,23 @@ import (
 	"time"
 )
 
-// ListWordFilterResult listWordFilter返回结果
+// ListWordFilterResult Result of listWordFilter
 type ListWordFilterResult struct {
 	Words []SensitiveWord `json:"words"`
 }
 
-// SensitiveWord 敏感词
+// SensitiveWord Sensitive word
 type SensitiveWord struct {
 	Type        string `json:"type"`
 	Word        string `json:"word"`
 	ReplaceWord string `json:"replaceWord"`
 }
 
-// SensitiveAdd 添加敏感词
+// SensitiveAdd Add a sensitive word
 /*
-*@param  keyword:敏感词，最长不超过 32 个字符，格式为汉字、数字、字母
-*@param  replace:敏感词替换，最长不超过 32 个字符， 敏感词屏蔽可以为空
-*@param  sensitiveType:0: 敏感词替换 1: 敏感词屏蔽
+*@param  keyword: Sensitive word, max length 32 characters, format: Chinese characters, numbers, letters
+*@param  replace: Replacement for sensitive word, max length 32 characters, can be empty for blocking
+*@param  sensitiveType: 0: Replace sensitive word, 1: Block sensitive word
 *
 *@return error
  */
@@ -53,7 +53,7 @@ func (rc *RongCloud) SensitiveAdd(keyword, replace string, sensitiveType int) er
 	return err
 }
 
-// SensitiveGetList 查询敏感词列表方法
+// SensitiveGetList Method to query the sensitive word list
 /*
 *@return ListWordFilterResult error
  */
@@ -77,9 +77,9 @@ func (rc *RongCloud) SensitiveGetList() (ListWordFilterResult, error) {
 
 }
 
-// SensitiveRemove 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
+// SensitiveRemove Method to remove a sensitive word (Removes a specific sensitive word from the sensitive word list.)
 /*
-*@param  keywords:每次最多删除 50 个敏感词，2 小时后生效
+*@param  keywords: You can delete up to 50 sensitive words at a time, and the changes will take effect after 2 hours.
 *
 *@return error
  */

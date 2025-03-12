@@ -1,4 +1,4 @@
-// Conversation 会话
+// Conversation Session
 
 package sdk
 
@@ -12,39 +12,39 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// ConversationType 会话类型
+// ConversationType Conversation type
 type ConversationType int
 
 const (
-	PRIVATE            ConversationType = iota + 1 // PRIVATE 二人会话
-	DISCUSSION                                     // DISCUSSION 讨论组会话
-	GROUP                                          // GROUP 群组会话
-	CHATROOM                                       // CHATROOM 聊天室会话
-	CUSTOM                                         // CUSTOM 客服会话
-	SYSTEM                                         // SYSTEM 系统通知
-	APP_PUBLIC_SERVICE                             // APP_PUBLIC_SERVICE 应用公众服务
-	PUBLIC_SERVICE                                 // PUBLIC_SERVICE 公众服务
-	ULTRA_GROUP                                    // ULTRA_GROUP 超级群服务
+	PRIVATE            ConversationType = iota + 1 // PRIVATE one-to-one chat
+	DISCUSSION                                     // DISCUSSION discussion group chat
+	GROUP                                          // GROUP group chat
+	CHATROOM                                       // CHATROOM chatroom chat
+	CUSTOM                                         // CUSTOM customer service chat
+	SYSTEM                                         // SYSTEM system notification
+	APP_PUBLIC_SERVICE                             // APP_PUBLIC_SERVICE app public service
+	PUBLIC_SERVICE                                 // PUBLIC_SERVICE public service
+	ULTRA_GROUP                                    // ULTRA_GROUP ultra group service
 
-	ConversationTypePrivate ConversationType = 1  // ConversationTypePrivate 二人会话
-	ConversationTypeGroup   ConversationType = 3  // ConversationTypeGroup 群组会话
-	ConversationTypeSystem  ConversationType = 6  // ConversationTypeSystem 系统
-	ConversationTypeUG      ConversationType = 10 // ConversationTypeUG 超级群
+	ConversationTypePrivate ConversationType = 1  // ConversationTypePrivate one-to-one chat
+	ConversationTypeGroup   ConversationType = 3  // ConversationTypeGroup group chat
+	ConversationTypeSystem  ConversationType = 6  // ConversationTypeSystem system
+	ConversationTypeUG      ConversationType = 10 // ConversationTypeUG ultra group
 
-	ConversationUnPushLevelAllMessage        = -1 // ConversationUnPushLevelAllMessage 全部消息通知
-	ConversationUnPushLevelNotSet            = 0  // ConversationUnPushLevelNotSet 未设置
-	ConversationUnPushLevelAtMessage         = 1  // ConversationUnPushLevelAtMessage 仅@消息通知
-	ConversationUnPushLevelAtUser            = 2  // ConversationUnPushLevelAtUser @指定用户通知
-	ConversationUnPushLevelAtAllGroupMembers = 4  // ConversationUnPushLevelAtAllGroupMembers @群全员通知
-	ConversationUnPushLevelNotRecv           = 5  // ConversationUnPushLevelNotRecv 不接收通知
+	ConversationUnPushLevelAllMessage        = -1 // ConversationUnPushLevelAllMessage all message notifications
+	ConversationUnPushLevelNotSet            = 0  // ConversationUnPushLevelNotSet not set
+	ConversationUnPushLevelAtMessage         = 1  // ConversationUnPushLevelAtMessage only @message notifications
+	ConversationUnPushLevelAtUser            = 2  // ConversationUnPushLevelAtUser @specific user notifications
+	ConversationUnPushLevelAtAllGroupMembers = 4  // ConversationUnPushLevelAtAllGroupMembers @all group members notifications
+	ConversationUnPushLevelNotRecv           = 5  // ConversationUnPushLevelNotRecv do not receive notifications
 )
 
-// ConversationTop :会话置顶
+// ConversationTop : Pin a conversation
 //*
-//@param userId	：必传	            用户ID，会话所属的用户
-//@param conversationType：不必传	会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）、6（系统会话）。
-//@param targetId:	必传	            需要设置的目标 ID，根据会话类型不同为单聊用户 ID、群聊 ID、系统目标 ID
-//@param setTop	:	必传		            true 表示置顶，false 表示取消置顶。
+//@param userId	: Required	            User ID, the user to whom the conversation belongs
+//@param conversationType: Optional	    Conversation type. Supported conversation types include: 1 (one-to-one chat), 3 (group chat), 6 (system conversation).
+//@param targetId: Required	            Target ID to be set, which varies depending on the conversation type (user ID for one-to-one chat, group ID for group chat, system target ID for system conversation).
+//@param setTop	: Required	            true to pin, false to unpin.
 //
 //@return error
 //*/
@@ -73,11 +73,11 @@ func (rc *RongCloud) ConversationTop(conversationType ConversationType, userId, 
 	return err
 }
 
-// ConversationMute 设置用户某个会话屏蔽 Push
+// ConversationMute Mutes push notifications for a specific conversation of a user.
 /*
-*@param  conversationType:会话类型 PRIVATE、GROUP、DISCUSSION、SYSTEM。
-*@param  userID:设置用户 ID。
-*@param  targetID:需要屏蔽的目标 ID。
+*@param  conversationType: Specifies the conversation type: PRIVATE, GROUP, DISCUSSION, SYSTEM.
+*@param  userID: The user ID for whom the conversation is being muted.
+*@param  targetID: The target ID of the conversation to be muted.
 *
 *@return error
  */
@@ -117,11 +117,11 @@ func (rc *RongCloud) ConversationMute(conversationType ConversationType, userID,
 	return err
 }
 
-// ConversationUnmute 设置用户某个会话接收 Push
+// ConversationUnmute Sets the user to receive push notifications for a specific conversation
 /*
-*@param  conversationType:会话类型 PRIVATE、GROUP、DISCUSSION、SYSTEM。
-*@param  userID:设置用户 ID。
-*@param  targetID:需要屏蔽的目标 ID。
+*@param  conversationType: Conversation type, PRIVATE, GROUP, DISCUSSION, SYSTEM.
+*@param  userID: The user ID to set.
+*@param  targetID: The target ID to unmute.
 *
 *@return error
  */
@@ -160,13 +160,13 @@ func (rc *RongCloud) ConversationUnmute(conversationType ConversationType, userI
 	return err
 }
 
-// ConversationGet 免打扰会话状态获取
+// ConversationGet Get Conversation Do Not Disturb Status
 /*
-*@param  conversationType:会话类型 PRIVATE、GROUP、DISCUSSION、SYSTEM。
-*@param  userID:设置用户 ID。
-*@param  targetID:需要屏蔽的目标 ID。
+* @param conversationType: Conversation type, can be PRIVATE, GROUP, DISCUSSION, or SYSTEM.
+* @param userID: User ID to set.
+* @param targetID: Target ID to be muted.
 *
-*@return int error
+* @return int error
  */
 func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, targetID string,
 	options ...MsgOption) (int, error) {
@@ -222,7 +222,7 @@ func (rc *RongCloud) ConversationGet(conversationType ConversationType, userID, 
 	return isMuted, nil
 }
 
-// ConversationTypeNotificationSet 按会话类型设置免打扰, 用户设置指定会话类型（单聊、群聊、超级群、系统消息）的免打扰状态。
+// ConversationTypeNotificationSet Sets the Do Not Disturb status for a specific conversation type (one-to-one chat, group chat, ultra group, system message).
 func (rc *RongCloud) ConversationTypeNotificationSet(ct ConversationType, requestId string, unPushLevel int) error {
 	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
 		return RCErrorNew(1002, "Paramer 'conversationType' was wrong")
@@ -265,7 +265,7 @@ func (rc *RongCloud) ConversationTypeNotificationSet(ct ConversationType, reques
 	return nil
 }
 
-// ConversationTypeNotificationGet 查询用户指定会话类型（单聊、群聊、超级群、系统消息）的免打扰状态。
+// ConversationTypeNotificationGet Queries the Do Not Disturb status for a specified conversation type (one-to-one chat, group chat, ultra group, system message) of a user.
 func (rc *RongCloud) ConversationTypeNotificationGet(ct ConversationType, requestId string) (int, error) {
 	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
 		return 0, RCErrorNew(1002, "Paramer 'conversationType' was wrong")
@@ -304,7 +304,7 @@ func (rc *RongCloud) ConversationTypeNotificationGet(ct ConversationType, reques
 	return resp.IsMuted, nil
 }
 
-// ConversationNotificationSet 设置指定会话消息免打扰接口, 设置用户指定会话消息提醒状态
+// ConversationNotificationSet Sets the Do Not Disturb status for a specified conversation
 func (rc *RongCloud) ConversationNotificationSet(ct ConversationType, requestId, targetId, busChannel string, isMuted, unPushLevel int) error {
 	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
 		return RCErrorNew(1002, "Paramer 'conversationType' was wrong")
@@ -362,7 +362,7 @@ func (rc *RongCloud) ConversationNotificationSet(ct ConversationType, requestId,
 	return nil
 }
 
-// ConversationNotificationGet 查询指定会话消息免打扰接口
+// ConversationNotificationGet Retrieves the Do Not Disturb status for a specified conversation
 func (rc *RongCloud) ConversationNotificationGet(ct ConversationType, requestId, targetId, busChannel string) (int, error) {
 	if ct != ConversationTypePrivate && ct != ConversationTypeGroup && ct != ConversationTypeSystem && ct != ConversationTypeUG {
 		return 0, RCErrorNew(1002, "Paramer 'conversationType' was wrong")

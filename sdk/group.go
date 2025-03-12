@@ -8,7 +8,7 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// Group 群组信息
+// Group represents group information
 type Group struct {
 	ID    string      `json:"id"`
 	Users []GroupUser `json:"users"`
@@ -21,32 +21,32 @@ type GroupForQuery struct {
 	Stat int    `json:"stat"`
 }
 
-// GroupUser 群组用户信息
+// GroupUser represents group user information
 type GroupUser struct {
 	ID     string `json:"id"`
 	UserID string `json:"userId"`
 	Time   string `json:"time"`
 }
 
-// GroupInfo 群组信息
+// GroupInfo represents group information
 type GroupInfo struct {
 	GroupInfo []GroupForQuery `json:"groupinfo"`
 }
 
 type GroupRemarksGetObj struct {
-	// 返回码，200 为正常。
+	// Code indicates the response code, 200 means success.
 	Code int `json:"code"`
 
-	// 备注名称
+	// Remark specifies the alias name for the group member.
 	Remark string `json:"remark"`
 }
 
-// GroupRemarksGetResObj :/group/remarks/get.json 查询群成员推送备注名
+// GroupRemarksGetResObj : /group/remarks/get.json Query the push alias name for a group member
 // *
-// @param : userId : 群成员用户 ID
-// @param : groupId : 群ID
-// response : byte数组
-// 文档： https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
+// @param : userId : The user ID of the group member
+// @param : groupId : The group ID
+// response : byte array
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
 // */
 func (rc *RongCloud) GroupRemarksGetResObj(userId string, groupId string) (GroupRemarksGetObj, error) {
 	var (
@@ -73,12 +73,12 @@ func (rc *RongCloud) GroupRemarksGetResObj(userId string, groupId string) (Group
 	return result, err
 }
 
-// GroupRemarksGet :/group/remarks/get.json 查询群成员推送备注名
+// GroupRemarksGet :/group/remarks/get.json Query the push remark name of a group member
 // *
-// @param : userId : 群成员用户 ID
-// @param : groupId : 群ID
-// response : byte数组
-// 文档： https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
+// @param : userId : The user ID of the group member
+// @param : groupId : The group ID
+// response : Byte array
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/group/get-remark-for-group-push
 // */
 func (rc *RongCloud) GroupRemarksGet(userId string, groupId string) ([]byte, error) {
 	if len(userId) == 0 {
@@ -99,10 +99,10 @@ func (rc *RongCloud) GroupRemarksGet(userId string, groupId string) ([]byte, err
 	return res, err
 }
 
-// GroupRemarksDel :/group/remarks/del.json 删除群成员推送备注名
+// GroupRemarksDel :/group/remarks/del.json Delete the push alias of a group member
 // *
-// @param : userId : 群成员用户 ID
-// @param : groupId : 群ID
+// @param : userId : The user ID of the group member
+// @param : groupId : The group ID
 //
 // */
 func (rc *RongCloud) GroupRemarksDel(userId string, groupId string) error {
@@ -124,11 +124,11 @@ func (rc *RongCloud) GroupRemarksDel(userId string, groupId string) error {
 	return err
 }
 
-// GroupRemarksSet :/group/remarks/set.json 设置指定群成员推送备注
+// GroupRemarksSet :/group/remarks/set.json Set the push alias for a specific group member
 // *
-// @param : userId : 群成员用户ID
-// @param : groupId : 群ID
-// @param : remark : 群成员推送备注
+// @param : userId : The user ID of the group member
+// @param : groupId : The group ID
+// @param : remark : The push alias for the group member
 //
 // */
 func (rc *RongCloud) GroupRemarksSet(userId string, groupId string, remark string) error {
@@ -154,11 +154,11 @@ func (rc *RongCloud) GroupRemarksSet(userId string, groupId string, remark strin
 	return err
 }
 
-// GroupUserGagAdd : 添加禁言成员 /group/user/gag/add.json
+// GroupUserGagAdd : Add muted members /group/user/gag/add.json
 // *
-// @param userId:用户 ID，每次添加最多不超过 20 个用户。
-// @param groupId: 群组 ID，为空时则设置用户在加入的所有群组中都不能发送消息。
-// @param minute : // 禁言时长，以分钟为单位，最大值为 43200 分钟，为 0 表示永久禁言。
+// @param userId: User ID, up to 20 users can be added at a time.
+// @param groupId: Group ID, if empty, the user will be muted in all groups they join.
+// @param minute: Mute duration in minutes, maximum value is 43200 minutes, 0 means permanent mute.
 // */
 func (rc *RongCloud) GroupUserGagAdd(userId string, groupId string, minute string) error {
 	if len(userId) == 0 {
@@ -182,28 +182,28 @@ func (rc *RongCloud) GroupUserGagAdd(userId string, groupId string, minute strin
 	return err
 }
 
-// GroupUserQueryObj : GroupUserQueryResObj 的返回值
+// GroupUserQueryObj : Return value of GroupUserQueryResObj
 type GroupUserQueryObj struct {
-	// 返回码，200 为正常
+	// Return code, 200 indicates success.
 	Code int `json:"code"`
 
-	// 用户加入的群信息数组。
+	// Array of group information the user has joined.
 	Groups []GroupUserQueryGroup `json:"groups"`
 }
 
 type GroupUserQueryGroup struct {
-	// 群名称。
+	// Group name.
 	Name string `json:"name"`
 
-	// 群组 ID。
+	// Group ID.
 	Id string `json:"id"`
 }
 
-// GroupUserQueryResObj : 根据用户 ID 查询该用户加入的所有群组，返回群组 ID 及群组名称。
+// GroupUserQueryResObj : Query all groups that a user has joined based on the user ID, returning the group ID and group name.
 // *
-// @param  userId:用户 ID
+// @param  userId: User ID
 // response: GroupUserQueryObj
-// 文档： https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
 // */
 func (rc *RongCloud) GroupUserQueryResObj(userId string) (GroupUserQueryObj, error) {
 	var (
@@ -227,10 +227,10 @@ func (rc *RongCloud) GroupUserQueryResObj(userId string) (GroupUserQueryObj, err
 	return result, err
 }
 
-// GroupUserQuery : 根据用户 ID 查询该用户加入的所有群组，返回群组 ID 及群组名称。
+// GroupUserQuery : Query all groups that a user has joined based on the user ID, returning the group ID and group name.
 // *
-// @param  userId:用户 ID
-// 文档 ： https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
+// @param  userId: User ID
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/group/query-group-by-user
 // */
 func (rc *RongCloud) GroupUserQuery(userId string) ([]byte, error) {
 	if len(userId) == 0 {
@@ -248,11 +248,11 @@ func (rc *RongCloud) GroupUserQuery(userId string) ([]byte, error) {
 	return res, err
 }
 
-// GroupCreate 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join 的别名。）
+// GroupCreate Creates a group and adds users to it. Users will receive messages from this group. A single user can join up to 500 groups, and each group can have up to 3000 members. There is no limit to the number of groups within an App. Note: This method is an alias for the /group/join method.
 /*
- *@param  id:群组 Id，最大长度 30 个字符，建议使用 英文字母、数字 混排
- *@param  name:群组名称，最大长度 60 个字符
- *@param  members:加入群组的用户列表
+ *@param  id: The group ID, with a maximum length of 30 characters. It is recommended to use a combination of letters and numbers.
+ *@param  name: The group name, with a maximum length of 60 characters.
+ *@param  members: The list of users to be added to the group.
  *
  *@return error
  */
@@ -286,10 +286,10 @@ func (rc *RongCloud) GroupCreate(id, name string, members []string) error {
 	return err
 }
 
-// GroupSync 同步用户所属群组方法（当第一次连接融云服务器时，需要向融云服务器提交 ID 对应的用户当前所加入的所有群组，此接口主要为防止应用中用户群信息同融云已知的用户所属群信息不同步。）
+// GroupSync Synchronizes the groups a user belongs to. This method is used to ensure that the group information of a user in the application is consistent with the information known by RongCloud. It is primarily used when connecting to the RongCloud server for the first time.
 /*
- *@param  id:被同步群信息的用户 ID。（必传）
- *@param  groups:用户所在群组列表。
+ *@param  id: The user ID whose group information is to be synchronized. (Required)
+ *@param  groups: The list of groups the user belongs to.
  *
  *@return error
  */
@@ -318,10 +318,10 @@ func (rc *RongCloud) GroupSync(id string, groups []Group) error {
 	return err
 }
 
-// GroupUpdate 刷新群组信息方法
+// GroupUpdate Refreshes group information
 /*
-*@param  id:群组 Id。
-*@param  name:群名称。
+*@param  id: Group ID.
+*@param  name: Group name.
 *
 *@return error
  */
@@ -348,11 +348,11 @@ func (rc *RongCloud) GroupUpdate(id, name string) error {
 	return err
 }
 
-// GroupJoin 批量将用户加入指定群组，用户将可以收到该群的消息。
+// GroupJoin Adds users to a specified group in batch, enabling them to receive messages from the group.
 /*
- *@param  groupId:加入的群组 Id。
- *@param  groupName:群组名称，最大长度 60 个字符。
- *@param  memberId:要加入群组的用户，最大不超过1000人。
+ *@param  groupId: The ID of the group to join.
+ *@param  groupName: The name of the group, with a maximum length of 60 characters.
+ *@param  memberId: The users to be added to the group, with a maximum of 1000 users.
  *
  *@return error
  */
@@ -383,9 +383,9 @@ func (rc *RongCloud) GroupJoin(groupId, groupName string, memberId ...string) er
 	return err
 }
 
-// GroupGet 查询群成员方法
+// GroupGet Queries the members of a group.
 /*
- *@param  id:群组Id。
+ *@param  id: The ID of the group.
  *
  *@return Group error
  */
@@ -412,22 +412,22 @@ func (rc *RongCloud) GroupGet(id string) (Group, error) {
 
 }
 
-// GroupQuit 批量退出群组方法（将用户从群中移除，不再接收该群组的消息.）
+// GroupQuit Batch exit group method (Remove users from the group, they will no longer receive messages from this group.)
 /*
- *@param  id:要退出的群组 Id。
- *@param  member:要退出群组的群成员，最多不能超过1000人。
+ *@param  id: The group ID to exit.
+ *@param  member: The group members to exit, with a maximum of 1000 members.
  *
  *@return error
  */
 func (rc *RongCloud) GroupQuit(member []string, id string) error {
 	if len(member) == 0 {
-		return RCErrorNew(1002, "Paramer 'member' is required")
+		return RCErrorNew(1002, "Parameter 'member' is required")
 	}
 	if len(member) > 1000 {
-		return RCErrorNew(1002, "Paramer 'member' More than 1000")
+		return RCErrorNew(1002, "Parameter 'member' exceeds 1000 members")
 	}
 	if id == "" {
-		return RCErrorNew(1002, "Paramer 'id' is required")
+		return RCErrorNew(1002, "Parameter 'id' is required")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/group/quit." + ReqType)
@@ -444,10 +444,12 @@ func (rc *RongCloud) GroupQuit(member []string, id string) error {
 	return err
 }
 
-// GroupDismiss 解散群组方法
+// GroupDismiss Dismiss group method
 /*
- *@param  id:群组 ID，最大长度 30 个字符，建议使用 英文字母、数字 混排
- *@param  member:群主或群管理.
+ *@param  id: Group ID, maximum length of 30 characters, recommended to use a mix of letters and numbers.
+ *@param  member: Group owner or administrator.
+
+
  *
  *@return error
  */
@@ -474,11 +476,11 @@ func (rc *RongCloud) GroupDismiss(id, member string) error {
 	return err
 }
 
-// GroupGagAdd 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
+// GroupGagAdd Adds a muted group member (In the app, if you don't want a user to speak in the group, you can mute the user in the group. The muted user can receive and view group chat messages but cannot send messages.)
 /*
-*@param  id:群组 ID。
-*@param  members:禁言群成员列表。
-*@param  minute:禁言时长，以分钟为单位，最大值为43200分钟。
+*@param  id: Group ID.
+*@param  members: List of muted group members.
+*@param  minute: Mute duration in minutes, with a maximum value of 43200 minutes.
 *
 *@return error
  */
@@ -511,11 +513,11 @@ func (rc *RongCloud) GroupGagAdd(id string, members []string, minute int) error 
 	return err
 }
 
-// GroupMuteMembersAdd 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
+// GroupMuteMembersAdd Adds a list of members to the group mute list (In the app, if you want to prevent a user from sending messages in the group, you can mute the user in the group. Muted users can receive and view group messages but cannot send messages.)
 /*
-*@param  id:群组 ID。
-*@param  members:禁言群成员列表。
-*@param  minute:禁言时长，以分钟为单位，最大值为43200分钟。
+*@param  id: The group ID.
+*@param  members: The list of members to be muted.
+*@param  minute: The duration of the mute in minutes, with a maximum value of 43200 minutes.
 *
 *@return error
  */
@@ -544,10 +546,11 @@ func (rc *RongCloud) GroupMuteMembersAdd(id string, members []string, minute int
 	return err
 }
 
-// GroupGagList 查询被禁言群成员方法
+// GroupGagList Queries the list of muted members in a group.
 /*
-*@param  id:群组ID。
-*
+*@param  id: The group ID.
+
+
 *@return Group error
  */
 func (rc *RongCloud) GroupGagList(id string) (Group, error) {
@@ -573,9 +576,9 @@ func (rc *RongCloud) GroupGagList(id string) (Group, error) {
 	return dat, nil
 }
 
-// GroupMuteMembersGetList 查询被禁言群成员方法
+// GroupMuteMembersGetList Retrieves the list of muted group members
 /*
-*@param  id:群组ID。
+*@param  id: Group ID.
 *
 *@return Group error
  */
@@ -602,10 +605,10 @@ func (rc *RongCloud) GroupMuteMembersGetList(id string) (Group, error) {
 	return dat, nil
 }
 
-// GroupGagRemove 移除禁言群成员方法
+// GroupGagRemove Removes the gag from group members
 /*
-*@param  id:群组 Id。
-*@param  members:解除禁言群成员列表	。
+*@param  id: The group ID.
+*@param  members: The list of group members to un-gag.
 *
 *@return error
  */
@@ -634,10 +637,10 @@ func (rc *RongCloud) GroupGagRemove(id string, members []string) error {
 	return err
 }
 
-// GroupMuteMembersRemove 移除禁言群成员方法
+// GroupMuteMembersRemove Removes the mute from group members
 /*
-*@param  id:群组 Id。
-*@param  members:解除禁言群成员列表	。
+*@param  id: The group ID.
+*@param  members: The list of group members to un-mute.
 *
 *@return error
  */
@@ -666,9 +669,9 @@ func (rc *RongCloud) GroupMuteMembersRemove(id string, members []string) error {
 	return err
 }
 
-// GroupMuteAllMembersAdd 设置某一群组禁言，禁言后群组中所有成员禁止发送消息，如需要某些用户可以发言时，可将此用户加入到群禁言用户白名单中。
+// GroupMuteAllMembersAdd Mutes all members in a group, preventing them from sending messages. If certain users need to be allowed to send messages, they can be added to the group's mute exceptions list.
 /*
-*@param  members:禁言群成员列表。
+*@param  members: List of group members to be muted.
 *
 *@return error
  */
@@ -692,12 +695,13 @@ func (rc *RongCloud) GroupMuteAllMembersAdd(members []string) error {
 	return err
 }
 
-// GroupMuteAllMembersRemove 解除群组禁言
+// GroupMuteAllMembersRemove Unmutes all members in a group
 /*
-*@param  members:禁言群成员列表。
+*@param  members: List of group members to be unmuted.
 *
 *@return error
  */
+
 func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 	if len(members) == 0 {
 		return RCErrorNew(1002, "Paramer 'members' is required")
@@ -718,11 +722,11 @@ func (rc *RongCloud) GroupMuteAllMembersRemove(members []string) error {
 	return err
 }
 
-// GroupMuteAllMembersGetList 查询全部群组禁言列表
+// GroupMuteAllMembersGetList Query the mute list for all groups
 /*
-*@param  groupIds:群组 ID。单次可查询指定单个或多个群组，单次查询最多不超过 20 个群组。
-*@param  page:页数。此参数传递后，groupId 参数无效。 groupId 参数不传递时，默认为 1
-*@param  size:每页数量。此参数传递后，groupId 参数无效。 groupId 参数不传递时，默认为 50，最大为 200。
+*@param  groupIds: Group ID. You can specify one or multiple groups in a single query, with a maximum of 20 groups per query.
+*@param  page: Page number. If this parameter is passed, the groupId parameter becomes invalid. If the groupId parameter is not passed, the default value is 1.
+*@param  size: Number of items per page. If this parameter is passed, the groupId parameter becomes invalid. If the groupId parameter is not passed, the default value is 50, with a maximum of 200.
 *
 *@return Group error
  */
@@ -755,10 +759,10 @@ func (rc *RongCloud) GroupMuteAllMembersGetList(groupIds []string, page int, siz
 	return group, nil
 }
 
-// GroupMuteWhiteListUserAdd 在群组被禁言状态下，如果需要某些用户可以发言时，可将此用户加入到群组禁言用户白名单中。群禁言用户白名单，只有群组被设置为全部禁言时才会生效。
+// GroupMuteWhiteListUserAdd When a group is muted, if certain users need to be allowed to speak, you can add them to the group's mute allowlist. The group mute allowlist only takes effect when the group is set to mute all members.
 /*
-*@param  id:群组 ID。
-*@param  members:禁言群成员列表。
+*@param  id: Group ID.
+*@param  members: List of members to be allowed to speak.
 *
 *@return error
  */
@@ -786,10 +790,10 @@ func (rc *RongCloud) GroupMuteWhiteListUserAdd(id string, members []string) erro
 	return err
 }
 
-// GroupMuteWhiteListUserRemove 移除群禁言白名单用户。
+// GroupMuteWhiteListUserRemove Remove users from the group mute allowlist.
 /*
-*@param  id:群组 ID。
-*@param  members:禁言群成员列表。
+*@param  id: Group ID.
+*@param  members: List of members to be removed from the allowlist.
 *
 *@return error
  */
@@ -818,9 +822,9 @@ func (rc *RongCloud) GroupMuteWhiteListUserRemove(id string, members []string) e
 	return err
 }
 
-// GroupMuteWhiteListUserGetList 查询群禁言白名单用户列表。
+// GroupMuteWhiteListUserGetList Query the allowlist of muted users in a group.
 /*
-*@param  id:群组 ID。
+*@param  id: The group ID.
 *
 *@return error
  */

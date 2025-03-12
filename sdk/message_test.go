@@ -139,8 +139,8 @@ func TestRongCloud_UGMessageModify(t *testing.T) {
 	}
 	t.Log("ug message send suc")
 	time.Sleep(1 * time.Second)
-	// note : msgUID是通过全量消息路由获取， 详情：https://doc.rongcloud.cn/imserver/server/v1/message/sync
-	if res, err := rc.UGMessageModify("testExp0309", "aa", "C1PL-LJQR-0U1B-ADFN", "哈喽", UgMessageExtension{
+	// note : msgUID is obtained through the Post-messaging Callback, for details: https://doc.rongcloud.cn/imserver/server/v1/message/sync
+	if res, err := rc.UGMessageModify("testExp0309", "aa", "C1PL-LJQR-0U1B-ADFN", "Hello", UgMessageExtension{
 		BusChannel: "",
 		MsgRandom:  0,
 	}); err != nil {
@@ -290,23 +290,23 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	tpl1 := TemplateMsgContent{
 		TargetID: "4kIvGJmETlYqDoVFgWdYdM",
 		Data: map[string]string{
-			"{name}":  "小明",
+			"{name}":  "Xiao Ming",
 			"{score}": "90",
 		},
-		PushContent: "{name} 你的成绩出来了",
+		PushContent: "{name} your score is out",
 	}
 
 	tpl2 := TemplateMsgContent{
 		TargetID: "GvYBoFJQTggripS_qoiVaA",
 		Data: map[string]string{
-			"{name}":  "小红",
+			"{name}":  "Xiao Hong",
 			"{score}": "95",
 		},
-		PushContent: "{name} 你的成绩出来了",
+		PushContent: "{name}, your score is out",
 	}
 
 	msg := TXTMsg{
-		Content: "{name}, 语文成绩 {score} 分",
+		Content: "{name}, Chinese score {score} points",
 		Extra:   "helloExtra",
 	}
 
@@ -373,7 +373,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 
 	msg := MentionMsgContent{
 		Content:       "@user_2 hello",
-		MentionedInfo: MentionedInfo{Type: 2, UserIDs: []string{"4kIvGJmETlYqDoVFgWdYdM"}, PushContent: "有人@你"},
+		MentionedInfo: MentionedInfo{Type: 2, UserIDs: []string{"4kIvGJmETlYqDoVFgWdYdM"}, PushContent: "Someone mentioned you"},
 	}
 	err := rc.GroupSendMention(
 		"7Szq13MKRVortoknTAk7W8",
@@ -524,23 +524,23 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	tpl1 := TemplateMsgContent{
 		TargetID: "4kIvGJmETlYqDoVFgWdYdM",
 		Data: map[string]string{
-			"{name}":  "小明",
+			"{name}":  "Xiao Ming",
 			"{score}": "90",
 		},
-		PushContent: "{name} 你的成绩出来了",
+		PushContent: "{name} your score is out",
 	}
 
 	tpl2 := TemplateMsgContent{
 		TargetID: "GvYBoFJQTggripS_qoiVaA",
 		Data: map[string]string{
-			"{name}":  "小红",
+			"{name}":  "Xiao Hong",
 			"{score}": "95",
 		},
-		PushContent: "{name} 你的成绩出来了",
+		PushContent: "{name} your score is out",
 	}
 
 	msg := TXTMsg{
-		Content: "{name}, 语文成绩 {score} 分",
+		Content: "{name}, your Chinese score is {score} points",
 		Extra:   "helloExtra",
 	}
 

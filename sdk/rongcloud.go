@@ -9,7 +9,7 @@
 
 // The MIT License (MIT)
 
-// Copyright (c) 2014 融云 Rong Cloud
+// Copyright (c) 2014 RongCloud Rong Cloud
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,10 +30,10 @@
 // SOFTWARE.
 
 /*
- * 融云 Server API go 客户端
- * create by RongCloud
- * create datetime : 2018-11-28
- * v3
+ * RongCloud Server API Go Client
+ * Created by RongCloud
+ * Creation date: 2018-11-28
+ * Version: v3
  */
 
 package sdk
@@ -54,23 +54,23 @@ import (
 )
 
 const (
-	// RONGCLOUDSMSURI 融云默认 SMS API 地址
+	// RONGCLOUDSMSURI Default SMS API URL for RongCloud
 	RONGCLOUDSMSURI = "http://api.sms.ronghub.com"
-	// RONGCLOUDURI 融云默认 API 地址
+	// RONGCLOUDURI Default API URL for RongCloud
 	RONGCLOUDURI = "http://api.rong-api.com"
-	// RONGCLOUDURI2 融云备用 API 地址
+	// RONGCLOUDURI2 Backup API URL for RongCloud
 	RONGCLOUDURI2 = "http://api-b.rong-api.com"
-	// ReqType body类型
+	// ReqType Body type
 	ReqType = "json"
-	// USERAGENT sdk 名称
+	// USERAGENT SDK name
 	USERAGENT = "rc-go-sdk/3.2.23"
-	// DEFAULTTIMEOUT 默认超时时间，10秒
+	// DEFAULTTIMEOUT Default timeout, 10 seconds
 	DEFAULTTIMEOUT = 10
-	// DEFAULT_KEEPALIVE http 默认保活时间，30秒
+	// DEFAULT_KEEPALIVE Default HTTP keepalive time, 30 seconds
 	DEFAULT_KEEPALIVE = 30
-	// DEFAULT_MAXIDLECONNSPERHOST http 默认每个域名连接数，100
+	// DEFAULT_MAXIDLECONNSPERHOST Default maximum idle connections per host, 100
 	DEFAULT_MAXIDLECONNSPERHOST = 100
-	// 自动切换 api 地址时间间隔，秒
+	// DEFAULT_CHANGE_URI_DURATION Interval for automatic API URL switching, in seconds
 	DEFAULT_CHANGE_URI_DURATION = 30
 )
 
@@ -98,7 +98,7 @@ type RongCloud struct {
 	globalTransport http.RoundTripper
 }
 
-// rongCloudExtra rongCloud扩展增加自定义融云服务器地址,请求超时时间
+// rongCloudExtra extends RongCloud with custom RongCloud server address and request timeout
 type rongCloudExtra struct {
 	rongCloudURI        string
 	rongCloudSMSURI     string
@@ -110,9 +110,9 @@ type rongCloudExtra struct {
 	lastChageUriTime    int64
 }
 
-// getSignature 本地生成签名
-// Signature (数据签名)计算方法：将系统分配的 App Secret、Nonce (随机数)、
-// Timestamp (时间戳)三个字符串按先后顺序拼接成一个字符串并进行 SHA1 哈希计算。如果调用的数据签名验证失败，接口调用会返回 HTTP 状态码 401。
+// getSignature generates a local signature
+// Signature calculation method: Concatenate the App Secret, Nonce (random number),
+// and Timestamp (Unix timestamp) in order, then compute the SHA1 hash. If the signature verification fails, the API call will return HTTP status code 401.
 func (rc RongCloud) getSignature() (nonce, timestamp, signature string) {
 	nonceInt := rand.Int()
 	nonce = strconv.Itoa(nonceInt)
@@ -124,7 +124,7 @@ func (rc RongCloud) getSignature() (nonce, timestamp, signature string) {
 	return
 }
 
-// fillHeader 在 Http Header 增加API签名
+// fillHeader adds API signature to the Http Header
 func (rc RongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
 	nonce, timestamp, signature := rc.getSignature()
 	req.Header("App-Key", rc.appKey)
@@ -149,15 +149,15 @@ func (rc RongCloud) fillHeaderV2(req *httplib.BeegoHTTPRequest) string {
 	return requestId
 }
 
-// fillJSONHeader 在 Http Header Content-Type 设置为josn格式
+// fillJSONHeader sets the Http Header Content-Type to JSON format
 func fillJSONHeader(req *httplib.BeegoHTTPRequest) {
 	req.Header("Content-Type", "application/json")
 }
 
-// NewRongCloud 创建 RongCloud 对象
+// NewRongCloud creates a RongCloud object
 func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongCloud {
 	once.Do(func() {
-		// 默认扩展配置
+		// Default extended configuration
 		defaultRongCloud := defaultExtra
 		defaultRongCloud.lastChageUriTime = 0
 		rc = &RongCloud{
@@ -184,12 +184,12 @@ func NewRongCloud(appKey, appSecret string, options ...rongCloudOption) *RongClo
 	return rc
 }
 
-// GetRongCloud 获取 RongCloud 对象
+// GetRongCloud retrieves the RongCloud object
 func GetRongCloud() *RongCloud {
 	return rc
 }
 
-// 自定义 http 参数
+// Customizes HTTP parameters
 func (rc *RongCloud) SetHttpTransport(httpTransport http.RoundTripper) {
 	rc.globalTransport = httpTransport
 }
@@ -198,11 +198,11 @@ func (rc *RongCloud) GetHttpTransport() http.RoundTripper {
 	return rc.globalTransport
 }
 
-// changeURI 自动切换 Api 服务器地址
-// 在 api、api2之间自动切换。无法切换其他域名。其他请使用 PrivateURI 设置
+// changeURI automatically switches the API server address
+// It toggles between api and api2. Cannot switch to other domains. Use PrivateURI for other domain settings.
 func (rc *RongCloud) ChangeURI() {
 	nowUnix := time.Now().Unix()
-	// 检查距离上次更换uri的时间间隔
+	// Check the time interval since the last URI change
 	rc.uriLock.Lock()
 	if (nowUnix - rc.lastChageUriTime) >= rc.changeUriDuration {
 		switch rc.rongCloudURI {
@@ -217,20 +217,20 @@ func (rc *RongCloud) ChangeURI() {
 	rc.uriLock.Unlock()
 }
 
-// PrivateURI 私有云设置 Api 地址
+// PrivateURI sets the API address for private cloud
 func (rc *RongCloud) PrivateURI(uri, sms string) {
 	rc.rongCloudURI = uri
 	rc.rongCloudSMSURI = sms
 }
 
-// urlError 判断是否为 url.Error
+// urlError checks if the error is a url.Error
 func (rc *RongCloud) urlError(err error) {
-	// 方法已废弃
+	// This method is deprecated
 }
 
 /*
 *
-判断 http status code, 如果大于 500 就切换一次域名
+Check the HTTP status code, and switch the domain once if it's greater than or equal to 500
 */
 func (rc *RongCloud) checkStatusCode(resp *http.Response) {
 	if resp.StatusCode >= 500 && resp.StatusCode < 600 {

@@ -18,7 +18,7 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-// User 用户信息 返回信息
+// User User information response
 type User struct {
 	Token        string `json:"token"`
 	UserID       string `json:"userId"`
@@ -26,42 +26,42 @@ type User struct {
 	Status       string `json:"status,omitempty"`
 }
 
-// BlockListResult 返回信息
+// BlockListResult Response information
 type BlockListResult struct {
 	Users []User `json:"users"`
 }
 
-// BlacklistResult 返回信息
+// BlacklistResult Response information
 type BlacklistResult struct {
 	Users []string `json:"users"`
 }
 
-// Tag TagSet 参数
+// Tag TagSet parameters
 type Tag struct {
-	UserID string   `json:"userId"` // 用户 Id。（必传）
-	Tags   []string `json:"tags"`   // 用户标签，一个用户最多添加 20 个标签，每个 tag 最大不能超过 40 个字节，标签中不能包含特殊字符。（必传）
+	UserID string   `json:"userId"` // User ID (required)
+	Tags   []string `json:"tags"`   // User tags. A user can have up to 20 tags, each tag cannot exceed 40 bytes, and special characters are not allowed in tags. (required)
 }
 
-// TagBatch TagBatchSet 参数
+// TagBatch TagBatchSet parameters
 type TagBatch struct {
-	UserIDs []string `json:"userIds"` // 用户 Id，一次最多支持 1000 个用户。（必传）
-	Tags    []string `json:"tags"`    // 用户标签，一个用户最多添加 20 个标签，每个 tag 最大不能超过 40 个字节，标签中不能包含特殊字符。（必传）
+	UserIDs []string `json:"userIds"` // User IDs, up to 1000 users per request. (required)
+	Tags    []string `json:"tags"`    // User tags. A user can have up to 20 tags, each tag cannot exceed 40 bytes, and special characters are not allowed in tags. (required)
 }
 
-// TagResult TagGet 返回值
+// TagResult TagGet return value
 type TagResult struct {
 	*CodeResult
-	Result map[string][]string `json:"result"` // 用户所有的标签数组。
+	Result map[string][]string `json:"result"` // Array of all tags for the user.
 }
 
-// WhiteList QueryWhiteList 返回数据
+// WhiteList QueryWhiteList return data
 type WhiteList struct {
 	Users []string `json:"users"`
 }
 
-// UserBlockPushPeriodDelete 删除用户免打扰时段 /user/blockPushPeriod/delete.json
+// UserBlockPushPeriodDelete Delete user's Do Not Disturb period /user/blockPushPeriod/delete.json
 // *
-// @param: userId  用户id，必传
+// @param: userId  User ID, required
 //
 // *//
 func (rc *RongCloud) UserBlockPushPeriodDelete(userId string) error {
@@ -88,9 +88,9 @@ type PushPeriodGet struct {
 	}
 }
 
-// UserBlockPushPeriodGet UserBlockPushPeriodGet:  查用户免打扰时段 /user/blockPushPeriod/get.json
+// UserBlockPushPeriodGet UserBlockPushPeriodGet: Get user's Do Not Disturb period /user/blockPushPeriod/get.json
 // *
-// @param: userId  用户id，必传
+// @param: userId  User ID, required
 //
 //	response : PushPeriodGet
 //
@@ -114,14 +114,14 @@ func (rc *RongCloud) UserBlockPushPeriodGet(userId string) (PushPeriodGet, error
 	return data, nil
 }
 
-// UserBlockPushPeriodSet :添加户免打扰时段 /user/blockPushPeriod/set.json
+// UserBlockPushPeriodSet : Set user's Do Not Disturb period /user/blockPushPeriod/set.json
 // *
 //
-//	@param :userId 用户ID  必传
-//	@param :startTime 开始时间（秒） 必传
-//	@param :period  时段 (分钟)     必传
-//	@param :level   免打扰级别  默认 1  不是必传
-//	form表单
+//	@param :userId User ID (required)
+//	@param :startTime Start time (in seconds) (required)
+//	@param :period Duration (in minutes) (required)
+//	@param :level Do Not Disturb Level (default is 1, optional)
+//	form data
 //
 // *//
 func (rc *RongCloud) UserBlockPushPeriodSet(userId, startTime, period, level string) error {
@@ -153,19 +153,19 @@ func (rc *RongCloud) UserBlockPushPeriodSet(userId, startTime, period, level str
 	return nil
 }
 
-// UserTokenExpireObj ：的返回值定义
+// UserTokenExpireObj: Return value definition
 type UserTokenExpireObj struct {
-	// 返回码，200 为正常
+	// Return code, 200 indicates success
 	Code int `json:"code"`
 }
 
-// UserTokenExpireResObj /user/token/expire.json Token 失效
+// UserTokenExpireResObj /user/token/expire.json Token expiration
 // *
 //
-//	@param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
-//	@param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
+//	@param: userId: Required The user ID(s) for which the Token needs to be invalidated. Supports multiple users, up to 20.
+//	@param: time: Required The expiration timestamp in milliseconds. All Tokens obtained before this timestamp will be invalidated. Users already connected with Tokens obtained before this timestamp will not be immediately disconnected but will be unable to reconnect after disconnection.
 //	response: UserTokenExpireObj
-//	文档： https://doc.rongcloud.cn/imserver/server/v1/user/expire
+//	Documentation: https://doc.rongcloud.cn/imserver/server/v1/user/expire
 //
 // *//
 func (rc *RongCloud) UserTokenExpireResObj(userId string, t int64) (UserTokenExpireObj, error) {
@@ -192,13 +192,14 @@ func (rc *RongCloud) UserTokenExpireResObj(userId string, t int64) (UserTokenExp
 	return result, err
 }
 
-// UserTokenExpire /user/token/expire.json Token 失效
+// UserTokenExpire /user/token/expire.json Token expiration
 // *
 //
-//	@param: userId: 必传 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个
-//	@param: time: 必传 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
-//	response: byte数组
-//	文档 ：https://doc.rongcloud.cn/imserver/server/v1/user/expire
+//	@param: userId: Required The user ID(s) for which the Token needs to be invalidated. Supports multiple users, up to 20.
+//	@param: time: Required The expiration timestamp in milliseconds. All Tokens obtained before this timestamp will be invalidated. Users already connected with Tokens obtained before this timestamp will not be immediately disconnected but will be unable to reconnect after disconnection.
+//	response: byte array
+
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/user/expire
 //
 // *//
 func (rc *RongCloud) UserTokenExpire(userId string, t int64) ([]byte, error) {
@@ -221,34 +222,35 @@ func (rc *RongCloud) UserTokenExpire(userId string, t int64) ([]byte, error) {
 	return res, err
 }
 
-// UserRemarksGetObj :UserRemarksGetResObj 的返回值
+// UserRemarksGetObj : The return value of UserRemarksGetResObj
 type UserRemarksGetObj struct {
-	// 返回码，200 为正常。
+	// Return code, 200 indicates success.
 	Code int `json:"code"`
 
-	// 用户的备注名总数。
+	// Total number of user remarks.
 	Total int `json:"total"`
 
-	// JSON 对象数组，包含用户 ID（id）和对应的备注名（remark）。单次最多返回 50 个用户备注名。
+	// JSON object array containing user IDs (id) and corresponding remarks (remark). A maximum of 50 user remarks can be returned per request.
 	Users []UserRemarksUsers `json:"users"`
 }
 
 type UserRemarksUsers struct {
-	// 用户id
+	// User ID
 	Id string `json:"id"`
 
-	// 备注名字
+	// Remark name
 	Remark string `json:"remark"`
 }
 
-// UserRemarksGetResObj /user/remarks/get.json  查询用户级送备注名
+// UserRemarksGetResObj /user/remarks/get.json  Query user remarks
 // *
 //
-//	@param: userId :用户ID。
-//	@param: page :页数，默认为第一页。
-//	@param: size :每页条数，默认每页 50 条
+//	@param: userId : User ID.
+//	@param: page : Page number, defaults to the first page.
+//	@param: size : Number of items per page, defaults to 50 items per page.
 //	response： UserRemarksGetObj
-//	文档：https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
+
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
 //
 // */
 func (rc *RongCloud) UserRemarksGetResObj(userId string, page, size int) (UserRemarksGetObj, error) {
@@ -274,15 +276,15 @@ func (rc *RongCloud) UserRemarksGetResObj(userId string, page, size int) (UserRe
 	return result, err
 }
 
-// UserRemarksGet /user/remarks/get.json  查询用户级送备注名
+// UserRemarksGet /user/remarks/get.json  Query user push remark name
 // *
 //
-//	@param: userId :用户ID。
-//	@param: page :页数，默认为第一页。
-//	@param: size :每页条数，默认每页 50 条
+//	@param: userId : User ID.
+//	@param: page : Page number, defaults to the first page.
+//	@param: size : Number of items per page, defaults to 50 items per page.
 //
-// response ：byte数组
-// 文档：https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
+// response : Byte array
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/user/get-remark-for-push
 // */
 func (rc *RongCloud) UserRemarksGet(userId string, page, size int) ([]byte, error) {
 	if len(userId) == 0 {
@@ -301,11 +303,11 @@ func (rc *RongCloud) UserRemarksGet(userId string, page, size int) ([]byte, erro
 	return res, err
 }
 
-// UserRemarksDel /user/remarks/del.json  删除用户级送备注名
+// UserRemarksDel /user/remarks/del.json  Delete user-level push remark
 // *
 //
-//	@param: userId :操作者用户ID。
-//	@param: targetId:需要删除推送备注名的用户 ID
+//	@param: userId :Operator user ID.
+//	@param: targetId: User ID for which the push remark needs to be deleted
 //
 // */
 func (rc *RongCloud) UserRemarksDel(userId, targetId string) error {
@@ -327,19 +329,19 @@ func (rc *RongCloud) UserRemarksDel(userId, targetId string) error {
 	return err
 }
 
-// UserRemark :UserRemarksSet方法接收的参数
+// UserRemark :Parameters received by the UserRemarksSet method
 type UserRemark struct {
-	// 目标用户 ID。单次最多设置 100 个
+	// Target user ID. A maximum of 100 can be set at a time.
 	Id string
 
-	// 收到目标用户推送时显示的备注名。
+	// The remark name displayed when receiving a push from the target user.
 	Remark string
 }
 
 // UserRemarksSet /user/remarks/set.json
 // *
-// @param: userId:用户 ID。
-// @param: remarks:设置的目标用户推送备注名 JSON 字符串
+// @param: userId: User ID.
+// @param: remarks: JSON string of the target user push remarks to be set
 //
 // */
 func (rc *RongCloud) UserRemarksSet(userId string, remarks []UserRemark) error {
@@ -365,25 +367,25 @@ func (rc *RongCloud) UserRemarksSet(userId string, remarks []UserRemark) error {
 	return err
 }
 
-// UserChatFbQueryListObj ： 的返回结果
+// UserChatFbQueryListObj: Response object for querying the list of muted users
 type UserChatFbQueryListObj struct {
-	// 返回码，200 为正常。
+	// Response code, 200 indicates success.
 	Code int `json:"code"`
 
-	// 被禁言用户总数。
+	// Total number of muted users.
 	Total int `json:"total"`
 
-	// 被禁言用户数组。
+	// Array of muted users.
 	Users []string `json:"users"`
 }
 
 // UserChatFbQueryListResObj * /user/chat/fb/querylist
-// 查询禁言用户列表
-// @param: num :获取行数，默认为 100，最大支持 200 个
-// @param: offset :查询开始位置，默认为 0。
-// @param: t  :会话类型，目前支持单聊会话 PERSON。
+// Query the list of muted users
+// @param: num: Number of rows to fetch, default is 100, maximum supported is 200
+// @param: offset: Starting position for the query, default is 0
+// @param: t: Conversation type, currently supports one-to-one chat PERSON
 // response: UserChatFbQueryListObj
-// 文档： https://doc.rongcloud.cn/imserver/server/v1/user/ban
+// Documentation: https://doc.rongcloud.cn/imserver/server/v1/user/ban
 // */
 func (rc *RongCloud) UserChatFbQueryListResObj(num, offset int, t string) (UserChatFbQueryListObj, error) {
 	var (
@@ -393,7 +395,7 @@ func (rc *RongCloud) UserChatFbQueryListResObj(num, offset int, t string) (UserC
 		num = 100
 	}
 	if len(t) == 0 {
-		return result, RCErrorNew(1002, "Paramer 'type' is required")
+		return result, RCErrorNew(1002, "Parameter 'type' is required")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/user/chat/fb/querylist.json")
@@ -413,11 +415,11 @@ func (rc *RongCloud) UserChatFbQueryListResObj(num, offset int, t string) (UserC
 }
 
 // UserChatFbQueryList * /user/chat/fb/querylist
-// 查询禁言用户列表
-// @param: num :获取行数，默认为 100，最大支持 200 个
-// @param: offset :查询开始位置，默认为 0。
-// @param: t  :会话类型，目前支持单聊会话 PERSON。
-// response： 返回byte数组
+// Query the list of muted users
+// @param: num : Number of rows to fetch, defaults to 100, maximum supported is 200
+// @param: offset : Starting position for the query, defaults to 0.
+// @param: t  : Conversation type, currently supports one-to-one chat PERSON.
+// response： Returns a byte array
 // https://doc.rongcloud.cn/imserver/server/v1/user/ban
 // */
 func (rc *RongCloud) UserChatFbQueryList(num, offset int, t string) ([]byte, error) {
@@ -442,10 +444,10 @@ func (rc *RongCloud) UserChatFbQueryList(num, offset int, t string) ([]byte, err
 }
 
 // UserChatFbSet *
-// 用户单聊禁言
-// @param: userId :被禁言用户 ID，支持批量设置，最多不超过 1000 个
-// @param: state :禁言状态，0 解除禁言、1 添加禁言
-// @param: type  :会话类型，目前支持单聊会话 PERSON
+// Mute a user in one-to-one chat
+// @param: userId : User ID to be muted, supports batch setting, maximum of 1000 users
+// @param: state : Mute state, 0 to unmute, 1 to mute
+// @param: type  : Conversation type, currently supports one-to-one chat PERSON
 // */
 func (rc *RongCloud) UserChatFbSet(userId string, state int, t string) error {
 	if len(userId) == 0 {
@@ -471,7 +473,7 @@ func (rc *RongCloud) UserChatFbSet(userId string, state int, t string) error {
 /**
  * @name: AddWhiteList
  * @test:
- * @msg: 添加用户到白名单（每秒限 100 次）
+ * @msg: Add a user to the allowlist (limited to 100 requests per second)
  * @param string userId
  * @param []string whiteList
  * @return: error
@@ -482,11 +484,11 @@ func (rc *RongCloud) AddWhiteList(userId string, whiteList []string) error {
 	}
 
 	if len(whiteList) == 0 {
-		return RCErrorNew(1002, "Paramer 'whiteList' cannot empty")
+		return RCErrorNew(1002, "Paramer 'whiteList' cannot be empty")
 	}
 
 	if len(whiteList) > 20 {
-		return RCErrorNew(1002, "Length of paramer 'whiteList' must less than 20")
+		return RCErrorNew(1002, "Length of paramer 'whiteList' must be less than 20")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/user/whitelist/add." + ReqType)
@@ -507,7 +509,7 @@ func (rc *RongCloud) AddWhiteList(userId string, whiteList []string) error {
 /**
  * @name: RemoveWhiteList
  * @test:
- * @msg: 移除白名单中用户（每秒限 100 次）
+ * @msg: Remove users from the allowlist (limit: 100 times per second)
  * @param string userId
  * @param []string whiteList
  * @return: error
@@ -543,7 +545,7 @@ func (rc *RongCloud) RemoveWhiteList(userId string, whiteList []string) error {
 /**
  * @name: QueryWhiteList
  * @test:
- * @msg: 获取某用户白名单列表（每秒限100次）
+ * @msg: Get the allowlist of a user (limit: 100 times per second)
  * @param string userId
  * @return: WhiteList error
  */
@@ -570,11 +572,11 @@ func (rc *RongCloud) QueryWhiteList(userId string) (WhiteList, error) {
 	return whiteList, nil
 }
 
-// UserRegister 注册用户，生成用户在融云的唯一身份标识 Token
+// UserRegister Registers a user and generates a unique Token for the user in RongCloud.
 /*
-*@param  userID:用户 ID，最大长度 64 字节.是用户在 App 中的唯一标识码，必须保证在同一个 App 内不重复，重复的用户 Id 将被当作是同一用户。
-*@param  name:用户名称，最大长度 128 字节.用来在 Push 推送时显示用户的名称.用户名称，最大长度 128 字节.用来在 Push 推送时显示用户的名称。
-*@param  portraitURI:用户头像 URI，最大长度 1024 字节.用来在 Push 推送时显示用户的头像。可以为空
+*@param  userID: User ID, maximum length of 64 bytes. It is the unique identifier for the user within the App. It must be unique within the same App, and duplicate user IDs will be treated as the same user.
+*@param  name: User name, maximum length of 128 bytes. Used to display the user's name in push notifications.
+*@param  portraitURI: User avatar URI, maximum length of 1024 bytes. Used to display the user's avatar in push notifications. Can be empty.
 *
 *@return User, error
  */
@@ -608,17 +610,17 @@ func (rc *RongCloud) UserRegister(userID, name, portraitURI string) (User, error
 	return userResult, nil
 }
 
-// UserUpdate 修改用户信息
+// UserUpdate Updates user information
 /*
-*@param  userID:用户 ID，最大长度 64 字节.是用户在 App 中的唯一标识码，必须保证在同一个 App 内不重复，重复的用户 Id 将被当作是同一用户。
-*@param  name:用户名称，最大长度 128 字节。用来在 Push 推送时，显示用户的名称，刷新用户名称后 5 分钟内生效。（可选，提供即刷新，不提供忽略）
-*@param  portraitURI:用户头像 URI，最大长度 1024 字节。用来在 Push 推送时显示。（可选，提供即刷新，不提供忽略）
+*@param  userID: User ID, maximum length 64 bytes. It is the unique identifier of the user within the App. It must be ensured that it is not duplicated within the same App. Duplicate user IDs will be treated as the same user.
+*@param  name: User name, maximum length 128 bytes. It is used to display the user's name in push notifications. The user name will take effect within 5 minutes after refreshing. (Optional, refresh if provided, ignore if not provided)
+*@param  portraitURI: User avatar URI, maximum length 1024 bytes. It is used to display the user's avatar in push notifications. (Optional, refresh if provided, ignore if not provided)
 *
 *@return error
  */
 func (rc *RongCloud) UserUpdate(userID, name, portraitURI string) error {
 	if userID == "" {
-		return RCErrorNew(1002, "Paramer 'userID' is required")
+		return RCErrorNew(1002, "Parameter 'userID' is required")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/user/refresh." + ReqType)
@@ -635,10 +637,10 @@ func (rc *RongCloud) UserUpdate(userID, name, portraitURI string) error {
 	return err
 }
 
-// BlockAdd 添加用户到黑名单
+// BlockAdd Adds a user to the blocklist
 /*
-*@param  id:用户 ID。
-*@param  minute:封禁时长 1 - 1 * 30 * 24 * 60 分钟，最大值为 43200 分钟
+*@param  id: User ID.
+*@param  minute: Ban duration, 1 - 1 * 30 * 24 * 60 minutes, maximum value is 43200 minutes
 *
 *@return error
  */
@@ -647,7 +649,7 @@ func (rc *RongCloud) BlockAdd(id string, minute uint64) error {
 		return RCErrorNew(1002, "Paramer 'id' is required")
 	}
 	if minute > 43200 {
-		return RCErrorNew(20004, "封禁时间不正确, 当前传入为 , 正确范围 1 - 1 * 30 * 24 * 60 分钟")
+		return RCErrorNew(20004, "Invalid ban duration, current input is , valid range is 1 - 1 * 30 * 24 * 60 minutes")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/user/block." + ReqType)
@@ -663,9 +665,9 @@ func (rc *RongCloud) BlockAdd(id string, minute uint64) error {
 	return err
 }
 
-// BlockRemove 从黑名单中移除用户
+// BlockRemove Remove a user from the blocklist
 /*
-*@param  id:用户 ID。
+*@param  id: User ID.
 *
 *@return error
  */
@@ -685,7 +687,7 @@ func (rc *RongCloud) BlockRemove(id string) error {
 	return err
 }
 
-// BlockGetList 获取某用户的黑名单列表
+// BlockGetList Get the blocklist of a user
 /*
 *@return QueryBlockUserResult error
  */
@@ -708,10 +710,10 @@ func (rc *RongCloud) BlockGetList() (BlockListResult, error) {
 	return dat, nil
 }
 
-// BlacklistAdd 添加用户到黑名单方法（每秒钟限 100 次）
+// BlacklistAdd Adds users to the blocklist (limited to 100 times per second)
 /*
-*@param  id:用户 ID。
-*@param  blacklist:被设置为黑名单的用户列表。
+*@param  id: User ID.
+*@param  blacklist: List of users to be added to the blocklist.
 *
 *@return error
  */
@@ -738,10 +740,10 @@ func (rc *RongCloud) BlacklistAdd(id string, blacklist []string) error {
 	return err
 }
 
-// BlacklistRemove 从黑名单中移除用户方法（每秒钟限 100 次）
+// BlacklistRemove Removes users from the blocklist (limited to 100 times per second)
 /*
-*@param  id:用户 ID。
-*@param  blacklist:被移除黑名单列表。
+*@param  id: User ID.
+*@param  blacklist: List of users to be removed from the blocklist.
 *
 *@return error
  */
@@ -768,11 +770,11 @@ func (rc *RongCloud) BlacklistRemove(id string, blacklist []string) error {
 	return err
 }
 
-// BlacklistGet 获取某用户的黑名单列表方法（每秒钟限 100 次）
+// BlocklistGet Retrieves the blocklist of a user (limited to 100 requests per second)
 /*
-*@param  id:用户 ID。
+*@param  id: User ID.
 *
-*@return BlacklistResult error
+*@return BlocklistResult error
  */
 func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 	if id == "" {
@@ -797,11 +799,12 @@ func (rc *RongCloud) BlacklistGet(id string) (BlacklistResult, error) {
 	return listResult, nil
 }
 
-// OnlineStatusCheck 检查用户在线状态
+// OnlineStatusCheck Checks the online status of a user
+
 /*
-*@param  userID:用户 ID，最大长度 64 字节.是用户在 App 中的唯一标识码，必须保证在同一个 App 内不重复，重复的用户 Id 将被当作是同一用户。
+* @param userID: User ID, maximum length of 64 bytes. It is the unique identifier of the user within the App, and must be unique within the same App. Duplicate user IDs will be treated as the same user.
 *
-*@return int, error
+* @return int, error
  */
 func (rc *RongCloud) OnlineStatusCheck(userID string) (int, error) {
 	if userID == "" {
@@ -826,11 +829,11 @@ func (rc *RongCloud) OnlineStatusCheck(userID string) (int, error) {
 	return status, nil
 }
 
-// TagSet 为应用中的用户添加标签，如果某用户已经添加了标签，再次对用户添加标签时将覆盖之前设置的标签内容。
+// TagSet Adds tags to a user in the App. If a user already has tags, adding new tags will overwrite the previous tag content.
 /*
-*@param  tag :标签 Tag 构造体。
+* @param tag: The Tag struct for the tag.
 *
-*@return error
+* @return error
  */
 func (rc *RongCloud) TagSet(tag Tag) error {
 	req := httplib.Post(rc.rongCloudURI + "/user/tag/set." + ReqType)
@@ -849,9 +852,9 @@ func (rc *RongCloud) TagSet(tag Tag) error {
 	return err
 }
 
-// TagBatchSet 为应用中的用户批量添加标签，如果某用户已经添加了标签，再次对用户添加标签时将覆盖之前设置的标签内容。
+// TagBatchSet Adds tags to users in batch for the application. If a user already has tags, adding new tags will overwrite the previous ones.
 /*
-*@param  t :标签 TagBatch 构造体。
+*@param  t : The TagBatch struct.
 *
 *@return error
  */
@@ -872,9 +875,9 @@ func (rc *RongCloud) TagBatchSet(tagBatch TagBatch) error {
 	return err
 }
 
-// TagGet 查询用户所有标签功能，支持批量查询每次最多查询 50 个用户。
+// TagGet Queries all tags for users, supporting batch queries with a maximum of 50 users per query.
 /*
-*@param  userIds: 用户 ID。
+*@param  userIds: User IDs.
 *
 *@return error
  */
@@ -902,14 +905,14 @@ func (rc *RongCloud) TagGet(userIds []string) (TagResult, error) {
 
 type UserDeactivateResponse struct {
 	Code      int    `json:"code"`
-	OperateId string `json:"operateId"` // 操作 ID，为当前操作的唯一标识。开通用户注销与激活状态回调后，回调请求正文中会携带此参数。
+	OperateId string `json:"operateId"` // Operation ID, the unique identifier for the current operation. This parameter is included in the callback request body after enabling the User Deactivation and Activation Status Callback.
 }
 
-// UserDeactivate 注销用户
-// @param userIds []string 被注销用户 ID，最多一次 100 个
+// UserDeactivate Deactivates users
+// @param userIds []string User IDs to be deactivated, up to 100 at a time
 // @return string, error
 // official doc https://doc.rongcloud.cn/imserver/server/v1/user/deactivate
-// 发起注销后，服务端会在 15 分钟内通过回调通知注销结果。 https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation
+// After initiating deactivation, the server will notify the deactivation result via callback within 15 minutes. https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation
 func (rc *RongCloud) UserDeactivate(userIds []string) (*UserDeactivateResponse, error) {
 	req := httplib.Post(fmt.Sprintf("%s%s", rc.rongCloudURI, "/user/deactivate.json"))
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -928,13 +931,13 @@ func (rc *RongCloud) UserDeactivate(userIds []string) (*UserDeactivateResponse, 
 }
 
 type UserDeactivateQueryResponse struct {
-	Code  int      `json:"code"`  // 返回码，200 为正常
-	Users []string `json:"users"` // 已注销的用户 ID 列表
+	Code  int      `json:"code"`  // Return code, 200 indicates success
+	Users []string `json:"users"` // List of deactivated user IDs
 }
 
-// UserDeactivateQuery 查询已注销用户
-// @param pageNo 分页获取注销用户列表时的当前页数，默认 1，最小 1。
-// @param pageSize 分页获取注销用户列表时的每页行数，默认 50，最小 1，最大 50。
+// UserDeactivateQuery Queries deactivated users
+// @param pageNo Current page number for paginated retrieval of deactivated user list, default is 1, minimum is 1.
+// @param pageSize Number of rows per page for paginated retrieval of deactivated user list, default is 50, minimum is 1, maximum is 50.
 // @return string, error
 // official doc https://doc.rongcloud.cn/imserver/server/v1/user/query-deactivated-list
 func (rc *RongCloud) UserDeactivateQuery(pageNo, pageSize int) (*UserDeactivateQueryResponse, error) {
@@ -956,15 +959,15 @@ func (rc *RongCloud) UserDeactivateQuery(pageNo, pageSize int) (*UserDeactivateQ
 }
 
 type UserReactivateResponse struct {
-	Code      int    `json:"code"`      // 返回码，200 为正常。每个用户 ID 操作结果通过用户注销与激活状态回调传递。
-	OperateId string `json:"operateId"` // 操作 ID，为当前操作的唯一标识。开通用户注销与激活状态回调后，回调请求正文中会携带此参数。
+	Code      int    `json:"code"`      // Response code, 200 indicates success. The result of each user ID operation is passed through the User Deactivation and Activation Status Callback.
+	OperateId string `json:"operateId"` // Operation ID, the unique identifier for the current operation. This parameter is included in the callback request body after enabling the User Deactivation and Activation Status Callback.
 }
 
-// UserReactivate 重新激活注销用户
-// @param userIds []string 激活用户 ID，单次请求最多传入 100 个用户 ID。
+// UserReactivate Reactivate deactivated users
+// @param userIds []string User IDs to reactivate, with a maximum of 100 user IDs per request.
 // @return string, error
-// official doc https://doc.rongcloud.cn/imserver/server/v1/user/reactivate
-// 重新激活用户请通过(https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation)接口获取重新激活结果。重复调用此接口不会报错。
+// Official documentation: https://doc.rongcloud.cn/imserver/server/v1/user/reactivate
+// To get the reactivation result, use the (https://doc.rongcloud.cn/imserver/server/v1/user/callback-deactivation) interface. Repeated calls to this interface will not result in errors.
 func (rc *RongCloud) UserReactivate(userIds []string) (*UserReactivateResponse, error) {
 	req := httplib.Post(fmt.Sprintf("%s%s", rc.rongCloudURI, "/user/reactivate.json"))
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -982,12 +985,12 @@ func (rc *RongCloud) UserReactivate(userIds []string) (*UserReactivateResponse, 
 	return &userReactivateResp, nil
 }
 
-// UserProfileSet /user/profile/set.json 用户资料设置
+// UserProfileSet /user/profile/set.json User profile settings
 // *
 //
-//	@param: userId: 必传 需要设置的用户 ID
-//	@param: userProfile: 非必传 用户基本信息
-//	@param: userExtProfile: 非必传 用户扩展信息
+//	@param: userId: Required The user ID to be set
+//	@param: userProfile: Optional Basic user information
+//	@param: userExtProfile: Optional Extended user information
 //	response: err
 //
 // *//
@@ -1009,10 +1012,10 @@ func (rc *RongCloud) UserProfileSet(userId string, userProfile string, userExtPr
 	return err
 }
 
-// UserProfileClean /user/profile/clean.json 用户托管信息清除
+// UserProfileClean /user/profile/clean.json Clear User Profile Hosting
 // *
 //
-//	@param: userId: 必传 需要设置的用户 ID
+//	@param: userId: Required The user ID to be set
 //	response: err
 //
 // *//
@@ -1040,17 +1043,18 @@ type UserProfileResponse struct {
 }
 
 type UserProfileQueryResponse struct {
-	Code         int                   `json:"code"` // 返回码，200 为正常
+	Code         int                   `json:"code"` // Response code, 200 indicates success
 	UserProfiles []UserProfileResponse `json:"userList"`
 }
 
-// UserProfilQuery /user/profile/query.json 分页获取应用全部用户资料
+// UserProfilQuery /user/profile/query.json Paginate and Retrieve All User Profiles in the Application
 // *
 //
-//	@param: page: 非必传 页号
-//	@param: size: 非必传 每页数量
-//	@param: order: 非必传 根据注册时间的排序机制，默认正序，0为正序，1为倒序
-//	response: UserProfileQueryResponse,err
+//	@param: page: Optional Page number
+
+//	@param: size: Optional. Specifies the number of items per page.
+//	@param: order: Optional. Defines the sorting mechanism based on registration time. Default is ascending order. 0 for ascending, 1 for descending.
+//	response: UserProfileQueryResponse, err
 //
 // *//
 func (rc *RongCloud) UserProfilQuery(page int, size int, order int) (*UserProfileQueryResponse, error) {
@@ -1073,11 +1077,11 @@ func (rc *RongCloud) UserProfilQuery(page int, size int, order int) (*UserProfil
 	return &userProfileQueryResponse, nil
 }
 
-// UserProfilBatchQuery /user/profile/batch/query.json 批量查询用户资料
+// UserProfilBatchQuery /user/profile/batch/query.json Batch query user profiles
 // *
 //
-//	@param: userId: 必传 需要设置的用户 ID
-//	response: UserProfileQueryResponse,err
+//	@param: userId: Required. Specifies the user ID to be queried.
+//	response: UserProfileQueryResponse, err
 //
 // *//
 func (rc *RongCloud) UserProfilBatchQuery(userId string) (*UserProfileQueryResponse, error) {

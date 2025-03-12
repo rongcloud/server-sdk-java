@@ -7,35 +7,35 @@ import (
 
 type rongCloudOption func(*RongCloud)
 
-// WithRongCloudSMSURI 设置融云 SMS URI
+// WithRongCloudSMSURI sets the RongCloud SMS URI
 func WithRongCloudSMSURI(rongCloudSMSURI string) rongCloudOption {
 	return func(o *RongCloud) {
 		o.rongCloudSMSURI = rongCloudSMSURI
 	}
 }
 
-// WithRongCloudURI 设置融云 URI
+// WithRongCloudURI sets the RongCloud URI
 func WithRongCloudURI(rongCloudURI string) rongCloudOption {
 	return func(o *RongCloud) {
 		o.rongCloudURI = rongCloudURI
 	}
 }
 
-// WithTimeout 设置超时时间，最小单位为秒
+// WithTimeout sets the timeout duration, with the minimum unit in seconds
 func WithTimeout(t time.Duration) rongCloudOption {
 	return func(o *RongCloud) {
 		o.timeout = t
 	}
 }
 
-// WithKeepAlive 连接保活时间，最小单位为秒
+// WithKeepAlive sets the connection keep-alive duration, with the minimum unit in seconds
 func WithKeepAlive(t time.Duration) rongCloudOption {
 	return func(o *RongCloud) {
 		o.keepAlive = t
 	}
 }
 
-// WithMaxIdleConnsPerHost 设置每个域名最大连接数
+// WithMaxIdleConnsPerHost sets the maximum number of connections per host
 func WithMaxIdleConnsPerHost(n int) rongCloudOption {
 	return func(o *RongCloud) {
 		o.maxIdleConnsPerHost = n
