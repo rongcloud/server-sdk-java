@@ -1,5 +1,6 @@
 package io.rong.example.user;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.methods.user.blacklist.Blacklist;
 import io.rong.models.Result;
@@ -19,14 +20,10 @@ public class BlackListExample {
      * 此处替换成您的appSecret
      * */
     private static final String appSecret = "appSecret";
-    /**
-     * 自定义api地址
-     * */
-    private static final String api = "http://api.rong-api.com";
 
     public static void main(String[] args) throws Exception {
 
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
         //自定义 api 地址方式
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 

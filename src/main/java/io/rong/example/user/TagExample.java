@@ -1,5 +1,6 @@
 package io.rong.example.user;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.models.*;
 import io.rong.models.response.*;
@@ -22,14 +23,10 @@ public class TagExample {
      * 此处替换成您的appSecret
      * */
     private static final String appSecret = "appSecret";
-    /**
-     * 自定义api地址
-     * */
-    private static final String api = "http://api.rong-api.com";
 
 
     public static void main(String[] args) throws Exception {
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 
         /**
          *

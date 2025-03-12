@@ -1,17 +1,12 @@
 package io.rong.example.user;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
-import io.rong.methods.user.User;
 import io.rong.methods.user.chat.Ban;
 import io.rong.models.Result;
 import io.rong.models.response.BanListResult;
-import io.rong.models.response.TokenResult;
-import io.rong.models.response.UserGroupQueryResult;
-import io.rong.models.response.UserResult;
 import io.rong.models.user.BanListModel;
 import io.rong.models.user.BanModel;
-import io.rong.models.user.ExpireModel;
-import io.rong.models.user.UserModel;
 
 /**
  * Demo class
@@ -28,14 +23,10 @@ public class BanExample {
      * 此处替换成您的appSecret
      */
     private static final String appSecret = "";
-    /**
-     * 自定义api地址
-     */
-    private static final String api = "http://api.rong-api.com";
 
     public static void main(String[] args) throws Exception {
 
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
         // 自定义 api 地址方式
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
         // 使用 百度 HTTPDNS 获取最快的 IP 地址进行连接

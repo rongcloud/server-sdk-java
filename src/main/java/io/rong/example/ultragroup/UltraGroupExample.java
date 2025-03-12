@@ -1,5 +1,6 @@
 package io.rong.example.ultragroup;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.methods.ultragroup.UltraGroup;
 import io.rong.models.Result;
@@ -41,7 +42,7 @@ public class UltraGroupExample {
      */
     public static void main(String[] args) throws Exception {
 
-        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
         //自定义 api 地址方式
 //        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 

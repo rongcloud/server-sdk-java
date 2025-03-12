@@ -1,7 +1,7 @@
 package io.rong.example.profile;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
-import io.rong.RongCloudConfig;
 import io.rong.methods.profile.Friend;
 import io.rong.models.profile.FriendModel;
 import io.rong.models.profile.FriendProfileModel;
@@ -32,7 +32,7 @@ public class FriendExample {
     /**
      * 初始化
      */
-    private static Friend friend = RongCloud.getInstance(APP_KEY, APP_SECRET, RongCloudConfig.DefaultConfig).friend;
+    private static Friend friend = RongCloud.getInstance(APP_KEY, APP_SECRET, CenterEnum.BJ).friend;
 
     /**
      * 本地调用测试

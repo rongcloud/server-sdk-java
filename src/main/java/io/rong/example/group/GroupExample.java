@@ -1,5 +1,6 @@
 package io.rong.example.group;
 
+import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.methods.group.Group;
 import io.rong.models.Result;
@@ -24,10 +25,6 @@ public class GroupExample {
 	 * 此处替换成您的appSecret
 	 * */
 	private static final String appSecret = "appSecret";
-	/**
-	 * 自定义api地址
-	 * */
-	private static final String api = "http://api.rong-api.com";
 
 	/**
 	 * 本地调用测试
@@ -37,7 +34,7 @@ public class GroupExample {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+		RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 		//自定义 api 地址方式
 		//RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
