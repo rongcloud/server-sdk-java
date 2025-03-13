@@ -10,25 +10,25 @@ import io.rong.models.response.WhiteListResult;
 
 public class UserExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        // Custom API URL
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
         Whitelist whitelist = rongCloud.chatroom.whiteList;
 
         /**
-         * API: 文档 https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加聊天室用户白名单
-         * */
+         * API: Documentation https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Add users to the chatroom allowlist
+         */
         ChatroomMember[] members = {
                 new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
         };
@@ -39,18 +39,18 @@ public class UserExample {
         System.out.println("add whitelist:  " + addResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 获取聊天室用户白名单
-         * */
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Get the chatroom allowlist
+         */
 
         WhiteListResult getResult = (WhiteListResult)whitelist.user.getList(chatroom);
         System.out.println("get whitelist:  " + getResult.toString());
 
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 删除聊天室用户白名单
-         * */
+        * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+        * Remove Chatroom Allowlist Users
+        */
 
         ResponseResult removeResult = whitelist.user.remove(chatroom);
         System.out.println("remove whitelist:  " + removeResult.toString());

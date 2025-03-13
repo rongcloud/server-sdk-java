@@ -5,26 +5,26 @@ import io.rong.util.GsonUtil;
 public class FileMessage extends BaseMessage {
 
 	/**
-	 * 文件名称
+	 * File name
 	 */
 	private String name;
 
 	/**
-	 * 文件大小，单位：bytes
+	 * File size in bytes
 	 */
 	private Long size;
 
 	/**
-	 * 文件地址
+	 * File URL
 	 */
 	private String fileUrl;
 	/**
-	 * 扩展信息，可以放置任意的数据内容，也可以去掉此属性。
+	 * Extended information, can store any data content, or this attribute can be removed.
 	 */
 	private String extra;
 
 	/**
-	 * 文件类型
+	 * File type
 	 */
 	private transient static final String TYPE = "RC:FileMsg";
 

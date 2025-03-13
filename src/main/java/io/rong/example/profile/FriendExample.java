@@ -12,9 +12,9 @@ import io.rong.models.response.QueryFriendsResult;
 import io.rong.models.response.ResponseResult;
 
 /**
- * 群托管服务
+ * Group Information Hosting Service
  * <p>
- * API 文档: https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
+ * API Documentation: https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  *
  * @author RongCloud
  * @version 3.6.0
@@ -22,64 +22,63 @@ import io.rong.models.response.ResponseResult;
 public class FriendExample {
 
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      */
     private static final String APP_KEY = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      */
     private static final String APP_SECRET = "secret";
     /**
-     * 初始化
+     * Initialization
      */
     private static Friend friend = RongCloud.getInstance(APP_KEY, APP_SECRET, CenterEnum.BJ).friend;
 
     /**
-     * 本地调用测试
+     * Local test call
      *
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
 
-        //添加好友
+        // Add a friend
         addFriendExample();
 
-        //删除好友
+        // Delete a friend
         delFriendExample();
 
-        //清除指定用户好友
+
+        // Clear the friend list for a specified user
         cleanFriendExample();
 
-        // 设置好友资料
+        // Set friend profile
         setProfileExample();
 
-        // 分页获取好友信息列表
+        // Get friend information list with pagination
         pagingGetFriendsExample();
 
-        // 检查好友关系
+        // Check friend relationship
         checkFriendsExample();
 
-
-        //设置添加好友权限
+        // Set friend request permission
         setPermissionExample();
 
-
-        //查询添加好友权限
+        // Query friend request permission
         getPermissionExample();
 
     }
     /**
-     * 查询添加好友权限
+     * Query friend request permission
      */
     private static void getPermissionExample() throws Exception {
-        GetPermissionResult responseResult = friend.getPermission( "uid", "uid2");
+        GetPermissionResult responseResult = friend.getPermission("uid", "uid2");
         System.out.println(responseResult);
     }
 
 
     /**
-     * 设置添加好友权限
+     * Set friend request permission
      */
     private static void setPermissionExample() throws Exception {
         ResponseResult responseResult = friend.setPermission(1, "uid", "uid2");
@@ -90,7 +89,7 @@ public class FriendExample {
 
 
     /**
-     * 检查好友关系
+     * Check friend relationship
      */
     private static void checkFriendsExample() throws Exception {
         CheckFriendsResult responseResult = friend.checkFriends("uid", "targetId", "targetId2");
@@ -99,7 +98,7 @@ public class FriendExample {
 
 
     /**
-     * 分页获取好友信息
+     * Paginate to get friend information
      */
     private static void pagingGetFriendsExample() throws Exception {
         PagingGetFriendsModel getFriendsModel = new PagingGetFriendsModel();
@@ -113,7 +112,7 @@ public class FriendExample {
 
 
     /**
-     * 添加好友
+     * Add a friend
      */
     private static void addFriendExample() throws Exception {
         FriendModel friendModel = new FriendModel();
@@ -127,7 +126,7 @@ public class FriendExample {
     }
 
     /**
-     * 删除好友
+     * Delete a friend
      */
     private static void delFriendExample() throws Exception {
         ResponseResult responseResult = friend.delete("uid", "targetId", "targetId2");
@@ -136,7 +135,7 @@ public class FriendExample {
 
 
     /**
-     * 清除指定用户好友关系
+     * Clear friend relationships for a specified user
      */
     private static void cleanFriendExample() throws Exception {
         ResponseResult responseResult = friend.clean("uid");
@@ -145,7 +144,7 @@ public class FriendExample {
 
 
     /**
-     * 设置好友资料
+     * Set friend profile
      */
     private static void setProfileExample() throws Exception {
         FriendProfileModel friendProfileModel = new FriendProfileModel();

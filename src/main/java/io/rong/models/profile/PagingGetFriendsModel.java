@@ -7,7 +7,7 @@ package io.rong.models.profile;
 public class PagingGetFriendsModel extends PageModel {
 
     /**
-     * 操作用户 ID
+     * The ID of the user performing the operation.
      */
     private String userId;
 

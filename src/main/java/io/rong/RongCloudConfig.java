@@ -16,28 +16,28 @@ public class RongCloudConfig {
 	
 	
 	/**
-	 * Api 的域名列表
+	 * List of API domains
 	 */
 	public String[] apiDomains = new String[] {};
 	
 	/**
-	 * 访问失败满多少次后进行切换
+	 * Number of failures required before switching domains
 	 */
 	public int errorSwitchingThreshold = 1;
 	
 	/**
-	 * http Tcp链接建立超时时间设置，单位ms
+	 * HTTP TCP connection timeout in milliseconds
 	 */
 	public int httpConnectTimeout = 30000;
 	
 	/**
-	 * http获取响应的超时时间设置，单位ms
+	 * HTTP response timeout in milliseconds
 	 */
 	public int httpReadTimeout = 30000;
 
 
 	/**
-	 * 是否维持长连接
+	 * Whether to maintain a persistent connection
 	 */
 	public boolean connectionKeepAlive = false;
 	

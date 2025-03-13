@@ -18,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 用户备注服务
+ * User Remark Service
  */
 public class Remark {
 
@@ -44,9 +44,9 @@ public class Remark {
     }
 
     /**
-     * 为应用中的用户添加备注，如果某用户已经添加了备注，再次对用户添加备注时将覆盖之前设置的备注内容。
+     * Add remarks for users in the application. If a user already has a remark, adding a new remark will overwrite the previous one.
      *
-     * @param remarks 用户备注信息
+     * @param remarks User remark information
      * @return ResponseResult
      **/
     public ResponseResult set(String userId, String remarks) throws Exception {
@@ -67,9 +67,9 @@ public class Remark {
     }
 
     /**
-     * 删除用户备注
+     * Deletes the remarks for a user.
      *
-     * @param targetId 删除用户备注
+     * @param targetId The ID of the user whose remarks are to be deleted.
      * @return ResponseResult
      **/
     public ResponseResult del(String userId, String targetId) throws Exception {
@@ -92,10 +92,10 @@ public class Remark {
 
 
     /**
-     * 查询用户所有备注功能
+     * Retrieves all remarks for a user.
      *
-     * @param userId
-     * @return GetTagResult
+     * @param userId The ID of the user whose remarks are to be retrieved.
+     * @return GetUserRemarksResult
      **/
     public GetUserRemarksResult get(String userId, int page, int size) throws Exception {
         String message = CommonUtil.checkParam("id",userId, PATH, CheckMethod.SET);

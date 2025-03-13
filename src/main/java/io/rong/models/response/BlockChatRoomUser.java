@@ -3,13 +3,13 @@ package io.rong.models.response;
 import io.rong.util.GsonUtil;
 
 /**
- * 聊天室被封禁用户信息。
+ * Information of a banned user in the chatroom.
  * @author RongCloud
  */
 public class BlockChatRoomUser {
-	// 聊天室用户Id。
+	// The user ID in the chatroom.
 	String userId;
-	// 加入聊天室时间。
+	// The time when the user joined the chatroom.
 	String time;
 	
 	public BlockChatRoomUser(String userId, String time) {
@@ -18,7 +18,7 @@ public class BlockChatRoomUser {
 	}
 	
 	/**
-	 * 设置userId
+	 * Sets the userId.
 	 *
 	 */	
 	public BlockChatRoomUser setUserId(String userId) {
@@ -27,7 +27,7 @@ public class BlockChatRoomUser {
 	}
 	
 	/**
-	 * 获取userId
+	 * Gets the userId.
 	 *
 	 * @return String
 	 */
@@ -36,7 +36,7 @@ public class BlockChatRoomUser {
 	}
 	
 	/**
-	 * 设置time
+	 * Sets the time.
 	 *
 	 */	
 	public BlockChatRoomUser setTime(String time) {
@@ -45,14 +45,14 @@ public class BlockChatRoomUser {
 	}
 	
 	/**
-	 * 获取time
+	 * Gets the time.
 	 *
 	 * @return String
 	 */
 	public String getTime() {
 		return time;
 	}
-	
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, BlockChatRoomUser.class);

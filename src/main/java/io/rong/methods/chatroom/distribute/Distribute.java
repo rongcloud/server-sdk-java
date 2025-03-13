@@ -32,9 +32,9 @@ public class Distribute {
     }
 
     /**
-     * 停止聊天室消息分发（可实现控制对聊天室中消息是否进行分发，停止分发后聊天室中用户发送的消息，融云服务端不会再将消息发送给聊天室中其他用户。）
+     * Stop chatroom message distribution (This allows controlling whether messages in the chatroom are distributed. After stopping distribution, messages sent by users in the chatroom will not be forwarded to other users by the RongCloud server.)
      *
-     * @param  chatroom:聊天室信息，其中聊天室 Id。（必传）
+     * @param  chatroom: Chatroom information, including the chatroom ID. (Required)
      *
      * @return ResponseResult
      **/
@@ -57,9 +57,9 @@ public class Distribute {
     }
 
     /**
-     * 恢复聊天室消息分发
+     * Resume chatroom message distribution
      *
-     * @param  chatroom:聊天室 Id。（必传）
+     * @param  chatroom: The chatroom ID (required)
      *
      * @return ResponseResult
      **/

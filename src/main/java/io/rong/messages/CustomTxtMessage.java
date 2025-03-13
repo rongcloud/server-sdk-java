@@ -4,7 +4,7 @@ import io.rong.util.GsonUtil;
 
 /**
  *
- * 自定义消息
+ * Custom message
  *
  */
 public class CustomTxtMessage extends BaseMessage {
@@ -20,7 +20,7 @@ public class CustomTxtMessage extends BaseMessage {
 	}
 	
 	/**
-	 * 获取自定义消息内容。
+	 * Retrieves the content of the custom message.
 	 *
 	 * @return String
 	 */
@@ -29,7 +29,7 @@ public class CustomTxtMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param content 设置自定义消息内容。
+	 * @param content Sets the content of the custom message.
 	 *
 	 *
 	 */

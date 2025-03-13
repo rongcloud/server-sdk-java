@@ -14,8 +14,8 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
- * 群组禁言服务
- * 设置某一群组全部成员禁言，如果在群组全部成员禁言状态下，需要某些用户可以发言时，可将此用户加入到群禁言用户白名单中。
+ * Group Ban Service
+ * Mute all members in a group. If certain users need to speak while the group is muted, add them to the group mute allowlist.
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -43,9 +43,9 @@ public class Ban {
 
     }
     /**
-     * 添加群禁言方法
+     * Add group mute method
      *
-     * @param groupIds:群组 ID
+     * @param groupIds: Group ID
      *
      * @return Result
      **/
@@ -71,9 +71,10 @@ public class Ban {
     }
 
     /**
-     * 查询被禁言群方法
+     * Retrieves the list of groups with banned users.
      *
-     * @return ListGagGroupUserResult
+     * @return ListGagGroupUserResult containing the list of groups with banned users.
+     * @throws Exception if an error occurs during the process.
      **/
     public Result getList() throws Exception {
         StringBuilder sb = new StringBuilder();
@@ -88,11 +89,11 @@ public class Ban {
         return (GroupBanResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn, rongCloud.getConfig())), GroupBanResult.class);
     }
     /**
-     * 查询被禁言群方法
+     * Checks if users are banned in specified groups.
      *
-     * @param  groupIds:群组Id。（必传）
-     *
-     * @return ListGagGroupUserResult
+     * @param groupIds The IDs of the groups to check for banned users. (Required)
+     * @return ListGagGroupUserResult containing the list of banned users in the specified groups.
+     * @throws Exception if an error occurs during the process.
      **/
     public Result check(String[] groupIds) throws Exception {
         String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.ADD);
@@ -116,14 +117,13 @@ public class Ban {
     }
 
     /**
-     * 移除全局群禁言方法
+     * Removes the global group mute
      *
-     * @param  groupIds:群组 ID（必传）
+     * @param  groupIds: Group ID (required)
      *
      * @return ResponseResult
      **/
     public Result remove(String[] groupIds) throws Exception {
-        //参数校验
         String message = CommonUtil.checkParam("id",groupIds,PATH,CheckMethod.ADD);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);

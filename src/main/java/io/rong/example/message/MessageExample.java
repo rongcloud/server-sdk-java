@@ -25,18 +25,18 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 消息发送示例
+ * Message sending example
  *
  * @author RongCloud
  * @version 3.0.0
  */
 public class MessageExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      */
     private static final String appSecret = "appSecret";
 
@@ -46,7 +46,7 @@ public class MessageExample {
     private static final VoiceMessage voiceMessage = new VoiceMessage("hello", "helloExtra", 20L);
 
     /**
-     * 自定义api地址
+     * Custom API endpoint
      */
 //    private static final String api = "http://api-bj.ronghub.com";
     public static void main(String[] args) throws Exception {
@@ -56,7 +56,7 @@ public class MessageExample {
 //        config.connectionKeepAlive = false;
 //        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, config);
 
-        //自定义 api 地址方式
+        // Custom API endpoint
 //        RongCloud rongCloud = RongCloud.getInstance("appkey", "appSecret", api);
 //        RongCloud rongCloud2 = RongCloud.getInstance("appKey", "appSecret", new RongCloudConfig("api"));
 
@@ -68,7 +68,7 @@ public class MessageExample {
         History history = rongCloud.message.history;
         UltraGroup ultraGroup = rongCloud.message.ultraGroup;
         PushExt.HW hw = new PushExt.HW("channelId", "NORMAL");
-        // 扩展参数
+        // Extension parameters
         hw.addParamIfNotBlank("image", "xxx");
         PushExt pe = PushExt.build("testTitle", 1,
                 hw,
@@ -82,9 +82,9 @@ public class MessageExample {
         );
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 发送系统消息
+         * Send system message
          *
          */
         String[] targetIds = {"2651280140445094444"};
@@ -104,12 +104,12 @@ public class MessageExample {
         ResponseResult result = system.send(systemMessage);
         System.out.println("send system message:  " + result.toString());
 
-        /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         *
-         * 发送系统模板消息方法
-         *
-         */
+/**
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * Method to send system template messages
+ *
+ */
         Reader reader = null;
         try {
             reader = new BufferedReader(new InputStreamReader(MessageExample.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
@@ -125,9 +125,9 @@ public class MessageExample {
         }
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 发送系统模板消息方法
+         * Method to send system template messages
          *
          */
         BroadcastMessage message = new BroadcastMessage()
@@ -142,9 +142,9 @@ public class MessageExample {
 
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 不落地通知
+         * Push-only Notification
          *
          */
         List<String> users = new ArrayList<>();
@@ -163,9 +163,9 @@ public class MessageExample {
         System.out.println("sendUser:  " + sendUser.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 发送单聊消息<文本, 语音, 文件类型 等消息类型>
+         * Send one-to-one chat message <text, voice, file, etc.>
          */
         PrivateMessage privateMessage = new PrivateMessage()
                 .setSenderId("2609751433442958892")
@@ -186,9 +186,9 @@ public class MessageExample {
         System.out.println("send private message:  " + privateResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 发送单聊模板消息方法
+         * Send one-to-one chat template message
          */
         try {
             reader = new BufferedReader(new InputStreamReader(MessageExample.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
@@ -205,9 +205,9 @@ public class MessageExample {
             }
         }
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 撤回单聊消息
+         * Recall a one-to-one chat message
          * */
         RecallMessage recallMessage = new RecallMessage()
                 .setSenderId("2609751433442958892")
@@ -219,9 +219,9 @@ public class MessageExample {
 
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 发送单聊状态消息
+         * Send a one-to-one chat status message
          */
         PrivateStatusMessage statusMessage = new PrivateStatusMessage()
                 .setSenderId("IotBnm9K4")
@@ -233,11 +233,11 @@ public class MessageExample {
 
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 单聊-发送正在输入状态消息
+         * One-to-one chat - Send a typing status message
          *
-         * 正在输入状态消息只支持单聊文本消息，不支持其他消息类型(包括自定义消息)
+         * Typing status messages are only supported for one-to-one chat text messages and do not support other message types (including custom messages)
          */
         TypingStatusMessage typpingStatusMessage = new TypingStatusMessage();
         PrivateMessage privateMsg = new PrivateMessage()
@@ -248,11 +248,12 @@ public class MessageExample {
         ResponseResult statusResult = Private.sendTypingStatusMessage(privateMsg);
         System.out.println("send private message:  " + statusResult.toString());
 
+
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 发送单聊小灰条消息
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Send a one-to-one chat gray bar message
          */
-        InfoNtfMessage infoNotify = new InfoNtfMessage("小灰条消息内容", "helloExtra");
+        InfoNtfMessage infoNotify = new InfoNtfMessage("Gray bar message content", "helloExtra");
         PrivateMessage p = new PrivateMessage()
                 .setSenderId("BzUPcKM2B")
                 .setTargetId(new String[]{"jf8yVWgZO"})
@@ -261,9 +262,9 @@ public class MessageExample {
         ResponseResult infoNotifyResult = Private.send(p);
         System.out.println("send private infoNotify message:  " + infoNotifyResult.toString());
 
-        /**
-         * 发送单聊已读回执消息(会话类型可设置)
-         */
+/**
+ * Send a one-to-one chat read receipt message (conversation type can be set)
+ */
         ReadReceiptMessage receiptMessage = new ReadReceiptMessage("1589425641984", "BI24-J9K0-0007-VD72", CodeUtil.ConversationType.PRIVATE.getIntValue());
         PrivateMessage privateReceipt = new PrivateMessage()
                 .setSenderId("BzUPcKM2B")
@@ -273,11 +274,11 @@ public class MessageExample {
         ResponseResult privateReceiptResult = Private.send(privateReceipt);
         System.out.println("send private ReceiptResult message:  " + privateReceiptResult.toString());
 
-        /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         *
-         * 群组消息
-         * */
+/**
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * Group message
+ */
         GroupMessage groupMessage = new GroupMessage()
                 .setSenderId("userId")
                 .setTargetId(targetIds)
@@ -292,12 +293,15 @@ public class MessageExample {
         groupMessage.setDisableUpdateLastMsg(true);
         ResponseResult groupResult = group.send(groupMessage);
 
-        System.out.println("send Group message:  " + groupResult.toString());
-        /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         *
-         * 群组定向消息
-         * */
+        System.out.println("Send Group message:  " + groupResult.toString());
+
+/**
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * Group targeted message
+ */
+
+
         String[] targetId = {"2651280140445094444"};
         String[] toUserIds = {"2651280140445094444"};
         GroupMessage groupDirectionMessage = new GroupMessage()
@@ -316,11 +320,11 @@ public class MessageExample {
         ResponseResult groupDirectionResult = group.sendDirection(groupDirectionMessage);
 
         System.out.println("send group direction message:  " + groupDirectionResult.toString());
-        /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         *
-         * 群组撤回消息
-         * */
+/**
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * Recall a group message
+ * */
         recallMessage = new RecallMessage()
                 .setSenderId("sea9901")
                 .setTargetId("markoiwm")
@@ -330,16 +334,16 @@ public class MessageExample {
 
         System.out.println("recall group message:  " + recallMessageResult.toString());
 
-        /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         *
-         * 群组@消息
-         * */
-        //要@的人
+/**
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * Send a group @message
+ * */
+// Users to be mentioned
         String[] mentionIds = {"jf8yVWgZO"};
 //        String[] targetIds = { "ckHduTB4f" };
         MentionedInfo mentionedInfo = new MentionedInfo(1, mentionIds, "");
-        //@内容
+// @content
         MentionMessageContent content = new MentionMessageContent(txtMessage, mentionedInfo);
 
         MentionMessage mentionMessage = new MentionMessage()
@@ -362,11 +366,11 @@ public class MessageExample {
 
         System.out.println("group mention result:  " + mentionResult.toString());
 
-        /**
-         * 发送群组状态消息
-         *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         */
+/**
+ * Send group status message
+ *
+ * API Doc: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ */
         GroupStatusMessage groupStatusMessage = new GroupStatusMessage();
         groupStatusMessage.setSenderId("BzUPcKM2B")
                 .setGroupId(new String[]{"ckHduTB4f"})
@@ -377,9 +381,9 @@ public class MessageExample {
         ResponseResult groupStatusResult = group.sendStatusMessage(groupStatusMessage);
         System.out.println("group status message result:  " + groupStatusResult.toString());
 
-        /**
-         * 发送群聊小灰条消息（所有人）
-         */
+/**
+ * Send group gray bar message (to all members)
+ */
         GroupMessage groupMessage2 = new GroupMessage()
                 .setSenderId("BzUPcKM2B")
                 .setTargetId(targetIds)
@@ -388,22 +392,22 @@ public class MessageExample {
         ResponseResult groupinfoNotifyResult = group.send(groupMessage2);
         System.out.println("group info Notify message result:  " + groupinfoNotifyResult.toString());
 
-        /**
-         * 发送群聊小灰条消息-定向用户(单次请求最多 1000 人）
-         */
+/**
+ * Send group gray bar message - targeted users (up to 1000 users per request)
+ */
         String[] userIds = {"2651280140445094444", "2651280140445094445"};
         GroupMessage groupMessage3 = new GroupMessage()
                 .setSenderId("BzUPcKM2B")
-                .setTargetId(targetIds)// 群Id
-                .setToUserId(userIds)// 群里的用户Id
+                .setTargetId(targetIds) // Group ID
+                .setToUserId(userIds) // User IDs in the group
                 .setObjectName(infoNotify.getType())
                 .setContent(infoNotify);
         group.sendDirection(groupMessage3);
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 发送讨论组消息
+         * Send a discussion group message
          * */
         String[] discussionIds = {"lijhGk87", "lijhGk88"};
         DiscussionMessage discussionMessage = new DiscussionMessage()
@@ -423,9 +427,9 @@ public class MessageExample {
         System.out.println("send discussion message:  " + discussionResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 撤回讨论组消息
+         * Recall a discussion group message
          * */
         recallMessage = new RecallMessage()
                 .setSenderId("sea9901")
@@ -438,9 +442,9 @@ public class MessageExample {
 
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 聊天室消息
+         * Chatroom message
          * */
 
         String[] chatroomIds = {"15222258878654823358"};
@@ -457,10 +461,10 @@ public class MessageExample {
         ResponseResult chatroomResult = chatroom.send(chatroomMessage);
         System.out.println("send chatroom message:  " + chatroomResult.toString());
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 聊天室撤回消息
-         * */
+         * Recall a message in the chatroom
+         */
         recallMessage = new RecallMessage()
                 .setSenderId("1")
                 .setTargetId("15222258878654823358")
@@ -472,7 +476,7 @@ public class MessageExample {
         System.out.println("recall chatroom message:  " + recallChatroomResult.toString());
 
         /**
-         * 超级群消息撤回
+         * Recall a message in the ultra group
          */
         recallMessage = new RecallMessage()
                 .setSenderId("1")
@@ -486,11 +490,11 @@ public class MessageExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 聊天室广播消息
+         * Broadcast a message in the chatroom
          *
-         * 此功能需开通专有服务: http://www.rongcloud.cn/deployment#overseas-cloud
+         * This feature requires a dedicated service: http://www.rongcloud.cn/deployment#overseas-cloud
          *
          * */
         chatroomMessage = new ChatroomMessage()
@@ -498,15 +502,16 @@ public class MessageExample {
                 .setContent(txtMessage)
                 .setObjectName(txtMessage.getType());
 
+
         ResponseResult chatroomBroadcastresult = chatroom.broadcast(chatroomMessage);
         System.out.println("send chatroom broadcast message:  " + chatroomBroadcastresult.toString());
 
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 获取历史消息日志文件
+         * Retrieve historical message log files
          *
          * */
 
@@ -515,19 +520,19 @@ public class MessageExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 删除历史消息日志文件
+         * Delete historical message log files
          *
          * */
 
         ResponseResult removeHistoryMessageResult = history.remove("2018030210");
-        System.out.println("remove history  message:  " + removeHistoryMessageResult.toString());
+        System.out.println("remove history message:  " + removeHistoryMessageResult.toString());
 
         /**
-         * 清除历史消息
+         * Clear historical messages
          *
-         * API 文档: https://docs.rongcloud.cn/im/server/message_clean/
+         * API Documentation: https://docs.rongcloud.cn/im/server/message_clean/
          */
         ResponseResult cleanResult = history.clean("1", "jf8yVWgZO", "IotBnm9K4", null);
         System.out.println("clean history  message:  " + cleanResult.toString());
@@ -548,18 +553,19 @@ public class MessageExample {
                 .setObjectName(txtMessage.getType())
                 .setIsCounted(1);
 
-        /**
-         * 发送超级群消息
-         * */
+
+/**
+ * Send ultra group message
+ * */
         ResponseResult send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup message:  " + send.toString());
 
 
-        /**
-         * 发送超级群 @ 消息
-         * */
+/**
+ * Send ultra group @ message
+ * */
         ultraGroupMessage.setIsMentioned(1);
-        txtMessage.setMentionedInfo(new MentionedInfo(2, new String[]{"user1"}, "有人 @ 你"));
+        txtMessage.setMentionedInfo(new MentionedInfo(2, new String[]{"user1"}, "Someone mentioned you"));
         send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup mentioned message:  " + send.toString());
     }

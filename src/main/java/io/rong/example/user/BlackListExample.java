@@ -13,26 +13,26 @@ import io.rong.models.user.UserModel;
  */
 public class BlackListExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api 地址方式
+        // Custom API URL
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Blacklist balackList = rongCloud.user.blackList;
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加用户到黑名单方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Add a user to the blocklist
          */
         UserModel blackUser = new UserModel().setId("hdsjGB88");
         UserModel[] blacklist = {blackUser};
@@ -46,8 +46,8 @@ public class BlackListExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 获取某用户的黑名单列表方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Get the blocklist of a user
          */
         UserModel user2 = new UserModel().setId("hdsjGB89");
 
@@ -56,15 +56,15 @@ public class BlackListExample {
 
 
         /**
-         *  分页查询用户黑名单
+         *  Paging query user blocklist
          */
         PagingQueryBlacklistResult pagingQueryBlacklistResult = balackList.pagingQueryBlacklist("BB_0", "", 20);
         System.out.println("pagingQueryBlacklist:  " + pagingQueryBlacklistResult.toString());
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 从黑名单中移除用户方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to remove a user from the blocklist
          */
         Result removeResult = balackList.remove(user);
         System.out.println("remove blacklist:  " + removeResult.toString());

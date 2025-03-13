@@ -1,30 +1,29 @@
 package io.rong.methods.message.group;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
+import io.rong.models.message.GroupMessage;
+import io.rong.models.message.GroupStatusMessage;
 import io.rong.models.message.MentionMessage;
 import io.rong.models.message.RecallMessage;
 import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.message.GroupMessage;
-import io.rong.models.message.GroupStatusMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
-import org.apache.commons.lang3.StringUtils;
-import com.alibaba.fastjson.JSONException;
-
 /**
- * 发送群组消息方法
+ * Group message sending methods
  * <p>
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */
@@ -52,11 +51,11 @@ public class Group {
     }
 
     /**
-     * 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k。）
+     * Sends a group message (a user sends a message to a group, with a maximum size of 128k per message).
      *
-     * @param message
-     * @return ResponseResult
-     * @throws Exception
+     * @param message The group message to be sent.
+     * @return ResponseResult The result of the message sending operation.
+     * @throws Exception If an error occurs during the message sending process.
      **/
     public MessageResult send(GroupMessage message) throws Exception {
 
@@ -110,19 +109,19 @@ public class Group {
             }
         }
 
-        if(message.getDisableUpdateLastMsg() != null) {
+        if (message.getDisableUpdateLastMsg() != null) {
             sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
 
-        if (message.getMsgRandom() != null){
+        if (message.getMsgRandom() != null) {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
 
-        if(message.getIsMentioned() != null){
+        if (message.getIsMentioned() != null) {
             sb.append("&isMentioned=").append(message.getIsMentioned());
         }
 
-        if(message.getToUserId() != null && message.getToUserId().length > 0){
+        if (message.getToUserId() != null && message.getToUserId().length > 0) {
             for (int i = 0; i < message.getToUserId().length; i++) {
                 String toId = message.getToUserId()[i];
                 if (null != toId) {
@@ -153,7 +152,7 @@ public class Group {
     }
 
     /**
-     * 发送群组@消息方法（以一个用户身份向群组发送消息，单条消息最大 128k。）
+     * Sends a group @mention message (A user sends a message to a group. The maximum size of a single message is 128k.)
      *
      * @param message
      * @return ResponseResult
@@ -166,10 +165,10 @@ public class Group {
             return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         if (null == message.getContent().getContent()) {
-            return new MessageResult(1002, "MentionMessageContent.content 参数为必传项");
+            return new MessageResult(1002, "MentionMessageContent.content is a required parameter");
         }
         if (null == message.getContent().getContent().getMentionedInfo()) {
-            return new MessageResult(1002, "mentionedInfo 参数为必传项");
+            return new MessageResult(1002, "mentionedInfo is a required parameter");
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -179,7 +178,7 @@ public class Group {
             sb.append("&toGroupId=").append(URLEncoder.encode(child, UTF8));
         }
 
-        if(message.getToUserId() != null && message.getToUserId().length > 0){
+        if (message.getToUserId() != null && message.getToUserId().length > 0) {
             for (int i = 0; i < message.getToUserId().length; i++) {
                 String toId = message.getToUserId()[i];
                 if (null != toId) {
@@ -226,11 +225,11 @@ public class Group {
                 sb.append("&extraContent=").append(URLEncoder.encode(JSON.toJSONString(message.getExtraContent()), UTF8));
             }
         }
-        if (message.getMsgRandom() != null){
+        if (message.getMsgRandom() != null) {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
 
-        if(message.getDisableUpdateLastMsg() != null) {
+        if (message.getDisableUpdateLastMsg() != null) {
             sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
 
@@ -256,7 +255,7 @@ public class Group {
     }
 
     /**
-     * 群定向消息功能，向群中指定的一个或多个用户发送消息，群中其他用户无法收到该消息，当 toGroupId 为一个群组时此参数有效。注：如果开通了“单群聊消息云存储”功能，群定向消息不会存储到云端，向群中部分用户发送消息阅读状态回执时可使用此功能
+     * The group targeted message feature allows sending messages to one or more specified users in a group, while other users in the group will not receive the message. This parameter is valid when toGroupId is a group. Note: If the "Cloud Storage for One-to-One and Group Messages" feature is enabled, group targeted messages will not be stored in the cloud. This feature can be used when sending read receipts to some users in a group.
      *
      * @param message
      * @return ResponseResult
@@ -269,10 +268,10 @@ public class Group {
             return (MessageResult) GsonUtil.fromJson(code, MessageResult.class);
         }
         if (message.getTargetId().length > 1) {
-            return new MessageResult(20005, "群定向消息当群组 Id 为一个时有效 ");
+            return new MessageResult(20005, "Group targeted message is valid only when the group ID is one.");
         }
         if (null == message.getToUserId() && message.getToUserId().length < 1) {
-            return new MessageResult(20005, "toUserId 必传 ");
+            return new MessageResult(20005, "toUserId is required.");
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId().toString(), UTF8));
@@ -309,9 +308,9 @@ public class Group {
             sb.append("&isPersisted=").append(URLEncoder.encode(message.getIsPersisted().toString(), UTF8));
         }
 
-        /*if (message.getIsCounted() != null) {
-            sb.append("&isCounted=").append(URLEncoder.encode(message.getIsCounted().toString(), UTF8));
-        }*/
+/*if (message.getIsCounted() != null) {
+    sb.append("&isCounted=").append(URLEncoder.encode(message.getIsCounted().toString(), UTF8));
+}*/
 
         if (message.getIsIncludeSender() != null) {
             sb.append("&isIncludeSender=").append(URLEncoder.encode(message.getIsIncludeSender().toString(), UTF8));
@@ -353,14 +352,14 @@ public class Group {
     }
 
     /**
-     * 撤回群组消息。
+     * Recall a group message.
      *
      * @param message
      * @return ResponseResult
      * @throws Exception
      **/
     public ResponseResult recall(RecallMessage message) throws Exception {
-        //需要校验的字段
+        // Fields to validate
         String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
         if (null != errMsg) {
             return (ResponseResult) GsonUtil.fromJson(errMsg, Result.class);
@@ -383,7 +382,7 @@ public class Group {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
         }
 
-        if(message.getDisableUpdateLastMsg() != null) {
+        if (message.getDisableUpdateLastMsg() != null) {
             sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
 
@@ -408,7 +407,7 @@ public class Group {
     }
 
     /**
-     * 发送群聊状态消息
+     * Send group status message
      *
      * @param message
      * @return

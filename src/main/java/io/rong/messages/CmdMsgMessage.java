@@ -4,60 +4,59 @@ import io.rong.util.GsonUtil;
 
 /**
  *
- * 通用命令通知消息。此类型消息没有 Push 通知。此类型消息没有 Push 通知，与通用命令通知消息的区别是不存储、不计数。
+ * General command notification message. This type of message does not have push notification. 
+ * It differs from the general command notification message in that it is not stored or counted.
  *
  */
 public class CmdMsgMessage extends BaseMessage {
 	private String name = "";
 	private String data = "";
 	private transient static final String TYPE = "RC:CmdMsg";
-	
+
 	public CmdMsgMessage(String name, String data) {
 		this.name = name;
 		this.data = data;
 	}
-	
+
 	@Override
 	public String getType() {
 		return TYPE;
 	}
-	
+
 	/**
-	 * 获取命令名称，可以自行定义
+	 * Gets the command name, which can be user-defined.
 	 *
 	 * @return String
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
-	 * @param name 设置命令名称，可以自行定义
+	 * @param name Sets the command name, which can be user-defined.
 	 *
 	 *
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}  
-	
+	}
+
 	/**
-	 * 获取命令的内容
+	 * Gets the content of the command.
 	 *
 	 * @return String
 	 */
 	public String getData() {
 		return data;
 	}
-	
-	/**
-	 * @param data 设置命令的内容s
-	 *
-	 *
-	 */
+
+    /**
+     * @param data The content of the command to be set
+     */
 	public void setData(String data) {
 		this.data = data;
-	}  
-	
+	}
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, CmdMsgMessage.class);

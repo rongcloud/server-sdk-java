@@ -8,48 +8,39 @@ import io.rong.models.response.ResponseResult;
 
 public class DemotionExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your appKey
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your appSecret
+     */
     private static final String appSecret = "appSecret";
 
 
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Demotion demotion = rongCloud.chatroom.demotion;
 
         /**
-         *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加应用内聊天室降级消息
-         *
-         * */
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Add in-app chatroom message demotion
+         */
         String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
         ResponseResult addResult = demotion.add(messageType);
         System.out.println("add demotion:  " + addResult.toString());
 
         /**
-         *
-         *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 移除应用内聊天室降级消息
-         *
-         * */
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Remove in-app chatroom message demotion
+         */
         ResponseResult removeResult = demotion.remove(messageType);
         System.out.println("remove demotion:  " + removeResult.toString());
 
 
         /**
-         *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加聊天室消息优先级demo
-         *
-         * */
+         * Retrieves the list of demotion messages and prints the result.
+         */
         ChatroomDemotionMsgResult demotionMsgResult = demotion.getList();
         System.out.println("get demotion:  " + demotionMsgResult.toString());
 

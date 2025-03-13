@@ -13,7 +13,7 @@ import io.rong.models.response.ResponseResult;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 托管群组服务
+ * Group Information Hosting Service
  * docs https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  */
 public class Friend extends BaseMethod {
@@ -33,7 +33,7 @@ public class Friend extends BaseMethod {
     }
 
     /**
-     * 添加好友
+     * Add a friend
      **/
     public ResponseResult add(FriendModel friend) throws Exception {
         String method = CheckMethod.ADD_FRIEND;
@@ -55,7 +55,7 @@ public class Friend extends BaseMethod {
 
 
     /**
-     * 删除好友
+     * Delete a friend
      **/
     public ResponseResult delete(String userId, String... targetIds) throws Exception {
         String method = CheckMethod.DEL_FRIEND;
@@ -78,7 +78,7 @@ public class Friend extends BaseMethod {
     }
 
     /**
-     * 删除好友
+     * Clear all friends
      **/
     public ResponseResult clean(String userId) throws Exception {
         String method = CheckMethod.CLEAN_FRIEND;
@@ -95,7 +95,7 @@ public class Friend extends BaseMethod {
     }
 
     /**
-     * 设置好友信息
+     * Set friend profile
      **/
     public ResponseResult setProfile(FriendProfileModel profileModel) throws Exception {
         String method = CheckMethod.SET_FRIEND_PROFILE;
@@ -117,8 +117,8 @@ public class Friend extends BaseMethod {
 
 
     /**
-     * 分页获取好友信息
-     **/
+     * Paginate to get friend information
+     */
     public QueryFriendsResult pagingGetFriends(PagingGetFriendsModel getFriendsModel) throws Exception {
         String method = CheckMethod.PAGING_GET_FRIENDS;
 
@@ -139,7 +139,7 @@ public class Friend extends BaseMethod {
 
 
     /**
-     * 检查好友关系
+     * Check friend relationships
      **/
     public CheckFriendsResult checkFriends(String userId, String... targetIds) throws Exception {
         String method = CheckMethod.CHECK_FRIENDS;
@@ -163,7 +163,7 @@ public class Friend extends BaseMethod {
 
 
     /**
-     * 设置添加好友权限
+     * Set the permission for adding friends
      **/
     public ResponseResult setPermission(Integer permissionType, String... userIds) throws Exception {
         String method = CheckMethod.SET_PERM;
@@ -187,7 +187,7 @@ public class Friend extends BaseMethod {
 
 
     /**
-     * 获取加好友权限
+     * Get the permission for adding friends
      **/
     public GetPermissionResult getPermission(String... userIds) throws Exception {
         String method = CheckMethod.GET_PERM;

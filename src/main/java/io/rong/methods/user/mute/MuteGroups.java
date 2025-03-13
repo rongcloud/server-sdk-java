@@ -6,7 +6,6 @@ import io.rong.models.Result;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.GroupMuteMembersListResult;
-import io.rong.models.response.ListGagGroupUserResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -14,9 +13,10 @@ import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+
 /**
- * 群组禁言服务
- * 群成员禁言 groupId 不加即为全局禁言
+ * Group Mute Service
+ * Mute group members. If groupId is not specified, it applies to all groups.
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -30,30 +30,33 @@ public class MuteGroups {
     public RongCloud getRongCloud() {
         return rongCloud;
     }
+
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
+
     public MuteGroups(String appKey, String appSecret, RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
-        this.rongCloud  = rongCloud;
+        this.rongCloud = rongCloud;
 
     }
+
     /**
-     * 添加全局禁言群方法
+     * Add global mute for groups
      *
-     * @param group:群组信息。id , munite , memberIds（必传）
+     * @param group: Group information. id, munite, memberIds (required)
      *
      * @return Result
      **/
     public Result add(GroupModel group) throws Exception {
-        String message = CommonUtil.checkFiled(group,PATH,CheckMethod.ADD);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        String message = CommonUtil.checkFiled(group, PATH, CheckMethod.ADD);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         GroupMember[] members = group.getMembers();
-        for(GroupMember member : members){
+        for (GroupMember member : members) {
             sb.append("&userId=").append(URLEncoder.encode(member.getId().toString(), UTF8));
         }
         //sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
@@ -66,11 +69,11 @@ public class MuteGroups {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/user/gag/add.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.ADD, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
-     * 查询被全局禁言群方法
+     * Query globally muted group members
      *
      * @return ListGagGroupUserResult
      **/
@@ -89,14 +92,13 @@ public class MuteGroups {
     }
 
     /**
-     * 移除全局群禁言方法
+     * Remove global group mute
      *
-     * @param  group:群组（必传）
+     * @param  group: Group (required)
      *
      * @return ResponseResult
      **/
     public Result remove(GroupModel group) throws Exception {
-        //参数校验
         String message = CommonUtil.checkFiled(group,PATH, CheckMethod.REMOVE);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);

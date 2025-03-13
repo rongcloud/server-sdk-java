@@ -3,25 +3,25 @@ package io.rong.models.message;
 import java.util.Map;
 
 /**
- * 模板消息体
+ * Template message body
  * @author hc
  */
 public class TemplateMessage {
     /**
-     * 发送人Id
+     * Sender ID
      * */
     private String senderId;
     /**
-     * 消息类型
+     * Message type
      * */
     private String objectName;
     /**
-     * 发送消息内容，内容中定义模版，标识通过 content 中的标识位内容进行替换，
-     * 参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
+     * Message content, where the template is defined and placeholders in the content are replaced.
+     * Refer to the RongCloud message type table for examples. If objectName is a custom message type, this parameter can be customized. (Required)
      * */
     private Map<String,String> template;
     /**
-     * key 用户Id ,value 模板赋值内容
+     * Key: User ID, Value: Template assignment content
      *
      * */
     private Map<String, TemplateMessage.Data> content;
@@ -37,14 +37,14 @@ public class TemplateMessage {
     private Long msgRandom;
 
     /**
-     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     * Whether it is a silent message. Default is false. When set to true, end users will not receive notification reminders when offline. (Optional). Not supported in global data centers.
      */
     public Boolean disablePush;
 
 
     /**
-     * 禁止更新会话最后一条消息。 当该参数为 false 时，发送的该条消息都会进入会话列表; 为 true 时，不会更新到会话列表的消息内容。
-     * 注：此参数仅对存储在客户端的消息有效。
+     * Disable updating the last message in the conversation. When this parameter is false, the sent message will appear in the conversation list; when true, it will not update the conversation list's message content.
+     * Note: This parameter only applies to messages stored on the client side.
      */
     private Boolean disableUpdateLastMsg;
 
@@ -157,16 +157,16 @@ public class TemplateMessage {
     }
 
     /**
-     * 模版内容的具体数据，包括消息内容和push内容
+     * The specific data of the template content, including message content and push content
      * @author RongCloud
      */
     public class Data{
         /**
-         * 消息内容数据，key对应模版的标识 ，value具体内容
+         * The message content data, where the key corresponds to the template identifier and the value is the specific content
          */
         private Map<String,String> data;
         /**
-         * push内容
+         * The push content
          */
         private String push;
 

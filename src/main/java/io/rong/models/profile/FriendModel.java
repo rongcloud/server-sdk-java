@@ -6,27 +6,27 @@ package io.rong.models.profile;
  */
 public class FriendModel {
     /**
-     * 操作用户 ID
+     * Operator user ID
      */
     private String userId;
     /**
-     * 目标用户 ID，需要添加为好友的用户 ID
+     * Target user ID, the user ID to be added as a friend
      */
     private String targetId;
     /**
-     * 添加类型：
-     * 1：目标用户设置（默认）：，目标用户可设置为直接添加好友或需要验证同意
-     * 2：直接添加好友：不发送好友邀请，不需要目标用户同意，直接添加对方为好友
+     * Operation type:
+     * 1: Target user setting (default): The target user can choose to add directly or require verification
+     * 2: Directly add friend: No friend request is sent, no target user consent is required, directly add the other party as a friend
      */
     private Integer optType;
     /**
-     * 好友方向类型：
-     * 1：单向好友
-     * 2：双向好友（默认）
+     * Friend direction type:
+     * 1: One-way friend
+     * 2: Two-way friend (default)
      */
     private Integer directionType;
     /**
-     * 非必填项，发送好友请求时的附加信息，长度不超过 128 个字符
+     * Optional, additional information sent with the friend request, length not exceeding 128 characters
      */
     private String extra;
 

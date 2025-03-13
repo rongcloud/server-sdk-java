@@ -46,7 +46,7 @@ public class UltraGroup {
     }
 
     public Result create(UltraGroupModel group) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(group,PATH, CheckMethod.CREATE);
         if(null != message){
             return (ResponseResult) GsonUtil.fromJson(message,ResponseResult.class);
@@ -67,7 +67,7 @@ public class UltraGroup {
     }
 
     /**
-     *  解散超级群
+     *  Dissolve an ultra group
      * @param groupId
      * @return
      * @throws Exception
@@ -88,7 +88,7 @@ public class UltraGroup {
     }
 
     /**
-     *  加入超级群
+     *  Join an ultra group
      * @param group
      * @return
      * @throws Exception
@@ -110,7 +110,7 @@ public class UltraGroup {
     }
 
     /**
-     *  退出超级群
+     *  Quit an ultra group
      * @param group
      * @return
      * @throws Exception
@@ -132,7 +132,7 @@ public class UltraGroup {
     }
 
     /**
-     *  用户是否再超级群中
+     *  Check if a user is in an ultra group
      * @param group
      * @return
      * @throws Exception
@@ -154,7 +154,7 @@ public class UltraGroup {
     }
 
     /**
-     *  更新超级群
+     * Update ultra group
      * @param group
      * @return
      * @throws Exception

@@ -3,12 +3,15 @@ package io.rong.methods.profile;
 import io.rong.RongCloud;
 import io.rong.methods.BaseMethod;
 import io.rong.models.CheckMethod;
-import io.rong.models.profile.*;
-import io.rong.models.response.*;
+import io.rong.models.profile.PagingQueryUserProfilesModel;
+import io.rong.models.profile.UserProfileModel;
+import io.rong.models.response.CheckFriendsResult;
+import io.rong.models.response.QueryUserProfilesResp;
+import io.rong.models.response.ResponseResult;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 托管用户服务
+ * User Profile Hosting Service
  * docs https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  */
 public class EntrustUser extends BaseMethod {
@@ -29,7 +32,7 @@ public class EntrustUser extends BaseMethod {
 
 
     /**
-     * 设置用户托管信息
+     * Set User Profile Hosting Information
      **/
     public ResponseResult setProfile(UserProfileModel profileModel) throws Exception {
         String method = CheckMethod.SET_USER_PROFILE;
@@ -50,7 +53,7 @@ public class EntrustUser extends BaseMethod {
 
 
     /**
-     * 批量查询用户资料
+     * Batch query user profiles
      **/
     public QueryUserProfilesResp batchQueryUserProfiles(String... userId) throws Exception {
         String method = CheckMethod.BATCH_QUERY_USER_PROFILES;
@@ -69,7 +72,7 @@ public class EntrustUser extends BaseMethod {
 
 
     /**
-     * 用户托管信息清除
+     * Clear user profile hosting information
      **/
     public CheckFriendsResult cleanProfile(String... userId) throws Exception {
         String method = CheckMethod.CLEAN_PROFILE;
@@ -88,7 +91,7 @@ public class EntrustUser extends BaseMethod {
 
 
     /**
-     * 批量查询用户资料
+     * Batch query user profiles
      **/
     public QueryUserProfilesResp pagingQueryUserProfiles(PagingQueryUserProfilesModel input) throws Exception {
         String method = CheckMethod.PAGING_QUERY_USER_PROFILES;

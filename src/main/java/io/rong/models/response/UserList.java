@@ -4,12 +4,12 @@ import io.rong.util.GsonUtil;
 
 public class UserList {
     /**
-     * 返回码，200 为正常。
+     * Response code, 200 indicates success.
      *
      */
     private Integer code;
     /**
-     * 黑名单用户列表
+     * Blocklist user list
      */
     private String[] users;
 

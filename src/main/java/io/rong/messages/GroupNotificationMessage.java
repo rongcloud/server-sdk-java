@@ -4,22 +4,22 @@ import io.rong.util.GsonUtil;
 
 import java.util.Map;
 /**
- * 群组通知消息
+ * Group Notification Message
  */
 public class GroupNotificationMessage extends BaseMessage {
-    //操作人用户 Id
+    // The user ID of the operator
     private String operatorUserId;
 
-    //操作名称
+    // The name of the operation
     private String operation;
 
-    //群组中各种通知的操作数据
-    private Map<String,Object> data;
+    // The operation data for various notifications in the group
+    private Map<String, Object> data;
 
-    //消息内容
+    // The content of the message
     private String message;
 
-    //可以放置任意的数据内容，也可以去掉此属性
+    // Can store any data content, or this attribute can be removed
     private String extra;
 
     private transient static final String TYPE = "RC:GrpNtf";

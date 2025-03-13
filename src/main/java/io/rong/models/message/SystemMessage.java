@@ -3,27 +3,34 @@ package io.rong.models.message;
 import io.rong.messages.BaseMessage;
 
 /**
- * 系统消息体
+ * System message body
  *
  * @author hc
  */
 public class SystemMessage extends MessageModel {
 
     /**
-     * 当前版本有新的自定义消息，而老版本没有该自定义消息时， 老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选）
+     * When a new custom message is available in the current version but not in the old version, 
+     * specifies whether the old version client stores the message after receiving it. 
+     * 0 indicates not to store, 1 indicates to store. Default is 1 (store message). (Optional)
      */
     private Integer isPersisted;
     /**
-     * 当前版本有新的自定义消息，而老版本没有该自定义消息时， 老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+     * When a new custom message is available in the current version but not in the old version, 
+     * specifies whether the old version client counts the message as unread after receiving it. 
+     * 0 indicates not to count, 1 indicates to count. Default is 1 (count message, increment unread count by 1). (Optional)
      */
     private Integer isCounted;
     /**
-     * 针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。 允许应用在收到通知后在后台运行一段代码，且能够马上执行。1 表示为开启，0 表示为关闭，默认为 0（可选）
+     * For iOS platform, specifies whether to enable silent push when the SDK is in the background suspended state. 
+     * Silent push is a push method introduced after iOS7, allowing the app to run a piece of code in the background 
+     * immediately after receiving the notification. 1 indicates enabled, 0 indicates disabled. Default is 0. (Optional)
      */
     private Integer contentAvailable;
 
     /**
-     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     * Specifies whether the message is silent. Default is false. When set to true, terminal users will not receive 
+     * notification reminders when offline. (Optional). Not supported in global data center.
      */
     public Boolean disablePush;
 
@@ -55,7 +62,7 @@ public class SystemMessage extends MessageModel {
     }
 
     /**
-     * 获取接受聊天室Id
+     * Get the chatroom ID
      *
      * @return String
      */
@@ -65,7 +72,7 @@ public class SystemMessage extends MessageModel {
     }
 
     /**
-     * 接收用户Id，提供多个本参数可以实现向多用户发送系统消息，上限为 100 人
+     * User IDs to receive the message. Multiple IDs can be provided to send system messages to multiple users, with a maximum of 100 users.
      */
     @Override
     public SystemMessage setTargetId(String[] targetId) {

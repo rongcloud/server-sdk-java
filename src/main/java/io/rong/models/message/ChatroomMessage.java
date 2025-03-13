@@ -3,7 +3,7 @@ package io.rong.models.message;
 import io.rong.messages.BaseMessage;
 
 /**
- * 聊天室消息体
+ * Chatroom message body
  * @author RongCloud
  */
 public class ChatroomMessage extends MessageModel {
@@ -11,10 +11,10 @@ public class ChatroomMessage extends MessageModel {
     public Integer isIncludeSender;
     public Integer isPersisted;
     /**
-     * 0:默认状态,保持原消息的消息级别进行发送。
-     * 1:高保障消息,该设置需要开启“聊天室用户&消息白名单”功能后才能使用，否则返回状态码，触发消息上行上限时，不会被优先抛弃
-     * 2:高级别消息,正常聊天室发送的消息都为高级别消息，如消息类型为高保障消息时，在发送此类消息时，可针对此类消息中的某一条消息进行降级设置为高级别消息。
-     * 3:低级别消息,该设置需要开启“聊天室消息级别设置”功能后才能使用，否则返回状态码，触发消息上行上限时，会被优先抛弃
+     * 0: Default level, maintains the original message level for sending.
+     * 1: High-priority message, requires the "Chatroom User & Message allowlist" feature to be enabled. If not enabled, a status code will be returned. When the message uplink limit is triggered, this message will not be prioritized for discarding.
+     * 2: High-level message, normal chatroom messages are high-level messages. If the message type is a high-priority message, you can downgrade a specific message to a high-level message.
+     * 3: Low-level message, requires the "Chatroom Message Level Setting" feature to be enabled. If not enabled, a status code will be returned. When the message uplink limit is triggered, this message will be prioritized for discarding.
      */
     public Integer priority = null;
     public ChatroomMessage() {
@@ -31,7 +31,7 @@ public class ChatroomMessage extends MessageModel {
         return this;
     }
     /**
-     * 获取接受聊天室Id
+     * Get the target chatroom ID
      *
      * @return String
      */
@@ -40,7 +40,7 @@ public class ChatroomMessage extends MessageModel {
         return super.getTargetId();
     }
     /**
-     * 设置接受聊天室Id
+     * Set the target chatroom ID
      *
      * @return String
      */

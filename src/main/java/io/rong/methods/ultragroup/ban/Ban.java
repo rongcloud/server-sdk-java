@@ -14,8 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 超级群禁言状态
- * 超级群全局禁言
+ * Ultra group ban status
+ * Global mute for ultra groups
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -41,10 +41,10 @@ public class Ban {
 
     }
     /**
-     * 设置超级群禁言状态
+     * Set ultra group ban status
      *
-     * @param groupId:超级群 ID
-     * @param status:禁言状态
+     * @param groupId: Ultra group ID
+     * @param status: Ban status
      *
      * @return Result
      **/
@@ -69,13 +69,13 @@ public class Ban {
     }
 
 
-    /**
-     * 查询超级群禁言状态
-     *
-     * @param  groupId:超级群Id。（必传）
-     *
-     * @return boolean
-     **/
+/**
+ * Query the mute status of an ultra group
+ *
+ * @param  groupId: The ID of the ultra group. (Required)
+ *
+ * @return boolean
+ **/
 
     public Result check(String groupId) throws Exception {
         return check(groupId, "");

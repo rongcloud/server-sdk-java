@@ -4,13 +4,13 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * historyMessage返回结果
+ * History message result.
  */
 public class HistoryMessageResult extends Result {
 
-	// 历史消息下载地址。
+	// URL for downloading historical messages.
 	String url;
-	// 历史记录时间。（yyyymmddhh）
+	// Date of the historical records. (yyyymmddhh)
 	String date;
 
 	public HistoryMessageResult(Integer code, String url, String date, String errorMessage) {
@@ -20,7 +20,7 @@ public class HistoryMessageResult extends Result {
 		this.errorMessage = errorMessage;
 	}
 	/**
-	 * 设置url
+	 * Set the URL.
 	 *
 	 */	
 	public void setUrl(String url) {
@@ -28,7 +28,7 @@ public class HistoryMessageResult extends Result {
 	}
 	
 	/**
-	 * 获取url
+	 * Get the URL.
 	 *
 	 * @return String
 	 */
@@ -37,7 +37,7 @@ public class HistoryMessageResult extends Result {
 	}
 	
 	/**
-	 * 设置date
+	 * Set the date.
 	 *
 	 */	
 	public void setDate(String date) {
@@ -45,7 +45,7 @@ public class HistoryMessageResult extends Result {
 	}
 	
 	/**
-	 * 获取date
+	 * Get the date.
 	 *
 	 * @return String
 	 */

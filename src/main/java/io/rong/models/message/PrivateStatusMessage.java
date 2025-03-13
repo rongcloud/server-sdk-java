@@ -3,40 +3,39 @@ package io.rong.models.message;
 import io.rong.messages.BaseMessage;
 
 /**
- * 状态消息 消息体
+ * Status Message Body
  * 
  * @author RongCloud
  */
 public class PrivateStatusMessage {
 
 	/**
-	 * 发送人用户 Id。（必传）
+	 * The sender's user ID. (Required)
 	 */
 	private String senderId;
 
 	/**
-	 * 接收用户 Id，可以实现向多人发送消息，每次上限为 1000 人。（必传）
+	 * The recipient user IDs. You can send messages to multiple users, with a maximum of 1000 users per request. (Required)
 	 */
 	private String[] targetId;
 
 	/**
-	 * 消息类型，参考融云消息类型表.消息标志；可自定义消息类型，长度不超过 32 个字符，您在自定义消息时需要注意，不要以 "RC:"
-	 * 开头，以避免与融云系统内置消息的 ObjectName 重名。（必传）
+	 * The message type. Refer to the RongCloud message type table. Custom message types should not start with "RC:" to avoid conflicts with built-in message types. (Required)
 	 */
 	private String objectName;
 
 	/**
-	 * 发送消息内容，单条消息最大 128k，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
+	 * The message content. The maximum size for a single message is 128k. Refer to the RongCloud message type table for examples. Custom message types can have a custom format. (Required)
 	 */
 	private BaseMessage content;
 
 	/**
-	 * 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。(可选)
+	 * Whether to filter the sender's blocklist. 0 means no filtering, 1 means filtering. Default is 0. (Optional)
 	 */
 	private int verifyBlacklist = 0;
 
 	/**
-	 * 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
+	 * Whether the sender should receive the message. 0 means the sender does not receive the message, 1 means the sender receives the message. Default is 0. (Optional)
 	 */
 	private int isIncludeSender = 0;
 

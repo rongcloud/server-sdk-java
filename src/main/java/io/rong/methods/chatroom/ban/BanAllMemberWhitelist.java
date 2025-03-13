@@ -18,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 聊天室全体成员禁言白名单
+ * Chatroom Mute Exceptions
  * docs:https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-whitelist
  */
 public class BanAllMemberWhitelist {
@@ -44,9 +44,9 @@ public class BanAllMemberWhitelist {
     }
 
     /**
-     * 添加聊天室全体禁言白名单方法
+     * Adds users to the chatroom mute allowlist.
      *
-     * @param chatroom:聊天室信息，memberIds（必传支持多个最多20个）。（必传）
+     * @param chatroom: Chatroom information, memberIds (required, supports up to 20 members). (required)
      * @return ResponseResult
      **/
     public ResponseResult add(ChatroomModel chatroom) throws Exception {
@@ -86,10 +86,10 @@ public class BanAllMemberWhitelist {
     }
 
     /**
-     * 查询聊天室全体禁言白名单方法
+     * Retrieves the list of users in the chatroom mute allowlist.
      *
-     * @param chatroomId:聊天室 Id。（必传）
-     * @return ListBlockChatroomUserResult
+     * @param chatroomId: The ID of the chatroom. (Required)
+     * @return GroupBanWhitelistResult
      **/
     public GroupBanWhitelistResult getList(String chatroomId) throws Exception {
         String message = CommonUtil.checkParam("id", chatroomId, PATH, CheckMethod.GETLIST);
@@ -116,9 +116,9 @@ public class BanAllMemberWhitelist {
     }
 
     /**
-     * 移除聊天室全体禁言白名单方法
+     * Method to remove users from the chatroom mute exceptions list
      *
-     * @param chatroom: 封禁的聊天室信息 其中聊天室 Id。（必传）,用户 Id。（必传）
+     * @param chatroom: Chatroom information including chatroom ID (required) and user ID (required)
      * @return ResponseResult
      **/
     public ResponseResult remove(ChatroomModel chatroom) throws Exception {

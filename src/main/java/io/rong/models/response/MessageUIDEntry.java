@@ -6,19 +6,19 @@ package io.rong.models.response;
  */
 public class MessageUIDEntry {
     /**
-     * 发送单聊消息有值
+     * Indicates the value when sending a one-to-one chat message.
      */
     private String userId;
     /**
-     * 发送群/超级群消息有值
+     * Indicates the value when sending a group or ultra group message.
      */
     private String groupId;
     /**
-     * 发送聊天室消息有值
+     * Indicates the value when sending a chatroom message.
      */
     private String chatroomId;
     /**
-     * 消息 ID
+     * Specifies the Message ID.
      */
     private String messageUID;
 

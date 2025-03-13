@@ -14,10 +14,10 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 聊天室全局禁言服务
+ * Chatroom Global Mute Service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
- * */
+ */
 public class Ban {
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "chatroom/global-gag";
@@ -36,9 +36,9 @@ public class Ban {
         this.appSecret = appSecret;
     }
     /**
-     * 添加用户聊天室全局禁言方法
+     * Add a user to the chatroom global mute list
      *
-     * @param  chatroom : Id,minute。（必传）
+     * @param  chatroom : Id, minute. (Required)
      *
      * @return ResponseResult
      **/
@@ -70,7 +70,7 @@ public class Ban {
     }
 
     /**
-     * 查询被聊天室全局禁言用户方法
+     * Query the list of users globally muted in the chatroom
      *
      * @return ListGagChatroomUserResult
      **/
@@ -81,9 +81,9 @@ public class Ban {
     }
 
     /**
-     * 移除用户聊天室全局禁言方法
+     * Remove global mute for users in the chatroom
      *
-     * @param  chatroom: memberIds。（必传）
+     * @param  chatroom: memberIds (required)
      *
      * @return ResponseResult
      **/

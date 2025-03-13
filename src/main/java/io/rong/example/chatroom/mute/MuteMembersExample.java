@@ -10,11 +10,11 @@ import io.rong.models.response.ResponseResult;
 
 public class MuteMembersExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key here
      * */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret here
      * */
     private static final String appSecret = "appSecret";
 
@@ -24,9 +24,10 @@ public class MuteMembersExample {
         MuteMembers muteMembers = rongCloud.chatroom.muteMembers;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，
-         * 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Add muted chatroom members (In the app, if you want to prevent a user from sending messages in a chatroom, 
+         * you can mute the user in the chatroom. Muted users can still receive and view messages in the chatroom but cannot send messages.)
+         * Get the blocklist of a user
          */
 
         ChatroomMember[] members = {
@@ -41,8 +42,8 @@ public class MuteMembersExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 查询被禁言聊天室成员方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Query muted chatroom members
          */
         chatroom = new ChatroomModel()
                 .setId("hjhf07kk");
@@ -51,9 +52,9 @@ public class MuteMembersExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 移除禁言聊天室成员
+         * Unmute chatroom members
          */
         chatroom = new ChatroomModel()
                 .setId("hjhf07kk")

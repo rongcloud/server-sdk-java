@@ -15,7 +15,7 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
- * 群组成员禁言服务
+ * Group member mute service
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -39,9 +39,9 @@ public class MuteMembers {
 
     }
     /**
-     * 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
+     * Mute group members (In the app, if you don't want a user to speak in the group, you can mute the user in the group. Muted users can receive and view group messages but cannot send messages.)
      *
-     * @param group:群组信息。id , munite , memberIds（必传）
+     * @param group: Group information. id, munite, memberIds (required)
      *
      * @return Result
      **/
@@ -70,9 +70,9 @@ public class MuteMembers {
     }
 
     /**
-     * 查询被禁言群成员方法
+     * Query muted group members
      *
-     * @param  groupId:群组Id。（必传）
+     * @param  groupId: Group ID. (Required)
      *
      * @return ListGagGroupUserResult
      **/
@@ -95,10 +95,9 @@ public class MuteMembers {
     }
 
     /**
-     * 移除禁言群成员方法
+     * Remove muted group members
      *
-     * @param  group:群组（必传）
-     *
+     * @param  group: Group (Required)
      * @return ResponseResult
      **/
     public Result remove(GroupModel group) throws Exception {

@@ -6,7 +6,7 @@ import io.rong.util.GsonUtil;
 import java.util.HashMap;
 
 /**
- * 获取扩展信息
+ * Get Extended Information
  */
 public class ExpansionResult extends Result {
 

@@ -3,7 +3,7 @@ package io.rong.models.push;
 import io.rong.util.GsonUtil;
 
 /**
- * 推送消息体
+ * Push notification message body
  */
 public class PushModel extends BroadcastPushPublicPart {
 

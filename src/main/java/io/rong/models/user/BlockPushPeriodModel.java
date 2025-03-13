@@ -4,7 +4,7 @@ import io.rong.util.GsonUtil;
 
 /**
 *
-* 用户免打扰
+* User Do Not Disturb Settings
 * */
 public class BlockPushPeriodModel {
 

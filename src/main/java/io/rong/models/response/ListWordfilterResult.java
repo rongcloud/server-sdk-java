@@ -7,10 +7,10 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * listWordfilter返回结果
+ * Result of listWordfilter operation
  */
 public class ListWordfilterResult extends Result {
-	// 敏感词内容。
+	// Sensitive word content.
 	List<SensitiveWordModel> words;
 
 	public ListWordfilterResult(Integer code, List<SensitiveWordModel> words, String errorMessage) {
@@ -21,7 +21,7 @@ public class ListWordfilterResult extends Result {
 	}
 	
 	/**
-	 * 设置code
+	 * Set the code
 	 *
 	 */	
 	public void setCode(Integer code) {
@@ -29,7 +29,7 @@ public class ListWordfilterResult extends Result {
 	}
 	
 	/**
-	 * 获取code
+	 * Get the code
 	 *
 	 * @return Integer
 	 */
@@ -38,7 +38,7 @@ public class ListWordfilterResult extends Result {
 	}
 	
 	/**
-	 * 设置words
+	 * Set the words
 	 *
 	 */	
 	public void setWords(List<SensitiveWordModel> words) {
@@ -46,7 +46,7 @@ public class ListWordfilterResult extends Result {
 	}
 	
 	/**
-	 * 获取words
+	 * Get the words
 	 *
 	 * @return List
 	 */

@@ -25,8 +25,8 @@ import com.alibaba.fastjson.JSONException;
 
 
 /**
- * 用户服务
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * User Service
+ * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  **/
 public class User {
 
@@ -71,15 +71,15 @@ public class User {
     }
 
     /**
-     * 获取 Token 方法
+     * Get Token method
      * url  "/user/getToken"
      * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
-     * @param user 用户信息 id,name,portrait(必传)
+     * @param user User information including id, name, portrait (required)
      * @return TokenResult
      **/
     public TokenResult register(UserModel user) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.REGISTER);
         if (null != message) {
             return (TokenResult) GsonUtil.fromJson(message, TokenResult.class);
@@ -116,15 +116,15 @@ public class User {
     }
 
     /**
-     * 刷新用户信息方法
+     * Refresh user information
      * url  "/user/refresh"
      * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
-     * @param user 用户信息 id name portrait(必传)
+     * @param user User information including id, name, and portrait (required)
      * @return ResponseResult
      **/
     public Result update(UserModel user) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.UPDATE);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
@@ -153,16 +153,16 @@ public class User {
     }
 
     /**
-     * 查询用户信息方法
+     * Query user information method
      * url  "/user/info"
      * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
-     * @param user 用户信息 id (必传)
+     * @param user User information id (required)
      * @return UserResult
      * @throws Exception
      */
     public UserResult get(UserModel user) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
         if (null != message) {
             return (UserResult) GsonUtil.fromJson(message, UserResult.class);
@@ -179,13 +179,13 @@ public class User {
     }
 
     /**
-     * 用户注销
+     * Deactivate user
      * @param user
      * @return
      * @throws Exception
      */
     public ResponseResult deactivate(UserModel user) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
@@ -204,9 +204,10 @@ public class User {
     }
 
     /**
-     * 查询已注销用户
-     * @param page
-     * @return
+     * Query deactivated users
+     * @param page The page number
+     * @param pageSize The number of users per page
+     * @return UserDeactivateResult
      * @throws Exception
      */
     public UserDeactivateResult deactivateList(int page, int pageSize) throws Exception {
@@ -222,13 +223,13 @@ public class User {
     }
 
     /**
-     * 用户激活
-     * @param user
-     * @return
+     * Activate a user
+     * @param user The user model containing the user ID
+     * @return ResponseResult
      * @throws Exception
      */
     public ResponseResult activate(UserModel user) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
@@ -246,13 +247,13 @@ public class User {
 
 
     /**
-     * 重新激活用户 ID
-     * @param user
-     * @return
+     * Reactivate a user ID
+     * @param user The user model containing the user ID
+     * @return ResponseResult
      * @throws Exception
      */
     public ResponseResult reactivate(UserModel user) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.REACTIVATE);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
@@ -273,16 +274,16 @@ public class User {
     }
 
     /**
-     * 查询用户所在群组
+     * Query the groups a user belongs to
      * url  "/user/group/query"
      * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
-     * @param user 用户信息 id (必传)
+     * @param user User information, id (required)
      * @return UserGroupQueryResult
      * @throws Exception
      */
     public UserGroupQueryResult getGroups(UserModel user) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.GET_GROUPS);
         if (null != message) {
             return (UserGroupQueryResult) GsonUtil.fromJson(message, UserGroupQueryResult.class);
@@ -310,15 +311,15 @@ public class User {
     }
 
     /**
-     * Token 失效
+     * Token expiration
      * url  "/user/refresh"
      * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
-     * @param user userId(必传) time(必传)
+     * @param user userId (required) time (required)
      * @return ResponseResult
      **/
     public Result expire(ExpireModel user) throws Exception {
-        //需要校验的字段
+        // Fields to validate
         String message = CommonUtil.checkFiled(user, PATH, CheckMethod.EXPIRE);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);

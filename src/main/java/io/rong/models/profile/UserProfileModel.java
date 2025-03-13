@@ -6,17 +6,17 @@ package io.rong.models.profile;
  */
 public class UserProfileModel {
     /**
-     * 操作用户 ID
+     * Target ID
      */
     private String userId;
     /**
-     * 用户基本信息
-     * json数据，KV的长度有配置，默认最多20个。
+     * User basic information
+     * JSON data, the length of KV pairs is configurable, with a default maximum of 20.
      */
     private String userProfile;
     /**
-     * 用户扩展信息
-     * json数据，key的长度不超过 32 个字符，key的前缀必须加ext_， value的长度，value不超过 256 个字符，KV的长度有配置，默认最多20个。
+     * Extended user information
+     * JSON data, the length of the key should not exceed 32 characters, and the key must be prefixed with 'ext_'. The length of the value should not exceed 256 characters. The length of KV pairs is configurable, with a default maximum of 20.
      */
     private String userExtProfile;
 

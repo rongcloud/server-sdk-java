@@ -6,7 +6,7 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * 查询聊天室属性的应答模板
+ * Response template for querying chatroom attributes
  * 
  * @author RongCloud
  *

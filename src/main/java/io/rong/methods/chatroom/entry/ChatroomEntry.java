@@ -18,14 +18,14 @@ import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
 
 /**
- * 聊天室属性
- * 
- * 1. 设置聊天室属性
- * 
- * 2. 删除聊天室属性
- * 
- * 3. 查询聊天室属性
- * 
+ * Chatroom custom attributes
+ *
+ * 1. Set chatroom custom attributes
+ *
+ * 2. Delete chatroom custom attributes
+ *
+ * 3. Query chatroom custom attributes
+ *
  * @author RongCloud
  *
  */
@@ -58,20 +58,20 @@ public class ChatroomEntry {
 
 	}
 
-	/**
-	 * 设置聊天室属性
-	 * 
-	 * @param model 必填项: chatroomId, userId, key, value
-	 * @return
-	 * @throws IOException
-	 * @throws ProtocolException
-	 * @throws MalformedURLException
-	 */
-	public ResponseResult set(ChatroomEntryModel model) throws Exception {
-		String message = CommonUtil.checkFiled(model, PATH, CheckMethod.SET);
-		if (null != message) {
-			return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
-		}
+    /**
+     * Set chatroom custom attributes
+     *
+     * @param model Required fields: chatroomId, userId, key, value
+     * @return
+     * @throws IOException
+     * @throws ProtocolException
+     * @throws MalformedURLException
+     */
+    public ResponseResult set(ChatroomEntryModel model) throws Exception {
+        String message = CommonUtil.checkFiled(model, PATH, CheckMethod.SET);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+        }
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("&chatroomId=").append(URLEncoder.encode(model.chatroomId, UTF8));
@@ -102,20 +102,20 @@ public class ChatroomEntry {
 	}
 
 
-	/**
-	 * 批量设置聊天室属性（KV）
-	 *
-	 * @param model 必填项: chatroomId, entryOwnerId, entryInfo
-	 * @return
-	 * @throws IOException
-	 * @throws ProtocolException
-	 * @throws MalformedURLException
-	 */
-	public ResponseResult batchSet(ChatroomEntryModel model) throws Exception {
-		String message = CommonUtil.checkFiled(model, PATH, CheckMethod.BATCHSET);
-		if (null != message) {
-			return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
-		}
+    /**
+     * Batch set chatroom attributes (KV)
+     *
+     * @param model Required fields: chatroomId, entryOwnerId, entryInfo
+     * @return
+     * @throws IOException
+     * @throws ProtocolException
+     * @throws MalformedURLException
+     */
+    public ResponseResult batchSet(ChatroomEntryModel model) throws Exception {
+        String message = CommonUtil.checkFiled(model, PATH, CheckMethod.BATCHSET);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+        }
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("&chatroomId=").append(URLEncoder.encode(model.getChatroomId(), UTF8));
@@ -140,18 +140,18 @@ public class ChatroomEntry {
 	}
 
 
-	/**
-	 * 删除聊天室属性
-	 * 
-	 * @param model 必填项: chatroomId,userId,key
-	 * @return
-	 * @throws Exception
-	 */
-	public ResponseResult remove(ChatroomEntryModel model) throws Exception {
-		String message = CommonUtil.checkFiled(model, PATH, CheckMethod.REMOVE);
-		if (null != message) {
-			return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
-		}
+    /**
+     * Remove chatroom attributes
+     *
+     * @param model Required fields: chatroomId, userId, key
+     * @return
+     * @throws Exception
+     */
+    public ResponseResult remove(ChatroomEntryModel model) throws Exception {
+        String message = CommonUtil.checkFiled(model, PATH, CheckMethod.REMOVE);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+        }
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("&chatroomId=").append(URLEncoder.encode(model.chatroomId, UTF8));
@@ -178,17 +178,17 @@ public class ChatroomEntry {
 				HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 
-	/**
-	 * 查询聊天室属性
-	 * 
-	 * @param model 必填项: chatroomId
-	 * @return
-	 */
-	public ChatroomEntryListResult query(ChatroomEntryModel model) throws Exception {
-		String message = CommonUtil.checkFiled(model, PATH, CheckMethod.QUERY);
-		if (null != message) {
-			return (ChatroomEntryListResult) GsonUtil.fromJson(message, ChatroomEntryListResult.class);
-		}
+    /**
+     * Query chatroom attributes
+     *
+     * @param model Required fields: chatroomId
+     * @return
+     */
+    public ChatroomEntryListResult query(ChatroomEntryModel model) throws Exception {
+        String message = CommonUtil.checkFiled(model, PATH, CheckMethod.QUERY);
+        if (null != message) {
+            return (ChatroomEntryListResult) GsonUtil.fromJson(message, ChatroomEntryListResult.class);
+        }
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("&chatroomId=").append(URLEncoder.encode(model.chatroomId, UTF8));

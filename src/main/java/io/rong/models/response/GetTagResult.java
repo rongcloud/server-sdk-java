@@ -4,12 +4,12 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * getTag 返回结果
+ * Result of getTag operation.
  */
 public class GetTagResult extends Result {
 
     /**
-     * 用户所有的标签数组。
+     * Array of all tags associated with the user.
      */
     private Object result;
 

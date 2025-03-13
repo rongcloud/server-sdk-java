@@ -5,14 +5,14 @@ package io.rong.models.response;
  */
 public class PermissionSetting {
     /**
-     * 用户 ID。
+     * User ID.
      */
     String userId;
     /**
-     * 0：未设置：默认，此状态时以 AppKey 设置的加好友权限为准
-     * 1：任何人直接添加好友
-     * 2：需要用户同意添加好友
-     * 3：不允许任何人添加好友
+     * 0: Not set (default), in this state, the friend request permission set at the App Key level applies
+     * 1: Allow anyone to add as a friend directly
+     * 2: Require user approval to add as a friend
+     * 3: Do not allow anyone to add as a friend
      */
     String type;
 

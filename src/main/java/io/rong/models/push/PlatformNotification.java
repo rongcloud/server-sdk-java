@@ -6,63 +6,60 @@ import io.rong.util.GsonUtil;
 import java.util.Map;
 
 /**
- * 设备中的推送内容。（非必传）
+ * Push notification content for the device. (Optional)
  */
 public class PlatformNotification {
 
     /**
-     * 默认推送消息内容，如填写了 iOS 或 Android 下的 alert 时，则推送内容以对应平台系统的 alert 为准。（必传）
+     * Default push notification message content. If the alert under iOS or Android is filled, the push content will follow the alert of the corresponding platform. (Required)
      */
     private String alert;
 
     /**
-     * 通知栏显示的推送标题，仅针对 iOS 平台，支持 iOS 8.2 及以上版本，参数在 ios 节点下设置，详细可参考“设置 iOS
-     * 推送标题请求示例”。（非必传）
+     * The title displayed in the notification bar, specific to the iOS platform, supported on iOS 8.2 and above. The parameter is set under the ios node. For details, refer to the "Set iOS Push Title Request Example". (Optional)
      */
     private String title;
 
     /**
-     * 针对 iOS 平台，对 SDK 处于后台暂停状态时为静默推送，是 iOS7 之后推出的一种推送方式。
-     * 允许应用在收到通知后在后台运行一段代码，且能够马上执行，查看详细。1 表示为开启，0 表示为关闭，默认为 0（非必传）
+     * For the iOS platform, it enables silent push notifications when the SDK is in the background suspended state, a push method introduced after iOS7.
+     * Allows the app to run a piece of code in the background immediately after receiving the notification. 1 means enabled, 0 means disabled, default is 0. (Optional)
      */
     private Integer contentAvailable;
 
     /**
-     * iOS 或 Android 不同平台下的附加信息，如果开发者自己需要，可以自己在 App 端进行解析。（非必传）
+     * Additional information for different platforms (iOS or Android). Developers can parse it on the App side if needed. (Optional)
      */
     private Map<String, String> extras;
 
     /**
-     * 应用角标，仅针对 iOS 平台；不填时，表示不改变角标数；为 0 或负数时，表示 App
-     * 角标上的数字清零；否则传相应数字表示把角标数改为指定的数字，最大不超过 9999，参数在 ios 节点下设置，详细可参考“设置 iOS 角标数 HTTP
-     * 请求示例”。（非必传）
+     * App badge, specific to the iOS platform; if not filled, the badge number remains unchanged; when 0 or a negative number, the badge number on the App is cleared; otherwise, the specified number will be displayed, with a maximum of 9999. The parameter is set under the ios node. For details, refer to the "Set iOS Badge Number HTTP Request Example". (Optional)
      */
     private Integer badge;
 
     /**
-     * iOS 富文本推送的类型开发者自已定义，自已在 App 端进行解析判断，与 richMediaUri 一起使用。（非必传）
+     * The type of iOS rich push notification is defined by the developer and parsed on the App side, used together with richMediaUri. (Optional)
      */
     private String category;
 
     /**
-     * iOS 富文本推送内容的 URL，与 category 一起使用。（非必传）
+     * The URL of the iOS rich push notification content, used together with category. (Optional)
      */
     private String richMediaUri;
 
     /**
-     * iOS 平台通知栏分组 ID，相同的 thread-id 推送分一组，单组超过 5 条推送会折叠展示
+     * iOS platform notification grouping ID. Notifications with the same thread-id are grouped together. If a single group exceeds 5 notifications, they will be collapsed.
      */
     @SerializedName("thread-id")
     private String threadId;
 
     /**
-     * iOS 平台，从 iOS10 开始支持，设置后设备收到有相同 ID 的消息，会合并成一条
+     * iOS platform, supported since iOS 10. When set, messages with the same ID received by the device will be merged into one.
      */
     @SerializedName("apns-collapse-id")
     private String apnsCollapseId;
 
     /**
-     * 适用于 iOS 15 及之后的系统。取值为 passive，active（默认），time-sensitive，或 critical，取值说明详见对应的 APNs 的 interruption-level 字段。在 iOS 15 及以上版本中，系统的 “定时推送摘要”、“专注模式” 都可能导致重要的推送通知（例如余额变化）无法及时被用户感知的情况，可考虑设置该字段。
+     * Applicable to iOS 15 and later systems. Values include passive, active (default), time-sensitive, or critical. For details, refer to the APNs interruption-level field. In iOS 15 and later, system features like "Scheduled Summary" and "Focus Mode" may prevent important notifications (e.g., balance changes) from being promptly noticed by users. Consider setting this field to address this.
      */
     @SerializedName("interruption-level")
     private String interruptionLevel;
@@ -243,12 +240,15 @@ public class PlatformNotification {
 
         /**
          * version >= 3.6.1
-         * OPPO 通知栏消息提醒等级取值定义
-         * 1-通知栏
-         * 2-通知栏+锁屏
-         * 16-通知栏+锁屏+横幅+震动+铃声
+         * OPPO push notification level definitions
+         * 1 - Notification bar
+         * 2 - Notification bar + Lock screen
+         * 16 - Notification bar + Lock screen + Banner + Vibration + Ringtone
          * <p>
-         * 使用notify_level参数时，category参数必传
+
+
+         /**
+         * When using the notify_level parameter, the category parameter is required.
          */
         @SerializedName("notify_level")
         private Integer notifyLevel;

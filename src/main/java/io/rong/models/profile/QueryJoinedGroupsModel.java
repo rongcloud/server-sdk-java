@@ -7,15 +7,15 @@ package io.rong.models.profile;
 public class QueryJoinedGroupsModel extends PageModel {
 
     /**
-     * 用户ID
+     * User ID
      */
     private String userId;
     /**
-     * 群组身份类型：
-     * 0：全部（默认）
-     * 1：群主
-     * 2：群管理员
-     * 3：普通群成员
+     * Group role type:
+     * 0: All (default)
+     * 1: Group Owner
+     * 2: Group Administrator
+     * 3: Regular Group Member
      */
     private Integer role;
 

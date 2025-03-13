@@ -5,7 +5,7 @@ import io.rong.util.GsonUtil;
 
 public class ConversationNotificationResult extends Result {
 
-    //消息免打扰设置状态，0 表示为关闭，1 表示为开启。
+    // Indicates the status of the Do Not Disturb setting for messages, where 0 means disabled and 1 means enabled.
     Integer isMuted;
 
     public ConversationNotificationResult(Integer code, Integer isMuted, String errorMessage) {
@@ -16,7 +16,7 @@ public class ConversationNotificationResult extends Result {
     }
 
     /**
-     * 设置code
+     * Sets the code.
      *
      */
     public void setCode(Integer code) {
@@ -24,7 +24,7 @@ public class ConversationNotificationResult extends Result {
     }
 
     /**
-     * 获取code
+     * Gets the code.
      *
      * @return Integer
      */
@@ -33,7 +33,7 @@ public class ConversationNotificationResult extends Result {
     }
 
     /**
-     * 获取Muted
+     * Gets the Muted status.
      *
      * @return String
      */
@@ -41,7 +41,7 @@ public class ConversationNotificationResult extends Result {
         return this.isMuted;
     }
     /**
-     * 设置Muted状态
+     * Sets the Muted status.
      *
      */
     public void setIsMuted(Integer isMuted) {

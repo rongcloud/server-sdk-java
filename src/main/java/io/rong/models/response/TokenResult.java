@@ -4,69 +4,69 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * getToken 返回结果
+ * Result of getToken
  */
-public class TokenResult extends Result{
-	// 用户 Token，可以保存应用内，长度在 256 字节以内.用户 Token，可以保存应用内，长度在 256 字节以内。
-	String token;
-	// 用户 Id，与输入的用户 Id 相同.
-	String userId;
+public class TokenResult extends Result {
+    // User Token, which can be stored within the application and has a length of up to 256 bytes.
+    String token;
+    // User ID, which is the same as the input User ID.
+    String userId;
 
-	private String reqBody;
+    private String reqBody;
 
-	public TokenResult(Integer code, String token, String userId, String errorMessage) {
-		this.code = code;
-		this.token = token;
-		this.userId = userId;
-		this.errorMessage = errorMessage;
-	}
+    public TokenResult(Integer code, String token, String userId, String errorMessage) {
+        this.code = code;
+        this.token = token;
+        this.userId = userId;
+        this.errorMessage = errorMessage;
+    }
 
-	/**
-	 * 设置token
-	 *
-	 */	
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
-	/**
-	 * 获取token
-	 *
-	 * @return String
-	 */
-	public String getToken() {
-		return token;
-	}
-	
-	/**
-	 * 设置userId
-	 *
-	 */	
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	/**
-	 * 获取userId
-	 *
-	 * @return String
-	 */
-	public String getUserId() {
-		return userId;
-	}
+    /**
+     * Set the token
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
 
+    /**
+     * Get the token
+     *
+     * @return String
+     */
+    public String getToken() {
+        return token;
+    }
 
-	public String getReqBody() {
-		return reqBody;
-	}
+    /**
+     * Set the userId
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Get the userId
+     */
+
+    /**
+     * @return String
+     */
+    public String getUserId() {
+        return userId;
+    }
 
 
-	public void setReqBody(String reqBody) {
-		this.reqBody = reqBody;
-	}
+    public String getReqBody() {
+        return reqBody;
+    }
 
-	@Override
-	public String toString() {
-		return GsonUtil.toJson(this, TokenResult.class);
-	}
+
+    public void setReqBody(String reqBody) {
+        this.reqBody = reqBody;
+    }
+
+    @Override
+    public String toString() {
+        return GsonUtil.toJson(this, TokenResult.class);
+    }
 }

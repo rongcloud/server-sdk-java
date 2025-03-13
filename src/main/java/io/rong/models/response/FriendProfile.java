@@ -5,35 +5,35 @@ package io.rong.models.response;
  */
 public class FriendProfile {
     /**
-     * 用户Id
+     * User ID
      */
     private String userId;
     /**
-     * 用户名
+     * Username
      */
     private String name;
     /**
-     * 好友备注名
+     * Friend alias
      */
     private String remarkName;
     /**
-     * 自定义扩展属性
+     * Custom extended attributes
      */
     private String friendExtProfile;
     /**
-     * 添加时间
+     * Timestamp when the friend was added
      */
     private Long time;
     /**
-     * 是否是黑名单
-     * 0：否
-     * 1：是
+     * Indicates whether the user is in the blocklist
+     * 0: No
+     * 1: Yes
      */
     private Integer isBlacklist;
     /**
-     * 好友方向类型：
-     * 1：单向好友
-     * 2：双向好友
+     * Friend direction type:
+     * 1: One-way friend
+     * 2: Two-way friend
      */
     private Integer directionType;
 

@@ -5,18 +5,18 @@ package io.rong.models.response;
  */
 public class CheckFriendResult {
     /**
-     * 用户Id
+     * User ID
      */
     private String userId;
     /**
-     * 单向检查返回状态：
-     * 1：不在我的好友列表中
-     * 2：在我的好友列表中
-     * 双向检查返回状态：
-     * 1：在双方的好友列表中
-     * 2：不在双方的好友列表中
-     * 3：仅在当前用户的好友列表中
-     * 4：仅在目标用户的好友列表中
+     * Unidirectional check result:
+     * 1: Not in my friend list
+     * 2: In my friend list
+     * Bidirectional check result:
+     * 1: In both users' friend lists
+     * 2: Not in both users' friend lists
+     * 3: Only in the current user's friend list
+     * 4: Only in the target user's friend list
      */
     private Integer result;
 

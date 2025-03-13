@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- * 用户黑名单服务
+ * User Blocklist Service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
@@ -47,9 +47,9 @@ public class Blacklist extends BaseMethod {
     }
 
     /**
-     * 添加用户到黑名单方法
+     * Add a user to the blocklist
      *
-     * @param  user:用户 Id,blacklist（必传）
+     * @param  user: User ID, blacklist (required)
      *
      * @return ResponseResult
      **/
@@ -78,9 +78,9 @@ public class Blacklist extends BaseMethod {
     }
 
     /**
-     * 获取某用户的黑名单列表方法
+     * Retrieves the blacklist of a user
      *
-     * @param  user:用户 Id。（必传）
+     * @param  user: User ID (required)
      *
      * @return QueryBlacklistUserResult
      **/
@@ -118,9 +118,9 @@ public class Blacklist extends BaseMethod {
     }
 
     /**
-     * 从黑名单中移除用户方法
+     * Removes a user from the blocklist
      *
-     * @param  user:用户 Id,blacklist（必传）
+     * @param  user: User ID and blocklist (required)
      *
      * @return ResponseResult
      **/

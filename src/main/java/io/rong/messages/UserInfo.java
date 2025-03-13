@@ -1,7 +1,7 @@
 package io.rong.messages;
 
 /**
- * 消息中携带的用户信息
+ * User information carried in the message.
  */
 public class UserInfo {
     private String id;
@@ -18,7 +18,7 @@ public class UserInfo {
         this.extra = extra;
     }
     /**
-     * 获取 发送人用户 Id
+     * Gets the sender's user ID.
      * @return
      */
     public String getId() {
@@ -26,7 +26,7 @@ public class UserInfo {
     }
 
     /**
-     * 设置 发送人用户 Id
+     * Sets the sender's user ID.
      * @param id
      */
     public void setId(String id) {
@@ -34,7 +34,7 @@ public class UserInfo {
     }
 
     /**
-     * 获取 发送用户显示名称
+     * Gets the sender's display name.
      * @return
      */
     public String getName() {
@@ -42,7 +42,7 @@ public class UserInfo {
     }
 
     /**
-     * 设置 发送用户显示名称
+     * Sets the sender's display name.
      * @param name
      */
     public void setName(String name) {
@@ -50,7 +50,7 @@ public class UserInfo {
     }
 
     /**
-     * 获取 发送用户显示头象
+     * Gets the sender's display portrait.
      * @return
      */
     public String getPortrait() {
@@ -58,7 +58,7 @@ public class UserInfo {
     }
 
     /**
-     * 设置 发送用户显示头象
+     * Sets the sender's display portrait.
      * @param portrait
      */
     public void setPortrait(String portrait) {
@@ -67,7 +67,7 @@ public class UserInfo {
 
 
     /**
-     * 获取 扩展信息
+     * Gets the extended information.
      * @return
      */
     public String getExtra() {
@@ -75,7 +75,7 @@ public class UserInfo {
     }
 
     /**
-     * 设置 扩展信息
+     * Sets the extended information.
      * @param extra
      */
     public void setExtra(String extra) {

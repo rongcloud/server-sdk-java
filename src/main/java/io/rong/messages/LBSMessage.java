@@ -4,7 +4,7 @@ import io.rong.util.GsonUtil;
 
 /**
  *
- * 位置消息。
+ * Location message.
  *
  */
 public class LBSMessage extends BaseMessage {
@@ -38,8 +38,7 @@ public class LBSMessage extends BaseMessage {
 	}
 	
 	/**
-	 * 获取位置图片缩略图，格式为 JPG，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \
- 替换成空。
+	 * Gets the thumbnail of the location image in JPG format. After Base64 encoding, all \r\n, \r, and \ should be replaced with empty strings.
 	 *
 	 * @return String
 	 */
@@ -48,17 +47,14 @@ public class LBSMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param content 设置位置图片缩略图，格式为 JPG，以 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \
-	 *替换成空。
-	 *
-	 *
+	 * @param content the thumbnail of the location image in JPG format. After Base64 encoding, all \r\n, \r, and \ should be replaced with empty strings.
 	 */
 	public void setContent(String content) {
 		this.content = content;
 	}  
 	
 	/**
-	 * 获取为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * Get the additional information (if needed, developers can parse it on the App side).
 	 *
 	 * @return String
 	 */
@@ -67,7 +63,7 @@ public class LBSMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param extra 设置为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * @param extra Set the additional information (if needed, developers can parse it on the App side).
 	 *
 	 *
 	 */
@@ -76,7 +72,7 @@ public class LBSMessage extends BaseMessage {
 	}  
 	
 	/**
-	 * 获取纬度。
+	 * Get the latitude.
 	 *
 	 * @return double
 	 */
@@ -85,7 +81,7 @@ public class LBSMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param latitude 设置纬度。
+	 * @param latitude Set the latitude.
 	 *
 	 *
 	 */
@@ -94,7 +90,7 @@ public class LBSMessage extends BaseMessage {
 	}  
 	
 	/**
-	 * 获取经度。
+	 * Get the longitude.
 	 *
 	 * @return double
 	 */
@@ -103,7 +99,7 @@ public class LBSMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param longitude 设置经度。
+	 * @param longitude Sets the longitude.
 	 *
 	 *
 	 */
@@ -112,7 +108,7 @@ public class LBSMessage extends BaseMessage {
 	}  
 	
 	/**
-	 * 获取位置信息。
+	 * Retrieves the location information.
 	 *
 	 * @return String
 	 */
@@ -121,7 +117,7 @@ public class LBSMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param poi  设置位置信息。
+	 * @param poi  Sets the location information.
 	 *
 	 *
 	 */
@@ -130,7 +126,7 @@ public class LBSMessage extends BaseMessage {
 	}
 
 	/**
-	 * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 * Retrieves the user information carried in the message (the IMKit SDK chat UI prioritizes displaying the user information carried in the message).
 	 *
 	 * @return UserInfo
 	 */
@@ -139,7 +135,7 @@ public class LBSMessage extends BaseMessage {
 	}
 
 	/**
-	 * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 * @param user The user information carried in the message (the IMKit SDK chat UI prioritizes displaying the user information carried in the message).
 	 */
 	public void setUser(UserInfo user) {
 		this.user = user;

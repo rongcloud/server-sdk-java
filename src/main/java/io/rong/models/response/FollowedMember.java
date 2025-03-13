@@ -1,16 +1,16 @@
 package io.rong.models.response;
 
 /**
- * Author:RongCloud
+ * Author: RongCloud
  */
 public class FollowedMember {
 
     /**
-     * 关注成员ID
+     * Member ID of the followed user
      */
     private String userId;
     /**
-     * 关注时间
+     * Timestamp when the user was followed
      */
     private Long timestamp;
 

@@ -7,12 +7,12 @@ import io.rong.util.GsonUtil;
  */
 public class UltraGroupMember {
     /**
-     * 群组成员Id。
-     * */
+     * The ID of the group member.
+     */
     public String id;
     /**
-     * 群组ID
-     * */
+     * The ID of the group.
+     */
     public String groupId;
 
     public UltraGroupMember() {
@@ -25,7 +25,7 @@ public class UltraGroupMember {
     }
 
     /**
-     * @param id 设置id
+     * @param id Sets the ID of the group member.
      *
      */
     public UltraGroupMember setId(String id) {
@@ -34,7 +34,7 @@ public class UltraGroupMember {
     }
 
     /**
-     * 获取id
+     * Gets the ID of the group member.
      *
      * @return String
      */
@@ -43,7 +43,7 @@ public class UltraGroupMember {
     }
 
     /**
-     * 获取groupId
+     * Gets the ID of the group.
      *
      * @return String
      */
@@ -51,7 +51,7 @@ public class UltraGroupMember {
         return this.groupId;
     }
     /**
-     * @param groupId 设置群组id
+     * @param groupId Sets the group ID
      *
      *
      */

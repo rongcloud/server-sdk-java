@@ -75,11 +75,11 @@ public class PushExt {
     }
 
     /**
-     * 获取PushExt json参数
+     * Retrieves the PushExt JSON parameters.
      *
-     * @param title                通知栏显示标题，最长不超过 50 个字符，默认情况下通知标题单聊会话显示用户名称，群聊会话显示群名称。
-     * @param forceShowPushContent 是否强制显示通知详细，0 为不强制、1 为强制，默认为 0，当用户设置通知不显示详细时，可通过此属性强制显示通知详细。
-     * @param platforms            不同厂商配置参数
+     * @param title                The title displayed in the notification bar, with a maximum length of 50 characters. By default, the notification title shows the user's name for one-to-one chats and the group name for group chats.
+     * @param forceShowPushContent Whether to force the display of notification details. 0 means not forced, 1 means forced. Default is 0. When users set notifications to hide details, this property can be used to force the display of notification details.
+     * @param platforms            Configuration parameters for different vendors.
      * @return
      */
     public static PushExt build(String title, Integer forceShowPushContent, Platform... platforms) {

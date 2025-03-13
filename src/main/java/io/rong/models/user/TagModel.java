@@ -3,18 +3,18 @@ package io.rong.models.user;
 import io.rong.util.GsonUtil;
 
 /**
- * 用户标签信息
+ * User tag information
  *
  */
 public class TagModel {
 
     /**
-     * 用户 Id。（必传）
+     * User ID. (Required)
      */
     private String userId;
 
     /**
-     * 用户标签，一个用户最多添加 20 个标签，每个 tag 最大不能超过 40 个字节，标签中不能包含特殊字符。（必传）
+     * User tags. A user can add up to 20 tags, each tag cannot exceed 40 bytes, and tags cannot contain special characters. (Required)
      */
     private String[] tags;
 

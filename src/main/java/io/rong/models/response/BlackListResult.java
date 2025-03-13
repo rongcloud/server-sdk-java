@@ -10,7 +10,7 @@ import io.rong.util.GsonUtil;
  */
 public class BlackListResult extends Result {
     /**
-     * 黑名单用户列表
+     * Blocklist user list
      */
     UserModel[] users;
 
@@ -28,7 +28,7 @@ public class BlackListResult extends Result {
     }
 
     /**
-     * 获取users
+     * Get users
      *
      * @return User[]
      */
@@ -36,7 +36,7 @@ public class BlackListResult extends Result {
         return this.users;
     }
     /**
-     * 设置users
+     * Set users
      *
      */
     public void setUsers(UserModel[] users) {

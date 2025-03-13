@@ -9,33 +9,33 @@ import io.rong.models.response.ResponseResult;
 
 /**
  *
- * 聊天时保活示例
+ * Example for Chatroom Keepalive
  * @author RongCloud
  *
  * @version 3.0.0
  */
 public class KeepaliveExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      * */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      * */
     private static final String appSecret = "appSecret";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
+        //Custom API URL
         //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Keepalive keepalive = rongCloud.chatroom.keepalive;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 添加保活聊天室
+         * Add a keepalive chatroom
          *
          **/
         ChatroomModel chatroom = new ChatroomModel()
@@ -44,9 +44,9 @@ public class KeepaliveExample {
         System.out.println("add keepalive result"+addResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 删除保活聊天室
+         * Remove a keepalive chatroom
          *
          **/
         ResponseResult removeResult = keepalive.remove(chatroom);
@@ -54,9 +54,9 @@ public class KeepaliveExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 获取保活聊天室
+         * Retrieve Keepalive Chatroom
          *
          **/
         ChatroomKeepaliveResult result = keepalive.getList();

@@ -5,17 +5,17 @@ import io.rong.util.GsonUtil;
 public class BanModel {
 
     /**
-     * 被禁言用户 Id，支持批量设置，最多不超过 1000 个。
+     * The ID of the banned user. Supports batch setting, with a maximum of 1000 users.
      */
-    private String[]  userId;
+    private String[] userId;
     /**
-     * 禁言状态，0 解除禁言、1 添加禁言
+     * The ban status: 0 to unban, 1 to ban.
      */
-    private Integer  state;
+    private Integer state;
     /**
-     * 会话类型，目前支持单聊会话 PERSON
+     * The conversation type, currently supports one-to-one chat PERSON.
      */
-    private String  type;
+    private String type;
 
     public String[] getUserId() {
         return userId;

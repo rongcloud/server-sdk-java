@@ -4,7 +4,7 @@ import io.rong.models.message.MentionedInfo;
 
 /**
  *
- * 消息基类，如实现自定义消息，可继承此类
+ * Base class for messages. If you want to implement a custom message, you can inherit from this class.
  *
  **/
 public abstract class BaseMessage {

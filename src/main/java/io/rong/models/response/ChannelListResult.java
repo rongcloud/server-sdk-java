@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ChannelListResult extends Result {
 
-	//频道列表
+	// Channel list
 	List<ChannelInfo> channelList;
 
 	public ChannelListResult(Integer code, List<ChannelInfo> channelList , String errorMessage) {

@@ -4,7 +4,7 @@ import io.rong.util.GsonUtil;
 
 /**
  *
- * 通用命令通知消息。此类型消息没有 Push 通知。
+ * A general command notification message. This type of message does not have a push notification.
  *
  */
 public class CmdNtfMessage extends BaseMessage {
@@ -22,7 +22,7 @@ public class CmdNtfMessage extends BaseMessage {
 	}
 	
 	/**
-	 * 获取命令名称，可以自行定义
+	 * Gets the command name, which can be customized.
 	 *
 	 * @return String
 	 */
@@ -31,7 +31,7 @@ public class CmdNtfMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param name  设置命令名称，可以自行定义
+	 * @param name  Sets the command name, which can be customized.
 	 *
 	 *
 	 */
@@ -40,22 +40,20 @@ public class CmdNtfMessage extends BaseMessage {
 	}  
 	
 	/**
-	 * 获取命令的内容
+	 * Gets the content of the command.
 	 *
 	 * @return String
 	 */
 	public String getData() {
 		return data;
 	}
-	
-	/**
-	 * @param data 设置命令的内容
-	 *
-	 *
-	 */
+
+/**
+ * @param data The content of the command to be set.
+ */
 	public void setData(String data) {
 		this.data = data;
-	}  
+	}
 	
 	@Override
 	public String toString() {

@@ -3,12 +3,12 @@ package io.rong.models;
 import io.rong.util.GsonUtil;
 
 /**
- * 封禁用户信息
+ * Banned user information
  */
 public class BlockUsers {
-	// 被封禁用户 ID。
+	// The ID of the banned user.
 	String id;
-	// 封禁结束时间。
+	// The end time of the ban.
 	String blockEndTime;
 
 	public BlockUsers(String id, String blockEndTime) {
@@ -17,7 +17,7 @@ public class BlockUsers {
 	}
 
 	/**
-	 * 获取userId
+	 * Get the user ID.
 	 *
 	 * @return String
 	 */
@@ -25,7 +25,7 @@ public class BlockUsers {
 		return this.id;
 	}
 	/**
-	 * @param id 设置userId
+	 * Set the user ID.
 	 *
 	 */
 	public void setId(String id) {
@@ -33,22 +33,22 @@ public class BlockUsers {
 	}
 
 	/**
-	 * 设置blockEndTime
+	 * Set the ban end time.
 	 *
-	 */	
+	 */
 	public void setBlockEndTime(String blockEndTime) {
 		this.blockEndTime = blockEndTime;
 	}
 	
 	/**
-	 * 获取blockEndTime
+	 * Get the ban end time.
 	 *
 	 * @return String
 	 */
 	public String getBlockEndTime() {
 		return blockEndTime;
 	}
-	
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, BlockUsers.class);

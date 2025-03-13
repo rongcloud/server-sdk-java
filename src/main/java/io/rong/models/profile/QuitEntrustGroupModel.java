@@ -6,7 +6,7 @@ package io.rong.models.profile;
 public class QuitEntrustGroupModel {
 
     /**
-     * 群组 ID
+     * Group ID
      */
     private String groupId;
     private String[] userIds;

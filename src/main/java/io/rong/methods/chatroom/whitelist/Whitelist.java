@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- * 聊天室用户白名单服务
+ * Chatroom User Allowlist Service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud

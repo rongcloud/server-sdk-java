@@ -8,38 +8,36 @@ import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.GroupBanWhitelistResult;
 /**
- *
- * 群组禁言白名单例子
+ * Example for Group Mute Allowlist
  * @author RongCloud
  *
  * @version 3.0
  */
 public class MuteWhitelistExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
     /**
-     * 本地调用测试
-     *
+     * Local test execution
      *
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
         //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
-        //自定义 api 地址方式
+        // Custom API endpoint configuration
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 
         MuteWhiteList muteWhiteList = rongCloud.group.muteWhiteList;
 
         /**
-         * API 文档:
-         * 添加禁言白名单用户方法
+         * API Documentation:
+         * Method to add users to the mute allowlist
          */
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
@@ -51,8 +49,8 @@ public class MuteWhitelistExample {
         System.out.println("group.muteWhiteList.add:  " + result.toString());
 
         /**
-         * API 文档:
-         * 查询禁言白名单用户方法
+         * API Documentation:
+         * Method to query the mute allowlist users
          */
         groupModel = new GroupModel()
                 .setId("12");
@@ -60,8 +58,8 @@ public class MuteWhitelistExample {
         System.out.println("group.muteWhiteList.getList:  " + GroupBanResult.toString());
 
         /**
-         * API 文档:
-         * 移除禁言白名单用户方法
+         * API Documentation:
+         * Method to remove a user from the mute allowlist
          */
         groupModel = new GroupModel()
                 .setMembers(members)

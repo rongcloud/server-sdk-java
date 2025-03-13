@@ -22,12 +22,12 @@ import java.util.List;
  */
 public class RemarkExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key here
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret here
+     */
     private static final String appSecret = "appSecret";
 
 

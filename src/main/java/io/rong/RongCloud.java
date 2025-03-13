@@ -1,7 +1,7 @@
 /**
- * 融云 Server API java 客户端
- * create by kitName
- * create datetime : 2017-06-05
+ * RongCloud Server API Java Client
+ * Created by kitName
+ * Created datetime: 2017-06-05
  * <p>
  * v2.0.1
  */
@@ -82,7 +82,7 @@ public class RongCloud {
     }
 
     /**
-     * 自定义访问实例
+     * Custom access instance
      *
      * @param appKey
      * @param appSecret
@@ -100,19 +100,19 @@ public class RongCloud {
     }
 
     /**
-     * 自定义 API 地址
+     * Custom API endpoint
      */
     public static RongCloud getInstance(String appKey, String appSecret, String... apiHosts) {
         return getInstance(appKey, appSecret, new RongCloudConfig(apiHosts));
     }
 
     /**
-     * 自定义 api 支持备用域名
+     * Custom API with backup domains
      *
      * @param appKey
      * @param appSecret
-     * @param api       主 API 地址
-     * @param apiBackUp 备用 API 地址列表
+     * @param api       Primary API endpoint
+     * @param apiBackUp List of backup API endpoints
      */
     @Deprecated
     public static RongCloud getInstance(String appKey, String appSecret, String api, List<String> apiBackUp) {

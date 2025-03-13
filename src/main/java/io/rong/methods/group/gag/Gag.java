@@ -1,8 +1,8 @@
 package io.rong.methods.group.gag;
 
 import io.rong.RongCloud;
-import io.rong.models.Result;
 import io.rong.models.CheckMethod;
+import io.rong.models.Result;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.ListGagGroupUserResult;
@@ -14,7 +14,7 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
- * 群组成员禁言服务
+ * Group member gag service
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -38,9 +38,9 @@ public class Gag {
 
     }
     /**
-     * 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
+     * Add gag group member method (In the App, if you don't want a user to speak in the group, you can gag the user in the group. The gagged user can receive and view group chat messages but cannot send messages.)
      *
-     * @param group:群组信息。id , munite , memberIds（必传）
+     * @param group: Group information. id, munite, memberIds (required)
      *
      * @return Result
      **/
@@ -74,9 +74,9 @@ public class Gag {
     }
 
     /**
-     * 查询被禁言群成员方法
+     * Method to query muted group members
      *
-     * @param  groupId:群组Id。（必传）
+     * @param  groupId: Group ID (required)
      *
      * @return ListGagGroupUserResult
      **/
@@ -99,14 +99,13 @@ public class Gag {
     }
 
     /**
-     * 移除禁言群成员方法
+     * Method to unban muted group members
      *
-     * @param  group:群组（必传）
+     * @param  group: Group (required)
      *
      * @return ResponseResult
      **/
     public Result remove(GroupModel group) throws Exception {
-        //参数校验
         String message = CommonUtil.checkFiled(group,PATH, CheckMethod.REMOVE);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);

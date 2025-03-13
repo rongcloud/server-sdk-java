@@ -24,13 +24,12 @@ public class BroadcastModelTest {
         message.setObjectName("RC:TxtMsg");
         broadcast.setMessage(message);
 
-
-        // 推送设置
+        // Push notification settings
         Notification notification = new Notification();
         notification.setAlert("this is broadcast");
         broadcast.setNotification(notification);
 
-        // - 设置鸿蒙推送
+        // - Set HarmonyOS push notification
         HarmonyOSPlatformNotification harmonyOS = new HarmonyOSPlatformNotification();
         harmonyOS.setAlert("alert");
         Map<String, String> extras = new HashMap<>();
@@ -42,8 +41,7 @@ public class BroadcastModelTest {
         harmonyOS.setOhos(ohos);
         notification.setHarmonyOS(harmonyOS);
 
-
-        // - 设置安卓推送
+        // - Set Android push notification
         PlatformNotification anroid = new PlatformNotification();
         anroid.setExtras(extras);
         PlatformNotification.Platform platform = new PlatformNotification.Platform();
@@ -53,7 +51,7 @@ public class BroadcastModelTest {
         anroid.setHw(platform);
         notification.setAndroid(anroid);
 
-        // - 设置 ios 推送
+        // - Set iOS push notification
         PlatformNotification ios = new PlatformNotification();
         ios.setInterruptionLevel("passive");
         ios.setThreadId("thread_id");

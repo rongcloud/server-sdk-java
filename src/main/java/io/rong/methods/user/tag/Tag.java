@@ -16,7 +16,7 @@ import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
 
 /**
- * 用户标签服务 docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * User Tag Service. Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Tag {
 
@@ -42,9 +42,9 @@ public class Tag {
     }
 
     /**
-     * 为应用中的用户添加标签，如果某用户已经添加了标签，再次对用户添加标签时将覆盖之前设置的标签内容。
+     * Add tags to users in the application. If a user already has tags, adding new tags will overwrite the previous ones.
      *
-     * @param tag 用户标签信息
+     * @param tag User tag information
      * @return ResponseResult
      **/
     public Result set(TagModel tag) throws Exception {
@@ -63,9 +63,9 @@ public class Tag {
     }
 
     /**
-     * 为应用中的用户添加标签，如果某用户已经添加了标签，再次对用户添加标签时将覆盖之前设置的标签内容。
+     * Add tags to users in the application. If a user already has tags, adding new tags will overwrite the previous ones.
      *
-     * @param batchTag 多个用户标签信息
+     * @param batchTag Multiple user tag information
      * @return ResponseResult
      **/
     public Result batchSet(BatchTagModel batchTag) throws Exception {
@@ -84,9 +84,9 @@ public class Tag {
     }
 
     /**
-     * 查询用户所有标签功能，支持批量查询每次最多查询 50 个用户。
+     * Query all tags for users. Supports batch querying with a maximum of 50 users per query.
      *
-     * @param getTag 多个用户ids
+     * @param getTag Multiple user IDs
      * @return GetTagResult
      **/
     public GetTagResult get(GetTagModel getTag) throws Exception {

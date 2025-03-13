@@ -15,7 +15,7 @@ import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
 
 /**
- * 推送服务
+ * Push notification service
  *
  * @author lang
  */
@@ -42,18 +42,20 @@ public class Push {
     }
 
     /**
-     * 广播
+     * Broadcast
      * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
-     * @param broadcast 广播数据
+     * @param broadcast Broadcast data
      * @return PushResult
      **/
-    public PushResult message(BroadcastModel broadcast) throws Exception {
-        // 需要校验的字段
-        String message = CommonUtil.checkFiled(broadcast, PATH, CheckMethod.BROADCAST);
-        if (null != message) {
-            return (PushResult) GsonUtil.fromJson(message, PushResult.class);
-        }
+
+
+public PushResult message(BroadcastModel broadcast) throws Exception {
+    // Fields to be validated
+    String message = CommonUtil.checkFiled(broadcast, PATH, CheckMethod.BROADCAST);
+    if (null != message) {
+        return (PushResult) GsonUtil.fromJson(message, PushResult.class);
+    }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/push.json",
                 "application/json");
@@ -64,19 +66,19 @@ public class Push {
                 PushResult.class);
     }
 
-    /**
-     * 推送
-     * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-     *
-     * @param push 推送数据
-     * @return PushResult
-     **/
-    public PushResult push(PushModel push) throws Exception {
-        // 需要校验的字段
-        String message = CommonUtil.checkFiled(push, PATH, CheckMethod.PUSH);
-        if (null != message) {
-            return (PushResult) GsonUtil.fromJson(message, PushResult.class);
-        }
+/**
+ * Push notification
+ * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * @param push Push data
+ * @return PushResult
+ **/
+public PushResult push(PushModel push) throws Exception {
+    // Fields to be validated
+    String message = CommonUtil.checkFiled(push, PATH, CheckMethod.PUSH);
+    if (null != message) {
+        return (PushResult) GsonUtil.fromJson(message, PushResult.class);
+    }
 
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/push.json",
                 "application/json");

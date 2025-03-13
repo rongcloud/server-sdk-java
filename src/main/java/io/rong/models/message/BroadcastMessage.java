@@ -3,22 +3,22 @@ package io.rong.models.message;
 import io.rong.messages.BaseMessage;
 
 /**
- * 广播消息体
+ * Broadcast message body
  */
 public class BroadcastMessage extends MessageModel {
 
     /**
-     * 可选参数，可选值: iOS, Android
+     * Optional parameter, options: iOS, Android
      */
     public String os;
 
     /**
-     * 1 表示为开启，0 表示为关闭，默认为 0（可选）
+     * 1 indicates enabled, 0 indicates disabled, default is 0 (optional)
      */
     public String contentAvailable = "0";
 
     /**
-     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     * Whether it is a silent message, default is false. When set to true, offline users will not receive notification alerts (optional). Not supported in global data centers.
      */
 //    public Boolean disablePush;
 

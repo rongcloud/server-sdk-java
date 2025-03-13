@@ -14,7 +14,7 @@ public class ParamError extends Error {
 	}
 
 	public ParamError(String apiURL) {
-		this(1002, 400, apiURL, "缺少参数，请检查。");
+		this(1002, 400, apiURL, "Missing parameters, please check.");
 	}
 
 	public ParamError(String apiURL, String message) {

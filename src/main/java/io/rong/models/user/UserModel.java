@@ -5,35 +5,35 @@ import io.rong.util.GsonUtil;
 
 /**
 *
-* 用户信息
+* User Information
 * */
 public class UserModel {
 
     /**
-     * 用户 Id，最大长度 64 字节.是用户在 App 中的唯一标识码，
-     * 必须保证在同一个 App 内不重复，重复的用户 Id 将被当作是同一用户。（必传）
+     * User ID, with a maximum length of 64 bytes. It is the unique identifier for the user within the App.
+     * It must be ensured that the same User ID is not duplicated within the same App. Duplicate User IDs will be treated as the same user. (Required)
      */
     public String id;
 
     public String[] ids;
     /**
-     * 用户名称，最大长度 128 字节。用来在 Push 推送时，显示用户的名称，
-     * 刷新用户名称后 5 分钟内生效。（可选，提供即刷新，不提供忽略）
+     * User name, with a maximum length of 128 bytes. Used to display the user's name in Push notifications.
+     * The user name will be updated within 5 minutes after refreshing. (Optional, refresh if provided, ignore if not)
      */
     public String name;
     /**
-     * 用户头像 URI，最大长度 1024 字节。
-     * 用来在 Push 推送时显示。（可选，提供即刷新，不提供忽略)
+     * User avatar URI, with a maximum length of 1024 bytes.
+     * Used to display in Push notifications. (Optional, refresh if provided, ignore if not)
      */
     public String portrait;
 
     private Integer minute;
     /**
-     * 黑名单列表。
+     * Blocklist.
      */
     private UserModel[] blacklist;
     /**
-     * 白名单列表。
+     * Allowlist.
      */
     private UserModel[] whitelist;
 

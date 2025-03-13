@@ -4,12 +4,12 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- *  getImageCode 成功返回结果
+ * Successful result of getImageCode
  */
 public class SMSImageCodeResult extends Result {
-	// 返回的图片验证码 URL 地址。
+	// URL of the returned image verification code.
 	String url;
-	// 返回图片验证标识 Id。
+	// ID of the returned image verification code.
 	String verifyId;
 
 	public SMSImageCodeResult(Integer code, String url, String verifyId, String errorMessage) {
@@ -20,7 +20,7 @@ public class SMSImageCodeResult extends Result {
 	}
 
 	/**
-	 * 设置url
+	 * Sets the URL
 	 *
 	 */	
 	public void setUrl(String url) {
@@ -28,7 +28,7 @@ public class SMSImageCodeResult extends Result {
 	}
 	
 	/**
-	 * 获取url
+	 * Gets the URL
 	 *
 	 * @return String
 	 */
@@ -37,7 +37,7 @@ public class SMSImageCodeResult extends Result {
 	}
 	
 	/**
-	 * 设置verifyId
+	 * Sets the verifyId
 	 *
 	 */	
 	public void setVerifyId(String verifyId) {
@@ -45,7 +45,7 @@ public class SMSImageCodeResult extends Result {
 	}
 	
 	/**
-	 * 获取verifyId
+	 * Gets the verifyId
 	 *
 	 * @return String
 	 */

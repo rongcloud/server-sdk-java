@@ -3,23 +3,22 @@ package io.rong.messages;
 import io.rong.util.GsonUtil;
 
 /**
- * 已读通知类型的消息
- * 
+ * A message type for read receipt notification.
  */
 public class ReadReceiptMessage extends BaseMessage {
 
 	/**
-	 * 最后一条消息的发送时间 - 必传 如: 1589437637920
+	 * The send time of the last message - Required. Example: 1589437637920
 	 */
 	private String lastMessageSendTime = "";
 	
 	/**
-	 *  最后一条消息的消息Id
+	 * The Message UID of the last message.
 	 */
 	private String messageUId = "";
 	
 	/**
-	 * 消息类型 参见:CodeUtil.ConversationType 类
+	 * The message type. Refer to: CodeUtil.ConversationType class.
 	 */
 	private int type = 1;
 

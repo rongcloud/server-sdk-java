@@ -12,18 +12,18 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * Json公共服务
+ * JSON utility service
  *
  * @author RongCloud
  */
 public class JsonUtil {
     /**
-     * 获取JsonObject
+     * Retrieves a JSONObject
      *
-     * @param path 项目路径
-     * @param jsonName json文件名字
+     * @param path The project path
+     * @param jsonName The name of the JSON file
      *
-     * @return JsonObject
+     * @return JSONObject
      * @throws IOException
      **/
     public static <T> T getJsonObject(String path,String jsonName) throws IOException {
@@ -56,13 +56,13 @@ public class JsonUtil {
         return null;
     }
     /**
-     * 读取Jar文件中的资源
+     * Load resources from a JAR file
      *
      * @param jarUrl
-     *   本地jar文件路径
+     *   Local JAR file path
      * @param jsonName
-     *   资源文件所在jar中的路径(不能以'/'字符开头)
-     * @return 如果资源加载失败,返回null
+     *   Path of the resource file within the JAR (should not start with '/' character)
+     * @return Returns null if resource loading fails
      */
     public static InputStream loadResourceFromJarURL(String jarUrl,String path,String jsonName){
         URL url = null;

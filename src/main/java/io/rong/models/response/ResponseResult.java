@@ -4,7 +4,7 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- *  http 成功返回结果
+ * HTTP success response result.
  */
 public class ResponseResult extends Result {
     

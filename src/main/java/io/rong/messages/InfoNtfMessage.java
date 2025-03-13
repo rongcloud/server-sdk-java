@@ -4,7 +4,7 @@ import io.rong.util.GsonUtil;
 
 /**
  *
- * 提示条（小灰条）通知消息。此类型消息没有 Push 通知。
+ * Gray bar notification message. This type of message does not have a push notification.
  *
  */
 public class InfoNtfMessage extends BaseMessage {
@@ -22,7 +22,7 @@ public class InfoNtfMessage extends BaseMessage {
 	}
 	
 	/**
-	 * 获取提示条消息内容。
+	 * Gets the content of the gray bar message.
 	 *
 	 * @return String
 	 */
@@ -31,7 +31,7 @@ public class InfoNtfMessage extends BaseMessage {
 	}
 	
 	/**
-	 * @param message 设置提示条消息内容。
+	 * @param message Sets the content of the gray bar message.
 	 *
 	 *
 	 */
@@ -40,22 +40,22 @@ public class InfoNtfMessage extends BaseMessage {
 	}  
 	
 	/**
-	 * 获取附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * Gets the extra information (if developers need it, they can parse it on the App side).
 	 *
 	 * @return String
 	 */
 	public String getExtra() {
 		return extra;
 	}
-	
+
 	/**
-	 * @param extra 设置附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+	 * @param extra Sets additional information (if needed, developers can parse it on the App side).
 	 *
 	 *
 	 */
 	public void setExtra(String extra) {
 		this.extra = extra;
-	}  
+	}
 	
 	@Override
 	public String toString() {

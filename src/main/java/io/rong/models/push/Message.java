@@ -3,23 +3,23 @@ package io.rong.models.push;
 import io.rong.util.GsonUtil;
 
 /**
- * 发送消息内容（必传）
+ * Message content to be sent (Required)
  */
 public class Message {
 
     /**
-     * 发送消息内容，参考融云 Server API 消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
+     * The content of the message. Refer to the RongCloud Server API message type table for examples. If the objectName is a custom message type, this parameter can be customized. (Required)
      */
     private String content;
 
     /**
-     * 消息类型，参考融云 Server API 消息类型表.消息标志；可自定义消息类型，长度不超过 32 个字符。（必传）
+     * The message type. Refer to the RongCloud Server API message type table for message flags. Custom message types are allowed, with a length not exceeding 32 characters. (Required)
      */
     private String objectName;
 
     /**
-     * 禁止更新会话最后一条消息。 当该参数为 false 时，发送的该条消息都会进入会话列表; 为 true 时，不会更新到会话列表的消息内容。
-     * 注：此参数仅对存储在客户端的消息有效。
+     * Disables updating the last message in the conversation. When set to false, the sent message will appear in the conversation list; when set to true, it will not update the message content in the conversation list.
+     * Note: This parameter only affects messages stored on the client side.
      */
     private Boolean disableUpdateLastMsg;
 

@@ -6,26 +6,26 @@ package io.rong.models.response;
  */
 public class GroupMember {
     /**
-     * 用户ID
+     * User ID
      */
     private String userId;
     /**
-     * 群昵称：默认未设置时为用户名称
+     * Group alias: defaults to the user's name if not set
      */
     private String nickname;
     /**
-     * 群身份：
-     * 0：普通群成员
-     * 1：群主
-     * 2：群管理员
+     * Group role:
+     * 0: Regular group member
+     * 1: Group owner
+     * 2: Group administrator
      */
     private Integer role;
     /**
-     * 加入时间
+     * Join time
      */
     private Long time;
     /**
-     * 群成员附加信息
+     * Additional information for group member
      */
     private String extra;
 

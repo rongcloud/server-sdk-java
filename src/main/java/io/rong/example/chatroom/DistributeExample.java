@@ -8,28 +8,27 @@ import io.rong.models.response.ResponseResult;
 
 public class DistributeExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        // Custom API URL
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
         Distribute distribute = rongCloud.chatroom.distribute;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 聊天室消息停止分发
-         *
+         * Stop Chatroom Message Distribution
          */
         ChatroomModel chatroomModel = new ChatroomModel()
                 .setId("d7ec7a8b8d8546c98b0973417209a548");
@@ -38,9 +37,9 @@ public class DistributeExample {
         System.out.println("stopDistributionMessage:  " + result.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 聊天室消息恢复分发方法
+         * Resume Chatroom Message Distribution
          */
         ResponseResult resumeResult = distribute.resume(chatroomModel);
         System.out.println("resumeDistributionMessage:  " + resumeResult.toString());

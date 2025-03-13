@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- * 敏感词服务
+ * Sensitive Word Service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @version
@@ -41,14 +41,14 @@ public class SensitiveWord {
 		this.appSecret = appSecret;
 
 	}
-	
-	
-	/**
-	 * 添加敏感词方法（设置敏感词后，App 中用户不会收到含有敏感词的消息内容，默认最多设置 50 个敏感词。） 
-	 * 
-	 * @param  sensitiveword:敏感词
-	 * @return ResponseResult
-	 **/
+
+    /**
+     * Add Sensitive Word Method (After setting sensitive words, users in the App will not receive messages containing sensitive words. By default, up to 50 sensitive words can be set.)
+     * @param sensitiveword
+     * @return
+     * @throws Exception
+     */
+
 	public ResponseResult add(SensitiveWordModel sensitiveword) throws Exception {
 
 		String errMsg = CommonUtil.checkFiled(sensitiveword,PATH,CheckMethod.ADD);
@@ -61,7 +61,7 @@ public class SensitiveWord {
 
 	    if(0 == sensitiveword.getType()){
 	    	if(null == sensitiveword.getReplace()){
-	    		return new ResponseResult(20005,"replace参数为必传项");
+	    		return new ResponseResult(20005,"The replace parameter is required");
 			}
 			sb.append("&replaceWord=").append(URLEncoder.encode(sensitiveword.getReplace().toString(), UTF8));
 		}
@@ -70,40 +70,41 @@ public class SensitiveWord {
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
-	   	
+
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/add.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-	    
+
 	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 
 
-	/**
-	 * 添加敏感词方法（设置敏感词后，App 中用户不会收到含有敏感词的消息内容，默认最多设置 50 个敏感词。）
-	 *
-	 * @param  sensitiveWords:敏感词
-	 * @return ResponseResult
-	 **/
-	public BatchAddSensitiveWordResult batchAdd(AddSensitiveWordsModel sensitiveWords) throws Exception {
-		if(sensitiveWords == null || sensitiveWords.getWords() == null || sensitiveWords.getWords().isEmpty()) {
-			return new BatchAddSensitiveWordResult(20005,"sensitiveWords 参数为必传项");
-		}
+    /**
+     * Adds a sensitive word. (After setting a sensitive word, users in the App will not receive messages containing the sensitive word. By default, up to 50 sensitive words can be set.)
+     *
+     * @param sensitiveWords: Sensitive words
+     * @return ResponseResult
+     **/
+    public BatchAddSensitiveWordResult batchAdd(AddSensitiveWordsModel sensitiveWords) throws Exception {
+        if (sensitiveWords == null || sensitiveWords.getWords() == null || sensitiveWords.getWords().isEmpty()) {
+            return new BatchAddSensitiveWordResult(20005, "The sensitiveWords parameter is required");
+        }
 
-		if(sensitiveWords.getWords().size() > 50 ) {
-			return new BatchAddSensitiveWordResult(20005,"sensitiveWord 个数超过 50");
-		}
+        if (sensitiveWords.getWords().size() > 50) {
+            return new BatchAddSensitiveWordResult(20005, "The number of sensitive words exceeds 50");
+        }
 
-		for (AddSensitiveWordsModel.SensitiveWord word : sensitiveWords.getWords()) {
-			if (StringUtils.isEmpty(word.getWord())) {
-				return new BatchAddSensitiveWordResult(20005,"word参数为必传项");
-			}
-			if (word.getWord().length() > 32) {
-				return new BatchAddSensitiveWordResult(20005,"word参数长度超过 32");
-			}
-			if (word.getReplaceWord()!=null && word.getReplaceWord().length() > 32) {
-				return new BatchAddSensitiveWordResult(20005,"replaceWord参数长度超过 32");
-			}
-		}
+        for (AddSensitiveWordsModel.SensitiveWord word : sensitiveWords.getWords()) {
+            if (StringUtils.isEmpty(word.getWord())) {
+                return new BatchAddSensitiveWordResult(20005, "The word parameter is required");
+            }
+            if (word.getWord().length() > 32) {
+
+                return new BatchAddSensitiveWordResult(20005, "The length of the 'word' parameter exceeds 32");
+            }
+            if (word.getReplaceWord() != null && word.getReplaceWord().length() > 32) {
+                return new BatchAddSensitiveWordResult(20005, "The length of the 'replaceWord' parameter exceeds 32");
+            }
+        }
 
 		String body = GsonUtil.toJson(sensitiveWords);
 
@@ -113,17 +114,17 @@ public class SensitiveWord {
 		String responseByCode = CommonUtil.getResponseByCode(PATH, CheckMethod.BATCH_ADD, HttpUtil.returnResult(conn, rongCloud.getConfig()));
 		return (BatchAddSensitiveWordResult) GsonUtil.fromJson(responseByCode, BatchAddSensitiveWordResult.class);
 	}
-	
-	/**
-	 * 查询敏感词列表方法 
-	 * 
-	 * @param  type:查询敏感词的类型，0 为查询替换敏感词，1 为查询屏蔽敏感词，2 为查询全部敏感词。默认为 1。（非必传）
-	 *
-	 * @return ListWordfilterResult
-	 **/
+
+    /**
+     * Method to query the list of sensitive words
+     *
+     * @param  type: The type of sensitive words to query. 0 for querying replacement sensitive words, 1 for querying blocked sensitive words, and 2 for querying all sensitive words. Default is 1. (Optional)
+     *
+     * @return ListWordfilterResult
+     **/
 	public ListWordfilterResult getList(Integer type) throws Exception {
 	    StringBuilder sb = new StringBuilder();
-	    
+
 	    if (type != null) {
 	    	sb.append("&type=").append(URLEncoder.encode(type.toString(), UTF8));
 	    }
@@ -131,16 +132,16 @@ public class SensitiveWord {
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
-	   	
+
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/list.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-	    
+
 	    return (ListWordfilterResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.GETLIST,HttpUtil.returnResult(conn, rongCloud.getConfig())), ListWordfilterResult.class);
 	}
-	
+
 	/**
-	 * 移除敏感词方法（从敏感词列表中，移除某一敏感词。） 
-	 * 
+	 * 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
+	 *
 	 * @param  word:敏感词，最长不超过 32 个字符。（必传）
 	 *
 	 * @return ResponseResult
@@ -156,10 +157,10 @@ public class SensitiveWord {
 	   	if (body.indexOf("&") == 0) {
 	   		body = body.substring(1, body.length());
 	   	}
-	   	
+
 		HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/sensitiveword/delete.json", "application/x-www-form-urlencoded");
 		HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-	    
+
 	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	/**
@@ -188,5 +189,5 @@ public class SensitiveWord {
 
 		return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.BATCH_DELETE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
-	 
+
 }

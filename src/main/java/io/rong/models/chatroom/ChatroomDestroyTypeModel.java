@@ -7,16 +7,16 @@ import io.rong.util.GsonUtil;
  */
 public class ChatroomDestroyTypeModel {
     /**
-     * 聊天室用户Id。
-     * */
+     * The user ID of the chatroom.
+     */
     public String id;
     /**
-     * 指定聊天室的销毁方式。
-     * */
+     * Specifies the destruction method of the chatroom.
+     */
     public Integer destroyType;
     /**
-     * 设置聊天室销毁时间。
-     * */
+     * Sets the destruction time of the chatroom.
+     */
     public Integer destroyTime;
 
     public ChatroomDestroyTypeModel() {

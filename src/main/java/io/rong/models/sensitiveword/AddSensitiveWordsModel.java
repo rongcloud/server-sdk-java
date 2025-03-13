@@ -5,14 +5,14 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * 批量添加敏感词
+ * Batch add sensitive words
  */
 public class AddSensitiveWordsModel {
 
-	/**
-	 * 敏感词列表
-	 */
-	List<SensitiveWord> words;
+    /**
+     * List of sensitive words
+     */
+    List<SensitiveWord> words;
 
 	public List<SensitiveWord> getWords() {
 		return words;
@@ -29,15 +29,15 @@ public class AddSensitiveWordsModel {
 	}
 
 
-	public static class SensitiveWord{
-		/**
-		 * 敏感词， 必传，长度不大于 32 个字符
-		 */
-		private String word;
-		/**
-		 * 替换词， 非必传，长度不大于 32 个字符
-		 */
-		private String replaceWord;
+    public static class SensitiveWord {
+        /**
+         * Sensitive word, required, length no more than 32 characters
+         */
+        private String word;
+        /**
+         * Replacement word, optional, length no more than 32 characters
+         */
+        private String replaceWord;
 
 		public String getWord() {
 			return word;

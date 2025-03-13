@@ -9,12 +9,12 @@ import java.util.List;
  */
 public class PagingQueryWhitelistResult extends ResponseResult {
     /**
-     * 白名单用户列表
+     * List of users in the allowlist.
      */
     private List<String> users;
 
     /**
-     * 分页  token, 有则表示还有下一页，下一次请求携带
+     * Page token. If present, it indicates there is more data to fetch in the next request.
      */
     private String next;
 

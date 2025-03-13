@@ -6,7 +6,7 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * 设置群管理员返回结果
+ * Result of setting group administrators
  * @author RongCloud
  */
 public class SetManagersResult extends ResponseResult {

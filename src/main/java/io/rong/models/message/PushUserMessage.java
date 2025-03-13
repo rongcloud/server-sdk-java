@@ -31,27 +31,27 @@ public class PushUserMessage {
 
     public static class Notification {
         /**
-         * 通知栏显示标题，最长不超过 50 个字符。
+         * The title displayed in the notification bar, with a maximum length of 50 characters.
          */
         private String title;
 
         /**
-         * 推送消息内容。
+         * The content of the push notification.
          */
         private String pushContent;
 
         /**
-         * 设置 iOS 平台下的推送及附加信息。
+         * Set the push notification and additional information for the iOS platform.
          */
         private PlatformNotification ios;
 
         /**
-         * 设置 Android 平台下的推送及附加信息。
+         * Set the push notification and additional information for the Android platform.
          */
         private PlatformNotification android;
 
         /**
-         * 设置鸿蒙平台下的推送及附加信息。
+         * Sets the push notification and additional information for the HarmonyOS platform.
          */
         private HarmonyOSPlatformNotification harmonyOS;
 

@@ -4,69 +4,68 @@ import io.rong.util.GsonUtil;
 import java.util.HashMap;
 
 /**
- * 聊天室属性设置的请求 Request Model
+ * Chatroom attribute setting request model
  * <p>
- * 1. 设置属性 2. 删除属性 3. 获取属性
+ * 1. Set attribute 2. Delete attribute 3. Get attribute
  *
- * @author Ronglcoud
+ * @author RongCloud
  */
 public class ChatroomEntryModel {
 
     /**
-     * 聊天室 Id
+     * Chatroom ID
      */
     public String chatroomId;
 
     /**
-     * 操作用户 Id。通过 Server API 非聊天室中用户可以进行设置。
+     * Operator user ID. Can be set via Server API by non-chatroom users.
      */
     public String userId;
 
     /**
-     * 聊天室属性名称，Key 支持大小写英文字母、数字、部分特殊符号 + = - _ 的组合方式，大小写敏感。最大长度 128 字符
+     * Chatroom attribute name. Key supports uppercase/lowercase letters, numbers, and special symbols + = - _. Case-sensitive. Maximum length: 128 characters
      */
     public String key;
 
     /**
-     * 查询聊天室属性时传的参数 key 的集合, 上限最多 100 个，为空是获取全部的 key 值
+     * Collection of keys for querying chatroom attributes. Maximum 100 keys. If empty, retrieves all keys.
      */
     public String[] keys;
 
     /**
-     * 聊天室属性对应的值，最大长度 4096 个字符
+     * Chatroom attribute value. Maximum length: 4096 characters
      */
     public String value;
 
     /**
-     * 非必填
+     * Optional
      * <p>
-     * 用户退出聊天室后，是否删除此 Key 值。1:删除；0:不删除此 Key，默认 0
+     * Whether to delete this key when the user exits the chatroom. 1: Delete; 0: Do not delete this key. Default: 0
      */
     public Integer autoDelete = 0;
 
     /**
-     * 非必填
+     * Optional
      * <p>
-     * 通知消息类型，设置属性后是否发送通知消息，如需要发送则设置为 RC:chrmKVNotiMsg
-     * 或其他自定义消息，为空或不传时不向聊天室发送通知消息，默认为不发送。
+     * Notification message type. Whether to send a notification message after setting the attribute. If needed, set to RC:chrmKVNotiMsg
      */
     public String objectName;
 
     /**
-     * 非必填
+     * Optional
      * <p>
-     * 通知消息内容，JSON 结构，当 objectName 为 RC:chrmKVNotiMsg 时，content 必须包含 type、key、value
-     * 属性，详细查看 RC:chrmKVNotiMsg 结构说明。
+     * Notification message content, in JSON format. When objectName is RC:chrmKVNotiMsg, content must include type, key, and value
+     * attributes. Refer to the RC:chrmKVNotiMsg structure for details.
      */
     public String content;
 
     /**
-     * 批量设置 - 聊天室自定义属性的所属用户 ID
+     * Batch setting - The user ID to which the chatroom custom attributes belong.
      */
     public String entryOwnerId;
 
     /**
-     * 批量设置 - 聊天室自定义属性 KV
+     * Batch setting - Chatroom custom attributes KV.
      */
     public HashMap<String, String> entryInfo;
 

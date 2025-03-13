@@ -6,11 +6,11 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * 聊天室禁言返回结果
+ * Result of listing muted users in a chatroom.
  */
 public class ListGagChatroomUserResult extends Result{
 	/**
-	 * 聊天室被禁言用户列表。
+	 * List of muted users in the chatroom.
 	 *
 	 */
 	List<ChatroomMember> members;
@@ -25,7 +25,7 @@ public class ListGagChatroomUserResult extends Result{
 	}
 
 	/**
-	 * 设置code
+	 * Sets the code.
 	 *
 	 */	
 	@Override
@@ -34,7 +34,7 @@ public class ListGagChatroomUserResult extends Result{
 	}
 	
 	/**
-	 * 获取code
+	 * Gets the code.
 	 *
 	 * @return Integer
 	 */
@@ -43,7 +43,7 @@ public class ListGagChatroomUserResult extends Result{
 		return code;
 	}
 	/**
-	 * 获取members
+	 * Gets the members.
 	 *
 	 * @return List
 	 */
@@ -51,7 +51,7 @@ public class ListGagChatroomUserResult extends Result{
 		return this.members;
 	}
 	/**
-	 * 设置members
+	 * Set members
 	 *
 	 */
 	public void setMembers(List<ChatroomMember> members) {

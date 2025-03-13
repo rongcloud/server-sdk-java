@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- * 聊天室消息白名单服务
+ * Chatroom message allowlist service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -34,9 +34,9 @@ public class Messages {
         this.appSecret = appSecret;
     }
     /**
-     * 添加聊天室消息白名单成员方法
+     * Add members to the chatroom message allowlist
      *
-     * @param  objectNames:消息类型列表
+     * @param  objectNames: List of message types
      *
      * @return ResponseResult
      **/
@@ -64,9 +64,9 @@ public class Messages {
     }
 
     /**
-     * 删除聊天室消息白名单方法
+     * Remove chatroom message allowlist method
      *
-     * @param  objectNames:消息类型列表
+     * @param  objectNames: List of message types
      *
      * @return ResponseResult
      **/
@@ -91,7 +91,7 @@ public class Messages {
     }
 
     /**
-     * 获取聊天室消息类型白名单列表
+     * Get chatroom message type allowlist
      *
      *
      * @return ResponseResult

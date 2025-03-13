@@ -3,37 +3,37 @@ package io.rong.models.chatroom;
 import io.rong.util.GsonUtil;
 
 /**
- * 聊天室。
+ * Chatroom.
  * @author RongCloud
  */
 public class ChatroomModel {
 	/**
-	 * 聊天室 id。
+	 * Chatroom ID.
 	 */
 	String id;
 	/**
-	 * 聊天室名。
+	 * Chatroom name.
 	 */
 	String name;
 	/**
-	 * 聊天室创建时间。
+	 * Chatroom creation time.
 	 */
 	String time;
 	/**
-	 * 聊天室成员。
+	 * Chatroom members.
 	 */
 	ChatroomMember[] members;
 	/**
-	 * 聊天室成员数。
+	 * Number of chatroom members.
 	 */
 	Integer count;
 	/**
-	 * 加入聊天室的先后顺序,1正序，2倒叙。
+	 * Order of joining the chatroom, 1 for ascending, 2 for descending.
 	 */
 	Integer order;
 
 	/**
-	 * 禁言时间
+	 * Mute duration in minutes.
 	 * */
 	Integer minute;
 
@@ -45,7 +45,7 @@ public class ChatroomModel {
 		super();
 	}
 	/**
-	 * 聊天室构造函数 全量
+	 * Full constructor for Chatroom.
 	 * */
 	public ChatroomModel(String id, String name, String time, ChatroomMember[] members,
 						 Integer count, Integer order, Integer minute,String extra,Boolean needNotify) {
@@ -61,7 +61,7 @@ public class ChatroomModel {
 	}
 
 	/**
-	 * 设置chrmId
+	 * Sets the chatroom ID
 	 *
 	 */	
 	public ChatroomModel setId(String id) {
@@ -70,7 +70,7 @@ public class ChatroomModel {
 	}
 	
 	/**
-	 * 获取chrmId
+	 * Gets the chatroom ID
 	 *
 	 * @return String
 	 */
@@ -79,7 +79,7 @@ public class ChatroomModel {
 	}
 	
 	/**
-	 * 设置name
+	 * Sets the name
 	 *
 	 */	
 	public ChatroomModel setName(String name) {
@@ -88,7 +88,7 @@ public class ChatroomModel {
 	}
 	
 	/**
-	 * 获取name
+	 * Gets the name
 	 *
 	 * @return String
 	 */
@@ -97,16 +97,16 @@ public class ChatroomModel {
 	}
 	
 	/**
-	 * 设置time
+	 * Sets the time
 	 *
-	 */	
+	 */
 	public ChatroomModel setTime(String time) {
 		this.time = time;
 		return this;
 	}
 	
 	/**
-	 * 获取time
+	 * Get time
 	 *
 	 * @return String
 	 */
@@ -115,7 +115,7 @@ public class ChatroomModel {
 	}
 
 	/**
-	 * 获取memberIds
+	 * Get member IDs
 	 *
 	 * @return String
 	 */
@@ -123,7 +123,7 @@ public class ChatroomModel {
 		return this.members;
 	}
 	/**
-	 * 设置memberIds
+	 * Set member IDs
 	 *
 	 * @return String
 	 */
@@ -133,7 +133,7 @@ public class ChatroomModel {
 	}
 
 	/**
-	 * 设置count
+	 * Set count
 	 *
 	 * @return String
 	 */
@@ -141,7 +141,7 @@ public class ChatroomModel {
 		return this.count;
 	}
 	/**
-	 * 获取count
+	 * Get count
 	 *
 	 * @return String
 	 */
@@ -150,7 +150,7 @@ public class ChatroomModel {
 		return this;
 	}
 	/**
-	 * 设置order
+	 * Sets the order.
 	 *
 	 * @return String
 	 */
@@ -158,7 +158,7 @@ public class ChatroomModel {
 		return this.order;
 	}
 	/**
-	 * 获取order
+	 * Gets the order.
 	 *
 	 * @return String
 	 */
@@ -167,7 +167,7 @@ public class ChatroomModel {
 		return this;
 	}
 	/**
-	 * 获取minute
+	 * Gets the minute.
 	 *
 	 * @return String
 	 */
@@ -175,7 +175,7 @@ public class ChatroomModel {
 		return this.minute;
 	}
 	/**
-	 * 设置minute
+	 * Sets the minute.
 	 *
 	 * @return String
 	 */

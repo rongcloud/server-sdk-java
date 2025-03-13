@@ -4,7 +4,6 @@ import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.models.Result;
 
-
 /**
  * Demo class
  *
@@ -13,20 +12,18 @@ import io.rong.models.Result;
  */
 public class RemarkExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
-
 
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 
-
-        Result result = rongCloud.group.remark.set("userId", "groupId","remark");
+        Result result = rongCloud.group.remark.set("userId", "groupId", "remark");
 
         System.out.println("set remark: " + result.toString());
 
@@ -34,8 +31,7 @@ public class RemarkExample {
 
         System.out.println("del remark: " + result.toString());
 
-
-        result = rongCloud.group.remark.get("abc","abcaa");
+        result = rongCloud.group.remark.get("abc", "abcaa");
 
         System.out.println("get remark: " + result.toString());
     }

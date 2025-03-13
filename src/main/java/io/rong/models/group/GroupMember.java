@@ -7,16 +7,16 @@ import io.rong.util.GsonUtil;
  */
 public class GroupMember {
     /**
-     * 群组成员Id。
-     * */
+     * Group member ID.
+     */
     public String id;
     /**
-     * 群组ID
-     * */
+     * Group ID.
+     */
     public String groupId;
     /**
-     * 禁言时间
-     * */
+     * Mute duration in minutes.
+     */
     public Integer munite;
 
     public GroupMember() {
@@ -30,8 +30,7 @@ public class GroupMember {
     }
 
     /**
-     * @param id 设置id
-     *
+     * @param id Set the ID.
      */
     public GroupMember setId(String id) {
         this.id = id;
@@ -39,7 +38,7 @@ public class GroupMember {
     }
 
     /**
-     * 获取id
+     * Get the ID.
      *
      * @return String
      */
@@ -48,7 +47,7 @@ public class GroupMember {
     }
 
     /**
-     * 获取groupId
+     * Get the group ID
      *
      * @return String
      */
@@ -56,7 +55,7 @@ public class GroupMember {
         return this.groupId;
     }
     /**
-     * @param groupId 设置群组id
+     * @param groupId Set the group ID
      *
      *
      */
@@ -65,7 +64,7 @@ public class GroupMember {
     }
 
     /**
-     * 获取禁言时长
+     * Get the mute duration
      *
      * @return String
      */
@@ -73,7 +72,7 @@ public class GroupMember {
         return this.munite;
     }
     /**
-     * @param munite 设置munite
+     * @param munite Set the mute duration
      *
      *
      */

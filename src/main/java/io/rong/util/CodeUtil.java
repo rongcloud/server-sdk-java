@@ -1,29 +1,29 @@
 package io.rong.util;
 
-import java.security.MessageDigest;
-
 import org.apache.commons.codec.binary.Hex;
+
+import java.security.MessageDigest;
 
 public class CodeUtil {
 
-	/**
-	 * 会话类型
-	 */
-	public static enum ConversationType {
-		// 二人会话
-		PRIVATE("1"),
-		// 讨论组会话
-		DISCUSSION("2"),
-		// 群组会话
-		GROUP("3"),
-		// 系统通知
-		SYSTEM("6"),
-		// 客服会话
-		KF("5"),
-		// 应用公众服务
-		MC("7"),
-		// 公众服务
-		MP("8");
+    /**
+     * Conversation type
+     */
+    public static enum ConversationType {
+        // One-to-one chat
+        PRIVATE("1"),
+        // Discussion group chat
+        DISCUSSION("2"),
+        // Group chat
+        GROUP("3"),
+        // System notification
+        SYSTEM("6"),
+        // Customer service chat
+        KF("5"),
+        // Application public service
+        MC("7"),
+        // Public service
+        MP("8");
 
 		private String name;
 

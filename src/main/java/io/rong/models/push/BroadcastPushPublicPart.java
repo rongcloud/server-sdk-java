@@ -3,22 +3,22 @@ package io.rong.models.push;
 import io.rong.util.GsonUtil;
 
 /**
- * 广播跟参数公共部分
+ * Common parameters for broadcast push.
  */
 public class BroadcastPushPublicPart {
 
     /**
-     * 目标操作系统，iOS、Android 最少传递一个。如果需要给两个系统推送消息时，则需要全部填写。（必传）
+     * Target operating systems. At least one of iOS or Android must be specified. If you need to push messages to both systems, both must be filled. (Required)
      */
     private String[] platform;
 
     /**
-     * 推送条件，包括： tag、userid、is_to_all。（必传）
+     * Push conditions, including: tag, userid, is_to_all. (Required)
      */
     private Audience audience;
 
     /**
-     * 按操作系统类型推送消息内容
+     * Push message content by operating system type.
      */
     private Notification notification;
 

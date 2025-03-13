@@ -11,7 +11,7 @@ import io.rong.util.GsonUtil;
  * Created with IntelliJ IDEA.
  * User: srp
  * Date: 14-3-17
- * Time: 下午6:12
+ * Time: 6:12 PM
  */
 @XStreamAlias("error")
 public class Error{

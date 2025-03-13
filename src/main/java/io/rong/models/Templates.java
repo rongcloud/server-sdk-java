@@ -5,35 +5,35 @@ import java.util.Map;
 import java.util.List;
 
 /**
- * 模版消息对象。
+ * Template message object.
  * @author RongCloud
  */
 public class Templates {
 	 /**
-	  * 发送人用户 Id。（必传）
+	  * Sender's user ID. (Required)
 	  * */
 	String fromUserId;
 	/**
-	 * 接收用户 Id，提供多个本参数可以实现向多人发送消息，上限为 1000 人。（必传）
+	 * Recipient user IDs. Providing multiple IDs allows sending messages to multiple users, with a limit of 1000 users. (Required)
 	 **/
 	String[] toUserId;
 	/**
-	 *发送消息内容，内容中定义标识通过 values 中设置的标识位内容进行替换，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
+	 * Message content. The content defines placeholders that are replaced by values set in the `values` parameter. Refer to the RongCloud message type table for examples. If the `objectName` is a custom message type, this parameter can be customized. (Required)
 	 * */
 	String content;
 	/**
 	 *
 	 */
 	List<Map<String, String>> values;
-	// 接收用户 Id，提供多个本参数可以实现向多人发送消息，上限为 1000 人。（必传）
+	// Recipient user IDs. Providing multiple IDs allows sending messages to multiple users, with a limit of 1000 users. (Required)
 	String objectName;
-	// 定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息。如果为自定义消息，定义显示的 Push 内容，内容中定义标识通过 values 中设置的标识位内容进行替换。如消息类型为自定义不需要 Push 通知，则对应数组传空值即可。（必传）
+	// Defines the Push content to be displayed. If the `objectName` is a built-in RongCloud message type, the user will definitely receive a Push notification after sending. For custom messages, define the Push content to be displayed, with placeholders replaced by values set in the `values` parameter. If the message type is custom and no Push notification is needed, pass an empty array. (Required)
 	String[] pushContent;
-	// 针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。如不需要 Push 功能对应数组传空值即可。（可选）
+	// For iOS platforms, this is attached to the Push notification payload. For Android clients, the corresponding field is `pushData`. If no Push functionality is needed, pass an empty array. (Optional)
 	String[] pushData;
 
 	String[] pushExt;
-	// 是否过滤发送人黑名单列表，0 为不过滤、 1 为过滤，默认为 0 不过滤。（可选）
+	// Whether to filter the sender's blocklist. 0 means no filtering, 1 means filtering. Default is 0 (no filtering). (Optional)
 	Integer verifyBlacklist;
 
 	Integer contentAvailable;
@@ -41,13 +41,13 @@ public class Templates {
 	Long msgRandom;
 
 	/**
-	 * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+	 * Whether the message is silent. Default is false. When set to true, terminal users will not receive notification reminders when offline. (Optional). Not supported in global data centers.
 	 */
 	Boolean disablePush;
 
 	/**
-	 * 禁止更新会话最后一条消息。 当该参数为 false 时，发送的该条消息都会进入会话列表; 为 true 时，不会更新到会话列表的消息内容。
-	 * 注：此参数仅对存储在客户端的消息有效。
+	 * Prohibit updating the last message in the conversation. When this parameter is false, the sent message will appear in the conversation list; when true, it will not update the message content in the conversation list.
+	 * Note: This parameter only affects messages stored on the client side.
 	 */
 	private Boolean disableUpdateLastMsg;
 
@@ -78,7 +78,7 @@ public class Templates {
 	}
 
 	/**
-	 * 设置fromUserId
+	 * Sets the fromUserId
 	 *
 	 */
 	public void setFromUserId(String fromUserId) {
@@ -86,7 +86,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取fromUserId
+	 * Gets the fromUserId
 	 *
 	 * @return String
 	 */
@@ -95,7 +95,7 @@ public class Templates {
 	}
 
 	/**
-	 * 设置toUserId
+	 * Sets the toUserId
 	 *
 	 */
 	public void setToUserId(String[] toUserId) {
@@ -103,7 +103,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取toUserId
+	 * Retrieves the toUserId
 	 *
 	 * @return String[]
 	 */
@@ -112,7 +112,7 @@ public class Templates {
 	}
 
 	/**
-	 * 设置content
+	 * Sets the content
 	 *
 	 */
 	public void setContent(String content) {
@@ -120,7 +120,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取content
+	 * Retrieves the content
 	 *
 	 * @return String
 	 */
@@ -129,7 +129,7 @@ public class Templates {
 	}
 
 	/**
-	 * 设置values
+	 * Sets the values
 	 *
 	 */
 	public void setValues(List<Map<String, String>> values) {
@@ -137,16 +137,16 @@ public class Templates {
 	}
 
 	/**
-	 * 获取values
+	 * Retrieves the values
 	 *
 	 * @return List
 	 */
 	public List<Map<String, String>> getValues() {
-		return values;
+	    return values;
 	}
 
 	/**
-	 * 设置objectName
+	 * Sets the objectName
 	 *
 	 */
 	public void setObjectName(String objectName) {
@@ -154,7 +154,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取objectName
+	 * Retrieves the objectName
 	 *
 	 * @return String
 	 */
@@ -163,7 +163,7 @@ public class Templates {
 	}
 
 	/**
-	 * 设置pushContent
+	 * Sets the pushContent
 	 *
 	 */
 	public void setPushContent(String[] pushContent) {
@@ -171,7 +171,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取pushContent
+	 * Retrieves the pushContent
 	 *
 	 * @return String[]
 	 */
@@ -180,7 +180,7 @@ public class Templates {
 	}
 
 	/**
-	 * 设置pushData
+	 * Sets the pushData
 	 *
 	 */
 	public void setPushData(String[] pushData) {
@@ -188,7 +188,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取pushData
+	 * Retrieves the pushData
 	 *
 	 * @return String[]
 	 */
@@ -198,7 +198,7 @@ public class Templates {
 
 
 	/**
-	 * 设置pushExt
+	 * Set pushExt
 	 *
 	 */
 	public void setPushExt(String[] pushExt) {
@@ -206,7 +206,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取pushExt
+	 * Get pushExt
 	 *
 	 * @return String[]
 	 */
@@ -216,7 +216,7 @@ public class Templates {
 
 
 	/**
-	 * 设置verifyBlacklist
+	 * Set verifyBlacklist
 	 *
 	 */
 	public void setVerifyBlacklist(Integer verifyBlacklist) {
@@ -224,7 +224,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取verifyBlacklist
+	 * Get verifyBlacklist
 	 *
 	 * @return Integer
 	 */
@@ -233,7 +233,7 @@ public class Templates {
 	}
 
 	/**
-	 * 获取contentAvailable
+	 * Get contentAvailable
 	 *
 	 * @return Integer
 	 */
@@ -241,7 +241,7 @@ public class Templates {
 		return this.contentAvailable;
 	}
 	/**
-	 * 设置contentAvailable
+	 * Set contentAvailable
 	 *
 	 */
 	public void setContentAvailable(Integer contentAvailable) {

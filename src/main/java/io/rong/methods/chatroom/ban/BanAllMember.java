@@ -4,9 +4,10 @@ import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
-import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
-import io.rong.models.response.*;
+import io.rong.models.response.ChatroomBanListResult;
+import io.rong.models.response.ResponseResult;
+import io.rong.models.response.StatusResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -15,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 聊天室全体禁言服务
+ * Chatroom Mute All Service
  * docs:https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban
  */
 public class BanAllMember {
@@ -40,9 +41,9 @@ public class BanAllMember {
     }
 
     /**
-     * 添加聊天室全体禁言方法
+     * Add Chatroom Mute All Method
      *
-     * @param chatroom : Id。（必传）
+     * @param chatroom : Id (required)
      * @return ResponseResult
      **/
     public ResponseResult add(ChatroomModel chatroom) throws Exception {
@@ -78,9 +79,9 @@ public class BanAllMember {
     }
 
     /**
-     * 移除聊天室全体禁言方法
+     * Remove chatroom mute all method
      *
-     * @param chatroom : Id。（必传）
+     * @param chatroom : Id. (Required)
      * @return ResponseResult
      **/
     public ResponseResult remove(ChatroomModel chatroom) throws Exception {
@@ -114,9 +115,9 @@ public class BanAllMember {
     }
 
     /**
-     * 检查聊天室全体禁言方法
+     * Check the mute all chatrooms method
      *
-     * @param chatroom : Id。（必传）
+     * @param chatroom : Id. (Required)
      * @return ResponseResult
      **/
     public StatusResult check(ChatroomModel chatroom) throws Exception {
@@ -142,7 +143,7 @@ public class BanAllMember {
     }
 
     /**
-     * 查询被聊天室全局禁言用户方法
+     * Query the list of users muted in chatrooms
      *
      * @return ListGagChatroomUserResult
      **/

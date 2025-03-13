@@ -4,10 +4,10 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- *  VerifyCode 返回结果
+ *  SMS verification code result.
  */
 public class SMSVerifyCodeResult extends Result {
-	// true 验证成功，false 验证失败。
+	// Indicates whether the verification is successful: true for success, false for failure.
 	Boolean success;
 
 	public SMSVerifyCodeResult(Integer code, Boolean success, String errorMessage) {
@@ -21,7 +21,7 @@ public class SMSVerifyCodeResult extends Result {
 	}
 	
 	/**
-	 * 获取success
+	 * Get the success status.
 	 *
 	 * @return Boolean
 	 */

@@ -3,11 +3,11 @@ package io.rong.models.response;
 import io.rong.util.GsonUtil;
 
 /**
- * 群组用户信息。
+ * Group user information.
  * @author RongCloud
  */
 public class GroupUser {
-	// 用户 Id。
+	// User ID.
 	String id;
 	
 	public GroupUser(String id) {
@@ -15,7 +15,7 @@ public class GroupUser {
 	}
 	
 	/**
-	 * 设置id
+	 * Set the user ID.
 	 *
 	 */	
 	public void setId(String id) {
@@ -23,7 +23,7 @@ public class GroupUser {
 	}
 	
 	/**
-	 * 获取id
+	 * Get the user ID.
 	 *
 	 * @return String
 	 */

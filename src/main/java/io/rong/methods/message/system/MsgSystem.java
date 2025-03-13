@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSONException;
 
 
 /**
- * 发送系统消息方法
+ * Methods for sending system messages
  * <p>
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
@@ -53,9 +53,9 @@ public class MsgSystem {
     }
 
     /**
-     * 发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。
+     * Sends a system message (a user sends a system message to one or more users, with a maximum message size of 128k. The conversation type is SYSTEM.
      *
-     * @param message 消息体
+     * @param message The message body
      * @return ResponseResult
      * @throws Exception
      **/
@@ -136,7 +136,7 @@ public class MsgSystem {
     }
 
     /**
-     * 系统消息撤回。
+     * Recall a system message.
      *
      * @param message
      * @return ResponseResult
@@ -195,9 +195,9 @@ public class MsgSystem {
 
 
     /**
-     * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。）
+     * Send system template message method (A user sends a system message to one or more users, with a maximum message size of 128k, and the conversation type is SYSTEM.)
      *
-     * @param template:系统模版消息。
+     * @param template: System template message.
      * @return ResponseResult
      * @throws Exception
      **/
@@ -249,10 +249,10 @@ public class MsgSystem {
     }
 
     /**
-     * 发送广播消息方法（发送消息给一个应用下的所有注册用户，如用户未在线会对满足条件（绑定手机终端）的用户发送 Push 信息，单条消息最大 128k，会话类型为 SYSTEM。每小时只能发送 2 次，每天最多发送 3 次。）
-     * 该功能开发环境下可免费使用。生产环境下，您需要登录开发者后台，在“应用/IM 服务/高级功能设置”中开通公有云专业版后，在“广播消息和推送”中，开启后才能使用
+     * Sends a broadcast message to all registered users of an application. If users are offline, Push notifications will be sent to those who meet the conditions (e.g., bound to a mobile device). The maximum size of a single message is 128k, and the conversation type is SYSTEM. This method can be called up to 2 times per hour and 3 times per day.
+     * This feature is available for free in the development environment. In the production environment, you need to log in to the developer Console, enable the public cloud professional edition under "Application/IM Service/Advanced Features," and then activate it under "Broadcast Messages and Push Notifications" to use this feature.
      *
-     * @param message 消息体
+     * @param message The message body
      * @return ResponseResult
      * @throws Exception
      **/
@@ -320,12 +320,12 @@ public class MsgSystem {
     }
 
     /**
-     * 在线用户广播
-     * 是指系统向 App 中所有在线用户发送消息的行为。当用户正在使用 App 时，消息会展示在聊天界面和会话列表界面，会话类型为 SYSTEM。
-     * 系统通知消息，只能通过 Server API 进行发送，终端用户收到系统消息后，不支持消息回复功能。
-     * 在线广播消息使用的是服务端通知 SDK 拉取机制实现，发送消息后极端情况下用户 5 分钟内可收到此条消息。
+     * Broadcast to online users
+     * This refers to the action of sending a message to all online users in the App. When users are actively using the App, the message will be displayed in the chat UI and conversation list, with the conversation type set to SYSTEM.
+     * System notification messages can only be sent via the Server API. End users who receive system messages cannot reply to them.
+     * The online broadcast message is implemented using the server-side notification SDK pull mechanism. In extreme cases, users may receive the message within 5 minutes after it is sent.
      *
-     * @param message 消息体
+     * @param message The message body
      * @return ResponseResult
      * @throws Exception
      **/
@@ -370,7 +370,7 @@ public class MsgSystem {
 
 
     /**
-     * 全量落地通知撤回
+     * Recall a broadcast message with Message-bearing Notification
      *
      * @param message
      * @return ResponseResult
@@ -424,9 +424,9 @@ public class MsgSystem {
     }
 
     /**
-     *  不落地通知
-     *  向应用中指定用户发送不落地通知，不落地通知无论用户是否正在使用 App，都会向该用户发送通知，
-     *  通知只会展示在通知栏，通知中不携带消息内容，登录 App 后不会在聊天页面看到该内容，不会存储到本地数据库。
+     *  Push-only Notification
+     *  Sends a push-only notification to specified users in the application. This notification will be sent regardless of whether the user is actively using the app.
+     *  The notification will only be displayed in the notification bar and will not contain any message content. After logging into the app, the user will not see this content in the chat UI, and it will not be stored in the local database.
      */
     public ResponseResult sendUser(PushUserMessage pushUser) throws Exception {
         String code = CommonUtil.checkFiled(pushUser, PATH, CheckMethod.SEND_USER);

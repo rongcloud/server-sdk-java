@@ -3,12 +3,12 @@ package io.rong.models.response;
 import io.rong.util.GsonUtil;
 
 /**
- * push 返回结果
+ * Push notification response result.
  */
 public class BroadcastResult extends ResponseResult {
 
     /**
-     * 广播消息ID。
+     * The Message UID of the broadcast message.
      */
     private String messageUID;
 

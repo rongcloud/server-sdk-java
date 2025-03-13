@@ -3,7 +3,7 @@ package io.rong.messages;
 import io.rong.util.GsonUtil;
 
 /**
- * 高清语音消息
+ * High-quality voice message
  */
 public class HQVoiceMessage extends BaseMessage {
     private String localPath = "";
@@ -34,7 +34,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * 获取采用 AAC 格式进行编码录制的媒体内容本地路径。
+     * Gets the local path of the media content encoded in AAC format.
      *
      * @return String
      */
@@ -43,7 +43,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * @param localPath 设置采用 AAC 格式进行编码录制的媒体内容本地路径。
+     * Sets the local path of the media content encoded in AAC format.
      *
      */
     public void setLocalPath(String localPath) {
@@ -52,7 +52,7 @@ public class HQVoiceMessage extends BaseMessage {
 
 
     /**
-     * 获取媒体内容上传服务器后的网络地址，IMKit 中上传成功后 SDK 会为该属性赋值。
+     * Gets the remote URL of the media content after it is uploaded to the server. The SDK will assign a value to this property after a successful upload in IMKit.
      *
      * @return String
      */
@@ -61,7 +61,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * @param remoteUrl 设置媒体内容上传服务器后的网络地址，IMKit 中上传成功后 SDK 会为该属性赋值。
+     * Sets the remote URL of the media content after it is uploaded to the server. The SDK will assign a value to this property after a successful upload in IMKit.
      *
      */
     public void setRemoteUrl(String remoteUrl) {
@@ -69,7 +69,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * 获取为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+     * Gets the extra information (if needed, developers can parse it on the App side).
      *
      * @return String
      */
@@ -78,7 +78,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * @param extra 设置为附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+     * Sets the extra information (if needed, developers can parse it on the App side).
      *
      *
      */
@@ -87,7 +87,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * 获取持续时间。
+     * Gets the duration.
      *
      * @return Long
      */
@@ -96,7 +96,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * @param duration 设置持续时间。
+     * Sets the duration.
      *
      *
      */
@@ -105,7 +105,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+     * Retrieves the user information carried in the message (the chat UI in IMKit SDK prioritizes displaying the user information carried in the message).
      *
      * @return UserInfo
      */
@@ -114,7 +114,7 @@ public class HQVoiceMessage extends BaseMessage {
     }
 
     /**
-     * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+     * @param user The user information carried in the message (the chat UI in IMKit SDK prioritizes displaying the user information carried in the message).
      */
     public void setUser(UserInfo user) {
         this.user = user;

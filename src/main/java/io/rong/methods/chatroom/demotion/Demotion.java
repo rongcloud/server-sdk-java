@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- * 聊天室优先级服务
+ * Chatroom priority service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -35,9 +35,9 @@ public class Demotion {
 
     }
     /**
-     * 添加应用内聊天室降级消息
+     * Add in-app chatroom demotion messages
      *
-     * @param  objectName:消息类型，每次最多提交 5 个，设置的消息类型最多不超过 20 个。（必传）
+     * @param  objectName: Message type, up to 5 types can be submitted at a time, with a maximum of 20 types allowed. (Required)
      *
      * @return ResponseResult
      **/
@@ -66,9 +66,9 @@ public class Demotion {
     }
 
     /**
-     * 移除应用内聊天室降级消息
+     * Remove downgraded messages from in-app chatrooms
      *
-     * @param  objectNames:要销毁消息类型表。（必传）
+     * @param  objectNames: List of message types to be destroyed. (Required)
      *
      * @return ResponseResult
      **/
@@ -96,7 +96,7 @@ public class Demotion {
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
     /**
-     * 获取应用内聊天室降级消息
+     * Get downgraded messages from in-app chatrooms
      *
      *
      * @return ResponseResult

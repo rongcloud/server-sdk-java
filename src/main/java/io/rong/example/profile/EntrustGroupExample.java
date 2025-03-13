@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 群托管服务
+ * Group Information Hosting Service
  * <p>
- * API 文档: https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
+ * API Documentation: https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  *
  * @author RongCloud
  * @version 3.6.0
@@ -20,104 +20,104 @@ import java.util.Map;
 public class EntrustGroupExample {
 
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      */
     private static final String APP_KEY = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      */
     private static final String APP_SECRET = "appSecret";
 
     /**
-     * 初始化
+     * Initialization
      */
     private static EntrustGroup entrustGroup = RongCloud.getInstance(APP_KEY, APP_SECRET, CenterEnum.BJ).entrustGroup;
 
 
     /**
-     * 本地调用测试
+     * Local Test
      *
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
 
-        // 创建托管群组
+        // Create a Hosted Group
         createExample();
 
-        // 托管群组资料设置
+        // Update Hosted Group Information
         updateExample();
 
-         //托管群组资料查询
+
+        // Query group profiles
         queryProfilesExample();
 
-        // 退出群组
+        // Exit a group
         quitExample();
 
-        // 踢出群组
+        // Kick out a member from a group
         kickOutExample();
 
-        // 将用户踢出所有群组
+        // Kick out a user from all groups
         kickOutAllGroupExample();
 
-        // 解散群组
+        // Dismiss a group
         dismissExample();
 
-
-        // 加入群组
+        // Join a group
         joinExample();
 
-        // 群主转移
+        // Transfer group ownership
         transferOwnerExample();
 
-        // 导入托管群组
+        // Import hosted groups
         importGroupExample();
 
-        // 设置群管理员
+        // Set group administrators
         setManagersExample();
-        // 移除群管理员
+
+        // Remove group administrators
         removeManagersExample();
 
-        // 分页查询群成员
+        // Paginate group members
         pagingQueryMembersExample();
 
-        // 查询指定群成员
+        // Query specific group members
         queryMembersByUserIdsExample();
 
-
-        // 设置群成员信息
+        // Set group member information
         setMemberInfoExample();
 
-        //设置群备注名
+        // Set group alias
         setGroupRemarkName();
 
-        //删除群备注名
+        // Delete group alias
         delGroupRemarkName();
 
-        //设置群备注名
+        // Query group alias
         queryGroupRemarkName();
 
-        // 关注群成员
+        // Follow group members
         followMemberExample();
 
 
-        // 取消关注群成员
+// Unfollow a group member
         unfollowMemberExample();
 
-        // 查询关注群成员
+// Query followed group members
         getFollowedMemberExample();
 
 
-        //分页查询群组信息
+// Paginate query group information
         pagingQueryGroupsExample();
 
-        //分页查询加入群组资料
+// Paginate query joined group information
         pagingQueryJoinedGroupsExample();
     }
 
 
     /**
-     * 分页查询加入群组资料
+     * Paginate query joined group information
      */
     private static void pagingQueryJoinedGroupsExample() throws Exception {
         QueryJoinedGroupsModel pageModel = new QueryJoinedGroupsModel();
@@ -132,7 +132,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 分页查询群组信息
+     * Paginate query group information
      */
     private static void pagingQueryGroupsExample() throws Exception {
         PageModel pageModel = new PageModel();
@@ -144,7 +144,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 关注群成员
+     * Follow a group member
      */
     private static void followMemberExample() throws Exception {
         ResponseResult result = entrustGroup.followMember("gid", "uid1", "uid2", "uid3");
@@ -153,7 +153,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 取消关注群成员
+     * Unfollow group members
      */
     private static void unfollowMemberExample() throws Exception {
         ResponseResult result = entrustGroup.unfollowMember("gid1", "uid1", "uid2", "uid3");
@@ -161,7 +161,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 获取关注群成员
+     * Get followed group members
      */
     private static void getFollowedMemberExample() throws Exception {
         FollowedMemberResult result = entrustGroup.getFollowedMember("gid", "uid1");
@@ -170,7 +170,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 查询群备注名
+     * Query group alias
      */
     private static void queryGroupRemarkName() throws Exception {
         RemarkNameResult result = entrustGroup.queryRemarkName("gid", "uid1");
@@ -178,7 +178,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 删除群备注名
+     * Delete group alias
      */
     private static void delGroupRemarkName() throws Exception {
         ResponseResult result = entrustGroup.delRemarkName("gid", "uid1");
@@ -186,7 +186,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 设置群备注名
+     * Set group alias
      */
     private static void setGroupRemarkName() throws Exception {
         GroupRemarkNameModel remarkNameModel = new GroupRemarkNameModel();
@@ -199,7 +199,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 设置群成员信息
+     * Set group member information
      */
     private static void setMemberInfoExample() throws Exception {
         MemberInfoModel memberInfoModel = new MemberInfoModel();
@@ -212,7 +212,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 查询群管理员
+     * Query group administrators
      */
     private static void queryMembersByUserIdsExample() throws Exception {
         QueryMembersResult result = entrustGroup.queryMembersByUserIds("gid", "uid1", "uid2");
@@ -221,7 +221,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 分页查询群成员
+     * Paginate query group members
      */
     private static void pagingQueryMembersExample() throws Exception {
         PagingQueryMembersModel pagingQueryMembersModel = new PagingQueryMembersModel();
@@ -236,7 +236,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 设置群管理员
+     * Set group administrators
      */
     private static void setManagersExample() throws Exception {
         SetManagersResult result = entrustGroup.addManagers("gid1", "uid1", "uid2");
@@ -245,7 +245,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 移除群管理员
+     * Remove group administrators
      */
     private static void removeManagersExample() throws Exception {
         ResponseResult result = entrustGroup.removeManagers("gid1", "uid1", "uid2", "uid2", "uid0");
@@ -253,7 +253,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 导入托管群组
+     * Import a hosted group
      */
     private static void importGroupExample() throws Exception {
         ImportEntrustGroupModel groupModel = new ImportEntrustGroupModel();
@@ -281,7 +281,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 转让群组
+     * Transfer group ownership
      */
     private static void transferOwnerExample() throws Exception {
         ResponseResult result = entrustGroup.transferOwner(new TransferOwnerModel()
@@ -297,7 +297,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 加入群组
+     * Join a group
      */
     private static void joinExample() throws Exception {
         JoinGroupResult result = entrustGroup.join("gid1", "uid1", "uid2");
@@ -306,7 +306,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 解散群组
+     * Dismiss a group
      */
     private static void dismissExample() throws Exception {
         ResponseResult result = entrustGroup.dismiss("gid1");
@@ -314,7 +314,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 指定用户踢出所有群组
+     * Kick a user out of all groups
      */
     private static void kickOutAllGroupExample() throws Exception {
         ResponseResult result = entrustGroup.kickOutAllGroups("uid1");
@@ -322,7 +322,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 踢出群组
+     * Kick users out of a group
      */
     private static void kickOutExample() throws Exception {
         KickOutEntrustGroupModel params = new KickOutEntrustGroupModel();
@@ -336,7 +336,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 退出群组
+     * Quit a group
      */
     private static void quitExample() throws Exception {
         QuitEntrustGroupModel params = new QuitEntrustGroupModel()
@@ -351,7 +351,7 @@ public class EntrustGroupExample {
 
 
     /**
-     * 托管群组资料查询
+     * Query Hosted Group Profiles
      */
     private static void queryProfilesExample() throws Exception {
         QueryGroupProfilesResult result = entrustGroup.queryProfiles("group1", "group2");
@@ -359,7 +359,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 创建托管群组
+     * Create a Hosted Group
      */
     private static void createExample() throws Exception {
         CreateEntrustGroupModel groupModel = new CreateEntrustGroupModel();
@@ -387,7 +387,7 @@ public class EntrustGroupExample {
     }
 
     /**
-     * 托管群组资料设置
+     * Update Hosted Group Profiles
      */
     private static void updateExample() throws Exception {
         EntrustGroupModel groupModel = new EntrustGroupModel();

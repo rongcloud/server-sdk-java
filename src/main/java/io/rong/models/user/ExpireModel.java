@@ -5,12 +5,12 @@ import io.rong.util.GsonUtil;
 public class ExpireModel {
 
     /**
-     * 需要设置 Token 失效的用户 ID，支持设置多个最多不超过 20 个。
+     * The user IDs for which the Token needs to be invalidated. Supports up to 20 user IDs.
      */
-    private String[]  userId;
+    private String[] userId;
 
     /**
-     * 过期时间戳精确到毫秒，该时间戳前用户获取的 Token 全部失效，使用时间戳之前的 Token 已经在连接中的用户不会立即失效，断开后无法进行连接。
+     * The expiration timestamp in milliseconds. Tokens obtained before this timestamp will be invalidated. Users already connected with a Token obtained before this timestamp will not be immediately disconnected but will be unable to reconnect after disconnection.
      */
     private long time;
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 
 /**
- * 推送plus标签推送
+ * Push Plus tag-based push notification
  *
  * @author lang
  */

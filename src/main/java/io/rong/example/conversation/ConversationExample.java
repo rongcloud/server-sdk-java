@@ -3,34 +3,33 @@ package io.rong.example.conversation;
 import io.rong.CenterEnum;
 import io.rong.RongCloud;
 import io.rong.methods.conversation.Conversation;
+import io.rong.models.conversation.ConversationModel;
 import io.rong.models.conversation.ConversationSetTopModel;
 import io.rong.models.response.ConversationNotificationResult;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.conversation.ConversationModel;
-import io.rong.util.CodeUtil;
 import io.rong.util.CodeUtil.ConversationType;
 
 /**
  *
- * 绘话示例
+ * Conversation Example
  * @author RongCloud
  *
  * @version 3.0.0
  */
 public class ConversationExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      * */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      * */
     private static final String appSecret = "appSercet";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api 地址方式
+        // Custom API URL
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Conversation Conversation = rongCloud.conversation;
@@ -41,8 +40,8 @@ public class ConversationExample {
                 .setTargetId("2iXiqVWUAWwaKA55FuZvY31");
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 设置消息免打扰
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Set Conversation Do Not Disturb
          *
          */
         ResponseResult muteConversationResult = Conversation.mute(conversation);
@@ -51,8 +50,8 @@ public class ConversationExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 解除消息免打扰
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Disable Conversation Do Not Disturb
          *
          * */
         ResponseResult unMuteConversationResult = Conversation.unMute(conversation);
@@ -60,8 +59,8 @@ public class ConversationExample {
         System.out.println("unMuteConversationResult:  " + unMuteConversationResult.toString());
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 获取消息免打扰
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Get Conversation Do Not Disturb Status
          *
          * */
         ConversationNotificationResult getMuteConversationResult = (ConversationNotificationResult)Conversation.get(conversation);
@@ -71,7 +70,7 @@ public class ConversationExample {
 
 
         /**
-         * API Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * Set conversation top.
          */
         ConversationSetTopModel setTopModel = new ConversationSetTopModel()

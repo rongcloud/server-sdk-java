@@ -6,7 +6,7 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * getuserRemark 返回结果
+ * Response result for getuserRemark
  */
 public class GetUserRemarksResult extends Result {
 

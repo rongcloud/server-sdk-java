@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * 属性校验公共服务
+ * Common utility for attribute validation
  *
  * @author RongCloud
  */
@@ -48,7 +48,7 @@ public class CommonUtil {
                 }
             }
         } catch (Exception e) {
-            System.out.println("长度校验错误" + e);
+            System.out.println("Length validation error" + e);
         }
         return false;
     }
@@ -58,11 +58,11 @@ public class CommonUtil {
     }
 
     /**
-     * 参数校验方法
+     * Parameter validation method
      *
-     * @param model  校验对象
-     * @param path   路径
-     * @param method 需要校验方法
+     * @param model  The object to be validated
+     * @param path   The path
+     * @param method The method to be validated
      * @return String
      **/
     public static String checkFiled(Object model, String path, String method, boolean checkMin) {
@@ -70,7 +70,7 @@ public class CommonUtil {
             String code = "200";
             Integer max = 64;
             Integer min = 1;
-            //api.json 的路径
+            // Path of api.json
             String apiPath = path;
             String type = "";
             if (path.contains("/")) {
@@ -78,7 +78,7 @@ public class CommonUtil {
             }
             String[] fileds = {};
             String checkObjectKey = "";
-            //获取需要校验的参数
+            // Get the parameters to be validated
             Map<String, String[]> checkInfo = getCheckInfo(apiPath, method);
             for (Map.Entry<String, String[]> entry : checkInfo.entrySet()) {
                 fileds = entry.getValue();
@@ -88,20 +88,20 @@ public class CommonUtil {
                 return (String) CommonUtil
                         .getErrorMessage(apiPath, method, "20005", "object", String.valueOf(max), "1", type, 0);
             }
-            //获取校验文件
+            // Get the validation file
             JSONObject verify = JsonUtil.getJsonObject(path, VERIFY_JSON_NAME);
-            //获取校验key
+            // Get the validation keys
             Set<String> keys = verify.getJSONObject(checkObjectKey).keySet();
-            //获取具体校验规则
+            // Get specific validation rules
             JSONObject entity = verify.getJSONObject(checkObjectKey);
             int size = 0;
             for (String name : fileds) {
                 for (String key : keys) {
                     if (name.equals(key)) {
                         String nameTemp = name.substring(0, 1).toUpperCase() + name.substring(1);
-                        //获取属性的类型
+                        // Get the type of the property
                         Method m = model.getClass().getMethod("get" + nameTemp);
-                        //获取字段的具体校验规则
+                        // Get the specific validation rules for the field
                         JSONObject object = entity.getJSONObject(name);
                         if (object.containsKey("require")) {
                             if (m.invoke(model) instanceof String) {
@@ -176,7 +176,7 @@ public class CommonUtil {
                             }
                         }
                         if (!"200".equals(code)) {
-                            //根据错误吗获取错误信息
+                            // Retrieve error message based on error code
                             return (String) CommonUtil
                                     .getErrorMessage(apiPath, method, code, name, String.valueOf(max), String.valueOf(min), type, size);
                         }
@@ -195,12 +195,15 @@ public class CommonUtil {
     }
 
     /**
-     * 参数校验
+     * Parameter validation
      *
-     * @param checkFiled 需要校验的字段
-     * @param value      传入参数值
-     * @param path       路径 （获取校验文件路径）
-     * @param method     需要校验方法
+     * @param checkFiled The field to be validated
+
+
+    /**
+     * @param value      The value to be checked
+     * @param path       The path to the validation file
+     * @param method     The method to be validated
      * @return String
      **/
     public static String checkParam(String checkFiled, Object value, String path, String method, boolean checkMin) {
@@ -214,7 +217,7 @@ public class CommonUtil {
                 path = path.substring(0, path.indexOf("/"));
             }
             String checkObject = "";
-            //获取需要校验的key
+            // Get the key to be checked
             Map<String, String[]> checkInfo = getCheckInfo(apiPath, method);
             for (Map.Entry<String, String[]> entry : checkInfo.entrySet()) {
                 checkObject = entry.getKey();
@@ -319,15 +322,15 @@ public class CommonUtil {
     }
 
     /**
-     * 获取错误信息
+     * Retrieves error message
      *
-     * @param path      路径 （获取校验文件路径）
-     * @param method    校验方法（需要校验的方法）
-     * @param errorCode 错误码
-     * @param name      具体字段名
-     * @param max       字段需要的最大值
-     * @param min       字段的最小值
-     * @param type      类型
+     * @param path      Path (to get the validation file path)
+     * @param method    Validation method (method to be validated)
+     * @param errorCode Error code
+     * @param name      Specific field name
+     * @param max       Maximum value required for the field
+     * @param min       Minimum value for the field
+     * @param type      Type
      * @return Map
      **/
     public static Object getErrorMessage(String path, String method, String errorCode, String name, String max,
@@ -352,10 +355,10 @@ public class CommonUtil {
     }
 
     /**
-     * 获取校验信息
+     * Get validation information
      *
-     * @param path   路径 （获取校验文件路径）
-     * @param method 校验方法（需要校验的方法）
+     * @param path   Path (Path to the validation file)
+     * @param method Validation method (Method to be validated)
      * @return Map
      **/
     public static Map<String, String[]> getCheckInfo(String path, String method) {
@@ -385,11 +388,11 @@ public class CommonUtil {
     }
 
     /**
-     * 获取response信息
+     * Get response information
      *
-     * @param path     路径 （获取校验文件路径）
-     * @param method   校验方法（需要校验的方法）
-     * @param response 返回信息
+     * @param path     Path (Path to the validation file)
+     * @param method   Validation method (Method to be validated)
+     * @param response Response information
      * @return String
      **/
     public static String getResponseByCode(String path, String method, String response) {
@@ -475,7 +478,7 @@ public class CommonUtil {
                 }
                 if (path.contains("chatroom")) {
                     text = StringUtils.replace(text, "users", "members");
-                    //对于 聊天室保活成功返回的code是0 更改统一返回200
+                    // For successful chatroom keepalive, the returned code is 0. Change it to 200 for consistency.
                     if (path.contains("keepalive") && "0".equals(code)) {
                         text = StringUtils.replace(text, "chatroomIds", "chatrooms");
                         text = StringUtils.replace(text, "0", "200");

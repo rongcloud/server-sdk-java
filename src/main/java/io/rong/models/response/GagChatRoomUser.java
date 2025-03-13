@@ -3,13 +3,13 @@ package io.rong.models.response;
 import io.rong.util.GsonUtil;
 
 /**
- * 聊天室被禁言用户信息。
+ * Information about a muted user in a chatroom.
  * @author RongCloud
  */
 public class GagChatRoomUser {
-	// 解禁时间。
+	// The unmute time.
 	String time;
-	// 被封禁用户 Id。
+	// The ID of the muted user.
 	String userId;
 	
 	public GagChatRoomUser(String time, String userId) {
@@ -18,7 +18,7 @@ public class GagChatRoomUser {
 	}
 	
 	/**
-	 * 设置time
+	 * Set the unmute time.
 	 *
 	 */	
 	public GagChatRoomUser setTime(String time) {
@@ -27,7 +27,7 @@ public class GagChatRoomUser {
 	}
 	
 	/**
-	 * 获取time
+	 * Get the unmute time.
 	 *
 	 * @return String
 	 */
@@ -36,7 +36,7 @@ public class GagChatRoomUser {
 	}
 	
 	/**
-	 * 设置userId
+	 * Set the user ID.
 	 *
 	 */	
 	public GagChatRoomUser setUserId(String userId) {
@@ -45,14 +45,14 @@ public class GagChatRoomUser {
 	}
 	
 	/**
-	 * 获取userId
+	 * Get the user ID.
 	 *
 	 * @return String
 	 */
 	public String getUserId() {
 		return userId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return GsonUtil.toJson(this, GagChatRoomUser.class);

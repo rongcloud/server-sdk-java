@@ -3,33 +3,33 @@ package io.rong.models.response;
 import io.rong.util.GsonUtil;
 
 /**
- * 群组管理员
+ * Group Administrator
  *
  * @author RongCloud
  */
 public class GroupManger {
     /**
-     * 用户ID
+     * User ID
      */
     private String userId;
     /**
-     * 用户头像
+     * User avatar
      */
     private String portraitUri;
     /**
-     * 用户名称
+     * User name
      */
     private String name;
     /**
-     * 群昵称：默认未设置时为用户名称
+     * Group alias: defaults to the user name if not set
      */
     private String remarkName;
     /**
-     * 成为管理员时间
+     * Time when the user became an administrator
      */
     private Long time;
     /**
-     * 成员附加信息
+     * Additional member information
      */
     private String extra;
 

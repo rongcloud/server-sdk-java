@@ -4,40 +4,40 @@ import io.rong.util.GsonUtil;
 import java.util.HashMap;
 
 /**
- * 聊天室实体 - v2
+ * Chatroom entity - v2
  *
  * @author RongCloud
  */
 public class ChatroomDataModel {
 
     /**
-     * 聊天室 id。
+     * The ID of the chatroom.
      */
     String id;
     /**
-     * 指定聊天室的销毁类型。
+     * Specifies the destruction type of the chatroom.
      */
     Integer destroyType;
     /**
-     * 设置聊天室销毁时间。
+     * Sets the destruction time of the chatroom.
      */
     Integer destroyTime;
     /**
-     * 是否禁言聊天室全体成员。
+     * Indicates whether all members of the chatroom are muted.
      */
     Boolean isBan;
     /**
-     * 聊天室成员。
+     * Members of the chatroom.
      */
     String[] whiteUserIds;
 
     /**
-     * 聊天室自定义属性的所属用户 ID。
+     * The user ID to which the chatroom custom attributes belong.
      */
     String entryOwnerId;
 
     /**
-     * 聊天室自定义属性 KV 对
+     * Key-value pairs of chatroom custom attributes.
      */
     HashMap<String, String> entryInfo;
 
@@ -46,7 +46,7 @@ public class ChatroomDataModel {
     }
 
     /**
-     * 聊天室构造函数 全量
+     * Full constructor for the chatroom.
      */
     public ChatroomDataModel(String id, Integer destroyType, Integer destroyTime, Boolean isBan, String[] whiteUserIds,
       String entryOwnerId, HashMap<String, String> entryInfo) {

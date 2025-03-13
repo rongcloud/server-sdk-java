@@ -4,33 +4,33 @@ import io.rong.util.GsonUtil;
 
 /**
  *
- * GIF 图片消息。
+ * GIF message.
  *
  */
 public class GifMessage extends BaseMessage {
 
 	/**
-	* 下载 GIF 图片后存储在本地的图片地址。
+	* The local path where the GIF image is stored after downloading.
 	* */
 	private String localPath = "";
 
 	/**
-	 * GIF 图片的服务器地址。
+	 * The server URL of the GIF image.
 	 */
 	private String remoteUrl = "";
 
 	/**
-	 * GIF 图片文件大小，单位为字节 Byte。
+	 * The file size of the GIF image in bytes.
 	 */
 	private Integer gifDataSize = 0;
 
 	/**
-	 * GIF 图片高度。
+	 * The height of the GIF image.
 	 */
 	private Integer height = 0;
 
 	/**
-	 * GIF 图片宽度。
+	 * The width of the GIF image.
 	 */
 	private Integer width = 0;
 	private UserInfo user = null;
@@ -96,16 +96,14 @@ public class GifMessage extends BaseMessage {
 	}
 
 	/**
-	 * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
-	 *
-	 * @return UserInfo
+	 * Retrieves the user information carried in the message (The chat UI in the IMKit SDK prioritizes displaying the user information carried in the message).
 	 */
 	public UserInfo getUser() {
 		return user;
 	}
 
 	/**
-	 * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+	 * @param user User information carried in the message (The chat UI in IMKit SDK prioritizes displaying the user information carried in the message).
 	 */
 	public void setUser(UserInfo user) {
 		this.user = user;

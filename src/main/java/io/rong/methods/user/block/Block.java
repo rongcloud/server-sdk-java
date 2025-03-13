@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 用户封禁服务
+ * User Block Service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Block {
@@ -40,9 +40,9 @@ public class Block {
     }
 
     /**
-     * 封禁用户方法
+     * Block a user
      *
-     * @param user :用户信息 Id，minute（必传）
+     * @param user : User information including Id and minute (required)
      * @return Result
      **/
     public Result add(UserModel user) throws Exception {
@@ -68,13 +68,13 @@ public class Block {
     }
 
     /**
-     * 解除用户封禁方法
+     * Unban a user
      *
-     * @param userId:用户 Id。（必传）
+     * @param userId: User ID (required)
      * @return ResponseResult
      **/
     public ResponseResult remove(String userId) throws Exception {
-        //参数校验
+        // Parameter validation
         String message = CommonUtil.checkParam("id", userId, PATH, CheckMethod.REMOVE);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
@@ -95,7 +95,7 @@ public class Block {
     }
 
     /**
-     * 获取被封禁用户方法
+     * Get the list of banned users
      *
      * @return QueryBlockUserResult
      **/
@@ -104,10 +104,10 @@ public class Block {
     }
 
     /**
-     * 获取被封禁用户方法
+     * Retrieves the list of banned users with pagination.
      *
-     * @param size:分页获取封禁用户列表时每页行数，不传时默认为 50 条。（非必传）
-     * @param page:分页获取封禁用户列表时当前页数。（非必传）
+     * @param size: The number of banned users per page when paginating. Defaults to 50 if not provided. (Optional)
+     * @param page: The current page number when paginating the list of banned users. (Optional)
      * @return QueryBlockUserResult
      **/
     public Result getList(Integer size, Integer page) throws Exception {

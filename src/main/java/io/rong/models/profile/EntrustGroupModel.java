@@ -8,15 +8,15 @@ import java.util.Map;
 public class EntrustGroupModel {
 
     /**
-     * 群组 ID
+     * Group ID
      */
     private String groupId;
     /**
-     * 群组名称
+     * Group name
      */
     private String name;
     /**
-     * 群主 ID
+     * Group Owner ID
      */
     private String owner;
 

@@ -5,35 +5,35 @@ package io.rong.models.conversation;
  */
 public class ConversationModel {
     /**
-     * 会话类型。支持的会话类型包括：1（二人会话）、3（群组会话）、6（系统会话）、10（超级群会话）。
+     * Conversation type. Supported conversation types include: 1 (one-to-one chat), 3 (group chat), 6 (system conversation), 10 (ultra group chat).
      */
     public String type;
 
     /**
-     * 设置消息免打扰的用户 ID。
+     * User ID for setting message Do Not Disturb.
      */
     public String userId;
 
     /**
-     * 目标 ID，根据不同的会话类型（ConversationType），可能是用户 ID、群组 ID、超级群 ID 等。
+     * Target ID, which can be a user ID, group ID, ultra group ID, etc., depending on the conversation type (ConversationType).
      */
     public String targetId;
     /**
-     * 超级群的会话频道 ID。
-     * 如果传入频道 ID，则针对该指定频道设置消息免打扰级别。
-     * 注意：2022.09.01 之前开通超级群业务的客户，如果不指定频道 ID，则默认传 “” 空字符串，即仅针对指定超级群会话（targetId）中不属于任何频道的消息设置免打扰状态级别。如需修改请提交工单。
+     * Conversation channel ID for ultra group.
+     * If a channel ID is provided, the Do Not Disturb level will be set for the specified channel.
+     * Note: For customers who enabled ultra group services before 2022.09.01, if no channel ID is specified, an empty string "" is passed by default, meaning the Do Not Disturb level will only be set for messages in the specified ultra group conversation (targetId) that do not belong to any channel. To modify this, please submit a ticket.
      */
     public String busChannel;
 
     /**
-     * -1： 全部消息通知
-     * 0： 未设置（用户未设置情况下，默认以群 或者 APP级别的默认设置为准，如未设置则全部消息都通知）
-     * 1： 仅针对 @ 消息进行通知
-     * 2： 仅针对 @ 指定用户进行通知
-     * 如：@张三 则张三可以收到推送，@所有人 时不会收到推送。
-     * 4： 仅针对 @ 群全员进行通知，只接收 @所有人 的推送信息。
-     * 5： 不接收通知
-     * 注意：IMKit 5.2.1 及之前版本不支持 -1、2、4、5，具体表现为 -1、2、4 无法弹出本地通知，5 不生效。推荐 IMKit 用户升级到 5.2.2 及之后版本。
+     * -1: Notify for all messages
+     * 0: Not set (if the user has not set this, it defaults to the group or APP-level default settings. If not set, all messages will be notified)
+     * 1: Notify only for @ messages
+     * 2: Notify only for @ messages targeting specific users
+     * Example: @ZhangSan will notify Zhang San, but @All will not trigger a notification.
+     * 4: Notify only for @ messages targeting all group members, i.e., only receive notifications for @All.
+     * 5: Do not receive notifications
+     * Note: IMKit versions 5.2.1 and earlier do not support -1, 2, 4, and 5. Specifically, -1, 2, and 4 will not trigger local notifications, and 5 will not take effect. It is recommended that IMKit users upgrade to version 5.2.2 or later.
      */
     public int unpushLevel;
 
@@ -41,11 +41,11 @@ public class ConversationModel {
     }
 
     /**
-     * 构造函数。
+     * Constructor.
      *
-     * @param type:会话类型。
-     * @param userId:设置消息免打扰的用户 Id
-     * @param targetId:目标Id
+     * @param type: Conversation type.
+     * @param userId: User ID for setting message Do Not Disturb.
+     * @param targetId: Target ID.
      *
      **/
     public ConversationModel(String type, String userId, String targetId) {

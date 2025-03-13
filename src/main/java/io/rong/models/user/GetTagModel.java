@@ -3,13 +3,13 @@ package io.rong.models.user;
 import io.rong.util.GsonUtil;
 
 /**
- * 批量用户标签信息
+ * Batch user tag information
  *
  */
 public class GetTagModel {
 
     /**
-     *  用户 Id，一次最多支持 50 个用户。（必传）
+     * User IDs, supports up to 50 users at a time. (Required)
      */
     private String[] userIds;
 

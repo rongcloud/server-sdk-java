@@ -8,7 +8,7 @@ import io.rong.models.response.*;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 托管群组服务
+ * Group Information Hosting Service
  * docs https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  */
 public class EntrustGroup extends BaseMethod {
@@ -28,7 +28,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 创建托管群组
+     * Create a hosted group
      **/
     public ResponseResult create(CreateEntrustGroupModel group) throws Exception {
         String method = CheckMethod.CREATE;
@@ -52,7 +52,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 更新托管群组
+     * Update hosted group information
      */
     public ResponseResult updateProfile(EntrustGroupModel group) throws Exception {
         String method = CheckMethod.UPDATE;
@@ -75,7 +75,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 获取托管群组资料
+     * Retrieve hosted group profiles
      */
     public QueryGroupProfilesResult queryProfiles(String... groupIds) throws Exception {
         String method = CheckMethod.QUERY_PROFILE;
@@ -112,7 +112,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 踢出群组
+     * Kick out group members
      */
     public ResponseResult kickOut(KickOutEntrustGroupModel params) throws Exception {
         String method = CheckMethod.KICK;
@@ -134,7 +134,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 指定用户踢出所有群组
+     * Kick out a user from all groups
      */
     public ResponseResult kickOutAllGroups(String userId) throws Exception {
         String method = CheckMethod.KICK_ALL;
@@ -153,7 +153,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 解散群组
+     * Dismiss a group
      */
     public ResponseResult dismiss(String groupId) throws Exception {
         String method = CheckMethod.DISMISS;
@@ -172,7 +172,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 加入群组
+     * Join a group
      */
     public JoinGroupResult join(String groupId, String... userIds) throws Exception {
         String method = CheckMethod.JOIN;
@@ -197,7 +197,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 转让群组
+     * Transfer group ownership
      */
     public ResponseResult transferOwner(TransferOwnerModel params) throws Exception {
         String method = CheckMethod.TRANS_OWNER;
@@ -222,7 +222,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 群组托管导入
+     * Group Information Hosting Import
      */
     public ResponseResult importGroup(ImportEntrustGroupModel group) throws Exception {
         String method = CheckMethod.IMPORT;
@@ -245,7 +245,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 设置群管理员
+     * Set Group Administrators
      */
     public SetManagersResult addManagers(String groupId, String... userIds) throws Exception {
         String method = CheckMethod.GROUP_MANAGER;
@@ -269,7 +269,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 移除群管理员
+     * Remove group administrators
      */
     public ResponseResult removeManagers(String groupId, String... userIds) throws Exception {
         String method = CheckMethod.GROUP_MANAGER;
@@ -295,7 +295,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 分页获取群成员信息
+     * Paginate and retrieve group member information
      */
     public PagingQueryMembersResult pagingQueryMembers(PagingQueryMembersModel pageQuery) throws Exception {
         String method = CheckMethod.PAGING_QUERY_MEMBERS;
@@ -318,7 +318,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 获取指定群成员信息
+     * Query specified group members' information
      */
     public QueryMembersResult queryMembersByUserIds(String groupId, String... userIds) throws Exception {
         String method = CheckMethod.QUERY_MEMBERS;
@@ -343,7 +343,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 设置群成员资料
+     * Set group member profile
      */
     public ResponseResult setMemberInfo(MemberInfoModel memberInfoModel) throws Exception {
         String method = CheckMethod.SET_MEMBER;
@@ -365,7 +365,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 设置群备注名
+     * Set group alias
      */
     public ResponseResult setRemarkName(GroupRemarkNameModel goupRemarkNameModel) throws Exception {
         String method = CheckMethod.SET_REMARK_NAME;
@@ -386,7 +386,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 删除群备注名
+     * Delete group alias
      */
     public ResponseResult delRemarkName(String groupId, String userId) throws Exception {
         String method = CheckMethod.DEL_REMARK_NAME;
@@ -410,7 +410,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 查询群备注名
+     * Query group alias
      */
     public RemarkNameResult queryRemarkName(String groupId, String userId) throws Exception {
         String method = CheckMethod.QUERY_REMARK_NAME;
@@ -434,7 +434,7 @@ public class EntrustGroup extends BaseMethod {
 
 
     /**
-     * 关注群成员
+     * Follow group member
      */
     public ResponseResult followMember(String groupId, String userId, String... followUserIds) throws Exception {
         String method = CheckMethod.FOLLOW;
@@ -463,7 +463,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 取消关注群成员
+     * Unfollow group members
      */
     public ResponseResult unfollowMember(String groupId, String userId, String... followUserIds) throws Exception {
         String method = CheckMethod.UNFOLLOW;
@@ -492,7 +492,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 获取关注群成员
+     * Get followed group members
      */
     public FollowedMemberResult getFollowedMember(String groupId, String userId) throws Exception {
         String method = CheckMethod.GET_FOLLOWED;
@@ -515,7 +515,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 分页查询应用下群组信息
+     * Paginate and query group information under the application
      */
     public PagingQueryGroupsResult pagingQueryGroups(PageModel pageModel) throws Exception {
         String method = CheckMethod.PAGING_QUERY_GROUPS;
@@ -536,7 +536,7 @@ public class EntrustGroup extends BaseMethod {
     }
 
     /**
-     * 分页查询用户加入的群组
+     * Paginate and query groups that the user has joined
      */
     public PagingQueryJoinedGroupsResult pagingQueryJoinedGroups(QueryJoinedGroupsModel pageModel) throws Exception {
         String method = CheckMethod.PAGING_QUERY_JOINED_GROUPS;

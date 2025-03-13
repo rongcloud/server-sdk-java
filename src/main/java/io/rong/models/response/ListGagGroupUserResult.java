@@ -5,11 +5,11 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- *  lisitGagGroupUser 返回结果
+ * The result of listing gag group users.
  */
-public class ListGagGroupUserResult extends Result{
-	// 群组被禁言用户列表。
-	List<GagGroupUser> members;
+public class ListGagGroupUserResult extends Result {
+    // List of muted users in the group.
+    List<GagGroupUser> members;
 
 	public ListGagGroupUserResult(Integer code, String msg, List<GagGroupUser> members) {
 		super(code, msg);
@@ -20,22 +20,22 @@ public class ListGagGroupUserResult extends Result{
 		this.members = members;
 	}
 
-	/**
-	 * 获取members
-	 *
-	 * @return List
-	 */
-	public List<GagGroupUser> getMembers() {
-		return this.members;
-	}
+    /**
+     * Get the list of muted users.
 
-	/**
-	 * 设置members
-	 *
-	 */
-	public void setMembers(List<GagGroupUser> members) {
-		this.members = members;
-	}
+     * @return List
+     */
+    public List<GagGroupUser> getMembers() {
+        return this.members;
+    }
+
+    /**
+     * Set the list of muted users.
+
+     */
+    public void setMembers(List<GagGroupUser> members) {
+        this.members = members;
+    }
 
 	@Override
 	public String toString() {

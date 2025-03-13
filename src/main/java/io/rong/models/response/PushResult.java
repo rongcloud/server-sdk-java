@@ -4,17 +4,17 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * push 返回结果
+ * Push notification result.
  */
 public class PushResult extends Result {
 
     /**
-     * 推送唯一标识。
+     * The unique identifier of the push notification.
      */
     private String id;
 
     /**
-     * 推送消息ID
+     * The message ID of the push notification.
      */
     private String messageUID;
 

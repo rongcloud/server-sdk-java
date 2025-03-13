@@ -7,34 +7,31 @@ import io.rong.models.chatroom.ChatroomDataModel;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.*;
-import java.io.Reader;
-import java.util.List;
 
 public class ChatroomExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        // Custom API URL
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
         Chatroom chatroom = rongCloud.chatroom;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 创建聊天室
-         *
-         * */
+         * Create a chatroom
+         */
         ChatroomModel[] chatrooms = {
                 new ChatroomModel().setId("chatroomId1").setName("chatroomName1"),
                 new ChatroomModel().setId("chatroomId2").setName("chatroomName2")
@@ -51,8 +48,8 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 销毁聊天室
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Destroy a chatroom
          *
          * */
         ChatroomModel chatroomModel = new ChatroomModel()
@@ -64,8 +61,8 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 查询聊天室成员demo
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Query chatroom members demo
          *
          * */
 
@@ -79,8 +76,8 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 查询聊天室成员是否存在
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Check if a chatroom member exists
          *
          * */
         ChatroomMember member = new ChatroomMember()
@@ -93,8 +90,8 @@ public class ChatroomExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 批量查询聊天室成员是否存在
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Batch check if chatroom members exist
          *
          * */
         ChatroomMember[] members = {

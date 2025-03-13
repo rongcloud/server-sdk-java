@@ -9,12 +9,12 @@ import io.rong.util.GsonUtil;
  */
 public class BanListResult extends Result {
     /**
-     * 用户列表
+     * User list
      */
     String[] users;
 
     /**
-     * 总数
+     * Total count
      */
     Integer total;
 
@@ -32,7 +32,7 @@ public class BanListResult extends Result {
     }
 
     /**
-     * 获取users
+     * Get users
      *
      * @return User[]
      */
@@ -40,7 +40,7 @@ public class BanListResult extends Result {
         return this.users;
     }
     /**
-     * 设置users
+     * Set users
      *
      */
     public void setUsers(String[] users) {

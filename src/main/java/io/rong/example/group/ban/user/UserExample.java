@@ -8,37 +8,34 @@ import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.ListGagGroupUserResult;
 /**
- *
- * 群组成员全部禁言例子
+ * Example of muting all members in a group
  * @author RongCloud
- *
  * @version 3.0.0
  */
 public class UserExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
     /**
-     * 本地调用测试
-     *
+     * Local test execution
      *
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api 地址方式
+        // Custom API endpoint
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Group group = rongCloud.group;
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 设置用户在加入的所有群组中都不能发送消息
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Mute a user in all groups they have joined
          */
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
@@ -50,17 +47,17 @@ public class UserExample {
         System.out.println("group.ban.add:  " + result.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 获取所有群组禁言用户列表
-         */
+        * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+        * Get the list of muted users in all groups
+        */
         groupModel = new GroupModel()
                 .setMembers(members);
         ListGagGroupUserResult GroupBanResult = (ListGagGroupUserResult) group.ban.user.getList();
         System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 移除用户在所有群组中的禁言设置
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Remove the mute settings for a user in all groups
          */
         groupModel = new GroupModel()
                 .setMembers(members);

@@ -3,12 +3,12 @@ package io.rong.models.response;
 import io.rong.util.GsonUtil;
 
 /**
- * 查询备注名返回结果
+ * Query Remark Name Result
  */
-public class RemarkNameResult extends ResponseResult{
+public class RemarkNameResult extends ResponseResult {
 
-	// 备注名
-	String remarkName;
+    // Remark Name
+    String remarkName;
 
 	public RemarkNameResult(Integer code, String msg) {
 		super(code, msg);

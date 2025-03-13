@@ -4,11 +4,11 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * checkOnlineUser返回结果
+ * Result of checking online user status
  */
 public class CheckOnlineResult extends Result {
 
-	// 在线状态，1为在线，0为不在线。
+	// User online status, 1 for online, 0 for offline.
 	String status;
 
 	public CheckOnlineResult(Integer code, String status, String errorMessage) {
@@ -18,7 +18,7 @@ public class CheckOnlineResult extends Result {
 		this.errorMessage = errorMessage;
 	}
 	/**
-	 * 设置status
+	 * Set the status
 	 *
 	 */	
 	public void setStatus(String status) {
@@ -26,7 +26,7 @@ public class CheckOnlineResult extends Result {
 	}
 	
 	/**
-	 * 获取status
+	 * Get the status
 	 *
 	 * @return String
 	 */

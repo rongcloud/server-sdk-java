@@ -6,7 +6,7 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 public class GroupMuteMembersListResult extends Result {
-    // 群组被禁言用户列表。
+    // List of muted users in the group.
     List<GagGroupUser> members;
 
     public GroupMuteMembersListResult(Integer code, String msg, List<GagGroupUser> members) {
@@ -19,7 +19,7 @@ public class GroupMuteMembersListResult extends Result {
     }
 
     /**
-     * 获取members
+     * Get the list of muted members.
      *
      * @return List
      */
@@ -28,7 +28,7 @@ public class GroupMuteMembersListResult extends Result {
     }
 
     /**
-     * 设置members
+     * Set the list of muted members.
      *
      */
     public void setMembers(List<GagGroupUser> members) {

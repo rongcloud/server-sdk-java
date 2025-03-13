@@ -18,11 +18,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class PushExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      */
     private static final String appSecret = "appSecret";
 
@@ -33,10 +33,10 @@ public class PushExample {
 
         /**
          *
-         * API 文档:
+         * API Documentation:
          * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 广播消息
+         * Broadcast Message
          *
          **/
         BroadcastModel broadcast = new BroadcastModel();
@@ -59,10 +59,10 @@ public class PushExample {
 
         /**
          *
-         * API 文档:
+         * API Documentation:
          * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 在线用户广播
+         * Broadcast to online users
          *
          **/
         TxtMessage msg = new TxtMessage("this is message", "");
@@ -76,9 +76,9 @@ public class PushExample {
 
         /**
          *
-         * API 文档:
+         * API Documentation:
          * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 广播消息撤回
+         * Recall broadcast message
          *
          */
         RcCmdMessage rcCmdMessage = new RcCmdMessage("BCVD-DV70-EKOC-7ES6");
@@ -92,10 +92,10 @@ public class PushExample {
 
         /**
          *
-         * API 文档:
+         * API Documentation:
          * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 推送消息
+         * Push notification
          *
          **/
         PushModel pushmodel = new PushModel();

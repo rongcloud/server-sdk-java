@@ -14,9 +14,9 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
- * 群组禁言服务
- * 群成员禁言 groupId 不加即为全局禁言
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * Group Mute Service
+ * Mute group members. If groupId is not specified, it applies to all groups.
+ * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class User {
@@ -39,9 +39,9 @@ public class User {
 
     }
     /**
-     * 添加全局禁言群方法
+     * Add global group mute method
      *
-     * @param group:群组信息。id , munite , memberIds（必传）
+     * @param group: Group information. id, munite, memberIds (required)
      *
      * @return Result
      **/
@@ -69,7 +69,7 @@ public class User {
     }
 
     /**
-     * 查询被全局禁言群方法
+     * Query globally muted groups
      *
      * @return ListGagGroupUserResult
      **/
@@ -88,14 +88,14 @@ public class User {
     }
 
     /**
-     * 移除全局群禁言方法
+     * Remove global group mute
      *
-     * @param  group:群组（必传）
+     * @param  group: Group (required)
      *
      * @return ResponseResult
      **/
     public Result remove(GroupModel group) throws Exception {
-        //参数校验
+        // Parameter validation
         String message = CommonUtil.checkFiled(group,PATH, CheckMethod.REMOVE);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);

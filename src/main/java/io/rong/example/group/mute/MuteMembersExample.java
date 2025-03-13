@@ -8,35 +8,33 @@ import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.GroupMuteMembersListResult;
 /**
- *
- * 群组成员禁言例子
+ * Example of muting group members
  * @author RongCloud
  *
  * @version 3.0.0
  */
 public class MuteMembersExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      * */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      * */
     private static final String appSecret = "appSecret";
     /**
-     * 本地调用测试
-     *
+     * Local test execution
      *
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        //自定义 api 地址方式
+        // Custom API endpoint configuration
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
 
         MuteMembers muteMembers = rongCloud.group.muteMembers;
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加禁言群成员方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to mute group members
          */
 
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
@@ -49,15 +47,15 @@ public class MuteMembersExample {
         System.out.println("group.muteMembers.add:  " + result.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 查询被禁言群成员
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Query muted group members
          */
         GroupMuteMembersListResult muteMembersResult = muteMembers.getList("groupId");
         System.out.println("group.muteMembers.getList:  " + muteMembersResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 移除禁言群成员
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Remove muted group members
          */
         group = new GroupModel()
                 .setId("groupId")

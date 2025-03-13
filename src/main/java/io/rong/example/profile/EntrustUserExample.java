@@ -2,15 +2,16 @@ package io.rong.example.profile;
 
 import io.rong.CenterEnum;
 import io.rong.RongCloud;
-import io.rong.RongCloudConfig;
 import io.rong.methods.profile.EntrustUser;
-import io.rong.models.profile.*;
-import io.rong.models.response.*;
+import io.rong.models.profile.PagingQueryUserProfilesModel;
+import io.rong.models.profile.UserProfileModel;
+import io.rong.models.response.QueryUserProfilesResp;
+import io.rong.models.response.ResponseResult;
 
 /**
- * 群托管服务
+ * Group Information Hosting Service
  * <p>
- * API 文档: https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
+ * API Documentation: https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  *
  * @author RongCloud
  * @version 3.6.0
@@ -18,43 +19,43 @@ import io.rong.models.response.*;
 public class EntrustUserExample {
 
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key here
      */
     private static final String APP_KEY = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret here
      */
     private static final String APP_SECRET = "secret";
     /**
-     * 初始化
+     * Initialization
      */
     private static EntrustUser entrustUser = RongCloud.getInstance(APP_KEY, APP_SECRET, CenterEnum.BJ).entrustUser;
 
 
 
     /**
-     * 本地调用测试
+     * Local testing
      *
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
 
-        //用户资料设置
+        // User profile settings
         setProfileExample();
 
-        // 批量查询用户资料
+        // Batch query user profiles
         batchQueryUserProfilesExample();
 
-        // 用户托管信息清除
+        // Clear user hosting information
         cleanProfileExample();
 
-        // 分页获取应用全部用户列表
+        // Paginate through the list of all users in the application
         pagingQueryUserProfilesExample();
 
     }
 
-    // 用户资料设置
+    // Set user profile
     private static void setProfileExample() throws Exception {
         UserProfileModel userProfileModel = new UserProfileModel();
         userProfileModel.setUserProfile("{\"name\":\"name\"}");
@@ -64,19 +65,19 @@ public class EntrustUserExample {
         System.out.println(responseResult);
     }
 
-    //批量查询用户资料
+    // Batch query user profiles
     private static void batchQueryUserProfilesExample() throws Exception {
         QueryUserProfilesResp userProfilesResp = entrustUser.batchQueryUserProfiles("uid1");
         System.out.println(userProfilesResp);
     }
 
-    // 用户托管信息清除
+    // Clear user profile hosting information
     private static void cleanProfileExample() throws Exception {
         ResponseResult responseResult = entrustUser.cleanProfile("uid1");
         System.out.println(responseResult);
     }
 
-    // 分页获取应用全部用户列表
+    // Paginate through the list of all users in the application
     private static void pagingQueryUserProfilesExample() throws Exception {
         PagingQueryUserProfilesModel input = new PagingQueryUserProfilesModel();
         input.setPage(1);

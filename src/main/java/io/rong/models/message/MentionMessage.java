@@ -14,13 +14,13 @@ public class MentionMessage {
 
     public String senderId;
     /**
-     * 接收群 Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
+     * Target group IDs. You can send messages to multiple groups by providing multiple IDs, with a maximum of 3 groups. (Required)
      */
     public String[] targetId;
     public String[] toUserId;
     public String objectName;
     /**
-     * 消息 内容
+     * Message content
      */
     public MentionMessageContent content;
     public String pushContent;
@@ -32,24 +32,24 @@ public class MentionMessage {
     private Integer contentAvailable;
     private Long msgRandom;
     /**
-     * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
+     * Indicates whether the message is extensible. Default is false. When set to true, the client can set extended information for this message after receiving it. (Optional) Not supported in global data centers.
      */
     public Boolean expansion;
 
     /**
-     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒。仅当 toGroupId 传入单个群组 ID 时有效
+     * Indicates whether the message is silent. Default is false. When set to true, offline users will not receive notification reminders. Only valid when a single group ID is provided in toGroupId.
      */
     public Boolean disablePush;
 
     /**
-     * 扩展消息内容，expansion 为true 的时候生效
+     * Extended message content, effective when expansion is set to true.
      */
     public Map<String, String> extraContent;
 
 
     /**
-     * 禁止更新会话最后一条消息。 当该参数为 false 时，发送的该条消息都会进入会话列表; 为 true 时，不会更新到会话列表的消息内容。
-     * 注：此参数仅对存储在客户端的消息有效。
+     * Disables updating the last message in the conversation. When this parameter is set to false, the sent message will appear in the conversation list; when set to true, the message content will not be updated in the conversation list.
+     * Note: This parameter only applies to messages stored on the client side.
      */
     private Boolean disableUpdateLastMsg;
 

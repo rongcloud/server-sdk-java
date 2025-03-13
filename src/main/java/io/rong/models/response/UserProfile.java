@@ -5,19 +5,19 @@ package io.rong.models.response;
  */
 public class UserProfile {
     /**
-     * 用户Id
+     * User ID
      */
     private String userId;
     /**
-     * 用户托管信息版本号
+     * Version number of the user's hosted information
      */
     private Long version;
     /**
-     * 用户基本信息
+     * Basic user information
      */
     private String userProfile;
     /**
-     * 自定义扩展属性
+     * Custom extended attributes
      */
     private String userExtProfile;
 

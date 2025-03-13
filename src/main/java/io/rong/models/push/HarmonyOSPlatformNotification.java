@@ -5,23 +5,23 @@ import io.rong.util.GsonUtil;
 import java.util.Map;
 
 /**
- * 设备中的推送内容。（非必传）
+ * Push notification content for the device. (Optional)
  */
 public class HarmonyOSPlatformNotification {
 
     /**
-     * 非必传，鸿蒙平台下推送通知内容，传入后默认的推送通知内容失效。
+     * Optional. The notification content for the HarmonyOS platform. If provided, the default notification content will be overridden.
      */
     private String alert;
 
     /**
-     * 非必传，附加信息，如果开发者自己需要，可以自己在 App 端进行解析。
+     * Optional. Additional information that can be parsed by the App as needed.
      */
     private Map<String, String> extras;
 
 
     /**
-     * 鸿蒙平台推送参数设置
+     * Push notification settings for the HarmonyOS platform.
      */
     private HarmonyOSSettings ohos;
 
@@ -54,13 +54,13 @@ public class HarmonyOSPlatformNotification {
     public static class HarmonyOSSettings {
 
         /**
-         * 通知右侧大图标URL，URL使用的协议必须是HTTPS协议，取值样例：https://example.com/image.png。
-         * 图片格式支持png、jpg、jpeg、heif、gif、bmp，图片长*宽 < 25000像素，图片不满足要求的情况下，终端不能显示通知消息。
+         * The URL of the large icon on the right side of the notification. The URL must use the HTTPS protocol. Example: https://example.com/image.png.
+         * Supported image formats include png, jpg, jpeg, heif, gif, and bmp. The image must be less than 25,000 pixels in length * width. If the image does not meet these requirements, the notification message will not be displayed on the device.
          */
         private String image;
 
         /**
-         * 推送通道的消息自分类标识
+         * The self-classification identifier for the push channel message.
          */
         private String category;
 

@@ -2,8 +2,8 @@ package io.rong.example.user;
 
 import io.rong.CenterEnum;
 import io.rong.RongCloud;
-import io.rong.models.*;
-import io.rong.models.response.*;
+import io.rong.models.Result;
+import io.rong.models.response.GetTagResult;
 import io.rong.models.user.BatchTagModel;
 import io.rong.models.user.GetTagModel;
 import io.rong.models.user.TagModel;
@@ -16,11 +16,11 @@ import io.rong.models.user.TagModel;
  */
 public class TagExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      * */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      * */
     private static final String appSecret = "appSecret";
 
@@ -30,14 +30,14 @@ public class TagExample {
 
         /**
          *
-         * API 文档:
+         * API Documentation:
          * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 添加标签
+         * Add tags
          *
          **/
         TagModel tagmodel = new TagModel();
-        tagmodel.setTags(new String[] {"男", "90后"});
+        tagmodel.setTags(new String[]{"Male", "Post-90s"});
         tagmodel.setUserId("userId1");
         Result result = rongCloud.user.tag.set(tagmodel);
 
@@ -45,15 +45,17 @@ public class TagExample {
 
         /**
          *
-         * API 文档:
+         * API Documentation:
          * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 批量添加标签
+
+         /**
+         * Batch add tags
          *
          **/
         BatchTagModel batchtagmodel = new BatchTagModel();
-        batchtagmodel.setTags(new String[] {"男", "90后"});
-        batchtagmodel.setUserIds(new String[] {"userId1", "userId2"});
+        batchtagmodel.setTags(new String[]{"Male", "Post-90s"});
+        batchtagmodel.setUserIds(new String[]{"userId1", "userId2"});
         result = rongCloud.user.tag.batchSet(batchtagmodel);
 
         System.out.println("batchSetTag: " + result.toString());
@@ -61,10 +63,10 @@ public class TagExample {
 
         /**
          *
-         * API 文档:
+         * API Documentation:
          * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 查询用户标签
+         * Query user tags
          *
          **/
         GetTagModel tag = new GetTagModel();

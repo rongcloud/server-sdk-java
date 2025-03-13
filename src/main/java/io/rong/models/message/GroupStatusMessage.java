@@ -3,40 +3,39 @@ package io.rong.models.message;
 import io.rong.messages.BaseMessage;
 
 /**
- * 群组状态信息
+ * Group status information
  * 
  * @author RongCloud
  *
  */
 public class GroupStatusMessage {
 	/**
-	 * 发送人用户 Id。（必传）
+	 * The sender's user ID. (Required)
 	 */
 	private String senderId;
 
 	/**
-	 * 接收群Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
+	 * The target group IDs. You can send messages to up to 3 groups by providing multiple group IDs. (Required)
 	 */
 	private String[] groupId;
 
 	/**
-	 * 消息类型，参考融云消息类型表.消息标志；可自定义消息类型，长度不超过 32 个字符，您在自定义消息时需要注意，不要以 "RC:"
-	 * 开头，以避免与融云系统内置消息的 ObjectName 重名。（必传）
+	 * The message type, refer to RongCloud message type table. The message flag; you can customize the message type, but ensure it does not exceed 32 characters and does not start with "RC:" to avoid conflicts with RongCloud's built-in message ObjectName. (Required)
 	 */
 	private String objectName;
 
 	/**
-	 * 发送消息内容，单条消息最大 128k，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
+	 * The message content, with a maximum size of 128k per message. Refer to RongCloud message type table for examples. If the objectName is a custom message type, the content can be in a custom format. (Required)
 	 */
 	private BaseMessage content;
 
 	/**
-	 * 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。(可选)
+	 * Whether to filter the sender's blocklist. 0 means no filtering, 1 means filtering. Default is 0 (no filtering). (Optional)
 	 */
 	private int verifyBlacklist = 0;
 
 	/**
-	 * 发送用户自己是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
+	 * Whether the sender should receive the message. 0 means the sender does not receive the message, 1 means the sender receives the message. Default is 0 (sender does not receive the message). (Optional)
 	 */
 	private int isIncludeSender = 0;
 

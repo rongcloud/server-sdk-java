@@ -35,13 +35,13 @@ public class BusChannel {
         this.appKey = appKey;
         this.appSecret = appSecret;
         this.rongCloud = rongCloud;
-        this.user = new User(appKey,appSecret,rongCloud);
+        this.user = new User(appKey, appSecret, rongCloud);
 
     }
     /**
-     * 增加超级群的busChannel
+     * Add a busChannel to an ultra group
      *
-     * @param group:超级群
+     * @param group: The ultra group
      *
      * @return Result
      **/
@@ -63,11 +63,11 @@ public class BusChannel {
     }
 
     /**
-     * 查询超级群的busChannel
+     * Query the busChannel of an ultra group
      *
-     * @param  groupId:超级群Id。（必传）
-     * @param  page:分页。
-     * @param  size:分页条数。
+     * @param  groupId: The ID of the ultra group. (Required)
+     * @param  page: Pagination.
+     * @param  size: Number of items per page.
      *
      * @return boolean
      **/
@@ -96,17 +96,17 @@ public class BusChannel {
     }
 
     /**
-     * 删除超级群的busChannel
+     * Delete the busChannel of an ultra group
      *
-     * @param  group:超级群
+     * @param  group: ultra group
      *
      * @return ResponseResult
      **/
     public Result remove(UltraGroupModel group) throws Exception {
-        //参数校验
-        String message = CommonUtil.checkFiled(group,PATH,CheckMethod.DEL);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        // Parameter validation
+        String message = CommonUtil.checkFiled(group, PATH, CheckMethod.DEL);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(group.getId(), UTF8));
@@ -120,16 +120,16 @@ public class BusChannel {
     }
 
     /**
-     * 超级群频道类型切换
+     * Switch ultra group channel type
      *
-     * @param group:超级群
+     * @param group: ultra group
      *
      * @return Result
      **/
     public Result change(UltraGroupModel group) throws Exception {
-        String message = CommonUtil.checkFiled(group,PATH, CheckMethod.CREATE);
-        if(null != message){
-            return (ResponseResult) GsonUtil.fromJson(message,ResponseResult.class);
+        String message = CommonUtil.checkFiled(group, PATH, CheckMethod.CREATE);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("groupId=").append(URLEncoder.encode(group.getId(), UTF8));
@@ -140,14 +140,13 @@ public class BusChannel {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/ultragroup/channel/type/change.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.CREATE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.CREATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
-     * 增加超级群私有频道白名单列表
+     * Add private channel allowlist for ultra group
      *
-     * @param group:群组信息。id  , memberIds（必传）
-     *
+     * @param group: group information. id, memberIds (required)
      * @return Result
      **/
     public Result privateUserAdd(UltraGroupModel group) throws Exception {
@@ -174,7 +173,7 @@ public class BusChannel {
     }
 
     /**
-     * 查询超级群私有频道白名单列表方法
+     * Query the allowlist of a private channel in an ultra group
      *
      * @return GroupUserQueryResult
      **/
@@ -202,17 +201,17 @@ public class BusChannel {
     }
 
     /**
-     * 删除超级群禁言白名单列表方法
+     * Method to remove the allowlist of muted users in an ultra group
      *
-     * @param  group:群组（必传）
+     * @param  group: The group (required)
      *
      * @return ResponseResult
      **/
     public Result privateUserRemove(UltraGroupModel group) throws Exception {
-        //参数校验
-        String message = CommonUtil.checkFiled(group,PATH, CheckMethod.ADD);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        // Parameter validation
+        String message = CommonUtil.checkFiled(group, PATH, CheckMethod.ADD);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
 

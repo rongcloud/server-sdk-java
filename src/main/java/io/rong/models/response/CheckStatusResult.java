@@ -8,7 +8,7 @@ import io.rong.util.GsonUtil;
  */
 public class CheckStatusResult extends Result {
 
-	//禁言或其他状态
+	// Mute or other statuses
 	String status;
 
 	public CheckStatusResult(Integer code, String status, String errorMessage) {
@@ -18,7 +18,7 @@ public class CheckStatusResult extends Result {
 		this.errorMessage = errorMessage;
 	}
 	/**
-	 * 设置status
+	 * Set the status
 	 *
 	 */	
 	public void setStatus(String status) {
@@ -26,7 +26,7 @@ public class CheckStatusResult extends Result {
 	}
 	
 	/**
-	 * 获取status
+	 * Get the status
 	 *
 	 * @return String
 	 */

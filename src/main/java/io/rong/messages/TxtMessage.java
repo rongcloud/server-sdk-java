@@ -3,7 +3,7 @@ package io.rong.messages;
 import io.rong.util.GsonUtil;
 
 /**
- * 文本消息。
+ * Text message.
  */
 public class TxtMessage extends BaseMessage {
 
@@ -29,7 +29,7 @@ public class TxtMessage extends BaseMessage {
     }
 
     /**
-     * 获取消息内容。
+     * Gets the message content.
      *
      * @return String
      */
@@ -38,14 +38,16 @@ public class TxtMessage extends BaseMessage {
     }
 
     /**
-     * @param content 设置消息内容。
+     * Sets the message content.
+     *
+     * @param content The message content to set.
      */
     public void setContent(String content) {
         this.content = content;
     }
 
     /**
-     * 获取附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+     * Gets the extra information (can be parsed by the App if needed).
      *
      * @return String
      */
@@ -54,14 +56,16 @@ public class TxtMessage extends BaseMessage {
     }
 
     /**
-     * @param extra 设置附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
+     * Sets the extra information.
+     *
+     * @param extra The extra information to set.
      */
     public void setExtra(String extra) {
         this.extra = extra;
     }
 
     /**
-     * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+     * Gets the user information.
      *
      * @return UserInfo
      */
@@ -70,7 +74,9 @@ public class TxtMessage extends BaseMessage {
     }
 
     /**
-     * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
+     * Sets the user information.
+     *
+     * @param user The user information to set.
      */
     public void setUser(UserInfo user) {
         this.user = user;

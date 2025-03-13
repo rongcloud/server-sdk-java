@@ -1,32 +1,31 @@
 package io.rong.methods.message._private;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.google.gson.JsonParseException;
+import io.rong.RongCloud;
+import io.rong.models.CheckMethod;
+import io.rong.models.Result;
+import io.rong.models.Templates;
+import io.rong.models.message.PrivateMessage;
+import io.rong.models.message.PrivateStatusMessage;
+import io.rong.models.message.RecallMessage;
+import io.rong.models.message.TemplateMessage;
+import io.rong.models.response.MessageResult;
+import io.rong.models.response.ResponseResult;
+import io.rong.util.CommonUtil;
+import io.rong.util.GsonUtil;
+import io.rong.util.HttpUtil;
+import org.apache.commons.lang3.StringUtils;
+
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonParseException;
-import io.rong.models.response.MessageResult;
-import org.apache.commons.lang3.StringUtils;
-
-import io.rong.RongCloud;
-import io.rong.models.CheckMethod;
-import io.rong.models.Result;
-import io.rong.models.Templates;
-import io.rong.models.message.PrivateMessage;
-import io.rong.models.message.RecallMessage;
-import io.rong.models.message.PrivateStatusMessage;
-import io.rong.models.message.TemplateMessage;
-import io.rong.models.response.ResponseResult;
-import io.rong.util.CommonUtil;
-import io.rong.util.GsonUtil;
-import io.rong.util.HttpUtil;
-import com.alibaba.fastjson.JSONException;
-
 /**
- * 发送单聊消息方法
+ * Methods for sending one-to-one chat messages
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
@@ -55,9 +54,9 @@ public class Private {
     }
 
     /**
-     * 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。）
+     * Sends a one-to-one chat message (a message from one user to another, with a maximum size of 128k per message).
      *
-     * @param message 单聊消息
+     * @param message The one-to-one chat message
      * @return ResponseResult
      * @throws Exception
      **/
@@ -154,9 +153,9 @@ public class Private {
     }
 
     /**
-     * 发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k。）
+     * Sends a one-to-one chat template message (one user sends different message contents to multiple users, with a maximum message size of 128k).
      *
-     * @param message:单聊模版消息。
+     * @param message: The one-to-one chat template message.
      * @return ResponseResult
      * @throws Exception
      **/
@@ -214,7 +213,7 @@ public class Private {
     }
 
     /**
-     * 消息单聊撤回。
+     * Recall a one-to-one chat message.
      *
      * @param message
      * @return ResponseResult
@@ -273,7 +272,7 @@ public class Private {
     }
 
     /**
-     * 发送单聊状态消息
+     * Send one-to-one status message
      *
      * @param message
      * @return
@@ -306,7 +305,7 @@ public class Private {
         sb.append("&isIncludeSender=").append(URLEncoder.encode(String.valueOf(message.getIsIncludeSender()), UTF8));
         sb.append("&isPersisted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
         sb.append("&isCounted=").append(URLEncoder.encode(String.valueOf("0"), UTF8));
-        if(message.getMsgRandom() != null){
+        if (message.getMsgRandom() != null) {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
 
@@ -332,10 +331,10 @@ public class Private {
     }
 
     /**
-     * 发送正在输入状态信息
+     * Send typing status message
      *
-     * @param message
-     * @return
+     * @param message The private message to be sent
+     * @return MessageResult
      * @throws Exception
      */
     public MessageResult sendTypingStatusMessage(PrivateMessage message) throws Exception {

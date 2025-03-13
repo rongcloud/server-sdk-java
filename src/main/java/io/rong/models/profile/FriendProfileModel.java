@@ -6,22 +6,22 @@ package io.rong.models.profile;
  */
 public class FriendProfileModel {
     /**
-     * 操作用户 ID
+     * Operation user ID
      */
     private String userId;
     /**
-     * 目标用户 ID，需要添加为好友的用户 ID
+     * Target user ID, the user ID to be added as a friend
      */
     private String targetId;
     /**
-     * 好友备注名
+     * Friend remark name
      */
     private String remarkName;
     /**
-     * 扩展信息：开发者可根据自身业务需求添加自定义扩展属性（Key、Value），默认最多可设置 10 个扩展信息。
-     * key限制 32 个字符， 大小写+数字 + '_', 格式固定 ext_xxxxx
-     * value 限制 256 ，无限制
-     * 示例：{\"ext_key1\":\"value1\",\"ext_key2\":\"value2\"}
+     * Extended Information: Developers can add custom extended attributes (Key, Value) according to their business needs. By default, up to 10 extended information items can be set.
+     * Key is limited to 32 characters, including uppercase and lowercase letters, numbers, and '_', with the format fixed as ext_xxxxx.
+     * Value is limited to 256 characters, with no restrictions.
+     * Example: {"ext_key1":"value1","ext_key2":"value2"}
      */
     private String friendExtProfile;
 

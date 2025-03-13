@@ -33,7 +33,7 @@ public abstract class BaseMethod {
     }
 
     /**
-     * 添加参数，url encode 处理，自定义对象 统一 Gson 处理
+     * Adds a parameter with URL encoding. Custom objects are uniformly processed by Gson.
      */
     protected void addFormParam(StringBuilder sb, String paramName, Object param) throws UnsupportedEncodingException {
         if (param == null) {
@@ -49,7 +49,7 @@ public abstract class BaseMethod {
     }
 
     /**
-     * 获取 json Body
+     * Get the JSON body
      */
     protected String getJsonBody(Object param) {
         if (param == null) {
@@ -60,7 +60,7 @@ public abstract class BaseMethod {
 
 
     /**
-     * 初始化接口校验文件路径
+     * Initialize the interface validation file path
      */
     protected abstract void initPath();
 
@@ -92,7 +92,7 @@ public abstract class BaseMethod {
 
 
     /**
-     * 使用 LinkedHashSet 来保持元素的插入顺序，并自动去除重复项
+     * Use LinkedHashSet to maintain the insertion order of elements and automatically remove duplicates
      */
     protected String[] removeDuplicates(String[] params) {
         if (params == null || params.length == 0) {
@@ -129,10 +129,10 @@ public abstract class BaseMethod {
 
 
     /**
-     * 判断给定的对象是否为基本类型或其包装类。
+     * Determines whether the given object is a primitive type or its wrapper class.
      *
-     * @param obj 要判断的对象
-     * @return 如果是基本类型或其包装类返回 true，否则返回 false
+     * @param obj The object to be checked
+     * @return Returns true if the object is a primitive type or its wrapper class, otherwise returns false
      */
     public static boolean isBasicType(Object obj) {
         if (obj == null) {

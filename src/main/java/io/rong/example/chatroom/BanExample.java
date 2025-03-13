@@ -9,30 +9,30 @@ import io.rong.models.response.ListGagChatroomUserResult;
 import io.rong.models.response.ResponseResult;
 
 /**
- * 聊天室全局
+ * Chatroom Global Ban Example
  * @author RongCloud
  */
 public class BanExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        // Custom API endpoint
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
         Ban ban = rongCloud.chatroom.ban;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加聊天室全局禁言
-         * */
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Add global chatroom mute
+         */
         ChatroomMember[] members = {
                 new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
         };
@@ -43,9 +43,8 @@ public class BanExample {
         System.out.println("addGagUser:  " + result.toString());
 
         /**
-         *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 获取聊天时全局禁言列表
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Get global chatroom mute list
          */
 
         ListGagChatroomUserResult chatroomListGagUserResult = ban.getList();
@@ -53,8 +52,8 @@ public class BanExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 删除聊天时全局禁言
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Remove global mute in chatroom
          */
         chatroom = new ChatroomModel()
                 .setMembers(members);

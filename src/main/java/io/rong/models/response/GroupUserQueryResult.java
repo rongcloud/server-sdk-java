@@ -5,13 +5,13 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * groupUserQuery返回结果
+ * Group user query result.
  */
 public class GroupUserQueryResult extends Result{
 
-	// 群成员用户Id。
+	// The user ID of the group member.
 	String id;
-	// 群成员列表。
+	// The list of group members.
 	List<GroupUser> members;
 
 	public GroupUserQueryResult(Integer code, String msg, String id, List<GroupUser> members) {
@@ -26,15 +26,15 @@ public class GroupUserQueryResult extends Result{
 	}
 
 	/**
-	 * 设置id
+	 * Set the ID.
 	 *
-	 */	
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	/**
-	 * 获取id
+	 * Get the ID.
 	 *
 	 * @return String
 	 */
@@ -43,7 +43,7 @@ public class GroupUserQueryResult extends Result{
 	}
 
 	/**
-	 * 获取members
+	 * Get the members.
 	 *
 	 * @return members
 	 */
@@ -51,7 +51,7 @@ public class GroupUserQueryResult extends Result{
 		return this.members;
 	}
 	/**
-	 * 设置members
+	 * Set members
 	 *
 	 */
 	public void setMembers(List<GroupUser> members) {

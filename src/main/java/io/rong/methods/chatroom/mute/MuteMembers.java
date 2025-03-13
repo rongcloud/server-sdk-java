@@ -13,7 +13,7 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
- * 成员禁言
+ * Member Mute
  * @author RongCloud
  */
 public class MuteMembers {
@@ -37,9 +37,9 @@ public class MuteMembers {
 
     }
     /**
-     * 添加禁言聊天室成员方法（在 App 中如果不想让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）
+     * Add muted chatroom members (If you don't want a user to send messages in a chatroom, you can mute them. Muted users can still receive and view messages but cannot send messages.)
      *
-     * @param  chatroom:封禁的聊天室信息，其中聊天室 d（必传）,minute(必传), memberIds（必传支持多个最多20个）
+     * @param  chatroom: The chatroom information for muting, including chatroom ID (required), minute (required), and memberIds (required, supports up to 20 members)
      *
      * @return ResponseResult
      **/
@@ -70,9 +70,9 @@ public class MuteMembers {
     }
 
     /**
-     * 查询聊天室被禁言成员方法
+     * Retrieve the list of muted members in a chatroom.
      *
-     * @param  chatroom:聊天室信息 Id。（必传）
+     * @param  chatroom: Chatroom information, including the chatroom Id. (Required)
      *
      * @return ListGagChatroomUserResult
      **/
@@ -88,9 +88,9 @@ public class MuteMembers {
     }
 
     /**
-     * 移除禁言聊天室成员方法
+     * Remove muted members from a chatroom.
      *
-     * @param  chatroom:封禁的聊天室信息，其中聊天室 Id。（必传）,用户 Id。（必传支持多个最多20个）
+     * @param  chatroom: Chatroom information, including the chatroom Id. (Required), and user Ids. (Required, supports up to 20 users)
      * @return ResponseResult
      **/
     public ResponseResult remove(ChatroomModel chatroom) throws Exception {

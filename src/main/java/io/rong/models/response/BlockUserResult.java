@@ -7,7 +7,7 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 public class BlockUserResult extends Result {
-    // 被封禁用户列表。
+    // List of banned users.
     List<BlockUsers> users;
 
     public BlockUserResult(Integer code, String errorMessage, List<BlockUsers> users) {
@@ -15,7 +15,7 @@ public class BlockUserResult extends Result {
         this.users = users;
     }
     /**
-     * 设置users
+     * Set users
      *
      */
     public void setUsers(List<BlockUsers> users) {
@@ -23,7 +23,7 @@ public class BlockUserResult extends Result {
     }
 
     /**
-     * 获取users
+     * Get users
      *
      * @return List
      */

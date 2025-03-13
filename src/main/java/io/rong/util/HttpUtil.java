@@ -22,7 +22,7 @@ import javax.net.ssl.X509TrustManager;
 import java.util.UUID;
 
 /**
- * http 公共服务
+ * HTTP common service
  *
  * @author RongCloud
  */
@@ -80,7 +80,7 @@ public class HttpUtil {
         return conn;
     }
 
-    // 设置body体
+    // set body
     public static void setBodyParameter(String str, HttpURLConnection conn, RongCloudConfig config) throws IOException {
         DataOutputStream out = null;
         try {

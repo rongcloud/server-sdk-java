@@ -8,62 +8,62 @@ import io.rong.models.response.GroupBanResult;
 
 /**
  *
- * 群组禁言例子
+ * Example for group mute
  * @author RongCloud
  *
  * @version 3.0
  */
 public class BanExample {
-        /**
-         * 此处替换成您的appKey
-         * */
-        private static final String appKey = "appKey";
-        /**
-         * 此处替换成您的appSecret
-         * */
-        private static final String appSecret = "appSecret";
+    /**
+     * Replace with your appKey
+     * */
+    private static final String appKey = "appKey";
+    /**
+     * Replace with your appSecret
+     * */
+    private static final String appSecret = "appSecret";
 
+    /**
+     * Local test execution
+     *
+     *
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
+        //Custom API URL
+        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+
+        Ban ban = rongCloud.group.ban;
         /**
-         * 本地调用测试
-         *
-         *
-         * @throws Exception
+         * API Documentation:
+         * Add mute group method
          */
-        public static void main(String[] args) throws Exception {
-            RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-            //自定义 api 地址方式
-            //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
-
-            Ban ban = rongCloud.group.ban;
-            /**
-             * API 文档:
-             * 添加禁言群方法
-             */
 
             String[] groupIds = {"ghJiu7H1","ghJiu7H2","ghJiu7H3","ghJiu7H4","ghJiu7H712","ghJiu7H6","ghJiu7H7","ghJiu7H8","ghJiu7H9","ghJiu7H10","ghJiu7H11","ghJiu7H12","ghJiu7H13","ghJiu7H14","ghJiu7H15","ghJiu7H16","ghJiu7H12","ghJiu7H18"};
             Result result = ban.add(groupIds);
             System.out.println("group.ban.add:  " + result.toString());
 
-            /**
-             * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-             * 查询所有设置禁言群方法
-             */
-            GroupBanResult GroupBanResult = (GroupBanResult)ban.getList();
-            System.out.println("group.ban.getList:  " + GroupBanResult.toString());
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Query all muted groups method
+         */
+        GroupBanResult GroupBanResult = (GroupBanResult) ban.getList();
+        System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
-            /**
-             * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-             * 检查禁言群方法
-             */
-            GroupBanResult GroupBanCheckResult = (GroupBanResult)ban.check(groupIds);
-            System.out.println("group.ban.check:  " + GroupBanCheckResult.toString());
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to check muted groups
+         */
+        GroupBanResult GroupBanCheckResult = (GroupBanResult) ban.check(groupIds);
+        System.out.println("group.ban.check:  " + GroupBanCheckResult.toString());
 
-            /**
-             * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-             * 移除禁言群方法
-             */
-            Result groupRollBackGagUserResult = ban.remove(groupIds);
-            System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to remove muted groups
+         */
+        Result groupRollBackGagUserResult = ban.remove(groupIds);
+        System.out.println("group.ban.remove:  " + groupRollBackGagUserResult.toString());
 
 
         }

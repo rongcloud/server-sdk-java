@@ -4,7 +4,7 @@ package io.rong.exception;
  * Created with hc.
  * User: hc
  * Date: 17-12-19
- * Time: 下午4:45
+ * Time: 4:45 PM
  */
 public abstract class RcloudException extends Exception{
     /**

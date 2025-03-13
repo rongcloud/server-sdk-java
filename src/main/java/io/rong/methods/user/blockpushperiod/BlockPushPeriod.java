@@ -3,7 +3,6 @@ package io.rong.methods.user.blockpushperiod;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
-import io.rong.models.response.BlackListResult;
 import io.rong.models.response.BlockPushPeriodResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.user.BlockPushPeriodModel;
@@ -17,7 +16,7 @@ import java.net.URLEncoder;
 
 /**
  *
- * 用户免打扰时间段
+ * User Do Not Disturb Period
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
@@ -45,10 +44,9 @@ public class BlockPushPeriod {
     }
 
     /**
-     * 添加用户免打扰时间段
+     * Add User Do Not Disturb Period
      *
-     * @param  user:用户 Id,startTime, period（必传）
-     *
+     * @param  user: User ID, startTime, period (required)
      * @return ResponseResult
      **/
     public Result add(BlockPushPeriodModel user) throws Exception {
@@ -73,9 +71,9 @@ public class BlockPushPeriod {
     }
 
     /**
-     * 获取某用户的免打扰时间段
+     * Retrieves the Do Not Disturb period for a specific user
      *
-     * @param  user:用户 Id。（必传）
+     * @param  user: User ID (required)
      *
      **/
     public BlockPushPeriodResult getList(UserModel user) throws Exception {
@@ -95,11 +93,9 @@ public class BlockPushPeriod {
     }
 
     /**
-     * 移除某用户的免打扰时间段
+     * Removes the Do Not Disturb period for a specific user
      *
-     * @param  user:用户 Id（必传）
-     *
-     * @return ResponseResult
+     * @param  user: User ID (required)
      **/
     public Result remove(UserModel user) throws Exception {
         String message = CommonUtil.checkFiled(user,PATH,CheckMethod.REMOVE);

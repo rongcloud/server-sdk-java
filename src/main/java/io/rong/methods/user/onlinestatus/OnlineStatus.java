@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  *
- *  在线状态
+ *  User Online Status
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @version
@@ -37,21 +37,21 @@ public class OnlineStatus {
 
     }
     /**
-     * 检查用户在线状态方法
-     * 请不要频繁循环调用此接口，而是选择合适的频率和时机调用，此接口设置了一定的频率限制。
+     * Check User Online Status
+     * Avoid frequent or looped calls to this API. Instead, choose an appropriate frequency and timing for calls, as this API has rate limits in place.
      *
      * url /user/checkOnline
      * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
-     * @param  user:用户 id(必传)
+     * @param  user: User ID (required)
      *
      * @return CheckOnlineResult
      **/
     public CheckOnlineResult check(UserModel user) throws Exception {
-        //参数校验
-        String message = CommonUtil.checkFiled(user,PATH, CheckMethod.CHECK);
-        if(null != message){
-            return (CheckOnlineResult)GsonUtil.fromJson(message,CheckOnlineResult.class);
+        // Parameter validation
+        String message = CommonUtil.checkFiled(user, PATH, CheckMethod.CHECK);
+        if (null != message) {
+            return (CheckOnlineResult) GsonUtil.fromJson(message, CheckOnlineResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&userId=").append(URLEncoder.encode(user.id.toString(), UTF8));

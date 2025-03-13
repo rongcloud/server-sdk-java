@@ -3,84 +3,86 @@ package io.rong.models.sensitiveword;
 import io.rong.util.GsonUtil;
 
 /**
- * 敏感词、替换词信息
+ * Sensitive word and replacement word information
  */
 public class SensitiveWordModel {
-	/**
-	 * 敏感词类型
-	 */
-	Integer type = 1;
-	/**
-	 *敏感词
-	 */
-	String keyword;
-	/**
-	 *替换词
-	 */
-	String replace;
+    /**
+     * Sensitive word type
+     */
+    Integer type = 1;
+    /**
+     * Sensitive word
+     */
+    String keyword;
+    /**
+     * Replacement word
+     */
+    String replace;
 
-	public SensitiveWordModel(Integer type, String keyword, String replace) {
-		this.type = type;
-		this.keyword = keyword;
-		this.replace = replace;
-	}
+    public SensitiveWordModel(Integer type, String keyword, String replace) {
+        this.type = type;
+        this.keyword = keyword;
+        this.replace = replace;
+    }
 
-	public SensitiveWordModel() {
-	}
+    public SensitiveWordModel() {
+    }
 
-	/**
-	 * 设置type
-	 */
-	public SensitiveWordModel setType(Integer type) {
-		this.type = type;
-		return this;
-	}
-	/**
-	 * 获取type
-	 *
-	 * @return String
-	 */
-	public Integer getType() {
-		return this.type;
-	}
+    /**
+     * Set type
+     */
+    public SensitiveWordModel setType(Integer type) {
+        this.type = type;
+        return this;
+    }
 
-	/**
-	 * 获取敏感词
-	 *
-	 * @return String
-	 */
-	public String getKeyword() {
-		return this.keyword;
-	}
-	/**
-	 * @param keyword 设置敏感词
-	 *
-	 */
-	public SensitiveWordModel setKeyword(String keyword) {
-		this.keyword = keyword;
-		return this;
-	}
+    /**
+     * Get type
+     *
+     * @return String
+     */
+    public Integer getType() {
+        return this.type;
+    }
 
-	/**
-	 * 获取replace
-	 *
-	 * @return String
-	 */
-	public String getReplace() {
-		return this.replace;
-	}
+    /**
+     * Get sensitive word
+     *
+     * @return String
+     */
+    public String getKeyword() {
+        return this.keyword;
+    }
 
-	/**
-	 * 设置replace
-	 *
-	 */
-	public SensitiveWordModel setReplace(String replace) {
-		this.replace = replace;
-		return this;
-	}
+    /**
+     * @param keyword Set sensitive word
+     *
+     */
+    public SensitiveWordModel setKeyword(String keyword) {
+        this.keyword = keyword;
+        return this;
+    }
 
-	@Override
-	public String toString() {
-		return GsonUtil.toJson(this, SensitiveWordModel.class);
-	}
+    /**
+     * Gets the replacement text
+     *
+     * @return String
+     */
+    public String getReplace() {
+        return this.replace;
+    }
+
+    /**
+     * Sets the replacement text
+     *
+     */
+    public SensitiveWordModel setReplace(String replace) {
+        this.replace = replace;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return GsonUtil.toJson(this, SensitiveWordModel.class);
+    }
 }

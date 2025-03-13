@@ -13,7 +13,7 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 
 /**
- * 群组备注服务
+ * Group remark service
  */
 public class Remark {
 
@@ -39,9 +39,10 @@ public class Remark {
     }
 
     /**
-     * 为应用中的群组添加备注，如果某群组已经添加了备注，再次对群组添加备注时将覆盖之前设置的备注内容。
+     * Add a remark for a group in the application. If a remark has already been added to the group, 
+     * adding a new remark will overwrite the previous one.
      *
-     * @param remark 群组备注信息
+     * @param remark Group remark information
      * @return ResponseResult
      **/
     public ResponseResult set(String userId,String groupId, String remark) throws Exception {
@@ -63,9 +64,9 @@ public class Remark {
     }
 
     /**
-     * 删除群组备注
+     * Delete group remark
      *
-     * @param groupId 删除群组备注
+     * @param groupId The group ID for which the remark is to be deleted
      * @return ResponseResult
      **/
     public ResponseResult del(String userId, String groupId) throws Exception {
@@ -88,9 +89,9 @@ public class Remark {
 
 
     /**
-     * 查询群组备注功能
+     * Query group remark function
      *
-     * @param userId
+     * @param userId The user ID for which the remark is to be queried
      * @return GetTagResult
      **/
     public GroupRemarkModel get(String userId, String groupId) throws Exception {

@@ -17,7 +17,7 @@ import java.net.URLEncoder;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 发送超级群消息方法
+ * Methods for sending ultra group messages
  * <p>
  * docs :
  *
@@ -47,8 +47,7 @@ public class UltraGroup {
     }
 
     /**
-     * 发送超级群消息方法（以一个用户身份向群组发送消息，单条消息最大 128k。）
-     *
+     * Method for sending ultra group messages (Send messages to a group as a single user, with a maximum message size of 128k.)
      * @param message
      * @return ResponseResult
      * @throws Exception
@@ -130,14 +129,14 @@ public class UltraGroup {
     }
 
     /**
-     * 撤回超级群消息。
+     * Recall a message in an ultra group.
      *
      * @param message
      * @return ResponseResult
      * @throws Exception
      **/
     public ResponseResult recall(RecallMessage message) throws Exception {
-        //需要校验的字段
+        // Fields to validate
         String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
         if (null != errMsg) {
             return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);

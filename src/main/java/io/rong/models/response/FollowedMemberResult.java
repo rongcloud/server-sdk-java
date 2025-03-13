@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 查询备注名返回结果
+ * Query result for group member aliases
  */
 public class FollowedMemberResult extends ResponseResult{
 

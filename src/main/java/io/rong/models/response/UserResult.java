@@ -4,15 +4,15 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * getToken 返回结果
+ * Result of getToken.
  */
-public class UserResult extends Result{
-	// 用户名称。
-	String userName;
-	// 用户头像地址.
-	String userPortrait;
-	// 用户创建时间
-	String createTime;
+public class UserResult extends Result {
+    // User name.
+    String userName;
+    // User avatar URL.
+    String userPortrait;
+    // User creation time.
+    String createTime;
 
 	public UserResult(String userName, String userPortrait, String createTime, String errorMessage) {
 		this.userName = userName;

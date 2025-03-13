@@ -4,147 +4,147 @@ import io.rong.util.GsonUtil;
 
 /**
  *
- * 图文消息。
+ * Image-text message.
  *
  */
 public class ImgTextMessage extends BaseMessage {
-	private String content = "";
-	private String extra = "";
-	private String title = "";
-	private String imageUri = "";
-	private String url = "";
-	private UserInfo user = null;
-	private transient static final String TYPE = "RC:ImgTextMsg";
+    private String content = "";
+    private String extra = "";
+    private String title = "";
+    private String imageUri = "";
+    private String url = "";
+    private UserInfo user = null;
+    private transient static final String TYPE = "RC:ImgTextMsg";
 
-	public ImgTextMessage(String content, String extra, String title, String imageUri, String url) {
-		this.content = content;
-		this.extra = extra;
-		this.title = title;
-		this.imageUri = imageUri;
-		this.url = url;
-	}
+    public ImgTextMessage(String content, String extra, String title, String imageUri, String url) {
+        this.content = content;
+        this.extra = extra;
+        this.title = title;
+        this.imageUri = imageUri;
+        this.url = url;
+    }
 
-	public ImgTextMessage(String content, String extra, String title, String imageUri, String url, UserInfo user) {
-		this.content = content;
-		this.extra = extra;
-		this.title = title;
-		this.imageUri = imageUri;
-		this.url = url;
-		this.user = user;
-	}
-	@Override
-	public String getType() {
-		return TYPE;
-	}
-	
-	/**
-	 * 获取消息文本内容。
-	 *
-	 * @return String
-	 */
-	public String getContent() {
-		return content;
-	}
-	
-	/**
-	 * @param content 设置消息文本内容。
-	 *
-	 *
-	 */
-	public void setContent(String content) {
-		this.content = content;
-	}  
-	
-	/**
-	 * 获取附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
-	 *
-	 * @return String
-	 */
-	public String getExtra() {
-		return extra;
-	}
-	
-	/**
-	 * @param extra 设置附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
-	 *
-	 *
-	 */
-	public void setExtra(String extra) {
-		this.extra = extra;
-	}  
-	
-	/**
-	 * 获取消息标题。
-	 *
-	 * @return String
-	 */
-	public String getTitle() {
-		return title;
-	}
-	
-	/**
-	 * @param title 设置消息标题。
-	 *
-	 *
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}  
-	
-	/**
-	 * 获取图片地址。
-	 *
-	 * @return String
-	 */
-	public String getImageUri() {
-		return imageUri;
-	}
-	
-	/**
-	 * @param imageUri 设置图片地址。
-	 *
-	 *
-	 */
-	public void setImageUri(String imageUri) {
-		this.imageUri = imageUri;
-	}  
-	
-	/**
-	 * 获取 url 跳转地址。
-	 *
-	 * @return String
-	 */
-	public String getUrl() {
-		return url;
-	}
-	
-	/**
-	 * @param url 设置 url 跳转地址。
-	 *
-	 *
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public ImgTextMessage(String content, String extra, String title, String imageUri, String url, UserInfo user) {
+        this.content = content;
+        this.extra = extra;
+        this.title = title;
+        this.imageUri = imageUri;
+        this.url = url;
+        this.user = user;
+    }
 
-	/**
-	 * 获取消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
-	 *
-	 * @return UserInfo
-	 */
-	public UserInfo getUser() {
-		return user;
-	}
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
-	/**
-	 * @param user 消息中携带的用户信息(IMKit SDK 会话界面中优先显示消息中携带的用户信息)。
-	 */
-	public void setUser(UserInfo user) {
-		this.user = user;
-	}
+    /**
+     * Gets the text content of the message.
+     *
+     * @return String
+     */
+    public String getContent() {
+        return content;
+    }
 
-	@Override
-	public String toString() {
-		return GsonUtil.toJson(this, ImgTextMessage.class);
-	}
+    /**
+     * @param content Sets the text content of the message.
+     */
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    /**
+     * Get the extra information (if developers need it, they can parse it on the App side).
+     *
+     * @return String
+     */
+    public String getExtra() {
+        return extra;
+    }
+
+    /**
+     * @param extra Set the extra information (if developers need it, they can parse it on the App side).
+     *
+     *
+     */
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
+    /**
+     * Get the message title.
+     *
+     * @return String
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title Set the message title.
+     *
+     *
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Get the image URL.
+     *
+     * @return String
+     */
+    public String getImageUri() {
+        return imageUri;
+    }
+
+
+    /**
+     * @param imageUri Sets the image URL.
+     *
+     *
+     */
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    /**
+     * Gets the URL for redirection.
+     *
+     * @return String
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url Sets the URL for redirection.
+     *
+     *
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    /**
+     * Gets the user information carried in the message (The IMKit SDK chat UI prioritizes displaying the user information carried in the message).
+     *
+     * @return UserInfo
+     */
+    public UserInfo getUser() {
+        return user;
+    }
+
+    /**
+     * @param user The user information carried in the message (The IMKit SDK chat UI prioritizes displaying the user information carried in the message).
+     */
+    public void setUser(UserInfo user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return GsonUtil.toJson(this, ImgTextMessage.class);
+    }
 }

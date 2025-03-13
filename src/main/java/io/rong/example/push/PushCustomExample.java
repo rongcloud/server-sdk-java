@@ -9,22 +9,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 推送plus Demo class
+ * Push Plus Demo class
  * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author Lang
  */
 public class PushCustomExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key here
      */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret here
      */
     private static final String appSecret = "appSecret";
     /**
-     * 自定义api地址
+     * Custom API endpoint
      */
     private static final String api = "http://api-cn.rongcloud.com";
 
@@ -40,12 +40,12 @@ public class PushCustomExample {
         AudienceCustom.TagItem at2 = new AudienceCustom.TagItem();
         AudienceCustom.TagItem at3 = new AudienceCustom.TagItem();
 
-        //代表逻辑：((beijing or shanghai) and (男 or 女)) OR (not nerd)
+        // Represents the logic: ((beijing or shanghai) and (male or female)) OR (not nerd)
 
         at1.setTags(new String[]{"beijing", "shanghai"});
         at1.setTagsOperator(AudienceCustom.AND);
 
-        at2.setTags(new String[]{"男", "女"});
+        at2.setTags(new String[]{"male", "female"});
         at2.setTagsOperator(AudienceCustom.OR);
         at2.setItemsOperator(AudienceCustom.AND);
 

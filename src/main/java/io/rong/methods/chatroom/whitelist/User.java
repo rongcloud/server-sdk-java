@@ -24,29 +24,32 @@ public class User {
     public RongCloud getRongCloud() {
         return rongCloud;
     }
+
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
-    public User(String appKey, String appSecret,RongCloud rongCloud) {
+
+    public User(String appKey, String appSecret, RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
         this.rongCloud = rongCloud;
 
     }
+
     /**
-     * 添加聊天室白名单成员方法
+     * Add chatroom allowlist members
      *
-     * @param  chatroom:聊天室.Id，memberIds 聊天室中白名单成员最多不超过 5 个。（必传）
+     * @param  chatroom: Chatroom ID, memberIds. The maximum number of allowlist members in a chatroom is 5. (Required)
      *
      * @return ResponseResult
      **/
     public ResponseResult add(ChatroomModel chatroom) throws Exception {
         if (chatroom == null) {
-            return new ResponseResult(1002,"Paramer chatroom is required");
+            return new ResponseResult(1002, "Paramer chatroom is required");
         }
-        String message = CommonUtil.checkFiled(chatroom,PATH, CheckMethod.ADD);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        String message = CommonUtil.checkFiled(chatroom, PATH, CheckMethod.ADD);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -67,9 +70,9 @@ public class User {
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
     /**
-     * 添加聊天室白名单成员方法
+     * Adds members to the chatroom allowlist
      *
-     * @param  chatroom:聊天室.Id，memberIds 聊天室中白名单成员最多不超过 5 个。（必传）
+     * @param  chatroom: The chatroom ID, memberIds The maximum number of allowlist members in a chatroom is 5. (Required)
      *
      * @return ResponseResult
      **/
@@ -103,7 +106,7 @@ public class User {
     }
 
     /**
-     * 添加聊天室白名单成员方法
+     * Add members to the chatroom allowlist
      *
      *
      * @return WhiteListResult

@@ -13,29 +13,28 @@ import io.rong.models.response.ResponseResult;
  */
 public class BlockExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
-
 
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
-        //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        // Custom API URL
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
         Block block = rongCloud.chatroom.block;
 
         ChatroomMember[] members = {
-                new ChatroomMember().setId("qawr34h"),new ChatroomMember().setId("qawr35h")
+                new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         /**
-         *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 添加封禁聊天室成员方法
+         * Add banned chatroom members
          */
 
 
@@ -48,9 +47,9 @@ public class BlockExample {
 
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 移除封禁聊天室成员方法
+         * Method to unban chatroom members
          */
         chatroom = new ChatroomModel()
                 .setId("d7ec7a8b8d8546c98b0973417209a548")
@@ -59,9 +58,9 @@ public class BlockExample {
         //System.out.println("removeResult:  " + removeResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 查询被封禁聊天室成员方法
+         * Method to query banned chatroom members
          */
         ListBlockChatroomUserResult getResult = block.getList("d7ec7a8b8d8546c98b0973417209a548");
         System.out.println("getListBlockUser:  " + getResult.toString());

@@ -9,31 +9,31 @@ import io.rong.models.response.ListGagChatroomUserResult;
 import io.rong.models.response.ResponseResult;
 
 /**
- * 聊天时禁言示例
+ * Example of Chatroom Mute
  * @author RongCloud
  */
 public class GagExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      * */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      * */
     private static final String appSecret = "appSecret";
 
 
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api地址方式
+        //Custom API URL
         //RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Gag gag = rongCloud.chatroom.gag;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言，
-         * 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Add a muted user to the chatroom (When you want to prevent a user from sending messages in a chatroom, you can mute them.
+         * The muted user can still receive and view messages in the chatroom but cannot send messages.)
          */
 
         ChatroomMember[] members = {
@@ -46,27 +46,27 @@ public class GagExample {
         ResponseResult result = gag.add(chatroom);
         System.out.println("addGagUser:  " + result.toString());
 
-        /**
-         *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 查询被禁言聊天室成员方法
-         */
-        chatroom = new ChatroomModel()
-                .setId("hjhf07kk");
-        ListGagChatroomUserResult chatroomListGagUserResult = gag.getList(chatroom);
-        System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
 
-        /**
-         *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         *
-         * 移除禁言聊天室成员
-         */
-        chatroom = new ChatroomModel()
-                .setId("hjhf07kk")
-                .setMembers(members);
-        ResponseResult removeResult = gag.remove(chatroom);
-        System.out.println("rollbackGagUser:  " + result.toString());
+/**
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * Method to query muted chatroom members
+ */
+chatroom = new ChatroomModel()
+        .setId("hjhf07kk");
+ListGagChatroomUserResult chatroomListGagUserResult = gag.getList(chatroom);
+System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
+
+/**
+ *
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * Method to remove muted chatroom members
+ */
+chatroom = new ChatroomModel()
+        .setId("hjhf07kk")
+        .setMembers(members);
+ResponseResult removeResult = gag.remove(chatroom);
+System.out.println("rollbackGagUser:  " + result.toString());
 
 
 

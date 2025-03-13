@@ -11,12 +11,11 @@ import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+
 /**
- *
- * 聊天室保活服务
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
- *
- * */
+ * Chatroom Keepalive Service
+ * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ */
 public class Keepalive {
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "chatroom/keepalive";
@@ -27,18 +26,21 @@ public class Keepalive {
     public RongCloud getRongCloud() {
         return rongCloud;
     }
+
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
+
     public Keepalive(String appKey, String appSecret) {
         this.appKey = appKey;
         this.appSecret = appSecret;
 
     }
+
     /**
-     * 添加聊天室保活方法
+     * Add Chatroom Keepalive Method
      *
-     * @param   chatroom: 聊天室信息，id（必传）
+     * @param chatroom: Chatroom information, id (required)
      *
      * @return ResponseResult
      **/
@@ -61,9 +63,9 @@ public class Keepalive {
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
     /**
-     * 删除聊天室保活方法
+     * Removes the chatroom keepalive method
      *
-     * @param  chatroom: 聊天室信息，id（必传）
+     * @param  chatroom: Chatroom information, id (required)
      *
      * @return ResponseResult
      **/
@@ -86,7 +88,7 @@ public class Keepalive {
 
     }
     /**
-     * 获取聊天室保活
+     * Retrieves the chatroom keepalive
      *
      *
      * @return ResponseResult

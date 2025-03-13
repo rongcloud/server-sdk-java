@@ -15,51 +15,51 @@ import java.util.List;
 
 public class SensitiveExample {
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key here
      * */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret here
      * */
     private static final String appSecret = "appSecret";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api 地址方式
+        // Custom API URL
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         SensitiveWord sensitiveWord = rongCloud.sensitiveword;
 
         /**
-         *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 添加替换敏感词方法
+         * Add or replace sensitive words
          *
          * */
         SensitiveWordModel sentiveWord = new SensitiveWordModel()
                 .setType(0)
-                .setKeyword("黄赌毒")
+                .setKeyword("Pornography, Gambling, Drugs")
                 .setReplace("***");
         ResponseResult addesult = sensitiveWord.add(sentiveWord);
         System.out.println("sentiveWord add:  " + addesult.toString());
 
         /**
-         *API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
-         * 添加替换敏感词方法
-         *
-         * */
+         * Add or replace sensitive words
+         */
+
         sentiveWord = new SensitiveWordModel()
                 .setType(1)
-                .setKeyword("黄赌毒");
+                .setKeyword("ABC");
         ResponseResult addersult = sensitiveWord.add(sentiveWord);
         System.out.println("sentiveWord  add replace :  " + addersult.toString());
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 查询敏感词列表方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to query the list of sensitive words
          *
          * */
         ListWordfilterResult result = sensitiveWord.getList(1);
@@ -67,8 +67,8 @@ public class SensitiveExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to remove a sensitive word (Removes a specific sensitive word from the list.)
          *
          * */
 
@@ -78,22 +78,22 @@ public class SensitiveExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 批量移除敏感词方法（从敏感词列表中，批量移除某一敏感词。）
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to batch remove sensitive words (Removes multiple sensitive words from the list in bulk.)
          *
          * */
-        String[] words = {"黄赌毒"};
+        String[] words = {"Pornography, Gambling, Drugs"};
         ResponseResult batchDeleteResult = sensitiveWord.batchDelete(words);
         System.out.println("SensitivewordbatchDelete:  " + batchDeleteResult.toString());
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 批量添加敏感词方法
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Method to batch add sensitive words
          */
 
-        AddSensitiveWordsModel.SensitiveWord word1 = new AddSensitiveWordsModel.SensitiveWord().setWord("黄赌毒").setReplaceWord("***");
-        AddSensitiveWordsModel.SensitiveWord word2 = new AddSensitiveWordsModel.SensitiveWord().setWord("黄赌").setReplaceWord("**");
-        AddSensitiveWordsModel.SensitiveWord word3 = new AddSensitiveWordsModel.SensitiveWord().setWord("黄");
+        AddSensitiveWordsModel.SensitiveWord word1 = new AddSensitiveWordsModel.SensitiveWord().setWord("abc").setReplaceWord("***");
+        AddSensitiveWordsModel.SensitiveWord word2 = new AddSensitiveWordsModel.SensitiveWord().setWord("ab").setReplaceWord("**");
+        AddSensitiveWordsModel.SensitiveWord word3 = new AddSensitiveWordsModel.SensitiveWord().setWord("a");
 
         List<AddSensitiveWordsModel.SensitiveWord> wordList = new ArrayList<>();
         wordList.add(word1);

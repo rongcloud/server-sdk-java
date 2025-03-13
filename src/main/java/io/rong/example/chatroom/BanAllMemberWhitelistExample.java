@@ -2,37 +2,35 @@ package io.rong.example.chatroom;
 
 import io.rong.CenterEnum;
 import io.rong.RongCloud;
-import io.rong.methods.chatroom.ban.BanAllMember;
 import io.rong.methods.chatroom.ban.BanAllMemberWhitelist;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
-import io.rong.models.response.*;
+import io.rong.models.response.GroupBanWhitelistResult;
+import io.rong.models.response.ResponseResult;
 
 /**
- * 聊天室全体成员禁言白名单
+ * Chatroom Mute Exceptions
  * @author RongCloud
  */
 public class BanAllMemberWhitelistExample {
 
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
-
-
 
     public static void main(String[] args) throws Exception {
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
         BanAllMemberWhitelist banAllMemberWhitelist = rongCloud.chatroom.banAllMemberWhitelist;
 
         /**
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 添加聊天室全体禁言白名单
-         * */
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Add chatroom mute exceptions
+         */
         ChatroomMember[] members = {
                 new ChatroomMember().setId("qawr34h"),
                 new ChatroomMember().setId("qawr35h")
@@ -45,17 +43,16 @@ public class BanAllMemberWhitelistExample {
         System.out.println("addBanAllMemberWhitelist:  " + result.toString());
 
         /**
-         *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 获取聊天室全体禁言白名单列表
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Get chatroom mute exceptions list
          */
         GroupBanWhitelistResult groupBanWhitelistResult = banAllMemberWhitelist.getList(chatroom.getId());
         System.out.println("listBanAllMemberWhitelist:  " + groupBanWhitelistResult.toString());
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 删除聊天室全体禁言白名单
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Remove the Mute Exceptions for all members in the chatroom
          */
         ResponseResult removeResult = banAllMemberWhitelist.remove(chatroom);
         System.out.println("removeBanAllMemberWhitelist:  " + removeResult.toString());

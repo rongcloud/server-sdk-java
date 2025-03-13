@@ -5,17 +5,17 @@ import io.rong.util.GsonUtil;
 public class BanListModel {
 
     /**
-     * 获取行数，默认为 100，最大支持 200 个。
+     * Number of rows to fetch, default is 100, maximum supported is 200.
      */
-    private Integer  num = 100;
+    private Integer num = 100;
     /**
-     * 查询开始位置，默认为 0。
+     * Starting position for query, default is 0.
      */
-    private Integer  offset = 0;
+    private Integer offset = 0;
     /**
-     * 会话类型，目前支持单聊会话 PERSON
+     * Conversation type, currently supports one-to-one chat PERSON.
      */
-    private String  type;
+    private String type;
 
     public Integer getNum() {
         return num;

@@ -1,7 +1,7 @@
 package io.rong.methods.chatroom.block;
 
 import io.rong.RongCloud;
-import io.rong.models.*;
+import io.rong.models.CheckMethod;
 import io.rong.models.chatroom.ChatroomMember;
 import io.rong.models.chatroom.ChatroomModel;
 import io.rong.models.response.ListBlockChatroomUserResult;
@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 
 /**
  *
- * 聊天室封禁服务
+ * Chatroom Block Service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
@@ -38,9 +38,9 @@ public class Block {
 
     }
     /**
-     * 添加封禁聊天室成员方法
+     * Add banned users to chatroom
      *
-     * @param  chatroom:聊天室信息，memberIds（必传支持多个最多20个）,minute:封禁时长，以分钟为单位，最大值为43200分钟。（必传）
+     * @param  chatroom: Chatroom information, memberIds (required, supports up to 20 members), minute: Duration of ban in minutes, maximum value is 43200 minutes. (required)
      *
      * @return ResponseResult
      **/
@@ -75,9 +75,9 @@ public class Block {
     }
 
     /**
-     * 查询被封禁聊天室成员方法
+     * Query the list of banned chatroom members
      *
-     * @param  chatroomId:聊天室 Id。（必传）
+     * @param  chatroomId: The ID of the chatroom. (Required)
      *
      * @return ListBlockChatroomUserResult
      **/
@@ -100,9 +100,9 @@ public class Block {
     }
 
     /**
-     * 移除封禁聊天室成员方法
+     * Method to unban chatroom members
      *
-     * @param  chatroom: 封禁的聊天室信息 其中聊天室 Id。（必传）,用户 Id。（必传）
+     * @param  chatroom: Information of the chatroom to unban. The chatroom ID (required) and user ID (required) must be provided.
      *
      * @return ResponseResult
      **/

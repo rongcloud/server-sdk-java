@@ -3,18 +3,18 @@ package io.rong.models.user;
 import io.rong.util.GsonUtil;
 
 /**
- * 批量用户标签信息
+ * Batch user tag information
  *
  */
 public class BatchTagModel {
 
     /**
-     *  用户 Id，一次最多支持 1000 个用户。（必传）
+     * User IDs, up to 1000 users supported at once. (Required)
      */
     private String[] userIds;
 
     /**
-     * 用户标签，一个用户最多添加 20 个标签，每个 tag 最大不能超过 40 个字节，标签中不能包含特殊字符。（必传）
+     * User tags, each user can have up to 20 tags, each tag cannot exceed 40 bytes, and tags cannot contain special characters. (Required)
      */
     private String[] tags;
 

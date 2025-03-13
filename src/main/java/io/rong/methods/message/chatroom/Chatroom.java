@@ -1,13 +1,14 @@
 package io.rong.methods.message.chatroom;
 
+import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
+import io.rong.models.message.ChatroomMessage;
 import io.rong.models.message.RecallMessage;
 import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.message.ChatroomMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -15,11 +16,9 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
-import com.alibaba.fastjson.JSONException;
-
 /**
- * 发送聊天室消息方法
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * Send chatroom message methods
+ * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */
@@ -46,9 +45,11 @@ public class Chatroom {
     }
 
     /**
-     * 发送聊天室消息方法（一个用户向聊天室发送消息，单条消息最大 128k。）
-     *
-     * @param message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
+     * Send chatroom message method (A user sends a message to a chatroom, with a maximum size of 128k per message.)
+     */
+
+    /**
+     * @param message: The content of the message to be sent, refer to the RongCloud message type table for examples. If the objectName is a custom message type, this parameter can be customized. RongCloud message types are under the messages directory, and custom messages should inherit from BaseMessage (required).
      * @return ResponseResult
      * @throws Exception
      **/
@@ -76,10 +77,10 @@ public class Chatroom {
         if (message.getIsIncludeSender() != null) {
             sb.append("&isIncludeSender=").append(URLEncoder.encode(message.getIsIncludeSender().toString(), UTF8));
         }
-        if (message.getMsgRandom() != null){
+        if (message.getMsgRandom() != null) {
             sb.append("&msgRandom=").append(message.getMsgRandom());
         }
-        if (message.getPriority() != null){
+        if (message.getPriority() != null) {
             sb.append("&priority=").append(message.getPriority());
         }
         String body = sb.toString();
@@ -104,9 +105,9 @@ public class Chatroom {
     }
 
     /**
-     * 发送聊天室消广播消息方法（一个用户向聊天室发送消息，单条消息最大 128k。）
+     * Sends a broadcast message to a chatroom (a user sends a message to a chatroom, with a maximum size of 128k per message).
      *
-     * @param message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。融云消息类型在messages下，自定义消息继承BaseMessage即可（必传）
+     * @param message: The message content to be sent, refer to the RongCloud message type table for examples. If the objectName is a custom message type, this parameter can be customized. RongCloud message types are under the messages package, and custom messages should inherit from BaseMessage (required).
      * @return ResponseResult
      * @throws Exception
      **/
@@ -146,14 +147,15 @@ public class Chatroom {
 
 
     /**
-     * 撤回聊天室消息。
-     *
+     * Recalls a chatroom message.
+
+
+     /**
      * @param message
      * @return ResponseResult
      * @throws Exception
      **/
     public Result recall(RecallMessage message) throws Exception {
-        //需要校验的字段
         String errMsg = CommonUtil.checkFiled(message, RECAL_PATH, CheckMethod.RECALL);
         if (null != errMsg) {
             return (Result) GsonUtil.fromJson(errMsg, Result.class);

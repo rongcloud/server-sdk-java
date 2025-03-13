@@ -9,12 +9,12 @@ import java.util.List;
  */
 public class PagingQueryBlacklistResult extends ResponseResult {
     /**
-     * 黑名单用户列表
+     * List of users in the blocklist
      */
     private List<String> users;
 
     /**
-     * 分页  token, 有则表示还有下一页，下一次请求携带
+     * Pagination token. If present, indicates there are more results to fetch in the next request.
      */
     private String next;
 

@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 import java.util.Arrays;
 
 /**
- * 发送讨论组消息方法
+ * Methods for sending discussion group messages
  *
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author RongCloud
@@ -42,10 +42,10 @@ public class Discussion {
 
     }
     /**
-     * 发送讨论组消息方法（以一个用户身份向讨论组发送消息，单条消息最大 128k.）
+     * Send a discussion group message (Send a message to a discussion group as a user, with a maximum message size of 128k.)
      *
      *
-     * @param  message:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
+     * @param  message: The message content to be sent. Refer to the RongCloud message type table for examples. If the objectName is a custom message type, this parameter can be customized. (Required)
      *
      * @return ResponseResult
      * @throws Exception
@@ -103,7 +103,7 @@ public class Discussion {
     }
 
     /**
-     * 撤回讨论组消息。
+     * Recall a message in a discussion group.
      *
      * @param message
      *
@@ -111,7 +111,7 @@ public class Discussion {
      * @throws Exception
      **/
     public Result recall(RecallMessage message) throws Exception {
-        //需要校验的字段
+        // Fields to be validated
         String msgErr = CommonUtil.checkFiled(message,PATH,CheckMethod.RECALL);
         if(null != msgErr){
             return (ResponseResult)GsonUtil.fromJson(msgErr,ResponseResult.class);

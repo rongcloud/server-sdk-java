@@ -35,10 +35,10 @@ public class Notdisturb {
 
     }
     /**
-     * 设置超级群免打扰级别
+     * Set the Do Not Disturb Level for an Ultra Group
      *
-     * @param groupId:超级群 ID
-     * @param unpushLevel:免打扰级别
+     * @param groupId: Ultra Group ID
+     * @param unpushLevel: Do Not Disturb Level
      *
      * @return Result
      **/

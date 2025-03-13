@@ -3,17 +3,17 @@ package io.rong.models.push;
 import io.rong.util.GsonUtil;
 
 /**
- * 广播消息体。
+ * Broadcast message body.
  */
 public class BroadcastModel extends BroadcastPushPublicPart {
 
     /**
-     *  发送人用户 Id。（必传）
+     * The sender's user ID. (Required)
      */
     private String fromuserid;
 
     /**
-     * 发送消息内容（必传）
+     * The message content to be sent. (Required)
      */
     private Message message;
 

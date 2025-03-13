@@ -3,12 +3,11 @@ package io.rong.methods.message.expansion;
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
-import io.rong.models.response.BlockUserResult;
-import io.rong.models.Result;
 import io.rong.models.CheckMethod;
+import io.rong.models.Result;
+import io.rong.models.message.ExpansionModel;
 import io.rong.models.response.ExpansionResult;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.message.ExpansionModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -17,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 消息扩展
+ * Message Expansion
  */
 public class Expansion {
     private static final String UTF8 = "UTF-8";
@@ -42,9 +41,9 @@ public class Expansion {
 
 
     /**
-     * 设置消息扩展
+     * Set message expansion
      *
-     * @param msg : 消息扩展参数
+     * @param msg : Message expansion parameters
      * @return Result
      **/
     public ResponseResult set(ExpansionModel msg) throws Exception {
@@ -83,13 +82,13 @@ public class Expansion {
     }
 
     /**
-     * 删除消息扩展
+     * Delete message extension
      *
-     * @param msg : 消息扩展参数
+     * @param msg : Message extension parameters
      * @return ResponseResult
      **/
     public ResponseResult remove(ExpansionModel msg) throws Exception {
-        //参数校验
+        // Parameter validation
         String message = CommonUtil.checkFiled(msg, PATH, CheckMethod.REMOVE);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
@@ -125,12 +124,11 @@ public class Expansion {
     }
 
     /**
-     * 获取扩展信息
+     * Retrieve extended information
      *
      * @return ExpansionResult
      **/
     public Result getList(String msgUID, String pageNo) throws Exception {
-        //参数校验
         String message = CommonUtil.checkParam("msgUID", msgUID, PATH, CheckMethod.GETLIST);
         if (null != message) {
             return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);

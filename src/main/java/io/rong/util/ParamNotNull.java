@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 
 /**
- * 用于校验传输的参数为非空注解
+ * Annotation used to validate that the transmitted parameter is not null.
  * Created by star on 2017/12/20.
  * @version
  * @author hc

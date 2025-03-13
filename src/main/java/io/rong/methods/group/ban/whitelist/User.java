@@ -6,7 +6,6 @@ import io.rong.models.Result;
 import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.response.GroupBanWhitelistResult;
-import io.rong.models.response.ListGagGroupUserResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -14,13 +13,13 @@ import io.rong.util.HttpUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+
 /**
- * 群组禁言用户白名单服务
- * 在群组被禁言状态下，如果需要某些用户可以发言时，可将此用户加入到群组禁言用户白名单中。群禁言用户白名单，只有群组被设置为全部禁言时才会生效
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * Group Mute Allowlist Service
+ * When a group is muted, if certain users need to be allowed to speak, they can be added to the group mute allowlist. The group mute allowlist only takes effect when the group is set to mute all members.
+ * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author rc
- *
- * */
+ */
 public class User {
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "group/mute/whitelist";
@@ -31,30 +30,33 @@ public class User {
     public RongCloud getRongCloud() {
         return rongCloud;
     }
+
     public void setRongCloud(RongCloud rongCloud) {
         this.rongCloud = rongCloud;
     }
+
     public User(String appKey, String appSecret, RongCloud rongCloud) {
         this.appKey = appKey;
         this.appSecret = appSecret;
         this.rongCloud = rongCloud;
 
     }
+
     /**
-     * 添加禁言白名单用户方法
+     * Add a user to the mute allowlist
      *
-     * @param group:群组信息。id , memberIds（必传）
+     * @param group: Group information. id, memberIds (required)
      *
      * @return Result
      **/
     public Result add(GroupModel group) throws Exception {
-        String message = CommonUtil.checkFiled(group,PATH,CheckMethod.ADD);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        String message = CommonUtil.checkFiled(group, PATH, CheckMethod.ADD);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
         GroupMember[] members = group.getMembers();
-        for(GroupMember member : members){
+        for (GroupMember member : members) {
             sb.append("&userId=").append(URLEncoder.encode(member.getId(), UTF8));
         }
         sb.append("&groupId=").append(URLEncoder.encode(group.getId(), UTF8));
@@ -66,13 +68,13 @@ public class User {
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/user/ban/whitelist/add.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
 
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.ADD,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.ADD, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
 
     /**
-     * 查询禁言白名单用户列表方法
+     * Query the list of users in the ban whitelist
      *
-     * @param  groupId:群组Id。（必传）
+     * @param  groupId: Group ID. (Required)
      *
      * @return ListGagGroupUserResult
      **/
@@ -95,22 +97,24 @@ public class User {
     }
 
     /**
-     * 移除禁言白名单用户方法
+     * Remove users from the ban whitelist
      *
-     * @param  group:群组（必传）
+     * @param  group: Group (Required)
+
+
      *
      * @return ResponseResult
      **/
     public Result remove(GroupModel group) throws Exception {
-        //参数校验
-        String message = CommonUtil.checkFiled(group,PATH, CheckMethod.REMOVE);
-        if(null != message){
-            return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);
+        // Parameter validation
+        String message = CommonUtil.checkFiled(group, PATH, CheckMethod.REMOVE);
+        if (null != message) {
+            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
         }
         StringBuilder sb = new StringBuilder();
 
         GroupMember[] members = group.getMembers();
-        for(GroupMember member : members){
+        for (GroupMember member : members) {
             sb.append("&userId=").append(URLEncoder.encode(member.getId().toString(), UTF8));
         }
 

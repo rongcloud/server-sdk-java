@@ -10,26 +10,26 @@ import io.rong.models.user.UserModel;
 
 public class BlockExample {
     /**
-     * 此处替换成您的appKey
-     * */
+     * Replace with your App Key
+     */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
-     * */
+     * Replace with your App Secret
+     */
     private static final String appSecret = "appSecret";
 
     public static void main(String[] args) throws Exception {
 
         RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-        //自定义 api 地址方式
+        // Custom API URL
         // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
 
         Block Block = rongCloud.user.block;
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 解除用户封禁
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Unban a user
          *
          */
         UserModel user = new UserModel().setId("hkjo09h").setMinute(1000);
@@ -39,8 +39,8 @@ public class BlockExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 解除用户封禁
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Unban a user
          *
          */
         ResponseResult unBlockResult = (ResponseResult)Block.remove(user.id);
@@ -48,8 +48,8 @@ public class BlockExample {
 
         /**
          *
-         * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-         * 获取被封禁用户
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Get blocked users list
          *
          */
         BlockUserResult blockResult = (BlockUserResult)Block.getList();

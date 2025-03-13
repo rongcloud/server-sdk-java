@@ -3,13 +3,13 @@ package io.rong.models.response;
 import io.rong.util.GsonUtil;
 
 /**
- * 群组用户封禁信息。
+ * Group user ban information.
  * @author RongCloud
  */
 public class GagGroupUser {
-	// 解禁时间。
+	// Unban time.
 	String time;
-	// 群成员 Id。
+	// Group member ID.
 	String id;
 
 	public GagGroupUser(String time, String id) {
@@ -18,7 +18,7 @@ public class GagGroupUser {
 	}
 
 	/**
-	 * 设置time
+	 * Set the unban time.
 	 *
 	 */	
 	public GagGroupUser setTime(String time) {
@@ -27,7 +27,7 @@ public class GagGroupUser {
 	}
 	
 	/**
-	 * 获取time
+	 * Get the unban time.
 	 *
 	 * @return String
 	 */
@@ -36,7 +36,7 @@ public class GagGroupUser {
 	}
 
 	/**
-	 * 获取userId
+	 * Get the user ID.
 	 *
 	 * @return String
 	 */
@@ -45,7 +45,7 @@ public class GagGroupUser {
 	}
 
 	/**
-	 * 设置userId
+	 * Set the user ID.
 	 *
 	 */
 	public void setId(String id) {

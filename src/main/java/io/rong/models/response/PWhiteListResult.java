@@ -9,7 +9,7 @@ import io.rong.util.GsonUtil;
  */
 public class PWhiteListResult extends Result {
     /**
-     * 单聊白名单用户列表
+     * List of users in the one-to-one chat allowlist.
      */
     UserModel[] users;
 
@@ -27,7 +27,7 @@ public class PWhiteListResult extends Result {
     }
 
     /**
-     * 获取users
+     * Get the users.
      *
      * @return User[]
      */
@@ -35,7 +35,7 @@ public class PWhiteListResult extends Result {
         return this.users;
     }
     /**
-     * 设置users
+     * Set the users.
      *
      */
     public void setUsers(UserModel[] users) {

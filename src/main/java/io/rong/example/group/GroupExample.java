@@ -10,149 +10,148 @@ import io.rong.models.group.UserGroup;
 import io.rong.models.response.GroupUserQueryResult;
 
 /**
- *
- * 群组服务示例
+ * Group service example
  * @author RongCloud
  *
  * @version 3.0.0
  */
 public class GroupExample {
-	/**
-	 * 此处替换成您的appKey
-	 * */
-	private static final String appKey = "appKey";
-	/**
-	 * 此处替换成您的appSecret
-	 * */
-	private static final String appSecret = "appSecret";
+    /**
+     * Replace with your App Key
+     */
+    private static final String appKey = "appKey";
+    /**
+     * Replace with your App Secret
+     */
+    private static final String appSecret = "appSecret";
 
-	/**
-	 * 本地调用测试
-	 * 
-	 * @param args
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
+    /**
+     * Local test
+     *
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
 
-		RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
-		//自定义 api 地址方式
-		//RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret,api);
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
+        // Custom API endpoint
+        // RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, api);
 
-		Group Group = rongCloud.group;
+        Group Group = rongCloud.group;
 
-		/**
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *
-		 * 创建群组方法
-		 *
-		 */
-		GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
-
-
-		GroupModel group = new GroupModel()
-				.setId("groupId")
-				.setMembers(members)
-				.setName("groupName");
-		Result groupCreateResult = (Result)Group.create(group);
-		System.out.println("group create result:  " + groupCreateResult.toString());
-
-		/**
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *
-		 * 	同步用户所属群组方法
-		 */
-
-		GroupModel group1 = new GroupModel()
-				.setId("groupId1")
-				.setName("groupName1");
-		GroupModel group2 = new GroupModel()
-				.setId("groupId2")
-				.setName("groupName2");
-		GroupModel[] groups = {group1,group2};
-		UserGroup user = new UserGroup()
-				.setId("jhkoi90jj")
-				.setGroups(groups);
-
-		Result syncResult = (Result)Group.sync(user);
-		System.out.println("group sync:  " + syncResult.toString());
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         *
+         * Create group method
+         *
+         */
+        GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
 
 
-		/**
-		 *
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *  刷新群组信息方法
-		 */
-		//GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
+        GroupModel group = new GroupModel()
+                .setId("groupId")
+                .setMembers(members)
+                .setName("groupName");
+        Result groupCreateResult = (Result) Group.create(group);
+        System.out.println("group create result:  " + groupCreateResult.toString());
 
-		group = new GroupModel()
-				.setId("groupId")
-				.setName("groupName");
-		Result refreshResult = (Result)Group.update(group);
-		System.out.println("refresh:  " + refreshResult.toString());
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         *
+         * Synchronize user's group list method
+         */
 
-		/**
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *
-		 * 邀请用户加入群组
-		 *
-		 */
-		group = new GroupModel()
-				.setId("hdiuj87jj")
-				.setMembers(members)
-				.setName("groupName");
-		Result groupInviteResult = (Result)rongCloud.group.invite(group);
-		System.out.println("invite:  " + groupInviteResult.toString());
+        GroupModel group1 = new GroupModel()
+                .setId("groupId1")
+                .setName("groupName1");
+        GroupModel group2 = new GroupModel()
+                .setId("groupId2")
+                .setName("groupName2");
+        GroupModel[] groups = {group1, group2};
+        UserGroup user = new UserGroup()
+                .setId("jhkoi90jj")
+                .setGroups(groups);
 
-		/**
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *
-		 * 用户加入指定群组
-		 *
-		 */
-		group = new GroupModel()
-				.setId("groupId")
-				.setMembers(members)
-				.setName("groupName");
-		Result groupJoinResult = (Result)Group.join(group);
-		System.out.println("join:  " + groupJoinResult.toString());
+        Result syncResult = (Result) Group.sync(user);
+        System.out.println("group sync:  " + syncResult.toString());
 
-		/**
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *
-		 * 查询群成员方法
-		 *
-		 */
-		group = new GroupModel().setId("groupId");
-		GroupUserQueryResult getMemberesult = Group.get(group);
-		System.out.println("group getMember:  " + getMemberesult.toString());
 
-		/**
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *
-		 * 退出群组
-		 *
-		 */
-		group = new GroupModel()
-				.setId("groupId")
-				.setMembers(members)
-				.setName("groupName");
-		Result groupQuitResult = (Result)Group.quit(group);
-		System.out.println("quit:  " + groupQuitResult.toString());
+        /**
+         *
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * Refresh group information method
+         */
+        //GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
 
-		/**
-		 *
-		 * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-		 *
-		 * 解散群组
-		 *
-		 */
-		members = new GroupMember[]{new GroupMember().setId("ghJiu7H1")};
+        group = new GroupModel()
+                .setId("groupId")
+                .setName("groupName");
+        Result refreshResult = (Result) Group.update(group);
+        System.out.println("refresh:  " + refreshResult.toString());
 
-		group = new GroupModel()
-				.setId("groupId")
-				.setMembers(members);
-		Result groupDismissResult = (Result)Group.dismiss(group);
-		System.out.println("dismiss:  " + groupDismissResult.toString());
+/**
+ * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ *
+ * Invite users to join a group
+ *
+ */
+        group = new GroupModel()
+                .setId("hdiuj87jj")
+                .setMembers(members)
+                .setName("groupName");
+        Result groupInviteResult = (Result) rongCloud.group.invite(group);
+        System.out.println("invite:  " + groupInviteResult.toString());
+
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         *
+         * User joins a specified group
+         *
+         */
+        group = new GroupModel()
+                .setId("groupId")
+                .setMembers(members)
+                .setName("groupName");
+        Result groupJoinResult = (Result) Group.join(group);
+        System.out.println("join:  " + groupJoinResult.toString());
+
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         *
+         * Query group members method
+         *
+         */
+        group = new GroupModel().setId("groupId");
+        GroupUserQueryResult getMemberesult = Group.get(group);
+        System.out.println("group getMember:  " + getMemberesult.toString());
+
+        /**
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         *
+         * Quit group
+         *
+         */
+        group = new GroupModel()
+                .setId("groupId")
+                .setMembers(members)
+                .setName("groupName");
+        Result groupQuitResult = (Result) Group.quit(group);
+        System.out.println("quit:  " + groupQuitResult.toString());
+
+        /**
+         *
+         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         *
+         * Dismiss group
+         *
+         */
+        members = new GroupMember[]{new GroupMember().setId("ghJiu7H1")};
+
+        group = new GroupModel()
+                .setId("groupId")
+                .setMembers(members);
+        Result groupDismissResult = (Result) Group.dismiss(group);
+        System.out.println("dismiss:  " + groupDismissResult.toString());
 
 	 }
 

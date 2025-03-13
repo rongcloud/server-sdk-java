@@ -1,40 +1,37 @@
 package io.rong.models.response;
 
 import io.rong.models.Result;
-import io.rong.models.chatroom.ChatroomModel;
 import io.rong.util.GsonUtil;
 
-import java.util.List;
-
 /**
- *  chatroomQuery 返回结果
+ * Chatroom query result.
  */
 public class ChatroomQueryResult extends Result {
 
-	/**
-	 * 聊天室 ID
-	 */
-	String chatroomId;
-	/**
-	 * 聊天室创建时间
-	 */
-	Long createTime;
-	/**
-	 * 聊天室当前人数
-	 */
-	Integer memberCount;
-	/**
-	 * 指定聊天室的销毁方式。
-	 */
-	Integer destroyType;
-	/**
-	 * 设置聊天室销毁等待时间。
-	 */
-	Integer destroyTime;
-	/**
-	 * 是否已开启聊天室全体禁言
-	 */
-	Boolean ban;
+    /**
+     * The ID of the chatroom.
+     */
+    String chatroomId;
+    /**
+     * The creation time of the chatroom.
+     */
+    Long createTime;
+    /**
+     * The current number of members in the chatroom.
+     */
+    Integer memberCount;
+    /**
+     * Specifies the destruction type of the chatroom.
+     */
+    Integer destroyType;
+    /**
+     * Sets the waiting time for chatroom destruction.
+     */
+    Integer destroyTime;
+    /**
+     * Indicates whether the chatroom is in a mute-all state.
+     */
+    Boolean ban;
 
 	public String getChatroomId() {
 		return chatroomId;

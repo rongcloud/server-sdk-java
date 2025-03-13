@@ -34,7 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * 一些api的调用示例和测试
+ * Example and test cases for some API calls
  */
 public class Example {
 
@@ -57,7 +57,7 @@ public class Example {
 
 
     /**
-     * 分页查询用户白名单
+     * Paginate query user allowlist
      */
     @Test
     public void testPagingQueryWhitelist() throws Exception {
@@ -66,7 +66,7 @@ public class Example {
     }
 
     /**
-     * 检查用户在线状态 方法
+     * Check user online status method
      */
     @Test
     public void testCheckOnline() throws Exception {
@@ -80,7 +80,7 @@ public class Example {
     }
 
     /**
-     * 用户注册测试
+     * User registration test
      */
     @Test
     public void testRegister() throws Exception {
@@ -98,7 +98,7 @@ public class Example {
     }
 
     /**
-     * 刷新用户信息测试
+     * Refresh user information test
      */
     @Test
     public void testUserRefresh() throws Exception {
@@ -114,7 +114,7 @@ public class Example {
     }
 
     /**
-     * 用户注销
+     * User deactivation
      */
     @Test
     public void testUserCancel() throws Exception {
@@ -129,7 +129,7 @@ public class Example {
 
 
     /**
-     * 查询已注销用户
+     * Query deactivated users
      */
     @Test
     public void testUserAbandonQuery() throws Exception {
@@ -140,7 +140,7 @@ public class Example {
     }
 
     /**
-     * 用户激活
+     * User activation
      */
     @Test
     public void testUserActivate() throws Exception {
@@ -155,7 +155,7 @@ public class Example {
 
 
     /**
-     * 重新激活用户 ID
+     * Reactivate user IDs
      */
     @Test
     public void testUserReactivate() throws Exception {
@@ -168,7 +168,7 @@ public class Example {
     }
 
     /**
-     * 查询用户信息
+     *  Query user information
      */
     @Test
     public void testGetUserInfo() throws Exception {
@@ -182,7 +182,7 @@ public class Example {
     }
 
     /**
-     * 查询用户所在群组
+     * Query groups that the user belongs to
      */
     @Test
     public void testGetUserGroups() throws Exception {
@@ -197,7 +197,7 @@ public class Example {
 
 
     /**
-     * 测试用户封禁方法
+     * Test user ban method
      */
     @Test
     public void testUserAddBlock() throws Exception {
@@ -212,7 +212,7 @@ public class Example {
     }
 
     /**
-     * 测试解除用户封禁方法
+     * Test method for unblocking a user
      */
     @Test
     public void testUserUnBlock() throws Exception {
@@ -224,7 +224,7 @@ public class Example {
     }
 
     /**
-     * 获取被封禁用户方法
+     * Test method for querying blocked users
      */
     @Test
     public void testUserQueryBlock() throws Exception {
@@ -238,7 +238,7 @@ public class Example {
     }
 
     /**
-     * 添加用户到黑名单方法
+     * Test method for adding a user to the blocklist
      */
     @Test
     public void testAddBlacklist() throws Exception {
@@ -257,7 +257,7 @@ public class Example {
     }
 
     /**
-     * 获取某用户的黑名单列表方法
+     * Method to get the blocklist of a user
      */
     @Test
     public void testGetBlacklist() throws Exception {
@@ -271,7 +271,7 @@ public class Example {
     }
 
     /**
-     * 从黑名单中移除用户方法
+     * Method to remove a user from the blocklist
      */
     @Test
     public void testRemoveBlacklist() throws Exception {
@@ -288,7 +288,7 @@ public class Example {
 
 
     /**
-     * 添加用户到白名单方法
+     * Method to add a user to the allowlist
      */
     @Test
     public void testAddWhitelist() throws Exception {
@@ -313,7 +313,7 @@ public class Example {
     }
 
     /**
-     * 获取某用户的白名单列表方法
+     * Method to retrieve the allowlist of a specific user
      */
     @Test
     public void testGetWhitelist() throws Exception {
@@ -328,7 +328,7 @@ public class Example {
     }
 
     /**
-     * 从白名单中移除用户方法
+     * Method to remove a user from the allowlist
      */
     @Test
     public void testRemoveWhitelist() throws Exception {
@@ -353,7 +353,7 @@ public class Example {
     }
 
     /**
-     * 设置用户禁言
+     * Set user mute
      */
     @Test
     public void testBanUser() throws Exception {
@@ -372,7 +372,7 @@ public class Example {
     }
 
     /**
-     * 查询禁言用户列表
+     * Query muted user list
      */
     @Test
     public void testGetBanUserList() throws Exception {
@@ -384,7 +384,7 @@ public class Example {
     }
 
     /**
-     * Token 失效
+     * Token expiration
      * @throws Exception
      */
     @Test
@@ -399,7 +399,7 @@ public class Example {
 
 
     /**
-     * 系统消息测试
+     * System message test
      */
     @Test
     public void testSendSystem() throws Exception {
@@ -428,7 +428,7 @@ public class Example {
     }
 
     /**
-     * 发送系统模板消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k， 会话类型为 SYSTEM。）
+     * Sends a system template message (one user sends a system message to one or more users, with a maximum message size of 128k, and the conversation type is SYSTEM.)
      */
     @Test
     public void testSendSystemTemplate() throws Exception {
@@ -454,7 +454,7 @@ public class Example {
     }
 
     /**
-     * 广播消息测试
+     * Test for sending broadcast messages
      */
     @Test
     public void testSendBroadcast() throws Exception {
@@ -474,7 +474,7 @@ public class Example {
     }
 
     /**
-     * 广播消息撤回测试
+     * Test for recalling broadcast messages
      */
     @Test
     public void testRecallBroadcast() throws Exception {
@@ -500,7 +500,7 @@ public class Example {
 
 
     /**
-     * 在线用户广播测试
+     * Test online user broadcast
      * @throws Exception
      */
     @Test
@@ -518,12 +518,12 @@ public class Example {
 
 
     /**
-     * 测试单聊模板消息
+     * Test one-to-one chat template message
      */
     @Test
     public void testSendPrivateTemplate() throws Exception {
         Reader reader = null;
-        // 发送单聊模板消息方法（一个用户向多个用户发送不同消息内容，单条消息最大 128k）
+        // Send one-to-one chat template message (one user sends different message contents to multiple users, single message maximum 128k)
         try {
             reader = new BufferedReader(new InputStreamReader(
                     Example.class.getClassLoader().getResourceAsStream("jsonsource/message/TemplateMessage.json")));
@@ -545,7 +545,7 @@ public class Example {
     }
 
     /**
-     * 测试单聊消息
+     * Test one-to-one chat message
      */
     @Test
     public void testSendPrivate() throws Exception {
@@ -565,19 +565,19 @@ public class Example {
 //            .setPushExt(pe)
                 .setIsIncludeSender(0);
 
-        //发送单聊方法
+        // Method to send a one-to-one chat message
         MessageResult publishPrivateResult = rongCloud.message.msgPrivate.send(privateMessage);
         System.out.println("sendPrivate:  " + publishPrivateResult.toString());
         assertEquals("200", publishPrivateResult.getCode().toString());
 
-        // 获取返回消息ID
+        // Retrieve the returned message IDs
         for (MessageUIDEntry entry : publishPrivateResult.getMessageUIDs()) {
             System.out.println("sendPrivate:  " + entry.getMessageUID());
         }
     }
 
     /**
-     * 测试撤回单聊消息
+     * Test recalling a one-to-one chat message
      */
     @Test
     public void testRecallPrivate() throws Exception {
@@ -594,12 +594,12 @@ public class Example {
     }
 
     /**
-     * 测试群组消息
+     * Test sending a group message
      */
     @Test
     public void testSendGroup() throws Exception {
         String[] gTid = {"N1ocTOPsU"};
-        //群组消息
+        // Group message
         GroupMessage groupMessage = new GroupMessage()
                 .setSenderId("xQ9vi5Maf")
                 .setTargetId(gTid)
@@ -620,16 +620,16 @@ public class Example {
     }
 
     /**
-     * 测试群组@消息
+     * Test group @ message
      */
     @Test
     public void testSendGroupMention() throws Exception {
         String[] targetId = {"N1ocTOPsU"};
-        //要@的人
+        // Users to mention
         String[] mentionIds = {"tB0QMmDbq", "sea9901"};
-        //@内容
+        // Mention content
         MentionedInfo mentionedInfo = new MentionedInfo(1, mentionIds, "push");
-        //@消息的消息内容
+        // Message content for @ message
         MentionMessageContent content = new MentionMessageContent(txtMessage, mentionedInfo);
 
         MentionMessage mentionMessage = new MentionMessage()
@@ -653,11 +653,11 @@ public class Example {
     }
 
     /**
-     * 测试群组定向消息
+     * Test sending targeted group messages
      */
     @Test
     public void testSendGroupDirection() throws Exception {
-        //群组消息
+        // Group message
         String[] toUserIds = {"tB0QMmDbq"};
         String[] targetId = {"N1ocTOPsU"};
         GroupMessage groupMessage = new GroupMessage()
@@ -681,7 +681,7 @@ public class Example {
     }
 
     /**
-     * 测试群组撤回消息
+     * Test recalling group messages
      */
     @Test
     public void testRecallGroup() throws Exception {
@@ -698,11 +698,11 @@ public class Example {
     }
 
     /**
-     * 测试聊天室消息
+     * Test chatroom message sending
      */
     @Test
     public void testSendChatroom() throws Exception {
-        //聊天室消息
+        // Chatroom message
         ChatroomMessage message = new ChatroomMessage()
                 .setSenderId("fromUserId")
                 .setTargetId(targetIds)
@@ -716,7 +716,7 @@ public class Example {
     }
 
     /**
-     * 测试撤回聊天室消息
+     * Test chatroom message recall
      */
     @Test
     public void testRecallChatroom() throws Exception {
@@ -733,7 +733,7 @@ public class Example {
     }
 
     /**
-     * 测试删除历史消息
+     * Test history message removal
      */
     @Test
     public void testRemoveHistory() throws Exception {
@@ -744,18 +744,18 @@ public class Example {
     }
 
     /**
-     * 测试获取历史消息
+     * Test history message retrieval
      */
     @Test
     public void testGetHistory() throws Exception {
         HistoryMessageResult result = (HistoryMessageResult) rongCloud.message.history.get("2018032810");
-        System.out.println("get history  message:  " + result.toString());
+        System.out.println("get history message:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
     }
 
     /**
-     * 添加敏感词方法（设置敏感词后，App 中用户不会收到含有敏感词的消息内容，默认最多设置 50 个敏感词。）
+     * Method to add sensitive words (After setting sensitive words, users in the App will not receive messages containing these sensitive words. By default, up to 50 sensitive words can be set.)
      */
     @Test
     public void testAddSensitiveword() throws Exception {
@@ -770,7 +770,7 @@ public class Example {
     }
 
     /**
-     * 查询敏感词列表方法
+     * Method to query the list of sensitive words
      */
     @Test
     public void testGetListSensitiveword() throws Exception {
@@ -782,7 +782,7 @@ public class Example {
 
 
     /**
-     * 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
+     * Method to remove a sensitive word (Remove a specific sensitive word from the sensitive word list.)
      */
     @Test
     public void testDeleteSensitiveword() throws Exception {
@@ -794,8 +794,7 @@ public class Example {
     }
 
     /**
-     * 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群， 每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join
-     * 的别名。）
+     * Method to create a group (Create a group and add users to it. Users will be able to receive messages from this group. A single user can join up to 500 groups, and each group can have a maximum of 3000 members. There is no limit to the number of groups in the App. Note: This method is essentially an alias for the /group/join method.)
      */
     @Test
     public void testGroupCreate() throws Exception {
@@ -813,7 +812,9 @@ public class Example {
     }
 
     /**
-     * 同步用户所属群组方法测试（当第一次连接融云服务器时，需要向融云服务器提交 userId 对应的用户当前所加入的所有群组， 此接口主要为防止应用中用户群信息同融云已知的用户所属群信息不同步。）
+     * Test case for synchronizing user groups (When connecting to RongCloud server for the first time,
+     * it is necessary to submit all groups that the user corresponding to the userId has joined to the RongCloud server.
+     * This interface is mainly to prevent the user's group information in the application from being out of sync with RongCloud's known user group information.)
      */
     @Test
     public void testGroupSync() throws Exception {
@@ -834,7 +835,7 @@ public class Example {
     }
 
     /**
-     * 刷新群组信息方法测试
+     * Test case for refreshing group information
      */
     @Test
     public void testGroupUpdate() throws Exception {
@@ -852,7 +853,7 @@ public class Example {
     }
 
     /**
-     * 将用户加入指定群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人。
+     * Adds a user to the specified group. The user will be able to receive messages from the group. A single user can join up to 500 groups, and each group can have a maximum of 3000 members.
      */
     @Test
     public void testGroupJoin() throws Exception {
@@ -869,7 +870,7 @@ public class Example {
     }
 
     /**
-     * 查询群成员方法
+     * Queries the members of a group.
      */
     @Test
     public void testGroupQueryUser() throws Exception {
@@ -884,7 +885,7 @@ public class Example {
     }
 
     /**
-     * 退出群组方法测试（将用户从群中移除，不再接收该群组的消息.）
+     * Tests the method for quitting a group (removes the user from the group, and the user will no longer receive messages from the group).
      */
     @Test
     public void testGroupQuit() throws Exception {
@@ -902,7 +903,7 @@ public class Example {
     }
 
     /**
-     * 添加禁言群成员方法测试
+     * Test case for adding muted group members
      */
     @Test
     public void testGroupAddGagUser() throws Exception {
@@ -921,7 +922,7 @@ public class Example {
     }
 
     /**
-     * 查询被禁言群成员方法
+     * Test case for querying muted group members
      */
     @Test
     public void testGroupLisGagUser() throws Exception {
@@ -933,7 +934,7 @@ public class Example {
     }
 
     /**
-     * 移除禁言群成员方法
+     * Test case for removing muted group members
      */
     @Test
     public void testGroupRollBackGagUser() throws Exception {
@@ -950,7 +951,7 @@ public class Example {
     }
 
     /**
-     * 解散群组方法
+     * Method to dismiss a group
      */
     @Test
     public void testGroupDismissResult() throws Exception {
@@ -968,7 +969,7 @@ public class Example {
 
 
     /**
-     * 添加全局禁言群方法
+     * Method to add a group to the global mute list
      */
     @Test
     public void testGroupBanUserResult() throws Exception {
@@ -985,7 +986,7 @@ public class Example {
     }
 
     /**
-     * 获取全局禁言群方法
+     * Method to get the list of globally muted groups
      */
     @Test
     public void testGroupBanUserGetListResult() throws Exception {
@@ -998,7 +999,7 @@ public class Example {
     }
 
     /**
-     * 移除用户全局禁言群方法
+     * Method to remove global mute for a user in a group
      */
     @Test
     public void testGroupBanUserRemoveResult() throws Exception {
@@ -1016,7 +1017,7 @@ public class Example {
 
 
     /**
-     * 添加禁言白名单用户方法
+     * Method to add users to the mute allowlist
      */
     @Test
     public void testGroupBanWhitelistAddResult() throws Exception {
@@ -1034,7 +1035,7 @@ public class Example {
     }
 
     /**
-     * API 文档: 查询禁言白名单用户方法
+     * API Documentation: Method to query the mute allowlist users
      */
     @Test
     public void testGroupBanWhitelistGetListResult() throws Exception {
@@ -1049,7 +1050,7 @@ public class Example {
 
 
     /**
-     * API 文档: 移除禁言白名单用户方法
+     * API Documentation: Remove Users from Mute Exceptions
      */
     @Test
     public void testGroupBanWhitelistRemoveResult() throws Exception {
@@ -1067,7 +1068,7 @@ public class Example {
     }
 
     /**
-     * 添加禁言群方法
+     * Add Muted Groups
      */
     @Test
     public void testGroupBanAddResult() throws Exception {
@@ -1082,7 +1083,7 @@ public class Example {
     }
 
     /**
-     * 查询禁言群方法
+     * Query Muted Groups
      */
     @Test
     public void testGroupBanGetListResult() throws Exception {
@@ -1097,7 +1098,7 @@ public class Example {
     }
 
     /**
-     * 移除禁言群方法
+     * Remove Muted Groups
      */
     @Test
     public void testGroupBanRemoveResult() throws Exception {
@@ -1111,7 +1112,7 @@ public class Example {
     }
 
     /**
-     * 创建聊天室
+     * Create a chatroom
      */
     @Test
     public void testCreateChatroom() throws Exception {
@@ -1127,7 +1128,7 @@ public class Example {
     }
 
     /**
-     * 创建聊天室
+     * Create a chatroom
      */
     @Test
     public void testChatroomCreateV2() throws Exception {
@@ -1143,8 +1144,8 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-     * 查询聊天室成员demo
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * Demo for querying chatroom members
      */
     @Test
     public void testGetChatroom() throws Exception {
@@ -1163,8 +1164,8 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-     * 查询聊天室成员是否存在
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * Check if a user exists in a chatroom
      */
     @Test
     public void testChatroomIsExist() throws Exception {
@@ -1179,8 +1180,8 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-     * 批量查询聊天室成员是否存在
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * Batch check if users exist in a chatroom
      */
     @Test
     public void testChatroomIsExists() throws Exception {
@@ -1197,8 +1198,9 @@ public class Example {
         assertEquals("200", result.getCode().toString());
     }
 
+
     /**
-     * 添加聊天室消息白名单
+     * Add Chatroom Message Allowlist
      */
     @Test
     public void addChatroomMsgWhiteList() throws Exception {
@@ -1211,7 +1213,7 @@ public class Example {
     }
 
     /**
-     * 删除聊天室消息白名单
+     * Remove Chatroom Message Allowlist
      */
     @Test
     public void testRemoveChatroomMsgWhiteList() throws Exception {
@@ -1224,19 +1226,19 @@ public class Example {
     }
 
     /**
-     * 获取聊天室消息白名单
+     * Get Chatroom Message Allowlist
      */
     @Test
     public void testGetChatroomMsgWhiteList() throws Exception {
         ChatroomWhitelistMsgResult result = rongCloud.chatroom.whiteList.message.getList();
-        System.out.println("get chatroon whitelist msg:  " + result.toString());
+        System.out.println("get chatroom whitelist msg:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
 
     }
 
     /**
-     * 添加聊天室用户白名单
+     * Add Chatroom User Allowlist
      */
     @Test
     public void addChatroomUserWhiteList() throws Exception {
@@ -1247,14 +1249,14 @@ public class Example {
                 .setId("d7ec7a8b8d8546c98b0973417209a548")
                 .setMembers(members);
         ResponseResult result = rongCloud.chatroom.whiteList.user.add(chatroom);
-        System.out.println("remove chatroon whitelist msg:  " + result.toString());
+        System.out.println("remove chatroom whitelist msg:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
 
     }
 
     /**
-     * 删除聊天室用户白名单
+     * Remove users from the chatroom allowlist
      */
     @Test
     public void testRemoveChatroomWhiteListMsg() throws Exception {
@@ -1272,7 +1274,7 @@ public class Example {
     }
 
     /**
-     * 获取聊天室消息白名单
+     * Get the chatroom message allowlist
      */
     @Test
     public void testGetChatroomWhiteListMsg() throws Exception {
@@ -1286,7 +1288,7 @@ public class Example {
     }
 
     /**
-     * 添加聊天室全体成员禁言
+     * Add a mute all members rule to the chatroom
      */
     @Test
     public void testAddBanAllMember() throws Exception {
@@ -1298,7 +1300,7 @@ public class Example {
     }
 
     /**
-     * 聊天室全体禁言状态检查
+     * Check the mute all status of a chatroom
      */
     @Test
     public void testCheckBanAllMember() throws Exception {
@@ -1310,7 +1312,7 @@ public class Example {
     }
 
     /**
-     * 获取聊天室全体禁言列表
+     * Get the mute all list of a chatroom
      */
     @Test
     public void testListBanAllMember() throws Exception {
@@ -1322,7 +1324,7 @@ public class Example {
     }
 
     /**
-     * 删除聊天室全体禁言
+     * Remove the mute all status of a chatroom
      */
     @Test
     public void testRemoveBanAllMember() throws Exception {
@@ -1335,7 +1337,7 @@ public class Example {
 
 
     /**
-     * 添加聊天室全体禁言白名单
+     * Add users to the mute all whitelist of a chatroom
      */
     @Test
     public void testAddBanAllMemberWhitelist() throws Exception {
@@ -1353,7 +1355,7 @@ public class Example {
     }
 
     /**
-     * 获取聊天室全体禁言白名单列表
+     * Get the Mute Exceptions list for a chatroom
      */
     @Test
     public void testListBanAllMemberWhitelist() throws Exception {
@@ -1364,7 +1366,7 @@ public class Example {
     }
 
     /**
-     * 删除聊天室全体禁言白名单
+     * Remove users from the Mute Exceptions list for a chatroom
      */
     @Test
     public void testRemoveBanAllMemberWhitelist() throws Exception {
@@ -1382,7 +1384,7 @@ public class Example {
     }
 
     /**
-     * 添加聊天室全局禁言
+     * Add users to the Mute All list for a chatroom
      */
     @Test
     public void testAddChatroomBan() throws Exception {
@@ -1400,7 +1402,7 @@ public class Example {
     }
 
     /**
-     * 获取聊天时全局禁言列表
+     * Get the list of globally muted users in chatrooms
      */
     @Test
     public void testGetChatroomBan() throws Exception {
@@ -1413,7 +1415,7 @@ public class Example {
     }
 
     /**
-     * 删除聊天时全局禁言
+     * Remove global mute for users in chatrooms
      */
     @Test
     public void testRemoveChatroomBan() throws Exception {
@@ -1431,7 +1433,7 @@ public class Example {
     }
 
     /**
-     * 添加封禁聊天室成员方法
+     * Add banned users to a chatroom
      */
     @Test
     public void testAddChatroomBlock() throws Exception {
@@ -1450,7 +1452,7 @@ public class Example {
     }
 
     /**
-     * 移除封禁聊天室成员方法
+     * Remove banned chatroom members
      */
     @Test
     public void testRemoveChatroomBlock() throws Exception {
@@ -1468,7 +1470,7 @@ public class Example {
     }
 
     /**
-     * 获取封禁聊天室成员方法
+     * Get banned chatroom members
      */
     @Test
     public void testGetChatroomBlock() throws Exception {
@@ -1481,7 +1483,7 @@ public class Example {
 
 
     /**
-     * 设置聊天室销毁类型
+     * Set chatroom destruction type
      */
     @Test
     public void testChatroomSetDestroyType() throws Exception {
@@ -1495,7 +1497,7 @@ public class Example {
     }
 
     /**
-     * 销毁聊天室
+     * Destroy chatroom
      */
     @Test
     public void testDestroyChatroom() throws Exception {
@@ -1509,7 +1511,7 @@ public class Example {
     }
 
     /**
-     * 添加应用内聊天室降级消息
+     * Add chatroom demotion messages within the application
      */
     @Test
     public void testAddChatroomDemotion() throws Exception {
@@ -1520,7 +1522,7 @@ public class Example {
     }
 
     /**
-     * 查询聊天室信息
+     * Query chatroom information
      */
     @Test
     public void testChatroomQuery() throws Exception {
@@ -1532,7 +1534,7 @@ public class Example {
     }
 
     /**
-     * 移除应用内聊天室降级消息
+     * Remove chatroom demotion messages within the application
      */
     @Test
     public void testRemoveChatroomDemotion() throws Exception {
@@ -1544,7 +1546,7 @@ public class Example {
     }
 
     /**
-     * 添加聊天室消息优先级demo
+     * Add chatroom message priority demo
      */
     @Test
     public void testGetChatroomDemotion() throws Exception {
@@ -1554,7 +1556,7 @@ public class Example {
     }
 
     /**
-     * 聊天室消息停止分发
+     * Stop message distribution in chatroom
      */
     @Test
     public void testStopChatroomDistributio() throws Exception {
@@ -1568,9 +1570,9 @@ public class Example {
 
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 聊天室消息恢复分发方法
+     * Resume message distribution in chatroom
      */
     @Test
     public void testResumeChatroomDistributio() throws Exception {
@@ -1583,7 +1585,7 @@ public class Example {
     }
 
     /**
-     * 添加禁言聊天室成员方法想（在 App 中如果不让某一用户在聊天室中发言时，可将此用户在聊天室中禁言， 被禁言用户可以接收查看聊天室中用户聊天信息，但不能发送消息.）获取某用户的黑名单列表方法
+     * Add a gagged chatroom member (In the App, if you don't want a certain user to speak in the chatroom, you can gag this user in the chatroom. The gagged user can receive and view chatroom messages but cannot send messages.)
      */
     @Test
     public void testAddChatroomGag() throws Exception {
@@ -1600,7 +1602,7 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1 查询被禁言聊天室成员方法
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1 Query muted chatroom members method
      */
     @Test
     public void testGetChatroomGag() throws Exception {
@@ -1612,9 +1614,9 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 移除禁言聊天室成员
+     * Remove muted chatroom members
      */
     @Test
     public void testRemoveChatroomGag() throws Exception {
@@ -1630,9 +1632,9 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 添加保活聊天室
+     * Add keepalive chatroom
      **/
     @Test
     public void testAddChatroomKeepalive() throws Exception {
@@ -1644,9 +1646,9 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 删除保活聊天室
+     * Delete keepalive chatroom
      **/
     @Test
     public void testRemoveChatroomKeepalive() throws Exception {
@@ -1659,9 +1661,9 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 获取保活聊天室
+     * Get Keepalive Chatrooms
      **/
     @Test
     public void testGetChatroomKeepalive() throws Exception {
@@ -1673,7 +1675,7 @@ public class Example {
     }
 
     /**
-     * 新添加禁言群成员方法测试
+     * Test method for adding muted group members
      */
     @Test
     public void testGroupMuteMembersAdd() throws Exception {
@@ -1692,7 +1694,7 @@ public class Example {
     }
 
     /**
-     * 新查询被禁言群成员方法
+     * Query method for muted group members
      */
     @Test
     public void testGroupMuteMemberList() throws Exception {
@@ -1704,7 +1706,7 @@ public class Example {
     }
 
     /**
-     * 新移除禁言群成员方法
+     * New method to remove muted group members
      */
     @Test
     public void testGroupRemoveMuteMemberr() throws Exception {
@@ -1721,9 +1723,9 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 广播消息
+     * Broadcast Message
      **/
     @Test
     public void testBroadcast() throws Exception {
@@ -1747,9 +1749,8 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-     * <p>
-     * 推送消息
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * Push notification
      **/
     @Test
     public void testPush() throws Exception {
@@ -1776,14 +1777,14 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 添加标签
+     * Add tag
      **/
     @Test
     public void testSetTag() throws Exception {
         TagModel tag = new TagModel();
-        tag.setTags(new String[]{"男", "90后"});
+        tag.setTags(new String[]{"Male", "Post-90s"});
         tag.setUserId("userId1");
         Result result = rongCloud.user.tag.set(tag);
 
@@ -1792,14 +1793,14 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 批量添加标签
+     * Batch add tags
      **/
     @Test
     public void testBatchSetTag() throws Exception {
         BatchTagModel tag = new BatchTagModel();
-        tag.setTags(new String[]{"男", "90后"});
+        tag.setTags(new String[]{"Male", "Post-90s"});
         tag.setUserIds(new String[]{"userId1", "userId2"});
         Result result = rongCloud.user.tag.batchSet(tag);
 
@@ -1808,9 +1809,9 @@ public class Example {
     }
 
     /**
-     * API 文档: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * <p>
-     * 查询用户标签
+     * Query User Tags
      **/
     @Test
     public void testGetTag() throws Exception {
@@ -1824,7 +1825,7 @@ public class Example {
 
 
     /**
-     * 设置消息扩展
+     * Set Message Extension
      **/
     @Test
     public void testSetExpansion() throws Exception {
@@ -1847,7 +1848,7 @@ public class Example {
 
 
     /**
-     * 删除消息扩展
+     * Delete Message Extension
      **/
     @Test
     public void testRemoveExpansion() throws Exception {
@@ -1868,7 +1869,7 @@ public class Example {
 
 
     /**
-     * 获取扩展信息
+     * Get expansion information
      **/
     @Test
     public void testGetExpansion() throws Exception {
@@ -1879,7 +1880,7 @@ public class Example {
     }
 
     /**
-     * 创建超级群
+     * Create an ultra group
      * @throws Exception
      */
     @Test
@@ -1895,7 +1896,7 @@ public class Example {
     }
 
     /**
-     * 刷新群组信息
+     * Refresh group information
      * @throws Exception
      */
     @Test
@@ -1910,7 +1911,7 @@ public class Example {
     }
 
     /**
-     * 解散群组
+     * Dissolve a group
      * @throws Exception
      */
     @Test
@@ -1921,7 +1922,7 @@ public class Example {
     }
 
     /**
-     * 加入超级群
+     * Join an ultra group
      * @throws Exception
      */
     @Test
@@ -1935,7 +1936,7 @@ public class Example {
     }
 
     /**
-     * 退出超级群
+     * Quit an ultra group
      * @throws Exception
      */
     @Test
@@ -1949,7 +1950,7 @@ public class Example {
     }
 
     /**
-     * 设置超级群禁言状态
+     * Set the mute status for an ultra group
      * @throws Exception
      */
     @Test
@@ -1960,7 +1961,7 @@ public class Example {
     }
 
     /**
-     * 查询超级群禁言状态
+     * Query the mute status for an ultra group
      * @throws Exception
      */
     @Test
@@ -1971,7 +1972,7 @@ public class Example {
     }
 
     /**
-     * 添加禁言成员
+     * Add muted members to an ultra group
      * @throws Exception
      */
     @Test
@@ -1986,7 +1987,7 @@ public class Example {
     }
 
     /**
-     * 获取禁言成员
+     * Get muted members of an ultra group
      * @throws Exception
      */
     @Test
@@ -1997,7 +1998,7 @@ public class Example {
     }
 
     /**
-     * 移除禁言成员
+     * Remove muted members from an ultra group
      * @throws Exception
      */
     @Test
@@ -2012,7 +2013,7 @@ public class Example {
     }
 
     /**
-     * 添加禁言白名单
+     * Add mute exceptions
      * @throws Exception
      */
     @Test
@@ -2027,7 +2028,7 @@ public class Example {
     }
 
     /**
-     * 获取禁言白名单
+     * Get mute exceptions
      * @throws Exception
      */
     @Test
@@ -2038,7 +2039,7 @@ public class Example {
     }
 
     /**
-     * 移除禁言白名单
+     * Remove mute exceptions
      * @throws Exception
      */
     @Test
@@ -2053,7 +2054,7 @@ public class Example {
     }
 
     /**
-     * 创建频道
+     * Create a channel
      * @throws Exception
      */
     @Test
@@ -2067,7 +2068,7 @@ public class Example {
     }
 
     /**
-     * 超级群频道切换
+     * Switch supergroup channel
      * @throws Exception
      */
     @Test
@@ -2083,7 +2084,7 @@ public class Example {
     }
 
     /**
-     * 超级群私有频道用户添加
+     * Add user to supergroup private channel
      * @throws Exception
      */
     @Test
@@ -2100,7 +2101,7 @@ public class Example {
     }
 
     /**
-     * 超级群私有频道用户添加
+     * Add a user to a private channel in an ultra group
      * @throws Exception
      */
     @Test
@@ -2112,7 +2113,7 @@ public class Example {
     }
 
     /**
-     * 超级群私有频道用户添加
+     * Remove a user from a private channel in an ultra group
      * @throws Exception
      */
     @Test
@@ -2129,7 +2130,7 @@ public class Example {
     }
 
     /**
-     * 查询频道列表
+     * Query the list of channels
      * @throws Exception
      */
     @Test
@@ -2140,7 +2141,7 @@ public class Example {
     }
 
     /**
-     * 删除频道
+     * Delete a channel
      * @throws Exception
      */
     @Test
@@ -2154,7 +2155,7 @@ public class Example {
     }
 
     /**
-     * 设置超级群扩展
+     * Set ultra group expansion
      * @throws Exception
      */
     @Test
@@ -2175,7 +2176,7 @@ public class Example {
     }
 
     /**
-     * 删除超级群扩展
+     * Delete ultra group expansion
      * @throws Exception
      */
     @Test
@@ -2194,7 +2195,7 @@ public class Example {
     }
 
     /**
-     * 查询超级群扩展
+     * Query ultra group expansion
      * @throws Exception
      */
     @Test
@@ -2206,7 +2207,7 @@ public class Example {
     }
 
     /**
-     * 用户备注
+     * User remark
      * @throws Exception
      */
     @Test
@@ -2223,7 +2224,7 @@ public class Example {
     }
 
     /**
-     * 用户备注删除
+     * Delete user remark
      * @throws Exception
      */
     @Test
@@ -2234,7 +2235,7 @@ public class Example {
     }
 
     /**
-     * 用户备注获取
+     * Get user remark
      * @throws Exception
      */
     @Test
@@ -2245,19 +2246,19 @@ public class Example {
     }
 
     /**
-     * 群组备注
+     * Group alias
      * @throws Exception
      */
     @Test
     public void testGroupRemarkSet() throws Exception {
-        ResponseResult result = (ResponseResult) rongCloud.group.remark.set("user1", "group1", "备注");
+        ResponseResult result = (ResponseResult) rongCloud.group.remark.set("user1", "group1", "Group Alias");
         System.out.println("group remark set:  " + result.toString());
         assertEquals("200", result.getCode().toString());
 
     }
 
     /**
-     * 群组备注删除
+     * Delete group remark
      * @throws Exception
      */
     @Test
@@ -2268,7 +2269,7 @@ public class Example {
     }
 
     /**
-     * 群组备注获取
+     * Get group remark
      * @throws Exception
      */
     @Test
@@ -2279,7 +2280,7 @@ public class Example {
     }
 
     /**
-     * 不落地通知
+     * Push-only Notification
      * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * @throws Exception
      */
@@ -2304,7 +2305,7 @@ public class Example {
     }
 
     /**
-     * 添加用户免打扰时间段
+     * Add a user's Do Not Disturb period
      */
     @Test
     public void testAddBlockPushPeriod() throws Exception {
@@ -2329,7 +2330,7 @@ public class Example {
     }
 
     /**
-     * 获取某用户的免打扰时间段
+     * Get a user's Do Not Disturb period
      */
     @Test
     public void testGetBlockPushPeriod() throws Exception {
@@ -2344,7 +2345,7 @@ public class Example {
     }
 
     /**
-     * 移除免打扰时间段
+     * Remove a Do Not Disturb period
      */
     @Test
     public void testRemoveBlockPushPeriod() throws Exception {

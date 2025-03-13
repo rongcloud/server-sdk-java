@@ -33,7 +33,7 @@ import java.util.Set;
 
 
 /**
- * 消息扩展示例
+ * Message Expansion Example
  *
  * @author RongCloud
  * @version 3.2.15
@@ -41,11 +41,11 @@ import java.util.Set;
 public class ExpansionExample {
 
     /**
-     * 此处替换成您的appKey
+     * Replace with your App Key
      */
     private static final String appKey = "appKey";
     /**
-     * 此处替换成您的appSecret
+     * Replace with your App Secret
      */
     private static final String appSecret = "appSecret";
 
@@ -56,7 +56,7 @@ public class ExpansionExample {
 
         /**
          *
-         * 设置消息扩展
+         * Set message extension
          *
          */
         ExpansionModel msg = new ExpansionModel();
@@ -76,7 +76,7 @@ public class ExpansionExample {
 
         /**
          *
-         * 删除消息扩展
+         * Delete message extension
          *
          */
         Set eKey = new HashSet();
@@ -89,7 +89,7 @@ public class ExpansionExample {
 
         /**
          *
-         * 获取扩展信息
+         * Get extension information
          *
          */
         ExpansionResult eResult = (ExpansionResult)expansion.getList("BS45-NPH4-HV87-10LM");

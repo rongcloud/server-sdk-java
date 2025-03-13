@@ -1,16 +1,14 @@
 package io.rong.models;
 /**
- *  基础 http 成功返回结果
+ * Base HTTP success response result.
  */
 public abstract class Result {
     /**
-     * 返回码，200 为正常。
-     *
+     * Response code, 200 indicates success.
      */
     public Integer code;
     /**
-     * 错误信息。
-     *
+     * Error message.
      */
     public String errorMessage;
 
@@ -25,15 +23,14 @@ public abstract class Result {
 
     }
     /**
-     * 设置code
-     *
+     * Sets the response code.
      */
     public void setCode(Integer code) {
         this.code = code;
     }
 
     /**
-     * 获取code
+     * Gets the response code.
      *
      * @return Integer
      */
@@ -42,7 +39,7 @@ public abstract class Result {
     }
 
     /**
-     * 获取错误信息
+     * Gets the error message.
      *
      * @return String
      */
@@ -50,7 +47,7 @@ public abstract class Result {
         return errorMessage;
     }
     /**
-     * 设置错误信息 msg
+     * Set the error message
      *
      */
     public void setErrorMessage(String errorMessage) {

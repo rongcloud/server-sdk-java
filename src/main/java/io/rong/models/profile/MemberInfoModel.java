@@ -7,19 +7,19 @@ package io.rong.models.profile;
 public class MemberInfoModel {
 
     /**
-     * 群组id
+     * Group ID
      */
     private String groupId;
     /**
-     * 用户id
+     * User ID
      */
     private String userId;
     /**
-     * 群成员昵称
+     * Group member nickname
      */
     private String nickname;
     /**
-     * 附加信息
+     * Additional information
      */
     private String extra;
 

@@ -14,7 +14,7 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 
 /**
- * 推送plus服务
+ * Push Plus service
  * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author lang
@@ -44,13 +44,12 @@ public class PushCustom {
 
 
     /**
-     * 推送plus
+     * Push Plus
      *
-     * @param push/custom 推送数据
+     * @param push/custom Push data
      * @return PushResult
      **/
     public PushResult pushcustom(PushModel push) throws Exception {
-        // 需要校验的字段
         String message = CommonUtil.checkFiled(push, PATH, CheckMethod.PUSHCUSTOM);
         if (null != message) {
             return (PushResult) GsonUtil.fromJson(message, PushResult.class);

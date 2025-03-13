@@ -14,8 +14,8 @@ import io.rong.util.HttpUtil;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
- * 群组禁言用户白名单服务
- * 在群组被禁言状态下，如果需要某些用户可以发言时，可将此用户加入到群组禁言用户白名单中。群禁言用户白名单，只有群组被设置为全部禁言时才会生效
+ * Group Mute Exceptions Service
+ * When a group is muted, if certain users need to be allowed to speak, they can be added to the group's mute exceptions list. The group mute exceptions list only takes effect when the group is set to mute all members.
  * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author rc
  *

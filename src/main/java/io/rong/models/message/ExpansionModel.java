@@ -7,42 +7,42 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * 消息扩展信息
+ * Message extension information
  */
 public class ExpansionModel {
 
     /**
-     * 消息唯一标识 ID，服务端可通过全量消息路由功能获取。
+     * The unique identifier of the message. The server can obtain this through the Post-messaging Callback feature.
      */
     public String msgUID;
     /**
-     * 需要设置扩展的消息发送用户 Id。
+     * The user ID of the sender who needs to set the message extension.
      */
     public String userId;
     /**
-     * 会话类型，二人会话是 1 、群组会话是 3，只支持单聊、群组会话类型。
+     * The conversation type, where 1 represents a one-to-one chat and 3 represents a group chat. Only one-to-one and group chat types are supported.
      */
     public Integer conversationType;
     /**
-     * 目标 Id，根据不同的 conversationType，可能是用户 Id 或群组 Id。
+     * The target ID, which could be a user ID or group ID depending on the conversation type.
      */
     private String targetId;
     /**
-     * 消息自定义扩展内容，JSON 结构，以 Key、Value 的方式进行设置，如：{"type":"3"}，单条消息可设置 300 个扩展信息，一次最多可以设置 100 个。
+     * The custom extension content of the message, in JSON format, set as key-value pairs, e.g., {"type":"3"}. A single message can have up to 300 extensions, and a maximum of 100 extensions can be set at once.
      */
     private HashMap<String, String> extraKeyVal;
     /**
-     * 需要删除的扩展信息的 Key 值，一次最多可以删除 100 个扩展信息
+     * The keys of the extensions to be deleted. A maximum of 100 extensions can be deleted at once.
      */
     private Set extraKey;
 
     /**
-     * 终端用户在线状态下，发送者是否接收该设置状态，0 表示为不接收，1 表示为接收，默认为 0 不接收
+     * Whether the sender should receive the setting status when the end user is online. 0 indicates not to receive, 1 indicates to receive. Default is 0 (not receive).
      */
     private int isSyncSender = 0;
 
     /**
-     * 消息频道id
+     * The message channel ID.
      */
     private String busChannel;
 

@@ -6,38 +6,38 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * listBlockChatroomUser返回结果
+ * The result of listing blocked chatroom users.
  */
-public class ListBlockChatroomUserResult extends Result{
-	/**
-	 * 被封禁用户列表
-	 *
-	 */
-	List<ChatroomMember> members;
+public class ListBlockChatroomUserResult extends Result {
+    /**
+     * The list of banned users.
+     */
+    List<ChatroomMember> members;
 
-	public ListBlockChatroomUserResult(Integer code, String msg, List<ChatroomMember> members) {
-		super(code, msg);
-		this.members = members;
-	}
+    public ListBlockChatroomUserResult(Integer code, String msg, List<ChatroomMember> members) {
+        super(code, msg);
+        this.members = members;
+    }
 
-	public ListBlockChatroomUserResult(List<ChatroomMember> members) {
-		this.members = members;
-	}
-	/**
-	 * 获取members
-	 *
-	 * @return List
-	 */
-	public List<ChatroomMember> getMembers() {
-		return this.members;
-	}
-	/**
-	 * 设置members
-	 *
-	 */
-	public void setMembers(List<ChatroomMember> members) {
-		this.members = members;
-	}
+    public ListBlockChatroomUserResult(List<ChatroomMember> members) {
+        this.members = members;
+    }
+
+    /**
+     * Gets the list of banned users.
+     *
+     * @return List
+     */
+    public List<ChatroomMember> getMembers() {
+        return this.members;
+    }
+
+    /**
+     * Sets the list of banned users.
+     */
+    public void setMembers(List<ChatroomMember> members) {
+        this.members = members;
+    }
 
 	@Override
 	public String toString() {

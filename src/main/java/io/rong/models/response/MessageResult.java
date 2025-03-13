@@ -5,12 +5,12 @@ import io.rong.util.GsonUtil;
 import java.util.List;
 
 /**
- * push 返回结果
+ * Push notification response result.
  */
 public class MessageResult extends ResponseResult {
 
     /**
-     * 单聊、群聊、聊天室、超级群消息ID列表,
+     * List of Message UIDs for one-to-one chat, group chat, chatroom, and ultra group messages.
      */
     private List<MessageUIDEntry> messageUIDs;
 

@@ -1,6 +1,7 @@
 package io.rong.models.message;
 
-import io.rong.models.push.*;
+import io.rong.models.push.HarmonyOSPlatformNotification;
+import io.rong.models.push.PlatformNotification;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class PushUserMessageTest {
         pushUserMessage.setNotification(notification);
         notification.setTitle("this is push");
 
-        // - 设置鸿蒙推送
+        // - Set HarmonyOS push notification
         HarmonyOSPlatformNotification harmonyOS = new HarmonyOSPlatformNotification();
         harmonyOS.setAlert("alert");
         Map<String, String> extras = new HashMap<>();
@@ -37,8 +38,7 @@ public class PushUserMessageTest {
         harmonyOS.setOhos(ohos);
         notification.setHarmonyOS(harmonyOS);
 
-
-        // - 设置安卓推送
+        // - Set Android push notification
         PlatformNotification anroid = new PlatformNotification();
         anroid.setExtras(extras);
         PlatformNotification.Platform platform = new PlatformNotification.Platform();
@@ -49,7 +49,8 @@ public class PushUserMessageTest {
         anroid.setAlert("alert");
         notification.setAndroid(anroid);
 
-        // - 设置 ios 推送
+
+        // - Set up iOS push notification
         PlatformNotification ios = new PlatformNotification();
         ios.setInterruptionLevel("passive");
         ios.setThreadId("thread_id");

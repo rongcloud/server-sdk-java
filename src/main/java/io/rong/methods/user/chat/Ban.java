@@ -17,7 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 用户单聊禁言
+ * User one-to-one chat mute
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
@@ -45,13 +45,12 @@ public class Ban {
     }
 
     /**
-     * 设置用户禁言
+     * Mute a user
      * url  "/user/chat/fb/set"
      * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
-     *
-     * @param model userId(必传) state(必传) type(必传)
+     * @param model userId (required) state (required) type (required)
      * @return ResponseResult
-     **/
+     */
     public Result set(BanModel model) throws Exception {
 
         String message = CommonUtil.checkFiled(model, PATH, CheckMethod.SET);
@@ -89,9 +88,9 @@ public class Ban {
     }
 
     /**
-     * 查询禁言用户列表
+     * Query the list of banned users
      *
-     * @param model:num offset type（必传）
+     * @param model:num offset type (required)
      * @return QueryBlacklistUserResult
      **/
     public BanListResult getList(BanListModel model) throws Exception {

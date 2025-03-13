@@ -4,12 +4,12 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- * 批量设置敏感词
+ * Batch add sensitive words
  */
 public class BatchAddSensitiveWordResult extends Result {
 
     /**
-     * 剩余可用数
+     * Remaining quota
      */
     private Integer remainQuota;
 

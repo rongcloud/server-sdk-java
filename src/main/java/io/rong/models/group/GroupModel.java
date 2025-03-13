@@ -1,40 +1,40 @@
 package io.rong.models.group;
 
 /**
- * 群组数据模型
+ * Group data model
  *
  * @author Rongcloud
  * */
 public class GroupModel {
     /**
-     * 群组id
+     * Group ID
      **/
     private String id;
     /**
-     * 群组成员
+     * Group members
      **/
     private GroupMember[] members;
     /**
-     * 群组名
+     * Group name
      **/
     private String name;
 
     /**
-     * 禁言时间
+     * Mute duration in minutes
      * */
     private Integer minute;
     /**
-     * 禁言状态
+     * Mute status
      * */
     private Integer status;
 
-    //群操作通知消息 仅对 创建 加入 退出 解散 操作有效
+    // Group operation notification message. Only valid for create, join, quit, and dismiss operations.
     /**
-     * 当前群ID,最大群成员数量, 默认与APP 统一群成员数量限制一致, 不大于APP 统一群成员数量限制. 本字段仅当次请求有效. IM 服务端不做存储记录.
+     * Current group ID, maximum number of group members. Defaults to the app's unified group member limit, not exceeding it. This field is only valid for the current request and is not stored by the IM server.
      */
     private int maxMember;
     /**
-     * 是否绑定通知消息, 不下发对应消息,
+     * Whether to bind the notification message and not deliver the corresponding message.
      */
     private boolean bindNotifyMsg;
     private String fromUserId;
@@ -52,11 +52,11 @@ public class GroupModel {
     public GroupModel() {
     }
     /**
-     * 构造方法
+     * Constructor
      *
-     * @param id 群组id
-     * @param members 群组成员
-     * @param name 群名
+     * @param id The group ID
+     * @param members The group members
+     * @param name The group name
      */
     public GroupModel(String id, GroupMember[] members, String name, Integer minute) {
         this.id = id;

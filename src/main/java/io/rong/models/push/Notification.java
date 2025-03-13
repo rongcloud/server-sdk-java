@@ -3,38 +3,39 @@ package io.rong.models.push;
 import io.rong.util.GsonUtil;
 
 /**
- * 按操作系统类型推送消息内容，如 platform 中设置了给 iOS 和 Android 系统推送消息，而在 notification 中只设置了 iOS
- * 的推送内容，则 Android 的推送内容为最初 alert 设置的内容。（非必传）
+ * Push notification content by operating system type. For example, if the platform is set to push messages to iOS and Android,
+ * but only the iOS push content is set in the notification, then the Android push content will be the initial alert content. (Optional)
  */
 public class Notification {
 
     /**
-     * 默认推送消息内容，如填写了 iOS 或 Android 下的 alert 时，则推送内容以对应平台系统的 alert 为准。（必传）
+     * Default push notification content. If the alert for iOS or Android is specified, the push content will follow the alert of the corresponding platform. (Required)
      */
     private String alert;
 
     /**
-     * 通知栏显示标题，最长不超过 50 个字符。
+     * The title displayed in the notification bar, with a maximum length of 50 characters.
      */
     private String title;
 
     /**
-     * 是否强制显示通知详细，0 为不强制、1 为强制，默认为 0，当用户设置通知不显示详细时，可通过此属性强制显示通知详细。
+     * Whether to force the display of notification details. 0 for not forced, 1 for forced. Default is 0. When the user sets the notification to not show details,
+     * this property can be used to force the display of notification details.
      */
     private Integer forceShowPushContent;
 
 
     /**
-     * 设置 iOS 平台下的推送及附加信息。
+     * Set the push notification and additional information for the iOS platform.
      */
     private PlatformNotification ios;
 
     /**
-     * 设置 Android 平台下的推送及附加信息。
+     * Set the push notification and additional information for the Android platform.
      */
     private PlatformNotification android;
     /**
-     * 设置鸿蒙平台下的推送及附加信息。
+     * Set the push notification and additional information for the HarmonyOS platform.
      */
     private HarmonyOSPlatformNotification harmonyOS;
 

@@ -4,10 +4,10 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 /**
- *  SMSSendCodeResult 成功返回结果
+ * SMSSendCodeResult is the successful response result.
  */
 public class SMSSendCodeResult extends Result {
-	// 短信验证码唯一标识。
+	// The unique identifier of the SMS verification code.
 	String sessionId;
 
 	public SMSSendCodeResult(Integer code, String sessionId, String errorMessage) {
@@ -18,7 +18,7 @@ public class SMSSendCodeResult extends Result {
 	}
 
 	/**
-	 * 设置sessionId
+	 * Set the sessionId.
 	 *
 	 */	
 	public void setSessionId(String sessionId) {
@@ -26,7 +26,7 @@ public class SMSSendCodeResult extends Result {
 	}
 	
 	/**
-	 * 获取sessionId
+	 * Get the sessionId.
 	 *
 	 * @return String
 	 */

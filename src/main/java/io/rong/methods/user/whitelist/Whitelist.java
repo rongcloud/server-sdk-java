@@ -2,11 +2,11 @@ package io.rong.methods.user.whitelist;
 
 import io.rong.RongCloud;
 import io.rong.methods.BaseMethod;
+import io.rong.models.CheckMethod;
+import io.rong.models.Result;
 import io.rong.models.response.PWhiteListResult;
 import io.rong.models.response.PagingQueryWhitelistResult;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.Result;
-import io.rong.models.CheckMethod;
 import io.rong.models.user.UserModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 用户白名单服务
+ * User allowlist service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
@@ -47,9 +47,9 @@ public class Whitelist extends BaseMethod {
     }
 
     /**
-     * 添加用户到白名单方法
+     * Add user to allowlist method
      *
-     * @param user:用户 Id,whitelist（必传）
+     * @param user: User ID, whitelist (required)
      * @return ResponseResult
      **/
     public Result add(UserModel user) throws Exception {
@@ -66,9 +66,9 @@ public class Whitelist extends BaseMethod {
     }
 
     /**
-     * 获取某用户的白名单列表方法
+     * Retrieves the whitelist for a specific user.
      *
-     * @param user:用户 Id。（必传）
+     * @param user: User ID (required)
      * @return QueryBlacklistUserResult
      **/
     public PWhiteListResult getList(UserModel user) throws Exception {
@@ -91,7 +91,7 @@ public class Whitelist extends BaseMethod {
     }
 
     /**
-     * 分页获取用户的白名单列表方法
+     * Paginates the user's whitelist.
      **/
     public PagingQueryWhitelistResult pagingQueryWhitelist(String userId, String pageToken, Integer size) throws Exception {
         String method = CheckMethod.PAGING_QUERY_WHITELIST;
@@ -108,9 +108,9 @@ public class Whitelist extends BaseMethod {
     }
 
     /**
-     * 从白名单中移除用户方法
+     * Method to remove a user from the allowlist
      *
-     * @param user:用户 Id,whitelist（必传）
+     * @param user: User ID, whitelist (required)
      * @return ResponseResult
      **/
     public Result remove(UserModel user) throws Exception {
@@ -127,7 +127,7 @@ public class Whitelist extends BaseMethod {
     }
 
     /**
-     * 创建添加、移除白名单的参数
+     * Creates parameters for adding or removing a user from the allowlist
      *
      * @param user
      * @return

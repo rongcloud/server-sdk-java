@@ -4,48 +4,48 @@ import io.rong.messages.BaseMessage;
 import java.util.HashMap;
 
 /**
- * 单聊 消息体
+ * One-to-one chat message body
  *
  * @author RongCloud
  */
 public class PrivateMessage extends MessageModel {
 
     /**
-     * 针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效，客户端获取远程推送内容时为 badge，为 -1 时不改变角标数，传入相应数字表示把角标数改为指定的数字，最大不超过 9999。(可选)
+     * For iOS platform, controls the display count of unread messages during push notifications. Only effective when toUserId is a single user ID. The client retrieves the remote push content as badge. -1 means the badge count remains unchanged. Specifying a number changes the badge count to the specified number, with a maximum of 9999. (Optional)
      **/
     public String count;
     /**
-     * 针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。（可选）
+     * For iOS platform, controls the display count of unread messages during push notifications. Only effective when toUserId is a single user ID. (Optional)
      */
     public Integer isPersisted;
     /**
-     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数， 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+     * When a new custom message is introduced in the current version and the older version does not support it, this parameter determines whether the older client counts the message as unread. 0 means not counted, 1 means counted. Default is 1, increasing the unread message count by 1. (Optional)
      */
     public Integer isCounted;
 
     /**
-     * 是否过滤发送人黑名单列表，0 表示为不过滤、 1 表示为过滤，默认为 0 不过滤。（可选
+     * Whether to filter the sender's blocklist. 0 means not filtered, 1 means filtered. Default is 0, not filtered. (Optional)
      */
     public Integer verifyBlacklist;
     /**
-     * 发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
+     * Whether the sender receives the message themselves. 0 means not received, 1 means received. Default is 0, not received. (Optional)
      */
     public Integer isIncludeSender;
 
     public Integer contentAvailable;
 
     /**
-     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     * Whether the message is silent. Default is false. When set to true, end users will not receive notification reminders when offline. (Optional). Not supported in global data centers.
      */
     public Boolean disablePush;
 
     /**
-     * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
+     * Whether the message is extensible. Default is false. When set to true, the client can set extended information for this message after receiving it. (Optional). Not supported in global data centers.
      */
     public Boolean expansion;
 
     /**
-     * 扩展消息内容，expansion 为true 的时候生效
+     * Extended message content, effective when expansion is true.
      */
     public HashMap<String, String> extraContent;
 
@@ -83,7 +83,7 @@ public class PrivateMessage extends MessageModel {
     }
 
     /**
-     * 获取接受用户id
+     * Get the recipient user ID
      *
      * @return String
      */
@@ -93,7 +93,7 @@ public class PrivateMessage extends MessageModel {
     }
 
     /**
-     * 设置接受用户id
+     * Set the recipient user ID
      */
     @Override
     public PrivateMessage setTargetId(String[] targetId) {

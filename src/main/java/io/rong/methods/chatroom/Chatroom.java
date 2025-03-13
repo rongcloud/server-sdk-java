@@ -29,7 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 /**
- * 聊天室服务
+ * Chatroom Service
  * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Chatroom {
@@ -90,9 +90,9 @@ public class Chatroom {
     }
 
     /**
-     * 创建聊天室方法
+     * Creates a chatroom.
      *
-     * @param chatrooms:chatroom.id,name（必传）
+     * @param chatrooms: chatroom.id and name (required)
      * @return ResponseResult
      **/
     @Deprecated
@@ -126,7 +126,7 @@ public class Chatroom {
     }
 
     /**
-     * 创建聊天室方法 V2
+     * Create chatroom method V2
      *
      * @param chatroom
      * @return
@@ -178,9 +178,9 @@ public class Chatroom {
     }
 
     /**
-     * 设置聊天室销毁类型
+     * Set the chatroom destruction type
      *
-     * @param destroyType: 设置销毁类型
+     * @param destroyType: Specifies the destruction type
      * @return ResponseResult
      **/
     public ResponseResult setDestroyType(ChatroomDestroyTypeModel destroyType) throws Exception {
@@ -211,9 +211,9 @@ public class Chatroom {
     }
 
     /**
-     * 销毁聊天室方法e
+     * Method to destroy a chatroom
      *
-     * @param chatroom:要销毁的聊天室 Id。（必传）
+     * @param chatroom: The ID of the chatroom to be destroyed (required).
      * @return ResponseResult
      **/
     public ResponseResult destroy(ChatroomModel chatroom) throws Exception {
@@ -234,9 +234,9 @@ public class Chatroom {
 
 
     /**
-     * 查询聊天室内用户方法
+     * Method to query users in a chatroom
      *
-     * @param chatroom:聊天室.id,count,order（必传）
+     * @param chatroom: Chatroom ID, count, and order (required).
      * @return ChatroomUserQueryResult
      **/
     public ChatroomUserQueryResult get(ChatroomModel chatroom) throws Exception {
@@ -264,9 +264,9 @@ public class Chatroom {
 
 
     /**
-     * 查询用户是否存在聊天室
+     * Check if a user exists in a chatroom
      *
-     * @param chatroomModel:聊天室成员。（必传）
+     * @param chatroomModel: Chatroom member. (Required)
      * @return ResponseResult
      **/
     public CheckChatRoomUsersResult isExists(ChatroomModel chatroomModel) throws Exception {
@@ -296,9 +296,9 @@ public class Chatroom {
     }
 
     /**
-     * 查询用户是否存在聊天室
+     * Check if a user exists in a chatroom
      *
-     * @param member:聊天室成员。（必传）
+     * @param member: The chatroom member. (Required)
      * @return ResponseResult
      **/
     public CheckChatRoomUserResult isExist(ChatroomMember member) throws Exception {

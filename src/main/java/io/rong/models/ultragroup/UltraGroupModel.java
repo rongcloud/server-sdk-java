@@ -3,51 +3,51 @@ package io.rong.models.ultragroup;
 import java.util.List;
 
 /**
- * 超级群服务
+ * Ultra Group Service
  * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class UltraGroupModel {
     /**
-     * 群组id
+     * Group ID
      **/
     private String id;
     /**
-     * 群组成员
+     * Group members
      **/
     private UltraGroupMember[] members;
     /**
-     * 群组名
+     * Group name
      **/
     private String name;
 
     /**
-     * 禁言状态
+     * Mute status
      * */
     private Integer status;
 
     /**
-     * 管理员 userId
+     * Admin user ID
      * */
     private String userId;
 
     /**
-     * 频道类型
+     * Channel type
      * */
     private int type;
 
     /**
-     * 群频道列表
+     * Group channel list
      **/
     private String busChannel;
 
     public UltraGroupModel() {
     }
     /**
-     * 构造方法
+     * Constructor
      *
-     * @param id 群组id
-     * @param members 群组成员
-     * @param name 群名
+     * @param id Group ID
+     * @param members Group members
+     * @param name Group name
      */
     public UltraGroupModel(String id, UltraGroupMember[] members, String name) {
         this.id = id;

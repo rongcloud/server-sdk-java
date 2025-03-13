@@ -7,15 +7,15 @@ import io.rong.util.GsonUtil;
  */
 public class ChatroomMember {
     /**
-     * 聊天室用户Id。
+     * Chatroom user ID.
      * */
     public String id;
     /**
-     * 加入聊天室时间。
+     * Time when the user joined the chatroom.
      * */
     public String time;
     /**
-     * 聊天室ID
+     * Chatroom ID.
      * */
     public String chatroomId;
 
@@ -36,7 +36,7 @@ public class ChatroomMember {
     }
 
     /**
-     * 设置id
+     * Set the user ID.
      *
      */
     public ChatroomMember setId(String id) {
@@ -45,7 +45,7 @@ public class ChatroomMember {
     }
 
     /**
-     * 获取id
+     * Get the user ID.
      *
      * @return String
      */
@@ -54,7 +54,7 @@ public class ChatroomMember {
     }
 
     /**
-     * 设置time
+     * Set the time
      *
      */
     public ChatroomMember setTime(String time) {
@@ -63,7 +63,7 @@ public class ChatroomMember {
     }
 
     /**
-     * 获取time
+     * Get the time
      *
      * @return String
      */
@@ -80,7 +80,7 @@ public class ChatroomMember {
         return this;
     }
     /**
-     * 获取禁言时长
+     * Get the mute duration
      *
      * @return String
      */
@@ -88,7 +88,7 @@ public class ChatroomMember {
         return this.munite;
     }
     /**
-     * 设置munite
+     * Set the munite
      *
      *
      */

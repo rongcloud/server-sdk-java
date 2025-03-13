@@ -1,57 +1,58 @@
 package io.rong.models.message;
 
 import io.rong.messages.BaseMessage;
+
 import java.util.HashMap;
 
 /**
- * 群组消息体
+ * Group message body
  *
  * @author hc
  */
 public class GroupMessage extends MessageModel {
 
     /**
-     * 发送者自己是否接收此条消息, 0: 不接收, 1: 接收, 默认: 0
+     * Whether the sender receives this message, 0: No, 1: Yes, default: 0
      **/
     public Integer isIncludeSender;
     /**
-     * 针对 iOS 平台，Push 时用来控制未读消息显示数，只有在 toUserId 为一个用户 Id 的时候有效。（可选）
+     * For iOS platform, controls the display of unread message count in Push notifications. Only valid when toUserId is a single user ID. (Optional)
      */
     public Integer isPersisted;
     /**
-     * 当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，
-     * 0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
+     * When a new custom message is introduced in the current version and the older version does not support it, whether the older version client should count the message as unread.
+     * 0: Do not count, 1: Count, default: 1 (Count), increments the unread message count by 1. (Optional)
      */
     //public Integer isCounted;
 
     /**
-     * ios静默推送 0关闭 1开启
+     * iOS silent push, 0: Disabled, 1: Enabled
      **/
     public Integer contentAvailable;
     /**
-     * 定向用户 Id
+     * Targeted user IDs
      **/
     public String[] toUserId;
 
     /**
-     * 是否为静默消息，默认为 false，设为 true 时终端用户离线情况下不会收到通知提醒（可选）。暂不支持海外数据中心
+     * Whether the message is silent, default: false. When set to true, offline users will not receive notification alerts. (Optional). Not supported in global data center.
      */
     public Boolean disablePush;
 
     /**
-     * 是否为可扩展消息，默认为 false，设为 true 时终端在收到该条消息后，可对该条消息设置扩展信息（可选）。暂不支持海外数据中心
+     * Whether the message is extensible, default: false. When set to true, the client can set extended information for this message upon receipt. (Optional). Not supported in global data center.
      */
     public Boolean expansion;
 
     /**
-     * 扩展消息内容，expansion 为true 的时候生效
+     * Extended message content, effective when expansion is true.
      */
     public HashMap<String, String> extraContent;
 
     /**
-     * 是否为 @ 消息，不传时默认为非 @ 消息（效果等于传 0）。
-     * 如果需要发送 @ 消息，必须指定为 1，且必须在消息内容字段（content）内部携带 @ 相关信息（mentionedInfo，可参考下方请求示例）。
-     * 关于 mentionedInfo 结构的详细说明，参见如何发送 @ 消息。
+     * Indicates whether it is a mention message. Defaults to 0 (non-mention message) if not provided.
+     * To send a mention message, set this to 1 and include mention-related information (mentionedInfo) in the message content field (content).
+     * For detailed information on the mentionedInfo structure, refer to the guide on how to send mention messages.
      */
     public Integer isMentioned;
 
@@ -60,15 +61,14 @@ public class GroupMessage extends MessageModel {
     }
 
     /**
-     * @param senderId:发送人用户 Id 。（必传）
-     * @param targetId:接收群Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
-     * @param content:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
-     * @param pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的
-     *                    Push 内容，如果不传则用户不会收到 Push 通知。（可选）
-     * @param pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。（可选）
-     * @param isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0 表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选）
-     * @param isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
-     * @param isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
+     * @param senderId: The sender's user ID. (Required)
+     * @param targetId: The target group ID(s). Up to 3 groups can be specified for sending messages to multiple groups. (Required)
+     * @param content: The message content. Refer to the RongCloud message type table for examples. If objectName is a custom message type, this parameter can be customized. (Required)
+     * @param pushContent: The push notification content displayed to users. If objectName is a built-in RongCloud message type, users will always receive a push notification. For custom messages, pushContent defines the push notification content. If not provided, users will not receive a push notification. (Optional)
+     * @param pushData: Additional data attached to the push notification payload for iOS. Android clients will receive this data under the field name pushData. (Optional)
+     * @param isPersisted: Determines whether older clients should store the message if they do not support the new custom message type. 0 means do not store, 1 means store. Defaults to 1. (Optional)
+     * @param isCounted: Determines whether older clients should count the message as unread if they do not support the new custom message type. 0 means do not count, 1 means count. Defaults to 1, incrementing the unread message count by 1. (Optional)
+     * @param isIncludeSender: Determines whether the sender should receive the message. 0 means do not receive, 1 means receive. Defaults to 0. (Optional)
      */
     public GroupMessage(String senderId, String[] targetId, String objectName, BaseMessage content, String pushContent,
                         String pushData, Integer isIncludeSender, Integer isPersisted, Integer isCounted, Integer contentAvailable) {
@@ -90,15 +90,14 @@ public class GroupMessage extends MessageModel {
     }
 
     /**
-     * @param senderId:发送人用户Id 。（必传）
-     * @param targetId:接收群Id，提供多个本参数可以实现向多群发送消息，最多不超过 3 个群组。（必传）
-     * @param content:发送消息内容，参考融云消息类型表.示例说明；如果 objectName 为自定义消息类型，该参数可自定义格式。（必传）
-     * @param pushContent:定义显示的 Push 内容，如果 objectName 为融云内置消息类型时，则发送后用户一定会收到 Push 信息. 如果为自定义消息，则 pushContent 为自定义消息显示的
-     *                    Push 内容，如果不传则用户不会收到 Push 通知。（可选）
-     * @param pushData:针对 iOS 平台为 Push 通知时附加到 payload 中，Android 客户端收到推送消息时对应字段名为 pushData。（可选）
-     * @param isPersisted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行存储，0   表示为不存储、 1 表示为存储，默认为 1 存储消息。（可选）
-     * @param isCounted:当前版本有新的自定义消息，而老版本没有该自定义消息时，老版本客户端收到消息后是否进行未读消息计数，0 表示为不计数、 1 表示为计数，默认为 1 计数，未读消息数增加 1。（可选）
-     * @param isIncludeSender:发送用户自已是否接收消息，0 表示为不接收，1 表示为接收，默认为 0 不接收。（可选）
+     * @param senderId: The sender's user ID. (Required)
+     * @param targetId: The target group ID(s). Up to 3 groups can be specified for sending messages to multiple groups. (Required)
+     * @param content: The message content. Refer to the RongCloud message type table for examples. If objectName is a custom message type, this parameter can be customized. (Required)
+     * @param pushContent: The push notification content displayed to users. If objectName is a built-in RongCloud message type, users will always receive a push notification. For custom messages, pushContent defines the push notification content. If not provided, users will not receive a push notification. (Optional)
+     * @param pushData: Additional data attached to the push notification payload for iOS. Android clients will receive this data under the field name pushData. (Optional)
+     * @param isPersisted: Determines whether older clients should store the message if they do not support the new custom message type. 0 means do not store, 1 means store. Defaults to 1. (Optional)
+     * @param isCounted: Determines whether older clients should count the message as unread if they do not support the new custom message type. 0 means do not count, 1 means count. Defaults to 1, incrementing the unread message count by 1. (Optional)
+     * @param isIncludeSender: Indicates whether the sender also receives the message. 0 means not to receive, 1 means to receive. Default is 0 (optional).
      */
     public GroupMessage(String senderId, String[] targetId, String[] toUserId, String objectName, BaseMessage content,
                         String pushContent, String pushData, Integer isIncludeSender, Integer isPersisted, Integer isCounted,
@@ -129,7 +128,7 @@ public class GroupMessage extends MessageModel {
     }
 
     /**
-     * 获取接收群组Id
+     * Gets the target group ID.
      *
      * @return String
      */
@@ -139,7 +138,7 @@ public class GroupMessage extends MessageModel {
     }
 
     /**
-     * 设置接收群组Id
+     * Sets the target group ID.
      *
      * @return String
      */
