@@ -82,7 +82,7 @@ public class MessageExample {
         );
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Send system message
          *
@@ -105,7 +105,7 @@ public class MessageExample {
         System.out.println("send system message:  " + result.toString());
 
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * 
  *
  * Method to send system template messages
  *
@@ -125,7 +125,7 @@ public class MessageExample {
         }
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Method to send system template messages
          *
@@ -142,7 +142,7 @@ public class MessageExample {
 
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Push-only Notification
          *
@@ -163,7 +163,7 @@ public class MessageExample {
         System.out.println("sendUser:  " + sendUser.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Send one-to-one chat message <text, voice, file, etc.>
          */
@@ -186,7 +186,7 @@ public class MessageExample {
         System.out.println("send private message:  " + privateResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Send one-to-one chat template message
          */
@@ -205,7 +205,7 @@ public class MessageExample {
             }
         }
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Recall a one-to-one chat message
          * */
@@ -219,7 +219,7 @@ public class MessageExample {
 
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Send a one-to-one chat status message
          */
@@ -233,7 +233,7 @@ public class MessageExample {
 
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * One-to-one chat - Send a typing status message
          *
@@ -250,7 +250,7 @@ public class MessageExample {
 
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Send a one-to-one chat gray bar message
          */
         InfoNtfMessage infoNotify = new InfoNtfMessage("Gray bar message content", "helloExtra");
@@ -275,7 +275,7 @@ public class MessageExample {
         System.out.println("send private ReceiptResult message:  " + privateReceiptResult.toString());
 
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * 
  *
  * Group message
  */
@@ -296,7 +296,7 @@ public class MessageExample {
         System.out.println("Send Group message:  " + groupResult.toString());
 
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * 
  *
  * Group targeted message
  */
@@ -321,7 +321,7 @@ public class MessageExample {
 
         System.out.println("send group direction message:  " + groupDirectionResult.toString());
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * 
  *
  * Recall a group message
  * */
@@ -335,7 +335,7 @@ public class MessageExample {
         System.out.println("recall group message:  " + recallMessageResult.toString());
 
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * 
  *
  * Send a group @message
  * */
@@ -461,7 +461,7 @@ public class MessageExample {
         ResponseResult chatroomResult = chatroom.send(chatroomMessage);
         System.out.println("send chatroom message:  " + chatroomResult.toString());
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Recall a message in the chatroom
          */
@@ -490,7 +490,7 @@ public class MessageExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Broadcast a message in the chatroom
          *
@@ -509,7 +509,7 @@ public class MessageExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Retrieve historical message log files
          *
@@ -520,7 +520,7 @@ public class MessageExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Delete historical message log files
          *

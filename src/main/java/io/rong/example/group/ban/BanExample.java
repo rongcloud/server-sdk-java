@@ -45,21 +45,21 @@ public class BanExample {
             System.out.println("group.ban.add:  " + result.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Query all muted groups method
          */
         GroupBanResult GroupBanResult = (GroupBanResult) ban.getList();
         System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to check muted groups
          */
         GroupBanResult GroupBanCheckResult = (GroupBanResult) ban.check(groupIds);
         System.out.println("group.ban.check:  " + GroupBanCheckResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to remove muted groups
          */
         Result groupRollBackGagUserResult = ban.remove(groupIds);

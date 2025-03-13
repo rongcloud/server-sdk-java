@@ -29,7 +29,7 @@ public class MuteChatroomsExample {
         MuteChatrooms muteChatrooms = rongCloud.user.muteChatrooms;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Add global mute for chatroom
          */
         ChatroomMember[] members = {
@@ -42,7 +42,7 @@ public class MuteChatroomsExample {
         System.out.println("addGagUser:  " + result.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Get global mute list for chatroom
          */
 
@@ -51,7 +51,7 @@ public class MuteChatroomsExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Remove global mute for chatroom
          */
         chatroom = new ChatroomModel()

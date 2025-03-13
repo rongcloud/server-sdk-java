@@ -34,7 +34,7 @@
     },
     "portrait": {
       "url": {
-        "legal": "url 正则",
+        "legal": "url Reg",
         "invalid": "20007"
       }
     },

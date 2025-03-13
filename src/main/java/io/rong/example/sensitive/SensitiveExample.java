@@ -32,7 +32,7 @@ public class SensitiveExample {
         SensitiveWord sensitiveWord = rongCloud.sensitiveword;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Add or replace sensitive words
          *
@@ -45,7 +45,7 @@ public class SensitiveExample {
         System.out.println("sentiveWord add:  " + addesult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Add or replace sensitive words
          */
@@ -58,7 +58,7 @@ public class SensitiveExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to query the list of sensitive words
          *
          * */
@@ -67,7 +67,7 @@ public class SensitiveExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to remove a sensitive word (Removes a specific sensitive word from the list.)
          *
          * */
@@ -78,7 +78,7 @@ public class SensitiveExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to batch remove sensitive words (Removes multiple sensitive words from the list in bulk.)
          *
          * */
@@ -87,7 +87,7 @@ public class SensitiveExample {
         System.out.println("SensitivewordbatchDelete:  " + batchDeleteResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to batch add sensitive words
          */
 

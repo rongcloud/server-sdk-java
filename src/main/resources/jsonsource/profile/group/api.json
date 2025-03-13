@@ -16,36 +16,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -63,36 +63,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -111,36 +111,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -163,36 +163,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -215,36 +215,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -260,36 +260,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -305,36 +305,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -354,36 +354,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -400,36 +400,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -447,36 +447,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -496,36 +496,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -544,36 +544,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -593,36 +593,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -641,36 +641,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -688,36 +688,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -734,36 +734,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -780,36 +780,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -829,36 +829,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -878,36 +878,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -924,36 +924,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -970,36 +970,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }
@@ -1018,36 +1018,36 @@
     "response": {
       "success": {
         "code": "200",
-        "errorMessage": "成功返回"
+        "errorMessage": "Success"
       },
       "fail": {
         "1004": {
           "code": "1004",
-          "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
         },
         "1008": {
           "code": "1008",
-          "errorMessage": "调用频率超限。"
+          "errorMessage": "The call frequency exceeds the limit."
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "参数类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} 个数超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
         },
         "20004": {
           "code": "1002",
-          "errorMessage": "{{name}} 设置范围错误，{{name}} >= {{min}} 且 {{name}} <= {{max}}"
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20005": {
           "code": "1002",
-          "errorMessage": "{{name}} 参数为必传项"
+          "errorMessage": "{{name}} parameter is required"
         }
       }
     }

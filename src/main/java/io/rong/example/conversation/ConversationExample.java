@@ -40,7 +40,7 @@ public class ConversationExample {
                 .setTargetId("2iXiqVWUAWwaKA55FuZvY31");
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Set Conversation Do Not Disturb
          *
          */
@@ -50,7 +50,7 @@ public class ConversationExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Disable Conversation Do Not Disturb
          *
          * */
@@ -59,7 +59,7 @@ public class ConversationExample {
         System.out.println("unMuteConversationResult:  " + unMuteConversationResult.toString());
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Get Conversation Do Not Disturb Status
          *
          * */
@@ -70,7 +70,7 @@ public class ConversationExample {
 
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Set conversation top.
          */
         ConversationSetTopModel setTopModel = new ConversationSetTopModel()

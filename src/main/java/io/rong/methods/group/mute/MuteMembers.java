@@ -101,7 +101,6 @@ public class MuteMembers {
      * @return ResponseResult
      **/
     public Result remove(GroupModel group) throws Exception {
-        //参数校验
         String message = CommonUtil.checkFiled(group,PATH, CheckMethod.REMOVE);
         if(null != message){
             return (ResponseResult)GsonUtil.fromJson(message,ResponseResult.class);

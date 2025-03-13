@@ -47,7 +47,7 @@ public class BanExample {
                 .setType("PERSON");
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Query muted user list
          */

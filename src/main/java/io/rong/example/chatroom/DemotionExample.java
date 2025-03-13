@@ -23,7 +23,7 @@ public class DemotionExample {
         Demotion demotion = rongCloud.chatroom.demotion;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Add in-app chatroom message demotion
          */
         String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
@@ -31,7 +31,7 @@ public class DemotionExample {
         System.out.println("add demotion:  " + addResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Remove in-app chatroom message demotion
          */
         ResponseResult removeResult = demotion.remove(messageType);

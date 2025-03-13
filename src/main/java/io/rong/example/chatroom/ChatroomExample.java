@@ -28,7 +28,7 @@ public class ChatroomExample {
         Chatroom chatroom = rongCloud.chatroom;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          *
          * Create a chatroom
          */
@@ -48,7 +48,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Destroy a chatroom
          *
          * */
@@ -61,7 +61,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Query chatroom members demo
          *
          * */
@@ -76,7 +76,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Check if a chatroom member exists
          *
          * */
@@ -90,7 +90,7 @@ public class ChatroomExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Batch check if chatroom members exist
          *
          * */

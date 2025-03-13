@@ -33,7 +33,7 @@ public class MuteMembersExample {
 
         MuteMembers muteMembers = rongCloud.group.muteMembers;
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to mute group members
          */
 
@@ -47,14 +47,14 @@ public class MuteMembersExample {
         System.out.println("group.muteMembers.add:  " + result.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Query muted group members
          */
         GroupMuteMembersListResult muteMembersResult = muteMembers.getList("groupId");
         System.out.println("group.muteMembers.getList:  " + muteMembersResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Remove muted group members
          */
         group = new GroupModel()

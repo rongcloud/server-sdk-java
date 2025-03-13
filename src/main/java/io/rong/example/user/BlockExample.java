@@ -28,7 +28,7 @@ public class BlockExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Unban a user
          *
          */
@@ -39,7 +39,7 @@ public class BlockExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Unban a user
          *
          */
@@ -48,7 +48,7 @@ public class BlockExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Get blocked users list
          *
          */

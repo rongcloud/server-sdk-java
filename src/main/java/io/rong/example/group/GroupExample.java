@@ -40,7 +40,7 @@ public class GroupExample {
         Group Group = rongCloud.group;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Create group method
          *
@@ -56,7 +56,7 @@ public class GroupExample {
         System.out.println("group create result:  " + groupCreateResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Synchronize user's group list method
          */
@@ -78,7 +78,7 @@ public class GroupExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Refresh group information method
          */
         //GroupMember[] members = {new GroupMember().setId("ghJiu7H1"),new GroupMember().setId("ghJiu7H2")};
@@ -90,7 +90,7 @@ public class GroupExample {
         System.out.println("refresh:  " + refreshResult.toString());
 
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * 
  *
  * Invite users to join a group
  *
@@ -103,7 +103,7 @@ public class GroupExample {
         System.out.println("invite:  " + groupInviteResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * User joins a specified group
          *
@@ -116,7 +116,7 @@ public class GroupExample {
         System.out.println("join:  " + groupJoinResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Query group members method
          *
@@ -126,7 +126,7 @@ public class GroupExample {
         System.out.println("group getMember:  " + getMemberesult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Quit group
          *
@@ -140,7 +140,7 @@ public class GroupExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Dismiss group
          *

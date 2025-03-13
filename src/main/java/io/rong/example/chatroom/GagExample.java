@@ -31,7 +31,7 @@ public class GagExample {
         Gag gag = rongCloud.chatroom.gag;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Add a muted user to the chatroom (When you want to prevent a user from sending messages in a chatroom, you can mute them.
          * The muted user can still receive and view messages in the chatroom but cannot send messages.)
          */
@@ -48,7 +48,7 @@ public class GagExample {
 
 
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
  * Method to query muted chatroom members
  */
 chatroom = new ChatroomModel()
@@ -58,7 +58,7 @@ System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
 
 /**
  *
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
  *
  * Method to remove muted chatroom members
  */

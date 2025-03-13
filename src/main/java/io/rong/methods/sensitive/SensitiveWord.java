@@ -140,9 +140,9 @@ public class SensitiveWord {
 	}
 
 	/**
-	 * 移除敏感词方法（从敏感词列表中，移除某一敏感词。）
+	 * Method for removing sensitive words (Remove a sensitive word from the list of sensitive words.)
 	 *
-	 * @param  word:敏感词，最长不超过 32 个字符。（必传）
+	 * @param word with a maximum length of no more than 32 characters. (Required）
 	 *
 	 * @return ResponseResult
 	 **/
@@ -164,9 +164,9 @@ public class SensitiveWord {
 	    return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH,CheckMethod.REMOVE,HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
 	}
 	/**
-	 * 批量移除敏感词方法（从敏感词列表中，移除某一敏感词。）
-	 *
-	 * @param  words:敏感词数组，一次最多移除 50 个敏感词（必传）
+	 * Batch removal method of sensitive words (Remove a sensitive word from the list of sensitive words.)
+	 * Params:
+	 * words-: array of sensitive words, remove up to 50 sensitive words at a time (required)
 	 *
 	 * @return ResponseResult
 	 **/

@@ -34,7 +34,7 @@ public class UserExample {
 
         Group group = rongCloud.group;
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Mute a user in all groups they have joined
          */
 
@@ -47,7 +47,7 @@ public class UserExample {
         System.out.println("group.ban.add:  " + result.toString());
 
         /**
-        * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+        * 
         * Get the list of muted users in all groups
         */
         groupModel = new GroupModel()
@@ -56,7 +56,7 @@ public class UserExample {
         System.out.println("group.ban.getList:  " + GroupBanResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Remove the mute settings for a user in all groups
          */
         groupModel = new GroupModel()

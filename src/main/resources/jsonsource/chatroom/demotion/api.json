@@ -10,32 +10,32 @@
 		"response": {
 			"success": {
 				"code": "200",
-				"errorMessage": "成功返回"
+				"errorMessage": "Success"
 			},
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
 				},
 				"20002": {
 					"code": "1002",
-					"errorMessage": "msgs 数量超限, msgs.length >= 1 且 msgs.length <=5 "
+					"errorMessage": "The number of msgs exceeds the limit, msgs.length >= 1 and msgs.length <=5"
 				},
 				"20005": {
 					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
+					"errorMessage": "{{name}} parameter is required"
 				},
 				"20007": {
 					"code": "1002",
-					"errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
+					"errorMessage": "Protrait is not a legal address. Please check whether the protrait is correct"
 				},
 				"1004": {
 					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限。"
+					"errorMessage": "The call frequency exceeds the limit."
 				}
 			}
 		}
@@ -51,32 +51,32 @@
 		"response": {
 			"success": {
 				"code": "200",
-				"errorMessage": "成功返回"
+				"errorMessage": "Success"
 			},
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
 				},
 				"20002": {
 					"code": "1002",
-					"errorMessage": "msgs 个数超限, msgs.length >= 1 且 msgs.length <=5 "
+					"errorMessage": "The number of msgs exceeds the limit, msgs.length >= 1 and msgs.length <=5"
 				},
 				"20005": {
 					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
+					"errorMessage": "{{name}} parameter is required"
 				},
 				"20007": {
 					"code": "1002",
-					"errorMessage": "protrait 不是合法地址，请检查 protrait 是否正确"
+					"errorMessage": "Protrait is not a legal address. Please check whether the protrait is correct"
 				},
 				"1004": {
 					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限。"
+					"errorMessage": "The call frequency exceeds the limit."
 				}
 			}
 		}
@@ -93,11 +93,11 @@
 			"fail": {
 				"1004": {
 					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限。"
+					"errorMessage": "The call frequency exceeds the limit."
 				}
 			}
 		}

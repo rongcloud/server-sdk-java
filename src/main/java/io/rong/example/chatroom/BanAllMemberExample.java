@@ -28,7 +28,7 @@ public class BanAllMemberExample {
         BanAllMember banAllMember = rongCloud.chatroom.banAllMember;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          * Mute all members in a chatroom
          * */
         ChatroomModel chatroom = new ChatroomModel();

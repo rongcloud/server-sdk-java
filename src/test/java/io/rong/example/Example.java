@@ -761,7 +761,7 @@ public class Example {
     public void testAddSensitiveword() throws Exception {
         SensitiveWordModel sentiveWord = new SensitiveWordModel()
                 .setType(0)
-                .setKeyword("黄赌毒")
+                .setKeyword("ABC")
                 .setReplace("***");
         ResponseResult result = rongCloud.sensitiveword.add(sentiveWord);
         System.out.println("add:  " + result.toString());
@@ -1144,7 +1144,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * Demo for querying chatroom members
      */
     @Test
@@ -1164,7 +1164,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * Check if a user exists in a chatroom
      */
     @Test
@@ -1180,7 +1180,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * Batch check if users exist in a chatroom
      */
     @Test
@@ -1570,7 +1570,7 @@ public class Example {
 
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Resume message distribution in chatroom
      */
@@ -1602,7 +1602,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1 Query muted chatroom members method
+     *  Query muted chatroom members method
      */
     @Test
     public void testGetChatroomGag() throws Exception {
@@ -1614,7 +1614,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Remove muted chatroom members
      */
@@ -1632,7 +1632,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Add keepalive chatroom
      **/
@@ -1646,7 +1646,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Delete keepalive chatroom
      **/
@@ -1661,7 +1661,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Get Keepalive Chatrooms
      **/
@@ -1723,7 +1723,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Broadcast Message
      **/
@@ -1749,7 +1749,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * Push notification
      **/
     @Test
@@ -1777,7 +1777,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Add tag
      **/
@@ -1793,7 +1793,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Batch add tags
      **/
@@ -1809,7 +1809,7 @@ public class Example {
     }
 
     /**
-     * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+     * 
      * <p>
      * Query User Tags
      **/

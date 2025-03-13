@@ -44,21 +44,21 @@ public class MuteAllMembersExample {
         System.out.println("group.muteAllMembers.add:  " + result.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Query all muted groups
          */
         GroupMuteAllMembersListResult GroupMuteAllMembersResult = (GroupMuteAllMembersListResult)muteAllMembers.getList();
         System.out.println("group.muteAllMembers.getList:  " + GroupMuteAllMembersResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Check method for muted groups
          */
         GroupMuteAllMembersCheckResult GroupBanCheckResult = (GroupMuteAllMembersCheckResult)muteAllMembers.check(groupIds);
         System.out.println("group.muteAllMembers.check:  " + GroupBanCheckResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Remove method for muted groups
          */
         Result groupMuteAllMembersResult = muteAllMembers.remove(groupIds);

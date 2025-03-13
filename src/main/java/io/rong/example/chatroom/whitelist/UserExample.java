@@ -39,7 +39,7 @@ public class UserExample {
         System.out.println("add whitelist:  " + addResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Get the chatroom allowlist
          */
 
@@ -48,7 +48,7 @@ public class UserExample {
 
 
         /**
-        * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+        * 
         * Remove Chatroom Allowlist Users
         */
 

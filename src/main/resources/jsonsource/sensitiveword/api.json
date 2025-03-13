@@ -5,31 +5,31 @@
 		"params": {
 			"sensitive": {
 				"type": 1,
-				"keyword": "法轮功",
+				"keyword": "abc",
 				"replace": "***"
 			}
 		},
 		"response": {
 			"success": {
 				"code": "200",
-				"errorMessage": "成功返回"
+				"errorMessage": "Success"
 			},
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "{{name}} 类型不正确，请检查参数类型,应该为 {{type}} 传入为 {{currentType}} "
+					"errorMessage": "The {{name}} type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
 				},
 				"20005": {
 					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
+					"errorMessage": "{{name}} parameter is required"
 				},
 				"1004": {
 					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
 				}
 			}
 		}
@@ -40,7 +40,7 @@
       "params": {
         "words": [
           {
-            "word": "法轮功",
+            "word": "abc",
             "replaceWord": "***"
           }
         ]
@@ -48,12 +48,12 @@
       "response": {
         "success": {
           "code": "200",
-          "errorMessage": "成功返回"
+          "errorMessage": "Success"
         },
         "fail": {
           "1004": {
             "code": "1004",
-            "errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+            "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
           }
         }
       }
@@ -63,34 +63,34 @@
 		"url": "sensitiveword/delete",
 		"params": {
 			"sensitive": {
-				"keywords": "法轮功"
+				"keywords": "key1"
 			}
 		},
 		"response": {
 			"success": {
 				"code": "200",
-				"errorMessage": "成功返回"
+				"errorMessage": "Success"
 			},
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
 				},
 				"20005": {
 					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
+					"errorMessage": "{{name}} parameter is required"
 				},
 				"1004": {
 					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限。"
+					"errorMessage": "The call frequency exceeds the limit."
 				}
 			}
 		}
@@ -100,38 +100,38 @@
 		"url": "/sensitiveword/batch/delete",
 		"params": {
 			"sensitive": {
-				"keywords": ["法轮功", "国名党"]
+				"keywords": ["key1", "key2"]
 			}
 		},
 		"response": {
 			"success": {
 				"code": "200",
-				"errorMessage": "成功返回"
+				"errorMessage": "Success"
 			},
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "参数类型类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
 				},
 				"20002": {
 					"code": "1002",
-					"errorMessage": "{{name}} 数量超限, {{name}} >= {{min}} 且 {{name}} <= {{max}}"
+					"errorMessage": "{{name}} quantity exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} 长度超限, {{name}} >= {{min}} 且 {{name}} <= {{max}} 单位: 字节"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
 				},
 				"20005": {
 					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
+					"errorMessage": "{{name}} parameter is required"
 				},
 				"1004": {
 					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限。"
+					"errorMessage": "The call frequency exceeds the limit."
 				}
 			}
 		}
@@ -145,30 +145,30 @@
 				"code": 200,
 				"words": [{
 					"type": 0,
-					"word": "黄赌毒",
+					"word": "ABC",
 					"replaceWord": "***"
 				}, {
 					"type": 0,
-					"word": "法轮功",
+					"word": "OPL",
 					"replaceWord": "---"
 				}]
 			},
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "参数类型不正确，请检查参数类型,应该为 Object 传入为 {{currentType}} "
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
 				},
 				"20005": {
 					"code": "1002",
-					"errorMessage": "{{name}} 参数为必传项"
+					"errorMessage": "{{name}} parameter is required"
 				},
 				"1004": {
 					"code": "1004",
-					"errorMessage": "签名错误, 请排查 Appkey、Secret 是否正确"
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
 				},
 				"1008": {
 					"code": "1008",
-					"errorMessage": "调用频率超限。"
+					"errorMessage": "The call frequency exceeds the limit."
 				}
 			}
 		}

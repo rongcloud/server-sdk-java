@@ -41,7 +41,7 @@ public class UserExample {
         System.out.println("getToken:  " + result.toString());
 
 /**
- * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * 
  *
  * Method to refresh user information.
  */
@@ -49,7 +49,7 @@ public class UserExample {
         System.out.println("refresh:  " + refreshResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Method to query user information.
          */
@@ -83,7 +83,7 @@ public class UserExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Query the groups a user belongs to
          */
@@ -96,7 +96,7 @@ public class UserExample {
                 .setTime(1623123911000L);
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Token expiration
          */

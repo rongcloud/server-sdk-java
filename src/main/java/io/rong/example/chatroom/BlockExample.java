@@ -32,7 +32,7 @@ public class BlockExample {
                 new ChatroomMember().setId("qawr34h"), new ChatroomMember().setId("qawr35h")
         };
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          *
          * Add banned chatroom members
          */
@@ -47,7 +47,7 @@ public class BlockExample {
 
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          *
          * Method to unban chatroom members
          */
@@ -58,7 +58,7 @@ public class BlockExample {
         //System.out.println("removeResult:  " + removeResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          *
          * Method to query banned chatroom members
          */

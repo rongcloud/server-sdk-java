@@ -2,22 +2,22 @@
   "senderId": "OScHVP1tQ",
   "objectName": "RC:TxtMsg",
   "template": {
-    "content": "{name}, 语文成绩 {score} 分"
+    "content": "{name}, Chinese score {score}"
   },
   "content": {
     "NomSvNyME": {
       "data": {
-        "{name}": "小明",
+        "{name}": "Xiaoming",
         "{score}": "90"
       },
-      "push": "{name} 你的成绩出来了"
+      "push": "{name} Your results are out"
     },
     "8LNK7JOeR": {
       "data": {
-        "{name}": "小红",
+        "{name}": "XiaoHong",
         "{score}": "95"
       },
-      "push": "{name} 你的成绩出来了"
+      "push": "{name} Your results are out"
     }
   }
 }

@@ -24,7 +24,7 @@ public class MuteMembersExample {
         MuteMembers muteMembers = rongCloud.chatroom.muteMembers;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Add muted chatroom members (In the app, if you want to prevent a user from sending messages in a chatroom, 
          * you can mute the user in the chatroom. Muted users can still receive and view messages in the chatroom but cannot send messages.)
          * Get the blocklist of a user
@@ -42,7 +42,7 @@ public class MuteMembersExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Query muted chatroom members
          */
         chatroom = new ChatroomModel()
@@ -52,7 +52,7 @@ public class MuteMembersExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Unmute chatroom members
          */

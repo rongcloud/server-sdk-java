@@ -29,14 +29,14 @@ public class MessageExample {
         String[] messageType = {"RC:VcMsg", "RC:ImgTextMsg", "RC:ImgMsg"};
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Add chatroom message allowlist
          */
 
         ResponseResult addResult = whitelist.message.add(messageType);
         System.out.println("add whitelist:  " + addResult.toString());
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Get chatroom message allowlist
          */
 
@@ -44,7 +44,7 @@ public class MessageExample {
         System.out.println("get whitelist:  " + getResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Delete chatroom message allowlist
          */
         ResponseResult removeResult = whitelist.message.remove(messageType);

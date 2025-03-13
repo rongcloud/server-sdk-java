@@ -19,7 +19,7 @@ public class TemplateMessage {
      * Message content, where the template is defined and placeholders in the content are replaced.
      * Refer to the RongCloud message type table for examples. If objectName is a custom message type, this parameter can be customized. (Required)
      * */
-    private Map<String,String> template;
+    private Map<String, String> template;
     /**
      * Key: User ID, Value: Template assignment content
      *
@@ -48,109 +48,73 @@ public class TemplateMessage {
      */
     private Boolean disableUpdateLastMsg;
 
-    /**
-     * 获取senderId
-     * @return String
-     */
     public String getSenderId() {
         return this.senderId;
     }
-    /**
-     * 设置 senderId
-     */
+
     public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
-    /**
-     * 获取objectName
-     * @return String
-     */
+
     public String getObjectName() {
         return this.objectName;
     }
-    /**
-     * 设置 objectName
-     */
+
     public void setObjectName(String objectName) {
         this.objectName = objectName;
     }
-    /**
-     * 获取template
-     * @return String
-     */
+
     public Map<String, String> getTemplate() {
         return template;
     }
-    /**
-     * 设置 template
-     */
+
     public void setTemplate(Map<String, String> template) {
         this.template = template;
     }
+
     public Map<String, TemplateMessage.Data> getContent() {
         return content;
     }
-    /**
-     * 设置 content
-     */
+
     public void setContent(Map<String, TemplateMessage.Data> content) {
         this.content = content;
     }
-    /**
-     * 获取pushExt
-     * @return String
-     */
+
     public String[] getPushExt() {
         return this.pushExt;
     }
-    /**
-     * 设置 pushExt
-     */
+
     public void setPushExt(String[] pushExt) {
         this.pushExt = pushExt;
     }
 
-    /**
-     * 获取pushData
-     * @return String
-     */
     public String[] getPushData() {
         return this.pushData;
     }
-    /**
-     * 设置 pushData
-     */
+
     public void setPushData(String[] pushData) {
         this.pushData = pushData;
     }
-    /**
-     * 获取verifyBlacklist
-     * @return String
-     */
+
     public Integer getVerifyBlacklist() {
         return this.verifyBlacklist;
     }
-    /**
-     * 设置 verifyBlacklist
-     */
+
     public void setVerifyBlacklist(Integer verifyBlacklist) {
         this.verifyBlacklist = verifyBlacklist;
     }
-    /**
-     * 获取contentAvailable
-     * @return String
-     */
+
     public Integer getContentAvailable() {
         return this.contentAvailable;
     }
-    /**
-     * 设置 contentAvailable
-     */
+
     public void setContentAvailable(Integer contentAvailable) {
         this.contentAvailable = contentAvailable;
     }
 
-    public Boolean getDisablePush() {   return disablePush;  }
+    public Boolean getDisablePush() {
+        return disablePush;
+    }
 
     public void setDisablePush(Boolean disablePush) {
         this.disablePush = disablePush;
@@ -160,11 +124,11 @@ public class TemplateMessage {
      * The specific data of the template content, including message content and push content
      * @author RongCloud
      */
-    public class Data{
+    public class Data {
         /**
          * The message content data, where the key corresponds to the template identifier and the value is the specific content
          */
-        private Map<String,String> data;
+        private Map<String, String> data;
         /**
          * The push content
          */

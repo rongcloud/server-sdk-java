@@ -26,7 +26,7 @@ public class DistributeExample {
         Distribute distribute = rongCloud.chatroom.distribute;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          *
          * Stop Chatroom Message Distribution
          */
@@ -37,7 +37,7 @@ public class DistributeExample {
         System.out.println("stopDistributionMessage:  " + result.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          *
          * Resume Chatroom Message Distribution
          */

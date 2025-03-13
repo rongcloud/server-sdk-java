@@ -35,7 +35,7 @@ public class GagExample {
 
         Gag Gag = rongCloud.group.gag;
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Method to mute group members
          */
 
@@ -49,14 +49,14 @@ public class GagExample {
         System.out.println("group.gag.add:  " + result.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Query muted group members
          */
         ListGagGroupUserResult groupLisGagUserResult = Gag.getList("groupId");
         System.out.println("group.gag.getList:  " + groupLisGagUserResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Remove muted group members
          */
         group = new GroupModel()

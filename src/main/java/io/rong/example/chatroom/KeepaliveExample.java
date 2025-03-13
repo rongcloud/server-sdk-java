@@ -33,7 +33,7 @@ public class KeepaliveExample {
         Keepalive keepalive = rongCloud.chatroom.keepalive;
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Add a keepalive chatroom
          *
@@ -44,7 +44,7 @@ public class KeepaliveExample {
         System.out.println("add keepalive result"+addResult.toString());
 
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Remove a keepalive chatroom
          *
@@ -54,7 +54,7 @@ public class KeepaliveExample {
 
         /**
          *
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Retrieve Keepalive Chatroom
          *

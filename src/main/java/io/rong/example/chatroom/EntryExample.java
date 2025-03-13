@@ -36,7 +36,7 @@ public class EntryExample {
 
         Reader reader = null;
         /**
-         * API Documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
          *
          * Create chatroom
          *
