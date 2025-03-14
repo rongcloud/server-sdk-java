@@ -19,7 +19,6 @@ import java.net.URLEncoder;
 
 /**
  * Chatroom Mute Exceptions
- * docs:https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-whitelist
  */
 public class BanAllMemberWhitelist {
 

@@ -15,7 +15,6 @@ import java.net.URLEncoder;
 /**
  *
  *  Sensitive Word Service
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @version
  * */

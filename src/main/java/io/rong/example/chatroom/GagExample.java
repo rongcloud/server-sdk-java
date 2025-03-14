@@ -31,7 +31,7 @@ public class GagExample {
         Gag gag = rongCloud.chatroom.gag;
 
         /**
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Add a muted user to the chatroom (When you want to prevent a user from sending messages in a chatroom, you can mute them.
          * The muted user can still receive and view messages in the chatroom but cannot send messages.)
          */
@@ -46,27 +46,26 @@ public class GagExample {
         ResponseResult result = gag.add(chatroom);
         System.out.println("addGagUser:  " + result.toString());
 
+        /**
+         * 
+         * Method to query muted chatroom members
+         */
+        chatroom = new ChatroomModel()
+                .setId("hjhf07kk");
+        ListGagChatroomUserResult chatroomListGagUserResult = gag.getList(chatroom);
+        System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
 
-/**
- * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
- * Method to query muted chatroom members
- */
-chatroom = new ChatroomModel()
-        .setId("hjhf07kk");
-ListGagChatroomUserResult chatroomListGagUserResult = gag.getList(chatroom);
-System.out.println("ListGagUser:  " + chatroomListGagUserResult.toString());
-
-/**
- *
- * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
- *
- * Method to remove muted chatroom members
- */
-chatroom = new ChatroomModel()
-        .setId("hjhf07kk")
-        .setMembers(members);
-ResponseResult removeResult = gag.remove(chatroom);
-System.out.println("rollbackGagUser:  " + result.toString());
+        /**
+         *
+         * 
+         *
+         * Method to remove muted chatroom members
+         */
+        chatroom = new ChatroomModel()
+                .setId("hjhf07kk")
+                .setMembers(members);
+        ResponseResult removeResult = gag.remove(chatroom);
+        System.out.println("rollbackGagUser:  " + result.toString());
 
 
 

@@ -5,7 +5,6 @@ import io.rong.methods.group.ban.whitelist.User;
 /**
  * Group Mute Whitelist Service
  * When a group is muted, if certain users need to be allowed to speak, they can be added to the group mute whitelist. The group mute whitelist only takes effect when the group is set to mute all members.
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author rc
  *
  * */

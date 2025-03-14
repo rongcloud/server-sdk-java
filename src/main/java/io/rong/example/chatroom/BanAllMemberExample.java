@@ -28,7 +28,7 @@ public class BanAllMemberExample {
         BanAllMember banAllMember = rongCloud.chatroom.banAllMember;
 
         /**
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Mute all members in a chatroom
          * */
         ChatroomModel chatroom = new ChatroomModel();
@@ -38,14 +38,12 @@ public class BanAllMemberExample {
         System.out.println("addBanAllMember:  " + result.toString());
 
         /**
-         * API Documentation: https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-add
          * Check the mute status of all members in a chatroom
          * */
         StatusResult statusResult = banAllMember.check(chatroom);
         System.out.println("checkBanAllMember:  " + statusResult.toString());
 
         /**
-         * API documentation: https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-query
          * Get the list of all muted members in the chatroom
          */
         ChatroomBanListResult chatroomBanListResult = banAllMember.getList(10,1);
@@ -53,7 +51,6 @@ public class BanAllMemberExample {
 
         /**
          *
-         * API documentation: https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-rollback
          * Remove the mute for all members in the chatroom
          */
         ResponseResult removeResult = banAllMember.remove(chatroom);

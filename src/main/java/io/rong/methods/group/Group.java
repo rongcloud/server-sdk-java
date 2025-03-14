@@ -21,7 +21,6 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  * Group Service
- * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Group {
 
@@ -63,7 +62,6 @@ public class Group {
      * Method to create a group (Creates a group and adds users to it. Users will be able to receive messages from this group. A single user can join up to 500 groups, and each group can have a maximum of 3000 members. There is no limit to the number of groups within the App. Note: This method is essentially an alias for the /group/join method.)
      *
      * url /group/create.json
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param group The group information for creating the group
      *

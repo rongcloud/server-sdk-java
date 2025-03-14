@@ -13,7 +13,6 @@ import java.net.URLEncoder;
 /**
  *
  * Chatroom message allowlist service
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Messages {

@@ -30,7 +30,7 @@ public class BanExample {
         Ban ban = rongCloud.chatroom.ban;
 
         /**
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Add global chatroom mute
          */
         ChatroomMember[] members = {
@@ -43,7 +43,7 @@ public class BanExample {
         System.out.println("addGagUser:  " + result.toString());
 
         /**
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Get global chatroom mute list
          */
 
@@ -52,7 +52,7 @@ public class BanExample {
 
         /**
          *
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Remove global mute in chatroom
          */
         chatroom = new ChatroomModel()

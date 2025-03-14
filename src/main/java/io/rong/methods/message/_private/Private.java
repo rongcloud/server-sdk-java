@@ -26,7 +26,6 @@ import java.util.Map;
 
 /**
  * Methods for sending one-to-one chat messages
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */

@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * Ultra Group Service
- * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class UltraGroupModel {
     /**

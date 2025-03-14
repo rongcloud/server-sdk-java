@@ -17,7 +17,6 @@ import java.net.URLEncoder;
 /**
  * Group Mute Service
  * Mute all members in a group. If certain users need to speak while the group is muted, add them to the group mute allowlist.
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class MuteAllMembers {

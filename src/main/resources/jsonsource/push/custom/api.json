@@ -1,6 +1,5 @@
 {
   "pushcustom": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/push-plus",
     "url": "push/custom",
     "params": {
       "pushcustom": {

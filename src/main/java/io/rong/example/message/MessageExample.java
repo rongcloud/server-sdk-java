@@ -262,9 +262,9 @@ public class MessageExample {
         ResponseResult infoNotifyResult = Private.send(p);
         System.out.println("send private infoNotify message:  " + infoNotifyResult.toString());
 
-/**
- * Send a one-to-one chat read receipt message (conversation type can be set)
- */
+        /**
+         * Send a one-to-one chat read receipt message (conversation type can be set)
+         */
         ReadReceiptMessage receiptMessage = new ReadReceiptMessage("1589425641984", "BI24-J9K0-0007-VD72", CodeUtil.ConversationType.PRIVATE.getIntValue());
         PrivateMessage privateReceipt = new PrivateMessage()
                 .setSenderId("BzUPcKM2B")
@@ -274,11 +274,11 @@ public class MessageExample {
         ResponseResult privateReceiptResult = Private.send(privateReceipt);
         System.out.println("send private ReceiptResult message:  " + privateReceiptResult.toString());
 
-/**
- * 
- *
- * Group message
- */
+        /**
+         *
+         *
+         * Group message
+         */
         GroupMessage groupMessage = new GroupMessage()
                 .setSenderId("userId")
                 .setTargetId(targetIds)
@@ -295,13 +295,11 @@ public class MessageExample {
 
         System.out.println("Send Group message:  " + groupResult.toString());
 
-/**
- * 
- *
- * Group targeted message
- */
-
-
+        /**
+         *
+         *
+         * Group targeted message
+         */
         String[] targetId = {"2651280140445094444"};
         String[] toUserIds = {"2651280140445094444"};
         GroupMessage groupDirectionMessage = new GroupMessage()
@@ -320,11 +318,11 @@ public class MessageExample {
         ResponseResult groupDirectionResult = group.sendDirection(groupDirectionMessage);
 
         System.out.println("send group direction message:  " + groupDirectionResult.toString());
-/**
- * 
- *
- * Recall a group message
- * */
+        /**
+         *
+         *
+         * Recall a group message
+         * */
         recallMessage = new RecallMessage()
                 .setSenderId("sea9901")
                 .setTargetId("markoiwm")
@@ -334,16 +332,16 @@ public class MessageExample {
 
         System.out.println("recall group message:  " + recallMessageResult.toString());
 
-/**
- * 
- *
- * Send a group @message
- * */
-// Users to be mentioned
+        /**
+         *
+         *
+         * Send a group @message
+         * */
+        // Users to be mentioned
         String[] mentionIds = {"jf8yVWgZO"};
 //        String[] targetIds = { "ckHduTB4f" };
         MentionedInfo mentionedInfo = new MentionedInfo(1, mentionIds, "");
-// @content
+        // @content
         MentionMessageContent content = new MentionMessageContent(txtMessage, mentionedInfo);
 
         MentionMessage mentionMessage = new MentionMessage()
@@ -366,11 +364,10 @@ public class MessageExample {
 
         System.out.println("group mention result:  " + mentionResult.toString());
 
-/**
- * Send group status message
- *
- * API Doc: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
- */
+        /**
+         * Send group status message
+         *
+         */
         GroupStatusMessage groupStatusMessage = new GroupStatusMessage();
         groupStatusMessage.setSenderId("BzUPcKM2B")
                 .setGroupId(new String[]{"ckHduTB4f"})
@@ -381,9 +378,9 @@ public class MessageExample {
         ResponseResult groupStatusResult = group.sendStatusMessage(groupStatusMessage);
         System.out.println("group status message result:  " + groupStatusResult.toString());
 
-/**
- * Send group gray bar message (to all members)
- */
+        /**
+         * Send group gray bar message (to all members)
+         */
         GroupMessage groupMessage2 = new GroupMessage()
                 .setSenderId("BzUPcKM2B")
                 .setTargetId(targetIds)
@@ -392,9 +389,9 @@ public class MessageExample {
         ResponseResult groupinfoNotifyResult = group.send(groupMessage2);
         System.out.println("group info Notify message result:  " + groupinfoNotifyResult.toString());
 
-/**
- * Send group gray bar message - targeted users (up to 1000 users per request)
- */
+        /**
+         * Send group gray bar message - targeted users (up to 1000 users per request)
+         */
         String[] userIds = {"2651280140445094444", "2651280140445094445"};
         GroupMessage groupMessage3 = new GroupMessage()
                 .setSenderId("BzUPcKM2B")
@@ -405,7 +402,7 @@ public class MessageExample {
         group.sendDirection(groupMessage3);
 
         /**
-         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Send a discussion group message
          * */
@@ -427,7 +424,7 @@ public class MessageExample {
         System.out.println("send discussion message:  " + discussionResult.toString());
 
         /**
-         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Recall a discussion group message
          * */
@@ -442,7 +439,7 @@ public class MessageExample {
 
 
         /**
-         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          *
          * Chatroom message
          * */
@@ -502,7 +499,6 @@ public class MessageExample {
                 .setContent(txtMessage)
                 .setObjectName(txtMessage.getType());
 
-
         ResponseResult chatroomBroadcastresult = chatroom.broadcast(chatroomMessage);
         System.out.println("send chatroom broadcast message:  " + chatroomBroadcastresult.toString());
 
@@ -527,12 +523,11 @@ public class MessageExample {
          * */
 
         ResponseResult removeHistoryMessageResult = history.remove("2018030210");
-        System.out.println("remove history message:  " + removeHistoryMessageResult.toString());
+        System.out.println("remove history  message:  " + removeHistoryMessageResult.toString());
 
         /**
          * Clear historical messages
          *
-         * API Documentation: https://docs.rongcloud.cn/im/server/message_clean/
          */
         ResponseResult cleanResult = history.clean("1", "jf8yVWgZO", "IotBnm9K4", null);
         System.out.println("clean history  message:  " + cleanResult.toString());
@@ -554,18 +549,18 @@ public class MessageExample {
                 .setIsCounted(1);
 
 
-/**
- * Send ultra group message
- * */
+        /**
+         * Send ultra group message
+         * */
         ResponseResult send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup message:  " + send.toString());
 
 
-/**
- * Send ultra group @ message
- * */
+        /**
+         * Send ultra group @ message
+         * */
         ultraGroupMessage.setIsMentioned(1);
-        txtMessage.setMentionedInfo(new MentionedInfo(2, new String[]{"user1"}, "Someone mentioned you"));
+        txtMessage.setMentionedInfo(new MentionedInfo(2, new String[]{"user1"}, "Someone @ you"));
         send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup mentioned message:  " + send.toString());
     }

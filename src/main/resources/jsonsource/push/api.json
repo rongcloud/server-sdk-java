@@ -1,6 +1,6 @@
 {
   "broadcast": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "push",
     "params": {
       "broadcast": {
@@ -51,7 +51,7 @@
     }
   },
   "push": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "push",
     "params": {
       "broadcast": {

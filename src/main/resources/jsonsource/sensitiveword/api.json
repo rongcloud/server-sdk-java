@@ -1,6 +1,6 @@
 {
 	"add": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "sensitiveword/add",
 		"params": {
 			"sensitive": {
@@ -35,7 +35,7 @@
 		}
 	},
     "batchAdd": {
-      "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
       "url": "sensitiveword/batch/add",
       "params": {
         "words": [
@@ -59,7 +59,7 @@
       }
     },
 	"remove": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "sensitiveword/delete",
 		"params": {
 			"sensitive": {
@@ -96,7 +96,7 @@
 		}
 	},
 	"batchDelete": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "/sensitiveword/batch/delete",
 		"params": {
 			"sensitive": {
@@ -137,7 +137,7 @@
 		}
 	},
 	"getList": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "sensitiveword/list",
 		"params": {},
 		"response": {

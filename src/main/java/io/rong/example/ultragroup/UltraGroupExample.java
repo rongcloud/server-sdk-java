@@ -48,9 +48,9 @@ public class UltraGroupExample {
         UltraGroup ultraGroup = rongCloud.ultraGroup;
 
 
-/**
- * Create an ultra group
- */
+        /**
+         * Create an ultra group
+         */
         UltraGroupModel ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setUserId("test1")
@@ -59,18 +59,18 @@ public class UltraGroupExample {
         System.out.println("ultragroup create result:  " + groupCreateResult.toString());
 
 
-/**
- * Update ultra group information
- */
+        /**
+         * Update ultra group information
+         */
         ultraGroupModel = new UltraGroupModel()
                 .setId("test1")
                 .setName("test1");
         groupCreateResult = ultraGroup.refresh(ultraGroupModel);
         System.out.println("ultragroup refresh result:  " + groupCreateResult.toString());
 
-/**
- * Dismiss an ultra group
- */
+        /**
+         * Dismiss an ultra group
+         */
         groupCreateResult = ultraGroup.dis("test");
         System.out.println("ultragroup dis result:  " + groupCreateResult.toString());
 
@@ -165,7 +165,6 @@ public class UltraGroupExample {
 
         /**
          * Delete a channel
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          */
         groupCreateResult = ultraGroup.busChannel.remove(ultraGroupModel);
         System.out.println("ultragroup busChannel remove result:  " + groupCreateResult.toString());

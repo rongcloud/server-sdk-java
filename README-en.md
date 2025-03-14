@@ -10,12 +10,12 @@ RongCloud IM Server SDK in Java.
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>3.7.0</version>
+        <version>3.8.0</version>
     </dependency>
 ```
 * Gradle
 ```
-    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.7.0'
+    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.8.0'
 ```
 * Build from source
 ```
@@ -40,8 +40,9 @@ Here’s how to register a user:
 ```
   String appKey = "appKey";
   String appSecret = "appSecret";
-       
-  RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+      
+  // Initialize the RongCloud SDK, Set up the data center you use.
+  RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret，CenterEnum.BJ);
   User user = rongCloud.user;
 
   /**
@@ -81,4 +82,4 @@ Note: Each API call returns a unique ***request ID***, which identifies the requ
 
 # Version notes
 
-We’ve updated to SDK version 3.6.0 for easier integration and better maintenance. Older versions still work but don’t support group and friend hosting interfaces.
+We’ve updated to SDK version 3.8.0 for easier integration and better maintenance. Data center must be specified for new version initialization

@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Group Information Hosting Service
- * docs https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  */
 public class EntrustGroup extends BaseMethod {
 

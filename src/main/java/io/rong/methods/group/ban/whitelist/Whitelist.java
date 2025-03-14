@@ -16,7 +16,6 @@ import java.net.URLEncoder;
 /**
  * Group Mute Exceptions Service
  * When a group is muted, if certain users need to be allowed to speak, they can be added to the group's mute exceptions list. The group mute exceptions list only takes effect when the group is set to mute all members.
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author rc
  *
  * */

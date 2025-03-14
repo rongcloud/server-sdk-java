@@ -34,7 +34,6 @@ public class PushExample {
         /**
          *
          * API Documentation:
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * Broadcast Message
          *
@@ -60,7 +59,6 @@ public class PushExample {
         /**
          *
          * API Documentation:
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * Broadcast to online users
          *
@@ -77,7 +75,6 @@ public class PushExample {
         /**
          *
          * API Documentation:
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * Recall broadcast message
          *
          */
@@ -93,7 +90,6 @@ public class PushExample {
         /**
          *
          * API Documentation:
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * Push notification
          *

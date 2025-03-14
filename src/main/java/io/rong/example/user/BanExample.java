@@ -31,7 +31,7 @@ public class BanExample {
         Ban ban = rongCloud.user.ban;
 
         /**
-         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Set user mute
          */
         BanModel model = new BanModel()

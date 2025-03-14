@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * Push Plus Demo class
- * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author Lang
  */

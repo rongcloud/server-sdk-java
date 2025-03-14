@@ -1,6 +1,6 @@
 {
   "setTag": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "user/tag/set",
     "params": {
       "tag": {
@@ -41,7 +41,7 @@
     }
   },
   "batchSetTag": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "/user/tag/batch/set",
     "params": {
       "batchTag": {
@@ -84,7 +84,7 @@
     }
   },
   "getTag": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "/user/tags/get",
     "params": {
       "getTag": {

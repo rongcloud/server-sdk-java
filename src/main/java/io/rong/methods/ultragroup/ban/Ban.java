@@ -16,7 +16,6 @@ import java.net.URLEncoder;
 /**
  * Ultra group ban status
  * Global mute for ultra groups
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Ban {

@@ -23,7 +23,6 @@ import java.net.URLEncoder;
 /**
  * Group message sending methods
  * <p>
- * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */

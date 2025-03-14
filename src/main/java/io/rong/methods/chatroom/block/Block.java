@@ -16,7 +16,6 @@ import java.net.URLEncoder;
 /**
  *
  * Chatroom Block Service
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Block {

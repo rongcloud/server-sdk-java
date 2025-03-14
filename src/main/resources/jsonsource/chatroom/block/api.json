@@ -1,6 +1,5 @@
 {
 	"add": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/block/add",
 		"params": {
 			"chatroom": {
@@ -50,7 +49,6 @@
 		}
 	},
 	"remove": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/block/rollback",
 		"params": {
 			"chatroom": {
@@ -94,7 +92,6 @@
 		}
 	},
 	"getList": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/block/list",
 		"params": {
 			"chatroom": {

@@ -15,7 +15,6 @@ import java.util.HashMap;
 /**
  * Demo for setting, deleting, and querying chatroom attributes
  *
- * Response codes: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  */
 public class EntryExample {
@@ -36,7 +35,7 @@ public class EntryExample {
 
         Reader reader = null;
         /**
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          *
          * Create chatroom
          *
@@ -50,7 +49,6 @@ public class EntryExample {
         /**
          * Chatroom attribute settings, refer to the documentation
          *
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          */
         ChatroomEntryModel model = new ChatroomEntryModel();
         model.setChatroomId("chatroomId1");
@@ -81,7 +79,6 @@ public class EntryExample {
         /**
          * Chatroom attribute deletion, refer to the documentation
          *
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          */
         ChatroomEntryModel modelRemove = new ChatroomEntryModel();
         modelRemove.setChatroomId("chatroomId1");
@@ -97,7 +94,6 @@ public class EntryExample {
         /**
          * Chatroom attribute query, refer to the documentation
          *
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          */
         ChatroomEntryModel modelQuery = new ChatroomEntryModel();
         modelQuery.setChatroomId("chatroomId1");

@@ -1,6 +1,5 @@
 {
 	"create": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/create",
 		"params": {
 			"chatroom": [{
@@ -42,7 +41,6 @@
 		}
 	},
 	"createv2": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/chatroom/create#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95",
 		"url": "chatroom/create_new",
 		"params": {
 			"chatroom": [{
@@ -83,7 +81,6 @@
 		}
 	},
 	"destory": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/destroy",
 		"params": {
 			"chatroom": [{
@@ -124,7 +121,6 @@
 		}
 	},
 	"get": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/query",
 		"params": {
 			"chatroom": {
@@ -170,7 +166,6 @@
 		}
 	},
 	"isExist": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/user/exist",
 		"params": {
 			"member": {
@@ -208,7 +203,6 @@
 		}
 	},
 	"isExists": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/chatroom/info#users_exist",
 		"url": "chatroom/users/exist",
 		"params": {
 			"members": [{
@@ -246,7 +240,6 @@
 		}
 	},
 	"query": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/chatroom/info",
 		"url": "chatroom/query",
 		"params": {
 			"chatroom": {

@@ -28,7 +28,7 @@ public class BanAllMemberWhitelistExample {
         BanAllMemberWhitelist banAllMemberWhitelist = rongCloud.chatroom.banAllMemberWhitelist;
 
         /**
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Add chatroom mute exceptions
          */
         ChatroomMember[] members = {
@@ -43,7 +43,7 @@ public class BanAllMemberWhitelistExample {
         System.out.println("addBanAllMemberWhitelist:  " + result.toString());
 
         /**
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Get chatroom mute exceptions list
          */
         GroupBanWhitelistResult groupBanWhitelistResult = banAllMemberWhitelist.getList(chatroom.getId());
@@ -51,7 +51,7 @@ public class BanAllMemberWhitelistExample {
 
         /**
          *
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Remove the Mute Exceptions for all members in the chatroom
          */
         ResponseResult removeResult = banAllMemberWhitelist.remove(chatroom);

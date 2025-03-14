@@ -2281,7 +2281,6 @@ public class Example {
 
     /**
      * Push-only Notification
-     * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * @throws Exception
      */
     @Test

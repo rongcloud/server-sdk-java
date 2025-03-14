@@ -16,7 +16,6 @@ import java.net.URLEncoder;
 /**
  * Message History Service
  *
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author RongCloud
  *
  */
@@ -98,7 +97,6 @@ public class History {
  * Clear history messages -
  * If the user has enabled the Cloud Storage for One-to-One and Group Messages service, this interface can be used to clear the historical messages stored on the server before a specified time for a specific user by conversation. After clearing, the user will no longer be able to retrieve the historical messages stored on the RongCloud server from the client. Please execute this operation with caution.
  *
- * Reference documentation: https://docs.rongcloud.cn/im/server/message_clean/
  **/
 
 

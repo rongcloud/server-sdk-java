@@ -17,8 +17,6 @@ import java.net.URLEncoder;
 
 /**
  * User allowlist service
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
- *
  * @author RongCloud
  */
 public class Whitelist extends BaseMethod {

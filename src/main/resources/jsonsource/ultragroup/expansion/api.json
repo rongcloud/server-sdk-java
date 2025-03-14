@@ -1,6 +1,6 @@
 {
 	"set": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "ultragroup/message/expansion/set",
 		"params": {
 			"expansion": {
@@ -28,7 +28,7 @@
 		}
 	},
 	"remove": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "ultragroup/message/expansion/delete",
 		"params": {
 			"expansion": {
@@ -60,11 +60,11 @@
 		}
 	},
 	"getList": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "ultragroup/message/expansion/query",
 		"params": {
 			"expansion": {
-				"msgUID": "BRGM-DEN2-01E4-BN66",
+				"msgUID": "BRGM-DEN2-01E4-BN66"
 			}},
 		"response": {
 			"success": {

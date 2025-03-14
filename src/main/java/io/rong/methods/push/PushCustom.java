@@ -15,8 +15,6 @@ import java.net.HttpURLConnection;
 
 /**
  * Push Plus service
- * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
- *
  * @author lang
  */
 public class PushCustom {

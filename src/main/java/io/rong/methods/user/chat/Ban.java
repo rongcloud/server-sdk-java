@@ -18,7 +18,6 @@ import java.net.URLEncoder;
 
 /**
  * User one-to-one chat mute
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */
@@ -47,7 +46,6 @@ public class Ban {
     /**
      * Mute a user
      * url  "/user/chat/fb/set"
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      * @param model userId (required) state (required) type (required)
      * @return ResponseResult
      */

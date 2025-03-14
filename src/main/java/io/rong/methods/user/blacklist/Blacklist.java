@@ -17,7 +17,6 @@ import java.net.URLEncoder;
 /**
  *
  * User Blocklist Service
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  * @version

@@ -43,7 +43,6 @@ public class Push {
 
     /**
      * Broadcast
-     * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param broadcast Broadcast data
      * @return PushResult
@@ -68,7 +67,6 @@ public PushResult message(BroadcastModel broadcast) throws Exception {
 
 /**
  * Push notification
- * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @param push Push data
  * @return PushResult

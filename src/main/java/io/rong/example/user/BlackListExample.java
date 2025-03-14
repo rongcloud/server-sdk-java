@@ -31,7 +31,7 @@ public class BlackListExample {
 
         /**
          *
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Add a user to the blocklist
          */
         UserModel blackUser = new UserModel().setId("hdsjGB88");
@@ -46,7 +46,7 @@ public class BlackListExample {
 
         /**
          *
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Get the blocklist of a user
          */
         UserModel user2 = new UserModel().setId("hdsjGB89");
@@ -63,7 +63,7 @@ public class BlackListExample {
 
         /**
          *
-         * API Documentation: https://docs.rongcloud.io/platform-chat-api/im-server-api-list-v1
+         * 
          * Method to remove a user from the blocklist
          */
         Result removeResult = balackList.remove(user);

@@ -1,6 +1,6 @@
 {
   "set": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "group/remarks/set",
     "params": {
         "set": {
@@ -39,7 +39,7 @@
     }
   },
   "del": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "group/remarks/set",
     "params": {
         "del": {
@@ -77,7 +77,7 @@
     }
   },
   "get": {
-    "docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
     "url": "/group/remarks/get",
     "params": {
       "get": {

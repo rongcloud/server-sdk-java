@@ -26,7 +26,6 @@ import com.alibaba.fastjson.JSONException;
 
 /**
  * User Service
- * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  **/
 public class User {
 
@@ -73,7 +72,6 @@ public class User {
     /**
      * Get Token method
      * url  "/user/getToken"
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user User information including id, name, portrait (required)
      * @return TokenResult
@@ -118,7 +116,6 @@ public class User {
     /**
      * Refresh user information
      * url  "/user/refresh"
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user User information including id, name, and portrait (required)
      * @return ResponseResult
@@ -155,7 +152,6 @@ public class User {
     /**
      * Query user information method
      * url  "/user/info"
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user User information id (required)
      * @return UserResult
@@ -276,7 +272,6 @@ public class User {
     /**
      * Query the groups a user belongs to
      * url  "/user/group/query"
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user User information, id (required)
      * @return UserGroupQueryResult
@@ -313,7 +308,6 @@ public class User {
     /**
      * Token expiration
      * url  "/user/refresh"
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param user userId (required) time (required)
      * @return ResponseResult

@@ -14,7 +14,6 @@ import java.net.URLEncoder;
 
 /**
  * Chatroom Keepalive Service
- * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Keepalive {
     private static final String UTF8 = "UTF-8";

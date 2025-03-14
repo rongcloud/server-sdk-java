@@ -1,6 +1,6 @@
 {
 	"get": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "message/history",
 		"params": {
 			"message": {
@@ -33,7 +33,7 @@
 		}
 	},
 	"remove": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "message/history/delete",
 		"params": {
 			"message": {
@@ -42,7 +42,7 @@
 		},
 		"response": {
 			"success": {
-				"code": "200",
+				"code": "200"
 			},
 			"fail": {
 				"1004": {
@@ -65,7 +65,6 @@
 		}
 	},
 	"clean": {
-		"docs": "https://docs.rongcloud.cn/im/server/message_clean/",
 		"url": "/conversation/message/history/clean",
 		"params": {
 			"message": {
@@ -77,7 +76,7 @@
 		},
 		"response": {
 			"success": {
-				"code": "200",
+				"code": "200"
 			},
 			"fail": {
 				"1004": {

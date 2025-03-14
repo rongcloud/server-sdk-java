@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * User Profile Hosting Service
- * docs https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  */
 public class EntrustUser extends BaseMethod {
 

@@ -16,7 +16,7 @@ import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
 
 /**
- * User Tag Service. Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+ * User Tag Service.
  */
 public class Tag {
 

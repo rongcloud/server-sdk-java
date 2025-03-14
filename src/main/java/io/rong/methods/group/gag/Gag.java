@@ -15,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 /**
  * Group member gag service
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class Gag {

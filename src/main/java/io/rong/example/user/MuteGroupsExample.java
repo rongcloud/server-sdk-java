@@ -37,7 +37,7 @@ public class MuteGroupsExample {
 
         MuteGroups muteGroups = rongCloud.user.muteGroups;
         /**
-         * API documentation: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
+         * 
          * Prevent users from sending messages in all joined groups
          */
 

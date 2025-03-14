@@ -1,6 +1,5 @@
 {
   "add": {
-    "docs": "https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-add",
     "url": "chatroom/ban/add",
     "params": {
       "chatroom": {
@@ -58,7 +57,6 @@
     }
   },
   "check": {
-    "docs": "https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban-check",
     "url": "chatroom/ban/check",
     "params": {
       "chatroom": {

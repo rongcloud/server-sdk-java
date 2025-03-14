@@ -31,7 +31,6 @@ public class TagExample {
         /**
          *
          * API Documentation:
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * Add tags
          *
@@ -46,7 +45,6 @@ public class TagExample {
         /**
          *
          * API Documentation:
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
 
          /**
@@ -64,7 +62,6 @@ public class TagExample {
         /**
          *
          * API Documentation:
-         * https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          *
          * Query user tags
          *

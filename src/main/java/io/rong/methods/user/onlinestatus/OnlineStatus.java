@@ -13,7 +13,6 @@ import java.net.URLEncoder;
 /**
  *
  *  User Online Status
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @version
  * */
@@ -41,7 +40,6 @@ public class OnlineStatus {
      * Avoid frequent or looped calls to this API. Instead, choose an appropriate frequency and timing for calls, as this API has rate limits in place.
      *
      * url /user/checkOnline
-     * docs https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
      *
      * @param  user: User ID (required)
      *

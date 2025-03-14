@@ -30,7 +30,6 @@ import java.net.URLEncoder;
 
 /**
  * Chatroom Service
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Chatroom {
 

@@ -15,7 +15,6 @@ import java.net.URLEncoder;
 
 /**
  * Chatroom global mute service
- * docs:https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  */
 public class MuteChatrooms {

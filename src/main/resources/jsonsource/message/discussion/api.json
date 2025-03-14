@@ -51,7 +51,7 @@
 		}
 	},
 	"recall": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "message/recall",
 		"params": {
 			"recallMessage": {

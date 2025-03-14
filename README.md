@@ -43,7 +43,7 @@ RongCloud IM Server SDK in Java.
 ```
   String appKey = "appKey";
   String appSecret = "appSecret";
-       
+  // 初始化,设置您使用的数据中心
   RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
   User user = rongCloud.user;
 
@@ -85,4 +85,4 @@ RongCloud IM Server SDK in Java.
 
 
 # 版本说明
-为方便开发者的接入使用，更好的对融云 Server SDK 进行维护管理，现更新SDK 3.6.0 版本,老版本的 Server SDK仍可使用，但不支持群和好友托管接口。
+为方便开发者的接入使用，更好的对融云 Server SDK 进行维护管理，现更新SDK 3.8.0，需强制设置服务器地址。

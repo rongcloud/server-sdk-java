@@ -1,6 +1,6 @@
 {
 	"add": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "user/whitelist/add",
 		"params": {
 			"user": {
@@ -44,7 +44,7 @@
 		}
 	},
 	"remove": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "user/whitelist/remove",
 		"params": {
 			"user": {
@@ -88,7 +88,7 @@
 		}
 	},
 	"getList": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "user/whitelist/query",
 		"params": {
 			"user": {
@@ -123,7 +123,6 @@
 		}
 	},
 	"pagingQueryWhitelist": {
-		"docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
 		"url": "/user/blacklist/query",
 		"params": {
 			"pagingQueryWhitelist": {

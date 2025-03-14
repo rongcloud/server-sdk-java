@@ -1,6 +1,5 @@
 {
 	"set": {
-		"docs": "https://docs.rongcloud.cn/v3/views/im/noui/guide/chatroom/manage/key/set/serverapi.html",
 		"url": "chatroom/entry/set",
 		"params": {
 			"chatroom": {
@@ -48,7 +47,6 @@
 		}
 	},
 	"batchset": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/chatroom/set-kv-entry-batch",
 		"url": "chatroom/entry/batch/set",
 		"params": {
 			"chatroom": {
@@ -97,7 +95,6 @@
 
 
 	"remove": {
-		"docs": "https://docs.rongcloud.cn/v3/views/im/noui/guide/chatroom/manage/key/remove/serverapi.html",
 		"url": "chatroom/entry/remove",
 		"params": {
 			"chatroom": {
@@ -144,7 +141,6 @@
 		}
 	},
 	"query": {
-		"docs": "https://docs.rongcloud.cn/v3/views/im/noui/guide/chatroom/manage/key/query/serverapi.html",
 		"url": "chatroom/entry/query",
 		"params": {
 			"chatroom": {

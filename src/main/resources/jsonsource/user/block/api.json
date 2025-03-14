@@ -1,6 +1,6 @@
 {
 	"add": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "user/block",
 		"params": {
 			"user": {
@@ -34,7 +34,7 @@
 		}
 	},
 	"remove": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "user/unblock",
 		"params": {
 			"user": {
@@ -63,7 +63,7 @@
 		}
 	},
 	"getList": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
+
 		"url": "user/block/query",
 		"params": {},
 		"response": {

@@ -89,12 +89,12 @@ public class GroupExample {
         Result refreshResult = (Result) Group.update(group);
         System.out.println("refresh:  " + refreshResult.toString());
 
-/**
- * 
- *
- * Invite users to join a group
- *
- */
+        /**
+         *
+         *
+         * Invite users to join a group
+         *
+         */
         group = new GroupModel()
                 .setId("hdiuj87jj")
                 .setMembers(members)

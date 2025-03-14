@@ -17,7 +17,6 @@ import java.net.URLEncoder;
 /**
  * Group Mute Allowlist Service
  * When a group is muted, if certain users need to be allowed to speak, they can be added to the group mute allowlist. The group mute allowlist only takes effect when the group is set to mute all members.
- * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  * @author rc
  *
  */

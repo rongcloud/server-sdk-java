@@ -1,6 +1,5 @@
 {
 	"stop": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/message/stopDistribution",
 		"params": {
 			"chatroom": {
@@ -37,7 +36,6 @@
 		}
 	},
 	"resume": {
-		"docs": "https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1",
 		"url": "chatroom/message/resumeDistribution",
 		"params": {
 			"chatroom": {

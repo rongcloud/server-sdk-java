@@ -1,6 +1,5 @@
 {
 	"recall": {
-		"docs": "https://docs.rongcloud.cn/v4/5X/views/im/server/system/msgrecall.html#recall",
 		"url": "message/recall",
 		"params": {
 			"recallMessage": {

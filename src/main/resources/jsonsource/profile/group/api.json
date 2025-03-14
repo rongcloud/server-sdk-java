@@ -1,6 +1,5 @@
 {
   "create": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "entrust/group/create",
     "params": {
       "create": {
@@ -98,7 +97,6 @@
     }
   },
   "queryProfile": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "entrust/group/profile/query",
     "params": {
       "queryProfile": {
@@ -146,7 +144,6 @@
     }
   },
   "quit": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "entrust/group/quit",
     "params": {
       "quit": {
@@ -769,7 +766,6 @@
     }
   },
   "queryRemarkName": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "entrust/group/remarkname/query",
     "params": {
       "queryRemarkName": {

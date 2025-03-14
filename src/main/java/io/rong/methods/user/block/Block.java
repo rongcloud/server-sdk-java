@@ -15,7 +15,6 @@ import java.net.URLEncoder;
 
 /**
  * User Block Service
- * docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  */
 public class Block {
     private static final String UTF8 = "UTF-8";

@@ -26,7 +26,6 @@ public class UserExample {
         Whitelist whitelist = rongCloud.chatroom.whiteList;
 
         /**
-         * API: Documentation https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
          * Add users to the chatroom allowlist
          */
         ChatroomMember[] members = {

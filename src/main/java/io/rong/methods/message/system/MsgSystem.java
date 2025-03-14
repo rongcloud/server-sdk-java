@@ -26,7 +26,6 @@ import com.alibaba.fastjson.JSONException;
 /**
  * Methods for sending system messages
  * <p>
- * docs : https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * @author RongCloud
  */

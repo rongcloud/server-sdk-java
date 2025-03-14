@@ -1,6 +1,5 @@
 {
   "addFriend": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "friend/add",
     "params": {
       "addFriend": {
@@ -96,7 +95,6 @@
     }
   },
   "cleanFriend": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "friend/clean",
     "params": {
       "cleanFriend": {
@@ -141,7 +139,6 @@
     }
   },
   "setFriendProfile": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "friend/profile/set",
     "params": {
       "setFriendProfile": {
@@ -236,7 +233,6 @@
     }
   },
   "checkFriends": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "friend/check",
     "params": {
       "pagingGetFriends": {

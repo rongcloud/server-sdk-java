@@ -16,7 +16,6 @@ import java.net.URLEncoder;
 /**
  * Group Mute Service
  * Mute group members. If groupId is not specified, it applies to all groups.
- * Docs: https://doc.rongcloud.cn/imserver/server/v1/im-server-api-list-v1
  *
  * */
 public class User {

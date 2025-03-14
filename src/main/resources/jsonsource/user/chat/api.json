@@ -1,6 +1,5 @@
 {
   "set": {
-    "docs": "https://docs.rongcloud.cn/v4/5X/views/im/server/user/ban.html",
     "url": "user/chat/fb/set",
     "params": {
       "set": {

@@ -1,6 +1,5 @@
 {
   "setUserProfile": {
-    "docs": "https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1",
     "url": "/user/profile/set",
     "params": {
       "setUserProfile": {

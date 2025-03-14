@@ -17,7 +17,6 @@ import java.net.URLEncoder;
 
 /**
  * Chatroom Mute All Service
- * docs:https://docs.rongcloud.cn/v4/views/im/server/chatroom/ban.html#ban
  */
 public class BanAllMember {
     private static final String UTF8 = "UTF-8";

@@ -14,7 +14,6 @@ import io.rong.models.response.ResponseResult;
 /**
  * Group Information Hosting Service
  * <p>
- * API Documentation: https://docs.rongcloud.cn/platform-chat-api/im-server-api-list-v1
  *
  * @author RongCloud
  * @version 3.6.0
