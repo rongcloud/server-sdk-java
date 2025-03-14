@@ -1,46 +1,45 @@
-server-sdk-go
-=============
+# Server SDK in Go
 
-Rong Cloud Server SDK in Go.
+RongCloud Server SDK in Go.
 
-# 版本说明
+## Version notes
 
-- 为方便开发者的接入使用，更好的对融云 Server SDK 进行维护管理，融云 Server SDK v3 统一规范了命名及调用方式，结构更加清晰。老版本的 Server SDK 已经切入 v1 v2.0.1 分支，仍然可以使用，但不会再做新的功能更新。
-- 如果您是新接入的开发者，建议您使用 Server SDK v3 版本。 对已集成使用老版本 Server SDK 的开发者，不能直接升级使用，强烈建议您重新测试后使用
+- To simplify integration and improve maintenance, Server SDK v3 standardizes naming and methods with a clearer structure. Older versions (v1 and v2.0.1) are still available but won’t receive new features.
+- New developers should use Server SDK v3. If you’re using an older version, retest before switching—–direct upgrades aren’t supported.
 
-# API文档
-- [官方文档](https://doc.rongcloud.cn/imserver/server/v1/overview)
+## API documentation
+- [Official docs](https://docs.rongcloud.io/platform-chat-api)
 
-## 如何使用
+## How to use
 
-### 1. go mod 使用旧版本
+### 1. Using older versions with Go Module
 
-- go mod 文件： `require github.com/rongcloud/server-sdk-go`
-- go 文件引入 ： `import "github.com/rongcloud/server-sdk-go/sdk"`
+- Go Module file: `require github.com/rongcloud/server-sdk-go`
+- Import: `import "github.com/rongcloud/server-sdk-go/sdk"`
 
-### 2. go mode 方式使用 v3
+### 2. Using v3 with Go Module
 
-- v3 版本 : `require github.com/rongcloud/server-sdk-go/v3`
-- go 文件引入： `import "github.com/rongcloud/server-sdk-go/v3/sdk"`
+- v3 version: `require github.com/rongcloud/server-sdk-go/v3`
+- Import: `import "github.com/rongcloud/server-sdk-go/v3/sdk"`
 
-### 3. 非 go mod 直接使用
+### 3. Using without Go Module
 
-- 直接下载/更新包到 GOPATH：`go get -u github.com/rongcloud/server-sdk-go`
-- go 文件引入： `import "github.com/rongcloud/server-sdk-go/sdk"`
+- Download/update to GOPATH: `go get -u github.com/rongcloud/server-sdk-go`
+- Import: `import "github.com/rongcloud/server-sdk-go/sdk"`
 
-## 方法调用
+## Method invocation
 
-* 请参考 rongcloud_test.go 上面提供了所有的 API 接口的调用用例。
+* See `rongcloud_test.go` for API call examples.
 
 ```go
 package main
 
 import "fmt"
 
-//旧版本引入 或者 非go mod方式使用
+// Older version or non-Go Module usage
 import "github.com/rongcloud/server-sdk-go/sdk"
 
-// go mod v3 版本引入
+// Go Module v3 usage
 //import "github.com/rongcloud/server-sdk-go/v3/sdk"
 
 func main() {
@@ -68,14 +67,14 @@ func main() {
 }
 ```
 
-### http 参数优化
+### HTTP parameter optimization
 
-- http连接相关的性能优化
-- `sdk.WithMaxIdleConnsPerHost` : 每个域名最大活跃连接数，默认 100
-- `sdk.WithTimeout` : 连接超时设置，默认 10 秒；最小单位为秒， `sdk.WithTimeout(30)` 表示设置为30秒
-- `sdk.WithKeepAlive` : 连接保活时间，默认 30 秒；最小单位为秒， `sdk.WithKeepAlive(30)` 表示设置保活时间为30秒
-- `rc.SetHttpTransport` : 手动设置 http client
-- `rc.GetHttpTransport` : 获得当前全局 http client
+- Optimize HTTP connections for better performance.
+- `sdk.WithMaxIdleConnsPerHost`: Max active connections per host, default 100.
+- `sdk.WithTimeout`: Connection timeout, default 10 seconds; minimum unit is seconds, e.g., `sdk.WithTimeout(30)` sets it to 30 seconds.
+- `sdk.WithKeepAlive`: Connection keepalive time, default 30 seconds; minimum unit is seconds, e.g., `sdk.WithKeepAlive(30)` sets it to 30 seconds.
+- `rc.SetHttpTransport`: Manually set the HTTP client.
+- `rc.GetHttpTransport`: Get the current global HTTP client.
 
 ```go
 package main
@@ -87,14 +86,14 @@ import "net/http"
 import "github.com/rongcloud/server-sdk-go/sdk"
 
 func main() {
-	// 方法1： 创建对象时设置
+	// Method 1: Set during object creation
 	rc := sdk.NewRongCloud("appKey",
 		"appSecret",
-		// 每个域名最大活跃连接数
+		// Max active connections per host
 		sdk.WithMaxIdleConnsPerHost(100),
 		)
 	
-	// 方法2： 自定义 http client， 调用 set 方法设置
+	// Method 2: Custom HTTP client, set via the set method
 	dialer := &net.Dialer{
         Timeout:   10 * time.Second,
         KeepAlive: 30 * time.Second,
@@ -108,88 +107,139 @@ func main() {
 }
 ```
 
-### GO SDK 功能支持的版本清单
+### GO SDK feature support version list
 
-| 模块                                                                                       | 方法名                           | 说明                                               | master |
+| Module                                                                                       | Method name                           | Description                                               | master |
 |:-----------------------------------------------------------------------------------------|:------------------------------|:-------------------------------------------------|:-------| 
-| [用户信息](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/user_test.go)          | UserRegister                  | 注册， 获取 token                                     | √      |
-|                                                                                          | UserUpdate                    | 更新用户信息                                           | √      |
-|                                                                                          | OnlineStatusCheck             | 检查用户在线状态                                         | √      |
-|                                                                                          | BlacklistAdd                  | 添加黑名单                                            | √      |
-|                                                                                          | BlacklistGet                  | 获取黑名单列表                                          | √      |
-|                                                                                          | BlacklistRemove               | 移除黑名单                                            | √      |
-|                                                                                          | BlockAdd                      | 添加用户封禁                                           | √      |
-|                                                                                          | BlockGetList                  | 获取用户封禁列表                                         | √      |
-|                                                                                          | BlockRemove                   | 移除用户封禁                                           | √      |
-|                                                                                          | TagSet                        | 添加用户标签                                           | √      |
-|                                                                                          | TagBatchSet                   | 批量添加用户标签                                         | √      |
-|                                                                                          | TagGet                        | 获取用户标签                                           | √      |
-|                                                                                          | GroupMuteAdd                  | 添加全局群组禁言用户，添加后用户在应用下的所有群组中都不能发送消息                |        |
-|                                                                                          | GroupMuteRemove               | 移除全局群组禁言用户                                       |        |
-|                                                                                          | GroupMuteGetList              | 获取全局群组禁言用户列表                                     |        |
-|                                                                                          | ChatRoomMuteAdd               | 添加全局聊天室禁言用户，添加后用户在应用下的所有聊天室中都不能发送消息              |        |
-|                                                                                          | ChatRoomMuteRemove            | 移除全局聊天室禁言用户                                      |        |
-|                                                                                          | ChatRoomMuteGetList           | 获取全局聊天室禁言用户列表                                    |        |
-|                                                                                          | UserDeactivate                | 注销用户                                             |    √    |
-|                                                                                          | UserDeactivateQuery           | 查询已注销用户                                                 |    √    |
-|                                                                                          | UserReactivate                | 重新激活注销用户                                                 |    √    |
-| [敏感词](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/sensitive_test.go)      | SensitiveAdd                  | 添加敏感词，添加后默认 2 小时生效                               | √      |
-|                                                                                          | SensitiveGetList              | 获取敏感词列表                                          | √      |
-|                                                                                          | SensitiveRemove               | 移除敏感词，支持批量移除功能，移除后默认 2 小时生效                      | √      |
-| [消息发送](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)       | PrivateSend                   | 发送单聊消息                                           | √      |
-|                                                                                          | PrivateSendTemplate           | 发送单聊模板消息                                         | √      |
-|                                                                                          | PrivateRecall                 | 消息单聊撤回                                           | √      |
-|                                                                                          | ChatRoomSend                  | 发送聊天室消息                                          | √      |
-|                                                                                          | ChatRoomBroadcast             | 发送聊天室广播消息                                        | √      |
-|                                                                                          | GroupSend                     | 发送群组消息                                           | √      |
-|                                                                                          | GroupSendMention              | 发送群组 @ 消息                                        | √      |
-|                                                                                          | GroupRecall                   | 撤回群组消息                                           | √      |
-|                                                                                          | SystemSend                    | 发送系统消息                                           | √      |
-|                                                                                          | SystemSendTemplate            | 发送系统模板消息                                         | √      |
-|                                                                                          | SystemBroadcast               | 发送广播消息，单个应用每小时只能发送 2 次，每天最多发送 3 次。               | √      |
-| [消息历史记录](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)     | HistoryGet                    | 消息历史记录下载地址获取                                     | √      |
-|                                                                                          | HistoryRemove                 | 消息历史记录删除方法                                       | √      |
-| [广播推送](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/push_test.go)          | PushSend                      | 发送推送，推送和广播消息合计，单个应用每小时只能发送 2 次，每天最多发送 3 次。       | √      |
-| [群组](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/group_test.go)           | GroupCreate                   | 创建群组                                             | √      |
-|                                                                                          | GroupSync                     | 同步群关系                                            | √      |
-|                                                                                          | GroupUpdate                   | 更新群信息                                            | √      |
-|                                                                                          | GroupGet                      | 获取群信息                                            | √      |
-|                                                                                          | GroupJoin                     | 邀请人加入群组                                          | √      |
-|                                                                                          | GroupQuit                     | 退出群组                                             | √      |
-|                                                                                          | GroupDismiss                  | 解散群组                                             | √      |
-|                                                                                          | GroupMuteMembersAdd           | 添加指定群组禁言用户，该用户在指定群组中不能发送消息                       | √      |
-|                                                                                          | GroupMuteMembersRemove        | 移除指定群组禁言用户                                       | √      |
-|                                                                                          | GroupMuteMembersGetList       | 获取指定群组禁言用户列表                                     | √      |
-|                                                                                          | GroupMuteAllMembersAdd        | 添加指定群组全部成员禁言，添加后该群组中所有用户不能在此群组中发送消息              | √      |
-|                                                                                          | GroupMuteAllMembersRemove     | 移除指定群组全部成员禁言                                     | √      |
-|                                                                                          | GroupMuteAllMembersGetList    | 获取群组禁言列表                                         | √      |
-|                                                                                          | GroupMuteWhiteListUserAdd     | 添加群组禁言白名单用户，群组被禁言后，该群白名单中用户可以在群组中发送消息            | √      |
-|                                                                                          | GroupMuteWhiteListUserRemove  | 移除群组禁言白名单用户                                      | √      |
-|                                                                                          | GroupMuteWhiteListUserGetList | 获取群组禁言白名单用户列表                                    | √      |
-| [会话免打扰](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/conversation_test.go) | ConversationMute              | 添加免打扰会话                                          | √      |
-|                                                                                          | ConversationUnmute            | 移除免打扰会话                                          | √      |
-|                                                                                          | ConversationGet               | 免打扰会话状态获取                                        | √      |
-| [聊天室](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/chatroom_test.go)       | ChatRoomCreate                | 创建聊天室                                            | √      |
-|                                                                                          | ChatRoomDestroy               | 销毁聊天室                                            | √      |
-|                                                                                          | ChatRoomGet                   | 查询聊天室信息                                          | √      |
-|                                                                                          | ChatRoomIsExist               | 检查用户是否在聊天室                                       | √      |
-|                                                                                          | ChatRoomBlockAdd              | 添加聊天室封禁用户，被封禁后用户无法加入该聊天室，如用户正在聊天室中将被踢出聊天室        | √      |
-|                                                                                          | ChatRoomBlockGetList          | 获取聊天室封禁用户列表                                      | √      |
-|                                                                                          | ChatRoomBlockRemove           | 移除聊天室封禁用户                                        | √      |
-|                                                                                          | ChatRoomMuteMembersAdd        | 添加聊天室禁言用户，用户无法在该聊天室中发送消息                         | √      |
-|                                                                                          | ChatRoomMuteMembersGetList    | 获取聊天室禁言用户列表                                      | √      |
-|                                                                                          | ChatRoomMuteMembersRemove     | 移除聊天室禁言用户                                        | √      |
-|                                                                                          | ChatRoomDemotionAdd           | 添加聊天室低优先级消息，添加后因消息量激增导致服务器压力较大时，默认丢弃低级别的消息       | √      |
-|                                                                                          | ChatRoomDemotionGetList       | 查询聊天室低优先级消息列表                                    | √      |
-|                                                                                          | ChatRoomDemotionRemove        | 移除聊天室低优先级消息                                      | √      |
-|                                                                                          | ChatRoomDistributionStop      | 停止聊天室消息分发，服务端收到上行消息后不进行下行发送                      | √      |
-|                                                                                          | ChatRoomDistributionResume    | 恢复聊天室消息分发                                        | √      |
-|                                                                                          | ChatRoomKeepAliveAdd          | 添加保活聊天室，保活中的聊天室不会被自动销毁                           | √      |
-|                                                                                          | ChatRoomKeepAliveRemove       | 移除保活聊天室                                          | √      |
-|                                                                                          | ChatRoomKeepAliveGetList      | 获取保活聊天室列表                                        | √      |
-|                                                                                          | ChatRoomWhitelistAdd          | 添加白名单消息类型，白名单中的消息类型，在消息量激增导致服务器压力较大时不会被丢弃，确保消息到达 | √      |
-|                                                                                          | ChatRoomWhitelistRemove       | 移除白名单消息类型                                        | √      |
-|                                                                                          | ChatRoomWhitelistGetList      | 获取白名单消息类型列表                                      | √      |
-|                                                                                          | ChatRoomUserWhitelistAdd      | 添加白名单用户，白名单中用户发送的消息，在消息量激增导致服务器压力较大时不会被丢弃，确保消息到达 | √      |
-|                                                                                          | ChatRoomUserWhitelistRemove   | 移除白名单用户                                          | √      |
-|                                                                                          | ChatRoomUserWhitelistGetList  | 获取白名单用户列表                                        | √      |
+| [User information](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/user_test.go)          | UserRegister                  | Register, get token                                     | √      |
+|                                                                                          | UserUpdate                    | Update user info                                           | √      |
+|                                                                                          | OnlineStatusCheck             | Check user online status                                         | √      |
+|                                                                                          | BlacklistAdd                  | Add to blocklist                                            | √      |
+|                                                                                          | BlacklistGet                  | Get blocklist                                          | √      |
+|                                                                                          | BlacklistRemove               | Remove from blocklist                                            | √      |
+|                                                                                          | BlockAdd                      | Ban user                                           | √      |
+|                                                                                          | BlockGetList                  | Get banned user list                                         | √      |
+|                                                                                          | BlockRemove                   | Unban user                                           | √      |
+|                                                                                          | TagSet                        | Add user tag                                           | √      |
+|                                                                                          | TagBatchSet                   | Batch add user tags                                         | √      |
+|                                                                                          | TagGet                        | Get user tags                                           | √      |
+|                                                                                          | GroupMuteAdd                  | Add global group mute, user can’t send messages in any group                |        |
+|                                                                                          | GroupMuteRemove               | Remove global group mute                                       |        |
+|                                                                                          | GroupMuteGetList              | Get global group mute list                                     |        |
+|                                                                                          | ChatRoomMuteAdd               | Add global chatroom mute, user can’t send messages in any chatroom              |        |
+|                                                                                          | ChatRoomMuteRemove            | Remove global chatroom mute                                      |        |
+|                                                                                          | ChatRoomMuteGetList           | Get global chatroom mute list                                    |        |
+|                                                                                          | UserDeactivate                | Deactivate user                                             |    √    |
+|                                                                                          | UserDeactivateQuery           | Query deactivated users                                                 |    √    |
+|                                                                                          | UserReactivate                | Reactivate deactivated users                                                 |    √    |
+| [Sensitive words](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/sensitive_test.go)      | SensitiveAdd                  | Add sensitive word, takes effect in 2 hours                               | √      |
+|                                                                                          | SensitiveGetList              | Get sensitive word list                                          | √      |
+|                                                                                          | SensitiveRemove               | Remove sensitive word, supports batch removal, takes effect in 2 hours                      | √      |
+| [Message sending](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)       | PrivateSend                   | Send private message                                           | √      |
+|                                                                                          | PrivateSendTemplate           | Send private template message                                         | √      |
+|                                                                                          | PrivateRecall                 | Recall private message                                           | √      |
+|                                                                                          | ChatRoomSend                  | Send chatroom message                                          | √      |
+|                                                                                          | ChatRoomBroadcast             | Send chatroom broadcast message                                        | √      |
+|                                                                                          | GroupSend                     | Send group message                                           | √      |
+|                                                                                          | GroupSendMention              | Send group @ message                                        | √      |
+|                                                                                          | GroupRecall                   | Recall group message                                           | √      |
+|                                                                                          | SystemSend                    | Send system message                                           | √      |
+|                                                                                          | SystemSendTemplate            | Send system template message                                         | √      |
+|                                                                                          | SystemBroadcast               | Send broadcast message, max 2 per hour, 3 per day.               | √      |
+| [Message history](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)     | HistoryGet                    | Get message history download URL                                     | √      |
+|                                                                                          | HistoryRemove                 | Delete message history                                       | √      |
+| [Broadcast push](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/push_test.go)          | PushSend                      | Send push, max 2 per hour, 3 per day.       | √      |
+| [Group](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/group_test.go)           | GroupCreate                   | Create group                                             | √      |
+|                                                                                          | GroupSync                     | Sync group relationships                                            | √      |
+|                                                                                          | GroupUpdate                   | Update group info                                            | √      |
+|                                                                                          | GroupGet                      | Get group info                                            | √      |
+|                                                                                          | GroupJoin                     | Invite users to group                                          | √      |
+|                                                                                          | GroupQuit                     | Quit group                                             | √      |
+|                                                                                          | GroupDismiss                  | Dismiss group                                             | √      |
+|                                                                                          | GroupMuteMembersAdd           | Mute users in group                       | √      |
+|                                                                                          | GroupMuteMembersRemove        | Unmute users in group                                       | √      |
+|                                                                                          | GroupMuteMembersGetList       | Get muted users in group                                     | √      |
+|                                                                                          | GroupMuteAllMembersAdd        | Mute all group members              | √      |
+|                                                                                          | GroupMuteAllMembersRemove     | Unmute all group members                                     | √      |
+|                                                                                          | GroupMuteAllMembersGetList    | Get group mute list                                         | √      |
+|                                                                                          | GroupMuteWhiteListUserAdd     | Add users to group mute allowlist            | √      |
+|                                                                                          | GroupMuteWhiteListUserRemove  | Remove users from group mute allowlist                                      | √      |
+|                                                                                          | GroupMuteWhiteListUserGetList | Get group mute allowlist                                    | √      |
+| [Conversation do not disturb](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/conversation_test.go) | ConversationMute              | Mute conversation                                          | √      |
+|                                                                                          | ConversationUnmute            | Unmute conversation                                          | √      |
+|                                                                                          | ConversationGet               | Get conversation mute status                                        | √      |
+| [Chatroom](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/chatroom_test.go)       | ChatRoomCreate                | Create chatroom                                            | √      |
+|                                                                                          | ChatRoomDestroy               | Destroy chatroom                                            | √      |
+|                                                                                          | ChatRoomGet                   | Get chatroom info                                          | √      |
+|                                                                                          | ChatRoomIsExist               | Check if user is in chatroom                                       | √      |
+|                                                                                          | ChatRoomBlockAdd              | Ban user from chatroom        | √      |
+|                                                                                          | ChatRoomBlockGetList          | Get banned users in chatroom                                      | √      |
+|                                                                                          | ChatRoomBlockRemove           | Unban user from chatroom                                        | √      |
+|                                                                                          | ChatRoomMuteMembersAdd        | Mute users in chatroom                         | √      |
+|                                                                                          | ChatRoomMuteMembersGetList    | Get muted users in chatroom                                      | √      |
+|                                                                                          | ChatRoomMuteMembersRemove     | Unmute users in chatroom                                        | √      |
+|                                                                                          | ChatRoomDemotionAdd           | Add low-priority messages in chatroom       | √      |
+|                                                                                          | ChatRoomDemotionGetList       | Get low-priority messages in chatroom                                    | √      |
+|                                                                                          | ChatRoomDemotionRemove        | Remove low-priority messages in chatroom                                      | √      |
+|                                                                                          | ChatRoomDistributionStop      | Stop chatroom message distribution                      | √      |
+|                                                                                          | ChatRoomDistributionResume    | Resume chatroom message distribution                                        | √      |
+|                                                                                          | ChatRoomKeepAliveAdd          | Keep chatroom alive                           | √      |
+|                                                                                          | ChatRoomKeepAliveRemove       | Remove chatroom keepalive                                          | √      |
+|                                                                                          | ChatRoomKeepAliveGetList      | Get keepalive chatrooms                                        | √      |
+|                                                                                          | ChatRoomWhitelistAdd          | Add whitelist message types in chatroom | √      |
+|                                                                                          | ChatRoomWhitelistRemove       | Remove whitelist message types                                        | √      |
+|                                                                                          | ChatRoomWhitelistGetList      | Get whitelist message types                                      | √      |
+|                                                                                          | ChatRoomUserWhitelistAdd      | Add whitelist users in chatroom | √      |
+|                                                                                          | ChatRoomUserWhitelistRemove   | Remove whitelist users                                          | √      |
+|                                                                                          | ChatRoomUserWhitelistGetList  | Get whitelist users                                        | √      | | ChatRoomBroadcast             | Broadcast a message to chat room                                        | √      |
+|                                                                                          | GroupSend                     | Send a group message                                           | √      |
+|                                                                                          | GroupSendMention              | Send a group @ message                                        | √      |
+|                                                                                          | GroupRecall                   | Recall a group message                                           | √      |
+|                                                                                          | SystemSend                    | Send a system message                                           | √      |
+|                                                                                          | SystemSendTemplate            | Send a system template message                                         | √      |
+|                                                                                          | SystemBroadcast               | Broadcast a message, limited to 2 times per hour and 3 times per day per app.               | √      |
+| [Message history](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)     | HistoryGet                    | Get message history download URL                                     | √      |
+|                                                                                          | HistoryRemove                 | Delete message history                                       | √      |
+| [Broadcast push](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/push_test.go)          | PushSend                      | Send a push, combined with broadcast messages, limited to 2 times per hour and 3 times per day per app.       | √      |
+| [Group](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/group_test.go)           | GroupCreate                   | Create a group                                             | √      |
+|                                                                                          | GroupSync                     | Sync group relationships                                            | √      |
+|                                                                                          | GroupUpdate                   | Update group info                                            | √      |
+|                                                                                          | GroupGet                      | Get group info                                            | √      |
+|                                                                                          | GroupJoin                     | Invite users to join a group                                          | √      |
+|                                                                                          | GroupQuit                     | Quit a group                                             | √      |
+|                                                                                          | GroupDismiss                  | Dismiss a group                                             | √      |
+|                                                                                          | GroupMuteMembersAdd           | Mute users in a group, preventing them from sending messages                       | √      |
+|                                                                                          | GroupMuteMembersRemove        | Unmute users in a group                                       | √      |
+|                                                                                          | GroupMuteMembersGetList       | Get list of muted users in a group                                     | √      |
+|                                                                                          | GroupMuteAllMembersAdd        | Mute all members in a group, preventing them from sending messages              | √      |
+|                                                                                          | GroupMuteAllMembersRemove     | Unmute all members in a group                                     | √      |
+|                                                                                          | GroupMuteAllMembersGetList    | Get list of muted groups                                         | √      |
+|                                                                                          | GroupMuteWhiteListUserAdd     | Add users to group mute whitelist, allowing them to send messages even if the group is muted            | √      |
+|                                                                                          | GroupMuteWhiteListUserRemove  | Remove users from group mute whitelist                                      | √      |
+|                                                                                          | GroupMuteWhiteListUserGetList | Get list of users in group mute whitelist                                    | √      |
+| [Conversation mute](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/conversation_test.go) | ConversationMute              | Mute a conversation                                          | √      |
+|                                                                                          | ConversationUnmute            | Unmute a conversation                                          | √      |
+|                                                                                          | ConversationGet               | Get conversation mute status                                        | √      |
+| [Chat room](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/chatroom_test.go)       | ChatRoomCreate                | Create a chat room                                            | √      |
+|                                                                                          | ChatRoomDestroy               | Destroy a chat room                                            | √      |
+|                                                                                          | ChatRoomGet                   | Query chat room info                                          | √      |
+|                                                                                          | ChatRoomIsExist               | Check if a user is in a chat room                                       | √      |
+|                                                                                          | ChatRoomBlockAdd              | Block a user from a chat room, preventing them from joining or kicking them if already in the chat room        | √      |
+|                                                                                          | ChatRoomBlockGetList          | Get list of blocked users in a chat room                                      | √      |
+|                                                                                          | ChatRoomBlockRemove           | Unblock a user from a chat room                                        | √      |
+|                                                                                          | ChatRoomMuteMembersAdd        | Mute a user in a chat room, preventing them from sending messages                         | √      |
+|                                                                                          | ChatRoomMuteMembersGetList    | Get list of muted users in a chat room                                      | √      |
+|                                                                                          | ChatRoomMuteMembersRemove     | Unmute a user in a chat room                                        | √      |
+|                                                                                          | ChatRoomDemotionAdd           | Add low-priority messages to a chat room, which may be discarded when the server is under heavy load       | √      |
+|                                                                                          | ChatRoomDemotionGetList       | Get list of low-priority messages in a chat room                                    | √      |
+|                                                                                          | ChatRoomDemotionRemove        | Remove low-priority messages from a chat room                                      | √      |
+|                                                                                          | ChatRoomDistributionStop      | Stop chat room message distribution, preventing the server from sending messages after receiving them                      | √      | | ChatRoomDistributionResume    | Resume chatroom message distribution                                        | √      |
+|                                                                                          | ChatRoomKeepAliveAdd          | Add keepalive chatroom, keepalive chatrooms won’t be automatically destroyed                           | √      |
+|                                                                                          | ChatRoomKeepAliveRemove       | Remove keepalive chatroom                                          | √      |
+|                                                                                          | ChatRoomKeepAliveGetList      | Get keepalive chatroom list                                        | √      |
+|                                                                                          | ChatRoomWhitelistAdd          | Add allowlist message type, allowlist message types won’t be discarded when server pressure is high due to a surge in message volume, ensuring message delivery | √      |
+|                                                                                          | ChatRoomWhitelistRemove       | Remove allowlist message type                                        | √      |
+|                                                                                          | ChatRoomWhitelistGetList      | Get allowlist message type list                                      | √      |
+|                                                                                          | ChatRoomUserWhitelistAdd      | Add allowlist user, messages sent by allowlist users won’t be discarded when server pressure is high due to a surge in message volume, ensuring message delivery | √      |
+|                                                                                          | ChatRoomUserWhitelistRemove   | Remove allowlist user                                          | √      |
+|                                                                                          | ChatRoomUserWhitelistGetList  | Get allowlist user list                                        | √      |
