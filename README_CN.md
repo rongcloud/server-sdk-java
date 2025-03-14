@@ -44,7 +44,8 @@ import "github.com/rongcloud/server-sdk-go/sdk"
 //import "github.com/rongcloud/server-sdk-go/v3/sdk"
 
 func main() {
-	rc := sdk.NewRongCloud("appKey", "appSecret")
+	//初始化必须指定数据中心
+	rc := sdk.NewRongCloud("appKey", "appSecret", REGION_BJ)
 	msg := sdk.TXTMsg{
 		Content: "hello",
 		Extra:   "helloExtra",
