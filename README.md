@@ -1,12 +1,11 @@
-server-sdk-java
-=================
+# server-sdk-java
 
 RongCloud IM Server SDK in Java.
 
-## 集成
+## Integration
 
-   * 中央仓库获取[JAR](https://search.maven.org/search?q=g:cn.rongcloud.im%20AND%20a:server-sdk-java&core=gav)
-   * Maven
+* Get the [JAR](https://search.maven.org/search?q=g:cn.rongcloud.im%20AND%20a:server-sdk-java&core=gav) from the Maven repository
+* Maven
 ```
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
@@ -14,75 +13,73 @@ RongCloud IM Server SDK in Java.
         <version>3.8.0</version>
     </dependency>
 ```
-   * Gradle
+* Gradle
 ```
     compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.8.0'
-   
 ```
-   * 基于源码 Meavn 打包构建
+* Build from source
 ```
-   1、下载或克隆 `server-sdk-java`
+   1. Download or clone `server-sdk-java`
    
-   2、进入项目 `server-sdk-java` 目录
+   2. Navigate to the `server-sdk-java` directory
    
-   3、安装依赖 `mvn install`
+   3. Install dependencies with `mvn install`
    
-   4、打包 `mvn clean package`
-   
+   4. Package with `mvn clean package`
 ```
-   * 运行环境
-   
-    Java版本  7+
+* Runtime environment
 
-# 使用
+  Java version 7+
 
-请前往 [开发者后台](https://developer.rongcloud.cn/) 创建应用 -> 获取 Appkey、Secret
+# Usage
 
-以注册用户为例
+Go to the [Developer Console](https://console.rongcloud.io/) to create an app and get your App Key and Secret.
+
+Here’s how to register a user:
 
 ```
   String appKey = "appKey";
   String appSecret = "appSecret";
-  // 初始化,设置您使用的数据中心
-  RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
+      
+  // Initialize the RongCloud SDK, Set up the data center you use.
+  RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret，CenterEnum.BJ);
   User user = rongCloud.user;
 
   /**
   *
-  * 注册用户，生成用户在融云的唯一身份标识 Token
+  * Register a user and generate a unique Token in RongCloud
   */
   UserModel userModel = new UserModel()
             .setId("hHjap87")
             .setName("RongCloud")
             .setPortrait("http://www.rongcloud.cn/images/logo.png");
   TokenResult result = user.register(userModel);
-  System.out.println("getToken:  " + result.toString());
+  System.out.println("getToken: " + result.toString());
 
 ```
 ```
-# 打印结果
-# getToken:  {"reqBody":"userId=userxxd2&name=username&portraitUri=http%3A%2F%2Fwww.rongcloud.cn%2Fimages%2Flogo.png","code":1002,"errorMessage":"Invalidate App-Key.","requestId":"0c1f127e9bc1401bb05eaad61b4502f7"}
+# Print result
+# getToken: {"reqBody":"userId=userxxd2&name=username&portraitUri=http%3A%2F%2Fwww.rongcloud.cn%2Fimages%2Flogo.png","code":1002,"errorMessage":"Invalidate App-Key.","requestId":"0c1f127e9bc1401bb05eaad61b4502f7"}
 ```
 
-特别说明: 接口每次调用都会返回唯一的 ***requestId*** ，此 Id 为请求融云的唯一标识。
+Note: Each API call returns a unique ***request ID***, which identifies the request to RongCloud.
 
+## Examples
 
-## 示例
+###### [User module example](./src/main/java/io/rong/example/user)
 
-###### [用户模块示例](./src/main/java/io/rong/example/user)
+###### [Message module example](./src/main/java/io/rong/example/message/MessageExample.java)
 
-###### [消息模块示例](./src/main/java/io/rong/example/message/MessageExample.java)
+###### [Group module example](./src/main/java/io/rong/example/group)
 
-###### [群组模块示例](./src/main/java/io/rong/example/group)
+###### [Chatroom module example](./src/main/java/io/rong/example/chatroom/)
 
-###### [聊天室模块示例](./src/main/java/io/rong/example/chatroom/)
+###### [Conversation module example](./src/main/java/io/rong/example/conversation/ConversationExample.java)
 
-###### [会话模块示例](./src/main/java/io/rong/example/conversation/ConversationExample.java)
+###### [Sensitive word module example](./src/main/java/io/rong/example/sensitive/SensitiveExample.java)
 
-###### [敏感词模块示例](./src/main/java/io/rong/example/sensitive/SensitiveExample.java)
+###### [Ultra group module example](./src/main/java/io/rong/example/ultragroup)
 
-###### [超级群模块示例](./src/main/java/io/rong/example/ultragroup)
+# Version notes
 
-
-# 版本说明
-为方便开发者的接入使用，更好的对融云 Server SDK 进行维护管理，现更新SDK 3.8.0，需强制设置服务器地址。
+We’ve updated to SDK version 3.8.0 for easier integration and better maintenance. Data center must be specified for new version initialization
