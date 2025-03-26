@@ -90,6 +90,8 @@ func main() {
 	// Method 1: Set during object creation
 	rc := sdk.NewRongCloud("appKey",
 		"appSecret",
+		//Initialization must specify a data center
+		REGION_BJ,
 		// Max active connections per host
 		sdk.WithMaxIdleConnsPerHost(100),
 		)

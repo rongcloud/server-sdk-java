@@ -91,6 +91,8 @@ func main() {
 	// 方法1： 创建对象时设置
 	rc := sdk.NewRongCloud("appKey",
 		"appSecret",
+		//初始化必须指定数据中心
+		REGION_BJ,
 		// 每个域名最大活跃连接数
 		sdk.WithMaxIdleConnsPerHost(100),
 		)
