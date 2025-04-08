@@ -1,101 +1,147 @@
 {
-	"get": {
-
-		"url": "message/history",
-		"params": {
-			"message": {
-				"date": "2018010101"
-			}
-		},
-		"response": {
-			"success": {
-				"code": "200",
-				"url": "http://120.92.22.186/9/2018030119/5e398bf3-df16-4e75-9385-7e37c65db649.zip"
-			},
-			"fail": {
-				"1004": {
-					"code": "1004",
-					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
-				},
-				"1008": {
-					"code": "1008",
-					"errorMessage": "The call frequency exceeds the limit."
-				},
-				"20005": {
-					"code": "1002",
-					"errorMessage": "{{name}} parameter is required"
-				},
-				"20001": {
-					"code": "1002",
-					"errorMessage": "The {{name}} type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
-				}
-			}
-		}
-	},
-	"remove": {
-
-		"url": "message/history/delete",
-		"params": {
-			"message": {
-				"date": "2017010101"
-			}
-		},
-		"response": {
-			"success": {
-				"code": "200"
-			},
-			"fail": {
-				"1004": {
-					"code": "1004",
-					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
-				},
-				"1008": {
-					"code": "1008",
-					"errorMessage": "The call frequency exceeds the limit."
-				},
-				"20005": {
-					"code": "1002",
-					"errorMessage": "{{name}} parameter is required"
-				},
-				"20001": {
-					"code": "1002",
-					"errorMessage": "The {{name}} type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
-				}
-			}
-		}
-	},
-	"clean": {
-		"url": "/conversation/message/history/clean",
-		"params": {
-			"message": {
-				"conversationType": "1",
-				"fromUserId": "fromId",
-				"targetId": "targetId",
-				"msgTimestamp":"1598607424192"
-			}
-		},
-		"response": {
-			"success": {
-				"code": "200"
-			},
-			"fail": {
-				"1004": {
-					"code": "1004",
-					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
-				},
-				"1008": {
-					"code": "1008",
-					"errorMessage": "The call frequency exceeds the limit."
-				},
-				"20005": {
-					"code": "1002",
-					"errorMessage": "{{name}} parameter is required"
-				},
-				"20001": {
-					"code": "1002",
-					"errorMessage": "The {{name}} type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
-				}
-			}
-		}
-	}
+  "get": {
+    "url": "message/history",
+    "params": {
+      "message": {
+        "date": "2018010101"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "url": "http://120.92.22.186/9/2018030119/5e398bf3-df16-4e75-9385-7e37c65db649.zip"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The {{name}} type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        }
+      }
+    }
+  },
+  "remove": {
+    "url": "message/history/delete",
+    "params": {
+      "message": {
+        "date": "2017010101"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The {{name}} type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        }
+      }
+    }
+  },
+  "clean": {
+    "url": "/conversation/message/history/clean",
+    "params": {
+      "message": {
+        "conversationType": "1",
+        "fromUserId": "fromId",
+        "targetId": "targetId",
+        "msgTimestamp": "1598607424192"
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The {{name}} type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        }
+      }
+    }
+  },
+  "qryHisMsg": {
+    "url": "/v3/message/private/query.json",
+    "params": {
+      "qryHisMsg": {
+        "userId": "uid",
+        "targetId": "tid",
+        "startTime": 1598607424192,
+        "endTime": 1598607424192,
+        "pageSize": 10,
+        "includeStart": true
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  }
 }

@@ -1,9 +1,12 @@
 package io.rong.methods.message.history;
 
 import io.rong.RongCloud;
+import io.rong.methods.BaseMethod;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
+import io.rong.models.history.QueryHistoryMessageModel;
 import io.rong.models.response.HistoryMessageResult;
+import io.rong.models.response.QueryHistoryMessageResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -19,25 +22,19 @@ import java.net.URLEncoder;
  * @author RongCloud
  *
  */
-public class History {
+public class History  extends BaseMethod {
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "message/history";
-    private String appKey;
-    private String appSecret;
-    private RongCloud rongCloud;
 
-    public RongCloud getRongCloud() {
-        return rongCloud;
-    }
-
-    public void setRongCloud(RongCloud rongCloud) {
-        this.rongCloud = rongCloud;
+    @Override
+    protected void initPath() {
+        super.path = PATH;
     }
 
     public History(String appKey, String appSecret) {
         this.appKey = appKey;
         this.appSecret = appSecret;
-
+        initPath();
     }
 
     /**
@@ -124,4 +121,17 @@ public class History {
 
         return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.CLEAN, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
     }
+
+    /**
+     * Query the history message of one-to-one chat
+     **/
+    public QueryHistoryMessageResult queryPrivateHistoryMessage(QueryHistoryMessageModel model) throws Exception {
+        String method = CheckMethod.QUERY_HISTORY_MSG;
+        QueryHistoryMessageResult result = checkFiled(model, method, QueryHistoryMessageResult.class);
+        if (result != null) {
+            return result;
+        }
+        return doRequest("/v3/message/private/query.json", model.toString(), method, QueryHistoryMessageResult.class, CONTENT_TYPE_JSON);
+    }
+
 }
