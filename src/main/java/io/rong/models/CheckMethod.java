@@ -98,4 +98,5 @@ public class CheckMethod {
     public static final String PAGING_QUERY_USER_PROFILES = "pagingQueryUserProfiles";
     public static final String PAGING_QUERY_BLACKLIST = "pagingQueryBlacklist";
     public static final String PAGING_QUERY_WHITELIST = "pagingQueryWhitelist";
+    public static final String QUERY_HISTORY_MSG = "qryHisMsg";
 }
