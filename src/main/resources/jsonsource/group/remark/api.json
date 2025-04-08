@@ -17,7 +17,7 @@
       "fail": {
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}} Units: bytes"
         },
         "20005": {
           "code": "1002",
@@ -25,7 +25,7 @@
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
         },
         "1004": {
           "code": "1004",
@@ -55,7 +55,7 @@
       "fail": {
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}} Units: bytes"
         },
         "20005": {
           "code": "1002",
@@ -63,7 +63,7 @@
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
         },
         "1004": {
           "code": "1004",
@@ -92,7 +92,7 @@
       "fail": {
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}} Units: bytes"
         },
         "20005": {
           "code": "1002",
@@ -100,7 +100,7 @@
         },
         "20001": {
           "code": "1002",
-          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
         },
         "1004": {
           "code": "1004",

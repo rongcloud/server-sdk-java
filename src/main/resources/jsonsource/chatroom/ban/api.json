@@ -14,7 +14,7 @@
       "fail": {
         "20001": {
           "code": "1002",
-          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
         },
         "20005": {
           "code": "1002",
@@ -43,7 +43,7 @@
       "fail": {
         "20001": {
           "code": "1002",
-          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
         },
         "20005": {
           "code": "1002",
@@ -72,7 +72,7 @@
       "fail": {
         "20001": {
           "code": "1002",
-          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
         },
         "20005": {
           "code": "1002",
@@ -97,7 +97,7 @@
       "fail": {
         "20001": {
           "code": "1002",
-          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
         },
         "20005": {
           "code": "1002",
