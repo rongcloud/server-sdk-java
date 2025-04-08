@@ -26,11 +26,11 @@
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20004": {
           "code": "1002",
@@ -74,11 +74,11 @@
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20004": {
           "code": "1002",
@@ -122,11 +122,11 @@
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20004": {
           "code": "1002",
@@ -169,11 +169,11 @@
         },
         "20002": {
           "code": "1002",
-          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "20004": {
           "code": "1002",

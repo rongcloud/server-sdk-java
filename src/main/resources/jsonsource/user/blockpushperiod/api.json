@@ -21,7 +21,7 @@
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"1004": {
 					"code": "1004",
@@ -58,7 +58,7 @@
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"20005": {
 					"code": "1002",
@@ -93,7 +93,7 @@
 			"fail": {
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"20005": {
 					"code": "1002",

@@ -17,7 +17,7 @@
 			"fail": {
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"20005": {
 					"code": "1002",
@@ -52,7 +52,7 @@
 			"fail": {
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"20005": {
 					"code": "1002",
@@ -87,7 +87,7 @@
 			"fail": {
 				"20003": {
 					"code": "1002",
-					"msg": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+					"msg": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"1004": {
 					"code": "1004",
@@ -114,7 +114,7 @@
 			"fail": {
 				"20003": {
 					"code": "20003",
-					"msg": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+					"msg": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 				},
 				"1004": {
 					"code": "20000",
@@ -157,11 +157,11 @@
 			},
 			"20002": {
 				"code": "1002",
-				"errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+				"errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 			},
 			"20003": {
 				"code": "1002",
-				"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+				"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
 			},
 			"20004": {
 				"code": "1002",

@@ -21,7 +21,7 @@
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}} Units: bytes"
 				},
 				"20005": {
 					"code": "1002",
@@ -74,11 +74,11 @@
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}} Units: bytes"
 				},
 				"20005": {
 					"code": "1002",
@@ -111,7 +111,7 @@
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
 				},
 				"20002": {
 					"code": "1002",
@@ -119,7 +119,7 @@
 				},
 				"20003": {
 					"code": "1002",
-					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}} Units: bytes"
 				},
 				"20005": {
 					"code": "1002",
@@ -156,7 +156,7 @@
 			"fail": {
 				"20001": {
 					"code": "1002",
-					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}}"
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be passed in as {{currentType}}"
 				},
 				"20005": {
 					"code": "1002",

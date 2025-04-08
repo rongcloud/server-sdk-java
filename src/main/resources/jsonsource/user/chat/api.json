@@ -15,7 +15,7 @@
       "fail": {
         "20003": {
           "code": "1002",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}} Units: bytes"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}} Units: bytes"
         },
         "1004": {
           "code": "1004",
@@ -44,7 +44,7 @@
       "fail": {
         "1005": {
           "code": "1005",
-          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}}"
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
         },
         "1004": {
           "code": "1004",
