@@ -159,7 +159,7 @@ func modifyChatroomOptions(options []ChatroomOption) chatroomOptions {
 		needNotify:   false,
 		extra:        "",
 		destroyType:  0,
-		destroyTime:  60,
+		destroyTime:  0,
 		isBan:        false,
 		whiteUserIds: []string{},
 		entryOwnerId: "",
@@ -1304,9 +1304,9 @@ func (rc *RongCloud) ChatRoomEntrySet(chatRoomID, userID, key, value string, aut
 		return RCErrorNew(1002, "Paramer 'value' is required")
 	}
 
-   if autoDelete != 0 && autoDelete != 1 {
-        return RCErrorNew(1002, "Parameter 'autoDelete' is required")
-   }
+	if autoDelete != 0 && autoDelete != 1 {
+		return RCErrorNew(1002, "Parameter 'autoDelete' is required")
+	}
 
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/set." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)

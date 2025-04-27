@@ -600,6 +600,7 @@ func TestRongCloud_ChatRoomCreateNew(t *testing.T) {
 		"chatroom001",
 		WithChatroomDestroyType(1),
 		WithChatroomDestroyTime(120),
+		//WithChatroomDestroyTime(0),
 		WithChatroomIsBan(true),
 		WithChatroomWhiteUserIds(whiteUserIds),
 	)
