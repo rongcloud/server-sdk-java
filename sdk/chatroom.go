@@ -1287,7 +1287,7 @@ func (rc *RongCloud) ChatRoomMuteMembersRemove(id string, members []string, opti
  *
  * @retrun error
  */
-func (rc *RongCloud) ChatRoomEntrySet(chatRoomID, userID, key, value string, autoDelete bool) error {
+func (rc *RongCloud) ChatRoomEntrySet(chatRoomID, userID, key, value string, autoDelete int) error {
 	if chatRoomID == "" {
 		return RCErrorNew(1002, "Paramer 'chatRoomID' is required")
 	}
@@ -1304,6 +1304,10 @@ func (rc *RongCloud) ChatRoomEntrySet(chatRoomID, userID, key, value string, aut
 		return RCErrorNew(1002, "Paramer 'value' is required")
 	}
 
+   if autoDelete != 0 && autoDelete != 1 {
+        return RCErrorNew(1002, "Parameter 'autoDelete' is required")
+   }
+
 	req := httplib.Post(rc.rongCloudURI + "/chatroom/entry/set." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
@@ -1312,7 +1316,7 @@ func (rc *RongCloud) ChatRoomEntrySet(chatRoomID, userID, key, value string, aut
 	req.Param("userId", userID)
 	req.Param("key", key)
 	req.Param("value", value)
-	req.Param("autoDelete", strconv.FormatBool(autoDelete))
+	req.Param("autoDelete", strconv.Itoa(autoDelete))
 
 	_, err := rc.do(req)
 	if err != nil {

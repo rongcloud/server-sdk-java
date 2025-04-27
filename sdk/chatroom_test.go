@@ -447,7 +447,7 @@ func TestRongCloud_ChatRoomEntrySet(t *testing.T) {
 
 	t.Logf("app key: %s; app secret: %s", os.Getenv("APP_KEY"), os.Getenv("APP_SECRET"))
 
-	if err := rc.ChatRoomEntrySet("chrm01", "abc", "aaa", "bbb", false); err != nil {
+	if err := rc.ChatRoomEntrySet("chrm01", "abc", "aaa", "bbb", 0); err != nil {
 		t.Errorf("failed to chatroom entry set. err: %v", err)
 	} else {
 		t.Log("success")
