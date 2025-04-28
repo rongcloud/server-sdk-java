@@ -4,19 +4,19 @@ import io.rong.models.Result;
 import io.rong.util.GsonUtil;
 
 public class ChatroomKeepaliveResult extends Result{
-    private String[] chatrooms;
+    private String[] chatroomIds;
 
     public ChatroomKeepaliveResult(Integer code, String msg, String[] chatrooms) {
         super(code, msg);
-        this.chatrooms = chatrooms;
+        this.chatroomIds = chatrooms;
     }
 
-    public String[] getChatrooms() {
-        return this.chatrooms;
+    public String[] getChatroomIds() {
+        return this.chatroomIds;
     }
 
-    public void setChatrooms(String[] chatrooms) {
-        this.chatrooms = chatrooms;
+    public void setChatroomIds(String[] chatroomIds) {
+        this.chatroomIds = chatroomIds;
     }
 
     @Override
