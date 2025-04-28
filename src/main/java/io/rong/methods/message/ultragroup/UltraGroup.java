@@ -11,11 +11,9 @@ import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
-import org.graalvm.util.CollectionsUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
-import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
