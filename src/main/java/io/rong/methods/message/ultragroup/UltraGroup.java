@@ -62,6 +62,7 @@ public class UltraGroup {
         params.put("fromUserId", message.getSenderId());
 
         params.put("toGroupIds", message.getTargetId());
+        params.put("toUserIds", message.getToUserIds());
         params.put("objectName", message.getObjectName());
         params.put("content", message.getContent().toString());
 
