@@ -563,5 +563,13 @@ public class MessageExample {
         txtMessage.setMentionedInfo(new MentionedInfo(2, new String[]{"user1"}, "Someone @ you"));
         send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup mentioned message:  " + send.toString());
+
+
+        /**
+         * Send ultra group direction message
+         * */
+        ultraGroupMessage.setToUserIds(new String[]{"tid1"});
+        send = ultraGroup.send(ultraGroupMessage);
+        System.out.println("send ultragroup direction message:  " + send.toString());
     }
 }

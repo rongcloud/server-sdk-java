@@ -20,6 +20,14 @@ public class UltraGroupMessage extends MessageModel {
      **/
     public Integer contentAvailable;
 
+
+    /**
+     * When sending a ultra group targeted message, a list of group member user IDs who received the message.
+     * Ultra group users outside the list cannot receive this targeted message. Note:
+     * Valid only when toGroupIds passes in a single group ID.
+     **/
+    public String[] toUserIds;
+
     /**
      * Indicates whether this is a mention message. 0 means a regular message, 1 means a mention message. Default is 0. When set to 1, the content parameter must include mentionedInfo with the details of the mention. When set to 0, mentionedInfo is not required.
      */
@@ -238,6 +246,15 @@ public class UltraGroupMessage extends MessageModel {
     @Override
     public UltraGroupMessage setMsgRandom(Long msgRandom) {
         super.setMsgRandom(msgRandom);
+        return this;
+    }
+
+    public String[] getToUserIds() {
+        return toUserIds;
+    }
+
+    public UltraGroupMessage setToUserIds(String[] toUserIds) {
+        this.toUserIds = toUserIds;
         return this;
     }
 }
