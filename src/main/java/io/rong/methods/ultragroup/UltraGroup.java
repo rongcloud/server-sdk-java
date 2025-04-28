@@ -11,7 +11,6 @@ import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.response.CheckStatusResult;
 import io.rong.models.response.ResponseResult;
-import io.rong.models.response.StatusResult;
 import io.rong.models.ultragroup.UltraGroupModel;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
