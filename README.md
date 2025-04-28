@@ -10,12 +10,12 @@ RongCloud IM Server SDK in Java.
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>3.9.0</version>
+        <version>3.9.1</version>
     </dependency>
 ```
 * Gradle
 ```
-    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.9.0'
+    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '3.9.1'
 ```
 * Build from source
 ```

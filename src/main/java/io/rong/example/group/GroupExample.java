@@ -8,6 +8,7 @@ import io.rong.models.group.GroupMember;
 import io.rong.models.group.GroupModel;
 import io.rong.models.group.UserGroup;
 import io.rong.models.response.GroupUserQueryResult;
+import io.rong.models.response.OperationGroupResult;
 
 /**
  * Group service example
@@ -51,12 +52,19 @@ public class GroupExample {
         GroupModel group = new GroupModel()
                 .setId("groupId")
                 .setMembers(members)
-                .setName("groupName");
-        Result groupCreateResult = (Result) Group.create(group);
+                .setName("groupName")
+                .setMaxMember(10)
+                .setFromUserId("ghJiu7H1")
+                .setIsPersisted(1)
+                .setBindNotifyMsg(true)
+                .setContent("{\"content\":\"123\"}")
+                .setObjectName("RC:TxtMsg")
+                .setStatus(3);
+        OperationGroupResult groupCreateResult = Group.create(group);
         System.out.println("group create result:  " + groupCreateResult.toString());
 
         /**
-         * 
+         *
          *
          * Synchronize user's group list method
          */
@@ -112,7 +120,7 @@ public class GroupExample {
                 .setId("groupId")
                 .setMembers(members)
                 .setName("groupName");
-        Result groupJoinResult = (Result) Group.join(group);
+        OperationGroupResult groupJoinResult =  Group.join(group);
         System.out.println("join:  " + groupJoinResult.toString());
 
         /**
@@ -135,7 +143,7 @@ public class GroupExample {
                 .setId("groupId")
                 .setMembers(members)
                 .setName("groupName");
-        Result groupQuitResult = (Result) Group.quit(group);
+        OperationGroupResult groupQuitResult =  Group.quit(group);
         System.out.println("quit:  " + groupQuitResult.toString());
 
         /**
@@ -150,7 +158,7 @@ public class GroupExample {
         group = new GroupModel()
                 .setId("groupId")
                 .setMembers(members);
-        Result groupDismissResult = (Result) Group.dismiss(group);
+        OperationGroupResult groupDismissResult =  Group.dismiss(group);
         System.out.println("dismiss:  " + groupDismissResult.toString());
 
 	 }
