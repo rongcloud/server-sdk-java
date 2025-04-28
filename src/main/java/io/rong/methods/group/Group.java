@@ -138,10 +138,10 @@ public class Group {
      *
      * @return ResponseResult
      **/
-    public Result update(GroupModel group) throws Exception {
+    public OperationGroupResult update(GroupModel group) throws Exception {
         String message = CommonUtil.checkFiled(group, PATH, CheckMethod.UPDATE);
         if (null != message) {
-            return (ResponseResult) GsonUtil.fromJson(message, ResponseResult.class);
+            return (OperationGroupResult) GsonUtil.fromJson(message, OperationGroupResult.class);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
@@ -153,7 +153,7 @@ public class Group {
         }
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/group/refresh.json", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        return (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.UPDATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), ResponseResult.class);
+        return (OperationGroupResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.UPDATE, HttpUtil.returnResult(conn, rongCloud.getConfig())), OperationGroupResult.class);
     }
 
     /**

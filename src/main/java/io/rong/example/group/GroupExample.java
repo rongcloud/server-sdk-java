@@ -94,7 +94,7 @@ public class GroupExample {
         group = new GroupModel()
                 .setId("groupId")
                 .setName("groupName");
-        Result refreshResult = (Result) Group.update(group);
+        OperationGroupResult refreshResult =  Group.update(group);
         System.out.println("refresh:  " + refreshResult.toString());
 
         /**

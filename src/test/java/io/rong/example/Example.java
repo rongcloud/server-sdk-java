@@ -846,7 +846,7 @@ public class Example {
                 .setId("hiuyr743k")
                 .setMembers(members)
                 .setName("RongCloud");
-        Result result = (Result) rongCloud.group.update(group);
+        OperationGroupResult result =  rongCloud.group.update(group);
         System.out.println("refresh:  " + result.toString());
 
         assertEquals("200", result.getCode().toString());
