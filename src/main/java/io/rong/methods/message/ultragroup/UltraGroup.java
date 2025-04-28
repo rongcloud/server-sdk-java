@@ -11,9 +11,11 @@ import io.rong.models.response.ResponseResult;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
+import org.graalvm.util.CollectionsUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -62,10 +64,12 @@ public class UltraGroup {
         params.put("fromUserId", message.getSenderId());
 
         params.put("toGroupIds", message.getTargetId());
-        params.put("toUserIds", message.getToUserIds());
         params.put("objectName", message.getObjectName());
         params.put("content", message.getContent().toString());
 
+        if(message.getToUserIds() != null && message.getToUserIds().length > 0){
+            params.put("toUserIds", message.getToUserIds());
+        }
         if (message.getPushContent() != null) {
             params.put("pushContent", message.getPushContent().toString());
         }
