@@ -134,4 +134,34 @@ public class History  extends BaseMethod {
         return doRequest("/v3/message/private/query.json", model.toString(), method, QueryHistoryMessageResult.class, CONTENT_TYPE_JSON);
     }
 
+
+    public QueryHistoryMessageResult queryGroupHistoryMessage(QueryHistoryMessageModel model) throws Exception {
+        String method = CheckMethod.QUERY_HISTORY_MSG;
+        QueryHistoryMessageResult result = checkFiled(model, method, QueryHistoryMessageResult.class);
+        if (result != null) {
+            return result;
+        }
+        return doRequest("/v3/message/group/query.json", model.toString(), method, QueryHistoryMessageResult.class, CONTENT_TYPE_JSON);
+    }
+
+
+    public QueryHistoryMessageResult queryUltraGroupHistoryMessage(QueryHistoryMessageModel model) throws Exception {
+        String method = CheckMethod.QUERY_HISTORY_MSG;
+        QueryHistoryMessageResult result = checkFiled(model, method, QueryHistoryMessageResult.class);
+        if (result != null) {
+            return result;
+        }
+        return doRequest("/v3/message/ultragroup/query.json", model.toString(), method, QueryHistoryMessageResult.class, CONTENT_TYPE_JSON);
+    }
+
+
+    public QueryHistoryMessageResult queryChatroomHistoryMessage(QueryHistoryMessageModel model) throws Exception {
+        String method = CheckMethod.QUERY_HISTORY_MSG;
+        QueryHistoryMessageResult result = checkFiled(model, method, QueryHistoryMessageResult.class);
+        if (result != null) {
+            return result;
+        }
+        return doRequest("/v3/message/chatroom/query.json", model.toString(), method, QueryHistoryMessageResult.class, CONTENT_TYPE_JSON);
+    }
+
 }

@@ -39,9 +39,53 @@ public class QueryHistoryMessageExample {
         model.setStartTime(1743584071876L);
         model.setEndTime(1743584071077L);
         model.setPageSize(50);
-//        model.setIncludeStart(true);
+        model.setIncludeStart(true);
         QueryHistoryMessageResult queryHistoryMessageResult = history.queryPrivateHistoryMessage(model);
         System.out.println(queryHistoryMessageResult.toString());
+
+
+
+        /**
+         * Query the history message of group chat
+         */
+        QueryHistoryMessageModel groupInput = new QueryHistoryMessageModel();
+        groupInput.setUserId("user_01");
+        groupInput.setTargetId("groupId");
+        groupInput.setStartTime(1743584071876L);
+        groupInput.setEndTime(1743584071077L);
+        groupInput.setPageSize(50);
+        groupInput.setIncludeStart(true);
+        QueryHistoryMessageResult groupResult = history.queryGroupHistoryMessage(model);
+        System.out.println(groupResult.toString());
+
+
+        /**
+         * Query the history message of ultra group chat
+         */
+        QueryHistoryMessageModel ugInput = new QueryHistoryMessageModel();
+        ugInput.setUserId("user_01");
+        ugInput.setTargetId("ug_id");
+        ugInput.setBusChannel("busChannel");
+        ugInput.setStartTime(1743584071876L);
+        ugInput.setEndTime(1743584071077L);
+        ugInput.setPageSize(50);
+        ugInput.setIncludeStart(true);
+        QueryHistoryMessageResult ugResult = history.queryUltraGroupHistoryMessage(model);
+        System.out.println(ugResult.toString());
+
+
+        /**
+         * Query the history message of chat room.
+         */
+        QueryHistoryMessageModel chatInput = new QueryHistoryMessageModel();
+        chatInput.setUserId("user_01");
+        chatInput.setTargetId("user_02");
+        chatInput.setStartTime(1743584071876L);
+        chatInput.setEndTime(1743584071077L);
+        chatInput.setPageSize(50);
+        chatInput.setIncludeStart(true);
+        QueryHistoryMessageResult chatResult = history.queryChatroomHistoryMessage(model);
+        System.out.println(chatResult.toString());
 
     }
 }

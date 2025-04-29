@@ -13,6 +13,11 @@ public class QueryHistoryMessageModel {
      * Required parameters, conversation id
      */
     private String targetId;
+
+    /**
+     * Ultra group channel id
+     */
+    private String busChannel;
     /**
      * Required parameters, start time (millisecond timestamp)
      */
@@ -83,6 +88,15 @@ public class QueryHistoryMessageModel {
 
     public QueryHistoryMessageModel setIncludeStart(Boolean includeStart) {
         this.includeStart = includeStart;
+        return this;
+    }
+
+    public String getBusChannel() {
+        return busChannel;
+    }
+
+    public QueryHistoryMessageModel setBusChannel(String busChannel) {
+        this.busChannel = busChannel;
         return this;
     }
 
