@@ -12,6 +12,10 @@ public class HistoryMessage{
      */
     private String fromUserId;
     /**
+     * ultra group busChannel
+     */
+    private String busChannel;
+    /**
      * message ID
      */
     private String messageUID;
@@ -97,6 +101,15 @@ public class HistoryMessage{
 
     public HistoryMessage setExpansion(Boolean expansion) {
         this.expansion = expansion;
+        return this;
+    }
+
+    public String getBusChannel() {
+        return busChannel;
+    }
+
+    public HistoryMessage setBusChannel(String busChannel) {
+        this.busChannel = busChannel;
         return this;
     }
 
