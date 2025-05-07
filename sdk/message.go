@@ -501,14 +501,14 @@ type UgMessageExtension struct {
 }
 
 // MessageExpansionSet : Set message expansion /message/expansion/set.json
-//*
+// *
 // @param  msgUID: The unique identifier of the message, which can be obtained through the full message routing feature. See full message routing for details.
 // @param  userId: The user ID of the operator, i.e., the user ID that needs to set the extended information for the specified message (msgUID).
 // @param  conversationType: The conversation type. Supported conversation types include: 1 (one-to-one chat), 3 (group chat).
 // @param  targetId: The target ID, which can be a user ID or group ID depending on the conversationType.
 // @param  extraKeyVal: The custom extended content of the message, in JSON format, set in Key-Value pairs, e.g., {"type":"3"}. A single message can have up to 300 extended information items, and a maximum of 100 can be set at once.
 // @param  isSyncSender: Specifies whether the sender of the "expansion operation message" can receive this message on the client. https://doc.rongcloud.cn/imserver/server/v1/message/expansion#set
-//*/
+// */
 func (rc *RongCloud) MessageExpansionSet(msgUID, userId, conversationType, targetId, extraKeyVal string, isSyncSender int) error {
 	if len(msgUID) == 0 {
 		return RCErrorNew(1002, "Paramer 'msgUID' is required")
@@ -548,14 +548,14 @@ func (rc *RongCloud) MessageExpansionSet(msgUID, userId, conversationType, targe
 }
 
 // MessageExpansionDel : Delete message expansion /message/expansion/delete.json
-//*
+// *
 // @param  msgUID: The unique identifier of the message, which can be obtained through the full message routing feature. For details, see Post-messaging Callback.
 // @param  userId: The user ID of the operator, i.e., the user ID that needs to delete the extended information for the specified message (msgUID).
 // @param  conversationType: The type of conversation. Supported conversation types include: 1 (one-to-one chat), 3 (group chat).
 // @param  targetId: The target ID, which could be a user ID or group ID depending on the conversationType.
 // @param  extraKeyVal: The custom extended content of the message, in JSON format, set as Key-Value pairs, e.g., {"type":"3"}. A single message can have up to 300 extended information items, and a maximum of 100 can be set at once.
 // @param  isSyncSender: The operation will generate an "extension operation message". This field specifies whether the sender of the "extension operation message" can receive this message on the client. For details, see https://doc.rongcloud.cn/imserver/server/v1/message/expansion#delete
-//*/
+// */
 func (rc *RongCloud) MessageExpansionDel(msgUID, userId, conversationType, targetId, extraKey string, isSyncSender int) error {
 	if len(msgUID) == 0 {
 		return RCErrorNew(1002, "Paramer 'msgUID' is required")
@@ -597,14 +597,14 @@ func (rc *RongCloud) MessageExpansionDel(msgUID, userId, conversationType, targe
 // Ultra Group Message Modification
 
 // UGMessageModify : Ultra Group Message Modification /ultragroup/msg/modify.json
-//*
+// *
 // @param  groupId: Ultra group ID
 // @param  fromUserId: Message sender
 // @param  msgUID: Unique identifier of the message
 // @param  content: Message content, up to 128k
 // @param  busChannel: Channel ID, supports alphanumeric combinations, up to 20 characters
 // @param  msgRandom: Unique request identifier, ensures idempotency within one minute
-//*/
+// */
 func (rc *RongCloud) UGMessageModify(groupId, fromUserId, msgUID, content string, options ...UgMessageExtension) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNew(1002, "Paramer 'groupId' is required")
@@ -669,11 +669,11 @@ type UGMessageGetDataList struct {
 }
 
 // UGMessageGetObj : Batch retrieve ultra group messages by message ID /ultragroup/msg/get
-//*
+// *
 // @param  groupId: Ultra group ID
 // @param  msgList: Message parameter array, each element is UGMessageData
 // response: Response structure
-//*/
+// */
 func (rc *RongCloud) UGMessageGetObj(groupId string, msgList []UGMessageData, options ...MsgOption) (UGMessageGetData, error) {
 	respData := UGMessageGetData{}
 	if len(groupId) == 0 {
@@ -711,11 +711,11 @@ func (rc *RongCloud) UGMessageGetObj(groupId string, msgList []UGMessageData, op
 }
 
 // UGMessageGet : Retrieve Ultra Group Messages by Message ID /ultragroup/msg/get
-//*
+// *
 // @param  groupId: Ultra Group ID
 // @param  msgList: Message parameter array, each element is UGMessageData
 // response： Returns byte array
-//*/
+// */
 func (rc *RongCloud) UGMessageGet(groupId string, msgList []UGMessageData, options ...MsgOption) ([]byte, error) {
 	if len(groupId) == 0 {
 		return nil, RCErrorNew(1002, "Parameter 'groupId' is required")
@@ -1907,4 +1907,210 @@ func (rc *RongCloud) QueryMessageExpansion(msgUID string, page int) ([]MessageEx
 	}
 
 	return data, nil
+}
+
+type QueryHistoryMessageModel struct {
+	UserID       string `json:"userId"`
+	TargetID     string `json:"targetId"`
+	BusChannel   string `json:"busChannel,omitempty"`
+	StartTime    int64  `json:"startTime"`
+	EndTime      int64  `json:"endTime"`
+	PageSize     int    `json:"pageSize,omitempty"`
+	IncludeStart bool   `json:"includeStart"`
+}
+
+type HistoryMessageResponse struct {
+	Code int              `json:"code"`
+	Data []HistoryMessage `json:"data"`
+}
+
+// HistoryMessage represents a historical message
+type HistoryMessage struct {
+	TargetID     string `json:"targetId"`             // Conversation ID
+	FromUserID   string `json:"fromUserId"`           // Message sender ID
+	MsgUID       string `json:"messageUID"`           // Message ID
+	MsgTime      int64  `json:"msgTime"`              // Message timestamp
+	ObjectName   string `json:"objectName"`           // Message type
+	Content      string `json:"content"`              // Message content
+	Expansion    bool   `json:"expansion"`            // Whether the message is extensible
+	ExtraContent string `json:"extraContent"`         // Message extension content, JSON structure
+	BusChannel   string `json:"busChannel,omitempty"` // Business channel, optional
+}
+
+// GetPrivateHistoryMessage
+/*
+ * @param model: QueryHistoryMessageModel
+ * @return HistoryMessageResponse, error
+ */
+func (rc *RongCloud) GetPrivateHistoryMessage(model QueryHistoryMessageModel) (HistoryMessageResponse, error) {
+	var result HistoryMessageResponse
+
+	if err := validateHistoryMessageModel(model); err != nil {
+		return result, err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/v3/message/private/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeaderV2(req)
+
+	params := buildQueryHistoryMessageBody(model)
+
+	var err error
+	req, err = req.JSONBody(params)
+	if err != nil {
+		return result, err
+	}
+
+	res, err := rc.do(req)
+	if err != nil {
+		return result, fmt.Errorf("request failed: %w", err)
+	}
+
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, fmt.Errorf("unmarshal response failed: %w", err)
+	}
+
+	return result, nil
+}
+
+// validateHistoryMessageModel
+func validateHistoryMessageModel(model QueryHistoryMessageModel) error {
+	if model.UserID == "" {
+		return RCErrorNew(1002, "Parameter 'userId' is required")
+	}
+	if model.TargetID == "" {
+		return RCErrorNew(1002, "Parameter 'targetId' is required")
+	}
+	if model.StartTime == 0 {
+		return RCErrorNew(1002, "Parameter 'startTime' is required")
+	}
+	if model.EndTime == 0 {
+		return RCErrorNew(1002, "Parameter 'endTime' is required")
+	}
+	return nil
+}
+
+// buildQueryHistoryMessageBody
+func buildQueryHistoryMessageBody(model QueryHistoryMessageModel) map[string]string {
+	jsonBody := map[string]string{
+		"userId":       model.UserID,
+		"targetId":     model.TargetID,
+		"startTime":    strconv.FormatInt(model.StartTime, 10),
+		"endTime":      strconv.FormatInt(model.EndTime, 10),
+		"includeStart": strconv.FormatBool(model.IncludeStart),
+	}
+	if model.PageSize > 0 {
+		jsonBody["pageSize"] = strconv.Itoa(model.PageSize)
+	}
+	if model.BusChannel != "" {
+		jsonBody["busChannel"] = model.BusChannel
+	}
+
+	return jsonBody
+}
+
+// GetGroupHistoryMessage
+/*
+ * @param model: QueryHistoryMessageModel
+ * @return HistoryMessageResponse, error
+ */
+func (rc *RongCloud) GetGroupHistoryMessage(model QueryHistoryMessageModel) (HistoryMessageResponse, error) {
+	var result HistoryMessageResponse
+
+	if err := validateHistoryMessageModel(model); err != nil {
+		return result, err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/v3/message/group/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeaderV2(req)
+
+	params := buildQueryHistoryMessageBody(model)
+
+	var err error
+	req, err = req.JSONBody(params)
+	if err != nil {
+		return result, err
+	}
+
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+
+	return result, nil
+}
+
+// GetUltraGroupHistoryMessage
+/*
+ * @param model: QueryHistoryMessageModel
+ * @return HistoryMessageResponse, error
+ */
+func (rc *RongCloud) GetUltraGroupHistoryMessage(model QueryHistoryMessageModel) (HistoryMessageResponse, error) {
+	var result HistoryMessageResponse
+	if err := validateHistoryMessageModel(model); err != nil {
+		return result, err
+	}
+	req := httplib.Post(rc.rongCloudURI + "/v3/message/ultragroup/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeaderV2(req)
+
+	params := buildQueryHistoryMessageBody(model)
+
+	var err error
+	req, err = req.JSONBody(params)
+	if err != nil {
+		return result, err
+	}
+
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+
+	return result, nil
+}
+
+// GetChatroomHistoryMessage
+/*
+ * @param model: QueryHistoryMessageModel
+ * @return HistoryMessageResponse, error
+ */
+func (rc *RongCloud) GetChatroomHistoryMessage(model QueryHistoryMessageModel) (HistoryMessageResponse, error) {
+	var result HistoryMessageResponse
+
+	if err := validateHistoryMessageModel(model); err != nil {
+		return result, err
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/v3/message/chatroom/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeaderV2(req)
+
+	params := buildQueryHistoryMessageBody(model)
+
+	var err error
+	req, err = req.JSONBody(params)
+	if err != nil {
+		return result, err
+	}
+
+	res, err := rc.do(req)
+	if err != nil {
+		return result, err
+	}
+
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+
+	return result, nil
 }

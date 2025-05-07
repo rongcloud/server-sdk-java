@@ -57,7 +57,7 @@ const (
 	// ReqType Body type
 	ReqType = "json"
 	// USERAGENT SDK name
-	USERAGENT = "rc-go-sdk/3.2.23"
+	USERAGENT = "rc-go-sdk/4.0.2"
 	// DEFAULTTIMEOUT Default timeout, 10 seconds
 	DEFAULTTIMEOUT = 10
 	// DEFAULT_KEEPALIVE Default HTTP keepalive time, 30 seconds
@@ -130,26 +130,28 @@ func (rc RongCloud) getSignature() (nonce, timestamp, signature string) {
 
 // fillHeader adds API signature to the Http Header
 func (rc RongCloud) fillHeader(req *httplib.BeegoHTTPRequest) {
+	requestId := uuid.New().String()
+	req.Header("Content-Type", "application/x-www-form-urlencoded")
+	req.Header("User-Agent", USERAGENT)
+	req.Header("X-Request-Id", requestId)
 	nonce, timestamp, signature := rc.getSignature()
 	req.Header("App-Key", rc.appKey)
 	req.Header("Nonce", nonce)
 	req.Header("Timestamp", timestamp)
 	req.Header("Signature", signature)
-	req.Header("Content-Type", "application/x-www-form-urlencoded")
-	req.Header("User-Agent", USERAGENT)
 }
 
 // v2 sdk header
 func (rc RongCloud) fillHeaderV2(req *httplib.BeegoHTTPRequest) string {
 	requestId := uuid.New().String()
-	nonce, timestamp, signature := rc.getSignature()
-	req.Header("RC-App-Key", rc.appKey)
-	req.Header("RC-Timestamp", timestamp)
-	req.Header("RC-Nonce", nonce)
-	req.Header("RC-Signature", signature)
-	req.Header("Content-Type", "application/json")
 	req.Header("User-Agent", USERAGENT)
-	req.Header("RC-Request-Id", requestId)
+	req.Header("X-Request-Id", requestId)
+	req.Header("Content-Type", "application/json")
+	nonce, timestamp, signature := rc.getSignature()
+	req.Header("App-Key", rc.appKey)
+	req.Header("Timestamp", timestamp)
+	req.Header("Nonce", nonce)
+	req.Header("Signature", signature)
 	return requestId
 }
 

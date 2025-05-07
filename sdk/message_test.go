@@ -605,3 +605,126 @@ func TestRongCloud_HistoryRemove(t *testing.T) {
 	)
 	t.Log(err)
 }
+
+func TestRongCloud_GetPrivateHistoryMessage(t *testing.T) {
+	// rc := NewRongCloud(
+	// 	os.Getenv("APP_KEY"),
+	// 	os.Getenv("APP_SECRET"),
+	// 	REGION_BJ,
+	// 	WithRongCloudURI("http://xxx"),
+	// )
+
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+
+	model := QueryHistoryMessageModel{
+		UserID:       "uid1",
+		TargetID:     "tid1",
+		StartTime:    1743584071876,
+		EndTime:      1743584071077,
+		PageSize:     10,
+		IncludeStart: true,
+	}
+	resp, err := rc.GetPrivateHistoryMessage(model)
+	if err != nil {
+		t.Errorf("GetPrivateHistoryMessage failed: %v", err)
+		return
+	}
+
+	jsonResp, err := json.MarshalIndent(resp, "", "    ")
+	if err != nil {
+		t.Errorf("JSON marshal error: %v", err)
+		return
+	}
+	t.Logf("GetPrivateHistoryMessage response: \n%s", string(jsonResp))
+}
+
+func TestRongCloud_GetGroupHistoryMessage(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+
+	model := QueryHistoryMessageModel{
+		UserID:       "gid1",
+		TargetID:     "tid01",
+		StartTime:    1743584071876,
+		EndTime:      1743584071077,
+		PageSize:     10,
+		IncludeStart: true,
+	}
+	resp, err := rc.GetGroupHistoryMessage(model)
+	if err != nil {
+		t.Errorf("GetGroupHistoryMessage failed: %v", err)
+		return
+	}
+
+	jsonResp, err := json.MarshalIndent(resp, "", "    ")
+	if err != nil {
+		t.Errorf("JSON marshal error: %v", err)
+		return
+	}
+	t.Logf("GetGroupHistoryMessage response: \n%s", string(jsonResp))
+}
+
+func TestRongCloud_GetUltraGroupHistoryMessage(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+
+	model := QueryHistoryMessageModel{
+		UserID:       "uid01",
+		TargetID:     "ugid01",
+		BusChannel:   "bus1",
+		StartTime:    1743584071876,
+		EndTime:      1743584071077,
+		PageSize:     10,
+		IncludeStart: true,
+	}
+	resp, err := rc.GetUltraGroupHistoryMessage(model)
+	if err != nil {
+		t.Errorf("GetUltraGroupHistoryMessage failed: %v", err)
+		return
+	}
+
+	jsonResp, err := json.MarshalIndent(resp, "", "    ")
+	if err != nil {
+		t.Errorf("JSON marshal error: %v", err)
+		return
+	}
+	t.Logf("GetUltraGroupHistoryMessage response: \n%s", string(jsonResp))
+}
+
+func TestRongCloud_GetChatroomHistoryMessage(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	model := QueryHistoryMessageModel{
+		UserID:       "uid1",
+		TargetID:     "chId01",
+		StartTime:    1743584071876,
+		EndTime:      1743584071077,
+		PageSize:     10,
+		IncludeStart: true,
+	}
+	resp, err := rc.GetChatroomHistoryMessage(model)
+	if err != nil {
+		t.Errorf("GetChatroomHistoryMessage failed: %v", err)
+		return
+	}
+
+	jsonResp, err := json.MarshalIndent(resp, "", "    ")
+	if err != nil {
+		t.Errorf("JSON marshal error: %v", err)
+		return
+	}
+	t.Logf("GetChatroomHistoryMessage response: \n%s", string(jsonResp))
+}
