@@ -485,6 +485,11 @@ public class CommonUtil {
 
                     }
                 }
+
+                if (text.contains("\"message\"")) {
+                    text = StringUtils.replace(text, "message", "errorMessage");
+                }
+
                 return text;
             }
         } catch (Exception e) {

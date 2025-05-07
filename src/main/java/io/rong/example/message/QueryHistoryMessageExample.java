@@ -55,7 +55,7 @@ public class QueryHistoryMessageExample {
         groupInput.setEndTime(1743584071077L);
         groupInput.setPageSize(50);
         groupInput.setIncludeStart(true);
-        QueryHistoryMessageResult groupResult = history.queryGroupHistoryMessage(model);
+        QueryHistoryMessageResult groupResult = history.queryGroupHistoryMessage(groupInput);
         System.out.println(groupResult.toString());
 
 
@@ -70,7 +70,7 @@ public class QueryHistoryMessageExample {
         ugInput.setEndTime(1743584071077L);
         ugInput.setPageSize(50);
         ugInput.setIncludeStart(true);
-        QueryHistoryMessageResult ugResult = history.queryUltraGroupHistoryMessage(model);
+        QueryHistoryMessageResult ugResult = history.queryUltraGroupHistoryMessage(ugInput);
         System.out.println(ugResult.toString());
 
 
@@ -84,7 +84,7 @@ public class QueryHistoryMessageExample {
         chatInput.setEndTime(1743584071077L);
         chatInput.setPageSize(50);
         chatInput.setIncludeStart(true);
-        QueryHistoryMessageResult chatResult = history.queryChatroomHistoryMessage(model);
+        QueryHistoryMessageResult chatResult = history.queryChatroomHistoryMessage(chatInput);
         System.out.println(chatResult.toString());
 
     }
