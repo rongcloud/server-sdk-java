@@ -152,6 +152,10 @@ func main() {
 |                                                                                          | SystemBroadcast               | 发送广播消息，单个应用每小时只能发送 2 次，每天最多发送 3 次。               | √      |
 | [消息历史记录](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)     | HistoryGet                    | 消息历史记录下载地址获取                                     | √      |
 |                                                                                          | HistoryRemove                 | 消息历史记录删除方法                                       | √      |
+|                                                                                          | GetPrivateHistoryMessage                 | 获取单聊历史消息                                      | √      |
+|                                                                                          | GetGroupHistoryMessage                 | 获取群聊历史消息                                      | √      |
+|                                                                                          | GetUltraGroupHistoryMessage                 | 获取超级群历史消息                                      | √      |
+|                                                                                          | GetChatroomHistoryMessage                 | 获取聊天室历史消息                                      | √      |
 | [广播推送](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/push_test.go)          | PushSend                      | 发送推送，推送和广播消息合计，单个应用每小时只能发送 2 次，每天最多发送 3 次。       | √      |
 | [群组](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/group_test.go)           | GroupCreate                   | 创建群组                                             | √      |
 |                                                                                          | GroupSync                     | 同步群关系                                            | √      |

@@ -203,6 +203,10 @@ func main() {
 |                                                                                          | SystemBroadcast               | Broadcast a message, limited to 2 times per hour and 3 times per day per app.               | √      |
 | [Message history](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)     | HistoryGet                    | Get message history download URL                                     | √      |
 |                                                                                          | HistoryRemove                 | Delete message history                                       | √      |
+|                                                                                          | GetPrivateHistoryMessage                 | Get one-to-one historical messages                    | √      |
+|                                                                                          | GetGroupHistoryMessage                 | Get group historical messages                                 | √      |
+|                                                                                          | GetUltraGroupHistoryMessage                 | Get ultra group historical messages                                     | √      |
+|                                                                                          | GetChatroomHistoryMessage                 | Get chatroom historical messages                              | √      |
 | [Broadcast push](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/push_test.go)          | PushSend                      | Send a push, combined with broadcast messages, limited to 2 times per hour and 3 times per day per app.       | √      |
 | [Group](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/group_test.go)           | GroupCreate                   | Create a group                                             | √      |
 |                                                                                          | GroupSync                     | Sync group relationships                                            | √      |
