@@ -131,13 +131,38 @@ func TestRongCloud_GroupCreate(t *testing.T) {
 		REGION_BJ,
 	)
 
-	err := rc.GroupCreate(
+	resp, err := rc.GroupCreate(
 		"u02",
 		"rongcloud_group01",
 		[]string{"u01", "u02"},
 	)
 
 	t.Log(err)
+	t.Log(resp)
+}
+
+func TestRongCloud_GroupCreateWithMessageOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+
+	resp, err := rc.GroupCreate(
+		"u02",
+		"rongcloud_group01",
+		[]string{"u01", "u02"},
+		MessageOptions{
+			BindNotifyMsg: true,
+			FromUserId:    "u02",
+			ObjectName:    "RC:TxtMsg",
+			Content:       "{\"content\":\"test\"}",
+			MaxMember:     10,
+		},
+	)
+
+	t.Log(err)
+	t.Log(resp)
 }
 
 func TestRongCloud_GroupGet(t *testing.T) {
@@ -162,18 +187,42 @@ func TestRongCloud_GroupJoin(t *testing.T) {
 		REGION_BJ,
 	)
 
-	err := rc.GroupJoin(
+	resp, err := rc.GroupJoin(
 		"u01",
 		"rongcloud_group01",
-		"u03", "u04", "u05",
+		[]string{"u03", "u04", "u05"},
 	)
 	t.Log(err)
-	err = rc.GroupJoin(
+	t.Log(resp)
+	resp, err = rc.GroupJoin(
 		"u01",
 		"",
-		"u03", "u04", "u05",
+		[]string{"u03", "u04", "u05"},
 	)
 	t.Log(err)
+	t.Log(resp)
+}
+
+func TestRongCloud_GroupJoinWithMessageOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	resp, err := rc.GroupJoin(
+		"u01",
+		"",
+		[]string{"u03", "u04", "u05"},
+		MessageOptions{
+			BindNotifyMsg: true,
+			FromUserId:    "u02",
+			ObjectName:    "RC:TxtMsg",
+			Content:       "{\"content\":\"test\"}",
+			MaxMember:     10,
+		},
+	)
+	t.Log(err)
+	t.Log(resp)
 }
 
 func TestRongCloud_GroupUpdate(t *testing.T) {
@@ -183,11 +232,32 @@ func TestRongCloud_GroupUpdate(t *testing.T) {
 		REGION_BJ,
 	)
 
-	err := rc.GroupUpdate(
+	resp, err := rc.GroupUpdate(
 		"u01",
 		"rongcloud_group02",
 	)
 	t.Log(err)
+	t.Log(resp)
+}
+
+func TestRongCloud_GroupUpdateWithMessageOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	resp, err := rc.GroupUpdate(
+		"u01",
+		"rongcloud_group02",
+		MessageOptions{
+			BindNotifyMsg: true,
+			FromUserId:    "u02",
+			ObjectName:    "RC:TxtMsg",
+			Content:       "{\"content\":\"test\"}",
+		},
+	)
+	t.Log(err)
+	t.Log(resp)
 }
 
 func TestRongCloud_GroupQuit(t *testing.T) {
@@ -197,11 +267,32 @@ func TestRongCloud_GroupQuit(t *testing.T) {
 		REGION_BJ,
 	)
 
-	err := rc.GroupQuit(
+	resp, err := rc.GroupQuit(
 		[]string{"u03", "u04"},
 		"u01",
 	)
 	t.Log(err)
+	t.Log(resp)
+}
+
+func TestRongCloud_GroupQuitWithMessageOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	resp, err := rc.GroupQuit(
+		[]string{"u03", "u04"},
+		"u01",
+		MessageOptions{
+			BindNotifyMsg: true,
+			FromUserId:    "u02",
+			ObjectName:    "RC:TxtMsg",
+			Content:       "{\"content\":\"test\"}",
+		},
+	)
+	t.Log(err)
+	t.Log(resp)
 }
 
 func TestRongCloud_GroupSync(t *testing.T) {
@@ -275,11 +366,32 @@ func TestRongCloud_GroupDismiss(t *testing.T) {
 		REGION_BJ,
 	)
 
-	err := rc.GroupDismiss(
+	resp, err := rc.GroupDismiss(
 		"u01",
 		"u01",
 	)
 	t.Log(err)
+	t.Log(resp)
+}
+
+func TestRongCloud_GroupDismissWithMessageOptions(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	resp, err := rc.GroupDismiss(
+		"u01",
+		"u01",
+		MessageOptions{
+			BindNotifyMsg: true,
+			FromUserId:    "u02",
+			ObjectName:    "RC:TxtMsg",
+			Content:       "{\"content\":\"test\"}",
+		},
+	)
+	t.Log(err)
+	t.Log(resp)
 }
 
 func TestRongCloud_GroupMuteAllMembersAdd(t *testing.T) {
