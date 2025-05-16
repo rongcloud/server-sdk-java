@@ -119,6 +119,9 @@ public class Group {
         if (message.getIsMentioned() != null) {
             sb.append("&isMentioned=").append(message.getIsMentioned());
         }
+        if (message.getNeedReadReceipt() != null) {
+            sb.append("&needReadReceipt=").append(message.getNeedReadReceipt());
+        }
 
         if (message.getToUserId() != null && message.getToUserId().length > 0) {
             for (int i = 0; i < message.getToUserId().length; i++) {
@@ -230,6 +233,10 @@ public class Group {
 
         if (message.getDisableUpdateLastMsg() != null) {
             sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
+        }
+
+        if (message.getNeedReadReceipt() != null) {
+            sb.append("&needReadReceipt=").append(message.getNeedReadReceipt());
         }
 
         String body = sb.toString();

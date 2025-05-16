@@ -56,6 +56,11 @@ public class GroupMessage extends MessageModel {
      */
     public Integer isMentioned;
 
+    /**
+     * Whether the message need readReceipt; 0 means not needed, 1 means need. Default is 0.
+     */
+    public Integer needReadReceipt;
+
 
     public GroupMessage() {
     }
@@ -264,6 +269,15 @@ public class GroupMessage extends MessageModel {
 
     public GroupMessage setExtraContent(HashMap<String, String> extraContent) {
         this.extraContent = extraContent;
+        return this;
+    }
+
+    public Integer getNeedReadReceipt() {
+        return needReadReceipt;
+    }
+
+    public GroupMessage setNeedReadReceipt(Integer needReadReceipt) {
+        this.needReadReceipt = needReadReceipt;
         return this;
     }
 }

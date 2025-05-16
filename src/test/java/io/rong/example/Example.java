@@ -563,7 +563,9 @@ public class Example {
                 .setIsCounted(0)
                 .setPushExt("{\"forceShowPushContent\":0,\"title\":\"1234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
 //            .setPushExt(pe)
-                .setIsIncludeSender(0);
+                .setIsIncludeSender(0)
+            .setNeedReadReceipt(1);
+            ;
 
         // Method to send a one-to-one chat message
         MessageResult publishPrivateResult = rongCloud.message.msgPrivate.send(privateMessage);
@@ -598,10 +600,10 @@ public class Example {
      */
     @Test
     public void testSendGroup() throws Exception {
-        String[] gTid = {"N1ocTOPsU"};
+        String[] gTid = {"groupId"};
         // Group message
         GroupMessage groupMessage = new GroupMessage()
-                .setSenderId("xQ9vi5Maf")
+                .setSenderId("senderId")
                 .setTargetId(gTid)
                 .setObjectName(txtMessage.getType())
                 .setContent(txtMessage)
@@ -611,7 +613,8 @@ public class Example {
 //            .setPushExt(pe)
                 .setIsPersisted(0)
                 .setIsIncludeSender(0)
-                .setContentAvailable(0);
+                .setContentAvailable(0)
+                .setNeedReadReceipt(1);
         ResponseResult result = rongCloud.message.group.send(groupMessage);
 
         System.out.println("send group:  " + result.toString());
@@ -624,16 +627,16 @@ public class Example {
      */
     @Test
     public void testSendGroupMention() throws Exception {
-        String[] targetId = {"N1ocTOPsU"};
+        String[] targetId = {"groupId"};
         // Users to mention
-        String[] mentionIds = {"tB0QMmDbq", "sea9901"};
+        String[] mentionIds = {"user2", "user3"};
         // Mention content
         MentionedInfo mentionedInfo = new MentionedInfo(1, mentionIds, "push");
         // Message content for @ message
         MentionMessageContent content = new MentionMessageContent(txtMessage, mentionedInfo);
 
         MentionMessage mentionMessage = new MentionMessage()
-                .setSenderId("xQ9vi5Maf")
+                .setSenderId("senderId")
                 .setTargetId(targetId)
                 .setObjectName(txtMessage.getType())
                 .setContent(content)
@@ -644,7 +647,8 @@ public class Example {
                 .setIsPersisted(0)
                 .setIsCounted(0)
                 .setIsIncludeSender(0)
-                .setContentAvailable(0);
+                .setContentAvailable(0)
+            .setNeedReadReceipt(1);
         ResponseResult result = rongCloud.message.group.sendMention(mentionMessage);
 
         System.out.println("send group:  " + result.toString());

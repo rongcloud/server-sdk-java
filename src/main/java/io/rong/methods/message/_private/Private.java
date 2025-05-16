@@ -129,6 +129,9 @@ public class Private {
         if(message.getDisableUpdateLastMsg() != null){
             sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
+        if (message.getNeedReadReceipt() != null) {
+            sb.append("&needReadReceipt=").append(message.getNeedReadReceipt());
+        }
 
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
@@ -187,6 +190,7 @@ public class Private {
         templateMessage.setVerifyBlacklist(message.getVerifyBlacklist());
         templateMessage.setContentAvailable(message.getContentAvailable());
         templateMessage.setDisableUpdateLastMsg(message.getDisableUpdateLastMsg());
+        templateMessage.setNeedReadReceipt(message.getNeedReadReceipt());
         if (message.getDisablePush() != null) {
             templateMessage.setDisablePush(message.getDisablePush());
         }
