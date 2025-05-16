@@ -53,6 +53,11 @@ public class MentionMessage {
      */
     private Boolean disableUpdateLastMsg;
 
+    /**
+     * Whether the message need readReceipt; 0 means not needed, 1 means need. Default is 0.
+     */
+    public Integer needReadReceipt;
+
     public MentionMessage() {
     }
 
@@ -252,6 +257,15 @@ public class MentionMessage {
 
     public MentionMessage setDisablePush(Boolean disablePush) {
         this.disablePush = disablePush;
+        return this;
+    }
+
+    public Integer getNeedReadReceipt() {
+        return needReadReceipt;
+    }
+
+    public MentionMessage setNeedReadReceipt(Integer needReadReceipt) {
+        this.needReadReceipt = needReadReceipt;
         return this;
     }
 }

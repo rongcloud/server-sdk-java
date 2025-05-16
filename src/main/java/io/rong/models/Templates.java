@@ -51,6 +51,10 @@ public class Templates {
 	 */
 	private Boolean disableUpdateLastMsg;
 
+	/**
+	 * Whether the message need readReceipt; 0 means not needed, 1 means need. Default is 0.
+	 */
+	Integer needReadReceipt;
 
 	public Templates() {
 	}
@@ -269,6 +273,14 @@ public class Templates {
 	public Templates setDisableUpdateLastMsg(Boolean disableUpdateLastMsg) {
 		this.disableUpdateLastMsg = disableUpdateLastMsg;
 		return this;
+	}
+
+	public Integer getNeedReadReceipt() {
+		return needReadReceipt;
+	}
+
+	public void setNeedReadReceipt(Integer needReadReceipt) {
+		this.needReadReceipt = needReadReceipt;
 	}
 
 	@Override
