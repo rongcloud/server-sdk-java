@@ -4,8 +4,7 @@ RongCloud Server SDK in Go.
 
 ## Version notes
 
-- To simplify integration and improve maintenance, Server SDK v3 standardizes naming and methods with a clearer structure. Older versions (v1 and v2.0.1) are still available but won’t receive new features.
-- New developers should use Server SDK v3. If you’re using an older version, retest before switching—–direct upgrades aren’t supported.
+- New developers should use Server SDK v4. If you’re using an older version, retest before switching—–direct upgrades aren’t supported.
 
 ## API documentation
 - [Official docs](https://docs.rongcloud.io/platform-chat-api)
@@ -17,10 +16,10 @@ RongCloud Server SDK in Go.
 - Go Module file: `require github.com/rongcloud/server-sdk-go`
 - Import: `import "github.com/rongcloud/server-sdk-go/sdk"`
 
-### 2. Using v3 with Go Module
+### 2. Using v4 with Go Module
 
-- v3 version: `require github.com/rongcloud/server-sdk-go/v3`
-- Import: `import "github.com/rongcloud/server-sdk-go/v3/sdk"`
+- v3 version: `require github.com/rongcloud/server-sdk-go/v4`
+- Import: `import "github.com/rongcloud/server-sdk-go/v4/sdk"`
 
 ### 3. Using without Go Module
 
@@ -39,8 +38,8 @@ import "fmt"
 // Older version or non-Go Module usage
 import "github.com/rongcloud/server-sdk-go/sdk"
 
-// Go Module v3 usage
-//import "github.com/rongcloud/server-sdk-go/v3/sdk"
+// Go Module v4 usage
+//import "github.com/rongcloud/server-sdk-go/v4/sdk"
 
 func main() {
 	//Initialization must specify a data center
