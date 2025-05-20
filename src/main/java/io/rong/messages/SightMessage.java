@@ -10,6 +10,7 @@ public class SightMessage extends BaseMessage {
 	private Long size = 0L;
 	private String name = "";
 	private String sightUrl = "";
+	private UserInfo user;
 	private transient static final String TYPE = "RC:SightMsg";
 
 	
@@ -74,6 +75,14 @@ public class SightMessage extends BaseMessage {
 
 	public void setSightUrl(String sightUrl) {
 		this.sightUrl = sightUrl;
+	}
+
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
 	}
 
 	@Override
