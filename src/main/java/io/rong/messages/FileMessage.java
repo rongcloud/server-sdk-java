@@ -23,6 +23,8 @@ public class FileMessage extends BaseMessage {
 	 */
 	private String extra;
 
+	private UserInfo user;
+
 	/**
 	 * File type
 	 */
@@ -77,6 +79,14 @@ public class FileMessage extends BaseMessage {
 
 	public void setExtra(String extra) {
 		this.extra = extra;
+	}
+
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
 	}
 
 	@Override
