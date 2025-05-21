@@ -1,5 +1,6 @@
 package io.rong.messages;
 
+import com.google.gson.annotations.SerializedName;
 import io.rong.util.GsonUtil;
 
 public class FileMessage extends BaseMessage {
@@ -24,6 +25,9 @@ public class FileMessage extends BaseMessage {
 	private String extra;
 
 	private UserInfo user;
+
+	@SerializedName("type")
+	private String fileType;
 
 	/**
 	 * File type
@@ -89,6 +93,15 @@ public class FileMessage extends BaseMessage {
 		this.user = user;
 	}
 
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
 	@Override
 	public String getType() {
 		return TYPE;
@@ -98,5 +111,4 @@ public class FileMessage extends BaseMessage {
 	public String toString() {
 		return GsonUtil.toJson(this, FileMessage.class);
 	}
-
 }
