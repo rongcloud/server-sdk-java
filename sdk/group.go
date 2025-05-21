@@ -263,8 +263,9 @@ type MessageOptions struct {
 
 // OperationGroupResult represents the result of a group operation
 type OperationGroupResult struct {
-	Code       int    `json:"code"`       // Response code, 200 means success
-	MessageUID string `json:"messageUID"` // Unique identifier for the message
+	Code        int    `json:"code"`        // Response code, 200 means success
+	MessageUID  string `json:"messageUID"`  // Unique identifier for the message
+	MemberCount int    `json:"memberCount"` // Number of members in the group
 }
 
 // setMessageOptions sets message options parameters to the request

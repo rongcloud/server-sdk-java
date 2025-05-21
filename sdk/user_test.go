@@ -27,6 +27,20 @@ func TestRongCloud_UserBlockPushPeriodDelete(t *testing.T) {
 	t.Log("suc")
 }
 
+func TestRongCloud_UserInfoGet(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	if res, err := rc.UserInfoGet("uid1"); err != nil {
+		t.Errorf("UserInfoGet err:%v", err)
+		return
+	} else {
+		t.Log(fmt.Sprintf("suc %+v", res))
+	}
+}
+
 func TestRongCloud_UserBlockPushPeriodGet(t *testing.T) {
 	rc := NewRongCloud(
 		os.Getenv("APP_KEY"),

@@ -26,6 +26,12 @@ type User struct {
 	Status       string `json:"status,omitempty"`
 }
 
+type UserInfoResult struct {
+	UserName     string `json:"userName"`
+	UserPortrait string `json:"userPortrait"`
+	CreateTime   string `json:"createTime"`
+}
+
 // BlockListResult Response information
 type BlockListResult struct {
 	Users []User `json:"users"`
@@ -101,6 +107,39 @@ func (rc *RongCloud) UserBlockPushPeriodGet(userId string) (PushPeriodGet, error
 		return data, RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 	req := httplib.Post(rc.rongCloudURI + "/user/blockPushPeriod/get.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("userId", userId)
+	res, err := rc.do(req)
+	if err != nil {
+		return data, err
+	}
+	if err := json.Unmarshal(res, &data); err != nil {
+		return data, err
+	}
+	return data, nil
+}
+
+// UserInfoGet retrieves user information.
+//
+// Parameters:
+//
+//	userId - User ID used to query user information. It cannot be empty.
+//
+// Return Values:
+//
+//	UserInfoResult type containing user information.
+//	error type if an error occurs during execution.
+//
+// This function sends a POST request to the RongCloud server to retrieve
+// user information based on the provided userId.
+// If the userId is empty, an error message will be returned.
+func (rc *RongCloud) UserInfoGet(userId string) (UserInfoResult, error) {
+	data := UserInfoResult{}
+	if len(userId) == 0 {
+		return data, RCErrorNew(1002, "Parameter 'userId' is required")
+	}
+	req := httplib.Post(rc.rongCloudURI + "/user/info.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
 	rc.fillHeader(req)
 	req.Param("userId", userId)

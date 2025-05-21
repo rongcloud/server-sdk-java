@@ -115,6 +115,7 @@ func main() {
 | 模块                                                                                       | 方法名                           | 说明                                               | master |
 |:-----------------------------------------------------------------------------------------|:------------------------------|:-------------------------------------------------|:-------| 
 | [用户信息](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/user_test.go)          | UserRegister                  | 注册， 获取 token                                     | √      |
+|                                                                                          | UserInfoGet                   | 获取用户信息                                           | √      |
 |                                                                                          | UserUpdate                    | 更新用户信息                                           | √      |
 |                                                                                          | OnlineStatusCheck             | 检查用户在线状态                                         | √      |
 |                                                                                          | BlacklistAdd                  | 添加黑名单                                            | √      |
@@ -133,8 +134,8 @@ func main() {
 |                                                                                          | ChatRoomMuteRemove            | 移除全局聊天室禁言用户                                      |        |
 |                                                                                          | ChatRoomMuteGetList           | 获取全局聊天室禁言用户列表                                    |        |
 |                                                                                          | UserDeactivate                | 注销用户                                             |    √    |
-|                                                                                          | UserDeactivateQuery           | 查询已注销用户                                                 |    √    |
-|                                                                                          | UserReactivate                | 重新激活注销用户                                                 |    √    |
+|                                                                                          | UserDeactivateQuery           | 查询已注销用户                                          |    √    |
+|                                                                                          | UserReactivate                | 重新激活注销用户                                         |    √    |
 | [敏感词](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/sensitive_test.go)      | SensitiveAdd                  | 添加敏感词，添加后默认 2 小时生效                               | √      |
 |                                                                                          | SensitiveGetList              | 获取敏感词列表                                          | √      |
 |                                                                                          | SensitiveRemove               | 移除敏感词，支持批量移除功能，移除后默认 2 小时生效                      | √      |
@@ -151,10 +152,10 @@ func main() {
 |                                                                                          | SystemBroadcast               | 发送广播消息，单个应用每小时只能发送 2 次，每天最多发送 3 次。               | √      |
 | [消息历史记录](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)     | HistoryGet                    | 消息历史记录下载地址获取                                     | √      |
 |                                                                                          | HistoryRemove                 | 消息历史记录删除方法                                       | √      |
-|                                                                                          | GetPrivateHistoryMessage                 | 获取单聊历史消息                                      | √      |
-|                                                                                          | GetGroupHistoryMessage                 | 获取群聊历史消息                                      | √      |
-|                                                                                          | GetUltraGroupHistoryMessage                 | 获取超级群历史消息                                      | √      |
-|                                                                                          | GetChatroomHistoryMessage                 | 获取聊天室历史消息                                      | √      |
+|                                                                                          | GetPrivateHistoryMessage                 | 获取单聊历史消息                                         | √      |
+|                                                                                          | GetGroupHistoryMessage                 | 获取群聊历史消息                                         | √      |
+|                                                                                          | GetUltraGroupHistoryMessage                 | 获取超级群历史消息                                        | √      |
+|                                                                                          | GetChatroomHistoryMessage                 | 获取聊天室历史消息                                        | √      |
 | [广播推送](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/push_test.go)          | PushSend                      | 发送推送，推送和广播消息合计，单个应用每小时只能发送 2 次，每天最多发送 3 次。       | √      |
 | [群组](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/group_test.go)           | GroupCreate                   | 创建群组                                             | √      |
 |                                                                                          | GroupSync                     | 同步群关系                                            | √      |

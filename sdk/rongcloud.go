@@ -57,7 +57,7 @@ const (
 	// ReqType Body type
 	ReqType = "json"
 	// USERAGENT SDK name
-	USERAGENT = "rc-go-sdk/4.0.3"
+	USERAGENT = "rc-go-sdk/4.0.4"
 	// DEFAULTTIMEOUT Default timeout, 10 seconds
 	DEFAULTTIMEOUT = 10
 	// DEFAULT_KEEPALIVE Default HTTP keepalive time, 30 seconds
