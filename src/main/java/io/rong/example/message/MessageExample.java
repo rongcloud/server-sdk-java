@@ -571,5 +571,15 @@ public class MessageExample {
         ultraGroupMessage.setToUserIds(new String[]{"tid1"});
         send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send ultragroup direction message:  " + send.toString());
+
+
+        /**
+         * Send ultra group audit message
+         * */
+
+        Audit audit = new Audit(1, "strategy");
+        txtMessage.setAudit(audit);
+        send = ultraGroup.send(ultraGroupMessage);
+        System.out.println("send audit message:  " + send.toString());
     }
 }
