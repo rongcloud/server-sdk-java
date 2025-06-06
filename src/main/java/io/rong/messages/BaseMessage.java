@@ -1,5 +1,6 @@
 package io.rong.messages;
 
+import io.rong.models.message.Audit;
 import io.rong.models.message.MentionedInfo;
 
 /**
@@ -10,6 +11,12 @@ import io.rong.models.message.MentionedInfo;
 public abstract class BaseMessage {
 
 	protected MentionedInfo mentionedInfo;
+	/**
+	 *
+	 * The audit configuration of the message.
+	 *
+	 **/
+	protected Audit audit;
 
 	public abstract String getType();
 
@@ -22,5 +29,13 @@ public abstract class BaseMessage {
 
 	public void setMentionedInfo(MentionedInfo mentionedInfo) {
 		this.mentionedInfo = mentionedInfo;
+	}
+
+	public Audit getAudit() {
+		return audit;
+	}
+
+	public void setAudit(Audit audit) {
+		this.audit = audit;
 	}
 }
