@@ -21,9 +21,8 @@ import io.rong.methods.sensitive.SensitiveWord;
 import io.rong.methods.sensitive.Wordfilter;
 import io.rong.methods.ultragroup.UltraGroup;
 import io.rong.methods.user.User;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RongCloud {
@@ -51,6 +50,13 @@ public class RongCloud {
     }
 
     private RongCloud(String appKey, String appSecret, RongCloudConfig config) {
+        checkAppKeyAndAppSecret(appKey, appSecret);
+        if (config == null) {
+            throw new IllegalArgumentException("'config' can not be null");
+        }
+        if (StringUtils.isBlank(config.getDomain())) {
+            throw new IllegalArgumentException("'config' must set domains");
+        }
         user = new User(appKey, appSecret, this);
         message = new Message(appKey, appSecret);
         message.setRongCloud(this);
@@ -77,6 +83,10 @@ public class RongCloud {
 
 
     public static RongCloud getInstance(String appKey, String appSecret, CenterEnum centerEnum) {
+        checkAppKeyAndAppSecret(appKey, appSecret);
+        if (centerEnum == null) {
+            throw new IllegalArgumentException("'centerEnum' can not be null");
+        }
         return getInstance(appKey, appSecret,
                 new RongCloudConfig(centerEnum.getPrimaryUrl(), centerEnum.getBackupUrl()));
     }
@@ -90,6 +100,7 @@ public class RongCloud {
      * @return
      */
     public static RongCloud getInstance(String appKey, String appSecret, RongCloudConfig config) {
+        checkAppKeyAndAppSecret(appKey, appSecret);
         if (null == rongCloud.get(appKey + "_" + appSecret)) {
             RongCloud rc = new RongCloud(appKey, appSecret, config);
             rongCloud.putIfAbsent(appKey + "_" + appSecret, rc);
@@ -100,34 +111,23 @@ public class RongCloud {
     }
 
     /**
-     * Custom API endpoint
+     * Check appKey and appSecret
      */
-    public static RongCloud getInstance(String appKey, String appSecret, String... apiHosts) {
-        return getInstance(appKey, appSecret, new RongCloudConfig(apiHosts));
+    private static void checkAppKeyAndAppSecret(String appKey, String appSecret) {
+        if (StringUtils.isBlank(appKey) || StringUtils.isBlank(appSecret)) {
+            throw new IllegalArgumentException("'appKey' and 'appSecret' can not be null");
+        }
     }
 
     /**
-     * Custom API with backup domains
-     *
-     * @param appKey
-     * @param appSecret
-     * @param api       Primary API endpoint
-     * @param apiBackUp List of backup API endpoints
+     * Custom API endpoint
      */
-    @Deprecated
-    public static RongCloud getInstance(String appKey, String appSecret, String api, List<String> apiBackUp) {
-        List<String> apiList = new ArrayList<>();
-        if (api != null) {
-            apiList.add(api);
+    public static RongCloud getInstance(String appKey, String appSecret, String apiHost, String... apiHosts) {
+        checkAppKeyAndAppSecret(appKey, appSecret);
+        if (StringUtils.isBlank(apiHost)) {
+            throw new IllegalArgumentException("'apiHost' can not be null");
         }
-        if (apiBackUp != null && apiBackUp.size() > 0) {
-            for (String item : apiBackUp) {
-                if (item != null)
-                    apiList.add(item);
-            }
-        }
-        return getInstance(appKey, appSecret, new RongCloudConfig(apiList));
+        return getInstance(appKey, appSecret, new RongCloudConfig(apiHost, apiHosts));
     }
-
 
 }
