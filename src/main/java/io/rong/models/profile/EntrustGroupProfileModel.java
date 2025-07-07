@@ -7,7 +7,7 @@ package io.rong.models.profile;
 public class EntrustGroupProfileModel {
 
     private String groupId;
-    private String name;
+    private String groupName;
     private String owner;
     private String groupProfile;
     private String groupExtProfile;
@@ -25,12 +25,12 @@ public class EntrustGroupProfileModel {
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public EntrustGroupProfileModel setName(String name) {
-        this.name = name;
+    public EntrustGroupProfileModel setGroupName(String groupName) {
+        this.groupName = groupName;
         return this;
     }
 
