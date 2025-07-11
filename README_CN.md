@@ -19,7 +19,7 @@ Rong Cloud Server SDK in Go.
 
 ### 2. go mode 方式使用 v4
 
-- v3 版本 : `require github.com/rongcloud/server-sdk-go/v4`
+- v4 版本 : `require github.com/rongcloud/server-sdk-go/v4`
 - go 文件引入： `import "github.com/rongcloud/server-sdk-go/v4/sdk"`
 
 ### 3. 非 go mod 直接使用
