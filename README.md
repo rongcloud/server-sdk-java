@@ -18,7 +18,7 @@ RongCloud Server SDK in Go.
 
 ### 2. Using v4 with Go Module
 
-- v3 version: `require github.com/rongcloud/server-sdk-go/v4`
+- v4 version: `require github.com/rongcloud/server-sdk-go/v4`
 - Import: `import "github.com/rongcloud/server-sdk-go/v4/sdk"`
 
 ### 3. Using without Go Module
