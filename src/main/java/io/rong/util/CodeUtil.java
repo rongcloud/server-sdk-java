@@ -16,6 +16,8 @@ public class CodeUtil {
         DISCUSSION("2"),
         // Group chat
         GROUP("3"),
+	    // Chat room
+	    CHATROOM("4"),
         // System notification
         SYSTEM("6"),
         // Customer service chat
@@ -23,7 +25,9 @@ public class CodeUtil {
         // Application public service
         MC("7"),
         // Public service
-        MP("8");
+        MP("8"),
+	    // Ultra group chat
+	    ULTRA_GROUP("10");
 
 		private String name;
 
