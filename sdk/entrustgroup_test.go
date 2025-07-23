@@ -29,10 +29,10 @@ func TestRongCloud_EntrustGroupCreate(t *testing.T) {
 	)
 
 	group := CreateEntrustGroupModel{
-		GroupId:         "entrust_group_002",
-		Name:            "Test Entrust Group",
-		Owner:           "user001",
-		UserIds:         []string{"user001", "user002", "user003"},
+		GroupId: "entrust_group_002",
+		Name:    "Test Entrust Group",
+		Owner:   "user001",
+		// UserIds:         []string{"user001", "user002", "user003"},
 		GroupProfile:    `{"portraitUrl":"http://test_url"}`,
 		GroupExtProfile: `{"ext_00":"ext_00v"}`,
 		Permissions:     `{"joinPerm":1}`,
@@ -53,7 +53,6 @@ func TestRongCloud_EntrustGroupUpdateProfile(t *testing.T) {
 
 	group := EntrustGroupModel{
 		GroupId:         "entrust_group_001",
-		Name:            "Updated Test Entrust Group",
 		GroupProfile:    `{"portraitUrl":"http://test_url_001"}`,
 		GroupExtProfile: `{"ext_00":"ext_00v_001"}`,
 		Permissions:     `{"joinPerm":1}`,

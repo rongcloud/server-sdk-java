@@ -37,7 +37,6 @@ type CreateEntrustGroupModel struct {
 // EntrustGroupModel Entrust group update model
 type EntrustGroupModel struct {
 	GroupId         string `json:"groupId"`         // Group ID
-	Name            string `json:"name"`            // Group name
 	GroupProfile    string `json:"groupProfile"`    // Group basic information
 	GroupExtProfile string `json:"groupExtProfile"` // Group extended information
 	Permissions     string `json:"permissions"`     // Permission settings
@@ -273,9 +272,6 @@ func (rc *RongCloud) EntrustGroupCreate(group CreateEntrustGroupModel) (Response
 	if group.Owner == "" {
 		return result, RCErrorNew(1002, "Parameter 'owner' is required")
 	}
-	if err := rc.validateUserIds(group.UserIds); err != nil {
-		return result, err
-	}
 
 	req := httplib.Post(rc.rongCloudURI + "/entrust/group/create.json")
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -284,7 +280,9 @@ func (rc *RongCloud) EntrustGroupCreate(group CreateEntrustGroupModel) (Response
 	req.Param("groupId", group.GroupId)
 	req.Param("name", group.Name)
 	req.Param("owner", group.Owner)
-	req.Param("userIds", strings.Join(removeDuplicates(group.UserIds), ","))
+	if group.UserIds != nil {
+		req.Param("userIds", strings.Join(removeDuplicates(group.UserIds), ","))
+	}
 	if group.GroupProfile != "" {
 		req.Param("groupProfile", group.GroupProfile)
 	}
@@ -322,9 +320,6 @@ func (rc *RongCloud) EntrustGroupUpdateProfile(group EntrustGroupModel) (Respons
 	rc.fillHeader(req)
 
 	req.Param("groupId", group.GroupId)
-	if group.Name != "" {
-		req.Param("name", group.Name)
-	}
 	if group.GroupProfile != "" {
 		req.Param("groupProfile", group.GroupProfile)
 	}
