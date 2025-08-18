@@ -7,6 +7,8 @@
  */
 package io.rong;
 
+import io.rong.methods.agent.AIAgent;
+import io.rong.methods.chatbot.Chatbot;
 import io.rong.methods.chatroom.Chatroom;
 import io.rong.methods.conversation.Conversation;
 import io.rong.methods.group.Group;
@@ -43,6 +45,8 @@ public class RongCloud {
     public EntrustGroup entrustGroup;
     public Friend friend;
     public EntrustUser entrustUser;
+    public Chatbot chatbot;
+    public AIAgent agent;
     public final RongCloudConfig config;
 
     public RongCloudConfig getConfig() {
@@ -78,6 +82,8 @@ public class RongCloud {
         entrustGroup = new EntrustGroup(appKey, appSecret, this);
         friend = new Friend(appKey, appSecret, this);
         entrustUser = new EntrustUser(appKey, appSecret, this);
+        chatbot = new Chatbot(appKey, appSecret, this);
+        agent = new AIAgent(appKey, appSecret, this);
         this.config = config;
     }
 
