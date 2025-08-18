@@ -11,12 +11,12 @@ RongCloud IM Server SDK in Java.
     <dependency>
         <groupId>cn.rongcloud.im</groupId>
         <artifactId>server-sdk-java</artifactId>
-        <version>4.0.4</version>
+        <version>4.0.5</version>
     </dependency>
 ```
    * Gradle
 ```
-    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '4.0.4'
+    compile group: 'cn.rongcloud.im', name: 'server-sdk-java', version: '4.0.5'
    
 ```
    * 基于源码 Meavn 打包构建
@@ -82,6 +82,12 @@ RongCloud IM Server SDK in Java.
 ###### [敏感词模块示例](./src/main/java/io/rong/example/sensitive/SensitiveExample.java)
 
 ###### [超级群模块示例](./src/main/java/io/rong/example/ultragroup)
+
+###### [用户、好友、群组托管示例](src/main/java/io/rong/example/profile)
+
+###### [聊天机器人示例](src/main/java/io/rong/example/chatbot)
+
+###### [AI agent 示例](src/main/java/io/rong/example/agent)
 
 
 # 版本说明

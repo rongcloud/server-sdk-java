@@ -1,0 +1,346 @@
+{
+  "botCreate": {
+    "url": "",
+    "params": {
+      "botCreate": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  },
+  "botList": {
+    "url": "",
+    "params": {
+      "botList": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  },
+  "botGet": {
+    "url": "",
+    "params": {
+      "botGet": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  },
+  "botDelete": {
+    "url": "",
+    "params": {
+      "botDelete": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  },
+  "botUpdate": {
+    "url": "",
+    "params": {
+      "botUpdate": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  },
+  "botAddIntegration": {
+    "url": "",
+    "params": {
+      "botAddIntegration": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  },
+  "botDeleteIntegration": {
+    "url": "",
+    "params": {
+      "botDeleteIntegration": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  },
+  "botDUpdateIntegration": {
+    "url": "",
+    "params": {
+      "botDUpdateIntegration": {
+      }
+    },
+    "response": {
+      "success": {
+        "code": "200",
+        "errorMessage": "Success"
+      },
+      "fail": {
+        "1004": {
+          "code": "1004",
+          "errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+        },
+        "1008": {
+          "code": "1008",
+          "errorMessage": "The call frequency exceeds the limit."
+        },
+        "20001": {
+          "code": "1002",
+          "errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+        },
+        "20002": {
+          "code": "1002",
+          "errorMessage": "{{name}} number exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20003": {
+          "code": "1002",
+          "errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20004": {
+          "code": "1002",
+          "errorMessage": "{{name}} Setting range error,{{name}} >= {{min}} and {{name}} <= {{max}}"
+        },
+        "20005": {
+          "code": "1002",
+          "errorMessage": "{{name}} parameter is required"
+        }
+      }
+    }
+  }
+}

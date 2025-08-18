@@ -1,0 +1,14 @@
+{
+  "agentCreate": {
+  },
+  "agentGet": {
+  },
+  "agentDelete": {
+  },
+  "agentUpdate": {
+  },
+  "agentList": {
+  },
+  "agentChat": {
+  }
+}

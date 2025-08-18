@@ -1,0 +1,18 @@
+{
+  "botCreate": {
+  },
+  "botGet": {
+  },
+  "botDelete": {
+  },
+  "botUpdate": {
+  },
+  "botList": {
+  },
+  "botAddIntegration": {
+  },
+  "botDeleteIntegration": {
+  },
+  "botDUpdateIntegration": {
+  }
+}

@@ -99,4 +99,20 @@ public class CheckMethod {
     public static final String PAGING_QUERY_BLACKLIST = "pagingQueryBlacklist";
     public static final String PAGING_QUERY_WHITELIST = "pagingQueryWhitelist";
     public static final String QUERY_HISTORY_MSG = "qryHisMsg";
+
+    public static final String BOT_CREATE = "botCreate";
+    public static final String BOT_LIST = "botList";
+    public static final String BOT_GET = "botGet";
+    public static final String BOT_DELETE = "botDelete";
+    public static final String BOT_UPDATE = "botUpdate";
+    public static final String BOT_ADD_INTEGRATION = "botAddIntegration";
+    public static final String BOT_DELETE_INTEGRATION = "botDeleteIntegration";
+    public static final String BOT_UPDATE_INTEGRATION = "botDUpdateIntegration";
+
+    public static final String AGENT_CREATE = "agentCreate";
+    public static final String AGENT_GET = "agentGet";
+    public static final String AGENT_DELETE = "agentDelete";
+    public static final String AGENT_UPDATE = "agentUpdate";
+    public static final String AGENT_LIST = "agentList";
+    public static final String AGENT_CHAT = "agentChat";
 }
