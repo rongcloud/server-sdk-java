@@ -15,6 +15,8 @@ public class ChatbotInfoModel {
     private String profileUrl;
     private Map<String, String> metadata;
     private List<ChatbotIntegration> integrations;
+    private Long createdAt;
+    private Long updatedAt;
 
     public String getUserId() {
         return userId;
@@ -64,6 +66,21 @@ public class ChatbotInfoModel {
         this.integrations = integrations;
     }
 
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     @Override
     public String toString() {
