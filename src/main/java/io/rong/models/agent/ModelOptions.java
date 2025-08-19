@@ -9,26 +9,26 @@ import java.util.List;
  */
 public class ModelOptions {
 
-    private Integer temperature;
-    private Integer topP;
+    private Float temperature;
+    private Float topP;
     private Integer maxTokens;
-    private Integer frequencyPenalty;
-    private Integer presencePenalty;
+    private Float frequencyPenalty;
+    private Float presencePenalty;
     private List<String> stop;
 
-    public Integer getTemperature() {
+    public Float getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(Float temperature) {
         this.temperature = temperature;
     }
 
-    public Integer getTopP() {
+    public Float getTopP() {
         return topP;
     }
 
-    public void setTopP(Integer topP) {
+    public void setTopP(Float topP) {
         this.topP = topP;
     }
 
@@ -40,19 +40,19 @@ public class ModelOptions {
         this.maxTokens = maxTokens;
     }
 
-    public Integer getFrequencyPenalty() {
+    public Float getFrequencyPenalty() {
         return frequencyPenalty;
     }
 
-    public void setFrequencyPenalty(Integer frequencyPenalty) {
+    public void setFrequencyPenalty(Float frequencyPenalty) {
         this.frequencyPenalty = frequencyPenalty;
     }
 
-    public Integer getPresencePenalty() {
+    public Float getPresencePenalty() {
         return presencePenalty;
     }
 
-    public void setPresencePenalty(Integer presencePenalty) {
+    public void setPresencePenalty(Float presencePenalty) {
         this.presencePenalty = presencePenalty;
     }
 
