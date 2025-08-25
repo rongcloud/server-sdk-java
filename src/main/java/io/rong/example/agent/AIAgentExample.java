@@ -73,8 +73,8 @@ public class AIAgentExample {
         info.setStatus("active");
         AgentConfig agentConfig = new AgentConfig();
         Model model = new Model();
-        model.setProvider("openai");
-        model.setName("qwen-turbo");
+        model.setProvider("xxxx");
+        model.setName("xxxx-xx");
         ModelOptions modelOptions = new ModelOptions();
         model.setOptions(modelOptions);
         agentConfig.setModel(model);
@@ -110,8 +110,8 @@ public class AIAgentExample {
         info.setStatus("active");
         AgentConfig agentConfig = new AgentConfig();
         Model model = new Model();
-        model.setProvider("openai");
-        model.setName("qwen-turbo");
+        model.setProvider("xxx");
+        model.setName("xxxx-xx");
         ModelOptions modelOptions = new ModelOptions();
         model.setOptions(modelOptions);
         agentConfig.setModel(model);
