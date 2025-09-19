@@ -91,6 +91,24 @@ public abstract class BaseMethod {
     }
 
 
+    protected <T extends ResponseResult> T doGetRequest(String uri, Class<T> respClass) {
+        T result;
+        String response = "";
+        try {
+            HttpURLConnection conn = HttpUtil.createGetHttpConnection(rongCloud.getConfig(), appKey, appSecret, uri);
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = GsonUtil.fromJson(respClass, CommonUtil.getResponseByCode(path, "", response));
+            if (result.getCode() == null) {
+                throw new RuntimeException(response);
+            }
+        } catch (Exception e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = GsonUtil.fromJson(respClass, new ResponseResult(500, "uri=" + uri + "  response=" + response + "   errorInfo=" + e.getClass().getSimpleName() + ":" + e.getMessage()).toString());
+        }
+        return result;
+    }
+
+
     /**
      * Use LinkedHashSet to maintain the insertion order of elements and automatically remove duplicates
      */

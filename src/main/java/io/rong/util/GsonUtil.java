@@ -5,10 +5,11 @@ import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.ToNumberPolicy;
 
 public class GsonUtil {
 
-    private static Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+    private static Gson gson = new GsonBuilder().setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE).disableHtmlEscaping().create();
 
     public static String toJson(Object obj) {
         return gson.toJson(obj);
@@ -22,7 +23,7 @@ public class GsonUtil {
         return gson.fromJson(str, type);
     }
     public static <T> T fromJson(Class<T> clazz,String json) {
-        return new Gson().fromJson(json, clazz);
+        return gson.fromJson(json, clazz);
     }
 
     public static Object fromJson(Reader reader, Type type) {

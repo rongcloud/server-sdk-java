@@ -104,9 +104,18 @@ public class HttpUtil {
     }
 
     public static HttpURLConnection CreatePostHttpConnection(RongCloudConfig config, String appKey, String appSecret,
-                                                             String uri,
-                                                             String contentType) throws MalformedURLException, IOException, ProtocolException {
-        String nonce = String.valueOf(Math.random() * 1000000);// SecureRandom random = new SecureRandom(); random.nextInt(1000000);
+                                                             String uri, String contentType) throws IOException {
+        HttpURLConnection conn = createHttpConnection(config, appKey, appSecret, uri, "POST");
+        conn.setRequestProperty("Content-Type", contentType);
+        return conn;
+    }
+
+    public static HttpURLConnection createGetHttpConnection(RongCloudConfig config, String appKey, String appSecret, String uri) throws IOException {
+        return createHttpConnection(config,appKey,appSecret,uri,"GET");
+    }
+
+    private static HttpURLConnection createHttpConnection(RongCloudConfig config, String appKey, String appSecret, String uri, String method) throws IOException {
+        String nonce = String.valueOf(Math.random() * 1000000);
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         StringBuilder toSign = new StringBuilder(appSecret).append(nonce).append(timestamp);
         String sign = CodeUtil.hexSHA1(toSign.toString());
@@ -114,7 +123,7 @@ public class HttpUtil {
         conn.setUseCaches(false);
         conn.setDoInput(true);
         conn.setDoOutput(true);
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod(method);
         conn.setInstanceFollowRedirects(true);
         conn.setConnectTimeout(config.httpConnectTimeout);
         conn.setReadTimeout(config.httpReadTimeout);
@@ -124,12 +133,11 @@ public class HttpUtil {
         conn.setRequestProperty(TIMESTAMP, timestamp);
         conn.setRequestProperty(SIGNATURE, sign);
         conn.setRequestProperty(USERAGENT, "rc-java-sdk/" + CommonUtil.getSDKVersion());
-        conn.setRequestProperty("Content-Type", contentType);
         conn.setRequestProperty("Connection", config.connectionKeepAlive ? "keep-alive" : "close");
         conn.setRequestProperty("X-Request-ID", UUID.randomUUID().toString().replaceAll("\\-", ""));
-
         return conn;
     }
+
 
     public static HttpURLConnection getHttpURLConnection(RongCloudConfig config, String uri)
             throws IOException {
@@ -168,13 +176,13 @@ public class HttpUtil {
             object.put("requestId", conn.getRequestProperty("X-Request-ID"));
             result = object.toString();
         } catch (UnknownHostException e) {
-            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("x_request_id") + " ,UnknownHostException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("X-Request-ID") + " ,UnknownHostException:" + e.getMessage());
             config.errorCounter.incrementAndGet();
         } catch (SocketTimeoutException e) {
-            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("x_request_id") + " ,SocketTimeoutException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("X-Request-ID") + " ,SocketTimeoutException:" + e.getMessage());
             config.errorCounter.incrementAndGet();
         } catch (IOException e) {
-            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("x_request_id") + " ,IOException:" + e.getMessage());
+            result = getExceptionMessage("request:" + conn.getURL() + " ,x_request_id:" + conn.getRequestProperty("X-Request-ID") + " ,IOException:" + e.getMessage());
             config.errorCounter.incrementAndGet();
         } catch (Exception e) {
             config.errorCounter.incrementAndGet();

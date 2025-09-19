@@ -6,7 +6,7 @@
 
     <groupId>cn.rongcloud.im</groupId>
     <artifactId>server-sdk-java</artifactId>
-    <version>4.0.6</version>
+    <version>4.0.7</version>
     <packaging>jar</packaging>
     <name>RongCloud IM Server SDK</name>
     <description>
@@ -174,9 +174,9 @@
                     <source>1.7</source>
                     <target>1.7</target>
                     <encoding>UTF-8</encoding>
-                    <compilerArguments>
-                        <extdirs>${project.basedir}/lib</extdirs>
-                    </compilerArguments>
+<!--                    <compilerArguments>-->
+<!--                        <extdirs>${project.basedir}/lib</extdirs>-->
+<!--                    </compilerArguments>-->
                 </configuration>
             </plugin>
         </plugins>
