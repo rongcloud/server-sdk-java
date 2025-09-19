@@ -413,8 +413,9 @@ func TestRongCloud_PushSend(t *testing.T) {
 			IsToAll: true,
 		},
 		Message: Message{
-			Content:    msgr,
-			ObjectName: "RC:TxtMsg",
+			Content:              msgr,
+			ObjectName:           "RC:TxtMsg",
+			DisableUpdateLastMsg: true,
 		},
 	}
 	p, err = rc.PushSend(broadcast)

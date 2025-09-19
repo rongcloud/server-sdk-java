@@ -34,7 +34,8 @@ type Sender interface {
 // PushResult Return value of the Send function
 type PushResult struct {
 	*CodeResult
-	ID string `json:"id"`
+	ID         string `json:"id"`
+	MessageUID string `json:"messageUID,omitempty"`
 }
 
 // Broadcast Broadcast message
@@ -55,8 +56,9 @@ type Push struct {
 
 // Message Broadcast message content
 type Message struct {
-	Content    string `json:"content"`    // RongCloud's built-in messages. Please refer to the RCMsg Interface. For custom messages, implement the RCMsg Interface and convert it to a String for passing.
-	ObjectName string `json:"objectName"` // RongCloud's built-in messages or custom messages.
+	Content              string `json:"content"`              // RongCloud's built-in messages. Please refer to the RCMsg Interface. For custom messages, implement the RCMsg Interface and convert it to a String for passing.
+	ObjectName           string `json:"objectName"`           // RongCloud's built-in messages or custom messages.
+	DisableUpdateLastMsg bool   `json:"disableUpdateLastMsg"` // Indicates whether to disable updating the last message. Default is false.
 }
 
 // IOSPush Settings for iOS platform push and additional information.
@@ -167,15 +169,17 @@ type PushCustomObj struct {
 }
 
 // PushCustomObj : Push-only Notification for all users /push/custom.json
-//*
-//  @param: p：Refer to the parameters passed in the TestRongCloud_PushCustom unit test
-//  @param: platform []string Target operating systems, at least one of iOS or Android must be specified. If you need to send push notifications to both systems, all must be filled in.
-//  @param: audience  string Push conditions, including: tag, tag_or, packageName, is_to_all.
-//  @param: notification string Push notification content by operating system type. If both iOS and Android are set in the platform, but only iOS push content is set in the notification, the Android push content will be the initial alert setting. For details, refer to the notification structure description.
+// *
+//
+//	@param: p：Refer to the parameters passed in the TestRongCloud_PushCustom unit test
+//	@param: platform []string Target operating systems, at least one of iOS or Android must be specified. If you need to send push notifications to both systems, all must be filled in.
+//	@param: audience  string Push conditions, including: tag, tag_or, packageName, is_to_all.
+//	@param: notification string Push notification content by operating system type. If both iOS and Android are set in the platform, but only iOS push content is set in the notification, the Android push content will be the initial alert setting. For details, refer to the notification structure description.
+//
 // Can be constructed as the above map or struct and serialized into JSON before calling PushCustom
 // response: Return structure
 // Documentation: https://doc.rongcloud.cn/imserver/server/v1/push-plus#push_custom
-//*//
+// *//
 func (rc *RongCloud) PushCustomObj(data PushCustomData) (PushCustomObj, error) {
 	var (
 		err    error

@@ -103,7 +103,7 @@ func TestRongCloud_UGMessageModify(t *testing.T) {
 		os.Getenv("APP_SECRET"),
 		REGION_BJ,
 	)
-	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
+	result, err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
 		"", "", "1", "", "0", "0", "", "{\"key1\":\"key1\"}",
 		false, false, &PushExt{
 			Title:                "you have a new message.",
@@ -142,6 +142,7 @@ func TestRongCloud_UGMessageModify(t *testing.T) {
 		t.Errorf("ug message send err:%v", err)
 		return
 	}
+	t.Log(result)
 	t.Log("ug message send suc")
 	time.Sleep(1 * time.Second)
 	// note : msgUID is obtained through the Post-messaging Callback, for details: https://doc.rongcloud.cn/imserver/server/v1/message/sync
@@ -170,10 +171,12 @@ func TestMessageBroadcastRecall(t *testing.T) {
 		IsDelete:         0,
 	}
 
-	if err := rc.MessageBroadcastRecall("123", "RC:RcCmd", content); err != nil {
+	result, err := rc.MessageBroadcastRecall("123", "RC:RcCmd", content)
+	if err != nil {
 		t.Errorf("ERROR: %v", err)
 	} else {
 		t.Log("PASS")
+		t.Log(result)
 	}
 }
 
@@ -226,7 +229,7 @@ func TestMessage_PrivateSend(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := rc.PrivateSend(
+	result, err := rc.PrivateSend(
 		"7Szq13MKRVortoknTAk7W8",
 		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
@@ -239,6 +242,46 @@ func TestMessage_PrivateSend(t *testing.T) {
 		0,
 		0,
 	)
+	t.Log(err)
+	t.Log(result)
+}
+
+func TestMessage_PrivateSend_SightMsg(t *testing.T) {
+
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+		WithRongCloudURI("https://api.rong-api.com"),
+	)
+
+	msg := SightMsg{
+		Content: "hello",
+		Extra:   "helloExtra",
+		User: MsgUserInfo{
+			ID:       "4kIvGJmETlYqDoVFgWdYdM",
+			Name:     "ming",
+			Portrait: "http://www.rongcloud.cn/images/logo.png",
+		},
+		SightURL: "http://www.rongcloud.cn/xxx.mp4",
+		Duration: 10,
+		Name:     "hello",
+	}
+
+	resp, err := rc.PrivateSend(
+		"7Szq13MKRVortoknTAk7W8",
+		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
+		"RC:SightMsg",
+		&msg,
+		"",
+		"",
+		1,
+		0,
+		1,
+		0,
+		0,
+	)
+	t.Log(resp)
 	t.Log(err)
 }
 
@@ -255,7 +298,7 @@ func TestMessage_PrivateSendOptions(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := rc.PrivateSend(
+	result, err := rc.PrivateSend(
 		"7Szq13MKRVortoknTAk7W8",
 		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
@@ -272,6 +315,7 @@ func TestMessage_PrivateSendOptions(t *testing.T) {
 		WithMsgBusChannel("bus"),
 	)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestMessage_PrivateRecall(t *testing.T) {
@@ -325,12 +369,13 @@ func TestMessage_PrivateSendTemplate(t *testing.T) {
 	var tpl []TemplateMsgContent
 	tpl = append(tpl, tpl1)
 	tpl = append(tpl, tpl2)
-	err := rc.PrivateSendTemplate(
+	result, err := rc.PrivateSendTemplate(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		msg,
 		tpl)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestRongCloud_GroupSend(t *testing.T) {
@@ -346,7 +391,7 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := rc.GroupSend(
+	result, err := rc.GroupSend(
 		"7Szq13MKRVortoknTAk7W8",
 		[]string{"CFtiYbXNQNYtSr7rzUfHco"},
 		[]string{},
@@ -358,6 +403,7 @@ func TestRongCloud_GroupSend(t *testing.T) {
 		0,
 	)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestRongCloud_PrivateRecall(t *testing.T) {
@@ -390,7 +436,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 		Content:       "@user_2 hello",
 		MentionedInfo: MentionedInfo{Type: 2, UserIDs: []string{"4kIvGJmETlYqDoVFgWdYdM"}, PushContent: "Someone mentioned you"},
 	}
-	err := rc.GroupSendMention(
+	result, err := rc.GroupSendMention(
 		"7Szq13MKRVortoknTAk7W8",
 		[]string{"cYgiKZzRSUsrfrx6C3u_GI"},
 		"RC:TxtMsg",
@@ -403,6 +449,7 @@ func TestRongCloud_GroupSendMention(t *testing.T) {
 		0,
 	)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestRongCloud_ChatRoomSend(t *testing.T) {
@@ -418,14 +465,14 @@ func TestRongCloud_ChatRoomSend(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := rc.ChatRoomSend(
+	result, err := rc.ChatRoomSend(
 		"7Szq13MKRVortoknTAk7W8",
 		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
 		&msg, 0, 0,
 	)
 	t.Log(err)
-
+	t.Log(result)
 }
 
 func TestRongCloud_ChatroomBroadcast(t *testing.T) {
@@ -457,12 +504,12 @@ func TestRongCloud_OnlineBroadcast(t *testing.T) {
 		REGION_BJ,
 	)
 
-	code, err := rc.OnlineBroadcast(
+	result, err := rc.OnlineBroadcast(
 		"someone",
 		"RC:TxtMsg",
 		"hello everyone",
 	)
-	t.Log(string(code))
+	t.Log(result)
 	t.Log(err)
 }
 
@@ -479,7 +526,7 @@ func TestRongCloud_SystemSend(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := rc.SystemSend(
+	result, err := rc.SystemSend(
 		"7Szq13MKRVortoknTAk7W8",
 		[]string{"4kIvGJmETlYqDoVFgWdYdM"},
 		"RC:TxtMsg",
@@ -490,6 +537,7 @@ func TestRongCloud_SystemSend(t *testing.T) {
 		1,
 	)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestRongCloud_SystemBroadcast(t *testing.T) {
@@ -505,12 +553,13 @@ func TestRongCloud_SystemBroadcast(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := rc.SystemBroadcast(
+	result, err := rc.SystemBroadcast(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		&msg,
 	)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestRongCloud_SystemBroadcastOption(t *testing.T) {
@@ -526,13 +575,14 @@ func TestRongCloud_SystemBroadcastOption(t *testing.T) {
 		Extra:   "helloExtra",
 	}
 
-	err := rc.SystemBroadcast(
+	result, err := rc.SystemBroadcast(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		&msg,
 		WithMsgPushContent("thisisapush"),
 	)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestRongCloud_SystemSendTemplate(t *testing.T) {
@@ -569,12 +619,13 @@ func TestRongCloud_SystemSendTemplate(t *testing.T) {
 	var tpl []TemplateMsgContent
 	tpl = append(tpl, tpl1)
 	tpl = append(tpl, tpl2)
-	err := rc.SystemSendTemplate(
+	result, err := rc.SystemSendTemplate(
 		"7Szq13MKRVortoknTAk7W8",
 		"RC:TxtMsg",
 		msg,
 		tpl)
 	t.Log(err)
+	t.Log(result)
 }
 
 func TestRongCloud_HistoryGet(t *testing.T) {
