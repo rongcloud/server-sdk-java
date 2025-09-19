@@ -402,8 +402,13 @@ public class CommonUtil {
             String code = String.valueOf(object.get("code"));
             String requestId = String.valueOf(object.get("requestId"));
             api = JsonUtil.getJsonObject(path, API_JSON_NAME);
-            Set<Map.Entry<String, Object>> keys = api.getJSONObject(method).getJSONObject("response")
-                    .getJSONObject("fail").entrySet();
+            Set<Map.Entry<String, Object>> keys = Collections.emptySet();
+            if (api != null && api.containsKey(method)) {
+                JSONObject responseNode = api.getJSONObject(method).getJSONObject("response");
+                if (responseNode != null && responseNode.containsKey("fail")){
+                    keys = responseNode.getJSONObject("fail").entrySet();
+                }
+            }
             String text = response;
             if (code.equals("200")) {
                 if (path.contains("blacklist") && method.equals("getList")) {
