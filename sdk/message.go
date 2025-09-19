@@ -85,6 +85,16 @@ type IMGTextMsg struct {
 	URL      string      `json:"url"`
 }
 
+type SightMsg struct {
+	Content  string      `json:"content"`
+	User     MsgUserInfo `json:"user"`
+	Extra    string      `json:"extra"`
+	SightURL string      `json:"sightUrl"`
+	Duration int         `json:"duration"`
+	Size     int         `json:"size"`
+	Name     string      `json:"name"`
+}
+
 // FileMsg Message
 type FileMsg struct {
 	Name    string      `json:"name"`
@@ -348,21 +358,31 @@ func (msg *DizNtf) ToString() (string, error) {
 	return string(bytes), nil
 }
 
+// ToString SightMsg
+func (msg *SightMsg) ToString() (string, error) {
+	bytes, err := json.Marshal(msg)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
 // msgOptions is extra options for sending messages
 type msgOptions struct {
-	isMentioned      int
-	contentAvailable int
-	verifyBlacklist  int
-	expansion        bool
-	disablePush      bool
-	pushExt          string
-	pushContent      string
-	pushData         string
-	busChannel       string
-	isAdmin          int
-	isDelete         int
-	extraContent     string
-	isCounted        int
+	isMentioned          int
+	contentAvailable     int
+	verifyBlacklist      int
+	expansion            bool
+	disablePush          bool
+	pushExt              string
+	pushContent          string
+	pushData             string
+	busChannel           string
+	isAdmin              int
+	isDelete             int
+	extraContent         string
+	isCounted            int
+	disableUpdateLastMsg bool
 }
 
 // MsgOption interface functions
@@ -372,6 +392,13 @@ type MsgOption func(*msgOptions)
 func WithMsgMentioned(isMentioned int) MsgOption {
 	return func(options *msgOptions) {
 		options.isMentioned = isMentioned
+	}
+}
+
+// Indicates whether to disable updating the last message. Default is false.
+func WithDisableUpdateLastMsg(disableUpdateLastMsg bool) MsgOption {
+	return func(options *msgOptions) {
+		options.disableUpdateLastMsg = disableUpdateLastMsg
 	}
 }
 
@@ -498,6 +525,19 @@ type UgMessageExtension struct {
 
 	// Unique request identifier, ensures idempotency within one minute.
 	MsgRandom int64
+}
+
+type MessageResult struct {
+	Code        int               `json:"code"`
+	MessageUID  string            `json:"messageUID,omitempty"`
+	MessageUIDs []MessageUIDEntry `json:"messageUIDs,omitempty"`
+}
+
+type MessageUIDEntry struct {
+	UserId     string `json:"userId,omitempty"`     // Indicates the value when sending a one-to-one chat message.
+	GroupId    string `json:"groupId,omitempty"`    // Indicates the value when sending a group or ultra group message.
+	ChatroomId string `json:"chatroomId,omitempty"` // Indicates the value when sending a chatroom message.
+	MessageUID string `json:"messageUID,omitempty"` // Specifies the Message ID.
 }
 
 // MessageExpansionSet : Set message expansion /message/expansion/set.json
@@ -785,6 +825,10 @@ func (rc *RongCloud) UGMessageRecall(userId, targetId, messageId string, sentTim
 		req.Param("busChannel", extOptions.busChannel)
 	}
 
+	if extOptions.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extOptions.disableUpdateLastMsg))
+	}
+
 	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
@@ -801,14 +845,16 @@ func (rc *RongCloud) UGMessageRecall(userId, targetId, messageId string, sentTim
  * @param BroadcastRecallContent content
  * @return: error
  */
-func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, content BroadcastRecallContent) error {
+func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, content BroadcastRecallContent, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if userId == "" {
-		return RCErrorNew(1002, "Paramer 'userId' is required")
+		return result, RCErrorNew(1002, "Paramer 'userId' is required")
 	}
 
 	if objectName == "" {
-		return RCErrorNew(1002, "Paramer 'objectName' is required")
+		return result, RCErrorNew(1002, "Paramer 'objectName' is required")
 	}
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/broadcast." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -816,17 +862,81 @@ func (rc *RongCloud) MessageBroadcastRecall(userId string, objectName string, co
 	req.Param("fromUserId", userId)
 	req.Param("objectName", objectName)
 
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
+
 	msg, err := content.ToString()
 	if err != nil {
-		return err
+		return result, err
 	}
 	req.Param("content", msg)
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
+// MessageBroadcastRecallByMessageUID Recall a message - Broadcast
+// @param string fromUserId The sender's user ID.
+// @param string messageUID The unique identifier of the message. Currently can only be obtained through historical message logs, corresponding to the field name msgUID.
+// @param int sentTime The timestamp when the message was sent. Currently can only be obtained through historical message logs, corresponding to the field name dateTime.
+// @param int isAdmin Whether the user is an administrator. Default is 0. When set to 1, IMKit will display a gray bar message as "Admin recalled a message" upon receiving this message.
+// @param int isDelete Default is 0. When recalling the message, the client will delete the message and replace it with a gray bar recall prompt. When set to 1, the message will be deleted without being replaced by a gray bar prompt.
+// @param string extra Extension information, can contain arbitrary data content.
+// @param MsgOption options Additional message options, such as disableUpdateLastMsg Boolean No Prohibits updating the last message in the conversation. When this parameter is false, the sent message will appear in the conversation list; when true, the message content will not be updated in the conversation list.
+func (rc *RongCloud) MessageBroadcastRecallByMessageUID(fromUserId string, messageUID string, sentTime int, isAdmin int, isDelete int, extra string, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
+	if fromUserId == "" {
+		return result, RCErrorNew(1002, "Parameter 'fromUserId' is required")
+	}
+
+	if messageUID == "" {
+		return result, RCErrorNew(1002, "Parameter 'messageUID' is required")
+	}
+
+	extraOptins := modifyMsgOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/message/broadcast/recall.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("fromUserId", fromUserId)
+	req.Param("messageUID", messageUID)
+	req.Param("sentTime", strconv.Itoa(sentTime))
+
+	if isAdmin != 0 {
+		req.Param("isAdmin", strconv.Itoa(isAdmin))
+	}
+
+	if isDelete != 0 {
+		req.Param("isDelete", strconv.Itoa(isDelete))
+	}
+
+	if extra != "" {
+		req.Param("extra", extra)
+	}
+
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
+
+	resp, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+		return result, err
+	}
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 /**
@@ -877,6 +987,10 @@ func (rc *RongCloud) ChatRoomRecall(userId string, targetId string, messageId st
 
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
+	}
+
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
 	}
 
 	_, err := rc.do(req)
@@ -936,6 +1050,10 @@ func (rc *RongCloud) SystemRecall(userId string, targetId string, messageId stri
 		req.Param("busChannel", extraOptins.busChannel)
 	}
 
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
+
 	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
@@ -958,18 +1076,19 @@ type of RongCloud, the user will definitely receive a push notification after se
 *@param  isIncludeSender: Whether the sending user should receive the message.0 means no reception, 1 means reception.Default is 0 (no reception).
 *@param  contentAvailable: For iOS platforms, this enables silent push notifications when the SDK is in the background suspended state.This is a push notification method introduced after iOS7.It allows the app to run a piece of code in the background immediately after receiving the notification.1 means enabled, 0 means disabled.Default is 0.
 *@param  options: Other extended parameters needed for sending messages.
-*
+*@return MessageResult
 *@return error
 */
 func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName string, msg rcMsg,
 	pushContent, pushData string, count, verifyBlacklist, isPersisted, isIncludeSender, contentAvailable int,
-	options ...MsgOption) error {
+	options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if len(targetID) == 0 {
-		return RCErrorNew(1002, "Paramer 'targetID' is required")
+		return result, RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -985,7 +1104,7 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 
 	msgr, err := msg.ToString()
 	if err != nil {
-		return err
+		return result, err
 	}
 	req.Param("content", msgr)
 	req.Param("pushData", pushData)
@@ -1011,11 +1130,20 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 		req.Param("extraContent", extraOptins.extraContent)
 	}
 
-	_, err = rc.do(req)
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
+
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // Send private status message
@@ -1026,14 +1154,14 @@ func (rc *RongCloud) PrivateSend(senderID string, targetID []string, objectName 
 // verifyBlacklist: Whether to filter the sender's blocklist. 0 means no filtering, 1 means filtering. Default is 0 (no filtering).
 // isIncludeSender: Whether the sender should receive the message. 0 means no, 1 means yes. Default is 0 (no).
 func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objectName string, msg rcMsg,
-	verifyBlacklist int, isIncludeSender int, options ...MsgOption) error {
-
+	verifyBlacklist int, isIncludeSender int, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if len(targetID) == 0 {
-		return RCErrorNew(1002, "Paramer 'targetID' is required")
+		return result, RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1049,7 +1177,7 @@ func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objec
 
 	msgr, err := msg.ToString()
 	if err != nil {
-		return err
+		return result, err
 	}
 	req.Param("content", msgr)
 	req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
@@ -1060,11 +1188,16 @@ func (rc *RongCloud) PrivateStatusSend(senderID string, targetID []string, objec
 		req.Param("busChannel", extraOptins.busChannel)
 	}
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // PrivateRecall is used to recall a one-to-one chat message.
@@ -1107,6 +1240,10 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int,
 		req.Param("busChannel", extraOptins.busChannel)
 	}
 
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
+
 	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
@@ -1125,9 +1262,10 @@ func (rc *RongCloud) PrivateRecall(senderID, targetID, uID string, sentTime int,
  * @return error
  */
 func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent,
-	options ...MsgOption) error {
+	options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1141,7 +1279,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 
 	for _, v := range content {
 		if v.TargetID == "" {
-			return RCErrorNew(1002, "Paramer 'TargetID' is required")
+			return result, RCErrorNew(1002, "Paramer 'TargetID' is required")
 		}
 		toUserIDs = append(toUserIDs, v.TargetID)
 		values = append(values, v.Data)
@@ -1151,7 +1289,7 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 
 	bytes, err := json.Marshal(template)
 	if err != nil {
-		return err
+		return result, err
 	}
 
 	param := map[string]interface{}{}
@@ -1171,16 +1309,25 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
 		param["busChannel"] = extraOptins.busChannel
 	}
 
-	req, err = req.JSONBody(param)
-	if err != nil {
-		return err
+	if extraOptins.disableUpdateLastMsg {
+		param["disableUpdateLastMsg"] = strconv.FormatBool(extraOptins.disableUpdateLastMsg)
 	}
 
-	_, err = rc.do(req)
+	req, err = req.JSONBody(param)
+	if err != nil {
+		return result, err
+	}
+
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // GroupSend Sends a group message (sends a message to a group as a user. The maximum size of a single message is 128k. The maximum number of messages that can be sent per second is 20. The maximum number of groups that can be sent to at a time is 3. For example, sending a message to 3 groups counts as 3 messages.)
@@ -1199,13 +1346,14 @@ func (rc *RongCloud) PrivateSendTemplate(senderID, objectName string, template T
  * @return error
  */
 func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objectName string, msg rcMsg,
-	pushContent string, pushData string, isPersisted, isIncludeSender int, options ...MsgOption) error {
+	pushContent string, pushData string, isPersisted, isIncludeSender int, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if len(targetID) == 0 {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1220,8 +1368,7 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 	req.Param("objectName", objectName)
 	msgr, err := msg.ToString()
 	if err != nil {
-		rc.urlError(err)
-		return err
+		return result, err
 	}
 	req.Param("content", msgr)
 	req.Param("pushContent", pushContent)
@@ -1235,6 +1382,10 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 
 	if !extraOptins.disablePush && extraOptins.pushExt != "" {
 		req.Param("pushExt", extraOptins.pushExt)
+	}
+
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
 	}
 
 	if len(userID) > 0 {
@@ -1251,11 +1402,16 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 		req.Param("extraContent", extraOptins.extraContent)
 	}
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // Send group status message
@@ -1266,14 +1422,14 @@ func (rc *RongCloud) GroupSend(senderID string, targetID, userID []string, objec
 // verifyBlacklist: Whether to filter the sender's blocklist. 0 indicates no filtering, 1 indicates filtering. Default is 0 (no filtering).
 // isIncludeSender: Whether the sender should receive the message. 0 indicates not receiving, 1 indicates receiving. Default is 0 (not receiving).
 func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objectName string, msg rcMsg,
-	verifyBlacklist int, isIncludeSender int, options ...MsgOption) error {
-
+	verifyBlacklist int, isIncludeSender int, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if len(toGroupIds) == 0 {
-		return RCErrorNew(1002, "Paramer 'toGroupIds' is required")
+		return result, RCErrorNew(1002, "Paramer 'toGroupIds' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1289,7 +1445,7 @@ func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objec
 
 	msgr, err := msg.ToString()
 	if err != nil {
-		return err
+		return result, err
 	}
 	req.Param("content", msgr)
 	req.Param("verifyBlacklist", strconv.Itoa(verifyBlacklist))
@@ -1298,11 +1454,16 @@ func (rc *RongCloud) GroupStatusSend(senderID string, toGroupIds []string, objec
 		req.Param("busChannel", extraOptins.busChannel)
 	}
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // GroupRecall Recall a group chat message
@@ -1344,6 +1505,10 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
 		req.Param("busChannel", extraOptins.busChannel)
 	}
 
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
+
 	_, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
@@ -1367,13 +1532,14 @@ func (rc *RongCloud) GroupRecall(senderID, targetID, uID string, sentTime int,
  * @return error
  */
 func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, objectName string, msg MentionMsgContent,
-	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int, options ...MsgOption) error {
+	pushContent, pushData string, isPersisted, isIncludeSender, isMentioned, contentAvailable int, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if len(targetID) == 0 && len(targetID) > 3 {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1389,7 +1555,7 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 
 	bytes, err := json.Marshal(msg)
 	if err != nil {
-		return err
+		return result, err
 	}
 	req.Param("content", string(bytes))
 	req.Param("pushContent", pushContent)
@@ -1406,12 +1572,20 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
 	}
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // ChatRoomSend sends a message to a chatroom. (A user can send a message to a group. The maximum size of a single message is 128k. A user can send up to 20 messages per second and up to 3 groups at a time. For example, sending a message to 3 groups counts as 3 messages.)
@@ -1423,13 +1597,14 @@ func (rc *RongCloud) GroupSendMention(senderID string, targetID []string, object
  *
  *@return error
  */
-func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg, isPersisted, isIncludeSender int) error {
+func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName string, msg rcMsg, isPersisted, isIncludeSender int) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if len(targetID) == 0 {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/message/chatroom/publish." + ReqType)
@@ -1448,15 +1623,20 @@ func (rc *RongCloud) ChatRoomSend(senderID string, targetID []string, objectName
 
 	msgr, err := msg.ToString()
 	if err != nil {
-		return err
+		return result, err
 	}
 	req.Param("content", msgr)
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // ChatRoomBroadcast Broadcasts a message to all chatrooms in the application. This feature requires the Dedicated Cloud service. (Sends a message as a user to a group, with a maximum message size of 128k. The maximum sending rate is 20 messages per second.)
@@ -1497,17 +1677,20 @@ func (rc *RongCloud) ChatRoomBroadcast(senderID, objectName string, msg rcMsg, i
 // @param fromUserId The sender's user ID.
 // @param objectName The message type.
 // @param content The message content.
-func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, content string) ([]byte, error) {
+func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, content string, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 
 	if fromUserId == "" {
-		return nil, RCErrorNew(1002, "Paramer 'fromUserId' is required")
+		return result, RCErrorNew(1002, "Paramer 'fromUserId' is required")
 	}
 	if objectName == "" {
-		return nil, RCErrorNew(1002, "Paramer 'objectName' is required")
+		return result, RCErrorNew(1002, "Paramer 'objectName' is required")
 	}
 	if content == "" {
-		return nil, RCErrorNew(1002, "Paramer 'content' is required")
+		return result, RCErrorNew(1002, "Paramer 'content' is required")
 	}
+
+	extraOptins := modifyMsgOptions(options)
 
 	req := httplib.Post(rc.rongCloudURI + "/message/online/broadcast." + ReqType)
 	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
@@ -1516,12 +1699,21 @@ func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, conte
 	req.Param("objectName", objectName)
 	req.Param("content", content)
 
-	code, err := rc.do(req)
-	if err != nil {
-		rc.urlError(err)
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
 	}
 
-	return code, err
+	resp, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+		return result, err
+	}
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+
+	return result, nil
 }
 
 // SystemSend sends a system message from one user to one or multiple users. The maximum size of a single message is 128k, and the conversation type is SYSTEM.
@@ -1540,14 +1732,15 @@ func (rc *RongCloud) OnlineBroadcast(fromUserId string, objectName string, conte
 *@return error
  */
 func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName string, msg rcMsg,
-	pushContent, pushData string, count, isPersisted int, options ...MsgOption) error {
+	pushContent, pushData string, count, isPersisted int, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	if len(targetID) == 0 {
-		return RCErrorNew(1002, "Paramer 'targetID' is required")
+		return result, RCErrorNew(1002, "Paramer 'targetID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1562,7 +1755,7 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	req.Param("objectName", objectName)
 	msgr, err := msg.ToString()
 	if err != nil {
-		return err
+		return result, err
 	}
 
 	req.Param("content", msgr)
@@ -1578,12 +1771,20 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 	if extraOptins.busChannel != "" {
 		req.Param("busChannel", extraOptins.busChannel)
 	}
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // SystemBroadcast Sends a message to all users in the application. It can be sent up to 2 times per hour and 3 times per day. (Sends a message to a group as a user, with a maximum message size of 128k. A maximum of 20 messages can be sent per second.)
@@ -1594,9 +1795,10 @@ func (rc *RongCloud) SystemSend(senderID string, targetID []string, objectName s
 *
 *@return error
  */
-func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg, options ...MsgOption) error {
+func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg, options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1608,7 +1810,7 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg, opt
 	req.Param("objectName", objectName)
 	msgr, err := msg.ToString()
 	if err != nil {
-		return err
+		return result, err
 	}
 	req.Param("content", msgr)
 
@@ -1622,12 +1824,20 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg, opt
 	if extraOptins.pushExt != "" {
 		req.Param("pushExt", extraOptins.pushExt)
 	}
+	if extraOptins.disableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(extraOptins.disableUpdateLastMsg))
+	}
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // SystemSendTemplate Sends a system message from one user to one or more users. The maximum size of a single message is 128k, and the conversation type is SYSTEM.
@@ -1640,9 +1850,10 @@ func (rc *RongCloud) SystemBroadcast(senderID, objectName string, msg rcMsg, opt
 *@return error
  */
 func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TXTMsg, content []TemplateMsgContent,
-	options ...MsgOption) error {
+	options ...MsgOption) (MessageResult, error) {
+	result := MessageResult{}
 	if senderID == "" {
-		return RCErrorNew(1002, "Paramer 'senderID' is required")
+		return result, RCErrorNew(1002, "Paramer 'senderID' is required")
 	}
 
 	extraOptins := modifyMsgOptions(options)
@@ -1656,7 +1867,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 
 	for _, v := range content {
 		if v.TargetID == "" {
-			return RCErrorNew(1002, "Paramer 'TargetID' is required")
+			return result, RCErrorNew(1002, "Paramer 'TargetID' is required")
 		}
 		toUserIDs = append(toUserIDs, v.TargetID)
 		values = append(values, v.Data)
@@ -1666,7 +1877,7 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 
 	bytes, err := json.Marshal(template)
 	if err != nil {
-		return err
+		return result, err
 	}
 
 	param := map[string]interface{}{}
@@ -1684,13 +1895,22 @@ func (rc *RongCloud) SystemSendTemplate(senderID, objectName string, template TX
 		param["busChannel"] = extraOptins.busChannel
 	}
 
+	if extraOptins.disableUpdateLastMsg {
+		param["disableUpdateLastMsg"] = strconv.FormatBool(extraOptins.disableUpdateLastMsg)
+	}
+
 	_, _ = req.JSONBody(param)
 
-	_, err = rc.do(req)
+	resp, err := rc.do(req)
 	if err != nil {
 		rc.urlError(err)
+		return result, err
 	}
-	return err
+
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+	return result, nil
 }
 
 // HistoryGet retrieves the URL of the historical message log file by hour, which includes all messages generated by the application within that hour. The message log file will be deleted from RongCloud servers after 3 days, regardless of whether it has been downloaded.

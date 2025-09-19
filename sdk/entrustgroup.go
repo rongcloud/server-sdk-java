@@ -219,6 +219,7 @@ type EntrustGroupDetailInfo struct {
 	JoinTime        int64  `json:"joinTime"`        // Join time
 	Role            int    `json:"role"`            // Role
 	Count           int    `json:"count"`           // Member count
+	Owner           string `json:"owner"`           // Group owner ID
 }
 
 // Helper function: validate group ID

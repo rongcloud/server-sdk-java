@@ -249,16 +249,17 @@ func (rc *RongCloud) GroupUserQuery(userId string) ([]byte, error) {
 }
 
 type MessageOptions struct {
-	BindNotifyMsg   bool   `json:"bindNotifyMsg"`   // Whether to bind the notification message and not deliver the corresponding message.
-	FromUserId      string `json:"fromUserId"`      // The user ID of the message sender.
-	ObjectName      string `json:"objectName"`      // The name of the message object.
-	Content         string `json:"content"`         // The content of the message.
-	PushContent     string `json:"pushContent"`     // The content of the push message.
-	PushData        string `json:"pushData"`        // The data of the push message.
-	IsIncludeSender int    `json:"isIncludeSender"` // Whether to include the sender in the message.
-	IsPersisted     int    `json:"isPersisted"`     // Whether the message is persisted.
-	MaxMember       int    `json:"maxMember"`       // The maximum number of members in the group.
-	PushExt         string `json:"pushExt"`         // The push extension.
+	BindNotifyMsg        bool   `json:"bindNotifyMsg"`        // Whether to bind the notification message and not deliver the corresponding message.
+	FromUserId           string `json:"fromUserId"`           // The user ID of the message sender.
+	ObjectName           string `json:"objectName"`           // The name of the message object.
+	Content              string `json:"content"`              // The content of the message.
+	PushContent          string `json:"pushContent"`          // The content of the push message.
+	PushData             string `json:"pushData"`             // The data of the push message.
+	IsIncludeSender      int    `json:"isIncludeSender"`      // Whether to include the sender in the message.
+	IsPersisted          int    `json:"isPersisted"`          // Whether the message is persisted.
+	MaxMember            int    `json:"maxMember"`            // The maximum number of members in the group.
+	PushExt              string `json:"pushExt"`              // The push extension.
+	DisableUpdateLastMsg bool   `json:"disableUpdateLastMsg"` // Indicates whether to disable updating the last message. Default is false.
 }
 
 // OperationGroupResult represents the result of a group operation
@@ -284,6 +285,9 @@ func (rc *RongCloud) setMessageOptions(req *httplib.BeegoHTTPRequest, msgOptions
 	req.Param("isPersisted", strconv.Itoa(msgOptions.IsPersisted))
 	req.Param("maxMember", strconv.Itoa(msgOptions.MaxMember))
 	req.Param("pushExt", msgOptions.PushExt)
+	if msgOptions.DisableUpdateLastMsg {
+		req.Param("disableUpdateLastMsg", strconv.FormatBool(msgOptions.DisableUpdateLastMsg))
+	}
 }
 
 // validateMessageOptions validates the message options parameters

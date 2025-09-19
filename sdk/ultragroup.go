@@ -1258,21 +1258,25 @@ type PushExt struct {
 
 // UGMessagePublish Sends a message to an ultra group
 // Documentation: https://doc.rongcloud.cn/imserver/server/v1/message/msgsend/ultragroup
-func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted, isCounted, isMentioned, contentAvailable, busChannel, extraContent string, expansion, unreadCountFlag bool, pushExt *PushExt, toGroupIds ...string) error {
+func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushContent, pushData, isPersisted,
+	isCounted, isMentioned, contentAvailable, busChannel, extraContent string, expansion,
+	unreadCountFlag bool, pushExt *PushExt, toGroupIds ...string) (MessageResult, error) {
+	result := MessageResult{}
+
 	if len(fromUserId) == 0 {
-		return RCErrorNewV2(1002, "param 'fromUserId' is required")
+		return result, RCErrorNewV2(1002, "param 'fromUserId' is required")
 	}
 
 	if len(objectName) == 0 {
-		return RCErrorNewV2(1002, "param 'objectName' is required")
+		return result, RCErrorNewV2(1002, "param 'objectName' is required")
 	}
 
 	if len(content) == 0 {
-		return RCErrorNewV2(1002, "param 'content' is required")
+		return result, RCErrorNewV2(1002, "param 'content' is required")
 	}
 
 	if groupLen := len(toGroupIds); groupLen <= 0 || groupLen > 3 {
-		return RCErrorNewV2(1002, "invalid 'toGroupIds'")
+		return result, RCErrorNewV2(1002, "invalid 'toGroupIds'")
 	}
 
 	req := httplib.Post(rc.rongCloudURI + "/message/ultragroup/publish." + ReqType)
@@ -1327,7 +1331,7 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 	if pushExt != nil {
 		encPushExt, e := json.Marshal(pushExt)
 		if e != nil {
-			return e
+			return result, e
 		}
 		body["pushExt"] = string(encPushExt)
 	}
@@ -1335,14 +1339,19 @@ func (rc *RongCloud) UGMessagePublish(fromUserId, objectName, content, pushConte
 	var err error
 	req, err = req.JSONBody(body)
 	if err != nil {
-		return err
+		return result, err
 	}
 
-	if _, err = rc.doV2(req); err != nil {
-		return err
+	resp, err := rc.doV2(req)
+	if err != nil {
+		return result, err
 	}
 
-	return nil
+	if err := json.Unmarshal(resp, &result); err != nil {
+		return result, err
+	}
+
+	return result, nil
 }
 
 // UGMemberExists Checks if a user exists in an ultra group

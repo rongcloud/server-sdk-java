@@ -483,7 +483,7 @@ func Test_UGMessagePublish(t *testing.T) {
 		REGION_BJ,
 	)
 
-	err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
+	result, err := rc.UGMessagePublish("aa", "RC:TxtMsg", "{\"content\":\"1234455667788-0309-1-test\"}",
 		"", "", "1", "", "0", "0", "", "{\"key1\":\"key1\"}",
 		false, false, &PushExt{
 			Title:                "you have a new message.",
@@ -523,7 +523,7 @@ func Test_UGMessagePublish(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	t.Log("success")
+	t.Log(result)
 }
 
 func Test_UGMemberExists(t *testing.T) {
