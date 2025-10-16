@@ -779,3 +779,19 @@ func TestRongCloud_GetChatroomHistoryMessage(t *testing.T) {
 	}
 	t.Logf("GetChatroomHistoryMessage response: \n%s", string(jsonResp))
 }
+
+func TestRongCloud_ConversationMessageHistoryClean(t *testing.T) {
+	rc := NewRongCloud(
+		"n19jmcy59f1q9",
+		"CuhqdZMeuLsKj",
+		REGION_BJ,
+	)
+
+	// 最小调用校验：群组会话(3)，示例参数
+	err := rc.ConversationMessageHistoryClean("3", "uid_test", "gid_test", WithCleanMsgTimestamp(1566281295943))
+	if err != nil {
+		t.Logf("ConversationMessageHistoryClean returned error (acceptable in unit env): %v", err)
+	} else {
+		t.Log("ConversationMessageHistoryClean ok")
+	}
+}
