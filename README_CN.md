@@ -127,6 +127,8 @@ func main() {
 |                                                                                          | TagSet                        | 添加用户标签                                           | √      |
 |                                                                                          | TagBatchSet                   | 批量添加用户标签                                         | √      |
 |                                                                                          | TagGet                        | 获取用户标签                                           | √      |
+|                                                                                          | UserQuery                     | 查询应用内用户（分页，可选参数）                               | √      |
+|                                                                                          | UserDelUsers                  | 删除用户（批量，单次最多 100 个）                              | √      |
 |                                                                                          | GroupMuteAdd                  | 添加全局群组禁言用户，添加后用户在应用下的所有群组中都不能发送消息                |        |
 |                                                                                          | GroupMuteRemove               | 移除全局群组禁言用户                                       |        |
 |                                                                                          | GroupMuteGetList              | 获取全局群组禁言用户列表                                     |        |
@@ -152,6 +154,7 @@ func main() {
 |                                                                                          | SystemBroadcast               | 发送广播消息，单个应用每小时只能发送 2 次，每天最多发送 3 次。               | √      |
 | [消息历史记录](https://github.com/rongcloud/server-sdk-go/blob/master/sdk/message_test.go)     | HistoryGet                    | 消息历史记录下载地址获取                                     | √      |
 |                                                                                          | HistoryRemove                 | 消息历史记录删除方法                                       | √      |
+|                                                                                          | ConversationMessageHistoryClean | 清除会话历史消息（函数式可选项）                           | √      |
 |                                                                                          | GetPrivateHistoryMessage                 | 获取单聊历史消息                                         | √      |
 |                                                                                          | GetGroupHistoryMessage                 | 获取群聊历史消息                                         | √      |
 |                                                                                          | GetUltraGroupHistoryMessage                 | 获取超级群历史消息                                        | √      |

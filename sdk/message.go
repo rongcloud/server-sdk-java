@@ -2334,3 +2334,65 @@ func (rc *RongCloud) GetChatroomHistoryMessage(model QueryHistoryMessageModel) (
 
 	return result, nil
 }
+
+// conversationCleanOptions: options for cleaning conversation history
+type conversationCleanOptions struct {
+	msgTimestamp int64
+}
+
+// ConversationCleanOption defines functional options for cleaning
+type ConversationCleanOption func(*conversationCleanOptions)
+
+// WithCleanMsgTimestamp sets to clean all messages before the given millisecond timestamp
+func WithCleanMsgTimestamp(ts int64) ConversationCleanOption {
+	return func(o *conversationCleanOptions) { o.msgTimestamp = ts }
+}
+
+func buildConversationCleanOptions(opts []ConversationCleanOption) conversationCleanOptions {
+	def := conversationCleanOptions{}
+	for _, opt := range opts {
+		opt(&def)
+	}
+	return def
+}
+
+// ConversationMessageHistoryClean cleans history messages of a conversation
+// API: POST /conversation/message/history/clean.json
+// Parameters:
+// - conversationType: conversation type. 1 (one-to-one chat), 3 (group chat), 4 (chatroom), 6 (system)
+// - fromUserId: for one-to-one chat/group chat/system: specified user ID; for chatroom: operator user ID
+// - targetId: target conversation ID
+// - msgTimestamp (optional): clean all messages before the given millisecond timestamp; omit to clean the entire conversation history
+func (rc *RongCloud) ConversationMessageHistoryClean(conversationType, fromUserId, targetId string, options ...ConversationCleanOption) error {
+	if conversationType == "" {
+		return RCErrorNew(1002, "Parameter 'conversationType' is required")
+	}
+
+	if fromUserId == "" {
+		return RCErrorNew(1002, "Parameter 'fromUserId' is required")
+	}
+
+	if targetId == "" {
+		return RCErrorNew(1002, "Parameter 'targetId' is required")
+	}
+
+	ext := buildConversationCleanOptions(options)
+
+	req := httplib.Post(rc.rongCloudURI + "/conversation/message/history/clean.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+
+	req.Param("conversationType", conversationType)
+	req.Param("fromUserId", fromUserId)
+	req.Param("targetId", targetId)
+
+	if ext.msgTimestamp > 0 {
+		req.Param("msgTimestamp", strconv.FormatInt(ext.msgTimestamp, 10))
+	}
+
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}

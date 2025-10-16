@@ -9,7 +9,6 @@
 package sdk
 
 import (
-	"fmt"
 	"os"
 	"testing"
 )
@@ -37,7 +36,7 @@ func TestRongCloud_UserInfoGet(t *testing.T) {
 		t.Errorf("UserInfoGet err:%v", err)
 		return
 	} else {
-		t.Log(fmt.Sprintf("suc %+v", res))
+		t.Logf("suc %+v", res)
 	}
 }
 
@@ -51,7 +50,7 @@ func TestRongCloud_UserBlockPushPeriodGet(t *testing.T) {
 		t.Errorf("UserTokenExpire err:%v", err)
 		return
 	} else {
-		t.Log(fmt.Sprintf("suc %+v", res))
+		t.Logf("suc %+v", res)
 	}
 }
 
@@ -528,4 +527,31 @@ func TestRongCloud_UserProfilBatchQuery(t *testing.T) {
 		t.Fatalf("UserProfilBatchQuery fail: %s", err)
 	}
 	t.Logf("res: %+v", result)
+}
+
+func TestRongCloud_UserQuery(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	res, err := rc.UserQuery(WithPage(1), WithPageSize(10), WithOrder(UserQueryOrderDesc))
+	if err != nil {
+		t.Errorf("UserQuery err:%v", err)
+		return
+	}
+	t.Logf("UserQuery suc:%+v", res)
+}
+
+func TestRongCloud_UserDelUsers(t *testing.T) {
+	rc := NewRongCloud(
+		os.Getenv("APP_KEY"),
+		os.Getenv("APP_SECRET"),
+		REGION_BJ,
+	)
+	if err := rc.UserDelUsers([]string{"acbsdsdsfsd", "acxdskmldsmgds"}); err != nil {
+		t.Errorf("UserDelUsers err:%v", err)
+		return
+	}
+	t.Log("UserDelUsers suc")
 }

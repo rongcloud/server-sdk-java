@@ -1144,3 +1144,121 @@ func (rc *RongCloud) UserProfilBatchQuery(userId string) (*UserProfileQueryRespo
 	}
 	return &userProfileQueryResponse, nil
 }
+
+// UserQueryItem represents a single user record returned by /user/query.json
+type UserQueryItem struct {
+	UserId       string `json:"userId"`
+	UserName     string `json:"userName"`
+	UserPortrait string `json:"userPortrait"`
+	RegTime      string `json:"regTime"`
+}
+
+// UserQueryResponse is the response of /user/query.json (non-200 codes are raised by rc.do)
+type UserQueryResponse struct {
+	Total int             `json:"total"`
+	Users []UserQueryItem `json:"users"`
+}
+
+// UserQueryOrder represents sort order for user query.
+type UserQueryOrder int
+
+const (
+	UserQueryOrderAsc  UserQueryOrder = 0
+	UserQueryOrderDesc UserQueryOrder = 1
+)
+
+// userQueryParams holds query params with defaults applied.
+type userQueryParams struct {
+	page     int
+	pageSize int
+	order    UserQueryOrder
+}
+
+// UserQueryOption is a functional option to customize user query parameters.
+type UserQueryOption func(*userQueryParams)
+
+// WithPage sets the page number (must be > 0; otherwise default is used).
+func WithPage(page int) UserQueryOption {
+	return func(p *userQueryParams) {
+		if page > 0 {
+			p.page = page
+		}
+	}
+}
+
+// WithPageSize sets page size (clamped to [1, 100]; default 20).
+func WithPageSize(size int) UserQueryOption {
+	return func(p *userQueryParams) {
+		if size <= 0 {
+			return
+		}
+		if size > 100 {
+			size = 100
+		}
+		p.pageSize = size
+	}
+}
+
+// WithOrder sets sort order (0 asc, 1 desc; invalid values fallback to asc).
+func WithOrder(order UserQueryOrder) UserQueryOption {
+	return func(p *userQueryParams) {
+		if order != UserQueryOrderAsc && order != UserQueryOrderDesc {
+			order = UserQueryOrderAsc
+		}
+		p.order = order
+	}
+}
+
+// UserQuery queries users with functional options.
+// Defaults: page=1, pageSize=20, order=asc.
+func (rc *RongCloud) UserQuery(opts ...UserQueryOption) (UserQueryResponse, error) {
+	params := userQueryParams{
+		page:     1,
+		pageSize: 20,
+		order:    UserQueryOrderAsc,
+	}
+	for _, opt := range opts {
+		opt(&params)
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/query.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	req.Param("page", strconv.Itoa(params.page))
+	req.Param("pageSize", strconv.Itoa(params.pageSize))
+	req.Param("order", strconv.Itoa(int(params.order)))
+
+	res, err := rc.do(req)
+	var result = UserQueryResponse{}
+	if err != nil {
+		return result, err
+	}
+	if err := json.Unmarshal(res, &result); err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
+// UserDelUsers deletes users (up to 100 per request).
+// @param userIds User IDs to delete, length 1-100
+// @return error
+func (rc *RongCloud) UserDelUsers(userIds []string) error {
+	if len(userIds) == 0 {
+		return RCErrorNew(1002, "Paramer 'userIds' is required")
+	}
+	if len(userIds) > 100 {
+		return RCErrorNew(1002, "Length of paramer 'userIds' must be less than or equal to 100")
+	}
+
+	req := httplib.Post(rc.rongCloudURI + "/user/delusers.json")
+	req.SetTimeout(time.Second*rc.timeout, time.Second*rc.timeout)
+	rc.fillHeader(req)
+	for _, id := range userIds {
+		req.Param("userId", id)
+	}
+	_, err := rc.do(req)
+	if err != nil {
+		rc.urlError(err)
+	}
+	return err
+}
