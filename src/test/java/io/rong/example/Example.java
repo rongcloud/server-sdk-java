@@ -55,6 +55,28 @@ public class Example {
         rongCloud = RongCloud.getInstance(appKey, appSecret, CenterEnum.BJ);
     }
 
+    /**
+     * Paginate query user
+     */
+    @Test
+    public void testQueryUserList() throws Exception {
+        QueryUsersResult result = rongCloud.user.querySandBoxUsers(1,null, null);
+        System.out.println("testQueryUserList:  " + result.toString());
+    }
+
+
+
+    /**
+     * delete users
+     */
+    @Test
+    public void testDeleteUsers() throws Exception {
+        ResponseResult result = rongCloud.user.deleteSandBoxUsers("13100000294","13100000292");
+        System.out.println("testDeleteUsers:  " + result.toString());
+    }
+
+
+
 
     /**
      * Paginate query user allowlist

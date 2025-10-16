@@ -118,8 +118,7 @@ public class GroupExample {
          */
         group = new GroupModel()
                 .setId("groupId")
-                .setMembers(members)
-                .setName("groupName");
+                .setMembers(members);
         OperationGroupResult groupJoinResult =  Group.join(group);
         System.out.println("join:  " + groupJoinResult.toString());
 
