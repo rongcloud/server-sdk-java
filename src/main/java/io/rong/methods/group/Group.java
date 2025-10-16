@@ -177,7 +177,9 @@ public class Group {
         }
 
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
-        sb.append("&groupName=").append(URLEncoder.encode(group.getName().toString(), UTF8));
+        if(group.getName() != null){
+            sb.append("&groupName=").append(URLEncoder.encode(group.getName().toString(), UTF8));
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
@@ -210,7 +212,9 @@ public class Group {
         }
 
         sb.append("&groupId=").append(URLEncoder.encode(group.getId().toString(), UTF8));
-        sb.append("&groupName=").append(URLEncoder.encode(group.getName().toString(), UTF8));
+        if(group.getName()!= null){
+            sb.append("&groupName=").append(URLEncoder.encode(group.getName().toString(), UTF8));
+        }
         sb = operateGroup(sb, group);
         String body = sb.toString();
         if (body.indexOf("&") == 0) {

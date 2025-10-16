@@ -2,6 +2,7 @@ package io.rong.methods.user;
 
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
+import io.rong.methods.BaseMethod;
 import io.rong.methods.user.blacklist.Blacklist;
 import io.rong.methods.user.block.Block;
 import io.rong.methods.user.blockpushperiod.BlockPushPeriod;
@@ -22,17 +23,16 @@ import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 import com.alibaba.fastjson.JSONException;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
  * User Service
  **/
-public class User {
+public class User extends BaseMethod {
 
     private static final String UTF8 = "UTF-8";
     private static final String PATH = "user";
-    private String appKey;
-    private String appSecret;
     public Block block;
     public Blacklist blackList;
     public Whitelist whiteList;
@@ -43,14 +43,10 @@ public class User {
     public MuteGroups muteGroups;
     public Ban ban;
     public BlockPushPeriod blockPushPeriod;
-    private RongCloud rongCloud;
 
-    public RongCloud getRongCloud() {
-        return rongCloud;
-    }
-
-    public void setRongCloud(RongCloud rongCloud) {
-        this.rongCloud = rongCloud;
+    @Override
+    protected void initPath() {
+        super.path = PATH;
     }
 
     public User(String appKey, String appSecret, RongCloud rongCloud) {
@@ -67,6 +63,7 @@ public class User {
         this.ban = new Ban(appKey, appSecret, rongCloud);
         this.remark = new Remark(appKey, appSecret, rongCloud);
         this.blockPushPeriod = new BlockPushPeriod(appKey, appSecret, rongCloud);
+        initPath();
     }
 
     /**
@@ -342,5 +339,23 @@ public class User {
         result.setReqBody(body);
         return result;
     }
+
+
+    public QueryUsersResult querySandBoxUsers(Integer page, Integer pageSize, Integer order) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        addFormParam(sb, "page=", page);
+        addFormParam(sb, "&pageSize=", pageSize);
+        addFormParam(sb, "&order=", order);
+        String body = sb.toString();
+        return doRequest("/user/query.json", body, CheckMethod.GET, QueryUsersResult.class);
+    }
+
+    public  ResponseResult deleteSandBoxUsers(String... userIds) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        addFormParam(sb, "&userId=",StringUtils.join(removeDuplicates(userIds), ","));
+        String body = sb.toString();
+        return doRequest("/user/delusers.json", body, CheckMethod.GET, ResponseResult.class);
+    }
+
 
 }

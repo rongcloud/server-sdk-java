@@ -15,6 +15,7 @@ public class EntrustGroupProfile {
     private Long joinTime;
     private Integer role;
     private Integer count;
+    private String owner;
 
     public String getGroupId() {
         return groupId;
@@ -96,5 +97,13 @@ public class EntrustGroupProfile {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
