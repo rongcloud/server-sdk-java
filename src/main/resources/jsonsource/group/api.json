@@ -147,8 +147,7 @@
 				"members": [{
 					"id": "memberId01"
 				}],
-				"id": "10001",
-				"name": "TestGroup"
+				"id": "10001"
 			}
 		},
 		"response":{
