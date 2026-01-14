@@ -634,6 +634,7 @@ public class Example {
                 .setPushExt("{\"forceShowPushContent\":0,\"title\":\"11234\", \"pushId\":\"\",\"pushConfigs\": [{ \"HW\": {\"channelId\": \"NotificationKanong\"}},{\"MI\": {\"channelId\": \"rongcloud_kanong\"}},{\"OPPO\": {\"channelId\": \"rc_notification_id\"}}, {\"VIVO\" : {\"classification\": \"0\"}}, {\"APNs\": {\"thread-id\": \"1\",\"apns-collapse-id\":\"1\"}}]}")
 //            .setPushExt(pe)
                 .setIsPersisted(0)
+                .setIsCounted(0)
                 .setIsIncludeSender(0)
                 .setContentAvailable(0)
                 .setNeedReadReceipt(1);

@@ -61,6 +61,10 @@ public class GroupMessage extends MessageModel {
      */
     public Integer needReadReceipt;
 
+    /**
+     * When a new custom message is introduced in the current version and the older version does not support it, this parameter determines whether the older client counts the message as unread. 0 means not counted, 1 means counted. Default is 1, increasing the unread message count by 1. (Optional)
+     */
+    public Integer isCounted;
 
     public GroupMessage() {
     }
@@ -278,6 +282,15 @@ public class GroupMessage extends MessageModel {
 
     public GroupMessage setNeedReadReceipt(Integer needReadReceipt) {
         this.needReadReceipt = needReadReceipt;
+        return this;
+    }
+
+    public Integer getIsCounted() {
+        return isCounted;
+    }
+
+    public GroupMessage setIsCounted(Integer isCounted) {
+        this.isCounted = isCounted;
         return this;
     }
 }
