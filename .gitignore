@@ -13,3 +13,4 @@ src/com.fcloud.connectmanager/build.xml
 .fuse*
 src/out/
 *.pyc
+.DS_Store

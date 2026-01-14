@@ -123,6 +123,10 @@ public class Group {
             sb.append("&needReadReceipt=").append(message.getNeedReadReceipt());
         }
 
+        if (message.getIsCounted() != null) {
+            sb.append("&isCounted=").append(URLEncoder.encode(message.getIsCounted().toString(), UTF8));
+        }
+
         if (message.getToUserId() != null && message.getToUserId().length > 0) {
             for (int i = 0; i < message.getToUserId().length; i++) {
                 String toId = message.getToUserId()[i];
