@@ -2387,5 +2387,39 @@ public class Example {
 
     }
 
+    /**
+     * Test modifying a one-to-one chat message
+     */
+    @Test
+    public void testModifyPrivateMessage() throws Exception {
+        TxtMessage content = new TxtMessage("modify private message", "modifyPrivateExtra");
+        ModifyPrivateMessage message = new ModifyPrivateMessage()
+                .setSenderId("aaaa")
+                .setTargetId("i3akONcpE")
+                .setMsgUID("CSSQ-OE74-27O7-TB95")
+                .setObjectName(content.getType())
+                .setContent(content);
 
+        ResponseResult result = (ResponseResult) rongCloud.message.msgPrivate.modify(message);
+        System.out.println("modify private message:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
+
+    /**
+     * Test modifying a group chat message
+     */
+    @Test
+    public void testModifyGroupMessage() throws Exception {
+        TxtMessage content = new TxtMessage("modify group message2", "modifyGroupExtra");
+        ModifyGroupMessage message = new ModifyGroupMessage()
+                .setSenderId("senderId")
+                .setGroupId("groupid")
+                .setMsgUID("CSSQ-PNLR-QJOF-UI4N")
+                .setObjectName(content.getType())
+                .setContent(content);
+
+        ResponseResult result = (ResponseResult) rongCloud.message.group.modify(message);
+        System.out.println("modify group message:  " + result.toString());
+        assertEquals("200", result.getCode().toString());
+    }
 }

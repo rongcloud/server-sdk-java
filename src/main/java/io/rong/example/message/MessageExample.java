@@ -240,6 +240,7 @@ public class MessageExample {
          * Typing status messages are only supported for one-to-one chat text messages and do not support other message types (including custom messages)
          */
         TypingStatusMessage typpingStatusMessage = new TypingStatusMessage();
+        typpingStatusMessage.setTypingContentType("RC:TxtMsg");
         PrivateMessage privateMsg = new PrivateMessage()
                 .setSenderId("BzUPcKM2B")
                 .setTargetId(new String[]{"jf8yVWgZO"})
