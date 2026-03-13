@@ -7,12 +7,14 @@ import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.Templates;
+import io.rong.models.message.ModifyPrivateMessage;
 import io.rong.models.message.PrivateMessage;
 import io.rong.models.message.PrivateStatusMessage;
 import io.rong.models.message.RecallMessage;
 import io.rong.models.message.TemplateMessage;
 import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.messages.BaseMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -340,6 +342,7 @@ public class Private {
      * @return MessageResult
      * @throws Exception
      */
+    @Deprecated
     public MessageResult sendTypingStatusMessage(PrivateMessage message) throws Exception {
         String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.SEND);
         if (null != errMsg) {
@@ -378,6 +381,65 @@ public class Private {
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
+    /**
+     * Modify a one-to-one chat message.
+     *
+     * @param message The one-to-one chat message modification request.
+     * @return ResponseResult
+     * @throws Exception
+     */
+    public Result modify(ModifyPrivateMessage message) throws Exception {
+        String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.MODIFY);
+        if (null != errMsg) {
+            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId(), UTF8));
+        sb.append("&targetId=").append(URLEncoder.encode(message.getTargetId(), UTF8));
+        sb.append("&msgUID=").append(URLEncoder.encode(message.getMsgUID(), UTF8));
+
+        BaseMessage content = message.getContent();
+        String objectName = message.getObjectName();
+        if (StringUtils.isBlank(objectName)) {
+            objectName = content.getType();
+        }
+
+        if (StringUtils.isNotBlank(objectName)) {
+            sb.append("&objectName=").append(URLEncoder.encode(objectName, UTF8));
+        }
+        sb.append("&content=").append(URLEncoder.encode(content.toString(), UTF8));
+
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(
+                rongCloud.getConfig(),
+                appKey,
+                appSecret,
+                "/message/private/modify.json",
+                "application/x-www-form-urlencoded"
+        );
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(
+                    CommonUtil.getResponseByCode(PATH, CheckMethod.MODIFY, response),
+                    ResponseResult.class
+            );
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

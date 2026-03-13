@@ -9,9 +9,11 @@ import io.rong.models.Result;
 import io.rong.models.message.GroupMessage;
 import io.rong.models.message.GroupStatusMessage;
 import io.rong.models.message.MentionMessage;
+import io.rong.models.message.ModifyGroupMessage;
 import io.rong.models.message.RecallMessage;
 import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.messages.BaseMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
@@ -469,6 +471,65 @@ public class Group {
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new MessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
+    /**
+     * Modify a group chat message.
+     *
+     * @param message The group chat message modification request.
+     * @return ResponseResult
+     * @throws Exception
+     */
+    public Result modify(ModifyGroupMessage message) throws Exception {
+        String errMsg = CommonUtil.checkFiled(message, PATH, CheckMethod.MODIFY);
+        if (null != errMsg) {
+            return (ResponseResult) GsonUtil.fromJson(errMsg, ResponseResult.class);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("&fromUserId=").append(URLEncoder.encode(message.getSenderId(), UTF8));
+        sb.append("&groupId=").append(URLEncoder.encode(message.getGroupId(), UTF8));
+        sb.append("&msgUID=").append(URLEncoder.encode(message.getMsgUID(), UTF8));
+
+        BaseMessage content = message.getContent();
+        String objectName = message.getObjectName();
+        if (StringUtils.isBlank(objectName)) {
+            objectName = content.getType();
+        }
+
+        if (StringUtils.isNotBlank(objectName)) {
+            sb.append("&objectName=").append(URLEncoder.encode(objectName, UTF8));
+        }
+        sb.append("&content=").append(URLEncoder.encode(content.toString(), UTF8));
+
+        String body = sb.toString();
+        if (body.indexOf("&") == 0) {
+            body = body.substring(1, body.length());
+        }
+
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(
+                rongCloud.getConfig(),
+                appKey,
+                appSecret,
+                "/message/group/modify.json",
+                "application/x-www-form-urlencoded"
+        );
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        ResponseResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (ResponseResult) GsonUtil.fromJson(
+                    CommonUtil.getResponseByCode(PATH, CheckMethod.MODIFY, response),
+                    ResponseResult.class
+            );
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

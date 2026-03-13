@@ -179,5 +179,42 @@
 				}
 			}
 		}
+	},
+	"modify": {
+		"url": "message/group/modify",
+		"params": {
+			"modifyGroupMessage": {
+				"senderId": "user1",
+				"groupId": "group2",
+				"msgUID": "5FGT-7VA9-G4DD-4V5P",
+				"content": {
+					"content":"hello world"
+				}
+			}
+		},
+		"response": {
+			"success": {
+				"code": "200",
+				"errorMessage": "Success"
+			},
+			"fail": {
+				"20003": {
+					"code": "1002",
+					"errorMessage": "{{name}} length exceeds limit, {{name}} >= {{min}} and {{name}} <= {{max}}"
+				},
+				"20005": {
+					"code": "1002",
+					"errorMessage": "{{name}} parameter is required"
+				},
+				"20001": {
+					"code": "1002",
+					"errorMessage": "The parameter type is incorrect. Please check the parameter type. It should be {{type}} and passed in as {{currentType}}"
+				},
+				"1004": {
+					"code": "1004",
+					"errorMessage": "Signature error. Please check whether Appkey and Secret are correct."
+				}
+			}
+		}
 	}
 }
