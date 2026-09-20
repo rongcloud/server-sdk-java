@@ -3,6 +3,7 @@ package io.rong.models.push;
 import com.google.gson.annotations.SerializedName;
 import io.rong.util.GsonUtil;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -196,6 +197,13 @@ public class PlatformNotification {
         this.mi = new Platform(channelId);
     }
 
+    public void setMi(String channelId, String templateId, Map<String, String> templateParam) {
+        Platform platform = new Platform(channelId);
+        platform.setTemplateId(templateId);
+        platform.setTemplateParam(templateParam);
+        this.mi = platform;
+    }
+
     public void setFcm(String channelId) {
         this.fcm = new Platform(channelId);
     }
@@ -230,6 +238,8 @@ public class PlatformNotification {
         //mi
         @SerializedName("large_icon_uri")
         private String largeIconUri;
+        private String templateId;
+        private Map<String, String> templateParam;
         //fcm
         private String imageUrl;
 
@@ -291,6 +301,22 @@ public class PlatformNotification {
 
         public void setLargeIconUri(String largeIconUri) {
             this.largeIconUri = largeIconUri;
+        }
+
+        public String getTemplateId() {
+            return templateId;
+        }
+
+        public void setTemplateId(String templateId) {
+            this.templateId = templateId;
+        }
+
+        public Map<String, String> getTemplateParam() {
+            return templateParam;
+        }
+
+        public void setTemplateParam(Map<String, String> templateParam) {
+            this.templateParam = templateParam == null ? null : new HashMap<String, String>(templateParam);
         }
 
         public String getImageUrl() {

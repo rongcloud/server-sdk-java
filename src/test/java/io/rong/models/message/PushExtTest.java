@@ -1,8 +1,13 @@
 package io.rong.models.message;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.rong.util.GsonUtil;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author huhangtao
@@ -63,6 +68,30 @@ public class PushExtTest {
                 "{\"FCM\":{\"collapse_key\":\"collapse_key\",\"imageUrl\":\"imageUrl\",\"channelId\":\"channelId\"}}," +
                 "{\"OHOS\":{\"image\":\"image\",\"category\":\"category\"}}]}";
         Assert.assertEquals(expectStr, GsonUtil.toJson(pushExt));
+    }
+
+    @Test
+    public void testMiTemplateParamBuild() {
+        Map<String, String> templateParam = new LinkedHashMap<String, String>();
+        templateParam.put("keywords1", "sender");
+        templateParam.put("keywords2", "content");
+        PushExt pushExt = PushExt.build("title", 1,
+                new PushExt.MI("channelId", "large_icon_uri", "templateId", templateParam)
+        );
+
+        JsonObject miJson = new JsonParser()
+                .parse(GsonUtil.toJson(pushExt))
+                .getAsJsonObject()
+                .getAsJsonArray("pushConfigs")
+                .get(0)
+                .getAsJsonObject()
+                .getAsJsonObject("MI");
+        Assert.assertEquals("channelId", miJson.get("channelId").getAsString());
+        Assert.assertEquals("large_icon_uri", miJson.get("large_icon_uri").getAsString());
+        Assert.assertEquals("templateId", miJson.get("templateId").getAsString());
+        Assert.assertTrue(miJson.get("templateParam").isJsonObject());
+        Assert.assertEquals("sender", miJson.getAsJsonObject("templateParam").get("keywords1").getAsString());
+        Assert.assertEquals("content", miJson.getAsJsonObject("templateParam").get("keywords2").getAsString());
     }
 
 }
