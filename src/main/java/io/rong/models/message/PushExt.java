@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class PushExt {
@@ -32,6 +33,8 @@ public class PushExt {
     private static final String RICH_MEDIA_URI = "richMediaUri";
     private static final String INTERRUPTION_LEVEL = "interruption-level";
     private static final String LARGE_ICON_URI = "large_icon_uri";
+    private static final String TEMPLATE_ID = "templateId";
+    private static final String TEMPLATE_PARAM = "templateParam";
 
 
     private String title;
@@ -162,20 +165,34 @@ public class PushExt {
     /**
      * MI.channelId
      * MI.large_icon_uri
+     * MI.templateId
+     * MI.templateParam
      */
     public static class MI implements Platform {
         @SerializedName(P_MI)
-        private HashMap<String, String> params = new HashMap<String, String>();
+        private HashMap<String, Object> params = new HashMap<String, Object>();
 
         public MI(String channelId, String largeIconUri) {
             addParamIfNotBlank(CHANNEL_ID, channelId);
             addParamIfNotBlank(LARGE_ICON_URI, largeIconUri);
         }
 
+        public MI(String channelId, String largeIconUri, String templateId, Map<String, String> templateParam) {
+            this(channelId, largeIconUri);
+            addParamIfNotBlank(TEMPLATE_ID, templateId);
+            addTemplateParamIfNotEmpty(templateParam);
+        }
+
         @Override
         public void addParamIfNotBlank(String name, String param) {
             if (StringUtils.isNotBlank(param)) {
                 params.put(name, param);
+            }
+        }
+
+        private void addTemplateParamIfNotEmpty(Map<String, String> templateParam) {
+            if (templateParam != null && !templateParam.isEmpty()) {
+                params.put(TEMPLATE_PARAM, new HashMap<String, String>(templateParam));
             }
         }
 

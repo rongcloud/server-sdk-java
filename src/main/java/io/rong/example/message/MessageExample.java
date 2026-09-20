@@ -14,6 +14,7 @@ import io.rong.models.message.*;
 import io.rong.models.push.PlatformNotification;
 import io.rong.models.response.HistoryMessageResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.response.StreamMessageResult;
 import io.rong.util.CodeUtil;
 import io.rong.util.GsonUtil;
 
@@ -582,5 +583,62 @@ public class MessageExample {
         txtMessage.setAudit(audit);
         send = ultraGroup.send(ultraGroupMessage);
         System.out.println("send audit message:  " + send.toString());
+
+        /**
+         * Send private stream message
+         */
+        StreamMessage streamMsg = new StreamMessage("Hello", false);
+        streamMsg.setStreamType("text");
+
+        PrivateStreamMessage privateStreamMessage = new PrivateStreamMessage()
+                .setFromUserId("user001")
+                .setToUserId("user002")
+                .setObjectName(streamMsg.getType())
+                .setContent(streamMsg);
+
+        StreamMessageResult streamResult = Private.sendStream(privateStreamMessage);
+        System.out.println("send private stream message (first):  " + streamResult.toString());
+
+        // Continuation packet
+        streamMsg.setContent("World");
+        streamMsg.setMessageUID(streamResult.getMessageUID());
+
+        PrivateStreamMessage privateStreamMessage2 = new PrivateStreamMessage()
+                .setFromUserId("user001")
+                .setToUserId("user002")
+                .setObjectName(streamMsg.getType())
+                .setContent(streamMsg);
+
+        streamResult = Private.sendStream(privateStreamMessage2);
+        System.out.println("send private stream message (cont):  " + streamResult.toString());
+
+        // End packet
+        streamMsg.setContent("!");
+        streamMsg.setComplete(true);
+
+        PrivateStreamMessage privateStreamMessage3 = new PrivateStreamMessage()
+                .setFromUserId("user001")
+                .setToUserId("user002")
+                .setObjectName(streamMsg.getType())
+                .setContent(streamMsg);
+
+        streamResult = Private.sendStream(privateStreamMessage3);
+        System.out.println("send private stream message (end):  " + streamResult.toString());
+
+        /**
+         * Send group stream message
+         */
+        StreamMessage groupStreamMsg = new StreamMessage("Group stream content", false);
+        groupStreamMsg.setStreamType("text");
+
+        GroupStreamMessage groupStreamMessage = new GroupStreamMessage()
+                .setFromUserId("user001")
+                .setToGroupId("group001")
+                .setObjectName(groupStreamMsg.getType())
+                .setContent(groupStreamMsg)
+                .setToUserIds(new String[]{"user002", "user003"});
+
+        StreamMessageResult groupStreamResult = group.sendStream(groupStreamMessage);
+        System.out.println("send group stream message:  " + groupStreamResult.toString());
     }
 }

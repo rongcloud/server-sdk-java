@@ -2,17 +2,20 @@ package io.rong.methods.message.group;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonParseException;
 import io.rong.RongCloud;
 import io.rong.models.CheckMethod;
 import io.rong.models.Result;
 import io.rong.models.message.GroupMessage;
 import io.rong.models.message.GroupStatusMessage;
+import io.rong.models.message.GroupStreamMessage;
 import io.rong.models.message.MentionMessage;
 import io.rong.models.message.ModifyGroupMessage;
 import io.rong.models.message.RecallMessage;
 import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.response.StreamMessageResult;
 import io.rong.messages.BaseMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
@@ -530,6 +533,68 @@ public class Group {
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
+    /**
+     * Sends a group stream message.
+     *
+     * @param message The group stream message
+     * @return StreamMessageResult
+     * @throws Exception
+     */
+    public StreamMessageResult sendStream(GroupStreamMessage message) throws Exception {
+        if (message.getFromUserId() == null || message.getFromUserId().isEmpty()) {
+            return new StreamMessageResult(1002, "fromUserId is required");
+        }
+        if (message.getToGroupId() == null || message.getToGroupId().isEmpty()) {
+            return new StreamMessageResult(1002, "toGroupId is required");
+        }
+        if (message.getObjectName() == null || message.getObjectName().isEmpty()) {
+            return new StreamMessageResult(1002, "objectName is required");
+        }
+        if (message.getContent() == null) {
+            return new StreamMessageResult(1002, "content is required");
+        }
+
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("fromUserId", message.getFromUserId());
+        jsonBody.put("toGroupId", message.getToGroupId());
+        jsonBody.put("objectName", message.getObjectName());
+        jsonBody.put("content", JSON.parseObject(message.getContent().build()));
+        if (message.getToUserIds() != null && message.getToUserIds().length > 0) {
+            jsonBody.put("toUserIds", message.getToUserIds());
+        }
+        if (message.getIsIncludeSender() != null) {
+            jsonBody.put("isIncludeSender", message.getIsIncludeSender());
+        }
+        if (message.getIsPersisted() != null) {
+            jsonBody.put("isPersisted", message.getIsPersisted());
+        }
+        if (message.getIsMentioned() != null) {
+            jsonBody.put("isMentioned", message.getIsMentioned());
+        }
+        if (message.getExtraContent() != null) {
+            jsonBody.put("extraContent", message.getExtraContent());
+        }
+        if (message.getDisableUpdateLastMsg() != null) {
+            jsonBody.put("disableUpdateLastMsg", message.getDisableUpdateLastMsg());
+        }
+
+        String body = jsonBody.toJSONString();
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/v3/message/group/publish_stream.json", "application/json");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        StreamMessageResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (StreamMessageResult) GsonUtil.fromJson(response, StreamMessageResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new StreamMessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;

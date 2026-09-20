@@ -9,15 +9,18 @@ import io.rong.models.Result;
 import io.rong.models.Templates;
 import io.rong.models.message.ModifyPrivateMessage;
 import io.rong.models.message.PrivateMessage;
+import io.rong.models.message.PrivateStreamMessage;
 import io.rong.models.message.PrivateStatusMessage;
 import io.rong.models.message.RecallMessage;
 import io.rong.models.message.TemplateMessage;
 import io.rong.models.response.MessageResult;
 import io.rong.models.response.ResponseResult;
+import io.rong.models.response.StreamMessageResult;
 import io.rong.messages.BaseMessage;
 import io.rong.util.CommonUtil;
 import io.rong.util.GsonUtil;
 import io.rong.util.HttpUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
@@ -440,6 +443,62 @@ public class Private {
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
             result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+        }
+        result.setReqBody(body);
+        return result;
+    }
+
+    /**
+     * Sends a private stream message.
+     *
+     * @param message The private stream message
+     * @return StreamMessageResult
+     * @throws Exception
+     */
+    public StreamMessageResult sendStream(PrivateStreamMessage message) throws Exception {
+        if (message.getFromUserId() == null || message.getFromUserId().isEmpty()) {
+            return new StreamMessageResult(1002, "fromUserId is required");
+        }
+        if (message.getToUserId() == null || message.getToUserId().isEmpty()) {
+            return new StreamMessageResult(1002, "toUserId is required");
+        }
+        if (message.getObjectName() == null || message.getObjectName().isEmpty()) {
+            return new StreamMessageResult(1002, "objectName is required");
+        }
+        if (message.getContent() == null) {
+            return new StreamMessageResult(1002, "content is required");
+        }
+
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("fromUserId", message.getFromUserId());
+        jsonBody.put("toUserId", message.getToUserId());
+        jsonBody.put("objectName", message.getObjectName());
+        jsonBody.put("content", JSON.parseObject(message.getContent().build()));
+        if (message.getIsIncludeSender() != null) {
+            jsonBody.put("isIncludeSender", message.getIsIncludeSender());
+        }
+        if (message.getIsPersisted() != null) {
+            jsonBody.put("isPersisted", message.getIsPersisted());
+        }
+        if (message.getExtraContent() != null) {
+            jsonBody.put("extraContent", message.getExtraContent());
+        }
+        if (message.getDisableUpdateLastMsg() != null) {
+            jsonBody.put("disableUpdateLastMsg", message.getDisableUpdateLastMsg());
+        }
+
+        String body = jsonBody.toJSONString();
+        HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/v3/message/private/publish_stream.json", "application/json");
+        HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
+
+        StreamMessageResult result = null;
+        String response = "";
+        try {
+            response = HttpUtil.returnResult(conn, rongCloud.getConfig());
+            result = (StreamMessageResult) GsonUtil.fromJson(response, StreamMessageResult.class);
+        } catch (JSONException | JsonParseException | IllegalStateException e) {
+            rongCloud.getConfig().errorCounter.incrementAndGet();
+            result = new StreamMessageResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
