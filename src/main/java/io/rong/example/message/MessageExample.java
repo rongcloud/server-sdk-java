@@ -329,7 +329,8 @@ public class MessageExample {
                 .setSenderId("sea9901")
                 .setTargetId("markoiwm")
                 .setuId("5GSB-RPM1-KP8H-9JHF")
-                .setSentTime("1522242030641");
+                .setSentTime("1522242030641")
+                .setDisablePush(true);
         ResponseResult recallMessageResult = (ResponseResult) group.recall(recallMessage);
 
         System.out.println("recall group message:  " + recallMessageResult.toString());

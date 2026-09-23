@@ -397,6 +397,10 @@ public class Group {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
         }
 
+        if (message.getDisablePush() != null) {
+            sb.append("&disablePush=").append(URLEncoder.encode(message.getDisablePush().toString(), UTF8));
+        }
+
         if (message.getDisableUpdateLastMsg() != null) {
             sb.append("&disableUpdateLastMsg=").append(message.getDisableUpdateLastMsg());
         }
