@@ -2324,7 +2324,7 @@ public class Example {
         PushUserMessage pushUserMessage = new PushUserMessage()
                 .setUserIds(users)
                 .setNotification(notification);
-        ResponseResult sendUser = rongCloud.message.system.sendUser(pushUserMessage);
+        PushResult sendUser = rongCloud.message.system.sendUser(pushUserMessage);
         System.out.println("sendUser:  " + sendUser.toString());
 
         assertEquals("200", sendUser.getCode().toString());

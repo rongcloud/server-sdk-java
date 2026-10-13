@@ -13,6 +13,7 @@ import io.rong.methods.message.ultragroup.UltraGroup;
 import io.rong.models.message.*;
 import io.rong.models.push.PlatformNotification;
 import io.rong.models.response.HistoryMessageResult;
+import io.rong.models.response.PushResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.response.StreamMessageResult;
 import io.rong.util.CodeUtil;
@@ -160,7 +161,7 @@ public class MessageExample {
         PushUserMessage pushUserMessage = new PushUserMessage()
                 .setUserIds(users)
                 .setNotification(notification);
-        ResponseResult sendUser = rongCloud.message.system.sendUser(pushUserMessage);
+        PushResult sendUser = rongCloud.message.system.sendUser(pushUserMessage);
         System.out.println("sendUser:  " + sendUser.toString());
 
         /**

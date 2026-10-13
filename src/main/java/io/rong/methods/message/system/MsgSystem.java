@@ -7,6 +7,7 @@ import io.rong.models.Result;
 import io.rong.models.message.*;
 import io.rong.models.response.BroadcastResult;
 import io.rong.models.response.MessageResult;
+import io.rong.models.response.PushResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.Templates;
 import io.rong.util.CommonUtil;
@@ -427,24 +428,24 @@ public class MsgSystem {
      *  Sends a push-only notification to specified users in the application. This notification will be sent regardless of whether the user is actively using the app.
      *  The notification will only be displayed in the notification bar and will not contain any message content. After logging into the app, the user will not see this content in the chat UI, and it will not be stored in the local database.
      */
-    public ResponseResult sendUser(PushUserMessage pushUser) throws Exception {
+    public PushResult sendUser(PushUserMessage pushUser) throws Exception {
         String code = CommonUtil.checkFiled(pushUser, PATH, CheckMethod.SEND_USER);
         if (null != code) {
-            return (ResponseResult) GsonUtil.fromJson(code, ResponseResult.class);
+            return (PushResult) GsonUtil.fromJson(code, PushResult.class);
         }
 
         String body = GsonUtil.toJson(pushUser);
         HttpURLConnection conn = HttpUtil.CreatePostHttpConnection(rongCloud.getConfig(), appKey, appSecret, "/push/user.json", "application/json");
         HttpUtil.setBodyParameter(body, conn, rongCloud.getConfig());
-        System.out.println("bbbbb"+body);
-        ResponseResult result = null;
+        PushResult result = null;
         String response = "";
         try {
             response = HttpUtil.returnResult(conn, rongCloud.getConfig());
-            result = (ResponseResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SEND_USER, response), ResponseResult.class);
+            result = (PushResult) GsonUtil.fromJson(CommonUtil.getResponseByCode(PATH, CheckMethod.SEND_USER, response), PushResult.class);
         } catch (JSONException | JsonParseException | IllegalStateException e) {
             rongCloud.getConfig().errorCounter.incrementAndGet();
-            result = new ResponseResult(500, "request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
+            result = new PushResult(500, "");
+            result.setErrorMessage("request:" + conn.getURL() + " ,response:" + response + " ,JSONException:" + e.getMessage());
         }
         result.setReqBody(body);
         return result;
