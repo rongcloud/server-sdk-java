@@ -1,5 +1,7 @@
 package io.rong.models.message;
 
+import io.rong.messages.UserInfo;
+
 public class RecallMessage {
     /**
      * Recall message body
@@ -33,6 +35,11 @@ public class RecallMessage {
      * Extended information, which can contain any data content (optional).
      */
     public String extra;
+
+    /**
+     * User information of the user who recalls the message (optional).
+     */
+    private UserInfo user;
 
     /**
      * Indicates whether the message is silent. Default is false. When set to true, offline users will not receive a notification reminder (optional). Not supported in global data center.
@@ -140,6 +147,15 @@ public class RecallMessage {
 
     public RecallMessage setExtra(String extra) {
         this.extra = extra;
+        return this;
+    }
+
+    public UserInfo getUser() {
+        return user;
+    }
+
+    public RecallMessage setUser(UserInfo user) {
+        this.user = user;
         return this;
     }
 
