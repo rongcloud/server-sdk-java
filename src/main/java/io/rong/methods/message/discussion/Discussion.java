@@ -132,6 +132,20 @@ public class Discussion {
         if (message.getExtra() != null) {
             sb.append("&extra=").append(URLEncoder.encode(message.getExtra().toString(), UTF8));
         }
+        if (message.getUser() != null) {
+            if (message.getUser().getId() != null) {
+                sb.append("&userId=").append(URLEncoder.encode(message.getUser().getId().toString(), UTF8));
+            }
+            if (message.getUser().getName() != null) {
+                sb.append("&userName=").append(URLEncoder.encode(message.getUser().getName().toString(), UTF8));
+            }
+            if (message.getUser().getPortrait() != null) {
+                sb.append("&userPortrait=").append(URLEncoder.encode(message.getUser().getPortrait().toString(), UTF8));
+            }
+            if (message.getUser().getExtra() != null) {
+                sb.append("&userExtra=").append(URLEncoder.encode(message.getUser().getExtra().toString(), UTF8));
+            }
+        }
         String body = sb.toString();
         if (body.indexOf("&") == 0) {
             body = body.substring(1, body.length());
