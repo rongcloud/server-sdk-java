@@ -8,9 +8,11 @@ import io.rong.models.conversation.ConversationAttrModel;
 import io.rong.models.conversation.ConversationModel;
 import io.rong.models.conversation.ConversationSetTopModel;
 import io.rong.models.conversation.ConversationTagModel;
+import io.rong.models.conversation.QueryConversationModel;
 import io.rong.models.conversation.TagConversationsModel;
 import io.rong.models.conversation.UserConversationTagModel;
 import io.rong.models.response.ConversationNotificationResult;
+import io.rong.models.response.QueryConversationResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.response.ResultData;
 import io.rong.util.CommonUtil;
@@ -49,6 +51,29 @@ public class Conversation extends BaseMethod {
         this.appKey = appKey;
         this.appSecret = appSecret;
         initPath();
+    }
+
+    /**
+     * Query a user's conversations by page.
+     *
+     * @param model query parameters; userId is required, pageToken and size are optional
+     * @return conversations and the next page token, which is absent on the last page
+     */
+    public QueryConversationResult query(QueryConversationModel model) throws Exception {
+        if (model == null) {
+            return new QueryConversationResult(PARAM_ERROR, String.format(ERR_REQUIRED_TEMPLATE, "model"));
+        }
+        if (StringUtils.isBlank(model.getUserId())) {
+            return new QueryConversationResult(PARAM_ERROR, String.format(ERR_REQUIRED_TEMPLATE, "userId"));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        addFormParam(sb, "userId=", model.getUserId());
+        addFormParam(sb, "&pageToken=", model.getPageToken());
+        addFormParam(sb, "&size=", model.getSize());
+        String body = sb.toString();
+
+        return doRequest("/user/conversation/query.json", body, CheckMethod.QUERY, QueryConversationResult.class);
     }
 
     /**

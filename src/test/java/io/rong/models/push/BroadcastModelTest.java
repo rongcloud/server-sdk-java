@@ -23,6 +23,8 @@ public class BroadcastModelTest {
         message.setContent("this is message");
         message.setObjectName("RC:TxtMsg");
         broadcast.setMessage(message);
+        message.setIsPersisted(1);
+        message.setIsCounted(0);
 
         // Push notification settings
         Notification notification = new Notification();
@@ -59,7 +61,7 @@ public class BroadcastModelTest {
         notification.setIos(ios);
 
         Assert.assertEquals("{\"fromuserid\":\"fromuserid\"," +
-                        "\"message\":{\"content\":\"this is message\",\"objectName\":\"RC:TxtMsg\"}," +
+                        "\"message\":{\"content\":\"this is message\",\"objectName\":\"RC:TxtMsg\",\"isPersisted\":1,\"isCounted\":0}," +
                         "\"platform\":[\"ios\",\"android\"]," +
                         "\"audience\":{\"tag\":[],\"userid\":[\"userid1\",\"userid2\"]}," +
                         "\"notification\":{\"alert\":\"this is broadcast\"," +
