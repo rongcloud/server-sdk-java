@@ -23,6 +23,10 @@ public class Message {
      */
     private Boolean disableUpdateLastMsg;
 
+    private Integer isPersisted;
+
+    private Integer isCounted;
+
 
     public String getContent() {
         return content;
@@ -48,6 +52,22 @@ public class Message {
     public Message setDisableUpdateLastMsg(Boolean disableUpdateLastMsg) {
         this.disableUpdateLastMsg = disableUpdateLastMsg;
         return this;
+    }
+
+    public Integer getIsPersisted() {
+        return isPersisted;
+    }
+
+    public void setIsPersisted(Integer isPersisted) {
+        this.isPersisted = isPersisted;
+    }
+
+    public Integer getIsCounted() {
+        return isCounted;
+    }
+
+    public void setIsCounted(Integer isCounted) {
+        this.isCounted = isCounted;
     }
 
     @Override

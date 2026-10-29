@@ -7,9 +7,11 @@ import io.rong.models.conversation.ConversationAttrModel;
 import io.rong.models.conversation.ConversationModel;
 import io.rong.models.conversation.ConversationSetTopModel;
 import io.rong.models.conversation.ConversationTagModel;
+import io.rong.models.conversation.QueryConversationModel;
 import io.rong.models.conversation.TagConversationsModel;
 import io.rong.models.conversation.UserConversationTagModel;
 import io.rong.models.response.ConversationNotificationResult;
+import io.rong.models.response.QueryConversationResult;
 import io.rong.models.response.ResponseResult;
 import io.rong.models.response.ResultData;
 import io.rong.util.CodeUtil.ConversationType;
@@ -46,6 +48,7 @@ public class ConversationExample {
 //        unMuteDemo(conversation);
 //        queryMuteDemo(conversation);
 //        topDemo(conversation);
+//        queryDemo(conversation);
 
 
 //        setUserConversationTagDemo(conversation);
@@ -64,6 +67,15 @@ public class ConversationExample {
 
     }
 
+
+    public static void queryDemo(Conversation conversation) throws Exception {
+        QueryConversationModel model = new QueryConversationModel();
+        model.setUserId("sdkTestU1");
+        model.setSize(20);
+        // For subsequent pages, set pageToken from the previous response.
+        QueryConversationResult result = conversation.query(model);
+        System.out.println("queryConversation result: " + result.toString());
+    }
 
     public static void muteDemo(Conversation conversation) throws Exception {
         ConversationModel conversationModel = new ConversationModel()
